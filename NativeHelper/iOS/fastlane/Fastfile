@@ -1,0 +1,544 @@
+# Customise this file, documentation can be found here:
+# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
+# All available actions: https://docs.fastlane.tools/actions
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+fastlane_version "2.208.0"
+
+default_platform :ios
+
+xcversion(version: '13.0')
+
+platform :ios do
+  before_all do
+    # Change path to generate output data
+    setup_jenkins(
+      force: true,
+      set_code_signing_identity: false,
+      output_directory: './output',
+      derived_data_path: './derivedData',
+      result_bundle: false
+    )
+  end
+
+  private_lane :update_project do |options|
+    # This part is done only when the app is not for the "production" environment
+    if not options[:release]
+      # Add the build number to the icon
+      build_number_icon
+    end
+
+    # Update the app name
+
+    set_info_plist(
+      plist_path: "Info.plist",
+      key: "CFBundleDisplayName",
+      value: options[:app_name]
+    )
+
+    # Update the app identifier
+    update_app_identifier(
+      xcodeproj: "#{options[:project_name]}.xcodeproj",
+      plist_path: "Info.plist",
+      app_identifier: options[:app_identifier]
+    )
+
+    update_app_identifier(
+      xcodeproj: "#{options[:project_name]}.xcodeproj",
+      plist_path: "OneSignalNotificationServiceExtension/Info.plist",
+      app_identifier: "#{options[:app_identifier]}.OneSignalNotificationServiceExtension"
+    )
+
+    # Copy CFBundleShortVersionString to OneSignalNotificationServiceExtension
+    set_info_plist(
+      plist_path: "OneSignalNotificationServiceExtension/Info.plist",
+      key: "CFBundleShortVersionString",
+      value: get_info_plist_value(path: "Info.plist", key: "CFBundleShortVersionString")
+    )
+
+    # Update the app group identifier
+    update_app_group_identifiers(
+      entitlements_file: "#{options[:project_name]}/clubvegas.entitlements",
+      app_group_identifiers: [
+        "group.#{options[:app_identifier]}.onesignal",
+      ]
+    )
+
+    update_app_group_identifiers(
+      entitlements_file: "OneSignalNotificationServiceExtension/OneSignalNotificationServiceExtension.entitlements",
+      app_group_identifiers: [
+        "group.#{options[:app_identifier]}.onesignal",
+      ]
+    )
+
+    # Version bump
+    increment_build_number(
+      build_number: options[:build_number]
+    )
+
+    # get facebook name, id from info.plist
+    facebook_display_name = get_info_plist_value(
+                  path: "Info.plist",
+                  key: "FacebookDisplayName")
+
+    facebook_app_id = get_info_plist_value(
+                  path: "Info.plist",
+                  key: "FacebookAppID")
+
+    # Add CFBundleURLTypes for FacebookSDK. Dumb Unity deletes this field when generating project in append mode.
+    facebook_plist_hotfix(
+      fb_display_name: facebook_display_name,
+      fb_app_id: facebook_app_id,
+      plist_path: "Info.plist",
+      #from EnvironmentSettings.asset - deeplinkUriScheme
+      url_scheme: options[:url_scheme] 
+    )
+
+    update_icon_files(
+      plist_path: "Info.plist",
+      icon_name_suffix: "$(ICON_SET_SUFFIX)"
+    )
+
+    # Appstore deprecated this option from Jan.16.2020.
+    update_plist(
+      plist_path: "Info.plist",
+      block: proc do |plist|
+        plist.delete("UIApplicationExitsOnSuspend");
+        end
+    )
+
+    # Dumb Unity deletes this field when generating project in append mode.
+    # TBD: different behaviour for Unity?
+    # https://docs.fastlane.tools/codesigning/xcode-project/
+    update_provisioning_profile(
+      xcodeproj: "#{options[:project_name]}.xcodeproj",
+      plist_path: "Info.plist",
+      provisiong_profile: ENV["sigh_#{options[:app_identifier]}_#{options[:match_type]}"],
+      provisiong_profile_specifier: ENV["sigh_#{options[:app_identifier]}_#{options[:match_type]}_profile-name"],
+      codesign_identity: options[:codesign_identity]
+    )
+
+    # for OneSignalNotificationServiceExtension
+    update_provisioning_profile(
+      xcodeproj: "#{options[:project_name]}.xcodeproj",
+      plist_path: "OneSignalNotificationServiceExtension/Info.plist",
+      provisiong_profile: ENV["sigh_#{options[:app_identifier]}.OneSignalNotificationServiceExtension_#{options[:match_type]}"],
+      provisiong_profile_specifier: ENV["sigh_#{options[:app_identifier]}.OneSignalNotificationServiceExtension_#{options[:match_type]}_profile-name"],
+      codesign_identity: options[:codesign_identity]
+    )
+
+  end
+
+  private_lane :my_build_app do |options|
+    # Load & select a certificate to sign with
+    match(
+      type: options[:match_type],
+      app_identifier: [options[:app_identifier], "#{options[:app_identifier]}.OneSignalNotificationServiceExtension"],
+      generate_apple_certs: true,
+      git_branch: "cvs",
+      readonly: false
+    )
+
+    cocoapods(
+      repo_update: true,
+      podfile: "./Podfile"
+    )
+
+    # Update project file
+    update_project(options)
+
+    # Build the app
+    exportOptions = nil
+    if options[:app_base_url] and options[:output_name]
+      UI.message "Set export options"
+      exportOptions = {
+        method: "ad-hoc",
+        manifest: {
+          appURL: "#{options[:app_base_url]}#{options[:output_name]}",
+          displayImageURL: "http://cdn.bagelgames.com/icon.png",
+          fullSizeImageURL: "http://cdn.bagelgames.com/icon.png"
+        }
+      }
+    end
+
+    disable_automatic_code_signing(
+      path: "#{options[:project_name]}.xcodeproj",
+      team_id: CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
+    )
+
+    ENV["ICON_SET_SUFFIX"] = options[:app_icon]
+    gym(
+      scheme: "#{options[:scheme]}",
+      workspace: "Unity-iPhone.xcworkspace",
+      configuration: options[:configuration],
+      export_method: options[:export_method],
+      output_name: options[:output_name],
+      export_options: exportOptions
+    )
+  end
+
+  lane :build_prod do |options|
+    target_app_identifier = "com.bagelcode.slots1"
+    target_build_version = get_version_number(target: "Unity-iPhone")
+    target_build_number = next_testflight_build_number(
+      app_identifier: target_app_identifier,
+      version: target_build_version
+    )
+
+    set_info_plist_value(path: "./GoogleService-Info.plist", key: "CLIENT_ID", value: "345821437655-15h4sql4c6ep2rt33t16ekh1mmsqpjn8.apps.googleusercontent.com")
+    set_info_plist_value(path: "./GoogleService-Info.plist", key: "REVERSED_CLIENT_ID", value: "com.googleusercontent.apps.345821437655-15h4sql4c6ep2rt33t16ekh1mmsqpjn8")
+    set_info_plist_value(path: "./GoogleService-Info.plist", key: "BUNDLE_ID", value: "com.bagelcode.slots1")
+    set_info_plist_value(path: "./GoogleService-Info.plist", key: "GOOGLE_APP_ID", value: "1:345821437655:ios:9672c8bfbafc67ac")
+
+    # Build
+    my_build_app(
+      # Certificate type
+      match_type: "appstore",
+      codesign_identity: "iPhone Distribution",
+      # Set the app id
+      app_identifier: target_app_identifier,
+      # Not a production release, so add build number to the icons
+      release: true,
+      # Change the app name
+      app_name: "Club Vegas",
+      # the projectname, this is the name of the .xcodeproj file and the folder containing your code in the project
+      project_name: "Unity-iPhone",
+      # ICON_SET_SUFFIX
+      app_icon: 'Slots1',
+      # the build number to use, we use the build number from Jenkins
+      build_number: target_build_number,
+      # What configuration to use, usefull for keeping different API keys etc between environments
+      configuration: "Release",
+      # Export an enterprise app
+      export_method: "app-store",
+      # the scheme to build
+      scheme: "Unity-iPhone",
+      output_name: ENV['OUTPUT_NAME'],
+      app_base_url: ENV['ADHOC_BASE_URL'],
+      url_scheme: ENV['URL_SCHEME']
+      # fb_display_name: "Club Vegas",
+      # fb_app_id: "1881581215396162",
+    )
+    
+    pilot(
+      app_identifier: target_app_identifier,
+      skip_waiting_for_build_processing: false,
+      changelog: options[:changelog],
+      itc_provider: "EQSL82W24G"
+    )
+  end
+
+  lane :build_prod_slots3 do |options|
+    target_app_identifier = "com.bagelcode.slots3"
+    target_build_version = get_version_number(target: "Unity-iPhone")
+    target_build_number = next_testflight_build_number(
+      app_identifier: target_app_identifier,
+      version: target_build_version
+    )
+
+    set_info_plist_value(path: "./GoogleService-Info.plist", key: "CLIENT_ID", value: "287103000814-12e1l8t2vbtuolp1tlni0gtelnms3gj7.apps.googleusercontent.com")
+    set_info_plist_value(path: "./GoogleService-Info.plist", key: "REVERSED_CLIENT_ID", value: "com.googleusercontent.apps.287103000814-12e1l8t2vbtuolp1tlni0gtelnms3gj7")
+    set_info_plist_value(path: "./GoogleService-Info.plist", key: "BUNDLE_ID", value: "com.bagelcode.slots3")
+    set_info_plist_value(path: "./GoogleService-Info.plist", key: "GOOGLE_APP_ID", value: "1:287103000814:ios:0df9cb6578d938c44e13ff")
+
+    # Build
+    my_build_app(
+      # Certificate type
+      match_type: "appstore",
+      codesign_identity: "iPhone Distribution",
+      # Set the app id
+      app_identifier: target_app_identifier,
+      # Not a production release, so add build number to the icons
+      release: true,
+      # Change the app name
+      app_name: "Cash Billionaire",
+      # the projectname, this is the name of the .xcodeproj file and the folder containing your code in the project
+      project_name: "Unity-iPhone",
+      # ICON_SET_SUFFIX
+      app_icon: 'Slots3',
+      # the build number to use, we use the build number from Jenkins
+      build_number: target_build_number,
+      # What configuration to use, usefull for keeping different API keys etc between environments
+      configuration: "Release",
+      # Export an enterprise app
+      export_method: "app-store",
+      # the scheme to build
+      scheme: "Unity-iPhone",
+      output_name: ENV['OUTPUT_NAME'],
+      app_base_url: ENV['ADHOC_BASE_URL'],
+      url_scheme: ENV['URL_SCHEME']
+      # fb_display_name: "Club Vegas",
+      # fb_app_id: "1881581215396162",
+    )
+    
+    pilot(
+      app_identifier: target_app_identifier,
+      skip_waiting_for_build_processing: false,
+      changelog: options[:changelog],
+      itc_provider: "EQSL82W24G"
+    )
+  end
+
+  # Build and publish the Release version to Hockeyapp
+  lane :build_qa do |options|
+    target_app_identifier = "com.bagelcode.slots1"
+    target_build_version = get_version_number(target: "Unity-iPhone")
+    target_build_number = next_testflight_build_number(
+      app_identifier: target_app_identifier,
+      version: target_build_version
+    )
+
+    # Build
+    my_build_app(
+      # Certificate type
+      match_type: "appstore",
+      codesign_identity: "iPhone Distribution",
+      # Set the app id
+      app_identifier: target_app_identifier,
+      # Not a production release, so add build number to the icons
+      release: false,
+      # Change the app name
+      app_name: "Club Vegas QA",
+      # the projectname, this is the name of the .xcodeproj file and the folder containing your code in the project
+      project_name: "Unity-iPhone",
+      # ICON_SET_SUFFIX
+      app_icon: 'Slots1',
+      # the build number to use, we use the build number from Jenkins
+      build_number: target_build_number,
+      # What configuration to use, usefull for keeping different API keys etc between environments
+      configuration: "Release",
+      # Export an enterprise app
+      export_method: "app-store",
+      # the scheme to build
+      scheme: "Unity-iPhone",
+      output_name: ENV['OUTPUT_NAME'],
+      app_base_url: ENV['ADHOC_BASE_URL'],
+      url_scheme: ENV['URL_SCHEME']
+      # fb_display_name: "Club Vegas - QA",
+      # fb_app_id: "131332947544414",
+    )
+
+    pilot(
+      app_identifier: target_app_identifier,
+      skip_waiting_for_build_processing: false,
+      changelog: options[:changelog],
+      itc_provider: "EQSL82W24G"
+    )
+  end
+
+  lane :build_qa_slots3 do |options|
+    target_app_identifier = "com.bagelcode.slots3"
+    target_build_version = get_version_number(target: "Unity-iPhone")
+    target_build_number = next_testflight_build_number(
+      app_identifier: target_app_identifier,
+      version: target_build_version
+    )
+
+    # Build
+    my_build_app(
+      # Certificate type
+      match_type: "appstore",
+      codesign_identity: "iPhone Distribution",
+      # Set the app id
+      app_identifier: target_app_identifier,
+      # Not a production release, so add build number to the icons
+      release: false,
+      # Change the app name
+      app_name: "Cash Billionaire QA",
+      # the projectname, this is the name of the .xcodeproj file and the folder containing your code in the project
+      project_name: "Unity-iPhone",
+      # ICON_SET_SUFFIX
+      app_icon: 'Slots3',
+      # the build number to use, we use the build number from Jenkins
+      build_number: target_build_number,
+      # What configuration to use, usefull for keeping different API keys etc between environments
+      configuration: "Release",
+      # Export an enterprise app
+      export_method: "app-store",
+      # the scheme to build
+      scheme: "Unity-iPhone",
+      output_name: ENV['OUTPUT_NAME'],
+      app_base_url: ENV['ADHOC_BASE_URL'],
+      url_scheme: ENV['URL_SCHEME']
+      # fb_display_name: "Club Vegas - QA",
+      # fb_app_id: "131332947544414",
+    )
+
+    pilot(
+      app_identifier: target_app_identifier,
+      skip_waiting_for_build_processing: false,
+      changelog: options[:changelog],
+      itc_provider: "EQSL82W24G"
+    )
+  end
+
+  lane :build_team do
+    # Build
+    my_build_app(
+      # Certificate type
+      match_type: "adhoc",
+      codesign_identity: "iPhone Distribution", # "iPhone Developer",
+      # Set the app id
+      app_identifier: "com.bagelcode.v3proto",
+      # Not a production release, so add build number to the icons
+      release: false,
+      # Change the app name
+      app_name: "Club Vegas Team",
+      # the projectname, this is the name of the .xcodeproj file and the folder containing your code in the project
+      project_name: "Unity-iPhone",
+      # ICON_SET_SUFFIX
+      app_icon: 'Slots1',
+      # the build number to use, we use the build number from Jenkins
+      build_number: ENV["BUILD_NUMBER"],
+      # What configuration to use, usefull for keeping different API keys etc between environments
+      configuration: "Release",
+      # Export an enterprise app
+      # export_method: "app-store",
+      # the scheme to build
+      scheme: "Unity-iPhone",
+      output_name: ENV['OUTPUT_NAME'],
+      app_base_url: ENV['ADHOC_BASE_URL'],
+      url_scheme: ENV['URL_SCHEME']
+      # fb_display_name: "Spin it Vegas - Team",
+      # fb_app_id: "1898338550387095",
+    )
+  end
+
+  lane :build_team_slots3 do
+    # Build
+    my_build_app(
+      # Certificate type
+      match_type: "adhoc",
+      codesign_identity: "iPhone Distribution", # "iPhone Developer",
+      # Set the app id
+      app_identifier: "com.bagelcode.slots3-team",
+      # Not a production release, so add build number to the icons
+      release: false,
+      # Change the app name
+      app_name: "Cash Billionaire Team",
+      # the projectname, this is the name of the .xcodeproj file and the folder containing your code in the project
+      project_name: "Unity-iPhone",
+      # ICON_SET_SUFFIX
+      app_icon: 'Slots3',
+      # the build number to use, we use the build number from Jenkins
+      build_number: ENV["BUILD_NUMBER"],
+      # What configuration to use, usefull for keeping different API keys etc between environments
+      configuration: "Release",
+      # Export an enterprise app
+      # export_method: "app-store",
+      # the scheme to build
+      scheme: "Unity-iPhone",
+      output_name: ENV['OUTPUT_NAME'],
+      app_base_url: ENV['ADHOC_BASE_URL'],
+      url_scheme: ENV['URL_SCHEME']
+      # fb_display_name: "Spin it Vegas - Team",
+      # fb_app_id: "1898338550387095",
+    )
+  end
+
+  lane :build_team_contents do
+    # Build
+    my_build_app(
+      # Certificate type
+      match_type: "adhoc",
+      codesign_identity: "iPhone Distribution", # "iPhone Developer",
+      # Set the app id
+      app_identifier: "com.bagelcode.v3proto",
+      # Not a production release, so add build number to the icons
+      release: false,
+      # Change the app name
+      app_name: "Club Vegas Team Contents",
+      # the projectname, this is the name of the .xcodeproj file and the folder containing your code in the project
+      project_name: "Unity-iPhone",
+      # ICON_SET_SUFFIX
+      app_icon: 'Slots1',
+      # the build number to use, we use the build number from Jenkins
+      build_number: ENV["BUILD_NUMBER"],
+      # What configuration to use, usefull for keeping different API keys etc between environments
+      configuration: "Debug",
+      # Export an enterprise app
+      # export_method: "app-store",
+      # the scheme to build
+      scheme: "Unity-iPhone",
+      output_name: ENV['OUTPUT_NAME'],
+      app_base_url: ENV['ADHOC_BASE_URL'],
+      url_scheme: ENV['URL_SCHEME']
+      # fb_display_name: "Spin it Vegas - Team Contents",
+      # fb_app_id: "1898338550387095",
+    )
+  end
+
+  lane :get_latest_testflight_build_number do |options|
+    versionNumber=get_version_number()
+    UI.message "Version number is #{versionNumber}"
+
+    latestBuildNumber = latest_testflight_build_number(
+      app_identifier: "com.bagelcode.slots1",
+      version: versionNumber
+    )
+    UI.message "Latest version is #{latestBuildNumber}"
+  end
+
+  lane :get_next_testflight_build_number do |options|
+    versionNumber=get_version_number()
+    UI.message "Version number is #{versionNumber}"
+
+    nextBuildNumber = next_testflight_build_number(
+      app_identifier: "com.bagelcode.slots1",
+      version: versionNumber
+    )
+    UI.message "Next version is #{nextBuildNumber}"
+  end
+
+  lane :get_wait_for_build do |options|
+    build = wait_for_build(
+      app_identifier: "com.bagelcode.slots1",
+      version: '22.1.3',
+      version_number: 2
+    )
+    UI.message "wait_for_build returned:"
+    UI.message build
+  end
+
+  desc "Hotfix Unity bug: modify Info.plist (CBFundleURLTypes for FacebookSDK)"
+  lane :hotfix do
+    facebook_plist_hotfix(
+      plist_path: "Info.plist"
+    )
+  end
+
+  desc "Runs all the tests"
+  lane :test do
+    scan
+  end
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
+
+
+# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
+# All available actions: https://docs.fastlane.tools/actions
+
+# fastlane reports which actions are used
+# No personal data is recorded. Learn more at https://github.com/fastlane/enhancer

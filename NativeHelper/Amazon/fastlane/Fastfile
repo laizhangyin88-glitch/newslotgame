@@ -1,0 +1,112 @@
+# Customise this file, documentation can be found here:
+# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
+# All available actions: https://docs.fastlane.tools/actions
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+fastlane_version "2.208.0"
+
+default_platform :android
+
+platform :android do
+  before_all do
+  end
+
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  private_lane :build_project do |options|
+    # How to get the latestest versionCode from Google Store...?
+    versionCode = ENV["BUILD_NUMBER"] || 33
+    versionName = ENV["VERSION_NAME"] || "1.0"
+    gradle(
+      task: "assemble",
+      flavor: options[:flavor],
+      build_type: options[:build_type],
+      properties: {
+        'versionCode' => versionCode,
+        'versionName' => versionName
+      }
+    )
+  end
+
+  lane :build_prod do
+    build_project(
+      flavor: 'Slots1',
+      build_type: 'Prod'
+    )
+  end
+
+  lane :build_prod_slots3 do
+    build_project(
+      flavor: 'Slots3',
+      build_type: 'Prod'
+    )
+  end
+
+  lane :build_team do
+    build_project(
+      flavor: 'Slots1',
+      build_type: 'Team'
+    )
+  end
+
+  lane :build_team_slots3 do
+    build_project(
+      flavor: 'Slots3',
+      build_type: 'Team',
+    )
+  end
+
+  lane :build_team_contents do
+    build_project(
+      flavor: 'Slots1',
+      build_type: 'TeamContents',
+    )
+  end
+
+  lane :build_qa do
+    build_project(
+      flavor: 'Slots1',
+      build_type: 'Qa'
+    )
+  end
+
+  lane :build_qa_slots3 do
+    build_project(
+      flavor: 'Slots3',
+      build_type: 'Qa'
+    )
+  end
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
+
+
+# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
+# All available actions: https://docs.fastlane.tools/actions
+
+# fastlane reports which actions are used
+# No personal data is sent or shared. Learn more at https://github.com/fastlane/enhancer

@@ -1,0 +1,49 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '10.0'
+
+use_frameworks!
+
+target 'UnityFramework' do
+  pod 'Bolts','1.9.1'
+  pod 'FBSDKCoreKit','12.3.2'
+  pod 'FBSDKShareKit','12.3.2'
+  pod 'FBSDKLoginKit','12.3.2'
+  pod 'IronSourceSDK','7.2.1.1'
+  pod 'IronSourceAdMobAdapter','4.3.31.1'
+  pod 'IronSourceAppLovinAdapter','4.3.30.1'
+  # Need to use Manual Integration for FAN to avoid app crash on launch
+  # Show the below instruction
+  # https://developers.is.com/ironsource-mobile/ios/facebook-mediation-guide/
+  # Please use static framework of FBAudienceNetwork
+  #pod 'IronSourceFacebookAdapter','4.3.33.5'
+  pod 'IronSourceTapjoyAdapter','4.1.18.8'
+  pod 'IronSourceVungleAdapter','4.3.19.2'
+  pod 'IronSourceAdQualitySDK','6.9.5'
+  pod 'OneSignal', '3.11.2'
+  pod 'Adjust', '~> 4.33.0'
+
+  pod 'Firebase/Crashlytics', '7.11.0'
+  pod 'Firebase/Analytics', '7.11.0'
+
+  target 'Unity-iPhone Tests' do
+    inherit! :search_paths
+  end
+end
+
+target 'OneSignalNotificationServiceExtension' do
+  pod 'OneSignal', '3.11.2'
+end
+
+target 'Unity-iPhone' do
+end
+
+post_install do |installer_representation|
+  installer_representation.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+      if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 10.0
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '10.0'
+      end
+    end
+  end
+end
