@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Tier_Up_Offer_Shop_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.9,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","nodes":[{"_position":{"x":5770.0,"y":5264.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_condition":{"valueA":{"_name":"silentTierShop","_targetVariableID":"f9ca8b30-d134-47fe-adce-039f105633f8"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_position":{"x":5444.0,"y":5388.0},"$type":"NodeCanvas.BehaviourTrees.ConditionNode","$id":"3"},{"_action":{"shopType":{"_value":"TIER_UP","_targetVariableID":"344567dd-31d7-4560-ad25-43811c37a86c"},"saveAsProducGroupList":{"_name":"tierUpProductGroupList","_targetVariableID":"75744589-c208-470c-bc3d-d9da5d521375"},"$type":"BagelCode.Task.Actions.GetShopProductGroups"},"_position":{"x":5671.0,"y":5393.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"_condition":{"conditions":[{"valueA":{"_value":"tierUpProductGroupList"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckNull"},{"targetList":{"_name":"tierUpProductGroupList","_targetVariableID":"75744589-c208-470c-bc3d-d9da5d521375"},"_invert":true,"$type":"NodeCanvas.Tasks.Conditions.ListIsEmpty"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":6024.0,"y":5392.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"11"},{"_position":{"x":6087.0,"y":5492.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"18"},{"_action":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Popup
+    Coin Offer Scene"},"combineApplicationType":{"_value":true},"parent":{},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_offerShop"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync1"},{"valueA":{"_value":"titleKey"},"valueB":{"_value":"POPUP_TIER_UP_OFFER_TITLE"},"overrideAgent":{"_name":"_offerShop"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"valueA":{"_value":"shopType"},"valueB":{"_type":"BagelCode.ClientModels.ShopType","_value":{"$content":"TIER_UP","$type":"BagelCode.ClientModels.ShopType"}},"overrideAgent":{"_name":"_offerShop"},"$type":"SlotMaker.Tasks.Actions.SetEnum"},{"popup":{"_name":"_offerShop"},"$type":"SlotMaker.Task.Actions.OpenPopup"},{"setTo":"Activate","overrideAgent":{"_name":"_offerShop"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5837.0,"y":5577.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"19"},{"_position":{"x":6205.0,"y":5575.0},"$type":"NodeCanvas.BehaviourTrees.Optional","$id":"42"},{"_condition":{"valueA":{"_value":"caller"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckNull"},"_position":{"x":6195.0,"y":5625.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"43"},{"_action":{"callee":{"_name":"_offerShop"},"overrideAgent":{"_name":"caller"},"$type":"SlotMaker.Tasks.Actions.SetCaller"},"_position":{"x":6179.0,"y":5696.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"46"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"42"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"42"},"_targetNode":{"$ref":"43"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"43"},"_targetNode":{"$ref":"46"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

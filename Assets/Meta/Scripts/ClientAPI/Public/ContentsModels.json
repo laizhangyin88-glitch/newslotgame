@@ -1,0 +1,910 @@
+[
+  {
+    "name": "Enter",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "gameType": {
+          "type": "int"
+        },
+        "jackpotInfo": {
+          "ref": "JackpotInfoWrapper"
+        },
+        "gambleAssetBundleName": {
+          "type": "string"
+        },
+        "winTypeMultiplierInfo": {
+          "type": "map",
+          "code": {
+            "type": "string"
+          },
+          "text": {
+            "type": "int"
+          }
+        },
+        "delayBetweenSpinMs": {
+          "type": "long"
+        },
+        "gameInfo": {
+          "ref": "ContentsInfo{0}",
+          "discriminator": "gameType",
+          "inherit": true
+        },
+        "contentsStoreInfo": {
+          "ref": "ContentsStoreInfo"
+        }
+      }
+    }
+  },
+  {
+    "name": "ContentsInfo1",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "gameId": {
+          "type": "int"
+        },
+        "gameTitle": {
+          "type": "string"
+        },
+        "baseWager": {
+          "type": "long"
+        },
+        "betList": {
+          "type": "array",
+          "items": {
+            "type": "long"
+          }
+        },
+        "payLines": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "int"
+              }
+            }
+          }
+        },
+        "reelSetList": {
+          "type": "array",
+          "items": {
+            "ref": "ReelSet"
+          }
+        },
+        "paytables": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "long"
+              }
+            }
+          }
+        },
+        "bonusInfo": {
+          "ref": "BonusInfo{0}",
+          "discriminator": "gameId",
+          "inherit": true
+        },
+        "customData": {
+          "ref": "CustomData{0}",
+          "discriminator": "gameId",
+          "inherit": true
+        },
+        "reelSetIndex": {
+          "ref": "ReelSetIndex"
+        },
+        "extraBetRatioList": {
+          "type": "array",
+          "items": {
+            "ref": "ExtraBetRatio"
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "SlotSpin",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "gameId": {
+          "type": "int"
+        },
+        "result": {
+          "ref": "SpinResult"
+        },
+        "bonusResult": {
+          "type": "array",
+          "items": {
+            "ref": "BonusResult"
+          }
+        },
+        "customData": {
+          "ref": "CustomData{0}",
+          "discriminator": "gameId",
+          "inherit": true
+        },
+        "reelSetIndex": {
+          "ref": "ReelSetIndex"
+        },
+        "freeSpinInfo": {
+          "ref": "FreeSpinInfo"
+        },
+        "jackpotInfo": {
+          "ref": "JackpotInfoWrapper"
+        },
+        "contentsStore": {
+          "ref": "ContentsStore{0}",
+          "discriminator": "gameId",
+          "inherit": true
+        },
+        "gambleTicket": {
+          "ref": "GambleTicket"
+        }
+      }
+    }
+  },
+  {
+    "name": "ClaimBonus",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "earnCredit": {
+          "type": "long"
+        },
+        "bonusResult": {
+          "type": "array",
+          "items": {
+            "ref": "BonusResult"
+          }
+        },
+        "gambleTicket": {
+          "ref": "GambleTicket"
+        }
+      }
+    }
+  },
+  {
+    "name": "SpinResult",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "reelOutputList": {
+          "type": "array",
+          "items": {
+            "type": "int"
+          }
+        },
+        "paytableIndex": {
+          "type": "int"
+        },
+        "earnCredit": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  {
+    "name": "BonusResult",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string"
+        },
+        "claimType": {
+          "type": "int"
+        },
+        "bonusId": {
+          "type": "int"
+        },
+        "earnCredit": {
+          "type": "long"
+        },
+        "result": {
+          "ref": "BonusResult{0}",
+          "discriminator": "bonusId",
+          "inherit": true
+        }
+      }
+    }
+  },
+  {
+    "name": "FreeSpinInfo",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "bet": {
+          "type": "long"
+        },
+        "count": {
+          "type": "int"
+        },
+        "totalCount": {
+          "type": "int"
+        },
+        "multiplier": {
+          "type": "int"
+        }
+      }
+    }
+  },
+  {
+    "name": "ReelSet",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "reelSequenceList": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "int"
+            }
+          }
+        },
+        "subSymbolReelSequenceList": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "int"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "ReelSetIndex",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "currentIndex": {
+          "type": "int"
+        },
+        "nextIndex": {
+          "type": "int"
+        }
+      }
+    }
+  },
+  {
+    "name": "ExtraBetRatio",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "numerator": {
+          "type": "int"
+        },
+        "denominator": {
+          "type": "int"
+        }
+      }
+    }
+  },
+  {
+    "name": "ContentsInfo2",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "gameId": {
+          "type": "int"
+        },
+        "gameTitle": {
+          "type": "string"
+        },
+        "baseWagerPerHand": {
+          "type": "long"
+        },
+        "betList": {
+          "type": "array",
+          "items": {
+            "type": "long"
+          }
+        },
+        "handList": {
+          "type": "array",
+          "items": {
+            "type": "int"
+          }
+        },
+        "handMetaInfoPerBet": {
+          "type": "array",
+          "items": {
+            "ref": "HandMetaInfoForBet"
+          }
+        },
+        "extraBetRatioList": {
+          "type": "array",
+          "items": {
+            "ref": "ExtraBetRatio"
+          }
+        },
+        "paytable": {
+          "type": "array",
+          "items": {
+            "type": "long"
+          }
+        },
+        "customData": {
+          "ref": "CustomData{0}",
+          "discriminator": "gameId",
+          "inherit": true
+        }
+      }
+    }
+  },
+  {
+    "name": "VideoPokerDeal",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "deck": {
+          "type": "array",
+          "items": {
+            "ref": "VideoPokerCardList"
+          }
+        },
+        "handMetaInfoForBet": {
+          "ref": "HandMetaInfoForBet"
+        },
+        "jackpotInfo": {
+          "ref": "JackpotInfoWrapper"
+        }
+      }
+    }
+  },
+  {
+    "name": "VideoPokerDraw",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "earnCredit": {
+          "type": "long"
+        },
+        "bonusResult": {
+          "type": "array",
+          "items": {
+            "ref": "BonusResult"
+          }
+        },
+        "deck": {
+          "type": "array",
+          "items": {
+            "ref": "VideoPokerCardList"
+          }
+        },
+        "handMetaInfoForBet": {
+          "ref": "HandMetaInfoForBet"
+        },
+        "jackpotInfo": {
+          "ref": "JackpotInfoWrapper"
+        },
+        "gambleTicket": {
+          "ref": "GambleTicket"
+        }
+      }
+    }
+  },
+  {
+    "name": "HandMetaInfoForBet",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "betPerHand": {
+          "type": "long"
+        },
+        "handMetaInfoPerHand": {
+          "type": "array",
+          "items": {
+            "ref": "HandMetaInfo"
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "HandMetaInfo",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "multiplier": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  {
+    "name": "VideoPokerCardList",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "cardList": {
+          "type": "array",
+          "items": {
+            "type": "int"
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "ContentsInfo3",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "gameId": {
+          "type": "int"
+        },
+        "gameTitle": {
+          "type": "string"
+        },
+        "baseWager": {
+          "type": "long"
+        },
+        "betList": {
+          "type": "array",
+          "items": {
+            "type": "long"
+          }
+        },
+        "extraBetRatioList": {
+          "type": "array",
+          "items": {
+            "ref": "ExtraBetRatio"
+          }
+        },
+        "paytables": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "long"
+              }
+            }
+          }
+        },
+        "bonusInfo": {
+          "ref": "BonusInfo{0}",
+          "discriminator": "gameId",
+          "inherit": true
+        },
+        "customData": {
+          "ref": "CustomData{0}",
+          "discriminator": "gameId",
+          "inherit": true
+        }
+      }
+    }
+  },
+  {
+    "name": "KenoWinInfo",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "paytableIndex": {
+          "type": "int"
+        },
+        "pickInfo": {
+          "type": "array",
+          "items": {
+            "type": "int"
+          }
+        },
+        "drawInfo": {
+          "type": "array",
+          "items": {
+            "type": "int"
+          }
+        },
+        "earnCredit": {
+          "type": "long"
+        },
+        "multiplier": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  {
+    "name": "KenoPlay",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "earnCredit": {
+          "type": "long"
+        },
+        "winResult": {
+          "type": "array",
+          "items": {
+            "ref": "KenoWinInfo"
+          }
+        },
+        "bonusResult": {
+          "type": "array",
+          "items": {
+            "ref": "BonusResult"
+          }
+        },
+        "jackpotInfo": {
+          "ref": "JackpotInfoWrapper"
+        },
+        "customData": {
+          "ref": "CustomData{0}",
+          "discriminator": "gameId",
+          "inherit": true
+        }
+      }
+    }
+  },
+  {
+    "name": "GambleStart",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "gambleInfo": {
+          "ref": "GambleInfo"
+        }
+      }
+    }
+  },
+  {
+    "name": "GambleDeal",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "gambleInfo": {
+          "ref": "GambleInfo"
+        },
+        "hasMoreOffer": {
+          "type": "bool"
+        },
+        "winCreditOnProgress": {
+          "type": "long"
+        },
+        "isWin": {
+          "type": "bool"
+        }
+      }
+    }
+  },
+  {
+    "name": "GambleTake",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "earnCredit": {
+          "type": "long"
+        },
+        "bonusResult": {
+          "type": "array",
+          "items": {
+            "ref": "BonusResult"
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "GambleInfo",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "int"
+        },
+        "data": {
+          "ref": "GambleInfo{0}",
+          "discriminator": "type",
+          "inherit": true
+        }
+      }
+    }
+  },
+  {
+    "name": "GambleInfo1",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "cardHistory": {
+          "type": "array",
+          "items": {
+            "type": "int"
+          }
+        },
+        "lastCard": {
+          "type": "int"
+        },
+        "remainCount": {
+          "type": "int"
+        }
+      }
+    }
+  },
+  {
+    "name": "GambleInfo2",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "maxWinCredit": {
+          "type": "long"
+        },
+        "maxWinFreeSpinCount": {
+          "type": "int"
+        },
+        "remainCount": {
+          "type": "int"
+        },
+        "flagItemTypeList": {
+          "type": "array",
+          "items": {
+            "type": "int"
+          }
+        },
+        "flagItemValueList": {
+          "type": "array",
+          "items": {
+            "type": "long"
+          }
+        },
+        "flagWinProbabilities": {
+          "type": "array",
+          "items": {
+            "type": "float"
+          }
+        },
+        "winType": {
+          "type": "int"
+        },
+        "winAmount": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  {
+    "name": "GambleTicket",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "ticketId": {
+          "type": "string"
+        },
+        "bet": {
+          "type": "long"
+        },
+        "gambleType": {
+          "type": "int"
+        }
+      }
+    }
+  },
+  {
+    "name": "ContentsStoreInfo",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "gameId": {
+          "type": "int"
+        },
+        "contentsStore": {
+          "ref": "ContentsStore{0}",
+          "discriminator": "gameId",
+          "inherit": true
+        }
+      }
+    }
+  },
+  {
+    "name": "TicketedBonus",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "earnCredit": {
+          "type": "long"
+        },
+        "prepareData": {
+          "ref": "TicketedBonusPrepareData"
+        },
+        "bonusResultList": {
+          "type": "array",
+          "items": {
+            "ref": "BonusResult"
+          }
+        },
+        "jackpotInfo": {
+          "ref": "JackpotInfoWrapper"
+        }
+      }
+    }
+  },
+  {
+    "name": "TicketedBonusPrepareData",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "nextReelSetIndex": {
+          "type": "int"
+        },
+        "nextMysterySymbols": {
+          "type": "map",
+          "code": {
+            "type": "int"
+          },
+          "text": {
+            "type": "int"
+          }
+        },
+        "extraBet": {
+          "type": "long"
+        },
+        "baseBet": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  {
+    "name": "TicketedBonusClaim",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "earnCredit": {
+          "type": "long"
+        },
+        "totalEarnCredit": {
+          "type": "long"
+        },
+        "tierMultiplier": {
+          "type": "double"
+        },
+        "insBbbCredit": {
+          "type": "int"
+        },
+        "applyTierMultiplier": {
+          "type": "bool"
+        }
+      }
+    }
+  },
+  {
+    "name": "JackpotInfoWrapper",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "int"
+        },
+        "info": {
+          "ref": "JackpotInfo{0}",
+          "discriminator": "type",
+          "inherit": true
+        }
+      }
+    }
+  },
+  {
+    "name": "JackpotInfo",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "long"
+        },
+        "prev": {
+          "type": "long"
+        },
+        "deltaMs": {
+          "type": "int"
+        },
+        "min": {
+          "type": "long"
+        },
+        "max": {
+          "type": "long"
+        },
+        "alarm": {
+          "type": "bool"
+        }
+      }
+    }
+  },
+  {
+    "name": "JackpotInfo1",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "eligibleMinBet": {
+          "type": "long"
+        },
+        "eligibleMinBetPerJackpot": {
+          "type": "array",
+          "items": {
+            "type": "long"
+          }
+        },
+        "infoList": {
+          "type": "array",
+          "items": {
+            "ref": "JackpotInfo"
+          }
+        },
+        "baseBet": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  {
+    "name": "JackpotInfo2",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "eligibleMinBet": {
+          "type": "long"
+        },
+        "eligibleMinBetPerJackpot": {
+          "type": "array",
+          "items": {
+            "type": "long"
+          }
+        },
+        "infoList": {
+          "type": "array",
+          "items": {
+            "ref": "JackpotInfo"
+          }
+        },
+        "baseBet": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  {
+    "name": "JackpotInfo3",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "infoList": {
+          "type": "array",
+          "items": {
+            "ref": "JackpotInfo"
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "JackpotInfo4",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "payTypeList": {
+          "type": "array",
+          "items": {
+            "type": "int"
+          }
+        },
+        "infoList": {
+          "type": "array",
+          "items": {
+            "ref": "JackpotInfo"
+          }
+        },
+        "baseBet": {
+          "type": "long"
+        }
+      }
+    }
+  }
+]

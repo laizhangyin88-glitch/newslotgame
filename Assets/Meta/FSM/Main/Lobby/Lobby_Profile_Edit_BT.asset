@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Lobby_Profile_Edit_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","name":"BehaviourTree","nodes":[{"_nodeColor":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":5746.0,"y":5243.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"/me/profileImageUploadCount"},"saveAs":{"_name":"_profileImgUploadCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"/me/loginCount"},"saveAs":{"_name":"_loginCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"updateProfileDone"},"defaultValue":{},"saveAs":{"_name":"_usingUpdateProfile"},"$type":"SlotMaker.Tasks.Actions.GetBooleanPlayerPrefs"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5032.0,"y":5367.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"conditions":[{"valueA":{"_name":"_loginCount"},"checkType":"GreaterThan","valueB":{"_value":3},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"_profileImgUploadCount"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"_usingUpdateProfile"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":5423.0,"y":5366.0},"$type":"NodeCanvas.BehaviourTrees.ConditionNode","$id":"16"},{"_action":{"actions":[{"valueA":{"_value":"updateProfileDone"},"defaultValue":{"_value":true},"$type":"SlotMaker.Tasks.Actions.SetBooleanPlayerPrefs"},{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Popup
+    Update Profile Scene"},"combineApplicationType":{"_value":true},"parent":{},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_updateProfile"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync1"},{"callee":{"_name":"_updateProfile"},"$type":"SlotMaker.Tasks.Actions.SetCaller"},{"popup":{"_name":"_updateProfile"},"$type":"SlotMaker.Task.Actions.OpenPopup"},{"setTo":"Activate","overrideAgent":{"_name":"_updateProfile"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5658.0,"y":5370.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"28"},{"_condition":{"eventName":{"_value":"OnCalleeCallback"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_position":{"x":6057.0,"y":5377.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"48"},{"_action":{"status":"Success","$type":"NodeCanvas.Tasks.Actions.RaiseStatus"},"_position":{"x":6073.0,"y":5448.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"51"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"48"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"48"},"_targetNode":{"$ref":"51"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

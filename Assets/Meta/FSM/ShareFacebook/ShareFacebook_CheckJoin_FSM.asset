@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: ShareFacebook_CheckJoin_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4435.0,"y":-4651.0},"zoomFactor":0.9555763,"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5359.0,"y":5113.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_nestedFSM":{"_value":1},"_position":{"x":5714.0,"y":5129.0},"_name":"Share","$type":"NodeCanvas.StateMachines.NestedFSMState","$id":"5"},{"_actionList":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Popup
+    Account Join Scene"},"combineApplicationType":{"_value":true},"parent":{},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_joinPopup"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync1"},{"callee":{"_name":"_joinPopup"},"$type":"SlotMaker.Tasks.Actions.SetCaller"},{"setTo":"Activate","overrideAgent":{"_name":"_joinPopup"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"popup":{"_name":"_joinPopup"},"$type":"SlotMaker.Task.Actions.OpenPopup"}]},"_position":{"x":4885.0,"y":5221.0},"_name":"Join
+    Popup","$type":"NodeCanvas.StateMachines.ActionState","$id":"7"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5386.0,"y":5308.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"24"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"OnCancelFacebookShare"},"delay":{},"$type":"NodeCanvas.Tasks.Actions.SendEvent"}]},"_position":{"x":5600.0,"y":5437.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"27"}],"connections":[{"_condition":{"valueA":{"_value":"/me/facebookId"},"_invert":true,"$type":"SlotMaker.Tasks.Conditions.CheckStringIsNullOrEmpty"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"/me/facebookId"},"$type":"SlotMaker.Tasks.Conditions.CheckStringIsNullOrEmpty"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnConnectComplete"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"/me/facebookId"},"_invert":true,"$type":"SlotMaker.Tasks.Conditions.CheckStringIsNullOrEmpty"},"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"/me/facebookId"},"$type":"SlotMaker.Tasks.Conditions.CheckStringIsNullOrEmpty"},"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"27"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 073fda529a24948ff97b027d36d494c2, type: 2}
+  _deserializationFailed: 0

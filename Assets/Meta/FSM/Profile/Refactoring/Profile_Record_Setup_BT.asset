@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Profile_Record_Setup_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-2951.0,"y":-3698.0},"zoomFactor":0.7620094,"nodes":[{"_position":{"x":5152.0,"y":4913.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{"_value":"Cell
+    Title"},"saveAs":{"_name":"_recordTypeToggle"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"valueB":{},"overrideAgent":{"_name":"_recordTypeToggle"},"$type":"SlotMaker.Tasks.Actions.SetContextIntProperty"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4669.0,"y":5064.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_position":{"x":5144.0,"y":5047.0},"$type":"NodeCanvas.BehaviourTrees.Optional","$id":"14"},{"_condition":{"valueA":{"_name":"isRecordLoaded","_targetVariableID":"0ceb2e96-dc86-4b16-8cbd-7998529eba1b"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_position":{"x":5105.0,"y":5106.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"15"},{"_position":{"x":5149.0,"y":5201.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"19"},{"_action":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Profile
+    Record Scroll Rect Max"},"combineApplicationType":{"_value":true},"parentName":{"_value":"Base"},"uniqueName":{"_value":"Scroll
+    View Max Win"},"saveAs":{"_name":"_maxWinView"},"$type":"SlotMaker.Tasks.Actions.LoadPrefab"},{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Profile
+    Record Scroll Rect Coins Earned"},"combineApplicationType":{"_value":true},"parentName":{"_value":"Base"},"uniqueName":{"_value":"Scroll
+    View Total Win"},"saveAs":{"_name":"_totalWinView"},"$type":"SlotMaker.Tasks.Actions.LoadPrefab"},{"targetList":{"_value":"recordList"},"keys":{"_value":["maxWin"]},"types":{"_value":["System.Int64"]},"sortType":{"_value":["Descending"]},"saveAs":{"_name":"sortedMaxWin"},"$type":"SlotMaker.Tasks.Actions.SortBlackboardList"},{"targetList":{"_value":"recordList"},"keys":{"_value":["totalWin"]},"types":{"_value":["System.Int64"]},"sortType":{"_value":["Descending"]},"saveAs":{"_name":"sortedTotalWin"},"$type":"SlotMaker.Tasks.Actions.SortBlackboardList"},{"valueA":{"_value":"recordList"},"valueB":{"_name":"sortedMaxWin"},"overrideAgent":{"_name":"_maxWinView"},"$type":"SlotMaker.Tasks.Actions.SetList"},{"valueA":{"_value":"recordList"},"valueB":{"_name":"sortedTotalWin"},"overrideAgent":{"_name":"_totalWinView"},"$type":"SlotMaker.Tasks.Actions.SetList"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4730.0,"y":5372.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"20"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{"_value":true},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{"_value":"Cell
+    Title/Max Win"},"searchingType":"FullNameSearch","key":{},"eventName":{"_value":"OnSortMaxChanged"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextClickable"},{"elementName":{"_value":"Cell
+    Title/Coins Earned"},"searchingType":"FullNameSearch","key":{},"eventName":{"_value":"OnSortCoinEarnedChanged"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextClickable"},{"boolVariable":{"_name":"isRecordLoaded","_targetVariableID":"0ceb2e96-dc86-4b16-8cbd-7998529eba1b"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5271.0,"y":5372.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"63"},{"_nestedFSM":{"_value":1},"_position":{"x":5331.0,"y":5056.0},"$type":"NodeCanvas.BehaviourTrees.NestedFSM","$id":"80"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"80"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"63"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 55b5b611138ac4c6c8513cfb5caeb54e, type: 2}
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

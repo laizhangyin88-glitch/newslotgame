@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Popup_Club_Donate_Init_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","nodes":[{"_position":{"x":5737.0,"y":5224.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"clubInfoResponse/donationResetTimestamp"},"saveAs":{"_name":"_donateResetTimestamp"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"saveAs":{"_name":"_currentTimestamp"},"$type":"BagelCode.Tasks.Actions.GetTimeStamp"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5173.0,"y":5409.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_name":"_currentTimestamp"},"checkType":"GreaterOrEqualTo","valueB":{"_name":"_donateResetTimestamp"},"$type":"NodeCanvas.Tasks.Conditions.CheckLong"},"_position":{"x":5630.0,"y":5414.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"11"},{"_action":{"valueA":{"_value":"clubMemberInfo/dailyDonationCount"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt32"},"_position":{"x":5655.0,"y":5496.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"15"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"clubMemberInfo/dailyDonationCount"},"saveAs":{"_name":"_dailyDonationCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_minSlideValue"},"valueB":{"_name":"_dailyDonationCount"},"$type":"SlotMaker.Tasks.Actions.SetFloat"},{"valueA":{"_name":"_minSlideValue"},"Operation":"Add","valueB":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"clubInfo":{"_name":"clubInfo","_targetVariableID":"042c99ba-78c1-4101-b5cb-11b1b9703a5d"},"dailyDonationCount":{"_name":"_dailyDonationCount"},"saveDonateValue":{"_name":"_minDonateCount"},"$type":"BagelCode.Tasks.Actions.GetDonateInitValue"},{"valueB":{"_name":"_minDonateCount"},"overrideAgent":{"_name":"_sliderContext"},"$type":"SlotMaker.Tasks.Actions.SetContextFloatProperty"},{"elementName":{"_value":"Club
+    Donate Info/Slider"},"searchingType":"FullNameSearch","isUseRange":{"_value":true},"minRange":{"_name":"_minSlideValue"},"maxRange":{"_value":5.0},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextSliderParameter"},{"elementName":{"_value":"Club
+    Donate Info/Slider/Filled Area"},"searchingType":"FullNameSearch","parameter":{"_value":"Count"},"parameterHashID":{},"setTo":{"_name":"_dailyDonationCount"},"$type":"SlotMaker.Tasks.Actions.SimpleSetAnimatorParameterInt"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5979.0,"y":5408.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"19"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

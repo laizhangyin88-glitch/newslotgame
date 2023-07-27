@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Inbox_Accept_Random_Reward_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5447.0,"y":-5225.0},"nodes":[{"_position":{"x":6159.0,"y":5432.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Popup
+    Mystery Reward Scene"},"combineApplicationType":{"_value":true},"parent":{},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_rewardResultPopup"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync1"},{"callee":{"_name":"_rewardResultPopup"},"$type":"SlotMaker.Tasks.Actions.SetCaller"},{"targetList":{"_name":"rewardList","_targetVariableID":"eac90629-cf77-4866-9f1a-00aa8e07e126"},"$type":"NodeCanvas.Tasks.Actions.ClearList"},{"targetList":{"_name":"rewardList","_targetVariableID":"eac90629-cf77-4866-9f1a-00aa8e07e126"},"targetElement":{"_name":"response"},"$type":"NodeCanvas.Tasks.Actions.AddElementToList`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"key":{"_value":"POPUP_MYSTERY_REWARD_TITLE"},"argsList":{"_value":[]},"saveAs":{"_name":"title"},"$type":"SlotMaker.Tasks.Actions.GetStringFromStringTable"},{"valueA":{"_value":"title"},"valueB":{"_value":"POPUP_INBOX_EXP_BOOST_REWARD_TITLE","_name":"title"},"overrideAgent":{"_name":"_rewardResultPopup"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"valueA":{"_value":"rewardList"},"valueB":{"_name":"rewardList","_targetVariableID":"eac90629-cf77-4866-9f1a-00aa8e07e126"},"overrideAgent":{"_name":"_rewardResultPopup"},"$type":"SlotMaker.Tasks.Actions.SetList"},{"valueA":{"_value":"applyEarnValues"},"valueB":{},"overrideAgent":{"_name":"_rewardResultPopup"},"$type":"SlotMaker.Tasks.Actions.SetBoolean1"},{"popup":{"_name":"_rewardResultPopup"},"$type":"SlotMaker.Task.Actions.OpenPopup"},{"setTo":"Activate","overrideAgent":{"_name":"_rewardResultPopup"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5780.0,"y":5578.0},"_tag":"","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"eventName":{"_value":"OnCalleeCallback"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_position":{"x":6252.0,"y":5579.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"42"},{"_action":{"status":"Success","$type":"NodeCanvas.Tasks.Actions.RaiseStatus"},"_position":{"x":6273.0,"y":5661.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"45"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"42"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"42"},"_targetNode":{"$ref":"45"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: VIP_Lounge_Spin_Reward_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":235.0,"y":-34.0},"zoomFactor":0.8468624,"nodes":[{"_actionList":{"actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"method":{"_baseInfo":"BagelCode.VipLounge.VipLoungeSpinRewardController|InitProperty|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"eventName":{"_value":"OnClose"},"$type":"BagelCode.Tasks.Actions.SubscribeBackButtonEvent"}]},"_position":{"x":279.0,"y":42.0},"_comment":"Use
+    Action!!!!!!!!!!!!!!\n(SetInformationPopupData)","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"method":{"_baseInfo":"BagelCode.VipLounge.VipLoungeSpinRewardController|InitCashbackCell|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]},"_position":{"x":678.0,"y":221.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"14"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"OnCalleeCallback"},"$type":"BagelCode.Task.Condition.SimpleCalleeCallbackEvent"},{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"},{"$type":"SlotMaker.Task.Actions.ClosePopupAgent"},{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":761.0,"y":455.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"22"},{"_nestedBT":{"_value":1},"executionMode":"Once","successEvent":"OnPurchaseSuccess","failureEvent":"OnPurchaseFail","_position":{"x":390.0,"y":367.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"32"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnClose"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnClickPurchase"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"32"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 0745083443d5749778df1599ce624f54, type: 2}
+  _deserializationFailed: 0

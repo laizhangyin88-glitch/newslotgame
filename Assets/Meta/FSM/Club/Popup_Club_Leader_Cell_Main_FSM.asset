@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_Club_Leader_Cell_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5428.0,"y":-5050.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"valueA":{"_value":"contributionInfo"},"cellIndex":{"_name":"cellIndex","_targetVariableID":"a7a11375-73f8-430b-b753-dc61468683d3"},"bgList":{"_value":[],"_name":"bgList","_targetVariableID":"8da77cb2-5050-4380-adab-323254383efc"},"rankText":{"_value":"","_name":"_rankText"},"userNameText":{"_name":"_userNameText"},"scoreText":{"_name":"_scoreText"},"profileURL":{"_name":"_profileURL"},"tier":{"_name":"_tier"},"isMe":{"_name":"_isMe"},"$type":"BagelCode.Tasks.Actions.GetClubLeaderCellInfoBB"},{"elementName":{"_value":"Text
+    Name"},"arg0":{"_value":"_userNameText"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText0"},{"elementName":{"_value":"Text
+    Rank"},"arg0":{"_value":"_rankText"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText0"},{"elementName":{"_value":"Text
+    Score"},"arg0":{"_value":"_scoreText"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText0"},{"elementName":{"_value":"Profile
+    Picture/Image"},"searchingType":"FullNameSearch","setTo":"Deactivate","$type":"SlotMaker.Tasks.Actions.SimpleSetContextActive"},{"elementName":{"_value":"Profile
+    Picture/Image"},"searchingType":"FullNameSearch","imageUrl":{"_value":"_profileURL"},"cachingType":{"_value":"MemCache"},"priority":{},"reportCount":{},"targetUserId":{"_value":"contributionInfo/userId"},"isLoaded":{"_name":""},"isIgnored":{"_name":""},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextWebImageProfile"},{"valueA":{"_value":"_tier"},"saveAs":{"_name":"_tierGroup"},"$type":"BagelCode.Tasks.Actions.GetTierGroup"},{"elementName":{"_value":"Profile
+    Picture"},"valueB":{"_name":"_tierGroup"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextIntProperty"}]},"_position":{"x":5761.0,"y":5294.0},"_name":"Set
+    Data","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":6186.0,"y":5539.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"44"},{"_actionList":{"actions":[{"fromType":{"_value":"","_name":"fromType","_targetVariableID":"42578965-e957-4218-bb0f-f0c9813920a1"},"actionType":{},"userIDValue":{"_value":"memberInfo/userId"},"$type":"BagelCode.Tasks.Actions.BI.BI_client_click_profile_other"},{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Profile
+    Popup Scene"},"combineApplicationType":{"_value":true},"parentName":{"_value":"Popup
+    Manager/Area"},"saveAs":{"_name":"_profilePopup"},"$type":"SlotMaker.Tasks.Actions.LoadScene"},{"setTo":"Deactivate","overrideAgent":{"_name":"_profilePopup"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"popup":{"_name":"_profilePopup"},"$type":"SlotMaker.Task.Actions.OpenPopup"},{"valueA":{"_value":"memberInfo/userId"},"saveAs":{"_name":"_userID"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"isMe"},"valueB":{"_name":"_isMe"},"overrideAgent":{"_name":"_profilePopup"},"$type":"SlotMaker.Tasks.Actions.SetBoolean1"},{"valueA":{"_value":"_userId"},"valueB":{"_value":"","_name":"_userID","_targetVariableID":"c6c9eeb8-70c6-494b-a602-e37e05a8c225"},"overrideAgent":{"_name":"_profilePopup"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"valueA":{"_value":"bi_fromType"},"valueB":{"_value":"","_name":"fromType","_targetVariableID":"c6c9eeb8-70c6-494b-a602-e37e05a8c225"},"overrideAgent":{"_name":"_profilePopup"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"setTo":"Activate","overrideAgent":{"_name":"_profilePopup"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"eventName":{"_value":"OnCloseClubMemberList"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendMetaUIEvent"}]},"_position":{"x":6512.0,"y":5692.0},"_name":"Open
+    Profile Popup","$type":"NodeCanvas.StateMachines.ActionState","$id":"47"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"44"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnOpenProfile"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"44"},"_targetNode":{"$ref":"47"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"47"},"_targetNode":{"$ref":"44"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

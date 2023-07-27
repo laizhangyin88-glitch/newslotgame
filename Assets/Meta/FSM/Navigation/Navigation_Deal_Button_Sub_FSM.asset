@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Navigation_Deal_Button_Sub_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4969.0,"y":-5045.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"IsDeal"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"valueA":{"_value":"textFormatKey"},"valueB":{"_value":"TIME_FORMAT_HHMMSS_TOTALHOUR"},"_isDisabled":true,"overrideAgent":{"_name":"_dealRemainingTimer"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"valueA":{"_value":"outputFormatKey"},"valueB":{"_value":"TEXT_SHOP_EVENT"},"_isDisabled":true,"overrideAgent":{"_name":"_dealRemainingTimer"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"eventName":{"_value":"OnStartTimer"},"eventValue":{"_name":"_dealEndTimestamp"},"delay":{"_value":0.01},"_isDisabled":true,"overrideAgent":{"_name":"_dealRemainingTimer"},"$type":"NodeCanvas.Tasks.Actions.SendEvent`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"timerElement":{"_name":"_dealRemainingTimer"},"targetTime":{"_name":"_dealEndTimestamp"},"warningTime":{},"timeFormatKey":{"_value":"TIME_FORMAT_HHMMSS_TOTALHOUR"},"outputFormatKey":{},"warningFormatKey":{},"expireText":{"_value":"Ended"},"useCommonTimer":{"_value":true},"$type":"BagelCode.Tasks.Actions.SetCommonRemainingTimer"},{"callee":{"_name":"_dealRemainingTimer"},"$type":"SlotMaker.Tasks.Actions.SetCaller"}]},"_position":{"x":5635.0,"y":5234.0},"_name":"Enable","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_name":"_biContextID"},"valueB":{"_value":""},"$type":"NodeCanvas.Tasks.Actions.SetVariable`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":5866.0,"y":5387.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"33"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"iamIdValue":{"_value":"_iamID"},"contextID":{"_name":"_biContextID"},"$type":"BagelCode.Tasks.Actions.BI.BI_client_deal"},{"type":{"_value":"UNKNOWN"},"iamId":{"_value":3,"_name":"_iamID"},"isTriggered":{},"setCallback":{},"contextID":{"_name":"_biContextID"},"$type":"BagelCode.Task.Actions.TriggerIAM"}]},"_position":{"x":6066.0,"y":5496.0},"_name":"Trigger
+    Deal","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"39"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"conditions":[{"eventName":{"_value":"TriggerDeal"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"valueA":{"_name":"_iamID"},"valueB":{},"_invert":true,"$type":"NodeCanvas.Tasks.Conditions.CheckInt"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"39"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"39"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

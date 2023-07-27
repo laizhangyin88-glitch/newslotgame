@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Profile_Add_Friend_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5176.0,"y":-4975.0},"nodes":[{"_position":{"x":5941.0,"y":5078.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"fromType":{"_name":"bi_fromType","_targetVariableID":"917aac90-4656-4f18-99fa-2bef891d2014"},"actionType":{"_value":"add_friend"},"userIDValue":{"_value":"_userId"},"$type":"BagelCode.Tasks.Actions.BI.BI_client_click_profile_other"},{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Loading
+    Full Scene"},"combineApplicationType":{"_value":true},"parent":{},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_loadingObj"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync1"},{"setTo":"Activate","overrideAgent":{"_name":"_loadingObj"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"popup":{"_name":"_loadingObj"},"$type":"SlotMaker.Task.Actions.OpenPopup"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5607.0,"y":5164.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"actions":[{"userId":{"_name":"_userId","_targetVariableID":"314080e2-95a6-461c-a35c-dc90e4a56cc8"},"result":{"_name":"_resultFriend"},"$type":"BagelCode.Tasks.Actions.ClientAPI.FriendAdd"},{"overrideAgent":{"_name":"_loadingObj"},"$type":"SlotMaker.Task.Actions.ClosePopupAgent"},{"target":{"_name":"_loadingObj"},"$type":"SlotMaker.Tasks.Actions.DestroyGameObject"},{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Popup
+    Common Ok Scene"},"combineApplicationType":{"_value":true},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_commonPopup","_targetVariableID":"608b01ae-e23f-432d-b08d-c4a47b7e2758"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync"},{"popup":{"_name":"_commonPopup","_targetVariableID":"608b01ae-e23f-432d-b08d-c4a47b7e2758"},"yesButtonEvent":{"_value":"OnOK"},"noButtonEvent":{"_value":"
+    "},"xButtonEvent":{"_value":" "},"BackButtonEvent":{"_value":""},"title":{"_value":"
+    ","_name":"_resultFriend"},"text":{"_value":" "},"yesButtonText":{"_value":"OK"},"noButtonText":{"_value":"
+    "},"autoCloseYes":{"_value":true},"autoCloseNo":{},"autoCloseX":{},"useXButton":{},"useBackButton":{"_value":true},"$type":"SlotMaker.Task.Actions.OpenCommonPopup"},{"setTo":"Activate","overrideAgent":{"_name":"_commonPopup","_targetVariableID":"608b01ae-e23f-432d-b08d-c4a47b7e2758"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5724.0,"y":5298.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"22"},{"_position":{"x":6342.0,"y":5179.0},"$type":"NodeCanvas.BehaviourTrees.Optional","$id":"56"},{"_condition":{"valueA":{"_value":"userInfoResponse/userState"},"valueB":{"_type":"BagelCode.ClientModels.UserState","_value":{"$content":"OFFLINE","$type":"BagelCode.ClientModels.UserState"}},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckEnum"},"_position":{"x":6268.0,"y":5251.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"57"},{"_action":{"actions":[{"valueA":{"_value":"/onlineFriendUserIdList"},"saveAs":{"_name":"_onlineUserList"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"_onlineUserList"},"targetElement":{"_name":"_userId","_targetVariableID":"314080e2-95a6-461c-a35c-dc90e4a56cc8"},"$type":"NodeCanvas.Tasks.Actions.AddElementToList`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":6271.0,"y":5327.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"61"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"56"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"56"},"_targetNode":{"$ref":"57"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"57"},"_targetNode":{"$ref":"61"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

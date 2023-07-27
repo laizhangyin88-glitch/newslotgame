@@ -1,0 +1,453 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1335619808829660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4182312513214428}
+  - component: {fileID: 114555866254589114}
+  m_Layer: 0
+  m_Name: GS Manager(SLOTS3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4182312513214428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335619808829660}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5623156476035707187}
+  - {fileID: 4595844510023810}
+  - {fileID: 4331235264543072}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114555866254589114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335619808829660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef732924976545c980ccc09b1673235, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterMixer: {fileID: 24100000, guid: e16d2d53680384475a94cddff892f309, type: 2}
+  musicMixer: {fileID: 24100000, guid: 778765b32b9844d539dbf991e992c2c8, type: 2}
+  sfxMixer: {fileID: 24100000, guid: 9e96975a9983f4819ab632c95ff5bdb6, type: 2}
+  metaMusicMixer: {fileID: 24100000, guid: 57b70a2dbde3ba84c8eef7902d92d90e, type: 2}
+  mixerGroups: {fileID: 3300082446767345904}
+  snapshots: {fileID: 3301035488832253236}
+  easeCurves: {fileID: 3300047016999712672}
+  handlers:
+  - {fileID: 114929132726088840}
+  pool: {fileID: 114447328414874508}
+  clipLifeTime: 60
+--- !u!1 &1438108948649980
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4595844510023810}
+  - component: {fileID: 114929132726088840}
+  - component: {fileID: 114135302237973204}
+  m_Layer: 0
+  m_Name: GS Handler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4595844510023810
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438108948649980}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4182312513214428}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114929132726088840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438108948649980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serializedBlackboard: '{"_variables":{"UI_Title":{"_value":{"clip":{"bundleName":"login0","assetName":"UI_Title"},"output":"Music","volume":0.8},"_name":"UI_Title","_id":"32ebea3f-bc0f-4e72-bbe6-b4889ab8dd3b","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BGM_Lobby":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"BGM_Lobby"},"output":"Music","loop":true,"volume":0.5,"autoRelease":false},"_name":"BGM_Lobby","_id":"c253259a-f8fd-4028-a97e-527ae62d152d","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BGM_Lobby_Ambience":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"BGM_Lobby_Ambience"},"output":"Music","loop":true,"volume":0.2,"autoRelease":false},"_name":"BGM_Lobby_Ambience","_id":"6c954d6b-1f59-4795-a06e-734307fcaed8","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Button_Normal":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Button_Normal"},"volume":0.5},"_name":"UI_Button_Normal","_id":"c7fb5bb8-8a18-462c-aa46-3bddf2145644","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Button_Cancel":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Button_Cancel"},"volume":0.5},"_name":"UI_Button_Cancel","_id":"af6d144d-0b6c-4d5b-9307-d735304d702e","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Button_Collect":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Button_Collect"},"volume":0.4},"_name":"UI_Button_Collect","_id":"267b9597-e2bc-4748-b671-f1ae62358657","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Button_Collect_Coin":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Button_Collect_Coin"},"volume":0.4},"_name":"UI_Button_Collect_Coin","_id":"8f283227-ac68-4b11-9f87-0988b721f732","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Button_Tab":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Button_Tab"},"volume":0.5},"_name":"UI_Button_Tab","_id":"b0de3d54-8605-4689-8cac-8a2845ae2c6c","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Button_Shop":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Button_Shop"},"volume":0.2},"_name":"UI_Button_Shop","_id":"5bc7cbea-fb14-436b-b2bf-7431321da676","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Popup_Open":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Popup_Open"},"volume":0.5,"delay":0.1},"_name":"UI_Popup_Open","_id":"8dd0ceef-bf83-4e22-80d9-ef915b71bb2c","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Popup_Close":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Popup_Close"},"volume":0.5,"delay":0.1},"_name":"UI_Popup_Close","_id":"c9bb36cb-5593-4675-a49e-00ee1c4616f5","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Gem_Add":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Gem_Add"},"volume":0.5,"delay":0.1},"_name":"UI_Gem_Add","_id":"2729d9b7-c7d5-4bcb-9e66-d9898330575f","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Coin_Add":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Coin_Add"},"volume":0.6,"playingType":"FirstOnly"},"_name":"UI_Coin_Add","_id":"782aa87c-f299-4997-b77d-1a5545603782","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Coin_Pouring":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Coin_Pouring"},"volume":0.5},"_name":"UI_Coin_Pouring","_id":"4fa93a7b-cc2f-4450-8c49-0f5d118e57bb","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Coin_Purchase":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Coin_Purchase"},"volume":0.5},"_name":"UI_Coin_Purchase","_id":"d7c14db3-d02b-448c-81e6-9abbf2ae3332","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Alarm":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Alarm"},"volume":0.5},"_name":"UI_Alarm","_id":"7fc28ca5-2cee-4fac-a667-296b80fdf31d","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Betting_Up":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Betting_Up"},"volume":0.4},"_name":"UI_Betting_Up","_id":"ad88e369-7076-4402-89a8-21677dfa3561","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Betting_Down":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Betting_Down"},"volume":0.4},"_name":"UI_Betting_Down","_id":"dc61ce1a-25ff-4863-94bf-315837ea5c75","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Betting_Max":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Betting_Max"},"volume":0.5},"_name":"UI_Betting_Max","_id":"3ec6a7c1-1cd7-4a87-b40c-8bed1f9d361d","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Spin_Auto":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Spin_Auto"},"volume":0.5},"_name":"UI_Spin_Auto","_id":"4107ec03-c4d8-44b1-8d89-5b6e1c62ec3a","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Spin_Start":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Spin_Start"},"volume":0.2},"_name":"UI_Spin_Start","_id":"00626f10-ae4e-426a-bf37-3a3a115f3939","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Level_Up":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Level_Up"},"volume":0.5},"_name":"UI_Level_Up","_id":"cbad8e55-5eab-49fc-9022-ed92dfce5617","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Game_Select":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Game_Select"},"volume":0.7},"_name":"UI_Game_Select","_id":"e28d5d89-0976-44b6-83ea-92ab63dc586d","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Pot_Of_Gold_Energy":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Pot_Of_Gold_Energy"},"volume":0.6},"_name":"UI_Pot_Of_Gold_Energy","_id":"67029640-7db9-4e28-9507-018e48c55bf7","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Pot_Of_Gold_Break":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Pot_Of_Gold_Break"},"volume":0.4},"_name":"UI_Pot_Of_Gold_Break","_id":"b4c79002-e8b1-4d3f-baee-35711b7e6b31","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Pot_Of_Gold":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Pot_Of_Gold"},"volume":0.7},"_name":"UI_Pot_Of_Gold","_id":"87552f6f-e481-4402-94cd-80d578856167","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Pot_Of_Gold_New":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Pot_Of_Gold_New"},"volume":0.5},"_name":"UI_Pot_Of_Gold_New","_id":"f5d6acd6-d866-46cf-a032-4beaae1f22a7","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Daily_Bonus_Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Level_Up"},"volume":0.4},"_name":"UI_Daily_Bonus_Win","_id":"4e56e1d2-c4f5-4642-9c2f-d89efb8a73fd","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Daily_Bonus_Result":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Daily_Bonus_Result"},"volume":0.7},"_name":"UI_Daily_Bonus_Result","_id":"2005e8ef-d4b9-487a-8d36-09bceb5e7e05","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Daily_Bonus_Wheel_Loop":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Daily_Bonus_Wheel_Loop"},"volume":0.8},"_name":"UI_Daily_Bonus_Wheel_Loop","_id":"88830404-34ac-4e22-ab3a-0c48e4a129b6","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Kudo_Appear":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Kudo_Appear"},"volume":0.7},"_name":"UI_Kudo_Appear","_id":"3c29ca7b-08c6-4229-9a10-8fa6acf599fe","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Kudo_Applause":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Kudo_Applause"},"volume":0.7},"_name":"UI_Kudo_Applause","_id":"37e6480d-a183-4447-b293-af4792b7abfe","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Kudo_Disappear":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Kudo_Disappear"},"volume":0.7},"_name":"UI_Kudo_Disappear","_id":"3a6195d4-f8b7-45cf-91da-cd038df9db4c","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Select":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Select"},"volume":0.7},"_name":"UI_Select","_id":"71d6fbdd-ed34-481f-a75d-ba98b853b8f0","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Cancel":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Cancel"},"volume":0.7},"_name":"UI_Cancel","_id":"0f1b240e-4608-45c4-aad8-aca126e82eb3","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Seat_Big_Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Seat_Big_Win"},"volume":0.1},"_name":"UI_Seat_Big_Win","_id":"b3b54c97-0657-429d-a60b-40c622f015e2","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Seat_Level_Up":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Seat_Level_Up"},"volume":0.1},"_name":"UI_Seat_Level_Up","_id":"025849f5-dad6-4055-9588-76f2aa8765e7","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Seat_Tier_Up":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Tier_Up_Gem"},"volume":0.1},"_name":"UI_Seat_Tier_Up","_id":"301056dc-3d4e-44ae-8217-a4980fcf8388","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Seat_Join":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Seat_Join"},"volume":0.1},"_name":"UI_Seat_Join","_id":"dd66fe4d-6401-4bcd-84d4-e1af1fbdee49","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Seat_Left":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Seat_Left"},"volume":0.1},"_name":"UI_Seat_Left","_id":"5e3302ba-fec6-474f-9572-819c64cd4201","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Purchase_Complete_Appear":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Purchase_Complete_Appear"},"volume":0.5},"_name":"UI_Purchase_Complete_Appear","_id":"62c798fc-75b4-49aa-a514-2c3962ac8182","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Purchase_Complete_Land":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Purchase_Complete_Land"},"volume":0.5},"_name":"UI_Purchase_Complete_Land","_id":"41d8ce29-1ad5-4b31-8ca5-fc5e229be334","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Tier_Up_Appear":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Tier_Up_Appear"},"volume":0.5},"_name":"UI_Tier_Up_Appear","_id":"31297674-61f4-43db-a34c-21ede4e7af36","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Tier_Up_Applause":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Tier_Up_Applause"},"volume":0.5},"_name":"UI_Tier_Up_Applause","_id":"e7b9886f-ecb9-4505-8a17-430be5a23519","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Tier_Up_Gem":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Tier_Up_Gem"},"volume":0.5},"_name":"UI_Tier_Up_Gem","_id":"a3be4426-1db0-4414-a29c-c5044b9cfccf","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Tier_Up_Gem_Land":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Tier_Up_Gem_Land"},"volume":0.5},"_name":"UI_Tier_Up_Gem_Land","_id":"f637362a-2571-4e1a-8b73-e3cd122d4b57","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Tier_Up_Info":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Tier_Up_Info"},"volume":0.5},"_name":"UI_Tier_Up_Info","_id":"b189b2d6-28e0-4934-b7a6-e00af05649c9","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Like_Token":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Like_Token"}},"_name":"UI_Like_Token","_id":"7482271a-2e10-4d9e-b9ec-f85d73a5b235","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_JackpotTrigger":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_JackpotTrigger"},"volume":0.5},"_name":"UI_JackpotTrigger","_id":"257e1180-8c23-4fb9-93f7-bd832b12454c","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Lobby_LuckySpin_Active":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Lobby_LuckySpin_Active"}},"_name":"UI_Lobby_LuckySpin_Active","_id":"5ae86086-5070-4dda-b151-09fd17473595","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Lobby_LuckySpin_Enter":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Lobby_LuckySpin_Enter"}},"_name":"UI_Lobby_LuckySpin_Enter","_id":"071473eb-2220-43bd-ad00-bcd8f6fd4757","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_GameSpin_Active":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_GameSpin_Active"}},"_name":"UI_GameSpin_Active","_id":"1d7ff6a9-2d08-4f2f-b255-d73dd4256683","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_GameSpin_Deactive":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_GameSpin_Deactive"}},"_name":"UI_GameSpin_Deactive","_id":"b6ae7a37-6e22-4bff-be92-396bc6d83344","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Wheel_Select":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Wheel_Select"}},"_name":"UI_Wheel_Select","_id":"d394213d-be7d-4399-a067-96438f71dc69","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_VideoPoker_Deal_Button":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_VideoPoker_Deal_Button"},"volume":0.7},"_name":"UI_VideoPoker_Deal_Button","_id":"25f2a887-8a93-497c-8d3c-26d21830d21a","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_VideoPoker_Hands_Button":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_VideoPoker_Hands_Button"},"volume":0.5},"_name":"UI_VideoPoker_Hands_Button","_id":"81c2fc7e-63b2-4767-83cb-bd31449fd887","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BigWin_Music_Big
+    Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Big Win
+    BGM"},"loop":true,"volume":0.6,"playingType":"FirstOnly","fadeOut":{"easeType":"EaseInQuad","time":1.0}},"_name":"BigWin_Music_Big
+    Win","_id":"210d5307-a213-4154-95a9-1828e3f92d57","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BigWin_Music_Super
+    Big Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Super
+    Big Win BGM"},"loop":true,"volume":0.6,"playingType":"FirstOnly","fadeOut":{"easeType":"EaseInQuad","time":1.0}},"_name":"BigWin_Music_Super
+    Big Win","_id":"b38080a2-39ac-40f5-af4b-97ff27229f80","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BigWin_Music_Mega
+    Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Mega Win
+    BGM"},"loop":true,"volume":0.5,"playingType":"FirstOnly","fadeOut":{"easeType":"EaseInQuad","time":1.0}},"_name":"BigWin_Music_Mega
+    Win","_id":"7204c324-9cbb-4666-8aa4-530fed68a5fc","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BigWin_Music_Super
+    Mega Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Super
+    Mega Win BGM"},"loop":true,"volume":0.6,"delay":0.5,"playingType":"FirstOnly","fadeOut":{"easeType":"EaseInQuad","time":1.0}},"_name":"BigWin_Music_Super
+    Mega Win","_id":"e92e72bb-12de-4b88-9519-bc5e5dba57d3","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BigWin_Music_Epic
+    Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Epic Win
+    BGM"},"loop":true,"volume":0.6,"delay":0.5,"playingType":"FirstOnly","fadeOut":{"easeType":"EaseInQuad","time":1.0}},"_name":"BigWin_Music_Epic
+    Win","_id":"fe6db941-3716-40c9-adb0-43bc949e7b79","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BigWin_Vo_Big
+    Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Vo_Big Win"},"volume":0.8,"delay":0.3,"playingType":"FirstOnly"},"_name":"BigWin_Vo_Big
+    Win","_id":"636bcad7-d7d4-4797-b5c8-cb35238211ca","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BigWin_Vo_Super
+    Big Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Vo_Super
+    Big Win"},"volume":0.9,"playingType":"FirstOnly"},"_name":"BigWin_Vo_Super Big
+    Win","_id":"36ed16f6-de97-4c7b-b451-41bcb6f680fe","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BigWin_Vo_Mega
+    Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Vo_Mega
+    Win"},"volume":0.5,"playingType":"FirstOnly"},"_name":"BigWin_Vo_Mega Win","_id":"36bd49a3-d296-4a58-86cf-843d5fba7351","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BigWin_Vo_Super
+    Mega Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Vo_Super
+    Mega Win"},"volume":0.5,"playingType":"FirstOnly"},"_name":"BigWin_Vo_Super Mega
+    Win","_id":"f8fb51b6-7f42-4540-9c5b-dfa076f6b66d","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BigWin_Vo_Epic
+    Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Vo_Epic
+    Win"},"volume":0.5,"playingType":"FirstOnly"},"_name":"BigWin_Vo_Epic Win","_id":"add775d6-6025-4ae4-84b8-e73efd8a8110","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BigWin_Hit":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_BigWin_Hit"},"volume":0.7,"playingType":"FirstOnly"},"_name":"BigWin_Hit","_id":"d559a7fb-38fc-4ff4-8d71-880569875c9f","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BigWin_Riser_End":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Riser_End"},"volume":0.4,"playingType":"FirstOnly"},"_name":"BigWin_Riser_End","_id":"315f2a11-d1d2-47b2-ac0b-d99dffd1d7f7","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"BigWin_Riser":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Riser"},"volume":0.4,"playingType":"FirstOnly"},"_name":"BigWin_Riser","_id":"bde2c6ec-f289-4bb1-b721-980add498638","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Jackpot_Music_Mini":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Mini
+    Jackpot BGM"},"loop":true,"volume":0.6,"delay":1.5,"playingType":"FirstOnly","fadeOut":{"easeType":"EaseInQuad","time":0.5}},"_name":"Jackpot_Music_Mini","_id":"c69dc614-bf70-49fa-8c66-5c0d5256f55a","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Jackpot_Music_Minor":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Minor
+    Jackpot BGM"},"loop":true,"volume":0.6,"delay":1.5,"playingType":"FirstOnly","fadeOut":{"easeType":"EaseInQuad","time":0.5}},"_name":"Jackpot_Music_Minor","_id":"05227699-c661-48e7-8a06-e2ca907a5107","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Jackpot_Music_Major":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Major
+    Jackpot BGM"},"loop":true,"volume":0.6,"delay":1.5,"playingType":"FirstOnly","fadeOut":{"easeType":"EaseInQuad","time":0.5}},"_name":"Jackpot_Music_Major","_id":"043d57e2-79c5-4108-b2e9-5c365ae021a8","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Jackpot_Music_Mega":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Mega
+    Jackpot BGM"},"loop":true,"volume":0.6,"delay":1.5,"playingType":"FirstOnly","fadeOut":{"easeType":"EaseInQuad","time":0.5}},"_name":"Jackpot_Music_Mega","_id":"044a7218-9c2b-43e6-91ac-86b4dd0c4137","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Jackpot_Music_Grand":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Mega
+    Jackpot BGM"},"loop":true,"volume":0.6,"delay":1.5,"playingType":"FirstOnly","fadeOut":{"easeType":"EaseInQuad","time":0.5}},"_name":"Jackpot_Music_Grand","_id":"0e74ea17-9473-4f7a-a9af-86ebe4b1401f","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Jackpot_Vo_Mini":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Vo_Mini
+    Jackpot"},"volume":0.7,"playingType":"FirstOnly"},"_name":"Jackpot_Vo_Mini","_id":"3865c066-9e8a-4a76-850f-c8494714a8e1","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Jackpot_Hit":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Jackpot_Hit"},"volume":0.7,"playingType":"FirstOnly"},"_name":"Jackpot_Hit","_id":"4897d7e8-f74c-4b35-ae5a-df5c31c3a793","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Jackpot_Riser_End":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Riser_End"},"volume":0.4,"playingType":"FirstOnly"},"_name":"Jackpot_Riser_End","_id":"98661f2b-a318-4693-8302-4f890d367564","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Jackpot_Riser":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Riser"},"volume":0.4,"playingType":"FirstOnly"},"_name":"Jackpot_Riser","_id":"702bd8a4-bbd7-4284-ad3a-c9f17f2edb15","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Jackpot_Vo_Minor":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Vo_Minor
+    Jackpot"},"volume":0.7,"playingType":"FirstOnly"},"_name":"Jackpot_Vo_Minor","_id":"1febbbc1-4ff7-423c-bee3-5a4a441d0f11","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Jackpot_Vo_Major":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Vo_Major
+    Jackpot"},"volume":0.7,"playingType":"FirstOnly"},"_name":"Jackpot_Vo_Major","_id":"1e1d02f1-cab9-401b-b620-b75b6b445b40","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Jackpot_Vo_Mega":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Vo_Mega
+    Jackpot"},"volume":0.7,"playingType":"FirstOnly"},"_name":"Jackpot_Vo_Mega","_id":"3419ca47-710c-4c98-a51b-2d5b044b9110","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Jackpot_Vo_Grand":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Vo_Grand
+    Jackpot"},"volume":0.7,"playingType":"FirstOnly"},"_name":"Jackpot_Vo_Grand","_id":"bb4ac4c5-7900-4394-8056-736ac6e0df4f","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Conclusion_Cheering":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Conclusion_Cheering"},"volume":0.6,"playingType":"FirstOnly"},"_name":"Conclusion_Cheering","_id":"ac2daaa3-618a-461e-8d2b-a8611af9dabe","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Conclusion_Explosion":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Conclusion_Explosion"},"volume":0.4,"playingType":"FirstOnly"},"_name":"Conclusion_Explosion","_id":"4de3be82-84af-41fa-87d1-f3389dc2f5b1","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Common_Jackpot_Bell":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Jackpot_Bell"}},"_name":"Common_Jackpot_Bell","_id":"5b89a6c8-f6e9-49a7-a490-e2d19dafbe20","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Common_Card_Flying":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Card_Flying"}},"_name":"Common_Card_Flying","_id":"3f919b7a-c289-4146-b444-47ca138494b7","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Common_Card_Open":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Card_Open"},"volume":0.5},"_name":"Common_Card_Open","_id":"2b32451d-2347-447d-abea-f22e322a6e9a","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Common_Card_Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Common_Card_Win"},"volume":0.5},"_name":"Common_Card_Win","_id":"fa838e7a-f016-47eb-be56-e883359740cb","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Coin_Booster_Intro":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Coin_Booster_Intro"},"volume":0.5},"_name":"UI_Coin_Booster_Intro","_id":"d0423ad1-a98f-4b25-b6ac-ca0b1f7e3bb9","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Coin_Booster_Result":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Coin_Booster_Result"},"volume":0.5},"_name":"UI_Coin_Booster_Result","_id":"38fb1438-7074-4853-a1f7-7682ed5278ef","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Coin_Booster_Stop":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Coin_Booster_Stop"},"volume":0.5},"_name":"UI_Coin_Booster_Stop","_id":"65edb532-b3c0-46e2-9ca2-293bc0c03755","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Coin_Booster_Transition":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Coin_Booster_Transition"},"volume":0.5},"_name":"UI_Coin_Booster_Transition","_id":"03dd395d-a929-4038-82ce-05c5764d7734","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Coin_Booster_Wheel_Loop":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Coin_Booster_Wheel_Loop"},"volume":0.6},"_name":"UI_Coin_Booster_Wheel_Loop","_id":"14c91582-fb16-4c49-a2bd-b630fd713ed3","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"VIP_DEAL_BUTTON_CLICK":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Vip_Deal_button_click"},"volume":0.5},"_name":"VIP_DEAL_BUTTON_CLICK","_id":"5cdf0da4-061d-404d-a336-96075caa3e22","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Collecting_Game_Get_Pack":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Collecting_Game_Get_Pack"},"volume":0.8},"_name":"Collecting_Game_Get_Pack","_id":"2c1d917c-da12-40be-878f-efed42a2cf24","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Collecting_Game_Scratcher_Scratch":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Collecting_Game_Scratcher_Scratch"},"volume":0.5},"_name":"Collecting_Game_Scratcher_Scratch","_id":"41a57cf0-699d-4469-8d8e-7ce24e5cffdf","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Collecting_Game_Scratcher_Highlight":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Collecting_Game_Scratcher_Highlight"},"volume":0.5},"_name":"Collecting_Game_Scratcher_Highlight","_id":"5956d803-6af4-4141-bfd4-777bf9394670","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Collecting_Game_Scratcher_Mini_Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Collecting_Game_Scratcher_Mini_Win"}},"_name":"Collecting_Game_Scratcher_Mini_Win","_id":"b343fe78-42fa-43e2-adf4-8f774e95f138","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Collecting_Game_Scratcher_Major_Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Collecting_Game_Scratcher_Major_Win"}},"_name":"Collecting_Game_Scratcher_Major_Win","_id":"193ce672-0918-47f6-90fa-2cf60717d103","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Collecting_Game_Scratcher_Mega_Win":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Collecting_Game_Scratcher_Mega_Win"}},"_name":"Collecting_Game_Scratcher_Mega_Win","_id":"5d1d7147-f676-4c44-b7d9-27df3efd28a7","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Collecting_Game_Scratcher_Roller_Start":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Collecting_Game_Scratcher_Roller_Start"}},"_name":"Collecting_Game_Scratcher_Roller_Start","_id":"5af2ea2d-ead4-4416-a368-eddc61485110","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Shop_Event_Flip":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Shop_Event_Flip"}},"_name":"UI_Shop_Event_Flip","_id":"a2039631-6e5a-422f-bbb6-47449614b806","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Slot_Unlock_By_Gem":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Slot_Unlock_By_Gem"}},"_name":"UI_Slot_Unlock_By_Gem","_id":"cade69ce-b807-4683-a96c-4db6ab00ea11","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Gem_Pouring":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Gem_Pouring"},"volume":0.5},"_name":"UI_Gem_Pouring","_id":"a60fe5fb-874d-48a5-a40e-23bf907edeec","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Gem_Purchase":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Gem_Purchase"},"volume":0.5},"_name":"UI_Gem_Purchase","_id":"50bd45de-9ffc-47e6-b5a9-8ae071356183","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Tutorial_Text_Cloud_Show1":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Tutorial_Text_Cloud_Show1"},"volume":0.5},"_name":"UI_Tutorial_Text_Cloud_Show1","_id":"b56ea219-dafe-4f27-a257-3be762126756","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Tutorial_Text_Cloud_Show2":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Tutorial_Text_Cloud_Show2"},"volume":0.5},"_name":"UI_Tutorial_Text_Cloud_Show2","_id":"d8ffcb50-6190-4be2-9429-0761a4da7831","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Tutorial_Text_Cloud_Show3":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Tutorial_Text_Cloud_Show3"},"volume":0.5},"_name":"UI_Tutorial_Text_Cloud_Show3","_id":"add26fbd-7272-47d2-9328-c099b200dde7","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Tutorial_Start_Coin":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Tutorial_Start_Coin"},"volume":0.5},"_name":"UI_Tutorial_Start_Coin","_id":"1f3b9bad-159d-45b5-b454-5a8dfbd907ac","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_New_Feature_Unlocked":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_New_Feature_Unlocked"},"volume":0.5},"_name":"UI_New_Feature_Unlocked","_id":"535a29e6-621c-4ab0-a507-1c4c2a3c549c","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Tutorial_Quest_Complete":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"lobbysnd0"},"volume":0.5},"_name":"UI_Tutorial_Quest_Complete","_id":"f6d3a358-7278-451a-9c72-f57d43268cb5","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Collecting_Game_Scratcher_Result_Appear":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Collecting_Game_Scratcher_Result_Appear"},"volume":0.5},"_name":"Collecting_Game_Scratcher_Result_Appear","_id":"1246a53d-7590-4edf-8a96-d265b6b2fa88","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Gift_Item":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Gift_Item"},"volume":0.5},"_name":"UI_Gift_Item","_id":"e16bd591-ca71-44fb-a6f0-aafac7278940","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Epic_Album_Gauge":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Select"},"volume":0.7},"_name":"UI_Epic_Album_Gauge","_id":"3b65bcd6-8810-4f2d-8958-70a20e4a9cb6","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Epic_Album_Star":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Wheel_Select"},"delay":0.4},"_name":"UI_Epic_Album_Star","_id":"4d57ca3e-4d1e-4b7f-97c5-71a8a0d94279","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Coin_Riser_Start":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Coin_Riser_Start"},"volume":0.3,"delay":0.4,"playingType":"FirstOnly"},"_name":"UI_Coin_Riser_Start","_id":"504c58e6-d3e8-43ac-9fc1-e63aab4f07d2","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Coin_Riser_Loop":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Coin_Riser_Loop"},"loop":true,"volume":0.4,"delay":0.2},"_name":"UI_Coin_Riser_Loop","_id":"0aadaa26-2f61-441d-a0dd-ec994c9828c5","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Coin_Riser_End":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Coin_Riser_End"},"volume":0.8,"playingType":"FirstOnly"},"_name":"UI_Coin_Riser_End","_id":"42d94cc9-71cc-41bc-af21-a9af5e959f5e","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Meta_Club_End_Notice":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Meta_ClubArena_EndMeta"},"volume":0.5},"_name":"Meta_Club_End_Notice","_id":"23f46978-c2ab-498b-bb85-698493d71d23","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Spin_Deal_Hit":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Spin_Deal_Hit"}},"_name":"UI_Spin_Deal_Hit","_id":"fb693b01-dd4d-464a-938c-b387cff70c4c","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Spin_Deal_Select":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Spin_Deal_Select"}},"_name":"UI_Spin_Deal_Select","_id":"d37517e6-b70c-495f-b778-0dc1d09a6660","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Coin_Add_Independent":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Coin_Add"},"volume":0.6},"_name":"UI_Coin_Add_Independent","_id":"0a607e76-c1fe-4b16-aa95-3ecb6c5e0d27","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"UI_Club_Level_Up":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"UI_Club_Level_Up"}},"_name":"UI_Club_Level_Up","_id":"6f683f83-2788-4054-baad-c81902283969","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Bonus_Features_Notice_Open":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Bonus_Features_Notice_Open"}},"_name":"Bonus_Features_Notice_Open","_id":"05839bbb-411a-4a8b-9816-65a6e8ff5b6d","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Bonus_Features_Notice_Lock":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Bonus_Features_Notice_Lock"}},"_name":"Bonus_Features_Notice_Lock","_id":"293a172c-06a9-4a65-acf1-94b9ddcf6673","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Meta_Level_Up_Dash_BGM":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Meta_Level_Up_Dash_BGM"},"output":"Meta","loop":true,"volume":0.6},"_name":"Meta_Level_Up_Dash_BGM","_id":"ea0bbb67-03e8-4cec-811f-174052c66520","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Meta_Level_Up_Dash_Collect":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Meta_Level_Up_Dash_Collect"}},"_name":"Meta_Level_Up_Dash_Collect","_id":"255f539b-0808-498d-ac08-dfbab646ed5c","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Meta_Level_Up_Dash_Collect_Final":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Meta_Level_Up_Dash_Collect_Final"}},"_name":"Meta_Level_Up_Dash_Collect_Final","_id":"de8d7cc5-e88e-4d06-9f34-d2f6a6ad3722","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Meta_Level_Up_Dash_Unlock":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Meta_Level_Up_Dash_Unlock"},"delay":0.6},"_name":"Meta_Level_Up_Dash_Unlock","_id":"470f8e89-6e34-4a85-a93b-29345fd88291","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Meta_Level_Up_Dash_Check_Reward_Box":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Meta_Level_Up_Dash_Check_Reward_Box"}},"_name":"Meta_Level_Up_Dash_Check_Reward_Box","_id":"c3461baf-1c4b-425e-a1e0-84aad27e085a","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Meta_Level_Up_Dash_Gauge_Increase":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Meta_Level_Up_Dash_Gauge_Increase"}},"_name":"Meta_Level_Up_Dash_Gauge_Increase","_id":"5043adc0-0a6f-40c3-8bd1-9a1209e695a6","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"EpicPassAlways_FlyPointScene":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"EpicPassAlways_FlyPointScene"}},"_name":"EpicPassAlways_FlyPointScene","_id":"92ffa3ee-c5ab-4ac4-b7b6-f80b44a1482b","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"EpicPassAlways_GetPointScene":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"EpicPassAlways_GetPointScene"}},"_name":"EpicPassAlways_GetPointScene","_id":"e4dc8bb6-636a-43ac-adda-fcc159fecd75","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"EpicPassAlways_FlyPoint":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"EpicPassAlways_FlyPoint"}},"_name":"EpicPassAlways_FlyPoint","_id":"cc158935-35f2-4578-b106-82e9c3ecd6d4","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"EpicPassAlways_GetPoint":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"EpicPassAlways_GetPoint"}},"_name":"EpicPassAlways_GetPoint","_id":"7128c485-b598-495b-be76-11dcc66e376a","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"EpicPassAlways_LevelUp":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"EpicPassAlways_LevelUp"},"delay":0.3},"_name":"EpicPassAlways_LevelUp","_id":"328a7199-c2df-4c6b-b02a-e397523eb0cf","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"EpicPassAlways_LevelUpPopup":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"EpicPassAlways_LevelUpPopup"}},"_name":"EpicPassAlways_LevelUpPopup","_id":"1f1fa9ce-d851-4b49-a392-0118e7450170","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"EpicPassAlways_Unlock":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"EpicPassAlways_Unlock"}},"_name":"EpicPassAlways_Unlock","_id":"69fa0c24-94e7-4faa-a91f-8f4f90233b42","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Get_EpicPass_Reward":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Get_EpicPass_Reward"}},"_name":"Get_EpicPass_Reward","_id":"5663680f-75a6-4db2-8f63-6123544e3855","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Restart_EpicPass":{"_value":{"clip":{"bundleName":"lobbysnd0","assetName":"Restart_EpicPass"}},"_name":"Restart_EpicPass","_id":"8375cbac-b1ae-4ef3-9a78-3d3d892ed805","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
+  _objectReferences: []
+--- !u!114 &114135302237973204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438108948649980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b69b183a68374d3783b87add991662e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  googleSpreadSheetId: 1yb3kzFUcbwvTeTMVg80BXMjuZuG6mA7U0yLMydsgTAo
+  tableName: Common
+--- !u!1 &1444911042974092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4331235264543072}
+  - component: {fileID: 114447328414874508}
+  m_Layer: 0
+  m_Name: Object Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4331235264543072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444911042974092}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4182312513214428}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114447328414874508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444911042974092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5750e32a55b434dc9b3ad9ea8e365078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 146180, guid: 1f8984be6de4d47c5810a5f680d025a5, type: 3}
+  poolSize: 20
+  availiableObjects: []
+--- !u!1001 &519255156026354146
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4182312513214428}
+    m_Modifications:
+    - target: {fileID: 5247416975812098529, guid: 4d0fecb38630f4a87b5e7f210330b718,
+        type: 3}
+      propertyPath: m_Name
+      value: Mixer
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277573167889914065, guid: 4d0fecb38630f4a87b5e7f210330b718,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277573167889914065, guid: 4d0fecb38630f4a87b5e7f210330b718,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277573167889914065, guid: 4d0fecb38630f4a87b5e7f210330b718,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277573167889914065, guid: 4d0fecb38630f4a87b5e7f210330b718,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277573167889914065, guid: 4d0fecb38630f4a87b5e7f210330b718,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277573167889914065, guid: 4d0fecb38630f4a87b5e7f210330b718,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277573167889914065, guid: 4d0fecb38630f4a87b5e7f210330b718,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277573167889914065, guid: 4d0fecb38630f4a87b5e7f210330b718,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277573167889914065, guid: 4d0fecb38630f4a87b5e7f210330b718,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277573167889914065, guid: 4d0fecb38630f4a87b5e7f210330b718,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277573167889914065, guid: 4d0fecb38630f4a87b5e7f210330b718,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4d0fecb38630f4a87b5e7f210330b718, type: 3}
+--- !u!4 &5623156476035707187 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5277573167889914065, guid: 4d0fecb38630f4a87b5e7f210330b718,
+    type: 3}
+  m_PrefabInstance: {fileID: 519255156026354146}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3300082446767345904 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3096502164406434066, guid: 4d0fecb38630f4a87b5e7f210330b718,
+    type: 3}
+  m_PrefabInstance: {fileID: 519255156026354146}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3301035488832253236 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3097176481264059606, guid: 4d0fecb38630f4a87b5e7f210330b718,
+    type: 3}
+  m_PrefabInstance: {fileID: 519255156026354146}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3300047016999712672 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3096467285937184322, guid: 4d0fecb38630f4a87b5e7f210330b718,
+    type: 3}
+  m_PrefabInstance: {fileID: 519255156026354146}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

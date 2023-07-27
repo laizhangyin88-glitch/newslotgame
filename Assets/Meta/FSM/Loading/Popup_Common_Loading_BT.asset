@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Popup_Common_Loading_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5054.0,"y":-5004.0},"nodes":[{"_condition":{"valueA":{"_name":"isLoad","_targetVariableID":"aea1f5d2-d589-4714-a2a9-3831180d1ede"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_position":{"x":5813.0,"y":5279.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"2"},{"policy":"FirstSuccessOrFailure","_position":{"x":5645.0,"y":5419.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"6"},{"_action":{"actions":[{"bundleList":{"_value":[],"_name":"bundles","_targetVariableID":"11c2f435-f9b8-4110-ac64-02d731c06b65"},"forceDLC":true,"progress":{"_name":"downloadProgress","_targetVariableID":"0964f7c4-9685-4419-b986-8faabdb1a85b"},"$type":"SlotMaker.Tasks.Actions.LoadAssetBundles1"},{"bundleNames":{"_name":"bundles","_targetVariableID":"11c2f435-f9b8-4110-ac64-02d731c06b65"},"$type":"BagelCode.Tasks.Actions.AssetBundle.AddUsingMetaAssetBundles"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5459.0,"y":5539.0},"_comment":"Load
+    AssetBundle\n","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"repeaterMode":"RepeatForever","repeatTimes":{"_value":1},"_position":{"x":5783.0,"y":5542.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"16"},{"_action":{"actions":[{"waitTime":{"_value":0.05},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"valueB":{"_name":"downloadProgress","_targetVariableID":"0964f7c4-9685-4419-b986-8faabdb1a85b"},"overrideAgent":{"_name":"_progressBarElement"},"$type":"SlotMaker.Tasks.Actions.SetContextFloatProperty"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5708.0,"y":5654.0},"_comment":"Update
+    Progress\n","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"18"},{"_action":{"actions":[{"bundleNameList":{"_name":"bundles","_targetVariableID":"11c2f435-f9b8-4110-ac64-02d731c06b65"},"combineApplicationType":{},"$type":"SlotMaker.Tasks.Actions.UnLoadAssetBundleList"},{"$type":"SlotMaker.Tasks.Actions.UnloadUnusedAssets"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5968.0,"y":5431.0},"_comment":"Load
+    AssetBundle\n","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"26"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Tier_Multiplier_Icon_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5111.0,"y":-5012.0},"nodes":[{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"valueA":{"_name":"isRefresh","_targetVariableID":"f36c4784-8270-4216-806f-346ed599a6e7"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},{"eventName":{"_value":"RefreshTier"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":5725.0,"y":5246.0},"$type":"SlotMaker.BehaviourTrees.AutoUpdateWaitUntil","$id":"2"},{"_action":{"actions":[{"boolVariable":{"_name":"isRefresh","_targetVariableID":"f36c4784-8270-4216-806f-346ed599a6e7"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"valueA":{"_value":"/me/tier"},"multiplierType":{"_name":"multiplierType","_targetVariableID":"9487a47e-bd41-4cde-a984-4a9d43319b1c"},"saveValue":{"_name":"tierMultiplier","_targetVariableID":"cea0eb12-ef05-44f8-be67-56b580e24024"},"$type":"BagelCode.Task.Actions.GetTierMultiplier"},{"valueA":{"_value":"/me/tier"},"saveAs":{"_name":"_tierGroup"},"$type":"BagelCode.Tasks.Actions.GetTierGroup"},{"elementName":{"_value":"Text
+    Tier"},"searchingType":"FullNameSearch","key":{"_value":"POPUP_SHOP_TIER_TEXT"},"arg1":{"_value":"/me/tier"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"elementName":{"_value":"Text
+    Multiplier"},"key":{"_value":"POPUP_SHOP_TIER_MULTIPLIER"},"arg1":{"_value":"tierMultiplier"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"elementName":{"_value":"Image
+    Tier"},"saveAs":{"_name":"_tierElement"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"valueA":{"_value":"tierGroup"},"valueB":{"_name":"_tierGroup"},"overrideAgent":{"_name":"_tierElement"},"$type":"SlotMaker.Tasks.Actions.SetInt32"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5559.0,"y":5368.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"10"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

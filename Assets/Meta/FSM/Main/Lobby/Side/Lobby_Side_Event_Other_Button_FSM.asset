@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Lobby_Side_Event_Other_Button_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5085.0,"y":-5033.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isInGame":{"_targetVariableID":"572016af-b96b-48be-becd-35dc523581d5"},"isContents":{},"allowInactive":{},"saveAsBundleName":{"_targetVariableID":"0329a5e5-0191-4675-b2da-ab4e9cc89def"},"saveAsSharedBundleName":{},"saveAsIconAssetName":{"_targetVariableID":"1f7dc7ab-485f-4e57-a852-1d6fc3866f2b"},"saveAsEventType":{"_value":"UNKNOWN","_targetVariableID":"dd87c5b6-b7ad-415d-9c87-6c0cdd7ec961"},"saveAsEventID":{"_name":"_otherMetaEventID"},"saveAsEndTimestamp":{},"saveAsEnableShare":{},"saveAsEventName":{},"saveBundles":{},"isOtherMetaGame":{"_value":true},"$type":"BagelCode.Tasks.Actions.GetMetaGamePassiveEventBB"}]},"_position":{"x":5782.0,"y":5227.0},"_name":"Check
+    Event","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"assetName":{"_value":"Other
+    Event Button"},"isVipDeal":{},"isMetaEvent":{},"isOtherEvent":{"_value":true},"emptyObj":{"_name":"_otherEmptyButtonObj"},"saveAsButtonObj":{"_name":"_otherEventButtonObj"},"$type":"BagelCode.Tasks.Actions.MakeLobbySideEventButton"}]},"_position":{"x":5168.0,"y":5417.0},"_name":"Make
+    Event Button","$type":"NodeCanvas.StateMachines.ActionState","$id":"19"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"target":{"_name":"_otherEventButtonObj"},"$type":"SlotMaker.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":5503.0,"y":5555.0},"_name":"Destroy","$type":"NodeCanvas.StateMachines.ActionState","$id":"29"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":6082.0,"y":5393.0},"_name":"Wait","$type":"NodeCanvas.StateMachines.ActionState","$id":"34"}],"connections":[{"_condition":{"valueA":{"_value":"_otherMetaEventID"},"valueB":{},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"_otherMetaEventID"},"valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"34"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"StartPassive"},"value":{"_value":"GEM_JACKPOT"},"$type":"BagelCode.Task.Condition.CheckPassiveEventValue`1[[BagelCode.ClientModels.EventInfoType,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"eventName":{"_value":"OnRefreshMetaGame"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent"},{"eventName":{"_value":"RefreshPassive"},"$type":"BagelCode.Task.Condition.CheckPassiveEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"StartPassive"},"value":{"_value":"GEM_JACKPOT"},"$type":"BagelCode.Task.Condition.CheckPassiveEventValue`1[[BagelCode.ClientModels.EventInfoType,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"_sourceNode":{"$ref":"34"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

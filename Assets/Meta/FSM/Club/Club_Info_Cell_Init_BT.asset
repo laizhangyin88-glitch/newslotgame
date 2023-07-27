@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Club_Info_Cell_Init_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5228.0,"y":-5111.0},"nodes":[{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"clubInfo"},"clubID":{"_name":"_clubID"},"maxMemberCount":{"_name":"_maxMemberCount"},"membersText":{"_name":"_membersText"},"friendsCountText":{"_name":"_friendsText"},"isPrivateClub":{"_name":"_isPrivateClub"},"isRequiredLevel":{"_name":"_isRequiredLevel"},"requiredLevel":{"_name":"_requiredLevel"},"$type":"BagelCode.Tasks.Actions.GetClubCellInfoBB"},{"symbolNameValue":{"_value":"clubInfo/symbol"},"parent":{"_name":"symbolParent","_targetVariableID":"d01cbf7a-f55c-4a41-b058-40f27f36f32e"},"parentName":{},"saveAs":{"_name":"_symbolObject"},"$type":"BagelCode.Tasks.Actions.MakeClubIcon"},{"elementName":{"_value":"Text
+    Club Name"},"key":{"_value":"CLUB_CELL_NAME"},"arg1":{"_value":"clubInfo/name"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"elementName":{"_value":"Text
+    Club Description"},"key":{"_value":"CLUB_CELL_DESCRIPTION"},"arg1":{"_value":"clubInfo/motd"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"elementName":{"_value":"Text
+    Club Lp"},"key":{"_value":"SIMPLE_LP"},"arg1":{"_value":"clubInfo/leaguePoint"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"elementName":{"_value":"Text
+    Friends"},"searchingType":"FullNameSearch","arg0":{"_value":"_friendsText"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText0"},{"elementName":{"_value":"Text
+    Member"},"arg0":{"_value":"_membersText"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText0"},{"clubTierValue":{"_value":"clubInfo/leagueTier"},"parent":{"_name":"root","_targetVariableID":"a5cbfb5e-46de-4c36-b7a2-de4e0dc7f29e"},"parentName":{"_value":"Anchor/Contents/Club
+    Info/Club Tier Icon Area"},"saveAs":{"_name":"_clubTierIconObject"},"$type":"BagelCode.Tasks.Actions.MakeClubTierIcon"},{"elementName":{"_value":"Requirement/Required
+    Level/Text Required Level"},"searchingType":"FullNameSearch","key":{"_value":"CLUB_CELL_LEVEL"},"arg1":{"_value":"_requiredLevel"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"elementName":{"_value":"Requirement/Required
+    Level"},"searchingType":"FullNameSearch","setTo":{"_name":"_isRequiredLevel"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextActive1"},{"elementName":{"_value":"Requirement/Private"},"searchingType":"FullNameSearch","setTo":{"_name":"_isPrivateClub"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextActive1"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5661.0,"y":5434.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"2"}],"connections":[],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Inbox_Item_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5100.0,"y":-5035.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":6002.0,"y":5450.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_nestedBT":{"_value":1},"executionMode":"Once","successEvent":"","failureEvent":"OnCancel","_position":{"x":5627.0,"y":5585.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"5"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":5699.0,"y":5206.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"7"}],"connections":[{"_condition":{"conditions":[{"eventName":{"_value":"OnAccept"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"valueA":{"_value":"inboxState"},"valueB":{"_value":"READY"},"overrideAgent":{"_name":"caller","_targetVariableID":"eece9a77-175a-423d-ba99-92e9dcc81a5e"},"$type":"SlotMaker.Tasks.Condition.CheckString"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"RefreshPassive"},"value":{"_name":"_inboxEventID"},"$type":"BagelCode.Task.Condition.CheckPassiveEventValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"StartPassive"},"value":{"_value":"VOUCHER_SHOP_EVENT_MULTIPLY"},"$type":"BagelCode.Task.Condition.CheckPassiveEventValue`1[[BagelCode.ClientModels.EventInfoType,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnCancel"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"eventName":{"_value":"OnAcceptInboxReward"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: d909d2198d78447a48bc65dc6fb469a3, type: 2}
+  - {fileID: 11400000, guid: 59c6ff8e5fdbc4232a66bca30c9b79da, type: 2}
+  _deserializationFailed: 0

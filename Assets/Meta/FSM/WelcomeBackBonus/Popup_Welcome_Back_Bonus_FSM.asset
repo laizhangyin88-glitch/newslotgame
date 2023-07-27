@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_Welcome_Back_Bonus_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4449.0,"y":-4737.0},"zoomFactor":0.9647368,"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{"_value":"Icon
+    Tier Multiplier"},"saveAs":{"_name":"_tierIconElement"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"valueA":{"_value":"isRefresh"},"overrideAgent":{"_name":"_tierIconElement"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"},{"valueA":{"_value":"/welcomeBackRewardInfo"},"saveAs":{"_name":"_welcomeBackBonus"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"lastLoginTimestamp":{"_value":"/welcomeBackRewardInfo/prevLoginTimestamp"},"saveAs":{"_name":"_dayCount"},"_isDisabled":true,"$type":"BagelCode.Task.Action.GetLastLoginDayCount"},{"valueA":{"_value":"/me/name"},"saveAs":{"_name":"_userName"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"/me/tier"},"multiplierType":{},"saveValue":{"_name":"_coinMultiplier"},"_isDisabled":true,"$type":"BagelCode.Task.Actions.GetTierMultiplier"},{"elementName":{"_value":"Title
+    Area/Text"},"searchingType":"FullNameSearch","key":{"_value":"WELCOME_BACK_BONUS_TITLE"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText"},{"elementName":{"_value":"Text
+    User Name"},"key":{"_value":"WELCOME_BACK_USER_NAME_TEXT"},"arg1":{"_value":"/me/name"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"elementName":{"_value":"Text
+    Coin"},"key":{"_value":"WELCOME_BACK_COIN_TEXT"},"arg1":{"_value":"/welcomeBackRewardInfo/totalEarnCredit"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"elementName":{"_value":"Day/Text
+    Day"},"searchingType":"FullNameSearch","arg0":{"_value":"_dayCount"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText0"},{"eventName":{"_value":"OnCollect"},"$type":"BagelCode.Tasks.Actions.SubscribeBackButtonEvent"},{"elementName":{"_value":"Button
+    Collect"},"key":{"_value":"BUTTON_COLLECT"},"eventName":{"_value":"OnCollect"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextClickable"},{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"$type":"BagelCode.Tasks.Actions.BI.BI_welcome_back_bonus"},{"elementName":{"_value":"Text
+    Message"},"key":{"_value":"WELCOME_BACK_BONUS_TEXT"},"arg1":{"_value":"_userName"},"arg2":{"_value":"/welcomeBackRewardInfo/earnCredit"},"arg3":{"_value":"_coinMultiplier"},"arg4":{"_value":"/me/tier"},"arg5":{"_value":"/welcomeBackRewardInfo/totalEarnCredit"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText5"}]},"_position":{"x":5299.0,"y":5130.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Reward"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":5975.0,"y":5355.0},"_name":"Exit","$type":"NodeCanvas.StateMachines.ActionState","$id":"60"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"},{"$type":"SlotMaker.Task.Actions.ClosePopupAgent"},{"eventName":{"_value":"FinishedWBB"},"delay":{},"sendGlobal":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":6235.0,"y":5466.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"66"}],"connections":[{"_condition":{"eventName":{"_value":"OnCollect"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"60"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"EndCollect"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"60"},"_targetNode":{"$ref":"66"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

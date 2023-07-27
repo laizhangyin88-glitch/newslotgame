@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Purchase_DailyBoost_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5140.0,"y":-5333.0},"nodes":[{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":5572.0,"y":5128.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"2"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":5848.0,"y":5315.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"4"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5584.0,"y":5400.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"6"},{"_nestedBT":{"_value":3},"executionMode":"Once","successEvent":"OnTierUp","failureEvent":"OnSameTier","_position":{"x":5702.0,"y":5514.0},"_name":"Check
+    Tier","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"9"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"$type":"SlotMaker.Task.Actions.ClosePopupAgent"},{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"},{"$type":"BagelCode.Tasks.Actions.CheckWelcomeVipLounge"}]},"_position":{"x":5908.0,"y":5800.0},"_name":"Close","$type":"NodeCanvas.StateMachines.ActionState","$id":"11"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"UI_Coin_Purchase"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"eventName":{"_value":"UpdateNaviCredit"},"eventValue":{},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendCreditEvent`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":6174.0,"y":5601.0},"_name":"Apply","$type":"NodeCanvas.StateMachines.ActionState","$id":"20"},{"_nestedBT":{"_value":4},"executionMode":"Once","_position":{"x":6045.0,"y":5697.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"29"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnClosePurchasePopup"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnTierUp"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnSameTier"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: afcd0fadef47a4308a30e5ebb7de7144, type: 2}
+  - {fileID: 11400000, guid: e79d91d94a9df4a7484697d2e05233ca, type: 2}
+  - {fileID: 11400000, guid: 4ac2cac578d25490a925e8464f4efa6f, type: 2}
+  - {fileID: 11400000, guid: 414fc44ec43c446f398140bf79468942, type: 2}
+  _deserializationFailed: 0

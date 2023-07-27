@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: InGame_Challenge_Progress_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5035.0,"y":-5013.0},"nodes":[{"_position":{"x":5793.0,"y":5258.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"challengeTypeSpriteElement":{"_name":"_challengeTypeSpriteElement"},"challengeTypeCoverSpriteElement":{"_name":"_challengeTypeCoverSpriteElement"},"saveProgressText":{"_name":"_progressText"},"saveProgress":{},"saveChallengeType":{"_name":"_challengeType"},"saveBadgeCount":{"_name":"_badgeCount"},"isNewChallenge":{"_name":"_isNewChallenge"},"newChallengeText":{"_value":"_newChallengeText","_name":"_newChallengeText"},"$type":"BagelCode.Tasks.Actions.IngameChallengeProgressBB"},{"element":{"_name":"_progressTextElement"},"arg0":{"_value":"_progressText"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"parameter":{"_value":"value"},"parameterHashID":{},"setTo":{"_name":"_badgeCount"},"overrideAgent":{"_name":"_badgeAnimator"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"},{"element":{"_name":"_badgeText"},"arg0":{"_value":"_badgeCount"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5727.0,"y":5332.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_name":"_isNewChallenge"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_position":{"x":6035.0,"y":5335.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"26"},{"_action":{"actions":[{"parameter":{"_value":"value"},"parameterHashID":{},"setTo":{"_value":1},"overrideAgent":{"_name":"_badgeAnimator"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"},{"element":{"_name":"_badgeText"},"arg0":{"_value":"_newChallengeText"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":6048.0,"y":5448.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"30"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

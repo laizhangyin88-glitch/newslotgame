@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Time_Bonus_Main_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-3204.0,"y":-4062.0},"zoomFactor":0.7500082,"nodes":[{"_position":{"x":5846.0,"y":5363.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_condition":{"_invert":true,"$type":"NodeCanvas.Tasks.Conditions.CheckLegacyLobbyBottom"},"_position":{"x":5162.0,"y":5488.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"3"},{"_action":{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Event
+    Tag"},"parentName":{"_value":"Anchor/Event Tag Area"},"combineApplicationType":{"_value":true},"$type":"BagelCode.Tasks.Actions.InitBundlePrefab"},"_position":{"x":5064.0,"y":5614.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"5"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Event
+    Tag"},"parentName":{"_value":"Anchor/Event Tag Area"},"combineApplicationType":{"_value":true},"_isDisabled":true,"$type":"BagelCode.Tasks.Actions.InitBundlePrefab"},{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"$type":"BagelCode.Tasks.Actions.ClientAPI.SetTimeBonusParticleTarget"},{"elementName":{"_value":"Anchor"},"saveAs":{"_name":"_anchor"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Anchor/Remaining
+    Timer"},"searchingType":"FullNameSearch","saveAs":{"_name":"_timer"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Anchor/Text
+    Coin"},"searchingType":"FullNameSearch","saveAs":{"_name":"_textCoin"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"callee":{"_name":"_timer"},"$type":"SlotMaker.Tasks.Actions.SetCaller"},{"eventName":{"_value":"OnTimeBonusCollect"},"ignoreReset":{},"sendGlobal":true,"$type":"SlotMaker.Tasks.Actions.SetContextClickable"},{"parameter":{"_value":"IsCollect"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"_anchor"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"valueA":{"_value":"/values/timeBonus/COOLTIME"},"saveAs":{"_name":"_cooltime"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"id":{"_name":"_eventId"},"mutliplier":{"_name":"_eventMultiplier"},"endTimestamp":{},"multiplierNumerator":{},"$type":"BagelCode.Tasks.Actions.GetTimeBonusPassiveEventBB"},{"valueA":{"_value":"/videoAdsPlacementNames/timebonus"},"saveAs":{"_name":"_adPlacement"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"boolVariable":{"_name":"_isLuckySpin"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5498.0,"y":5489.0},"_comment":"Init
+    Context\nGet misc values\ninit animation","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"11"},{"_subTree":{"_value":1},"_position":{"x":5922.0,"y":5491.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"54"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"54"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 0b93cea340670427282f713d455d060d, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Error_Reset_Popup_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-4990.0,"y":-4915.0},"nodes":[{"_position":{"x":5733.0,"y":5230.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"bundleName":{"_value":"system"},"assetName":{"_value":"Popup
+    Common Ok Scene"},"combineApplicationType":{"_value":true},"parent":{},"parentName":{"_value":"Popup
+    Manager/Overlay"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"errorPopupObj","_targetVariableID":"25b1b93e-57e5-489f-bfbd-9bbb8041a3de"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync1"},{"popup":{"_name":"errorPopupObj","_targetVariableID":"25b1b93e-57e5-489f-bfbd-9bbb8041a3de"},"yesButtonEvent":{"_value":"OnClose"},"noButtonEvent":{"_value":""},"xButtonEvent":{"_value":""},"BackButtonEvent":{"_value":"OnClose"},"title":{"_name":"popupText","_targetVariableID":"25749624-3db1-40d3-a6c7-9ca4fd01d584"},"text":{},"yesButtonText":{"_name":"popupButtonText1","_targetVariableID":"8be0c2cc-7694-4907-ace2-6a2a877b0ddd"},"noButtonText":{"_name":"popupButtonText2","_targetVariableID":"97caf5c5-40e3-4817-aa3a-1676c15f2547"},"autoCloseYes":{},"autoCloseNo":{},"autoCloseX":{},"useXButton":{},"useBackButton":{"_value":true},"$type":"SlotMaker.Task.Actions.OpenCommonPopup"},{"setTo":"Activate","overrideAgent":{"_name":"errorPopupObj","_targetVariableID":"25b1b93e-57e5-489f-bfbd-9bbb8041a3de"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5364.0,"y":5334.0},"$type":"NodeCanvas.BehaviourTrees.AutoUpdateActionNode","$id":"3"},{"_condition":{"eventName":{"_value":"OnClose"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_position":{"x":5820.0,"y":5333.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"31"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"method":{"_baseInfo":"BagelCode.ErrorPopupHandler|CloseErrorPopup|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"_isDisabled":true,"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"eventName":{"_value":"SystemReset"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendSystemEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5771.0,"y":5409.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"34"},{"_action":{"actions":[{"bundleName":{"_value":"system"},"assetName":{"_value":"Popup
+    Common Ok Scene"},"combineApplicationType":{"_value":true},"parent":{},"parentName":{"_value":"Popup
+    Manager/Overlay"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"errorPopupObj","_targetVariableID":"25b1b93e-57e5-489f-bfbd-9bbb8041a3de"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync1"},{"setTo":"Activate","overrideAgent":{"_name":"errorPopupObj","_targetVariableID":"25b1b93e-57e5-489f-bfbd-9bbb8041a3de"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"popup":{"_name":"errorPopupObj","_targetVariableID":"25b1b93e-57e5-489f-bfbd-9bbb8041a3de"},"yesButtonEvent":{"_value":"OnClose"},"noButtonEvent":{"_value":""},"xButtonEvent":{"_value":""},"BackButtonEvent":{"_value":"OnClose"},"title":{"_name":"popupText","_targetVariableID":"25749624-3db1-40d3-a6c7-9ca4fd01d584"},"text":{},"yesButtonText":{"_name":"popupButtonText1","_targetVariableID":"8be0c2cc-7694-4907-ace2-6a2a877b0ddd"},"noButtonText":{"_name":"popupButtonText2","_targetVariableID":"97caf5c5-40e3-4817-aa3a-1676c15f2547"},"autoCloseYes":{},"autoCloseNo":{},"autoCloseX":{},"useXButton":{},"useBackButton":{"_value":true},"$type":"SlotMaker.Task.Actions.OpenCommonPopup"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5338.0,"y":5174.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"34"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

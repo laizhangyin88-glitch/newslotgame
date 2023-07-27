@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Setting_Open_Rate_Popup_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5376.0,"y":-4850.0},"nodes":[{"_condition":{"$type":"NodeCanvas.Tasks.Conditions.DeserveRateUs"},"_position":{"x":5754.0,"y":5013.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"2"},{"_action":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Popup
+    Rate Scene"},"combineApplicationType":{"_value":true},"parent":{},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_rateusPopup"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync1"},{"popup":{"_name":"_rateusPopup"},"$type":"SlotMaker.Task.Actions.OpenPopup"},{"setTo":"Activate","overrideAgent":{"_name":"_rateusPopup"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"callee":{"_name":"_rateusPopup"},"$type":"SlotMaker.Tasks.Actions.SetCaller"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5498.0,"y":5156.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"4"},{"_condition":{"platform":"WebGL","$type":"SlotMaker.Tasks.Condition.CheckPlatform"},"_position":{"x":5922.0,"y":5176.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"21"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_name":"url"},"valueB":{"_value":""},"$type":"NodeCanvas.Tasks.Actions.SetVariable`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"/appReviewUrl"},"saveAs":{"_name":"url"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"url":{"_name":"url"},"$type":"BagelCode.Tasks.Actions.OpenURL"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5790.0,"y":5308.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"23"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_name":"url"},"valueB":{"_value":""},"$type":"NodeCanvas.Tasks.Actions.SetVariable`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"/appDownloadUrl"},"saveAs":{"_name":"url"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"url":{"_name":"url"},"$type":"BagelCode.Tasks.Actions.OpenURL"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":6023.0,"y":5304.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"34"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"34"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

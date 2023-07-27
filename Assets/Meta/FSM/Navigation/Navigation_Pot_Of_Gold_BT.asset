@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Navigation_Pot_Of_Gold_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5055.0,"y":-4749.0},"zoomFactor":0.9396254,"nodes":[{"_position":{"x":6203.0,"y":5329.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"productBB":{"_name":"product","_targetVariableID":"f3c9f990-c6b8-4cae-a63f-5e01f34f449c"},"eventID":{"_name":"_eventSaleID"},"$type":"BagelCode.Task.Actions.GetPotOfGoldProductBB"},{"productBB":{"_name":"product","_targetVariableID":"f3c9f990-c6b8-4cae-a63f-5e01f34f449c"},"saveAsRealPogCoins":{"_name":"_piggyCreditReal"},"saveAsTotalPogCoins":{"_name":"_piggyCredit"},"saveAsPogLevel":{"_name":"_pogLevel"},"saveAsProportion":{"_name":"_proportion"},"saveAsEventMultiplier":{"_name":"_multiplier"},"saveAsIsMaxLevel":{"_name":"_isMaxLevel"},"saveAsIsChangedLevel":{"_name":"_isChangedLevel"},"$type":"BagelCode.Tasks.Actions.UpdateNaviPotOfGold"},{"pogProductBB":{"_name":"product","_targetVariableID":"f3c9f990-c6b8-4cae-a63f-5e01f34f449c"},"tagChangeDelay":{"_value":3.0},"tagChangeSpd":{"_value":0.5},"saveAsEventID":{"_name":"_pogEventID"},"_isDisabled":true,"$type":"BagelCode.Tasks.Actions.UpdateNaviPotOfGoldEvents"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5981.0,"y":5421.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_name":"_isChangedLevel"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_position":{"x":6258.0,"y":5423.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"23"},{"_position":{"x":6305.0,"y":5505.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"27"},{"_action":{"id":{"_value":"UI_Coin_Pouring"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},"_position":{"x":6186.0,"y":5574.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"28"},{"_condition":{"valueA":{"_name":"_isMaxLevel"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_position":{"x":6369.0,"y":5571.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"31"},{"_action":{"type":{"_value":"full"},"coinValue":{"_value":"_piggyCreditReal"},"$type":"BagelCode.Tasks.Actions.BI.BI_client_pot_of_gold"},"_position":{"x":6385.0,"y":5654.0},"_comment":"Full
+    BI Event","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"35"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"27"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"27"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"27"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

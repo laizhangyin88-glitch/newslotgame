@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Enter_Streaming_Common_Scene_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-63.0,"y":-83.0},"nodes":[{"_actionList":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Streaming
+    Asset Loading Common Scene"},"combineApplicationType":{"_value":true},"parent":{},"parentName":{"_value":"Popup
+    Manager/Area"},"setActive":{},"saveAs":{"_name":"_tempScene"},"$type":"SlotMaker.Tasks.Actions.OpenPopupSceneAsync"},{"valueA":{"_value":"targetBundleName"},"valueB":{"_name":"targetBundleName"},"overrideAgent":{"_name":"_tempScene"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"valueA":{"_value":"targetSceneName"},"valueB":{"_name":"targetSceneName"},"overrideAgent":{"_name":"_tempScene"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"valueA":{"_value":"isLoadMetaGameAssets"},"valueB":{"_name":"isLoadMetaGameAssets"},"overrideAgent":{"_name":"_tempScene"},"$type":"SlotMaker.Tasks.Actions.SetBoolean1"},{"setTo":"Activate","overrideAgent":{"_name":"_tempScene"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":107.0,"y":235.0},"_name":"Load
+    Streaming Common Scene","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":842.0,"y":399.0},"_name":"Wait
+    Logic Complete","$type":"NodeCanvas.StateMachines.ActionState","$id":"27"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":1106.0,"y":494.0},"_name":"Leave","$type":"NodeCanvas.StateMachines.ActionState","$id":"34"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":692.0,"y":532.0},"_name":"Failed","$type":"NodeCanvas.StateMachines.ActionState","$id":"37"}],"connections":[{"_condition":{"eventName":{"_value":"OnStartLoadScene"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"27"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnCompleteLogicScene"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent"},"_sourceNode":{"$ref":"27"},"_targetNode":{"$ref":"34"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnFailedLoadScene"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent"},"_sourceNode":{"$ref":"27"},"_targetNode":{"$ref":"37"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

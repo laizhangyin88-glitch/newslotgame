@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Change_Orientation_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-194.0,"y":-81.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":486.0,"y":295.0},"_name":"Fade
+    In","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"orientation":{"_name":"targetOrientation","_targetVariableID":"5a8f8cb2-0139-4be8-88a5-02fc2f516493"},"autorotateToPortrait":{"_name":"autorotateToPortrait","_targetVariableID":"df66f48c-2df0-41ee-9ef6-cdff61fd7960"},"autorotateToPortraitUpsideDown":{"_name":"autorotateToPortraitUpsideDown","_targetVariableID":"b93ddcad-1342-4a57-8258-2d2e7fb6dbff"},"autorotateToLandscapeLeft":{"_name":"autorotateToLandscapeLeft","_targetVariableID":"7a38a3f1-c7ae-42a1-9752-bb8d1a89b984"},"autorotateToLandscapeRight":{"_name":"autorotateToLandscapeRight","_targetVariableID":"a25090e3-7542-455e-810e-509cff91c5ea"},"$type":"BagelCode.Tasks.Actions.SetScreenOrientation"},{"waitTime":{"_value":0.2},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"OnFinishedChangeOrientation"},"$type":"BagelCode.Task.Condition.SimpleCalleeCallbackEvent"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":627.0,"y":421.0},"_name":"Change
+    Orientation","$type":"NodeCanvas.StateMachines.ActionState","$id":"9"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":1013.0,"y":561.0},"_name":"Wait
+    FadeOut","$type":"NodeCanvas.StateMachines.ActionState","$id":"22"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":1160.0,"y":638.0},"_name":"Fade
+    Out","$type":"NodeCanvas.StateMachines.ActionState","$id":"25"}],"connections":[{"_condition":{"eventName":{"_value":"OnSuccessFadeIn"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"caller","_targetVariableID":"bda192be-fbd7-45eb-9431-e3d5ee4eba3a"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckVariable`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"25"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"isAutoFadeOut","_targetVariableID":"a982d98f-6a0a-4ad0-a974-a375e7a8b986"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"isAutoFadeOut","_targetVariableID":"a982d98f-6a0a-4ad0-a974-a375e7a8b986"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"25"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnGameComplete"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"valueA":{"_name":"caller","_targetVariableID":"bda192be-fbd7-45eb-9431-e3d5ee4eba3a"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckVariable`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"25"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

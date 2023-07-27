@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Lobby_Club_Removed_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5080.0,"y":-4892.0},"nodes":[{"_position":{"x":5770.0,"y":5198.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_condition":{"valueA":{"_value":"/kickedFromClub"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_position":{"x":5304.0,"y":5356.0},"$type":"NodeCanvas.BehaviourTrees.ConditionNode","$id":"3"},{"_action":{"valueA":{"_value":"/kickedFromClub"},"setTo":"False","$type":"SlotMaker.Tasks.Actions.SetBoolean"},"_position":{"x":5517.0,"y":5356.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"_condition":{"valueA":{"_value":"/clubId"},"checkType":"LessOrEqualTo","valueB":{},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckInt64"},"_position":{"x":5734.0,"y":5358.0},"$type":"NodeCanvas.BehaviourTrees.ConditionNode","$id":"10"},{"_action":{"actions":[{"valueA":{"_value":"/me/clubId"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Popup
+    Common Ok Scene"},"combineApplicationType":{"_value":true},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_clubKickPopup"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync"},{"key":{"_value":"POPUP_CLUB_REMOVED_ALERT"},"argsList":{"_value":[]},"saveAs":{"_name":"_kickMessage"},"$type":"SlotMaker.Tasks.Actions.GetStringFromStringTable"},{"key":{"_value":"BUTTON_OK"},"argsList":{"_value":[]},"saveAs":{"_name":"_buttonYesText"},"$type":"SlotMaker.Tasks.Actions.GetStringFromStringTable"},{"popup":{"_name":"_clubKickPopup"},"yesButtonEvent":{},"noButtonEvent":{},"xButtonEvent":{},"BackButtonEvent":{},"title":{"_name":"_kickMessage"},"text":{},"yesButtonText":{"_name":"_buttonYesText"},"noButtonText":{},"autoCloseYes":{"_value":true},"autoCloseNo":{},"autoCloseX":{},"useXButton":{},"useBackButton":{"_value":true},"$type":"SlotMaker.Task.Actions.OpenCommonPopup"},{"setTo":"Activate","overrideAgent":{"_name":"_clubKickPopup"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5619.0,"y":5458.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"14"},{"_condition":{"valueA":{"_name":"_clubKickPopup"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckUnityObject"},"_position":{"x":6173.0,"y":5377.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"54"},{"_action":{"status":"Success","$type":"NodeCanvas.Tasks.Actions.RaiseStatus"},"_position":{"x":6208.0,"y":5453.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"58"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"54"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"54"},"_targetNode":{"$ref":"58"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

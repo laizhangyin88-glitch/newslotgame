@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: InGame_Meta_Game_Event_Button_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":125.0,"y":-287.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"valueA":{"_value":"/inGame"},"saveAs":{"_name":"isInGame","_targetVariableID":"572016af-b96b-48be-becd-35dc523581d5"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"elementName":{},"searchingType":"SelfContext","saveAs":{"_name":"_self"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"target":{"_name":"eventButtonObject","_targetVariableID":"e23e8514-5004-4046-b2a6-4d62ec54a60c"},"$type":"SlotMaker.Tasks.Actions.DestroyGameObject"},{"valueA":{"_value":"/metaEventReady"},"setTo":"False","$type":"SlotMaker.Tasks.Actions.SetBoolean"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":486.0,"y":463.0},"_name":"Init","_comment":"","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"/metaEventReady"},"setTo":"False","$type":"SlotMaker.Tasks.Actions.SetBoolean"},{"isInGame":{"_name":"isInGame","_targetVariableID":"572016af-b96b-48be-becd-35dc523581d5"},"isContents":{},"type":{"_value":"UNKNOWN","_name":"eventType","_targetVariableID":"dd87c5b6-b7ad-415d-9c87-6c0cdd7ec961"},"saveAsBundleName":{"_name":"bundleName","_targetVariableID":"0329a5e5-0191-4675-b2da-ab4e9cc89def"},"saveAsSharedBundleName":{"_name":"sharedBundleName","_targetVariableID":"ef90b024-a9de-46e8-9b35-e70dcf9c76d3"},"saveAsIconAssetName":{"_name":"iconAssetName","_targetVariableID":"1f7dc7ab-485f-4e57-a852-1d6fc3866f2b"},"saveAsEventID":{"_name":"_metaEventID"},"saveAsEndTimestamp":{"_name":"_metaEventEndTimestamp"},"saveAsEnableShare":{},"saveAsEventName":{},"saveBundles":{"_name":"bundles","_targetVariableID":"807496ec-38c0-4aa1-bd8c-0d3b65cbc94b"},"isOtherMetaGame":{"_name":"isOtherMetaGame","_targetVariableID":"1d4ef979-4e8f-4051-839e-4046660b26a2"},"$type":"BagelCode.Tasks.Actions.GetTargetMetaGamePassiveEventBB"},{"target":{"_name":"eventButtonObject","_targetVariableID":"e23e8514-5004-4046-b2a6-4d62ec54a60c"},"$type":"SlotMaker.Tasks.Actions.DestroyGameObject"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":734.0,"y":622.0},"_name":"Check
+    Meta Events","$type":"NodeCanvas.StateMachines.ActionState","$id":"17"},{"_nestedFSM":{"_value":1},"_position":{"x":360.0,"y":778.0},"$type":"NodeCanvas.StateMachines.AutoUpdateNestedFSMState","$id":"37"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"/metaEventReady"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"}]},"_position":{"x":142.0,"y":956.0},"_name":"Wait
+    End Events","$type":"NodeCanvas.StateMachines.ActionState","$id":"39"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":1182.0,"y":812.0},"_name":"Disable
+    Meta Game","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"44"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"_metaEventID"},"valueB":{},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"37"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"_metaEventID"},"valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"44"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"37"},"_targetNode":{"$ref":"39"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnRefresh"},"value":{"_name":"_metaEventID"},"$type":"NodeCanvas.Tasks.Conditions.CheckEventValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"37"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnRefresh"},"value":{"_name":"_metaEventID"},"$type":"NodeCanvas.Tasks.Conditions.CheckEventValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"39"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnUnlocked"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"44"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: b8d69d9a869678744b2edc221858b4f2, type: 2}
+  _deserializationFailed: 0

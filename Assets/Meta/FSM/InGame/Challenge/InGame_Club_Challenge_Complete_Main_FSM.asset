@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: InGame_Club_Challenge_Complete_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4857.816,"y":-4960.425},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{"_value":"Text
+    Title"},"saveAs":{"_name":"_titleTextElement"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"completePollData":{"_name":"_completeInfo"},"rewardText":{"_name":"_rewardText"},"$type":"BagelCode.Tasks.Actions.GetClubChallengeCompleteBB"},{"elementName":{"_value":"Text
+    Reward Amount"},"saveAs":{"_name":"_rewardTextElement"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"element":{"_name":"_rewardTextElement"},"arg0":{"_value":"_rewardText"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"parameter":{"_value":"IsActive"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5328.0,"y":5188.0},"_name":"Init","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"2"},{"_actionList":{"actions":[{"waitTime":{"_value":4.0},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":5913.0,"y":5441.0},"_name":"Wait
+    For Seconds","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"23"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":5616.0,"y":5524.0},"$type":"NodeCanvas.StateMachines.AutoUpdateNestedBTState","$id":"28"},{"_actionList":{"actions":[{"parameter":{"_value":"IsActive"},"parameterHashID":{},"setTo":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":5437.0,"y":5635.0},"_name":"Dstroy","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"30"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"28"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 414fc44ec43c446f398140bf79468942, type: 2}
+  _deserializationFailed: 0

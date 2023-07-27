@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: VIP_Deal_Select_Scene_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4749.0,"y":-4680.0},"nodes":[{"_actionList":{"actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"eventName":{"_value":"InActiveMetaUI"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendMetaUIEvent"}]},"_position":{"x":5548.0,"y":4812.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"waitTime":{"_value":0.2},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"elementName":{"_value":"Wheel"},"saveAs":{"_name":"wheelContextElement","_targetVariableID":"eabc2025-32d9-4f3d-9573-2cf73eecda9c"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Wheel/Highlight"},"searchingType":"FullNameSearch","saveAs":{"_name":"highlightContext","_targetVariableID":"b304532e-370d-4a2b-8f2a-45bde18cd10b"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"saveAs":{"_name":"wheelRigidbody","_targetVariableID":"88256be4-9e56-4f1a-8e1c-b7f49cbe8cca"},"overrideAgent":{"_name":"wheelContextElement","_targetVariableID":"eabc2025-32d9-4f3d-9573-2cf73eecda9c"},"$type":"NodeCanvas.Tasks.Actions.GetComponent`1[[UnityEngine.Rigidbody,
+    UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"elementName":{"_value":"VIP
+    Deal Icon"},"saveAs":{"_name":"_titleElement"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"parameter":{"_value":"IsPickGame"},"parameterHashID":{},"setTo":{"_value":true},"overrideAgent":{"_name":"_titleElement"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"parameter":{"_value":"Default"},"parameterHashID":{},"setTo":{"_value":true},"overrideAgent":{"_name":"_titleElement"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5046.0,"y":4938.0},"_name":"Appear","$type":"NodeCanvas.StateMachines.ActionState","$id":"14"},{"_nestedFSM":{"_value":1},"_position":{"x":5473.0,"y":5164.0},"$type":"NodeCanvas.StateMachines.NestedFSMState","$id":"45"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"}]},"_position":{"x":5089.0,"y":5292.0},"_name":"Close","$type":"NodeCanvas.StateMachines.ActionState","$id":"47"},{"_position":{"x":4977.0,"y":5173.0},"$type":"NodeCanvas.StateMachines.AnyState","$id":"54"}],"connections":[{"_condition":{"eventName":{"_value":"OnAppearEffect"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"45"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnLeavePrevScene"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"45"},"_targetNode":{"$ref":"47"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SystemReset"},"$type":"BagelCode.Task.Condition.CheckSystemEvent"},"_sourceNode":{"$ref":"54"},"_targetNode":{"$ref":"47"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: c4da1ebc40f2644d9be29ea7fba813e8, type: 2}
+  _deserializationFailed: 0

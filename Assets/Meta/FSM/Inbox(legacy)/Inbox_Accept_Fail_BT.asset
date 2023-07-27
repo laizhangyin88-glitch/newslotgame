@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Inbox_Accept_Fail_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5189.0,"y":-4940.0},"nodes":[{"_position":{"x":5829.0,"y":5242.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"eventName":{"_value":"OnResponseInboxFail"},"eventValue":{"_name":"_currentInboxID"},"delay":{},"sendGlobal":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"_isDisabled":true,"overrideAgent":{"_name":"_loadingObj"},"$type":"SlotMaker.Task.Actions.ClosePopupAgent"},{"overrideAgent":{"_name":"_loadingObj"},"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5448.0,"y":5359.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"policy":"FirstSuccess","_position":{"x":5812.0,"y":5369.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"14"},{"_action":{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":5706.0,"y":5470.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"15"},{"_condition":{"eventName":{"_value":"OnAcceptInboxReward"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_position":{"x":5829.0,"y":5473.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"18"},{"_action":{"status":"Success","$type":"NodeCanvas.Tasks.Actions.RaiseStatus"},"_position":{"x":5859.0,"y":5547.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"21"},{"_action":{"$type":"BagelCode.Tasks.Actions.RemoveAcceptInboxItem"},"_position":{"x":6019.0,"y":5374.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"23"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Wall_Of_Epic_Cell_Screen_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5232.0,"y":-4968.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"_imageElement"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"boolVariable":{"_name":"_screenLoad"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"setTo":"Activate","overrideAgent":{"_name":"_loadingElement"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"valueA":{"_value":"info/screenshotUrl"},"saveAs":{"_name":"_screenURL"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":5686.0,"y":5255.0},"_name":"Init","_comment":"","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"imageUrl":{"_name":"_screenURL","_targetVariableID":"f65b0482-e2b8-4794-92b9-75d2e4e212e0"},"cachingType":{"_value":"MemCache"},"priority":{},"isLoaded":{"_name":"_screenLoad"},"overrideAgent":{"_name":"_imageElement"},"$type":"SlotMaker.Tasks.Actions.SetContextWebImage"}]},"_position":{"x":5966.0,"y":5404.0},"_name":"Set
+    Image","$type":"NodeCanvas.StateMachines.ActionState","$id":"17"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"scaleFactorWidth":{"_value":276.0},"scaleFactorHeight":{"_value":208.0},"overrideAgent":{"_name":"_imageElement"},"$type":"SlotMaker.Tasks.Actions.SetContextImageOrientationScaler"},{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{"_value":true},"overrideAgent":{"_name":"_imageElement"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"setTo":"Deactivate","overrideAgent":{"_name":"_loadingElement"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":5587.0,"y":5475.0},"_name":"Active","$type":"NodeCanvas.StateMachines.ActionState","$id":"26"}],"connections":[{"_condition":{"conditions":[{"valueA":{"_value":"_screenURL"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckNull"},{"valueA":{"_value":"_screenURL"},"valueB":{"_value":""},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckString"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"_screenLoad"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

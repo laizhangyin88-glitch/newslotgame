@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Main_EarlyAccess_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5148.0,"y":-4817.0},"nodes":[{"_position":{"x":5847.0,"y":5115.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"2"},{"_subTree":{"_value":1},"_position":{"x":5597.0,"y":5297.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"3"},{"_subTree":{"_value":2},"_position":{"x":5763.0,"y":5303.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"5"},{"_position":{"x":5977.0,"y":5339.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"7"},{"_action":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Early
+    Access Scene"},"combineApplicationType":{"_value":true},"parentName":{"_value":"Main
+    Canvas/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_tempScene"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync"},{"eventName":{"_value":"LoadSceneFinished"},"delay":{},"sendGlobal":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5668.0,"y":5446.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"8"},{"_condition":{"valueA":{"_value":"/isEarlyAccess"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_position":{"x":6126.0,"y":5457.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"21"},{"_action":{"waitTime":{"_value":0.1},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":6093.0,"y":5559.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"25"},{"_action":{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":6232.0,"y":5559.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"28"},{"_action":{"actions":[{"sceneState":{"_value":"EARLY_ACCESS"},"$type":"BagelCode.Tasks.Actions.SetSceneState"},{"valueA":{"_value":"/isEarlyAccess"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"},{"valueA":{"_value":"/isSimpleMenuButtons"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"},{"setTo":"Activate","overrideAgent":{"_name":"_tempScene"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"valueA":{"_value":"/inGame"},"setTo":"False","$type":"SlotMaker.Tasks.Actions.SetBoolean"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":6349.0,"y":5452.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"31"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"25"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 7f0d4034c8dad44e3b0ea5ed18870b55, type: 2}
+  - {fileID: 11400000, guid: 082a59301a3ea4729b7ebdaf65321823, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

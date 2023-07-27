@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Daily_Spin_Shop_Cell_ADS_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-35.0,"y":106.0},"nodes":[{"_position":{"x":790.0,"y":128.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"2"},{"_condition":{"eventName":{"_value":"OnVideoAdsRewarded"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_position":{"x":598.0,"y":252.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"3"},{"_action":{"method":{"_baseInfo":"BagelCode.DailyWheelPurchaseItemCellController|SaveLastShowADS|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},"_position":{"x":603.0,"y":340.0},"_comment":"Save
+    CoolTime","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_action":{"actions":[{"$type":"SlotMaker.Tasks.Actions.GCCollect"},{"valueA":{"_value":"/videoAdsPlacementNames/dailyBonus"},"saveAs":{"_name":"_adPlacement"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"action":{"_value":"click"},"rewardType":{"_value":"spin"},"rewardAmount":{},"placement":{"_name":"_adPlacement"},"typeOfAd":{"_value":"ironsource"},"$type":"BagelCode.Tasks.Actions.BI.BI_videoad"},{"placement":{"_value":"TimeBonusRewardVideo","_name":"_adPlacement"},"$type":"BagelCode.Tasks.Actions.ShowRewardedVideoAds"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":818.0,"y":248.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"12"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

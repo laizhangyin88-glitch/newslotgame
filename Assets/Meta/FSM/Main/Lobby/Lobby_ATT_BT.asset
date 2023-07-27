@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Lobby_ATT_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","nodes":[{"_position":{"x":773.0,"y":299.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"valueA":{"_value":"/isPossibleUpdateNavi"},"setTo":"False","$type":"SlotMaker.Tasks.Actions.SetBoolean"},"_position":{"x":335.0,"y":443.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"type":{"_value":"LOBBY_ATT_FROM_LOGIN"},"iamId":{},"isTriggered":{"_name":"_isTriggered"},"setCallback":{"_value":true},"contextID":{"_name":"_touContextID"},"$type":"BagelCode.Task.Actions.TriggerIAM"},"_position":{"x":596.0,"y":443.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_condition":{"valueA":{"_name":"_isTriggered","_targetVariableID":"812677c0-ae15-4ce0-828b-5c63cb4bb66a"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_position":{"x":861.0,"y":443.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"13"},{"_position":{"x":887.0,"y":543.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"17"},{"_condition":{"eventName":{"_value":"OnIAMCallback"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_position":{"x":801.0,"y":616.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"18"},{"_action":{"status":"Success","$type":"NodeCanvas.Tasks.Actions.RaiseStatus"},"_position":{"x":818.0,"y":694.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"21"},{"_condition":{"valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckPopupCount"},"_position":{"x":949.0,"y":615.0},"_comment":"wait
+    reward popup","$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"23"},{"_action":{"status":"Success","$type":"NodeCanvas.Tasks.Actions.RaiseStatus"},"_position":{"x":968.0,"y":694.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"26"},{"_action":{"valueA":{"_value":"/isPossibleUpdateNavi"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"},"_position":{"x":1105.0,"y":422.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"28"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

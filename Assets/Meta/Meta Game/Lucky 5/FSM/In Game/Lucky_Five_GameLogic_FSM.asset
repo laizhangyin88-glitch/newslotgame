@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Lucky_Five_GameLogic_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4966.0,"y":-4829.0},"nodes":[{"_nestedFSM":{"_value":1},"_position":{"x":5382.0,"y":5314.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.AutoUpdateNestedFSMState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5636.0,"y":5181.0},"_name":"Spin","$type":"NodeCanvas.StateMachines.ActionState","$id":"4"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"method":{"_baseInfo":"BagelCode.LuckyFive.LuckyFiveManager|OnAddCard|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"id":{"_value":"Common_Card_Flying"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":5836.0,"y":5427.0},"_name":"Appear
+    Card","$type":"NodeCanvas.StateMachines.ActionState","$id":"7"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"method":{"_baseInfo":"BagelCode.LuckyFive.LuckyFiveManager|OnMoveCard|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]},"_position":{"x":6127.0,"y":5507.0},"_name":"Move
+    Card","$type":"NodeCanvas.StateMachines.ActionState","$id":"17"},{"_actionList":{"actions":[{"method":{"_baseInfo":"BagelCode.LuckyFive.LuckyFiveManager|OnResultCardList|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[false],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"eventName":{"_value":"OnPlayWin"},"delay":{},"$type":"NodeCanvas.Tasks.Actions.SendEvent"}]},"_position":{"x":6299.0,"y":5635.0},"_name":"Show
+    Result","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"25"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":6605.0,"y":5230.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"36"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"OnFinishGettingMetaGameItem"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendMetaUIEvent"}]},"_position":{"x":6096.0,"y":5037.0},"_name":"End","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"38"}],"connections":[{"_condition":{"checkValue":{"_value":true},"$type":"BagelCode.Task.Condition.CheckSlotSpin"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnEarnMetaGameItem"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkValue":{},"$type":"BagelCode.Task.Condition.CheckSlotSpin"},"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnEarnMetaGameItem"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnCardAppearComplete"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnBeginLuckyFiveResult"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"25"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnCompleteLuckyFiveAddCard"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"25"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"36"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"38"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: c90db4a10bdc54a3f9e01ef94f66f27d, type: 2}
+  - {fileID: 11400000, guid: 0ce6149190b0842388c636a831b6c326, type: 2}
+  _deserializationFailed: 0

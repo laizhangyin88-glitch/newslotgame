@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: DeepLink_Result_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-212.0,"y":-154.0},"nodes":[{"_position":{"x":820.0,"y":273.0},"$type":"NodeCanvas.BehaviourTrees.Cuncurrent","$id":"2"},{"_condition":{"conditions":[{"valueA":{"_value":"/RedeemResultImage"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckNull"},{"valueA":{"_value":"/RedeemResultImage"},"_invert":true,"$type":"SlotMaker.Tasks.Conditions.CheckStringIsNullOrEmpty"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":513.0,"y":387.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"3"},{"_action":{"actions":[{"arg0":{"_value":"/RedeemResultImage"},"saveAs":{"_name":"_redeemImage"},"$type":"SlotMaker.Tasks.Actions.SetString0"},{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Popup
+    Image Scene"},"combineApplicationType":{"_value":true},"parent":{},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync1"},{"valueA":{"_value":"_image"},"valueB":{"_value":"","_name":"_redeemImage"},"overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"popup":{"_name":"_popupObj"},"$type":"SlotMaker.Task.Actions.OpenPopup"},{"setTo":"Activate","overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"valueA":{"_value":"/RedeemResultImage"},"valueB":{"_value":""},"$type":"SlotMaker.Tasks.Actions.SetString"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":472.0,"y":522.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"10"},{"_condition":{"conditions":[{"valueA":{"_value":"/RedeemErrorString"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckNull"},{"valueA":{"_value":"/RedeemErrorString"},"_invert":true,"$type":"SlotMaker.Tasks.Conditions.CheckStringIsNullOrEmpty"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":1008.0,"y":397.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"35"},{"_action":{"actions":[{"arg0":{"_value":"/RedeemErrorString"},"saveAs":{"_name":"_redeemErrorString"},"$type":"SlotMaker.Tasks.Actions.SetString0"},{"key":{"_value":"BUTTON_OKAY"},"argsList":{"_value":[]},"saveAs":{"_name":"_buttonOKString"},"$type":"SlotMaker.Tasks.Actions.GetStringFromStringTable"},{"textString":{"_name":"_redeemErrorString"},"titleString":{},"buttonString":{"_name":"_buttonOKString"},"useXbutton":{},"$type":"SlotMaker.Task.Actions.OpenCommonErrorPopup"},{"valueA":{"_value":"/RedeemErrorString"},"valueB":{"_value":""},"$type":"SlotMaker.Tasks.Actions.SetString"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":966.0,"y":536.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"42"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"35"},"_targetNode":{"$ref":"42"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

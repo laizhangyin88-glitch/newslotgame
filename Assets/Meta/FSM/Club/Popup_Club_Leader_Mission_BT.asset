@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Popup_Club_Leader_Mission_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-4715.0,"y":-4786.0},"nodes":[{"_position":{"x":5596.0,"y":5075.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_condition":{"valueA":{"_name":"missionInfo","_targetVariableID":"bd7f8157-75dd-4e34-97fc-79ee5c320b7f"},"$type":"SlotMaker.Tasks.Condition.CheckNull"},"_position":{"x":5262.0,"y":5210.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"3"},{"_action":{"valueA":{"_value":"clubMissionResponse/missionInfo"},"saveAs":{"_name":"missionInfo","_targetVariableID":"bd7f8157-75dd-4e34-97fc-79ee5c320b7f"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"_position":{"x":5185.0,"y":5310.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"challengeInfo":{},"missionInfo":{"_name":"missionInfo","_targetVariableID":"bd7f8157-75dd-4e34-97fc-79ee5c320b7f"},"missionIconPath":{"_value":"Anchor/Base/Layout/Contents
+    Area/Contents Layout/Mission Info/Anchor/Contents/Mission/Image Area"},"titleText":{"_name":"_title"},"missionIconObject":{"_name":"_missionIconObj"},"useSlotThumbnail":{"_name":"_isSlotThumbnail"},"iconText":{"_value":"","_name":"_iconText"},"rewardText":{"_name":"_rewardText"},"progressText":{"_name":"_progressText"},"progress":{"_name":"_progress"},"isComplete":{"_name":"_isComplete"},"gameID":{"_name":"_gameID"},"usePlayButton":{"_name":"_usePlayButton"},"$type":"BagelCode.Tasks.Actions.GetClubChallengeMissionInfoBB"},{"elementName":{"_value":"Text
+    Description"},"arg0":{"_value":"_title"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText0"},{"valueA":{"_name":"_thumbNailGameID"},"valueB":{"_name":"_gameID"},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"elementName":{"_value":"Gauge/Text"},"searchingType":"FullNameSearch","arg0":{"_value":"_progressText"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText0"},{"elementName":{"_value":"Gauge"},"valueB":{"_name":"_progress"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextFloatProperty"},{"element":{"_name":"_missionIconText"},"arg0":{"_value":"_iconText"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"valueA":{"_value":"missionInfo/missionType"},"saveAs":{"_name":"_missionType"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[BagelCode.ClientModels.ClubChallengeMissionType,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"elementName":{"_value":"Reward/Text"},"searchingType":"FullNameSearch","arg0":{"_value":"_rewardText"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText0"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5558.0,"y":5247.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"10"},{"_subTree":{"_value":1},"_position":{"x":5885.0,"y":5248.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"48"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"48"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 977e7ece496f54769b8c9414ecfc0ac8, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

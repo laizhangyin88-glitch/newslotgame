@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: DoAction_Open_Action_Notice_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5480.0,"y":-5139.0},"nodes":[{"_position":{"x":5805.0,"y":5220.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"findID":{"_value":"_action/id"},"saveAs":{"_name":"_noticeInfo"},"$type":"BagelCode.Tasks.Actions.GetNoticeFromID"},"_position":{"x":5625.0,"y":5355.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_value":{},"_name":"_noticeInfo"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckNullObject"},"_position":{"x":5880.0,"y":5355.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"7"},{"_position":{"x":5910.0,"y":5445.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"11"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"noticeInfo":{"_value":"_noticeInfo"},"endTimestamp":{"_name":"_endTimestamp"},"$type":"BagelCode.Tasks.Actions.GetNoticeEndTimestamp"},{"saveAs":{"_name":"_currentTimestamp"},"$type":"BagelCode.Tasks.Actions.GetTimeStamp"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5730.0,"y":5550.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"12"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"valueA":{"_value":"_endTimestamp"},"valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt64"},{"valueA":{"_value":"_currentTimestamp"},"checkType":"LessThan","valueB":{"_name":"_endTimestamp"},"$type":"SlotMaker.Tasks.Condition.CheckInt64"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":5970.0,"y":5550.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"20"},{"_action":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Popup
+    Action Notice Scene"},"combineApplicationType":{"_value":true},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync"},{"valueA":{"_value":"noticeInfo"},"valueB":{"_name":"_noticeInfo"},"overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetBlackboard"},{"valueA":{"_value":"_biContextID"},"valueB":{"_value":"","_name":"_biContextID"},"overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"valueA":{"_value":"endTimestamp"},"valueB":{"_name":"_endTimestamp"},"overrideAgent":{"_name":"_popupObj","_targetVariableID":"6f83f4a3-6a6e-4d50-a01e-b50a303ce893"},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"popup":{"_name":"_popupObj"},"$type":"SlotMaker.Task.Actions.OpenPopup"},{"setTo":"Activate","overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5865.0,"y":5655.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"29"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

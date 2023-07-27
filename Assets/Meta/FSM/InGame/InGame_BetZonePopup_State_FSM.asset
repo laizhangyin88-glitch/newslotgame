@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: InGame_BetZonePopup_State_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.StateMachines.FSM","name":"FSM","translation":{"x":-5205.0,"y":-5010.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{"_value":"Button
+    Go"},"saveAs":{"_name":"_button"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"}]},"_position":{"x":5686.0,"y":5233.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"boolVariable":{"_name":"interactable","_targetVariableID":"f3416ca8-5d2d-463d-b08f-e6f1ec48feb9"},"_isDisabled":true,"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"boolVariable":{"_name":"_isActive"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"method":{"_returnInfo":"System.Void","_baseInfo":"UnityEngine.UI.Button|set_interactable","_paramsInfo":"System.Boolean"},"parameter":{"_type":"System.Boolean","_value":{"$content":true,"$type":"System.Boolean"}},"overrideAgent":{"_name":"_button"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"}]},"_position":{"x":5916.801,"y":5413.814},"_name":"Active","$type":"NodeCanvas.StateMachines.ActionState","$id":"10"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"boolVariable":{"_name":"interactable","_targetVariableID":"f3416ca8-5d2d-463d-b08f-e6f1ec48feb9"},"setTo":"False","_isDisabled":true,"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"method":{"_returnInfo":"System.Void","_baseInfo":"UnityEngine.UI.Button|set_interactable","_paramsInfo":"System.Boolean"},"parameter":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"overrideAgent":{"_name":"_button"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"}]},"_position":{"x":6347.807,"y":5808.822},"_name":"InActive","$type":"NodeCanvas.StateMachines.ActionState","$id":"21"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5573.995,"y":5523.008},"_name":"On
+    Shop Close","$type":"NodeCanvas.StateMachines.ActionState","$id":"30"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"$type":"BagelCode.Task.Condition.CheckSpinButtonEvent"},"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"conditions":[{"eventName":{"_value":"EndTurn"},"$type":"BagelCode.Task.Condition.CheckContentEvent"},{"valueA":{"_value":"_isActive"},"valueB":{"_value":"./autoSpin"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.SimpleCheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"CloseShop"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent"},"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

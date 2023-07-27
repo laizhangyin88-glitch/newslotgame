@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Use_FCFS_Ticket_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5100.0,"y":-4909.0},"nodes":[{"_position":{"x":5583.0,"y":5101.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"_action/fcfsTicketId"},"saveAs":{"_name":"_fcfsId"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_action/uri"},"saveAs":{"_name":"_uri"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"uri":{"_name":"_uri"},"ticketId":{"_name":"_fcfsId"},"popupTitle":{"_name":"_popupTitle"},"popupContent":{"_name":"_popupContent"},"$type":"BagelCode.Tasks.Actions.ClientAPI.UsefcfsTicket"},{"url":{"_name":"_uri"},"couponId":{"_value":""},"$type":"BagelCode.Tasks.Actions.BI.BI_deeplink"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5376.0,"y":5178.0},"$type":"NodeCanvas.BehaviourTrees.AutoUpdateActionNode","$id":"3"},{"_action":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Popup
+    Compensation Scene"},"combineApplicationType":{"_value":true},"parent":{},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync1"},{"popup":{"_name":"_popupObj"},"$type":"SlotMaker.Task.Actions.OpenPopup"},{"valueA":{"_value":"_title"},"valueB":{"_name":"_popupTitle"},"overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"valueA":{"_value":"_content"},"valueB":{"_name":"_popupContent"},"overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"callee":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetCaller"},{"setTo":"Activate","overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5602.0,"y":5174.0},"$type":"NodeCanvas.BehaviourTrees.AutoUpdateActionNode","$id":"20"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

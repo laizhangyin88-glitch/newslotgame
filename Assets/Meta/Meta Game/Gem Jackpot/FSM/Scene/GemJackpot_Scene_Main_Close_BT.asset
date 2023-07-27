@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GemJackpot_Scene_Main_Close_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":36.0,"y":-182.0},"nodes":[{"_position":{"x":650.0,"y":351.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"},{"id":{"_value":"Meta_Gemjackpot_BGM"},"$type":"SlotMaker.Tasks.Actions.SimpleStopGameSound"},{"bundleName":{"_value":"mggemjackpotcommon"},"assetName":{"_value":"Gem
+    Jackpot Loading Scene"},"combineApplicationType":{},"parentName":{"_value":"Popup
+    Manager/Area"},"saveAs":{"_name":"_loadingObj","_targetVariableID":"83944899-1466-402d-8607-366f1cfc8fbb"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.LoadScene"},{"bundleName":{"_value":"mggemjackpotcommon"},"assetName":{"_value":"Gem
+    Jackpot Loading Scene"},"combineApplicationType":{},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_loadingObj","_targetVariableID":"83944899-1466-402d-8607-366f1cfc8fbb"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync"},{"overrideAgent":{"_name":"_customData"},"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"},{"overrideAgent":{"_name":"_contentFSM"},"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":-14.0,"y":452.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_name":"_loadingObj","_targetVariableID":"83944899-1466-402d-8607-366f1cfc8fbb"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckNullObject"},"_position":{"x":565.0,"y":458.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"26"},{"_action":{"actions":[{"popup":{"_name":"_loadingObj","_targetVariableID":"83944899-1466-402d-8607-366f1cfc8fbb"},"$type":"SlotMaker.Task.Actions.OpenPopup"},{"valueA":{"_value":"isEnter"},"setTo":"False","overrideAgent":{"_name":"_loadingObj","_targetVariableID":"83944899-1466-402d-8607-366f1cfc8fbb"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"},{"valueA":{"_value":"jackpotInfo"},"valueB":{"_name":"jackpotInfo","_targetVariableID":"fde083e2-b0f3-45e4-a8ca-2837e500655d"},"overrideAgent":{"_name":"_loadingObj","_targetVariableID":"83944899-1466-402d-8607-366f1cfc8fbb"},"$type":"SlotMaker.Tasks.Actions.SetBlackboard"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":550.0,"y":632.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"29"},{"_action":{"actions":[{"setTo":"Activate","overrideAgent":{"_name":"_loadingObj","_targetVariableID":"83944899-1466-402d-8607-366f1cfc8fbb"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"method":{"_baseInfo":"BagelCode.GemJackpot.GemJackpotSceneController|SetOrientationBB|System.Void","_paramsInfo":"UnityEngine.GameObject|BagelCode.ClientModels.Orientation"},"parameters":[{"_type":"UnityEngine.GameObject","_name":"_loadingObj","_targetVariableID":"83944899-1466-402d-8607-366f1cfc8fbb"},{"_type":"BagelCode.ClientModels.Orientation","_name":"prevOrientation","_targetVariableID":"37965643-f74c-4b7f-b4e6-8fbb3d0e0cf6"}],"parameterIsByRef":[false,false],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":753.0,"y":459.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"41"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"41"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

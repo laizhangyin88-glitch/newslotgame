@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Friend_Cell_Send_Coin_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5587.0,"y":-4581.0},"nodes":[{"_position":{"x":5996.0,"y":4887.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"elementName":{"_value":"Anchor/Text
+    Coin"},"searchingType":"FullNameSearch","key":{"_value":"TEXT_BLANK"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText"},{"valueA":{"_value":"/me/tier"},"saveAs":{"_name":"_tier"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5730.0,"y":4985.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"enumCase":{"_type":"System.Enum","_name":""},"intCase":{"_name":"cellType","_targetVariableID":"b6a4f72d-480d-4073-92d4-21f57f122a6c"},"_position":{"x":6222.0,"y":4952.0},"_comment":"0
+    : normal 1: FB 2: Invite 3: Code 4: suggest 5: request 6: unfriendable","$type":"NodeCanvas.BehaviourTrees.Switch","$id":"12"},{"_action":{"actions":[{"valueA":{"_value":"/values/misc/CREDIT_GIFT_AMOUNT"},"saveAs":{"_name":"_giftCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"coin":{"_name":"_giftCredit"},"tier":{"_name":"_tier"},"multiplierType":{"_value":"FriendGiftMultiplier"},"saveValue":{"_name":"_giftCredit"},"$type":"BagelCode.Tasks.Actions.GetTierMultipliedCoin"},{"elementName":{"_value":"Anchor/Text
+    Coin"},"searchingType":"FullNameSearch","key":{"_value":"CREDIT_COLOR"},"arg1":{"_value":"_giftCredit"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5818.0,"y":5160.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"15"},{"_action":{"actions":[{"valueA":{"_value":"/values/misc/CREDIT_GIFT_AMOUNT_FB"},"saveAs":{"_name":"_giftCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"coin":{"_name":"_giftCredit"},"tier":{"_name":"_tier"},"multiplierType":{"_value":"FriendGiftMultiplier"},"saveValue":{"_name":"_giftCredit"},"$type":"BagelCode.Tasks.Actions.GetTierMultipliedCoin"},{"elementName":{"_value":"Anchor/Text
+    Coin"},"searchingType":"FullNameSearch","key":{"_value":"CREDIT_COLOR"},"arg1":{"_value":"_giftCredit"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":6239.0,"y":5162.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"30"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

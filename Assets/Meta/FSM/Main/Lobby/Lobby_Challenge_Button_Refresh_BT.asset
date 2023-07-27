@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Lobby_Challenge_Button_Refresh_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5706.663,"y":-5234.106},"nodes":[{"_position":{"x":6392.0,"y":5361.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"elementName":{"_value":"Button
+    Lobby Challenge New/Text Coins"},"searchingType":"FullNameSearch","saveAs":{"_name":"_newTextElement"},"overrideAgent":{"_name":"rootElement","_targetVariableID":"e98b446f-002f-4753-829f-c26c38d1eea8"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Button
+    Lobby Challenge Reward/Text Coins"},"searchingType":"FullNameSearch","saveAs":{"_name":"_rewardTextElement"},"overrideAgent":{"_name":"rootElement","_targetVariableID":"e98b446f-002f-4753-829f-c26c38d1eea8"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5786.0,"y":5624.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"saveNewCoins":{"_name":"_newCoins"},"saveRewardCoins":{"_name":"_rewardCoins"},"$type":"BagelCode.Tasks.Actions.LobbyChallengeCoinsBB"},"_position":{"x":6345.0,"y":5523.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"14"},{"_condition":{"valueA":{"_value":"_rewardCoins"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckNull"},"_position":{"x":6603.0,"y":5590.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"18"},{"_action":{"element":{"_name":"_rewardTextElement"},"key":{"_value":"LOBBY_CHALLENGE_BUTTON_GET"},"arg1":{"_value":"_rewardCoins"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},"_position":{"x":6418.0,"y":5687.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"21"},{"_condition":{"valueA":{"_value":"_newCoins"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckNull"},"_position":{"x":6880.0,"y":5585.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"26"},{"_action":{"element":{"_name":"_newTextElement"},"key":{"_value":"LOBBY_CHALLENGE_BUTTON_WIN"},"arg1":{"_value":"_newCoins"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},"_position":{"x":6726.0,"y":5762.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"29"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Purchase_Coin_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5326.798,"y":-5135.798},"nodes":[{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":5136.0,"y":5352.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5300.0,"y":5495.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"4"},{"_nestedBT":{"_value":2},"executionMode":"Once","successEvent":"HasReward","failureEvent":"NoReward","_position":{"x":5438.0,"y":5664.0},"_name":"Check
+    Reward","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"7"},{"_nestedBT":{"_value":3},"executionMode":"Once","successEvent":"OnTierUp","failureEvent":"OnSameTier","_position":{"x":5629.0,"y":5511.0},"_name":"Check
+    Tier","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"9"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"UI_Coin_Pouring"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"$type":"SlotMaker.Task.Actions.ClosePopupAgent"},{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"}]},"_position":{"x":6439.0,"y":5765.0},"_name":"Close","$type":"NodeCanvas.StateMachines.ActionState","$id":"11"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"UI_Coin_Purchase"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"eventName":{"_value":"UpdateNaviCredit"},"eventValue":{},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendCreditEvent`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":5806.0,"y":5401.0},"_name":"Apply","$type":"NodeCanvas.StateMachines.ActionState","$id":"21"},{"_nestedBT":{"_value":4},"executionMode":"Once","_position":{"x":6096.0,"y":5288.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"30"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnClosePurchasePopup"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteMetaEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"NoReward"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"HasReward"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnTierUp"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnSameTier"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: cf60e004941054bc984e4b9e4ff3c82a, type: 2}
+  - {fileID: 11400000, guid: ed7b1829959af483b8732ed149e815a2, type: 2}
+  - {fileID: 11400000, guid: 4ac2cac578d25490a925e8464f4efa6f, type: 2}
+  - {fileID: 11400000, guid: 414fc44ec43c446f398140bf79468942, type: 2}
+  _deserializationFailed: 0

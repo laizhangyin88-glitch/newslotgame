@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_LevelUp_Full_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5473.0,"y":-5133.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"eventName":{"_value":"OnClose"},"$type":"BagelCode.Tasks.Actions.SubscribeBackButtonEvent"},{"elementName":{"_value":"Button
+    Okay"},"key":{"_value":"BUTTON_OK"},"eventName":{"_value":"OnClose"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextClickable"},{"method":{"_baseInfo":"BagelCode.PopupLevelUpFullController|OnInit|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]},"_position":{"x":5170.0,"y":5135.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"method":{"_baseInfo":"BagelCode.PopupLevelUpFullController|SetupReward|System.Int32","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_beforeLevel"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"level":{"_name":"_beforeLevel"},"$type":"BagelCode.Tasks.Actions.BI.BI_level_up"}]},"_position":{"x":5499.0,"y":5220.0},"_name":"LevelUp_Full_Setup","$type":"NodeCanvas.StateMachines.ActionState","$id":"19"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":5681.0,"y":5327.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"29"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":5933.0,"y":5423.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"31"},{"_nestedBT":{"_value":3},"executionMode":"Once","_position":{"x":6077.0,"y":5525.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"33"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"method":{"_baseInfo":"BagelCode.PopupLevelUpFullController|CheckButtonClickClose|System.Void","_paramsInfo":"System.Boolean"},"parameters":[{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"},"_name":"_isClickedClose"}],"parameterIsByRef":[false],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]},"_position":{"x":6257.0,"y":5601.0},"_name":"Check
+    AE - level_up_shop_upgrade type","$type":"NodeCanvas.StateMachines.ActionState","$id":"35"},{"_nestedBT":{"_value":4},"executionMode":"Once","_position":{"x":6550.0,"y":5674.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"44"},{"_actionList":{"actions":[{"$type":"SlotMaker.Task.Actions.ClosePopupAgent"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"},{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"}]},"_position":{"x":6676.0,"y":5757.0},"_name":"Close","$type":"NodeCanvas.StateMachines.ActionState","$id":"46"},{"_nestedBT":{"_value":5},"executionMode":"Once","_position":{"x":5533.0,"y":5079.0},"$type":"NodeCanvas.StateMachines.NestedBTState"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnClose"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnClose"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"35"},"_targetNode":{"$ref":"44"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"44"},"_targetNode":{"$ref":"46"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: e18a40711ec6641cd94e9831dfadfb92, type: 2}
+  - {fileID: 11400000, guid: 2abf69b1a8af741f6868d56212915972, type: 2}
+  - {fileID: 11400000, guid: 979ade2e020a5411887fc298800f225f, type: 2}
+  - {fileID: 11400000, guid: 414fc44ec43c446f398140bf79468942, type: 2}
+  - {fileID: 11400000, guid: bea9f818c2c69403cbad1caf8a169fcf, type: 2}
+  _deserializationFailed: 0

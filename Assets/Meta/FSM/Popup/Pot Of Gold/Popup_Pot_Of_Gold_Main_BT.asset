@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Popup_Pot_Of_Gold_Main_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5257.0,"y":-5091.0},"nodes":[{"_position":{"x":5988.0,"y":5334.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"shopType":{"_value":"PIGGY_BANK"},"saveAs":{"_name":"_shopBB"},"$type":"BagelCode.Task.Actions.GetShopBB"},{"productBB":{"_name":"product","_targetVariableID":"7585f883-ba6c-4b40-beaf-e91d93e891ca"},"eventID":{"_name":"_eventSaleID"},"$type":"BagelCode.Task.Actions.GetPotOfGoldProductBB"},{"valueA":{"_value":"product"},"itemType":{"_value":"PIGGY_BANK"},"itemBB":{"_name":"info","_targetVariableID":"4aec9995-afe4-4e1d-a09a-f308d24d19a0"},"$type":"BagelCode.Task.Actions.GetPurchaseItemBBFromProduct"},{"shopTypeValue":{"_value":"_shopBB/type"},"shopIDValue":{"_value":"_shopBB/id"},"contextID":{"_name":"_biContextID"},"typeValue":{"_value":"pog"},"$type":"BagelCode.Tasks.Actions.BI.BI_client_store_opened"},{"method":{"_baseInfo":"BagelCode.PopupPotOfGoldController|UpdateStaticValues|System.Void","_paramsInfo":"NodeCanvas.Framework.Blackboard|System.Boolean"},"parameters":[{"_type":"NodeCanvas.Framework.Blackboard","_name":"product","_targetVariableID":"7585f883-ba6c-4b40-beaf-e91d93e891ca"},{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"},"_name":"_isNew","_targetVariableID":"d89bf676-31aa-4511-a3d1-50ed406ca7c3"}],"parameterIsByRef":[false,false],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"elementName":{"_value":"Popup
+    Bottom Description/Text"},"searchingType":"FullNameSearch","saveAs":{"_name":"_text"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5620.0,"y":5435.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_position":{"x":6125.0,"y":5452.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"33"},{"_nestedFSM":{"_value":1},"_position":{"x":5893.0,"y":5663.0},"$type":"NodeCanvas.BehaviourTrees.NestedFSM","$id":"34"},{"_nestedFSM":{"_value":2},"successState":"","failureState":"","_position":{"x":6083.0,"y":5661.0},"$type":"NodeCanvas.BehaviourTrees.NestedFSM","$id":"36"},{"_nestedFSM":{"_value":3},"successState":"","failureState":"","_position":{"x":6303.0,"y":5664.0},"$type":"NodeCanvas.BehaviourTrees.NestedFSM","$id":"38"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"34"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: ce50c6971040b4d2c82e9798764188c4, type: 2}
+  - {fileID: 11400000, guid: 158534f1175044621aeb6c20fc515513, type: 2}
+  - {fileID: 11400000, guid: 349cd650e7b1f4c788a38dbd8f8b5d48, type: 2}
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

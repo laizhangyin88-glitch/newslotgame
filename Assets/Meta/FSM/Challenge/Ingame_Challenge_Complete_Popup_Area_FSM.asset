@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Ingame_Challenge_Complete_Popup_Area_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":765.0,"y":382.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"method":{"_baseInfo":"BagelCode.InGameChallengeCompleteAreaController|OpenCompleteChallengePopupCoroutine|System.Collections.IEnumerator","_paramsInfo":"NodeCanvas.Framework.Blackboard"},"parameters":[{"_type":"NodeCanvas.Framework.Blackboard","_name":"completeInfo","_targetVariableID":"586ff689-286a-4c2c-ba38-13105bd4fc55"}],"parameterIsByRef":[false],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]},"_position":{"x":883.0,"y":536.0},"_name":"Open
+    Complete Popup","$type":"NodeCanvas.StateMachines.ActionState","$id":"5"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"method":{"_baseInfo":"BagelCode.InGameChallengeCompleteAreaController|OpenCompleteClubChallengePopupCoroutine|System.Collections.IEnumerator","_paramsInfo":"NodeCanvas.Framework.Blackboard"},"parameters":[{"_type":"NodeCanvas.Framework.Blackboard","_name":"completeInfo","_targetVariableID":"586ff689-286a-4c2c-ba38-13105bd4fc55"}],"parameterIsByRef":[false],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]},"_position":{"x":378.0,"y":532.0},"_name":"Open
+    Club Complete Popup","$type":"NodeCanvas.StateMachines.ActionState","$id":"14"}],"connections":[{"_condition":{"eventName":{"_value":"OnStartCompleteChallengePopup"},"saveEventValue":{"_name":"completeInfo","_targetVariableID":"586ff689-286a-4c2c-ba38-13105bd4fc55"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnStartCompleteClubChallengePopup"},"saveEventValue":{"_name":"completeInfo","_targetVariableID":"586ff689-286a-4c2c-ba38-13105bd4fc55"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

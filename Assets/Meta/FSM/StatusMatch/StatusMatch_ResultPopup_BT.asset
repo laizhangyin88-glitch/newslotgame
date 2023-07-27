@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: StatusMatch_ResultPopup_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5013.0,"y":-5019.0},"nodes":[{"_position":{"x":5349.0,"y":5160.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"titleText":{"_name":"_titleText"},"contentText":{"_name":"_contentText"},"buttonText":{"_name":"_buttonText"},"$type":"BagelCode.Tasks.Actions.GetStatusMatchResultBB"},{"eventName":{"_value":"OnClose"},"$type":"BagelCode.Tasks.Actions.SubscribeBackButtonEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4955.0,"y":5292.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"elementName":{"_value":"Title
+    Area/Text"},"searchingType":"FullNameSearch","saveAs":{"_name":"_titleElement"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Sub
+    Text"},"saveAs":{"_name":"_contentElement"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Button
+    Yellow/Text"},"searchingType":"FullNameSearch","saveAs":{"_name":"_buttonTextElement"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Button
+    Yellow"},"key":{},"eventName":{"_value":"OnClose"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextClickable"},{"elementName":{"_value":"Button
+    Close"},"key":{},"eventName":{"_value":"OnClose"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextClickable"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5045.0,"y":5381.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"14"},{"_action":{"actions":[{"element":{"_name":"_titleElement"},"arg0":{"_value":"_titleText"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"element":{"_name":"_contentElement"},"arg0":{"_value":"_contentText"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"element":{"_name":"_buttonTextElement"},"arg0":{"_value":"_buttonText"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5292.0,"y":5294.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"36"},{"_condition":{"eventName":{"_value":"OnClose"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_position":{"x":5569.0,"y":5316.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"48"},{"_action":{"actions":[{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"},{"eventName":{"_value":"OnCalleeCallback"},"$type":"BagelCode.Task.Condition.SimpleCalleeCallbackEvent"},{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"$type":"SlotMaker.Task.Actions.ClosePopupAgent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5499.0,"y":5395.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"51"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"48"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"48"},"_targetNode":{"$ref":"51"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

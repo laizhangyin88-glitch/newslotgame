@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_MysteryGift_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4963.0,"y":-4932.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"valueA":{"_value":"_mysteryGiftInfo/level"},"saveAs":{"_name":"_level"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"elementName":{"_value":"Title
+    Area/Text"},"searchingType":"FullNameSearch","key":{"_value":"POPUP_MYSTERY_GIFT_TITLE"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText"},{"elementName":{"_value":"Text"},"key":{"_value":"POPUP_MYSTERY_GIFT_TEXT"},"arg1":{"_value":"_level"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"eventName":{"_value":"OnClose"},"$type":"BagelCode.Tasks.Actions.SubscribeBackButtonEvent"},{"elementName":{"_value":"Button
+    Open"},"key":{"_value":"BUTTON_OPEN"},"eventName":{"_value":"OnClose"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextClickable"}]},"_position":{"x":5268.0,"y":5180.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":5710.0,"y":5303.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"24"},{"_actionList":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Popup
+    Common Reward Scene"},"combineApplicationType":{"_value":true},"parent":{},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_MysteryGiftResultPopup"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync1"},{"callee":{"_name":"_MysteryGiftResultPopup"},"overrideAgent":{"_name":"caller"},"$type":"SlotMaker.Tasks.Actions.SetCaller"},{"key":{"_value":"POPUP_MYSTERY_GIFT_TITLE"},"argsList":{"_value":[]},"saveAs":{"_name":"_title"},"$type":"SlotMaker.Tasks.Actions.GetStringFromStringTable"},{"valueA":{"_value":"title"},"valueB":{"_name":"_title"},"overrideAgent":{"_name":"_MysteryGiftResultPopup"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"valueA":{"_value":"autoClose"},"valueB":{"_name":"autoClose","_targetVariableID":"3bcb2335-0b03-463a-a3c6-c1ffe68ca8d6"},"overrideAgent":{"_name":"_MysteryGiftResultPopup"},"$type":"SlotMaker.Tasks.Actions.SetBoolean1"},{"valueA":{"_value":"rewardList"},"valueB":{"_name":"_mysteryGiftList"},"overrideAgent":{"_name":"_MysteryGiftResultPopup"},"$type":"SlotMaker.Tasks.Actions.SetList"},{"layerIndex":{"_value":1},"stateName":{"_value":"Break"},"transitTime":0.0,"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"popup":{"_name":"_MysteryGiftResultPopup"},"$type":"SlotMaker.Task.Actions.OpenPopup"},{"setTo":"Activate","overrideAgent":{"_name":"_MysteryGiftResultPopup"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":5769.0,"y":5389.0},"_name":"Open
+    Reward Popup","$type":"NodeCanvas.StateMachines.ActionState","$id":"26"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"$type":"SlotMaker.Task.Actions.ClosePopupAgent"},{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"},{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":6226.0,"y":5575.0},"_name":"Close","$type":"NodeCanvas.StateMachines.ActionState","$id":"64"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnClose"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"64"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: f22999f36b4f6451a9b7b22b4b13b80d, type: 2}
+  _deserializationFailed: 0

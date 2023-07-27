@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Collecting_Game_Init_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4835.0,"y":-4766.0},"nodes":[{"_actionList":{"actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"isInGame":{},"isContents":{"_value":true},"allowInactive":{"_value":true},"saveAsBundleName":{"_name":"_bundle"},"saveAsSharedBundleName":{"_name":"_sharedBundle"},"saveAsIconAssetName":{},"saveAsEventType":{},"saveAsEventID":{"_name":"_metaGameEventId"},"saveAsEndTimestamp":{"_name":"endTimestamp"},"saveAsEnableShare":{},"saveAsEventName":{},"saveBundles":{},"isOtherMetaGame":{},"$type":"BagelCode.Tasks.Actions.GetMetaGamePassiveEventBB"},{"currentScratcherId":{"_name":"_currentScratcherId"},"bundle":{"_name":"_bundle"},"sharedBundle":{"_name":"_sharedBundle"},"shareItemCount":{"_name":"_shareItemCount"},"$type":"BagelCode.Scratcher.Tasks.Actions.InitCollectingGame"},{"eventName":{"_value":"OnClose"},"$type":"BagelCode.Tasks.Actions.SubscribeBackButtonEvent"}]},"_position":{"x":5282.0,"y":5067.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"method":{"_baseInfo":"BagelCode.CollectingGameController|InitProperty|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]},"_position":{"x":5616.0,"y":5153.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"28"},{"_nestedFSM":{"_value":1},"_position":{"x":5744.0,"y":5225.0},"$type":"NodeCanvas.StateMachines.NestedFSMState","$id":"35"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"OnLoadSceneFinished"},"delay":{},"overrideAgent":{"_name":"caller"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"}]},"_position":{"x":5962.0,"y":5343.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"37"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"28"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"35"},"_targetNode":{"$ref":"37"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 955236dc65f844ef883ba9756220b7cf, type: 2}
+  _deserializationFailed: 0

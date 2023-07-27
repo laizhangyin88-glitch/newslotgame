@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Collecting_Game_Item_Receive_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-114.0,"y":230.0},"zoomFactor":0.905903,"nodes":[{"_actionList":{"actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"bundleName":{"_name":"_sharedBundle","_targetVariableID":"3630f02b-f779-4216-b359-e2af376c3c8c"},"assetName":{"_value":"Popup
+    Collecting Game Chest Result Item Move Scene"},"combineApplicationType":{},"parent":{},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync1"},{"bundle":{"_name":"_bundle"},"sharedBundle":{"_name":"_sharedBundle"},"$type":"BagelCode.Scratcher.Tasks.Actions.InitCollectingGameItemReceive"},{"eventName":{"_value":"OnSceneLoaded"},"delay":{},"overrideAgent":{"_name":"caller"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"}]},"_position":{"x":364.0,"y":53.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"callee":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetCaller"},{"valueA":{"_value":"_bundle"},"valueB":{"_name":"_bundle","_targetVariableID":"3630f02b-f779-4216-b359-e2af376c3c8c"},"overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"valueA":{"_value":"_sharedBundle"},"valueB":{"_name":"_sharedBundle","_targetVariableID":"3630f02b-f779-4216-b359-e2af376c3c8c"},"overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"valueA":{"_value":"_isShareItem"},"overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"},{"popup":{"_name":"_popupObj"},"$type":"SlotMaker.Task.Actions.OpenPopup"},{"setTo":"Activate","overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":935.0,"y":204.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"22"},{"_actionList":{"actions":[{"elementName":{"_value":"Scratcher
+    Item Area"},"saveAs":{"_name":"_scratcherItemArea"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"resultItemMoveScene":{"_name":"_popupObj"},"scratcherItemAreaElement":{"_name":"_scratcherItemArea"},"isShareItem":{"_value":true},"$type":"BagelCode.Scratcher.Tasks.Actions.MoveCollectingGameResultItem"}]},"_position":{"x":1014.0,"y":381.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"42"},{"_actionList":{"actions":[{"eventName":{"_value":"OnMoveItemFinished"},"delay":{},"overrideAgent":{"_name":"_popupObj"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"callerName":{},"callee":{"_name":"_popupObj"},"overrideAgent":{"_name":"caller"},"$type":"SlotMaker.Tasks.Actions.SetCallerEx"},{"$type":"SlotMaker.Task.Actions.ClosePopup"},{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":1413.0,"y":514.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"55"}],"connections":[{"_condition":{"eventName":{"_value":"OnCollect"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnSceneLoaded"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"42"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"42"},"_targetNode":{"$ref":"55"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

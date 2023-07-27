@@ -1,0 +1,536 @@
+const coverList = {
+    Cover_0 : VEGAS_SEVENS
+    Cover_1 : GRAND_PRIZE_HOTEL
+    Cover_2 : CASINO_NIGHT
+    Cover_3 : CASINO_NIGHT
+    Cover_4 : MASSIVE_20X
+    Cover_5 : MASSIVE_20X
+    Cover_6 : VEGAS_NIGHT
+    Cover_7 : VEGAS_NIGHT
+    Cover_8 : VEGAS_NIGHT
+    Cover_9 : JOKERS_WILD_POKER, JOKERS_WILD_POKER_ADVANCE, JOKERS_POKER_RED, JOKERS_POKER_GREEN, JOKERS_10X_PURPLE, JOKERS_10X_GOLD
+    Cover_10 : JOKERS_WILD_POKER, JOKERS_WILD_POKER_ADVANCE, JOKERS_POKER_RED, JOKERS_POKER_GREEN, JOKERS_10X_PURPLE, JOKERS_10X_GOLD
+    Cover_11 : JOKERS_WILD_POKER_ADVANCE
+    Cover_12 : RICH_PALACE
+    Cover_13 : RICH_PALACE
+    Cover_14 : MATCH_3_TRIPLER
+    Cover_15 : MATCH_3_TRIPLER
+    Cover_16 : CASH_DESERT
+    Cover_17 : CASH_DESERT
+    Cover_18 : CASH_DESERT
+    Cover_19 : EXTREME_10X
+    Cover_20 : EXTREME_10X
+    Cover_21 : WORLD_TOUR
+    Cover_22 : WORLD_TOUR
+    Cover_23 : WORLD_TOUR
+    Cover_24 : JOKERS_10X_PURPLE, JOKERS_10X_GOLD
+    Cover_25 : New Cover
+    Cover_26 : New Cover
+    Cover_27 : New Cover
+    Cover_28 : New Cover
+    Cover_29 : New Cover
+    Cover_30 : New Cover
+    Cover_31 : New Cover
+};
+
+const scratcherList = {
+    VEGAS_SEVENS = {
+        Symbol: 0, Cover: 0
+        Symbol: 1, Cover: 0
+        Symbol: 2, Cover: 0
+        Symbol: 3, Cover: 0
+        Symbol: 4, Cover: 0
+        Symbol: 5, Cover: 0
+        Symbol: 6, Cover: 0
+    };
+    GRAND_PRIZE_HOTEL = {
+        Symbol: 0, Cover: 1
+        Symbol: 1, Cover: 1
+        Symbol: 2, Cover: 1
+        Symbol: 3, Cover: 1
+        Symbol: 4, Cover: 1
+        Symbol: 5, Cover: 1
+        Symbol: 6, Cover: 1
+    };
+    CASINO_NIGHT = {
+        Symbol: 0, Cover: 2
+        Symbol: 1, Cover: 2
+        Symbol: 2, Cover: 2
+        Symbol: 3, Cover: 2
+        Symbol: 4, Cover: 2
+        Symbol: 5, Cover: 2
+        Symbol: 6, Cover: 3
+        Symbol: 7, Cover: 3
+        Symbol: 8, Cover: 3
+        Symbol: 9, Cover: 3
+        Symbol: 10, Cover: 3
+        Symbol: 11, Cover: 3
+        Symbol: 12, Cover: 3
+        Symbol: 13, Cover: 3
+        Symbol: 14, Cover: 3
+        Symbol: 15, Cover: 3
+        Symbol: 16, Cover: 3
+        Symbol: 17, Cover: 3
+    };
+    MASSIVE_20X = {
+        Symbol: 0, Cover: 4
+        Symbol: 1, Cover: 4
+        Symbol: 2, Cover: 4
+        Symbol: 3, Cover: 4
+        Symbol: 4, Cover: 4
+        Symbol: 5, Cover: 4
+        Symbol: 6, Cover: 5
+        Symbol: 7, Cover: 5
+        Symbol: 8, Cover: 5
+        Symbol: 9, Cover: 5
+        Symbol: 10, Cover: 5
+        Symbol: 11, Cover: 5
+        Symbol: 12, Cover: 5
+        Symbol: 13, Cover: 5
+        Symbol: 14, Cover: 5
+        Symbol: 15, Cover: 5
+        Symbol: 16, Cover: 5
+        Symbol: 17, Cover: 5
+    };
+    VEGAS_NIGHT = {
+        Symbol: 0, Cover: 6
+        Symbol: 1, Cover: 6
+        Symbol: 2, Cover: 6
+        Symbol: 3, Cover: 7
+        Symbol: 4, Cover: 7
+        Symbol: 5, Cover: 7
+        Symbol: 6, Cover: 7
+        Symbol: 7, Cover: 7
+        Symbol: 8, Cover: 7
+        Symbol: 9, Cover: 7
+        Symbol: 10, Cover: 7
+        Symbol: 11, Cover: 8
+        Symbol: 12, Cover: 8
+        Symbol: 13, Cover: 8
+        Symbol: 14, Cover: 8
+    };
+    JOKERS_WILD_POKER = {
+        Symbol: 0, Cover: 9
+        Symbol: 1, Cover: 9
+        Symbol: 2, Cover: 9
+        Symbol: 3, Cover: 9
+        Symbol: 4, Cover: 9
+        Symbol: 5, Cover: 9
+        Symbol: 6, Cover: 9
+        Symbol: 7, Cover: 9
+        Symbol: 8, Cover: 9
+        Symbol: 9, Cover: 9
+        Symbol: 10, Cover: 9
+        Symbol: 11, Cover: 9
+        Symbol: 12, Cover: 9
+        Symbol: 13, Cover: 9
+        Symbol: 14, Cover: 9
+        Symbol: 15, Cover: 9
+        Symbol: 16, Cover: 9
+        Symbol: 17, Cover: 9
+        Symbol: 18, Cover: 9
+        Symbol: 19, Cover: 9
+        Symbol: 20, Cover: 9
+        Symbol: 21, Cover: 9
+        Symbol: 22, Cover: 9
+        Symbol: 23, Cover: 9
+        Symbol: 24, Cover: 9
+        Symbol: 25, Cover: 9
+        Symbol: 26, Cover: 9
+        Symbol: 27, Cover: 9
+        Symbol: 28, Cover: 9
+        Symbol: 29, Cover: 9
+        Symbol: 30, Cover: 9
+        Symbol: 31, Cover: 9
+        Symbol: 32, Cover: 9
+        Symbol: 33, Cover: 9
+        Symbol: 34, Cover: 9
+        Symbol: 35, Cover: 9
+        Symbol: 36, Cover: 9
+        Symbol: 37, Cover: 9
+        Symbol: 38, Cover: 9
+        Symbol: 39, Cover: 9
+        Symbol: 40, Cover: 9
+        Symbol: 41, Cover: 9
+        Symbol: 42, Cover: 9
+        Symbol: 43, Cover: 9
+        Symbol: 44, Cover: 9
+        Symbol: 45, Cover: 10
+        Symbol: 46, Cover: 10
+        Symbol: 47, Cover: 10
+        Symbol: 48, Cover: 10
+        Symbol: 49, Cover: 10
+        Symbol: 50, Cover: 10
+        Symbol: 51, Cover: 10
+        Symbol: 52, Cover: 10
+    };
+    JOKERS_WILD_POKER_ADVANCE = {
+        Symbol: 0, Cover: 9
+        Symbol: 1, Cover: 9
+        Symbol: 2, Cover: 9
+        Symbol: 3, Cover: 9
+        Symbol: 4, Cover: 9
+        Symbol: 5, Cover: 9
+        Symbol: 6, Cover: 9
+        Symbol: 7, Cover: 9
+        Symbol: 8, Cover: 9
+        Symbol: 9, Cover: 9
+        Symbol: 10, Cover: 9
+        Symbol: 11, Cover: 9
+        Symbol: 12, Cover: 9
+        Symbol: 13, Cover: 9
+        Symbol: 14, Cover: 9
+        Symbol: 15, Cover: 9
+        Symbol: 16, Cover: 9
+        Symbol: 17, Cover: 9
+        Symbol: 18, Cover: 9
+        Symbol: 19, Cover: 9
+        Symbol: 20, Cover: 9
+        Symbol: 21, Cover: 9
+        Symbol: 22, Cover: 9
+        Symbol: 23, Cover: 9
+        Symbol: 24, Cover: 9
+        Symbol: 25, Cover: 9
+        Symbol: 26, Cover: 9
+        Symbol: 27, Cover: 9
+        Symbol: 28, Cover: 9
+        Symbol: 29, Cover: 9
+        Symbol: 30, Cover: 9
+        Symbol: 31, Cover: 9
+        Symbol: 32, Cover: 9
+        Symbol: 33, Cover: 9
+        Symbol: 34, Cover: 9
+        Symbol: 35, Cover: 9
+        Symbol: 36, Cover: 9
+        Symbol: 37, Cover: 9
+        Symbol: 38, Cover: 9
+        Symbol: 39, Cover: 9
+        Symbol: 40, Cover: 9
+        Symbol: 41, Cover: 9
+        Symbol: 42, Cover: 9
+        Symbol: 43, Cover: 9
+        Symbol: 44, Cover: 9
+        Symbol: 45, Cover: 10
+        Symbol: 46, Cover: 10
+        Symbol: 47, Cover: 10
+        Symbol: 48, Cover: 10
+        Symbol: 49, Cover: 10
+        Symbol: 50, Cover: 10
+        Symbol: 51, Cover: 10
+        Symbol: 52, Cover: 10
+        Symbol: 53, Cover: 11
+    };
+    RICH_PALACE = {
+        Symbol: 0, Cover: 12
+        Symbol: 1, Cover: 12
+        Symbol: 2, Cover: 12
+        Symbol: 3, Cover: 12
+        Symbol: 4, Cover: 12
+        Symbol: 5, Cover: 12
+        Symbol: 6, Cover: 12
+        Symbol: 7, Cover: 12
+        Symbol: 8, Cover: 12
+        Symbol: 9, Cover: 12
+        Symbol: 10, Cover: 12
+        Symbol: 11, Cover: 12
+        Symbol: 12, Cover: 13
+        Symbol: 13, Cover: 13
+        Symbol: 14, Cover: 13
+        Symbol: 15, Cover: 13
+    };
+    MATCH_3_TRIPLER = {
+        Symbol: 0, Cover: 14
+        Symbol: 1, Cover: 14
+        Symbol: 2, Cover: 14
+        Symbol: 3, Cover: 14
+        Symbol: 4, Cover: 14
+        Symbol: 5, Cover: 14
+        Symbol: 6, Cover: 15
+    };
+    CASH_DESERT = {
+        Symbol: 0, Cover: 16
+        Symbol: 1, Cover: 16
+        Symbol: 2, Cover: 16
+        Symbol: 3, Cover: 17
+        Symbol: 4, Cover: 17
+        Symbol: 5, Cover: 17
+        Symbol: 6, Cover: 17
+        Symbol: 7, Cover: 17
+        Symbol: 8, Cover: 17
+        Symbol: 9, Cover: 17
+        Symbol: 10, Cover: 17
+        Symbol: 11, Cover: 17
+        Symbol: 12, Cover: 17
+        Symbol: 13, Cover: 17
+        Symbol: 14, Cover: 17
+        Symbol: 15, Cover: 17
+        Symbol: 16, Cover: 17
+        Symbol: 17, Cover: 18
+        Symbol: 18, Cover: 18
+        Symbol: 19, Cover: 18
+        Symbol: 20, Cover: 18
+    };
+    EXTREME_10X = {
+        Symbol: 0, Cover: 19
+        Symbol: 1, Cover: 19
+        Symbol: 2, Cover: 19
+        Symbol: 3, Cover: 19
+        Symbol: 4, Cover: 19
+        Symbol: 5, Cover: 19
+        Symbol: 6, Cover: 20
+        Symbol: 7, Cover: 20
+        Symbol: 8, Cover: 20
+        Symbol: 9, Cover: 20
+        Symbol: 10, Cover: 20
+        Symbol: 11, Cover: 20
+        Symbol: 12, Cover: 20
+        Symbol: 13, Cover: 20
+        Symbol: 14, Cover: 20
+        Symbol: 15, Cover: 20
+        Symbol: 16, Cover: 20
+        Symbol: 17, Cover: 20
+    };
+    WORLD_TOUR = {
+        Symbol: 0, Cover: 21
+        Symbol: 1, Cover: 21
+        Symbol: 2, Cover: 21
+        Symbol: 3, Cover: 21
+        Symbol: 4, Cover: 21
+        Symbol: 5, Cover: 21
+        Symbol: 6, Cover: 22
+        Symbol: 7, Cover: 22
+        Symbol: 8, Cover: 22
+        Symbol: 9, Cover: 22
+        Symbol: 10, Cover: 22
+        Symbol: 11, Cover: 22
+        Symbol: 12, Cover: 22
+        Symbol: 13, Cover: 22
+        Symbol: 14, Cover: 22
+        Symbol: 15, Cover: 22
+        Symbol: 16, Cover: 22
+        Symbol: 17, Cover: 22
+        Symbol: 18, Cover: 23
+    };
+    JOKERS_POKER_RED = {
+        Symbol: 0, Cover: 9
+        Symbol: 1, Cover: 9
+        Symbol: 2, Cover: 9
+        Symbol: 3, Cover: 9
+        Symbol: 4, Cover: 9
+        Symbol: 5, Cover: 9
+        Symbol: 6, Cover: 9
+        Symbol: 7, Cover: 9
+        Symbol: 8, Cover: 9
+        Symbol: 9, Cover: 9
+        Symbol: 10, Cover: 9
+        Symbol: 11, Cover: 9
+        Symbol: 12, Cover: 9
+        Symbol: 13, Cover: 9
+        Symbol: 14, Cover: 9
+        Symbol: 15, Cover: 9
+        Symbol: 16, Cover: 9
+        Symbol: 17, Cover: 9
+        Symbol: 18, Cover: 9
+        Symbol: 19, Cover: 9
+        Symbol: 20, Cover: 9
+        Symbol: 21, Cover: 9
+        Symbol: 22, Cover: 9
+        Symbol: 23, Cover: 9
+        Symbol: 24, Cover: 9
+        Symbol: 25, Cover: 9
+        Symbol: 26, Cover: 9
+        Symbol: 27, Cover: 9
+        Symbol: 28, Cover: 9
+        Symbol: 29, Cover: 9
+        Symbol: 30, Cover: 9
+        Symbol: 31, Cover: 9
+        Symbol: 32, Cover: 9
+        Symbol: 33, Cover: 9
+        Symbol: 34, Cover: 9
+        Symbol: 35, Cover: 9
+        Symbol: 36, Cover: 9
+        Symbol: 37, Cover: 9
+        Symbol: 38, Cover: 9
+        Symbol: 39, Cover: 9
+        Symbol: 40, Cover: 9
+        Symbol: 41, Cover: 9
+        Symbol: 42, Cover: 9
+        Symbol: 43, Cover: 9
+        Symbol: 44, Cover: 9
+        Symbol: 45, Cover: 10
+        Symbol: 46, Cover: 10
+        Symbol: 47, Cover: 10
+        Symbol: 48, Cover: 10
+        Symbol: 49, Cover: 10
+        Symbol: 50, Cover: 10
+        Symbol: 51, Cover: 10
+        Symbol: 52, Cover: 10
+    };
+    JOKERS_POKER_GREEN = {
+        Symbol: 0, Cover: 9
+        Symbol: 1, Cover: 9
+        Symbol: 2, Cover: 9
+        Symbol: 3, Cover: 9
+        Symbol: 4, Cover: 9
+        Symbol: 5, Cover: 9
+        Symbol: 6, Cover: 9
+        Symbol: 7, Cover: 9
+        Symbol: 8, Cover: 9
+        Symbol: 9, Cover: 9
+        Symbol: 10, Cover: 9
+        Symbol: 11, Cover: 9
+        Symbol: 12, Cover: 9
+        Symbol: 13, Cover: 9
+        Symbol: 14, Cover: 9
+        Symbol: 15, Cover: 9
+        Symbol: 16, Cover: 9
+        Symbol: 17, Cover: 9
+        Symbol: 18, Cover: 9
+        Symbol: 19, Cover: 9
+        Symbol: 20, Cover: 9
+        Symbol: 21, Cover: 9
+        Symbol: 22, Cover: 9
+        Symbol: 23, Cover: 9
+        Symbol: 24, Cover: 9
+        Symbol: 25, Cover: 9
+        Symbol: 26, Cover: 9
+        Symbol: 27, Cover: 9
+        Symbol: 28, Cover: 9
+        Symbol: 29, Cover: 9
+        Symbol: 30, Cover: 9
+        Symbol: 31, Cover: 9
+        Symbol: 32, Cover: 9
+        Symbol: 33, Cover: 9
+        Symbol: 34, Cover: 9
+        Symbol: 35, Cover: 9
+        Symbol: 36, Cover: 9
+        Symbol: 37, Cover: 9
+        Symbol: 38, Cover: 9
+        Symbol: 39, Cover: 9
+        Symbol: 40, Cover: 9
+        Symbol: 41, Cover: 9
+        Symbol: 42, Cover: 9
+        Symbol: 43, Cover: 9
+        Symbol: 44, Cover: 9
+        Symbol: 45, Cover: 10
+        Symbol: 46, Cover: 10
+        Symbol: 47, Cover: 10
+        Symbol: 48, Cover: 10
+        Symbol: 49, Cover: 10
+        Symbol: 50, Cover: 10
+        Symbol: 51, Cover: 10
+        Symbol: 52, Cover: 10
+    };
+    JOKERS_10X_PURPLE = {
+        Symbol: 0, Cover: 9
+        Symbol: 1, Cover: 9
+        Symbol: 2, Cover: 9
+        Symbol: 3, Cover: 9
+        Symbol: 4, Cover: 9
+        Symbol: 5, Cover: 9
+        Symbol: 6, Cover: 9
+        Symbol: 7, Cover: 9
+        Symbol: 8, Cover: 9
+        Symbol: 9, Cover: 9
+        Symbol: 10, Cover: 9
+        Symbol: 11, Cover: 9
+        Symbol: 12, Cover: 9
+        Symbol: 13, Cover: 9
+        Symbol: 14, Cover: 9
+        Symbol: 15, Cover: 9
+        Symbol: 16, Cover: 9
+        Symbol: 17, Cover: 9
+        Symbol: 18, Cover: 9
+        Symbol: 19, Cover: 9
+        Symbol: 20, Cover: 9
+        Symbol: 21, Cover: 9
+        Symbol: 22, Cover: 9
+        Symbol: 23, Cover: 9
+        Symbol: 24, Cover: 9
+        Symbol: 25, Cover: 9
+        Symbol: 26, Cover: 9
+        Symbol: 27, Cover: 9
+        Symbol: 28, Cover: 9
+        Symbol: 29, Cover: 9
+        Symbol: 30, Cover: 9
+        Symbol: 31, Cover: 9
+        Symbol: 32, Cover: 9
+        Symbol: 33, Cover: 9
+        Symbol: 34, Cover: 9
+        Symbol: 35, Cover: 9
+        Symbol: 36, Cover: 9
+        Symbol: 37, Cover: 9
+        Symbol: 38, Cover: 9
+        Symbol: 39, Cover: 9
+        Symbol: 40, Cover: 9
+        Symbol: 41, Cover: 9
+        Symbol: 42, Cover: 9
+        Symbol: 43, Cover: 9
+        Symbol: 44, Cover: 9
+        Symbol: 45, Cover: 10
+        Symbol: 46, Cover: 10
+        Symbol: 47, Cover: 10
+        Symbol: 48, Cover: 10
+        Symbol: 49, Cover: 10
+        Symbol: 50, Cover: 10
+        Symbol: 51, Cover: 10
+        Symbol: 52, Cover: 10
+        Symbol: 53, Cover: 24
+    };
+    JOKERS_10X_GOLD = {
+        Symbol: 0, Cover: 9
+        Symbol: 1, Cover: 9
+        Symbol: 2, Cover: 9
+        Symbol: 3, Cover: 9
+        Symbol: 4, Cover: 9
+        Symbol: 5, Cover: 9
+        Symbol: 6, Cover: 9
+        Symbol: 7, Cover: 9
+        Symbol: 8, Cover: 9
+        Symbol: 9, Cover: 9
+        Symbol: 10, Cover: 9
+        Symbol: 11, Cover: 9
+        Symbol: 12, Cover: 9
+        Symbol: 13, Cover: 9
+        Symbol: 14, Cover: 9
+        Symbol: 15, Cover: 9
+        Symbol: 16, Cover: 9
+        Symbol: 17, Cover: 9
+        Symbol: 18, Cover: 9
+        Symbol: 19, Cover: 9
+        Symbol: 20, Cover: 9
+        Symbol: 21, Cover: 9
+        Symbol: 22, Cover: 9
+        Symbol: 23, Cover: 9
+        Symbol: 24, Cover: 9
+        Symbol: 25, Cover: 9
+        Symbol: 26, Cover: 9
+        Symbol: 27, Cover: 9
+        Symbol: 28, Cover: 9
+        Symbol: 29, Cover: 9
+        Symbol: 30, Cover: 9
+        Symbol: 31, Cover: 9
+        Symbol: 32, Cover: 9
+        Symbol: 33, Cover: 9
+        Symbol: 34, Cover: 9
+        Symbol: 35, Cover: 9
+        Symbol: 36, Cover: 9
+        Symbol: 37, Cover: 9
+        Symbol: 38, Cover: 9
+        Symbol: 39, Cover: 9
+        Symbol: 40, Cover: 9
+        Symbol: 41, Cover: 9
+        Symbol: 42, Cover: 9
+        Symbol: 43, Cover: 9
+        Symbol: 44, Cover: 9
+        Symbol: 45, Cover: 10
+        Symbol: 46, Cover: 10
+        Symbol: 47, Cover: 10
+        Symbol: 48, Cover: 10
+        Symbol: 49, Cover: 10
+        Symbol: 50, Cover: 10
+        Symbol: 51, Cover: 10
+        Symbol: 52, Cover: 10
+        Symbol: 53, Cover: 24
+    };
+};

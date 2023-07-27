@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Inbox_State_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5429.0,"y":-4759.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"inboxState"},"valueB":{"_value":"READY"},"$type":"SlotMaker.Tasks.Actions.SetString"}]},"_position":{"x":6106.0,"y":5154.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"inboxState"},"valueB":{"_value":"ACCEPT"},"$type":"SlotMaker.Tasks.Actions.SetString"}]},"_position":{"x":5826.0,"y":5299.0},"_name":"Accept
+    Item","$type":"NodeCanvas.StateMachines.ActionState","$id":"8"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parent":{"_value":"/"},"bb":{"_value":"inboxResponse"},"$type":"SlotMaker.Tasks.Actions.DestroyBlackboard"},{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"eventName":{"_value":"OnLeaveInbox"},"delay":{},"sendGlobal":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"}]},"_position":{"x":6370.0,"y":5298.0},"_name":"Close","$type":"NodeCanvas.StateMachines.ActionState","$id":"14"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parent":{"_value":"/"},"bb":{"_value":"inboxResponse"},"$type":"SlotMaker.Tasks.Actions.DestroyBlackboard"},{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"eventName":{"_value":"OnLeaveInbox"},"delay":{},"sendGlobal":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"}]},"_position":{"x":6575.0,"y":4849.0},"_name":"Enter
+    Game","$type":"NodeCanvas.StateMachines.ActionState"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parent":{"_value":"/"},"bb":{"_value":"inboxResponse"},"$type":"SlotMaker.Tasks.Actions.DestroyBlackboard"},{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"eventName":{"_value":"InboxToDailySpin"},"delay":{},"sendGlobal":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"}]},"_position":{"x":6570.0,"y":4742.0},"_name":"Daily
+    Spin","$type":"NodeCanvas.StateMachines.ActionState"}],"connections":[{"_condition":{"eventName":{"_value":"StartInboxAccept"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"CloseInbox"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"ResponseAcceptItem"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"eventName":{"_value":"OnResetState"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

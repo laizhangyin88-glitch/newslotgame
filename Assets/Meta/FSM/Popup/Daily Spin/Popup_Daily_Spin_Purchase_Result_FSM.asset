@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_Daily_Spin_Purchase_Result_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4978.0,"y":-5050.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{"_value":true},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"valueA":{"_value":"/purchaseResponse"},"saveAs":{"_name":"_purchaseResponse"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"/purchaseResponse/userSyncInfo"},"saveAs":{"_name":"_userSyncInfo"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"elementName":{"_value":"Title
+    Area/Text"},"searchingType":"FullNameSearch","key":{"_name":"titleKey","_targetVariableID":"626d5ce5-2b4b-48f3-8d69-39416c318517"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText"},{"valueA":{"_value":"itemUseResult/addedSpinCount"},"saveAs":{"_name":"_spinCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"elementName":{"_value":"Button
+    Ok"},"key":{"_value":"BUTTON_OK"},"eventName":{"_value":"OnClosePurchasePopup"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextClickable"},{"elementName":{"_value":"Button
+    Close"},"key":{},"eventName":{"_value":"OnClosePurchasePopup"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextClickable"},{"eventName":{"_value":"OnClosePurchasePopup"},"$type":"BagelCode.Tasks.Actions.SubscribeBackButtonEvent"},{"elementName":{"_value":"Popup
+    Bottom Description/Text"},"searchingType":"FullNameSearch","key":{"_value":"POPUP_DAILY_SPIN_PURCHASE_BOTTOM_TEXT"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText"},{"elementName":{"_value":"Text"},"key":{"_value":"POPUP_DAILY_SPIN_PURCHASE_RESULT_TEXT"},"arg1":{"_value":"_spinCount"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"}]},"_position":{"x":5202.0,"y":5155.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":5845.0,"y":5373.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"38"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":6087.0,"y":5467.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"40"},{"_nestedBT":{"_value":2},"executionMode":"Once","successEvent":"OnTierUp","failureEvent":"OnSameTier","_position":{"x":6351.0,"y":5579.0},"_name":"Check
+    Tier","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"43"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"$type":"SlotMaker.Task.Actions.ClosePopupAgent"},{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"}]},"_position":{"x":6159.0,"y":5784.0},"_name":"Close","$type":"NodeCanvas.StateMachines.ActionState","$id":"45"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"UI_Coin_Purchase"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"eventName":{"_value":"UpdateNaviCredit"},"eventValue":{},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendCreditEvent`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":5724.0,"y":5650.0},"_name":"Apply","$type":"NodeCanvas.StateMachines.ActionState","$id":"53"},{"_nestedBT":{"_value":3},"executionMode":"Once","_position":{"x":5994.0,"y":5710.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"62"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"38"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnClosePurchasePopup"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"40"},"_targetNode":{"$ref":"43"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnTierUp"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"43"},"_targetNode":{"$ref":"45"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnSameTier"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"43"},"_targetNode":{"$ref":"53"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"53"},"_targetNode":{"$ref":"62"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"62"},"_targetNode":{"$ref":"45"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: e79d91d94a9df4a7484697d2e05233ca, type: 2}
+  - {fileID: 11400000, guid: 4ac2cac578d25490a925e8464f4efa6f, type: 2}
+  - {fileID: 11400000, guid: 414fc44ec43c446f398140bf79468942, type: 2}
+  _deserializationFailed: 0

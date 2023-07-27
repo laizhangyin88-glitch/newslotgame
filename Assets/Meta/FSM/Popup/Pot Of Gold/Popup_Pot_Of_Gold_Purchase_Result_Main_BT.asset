@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Popup_Pot_Of_Gold_Purchase_Result_Main_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-1700.0,"y":-2385.0},"zoomFactor":0.5050966,"nodes":[{"_position":{"x":5714.0,"y":5247.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"titleKey":{"_name":"titleKey","_targetVariableID":"230ab1a6-992a-4f81-8950-cb9db69ad44c"},"saveAsItemUseResult":{"_name":"itemUseResult","_targetVariableID":"05726830-dd87-4e98-a949-b83007eb9a38"},"saveAsUserSyncInfo":{"_name":"_userSyncInfo"},"$type":"BagelCode.Tasks.Actions.UpdatePotOfGoldResultPopupStaticValues"},{"priceValue":{"_value":"/purchaseResponse/price"},"saveAsProductBB":{"_name":"_pogBoosterProductBB"},"$type":"BagelCode.Task.Actions.GetPOGBoosterProductBB"},{"type":{"_value":"reset"},"coinValue":{"_value":"itemUseResult/earnCredit"},"$type":"BagelCode.Tasks.Actions.BI.BI_client_pot_of_gold"},{"elementName":{"_value":"Button
+    Ok"},"key":{"_value":"BUTTON_OK"},"eventName":{"_value":"OnClosePogPopup"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextClickable"},{"elementName":{"_value":"Button
+    Close"},"key":{},"eventName":{"_value":"OnClosePogPopup"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextClickable"},{"eventName":{"_value":"OnClosePogPopup"},"$type":"BagelCode.Tasks.Actions.SubscribeBackButtonEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5003.0,"y":5384.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_value":"_pogBoosterProductBB"},"$type":"SlotMaker.Tasks.Condition.CheckNull"},"_position":{"x":5623.0,"y":5432.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"30"},{"_action":{"boolVariable":{"_name":"silentTierShop","_targetVariableID":"c2c27c36-e18e-47a6-93e1-2e41f3cda31b"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},"_position":{"x":5541.0,"y":5581.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"33"},{"_action":{"boolVariable":{"_name":"silentTierShop","_targetVariableID":"c2c27c36-e18e-47a6-93e1-2e41f3cda31b"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},"_position":{"x":5726.0,"y":5580.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"36"},{"_subTree":{"_value":1},"_position":{"x":5920.0,"y":5452.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"39"},{"_nestedFSM":{"_value":2},"successState":"","failureState":"","_position":{"x":6154.0,"y":5409.0},"$type":"NodeCanvas.BehaviourTrees.NestedFSM","$id":"41"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"39"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"41"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: e79d91d94a9df4a7484697d2e05233ca, type: 2}
+  - {fileID: 11400000, guid: 916ce74812827428db3f35325e5ebe4c, type: 2}
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

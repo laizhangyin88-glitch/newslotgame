@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Profile_Setup_Record_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5107.0,"y":-4952.0},"nodes":[{"_position":{"x":5713.0,"y":5208.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_condition":{"valueA":{"_value":"tournamentChampionCount"},"valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":5495.0,"y":5295.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"3"},{"_action":{"actions":[{"valueA":{"_value":"zero"},"valueB":{"_value":"-"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"elementName":{"_value":"Record/Total/Text"},"searchingType":"FullNameSearch","key":{"_value":"POPUP_PROFILE_TOURNAMENT_TOTAL_TEXT"},"arg1":{"_value":"zero"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5126.0,"y":5406.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"_action":{"elementName":{"_value":"Record/Total/Text"},"searchingType":"FullNameSearch","key":{"_value":"POPUP_PROFILE_TOURNAMENT_TOTAL_TEXT"},"arg1":{"_value":"tournamentChampionCount"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},"_position":{"x":5475.0,"y":5494.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"17"},{"_action":{"actions":[{"valueA":{"_value":"maxTournamentSerialWinCount"},"Operation":"Add","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"elementName":{"_value":"Record/Top
+    Prgress/Text"},"searchingType":"FullNameSearch","key":{"_value":"POPUP_PROFILE_TOURNAMENT_TOP_PROGRESS_TEXT"},"arg1":{"_value":"maxTournamentSerialWinCount"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5726.0,"y":5293.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"22"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

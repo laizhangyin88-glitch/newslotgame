@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Wall_Of_Epic_Cell_Simple_AddFriend_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","name":"BehaviourTree","nodes":[{"_nodeColor":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":5836.0,"y":5266.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Loading
+    Full Scene"},"combineApplicationType":{"_value":true},"parent":{},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_loadingObj"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync1"},{"setTo":"Activate","overrideAgent":{"_name":"_loadingObj"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"popup":{"_name":"_loadingObj"},"$type":"SlotMaker.Task.Actions.OpenPopup"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5478.476,"y":5360.752},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"actions":[{"userId":{"_name":"_userID","_targetVariableID":"314080e2-95a6-461c-a35c-dc90e4a56cc8"},"result":{"_name":"_resultFriend"},"$type":"BagelCode.Tasks.Actions.ClientAPI.FriendAdd"},{"overrideAgent":{"_name":"_loadingObj"},"$type":"SlotMaker.Task.Actions.ClosePopupAgent"},{"target":{"_name":"_loadingObj"},"$type":"SlotMaker.Tasks.Actions.DestroyGameObject"},{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Popup
+    Common Ok Scene"},"combineApplicationType":{"_value":true},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_commonPopup","_targetVariableID":"608b01ae-e23f-432d-b08d-c4a47b7e2758"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync"},{"popup":{"_name":"_commonPopup","_targetVariableID":"608b01ae-e23f-432d-b08d-c4a47b7e2758"},"yesButtonEvent":{"_value":"OnOK"},"noButtonEvent":{"_value":"
+    "},"xButtonEvent":{"_value":" "},"BackButtonEvent":{"_value":""},"title":{"_value":"
+    ","_name":"_resultFriend"},"text":{"_value":" "},"yesButtonText":{"_value":"OK"},"noButtonText":{"_value":"
+    "},"autoCloseYes":{"_value":true},"autoCloseNo":{},"autoCloseX":{},"useXButton":{},"useBackButton":{"_value":true},"$type":"SlotMaker.Task.Actions.OpenCommonPopup"},{"setTo":"Activate","overrideAgent":{"_name":"_commonPopup","_targetVariableID":"608b01ae-e23f-432d-b08d-c4a47b7e2758"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5800.797,"y":5363.783},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"18"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

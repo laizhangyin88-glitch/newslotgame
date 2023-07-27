@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Club_Scene_Request_Update_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5006.0,"y":-4967.0},"nodes":[{"_position":{"x":5749.0,"y":5153.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"clubInfoResponseValue":{"_value":"_clubInfoResponse"},"enableRequestButton":{"_name":"_enableRequestButton"},"requestCount":{"_name":"_requestCount"},"biAuthorityNumber":{"_name":"biAuthorityNumber","_targetVariableID":"7d623130-2e32-4ddc-af1b-64b97c4123e3"},"$type":"BagelCode.Tasks.Actions.GetClubRequestButtonInfoBB"},{"valueA":{"_value":"_clubInfoResponse/clubInfo/id"},"saveAs":{"_name":"_clubID"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5495.0,"y":5268.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_name":"_enableRequestButton"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_position":{"x":5810.0,"y":5278.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"14"},{"_action":{"actions":[{"setTo":"Activate","overrideAgent":{"_name":"_requestButtonAreaElement"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"parameter":{"_value":"value"},"parameterHashID":{},"setTo":{"_name":"_requestCount"},"overrideAgent":{"_name":"_badgeElement"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"},{"elementName":{"_value":"Request
+    Button Area/Badge/Text"},"searchingType":"FullNameSearch","key":{"_value":"TEXT_BADGE_NUMBER"},"arg1":{"_value":"_requestCount"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5416.0,"y":5399.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"18"},{"_action":{"setTo":"Deactivate","overrideAgent":{"_name":"_requestButtonAreaElement"},"$type":"SlotMaker.Tasks.Actions.SetActive"},"_position":{"x":5931.0,"y":5490.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"32"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

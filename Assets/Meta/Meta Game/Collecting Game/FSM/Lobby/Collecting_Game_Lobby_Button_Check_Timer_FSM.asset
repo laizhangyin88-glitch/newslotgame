@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Collecting_Game_Lobby_Button_Check_Timer_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5161.0,"y":-4884.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"elementName":{"_value":"Event
+    Timer Area"},"saveAs":{"_name":"timerAreaElement","_targetVariableID":"e990aa21-cc7b-4142-bb22-c5475eecb98d"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Event
+    Timer/Remaining Timer"},"searchingType":"FullNameSearch","saveAs":{"_name":"timerElement","_targetVariableID":"f836d6c6-006c-4987-b4b2-56a71323cf6d"},"overrideAgent":{"_name":"timerAreaElement","_targetVariableID":"e990aa21-cc7b-4142-bb22-c5475eecb98d"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Event
+    Timer Area/Event Timer"},"searchingType":"FullNameSearch","saveAs":{"_name":"_eventTimer"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Event
+    Timer Area/Event Timer/Text"},"searchingType":"FullNameSearch","saveAs":{"_name":"_eventPassiveText"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Event
+    Timer Area/Event Timer/Remaining Timer"},"searchingType":"FullNameSearch","saveAs":{"_name":"_remainingTimer"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"callee":{"_name":"_remainingTimer"},"$type":"SlotMaker.Tasks.Actions.SetCaller"}]},"_position":{"x":5342.0,"y":5135.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_name":"_eventId"},"endTimestamp":{"_name":"_eventTimestamp"},"multiplierNumerator":{},"multiplierPercent":{"_name":"_eventMultiplierPercent"},"$type":"BagelCode.Tasks.Actions.GetScratcherPassiveEvent"}]},"_position":{"x":6004.0,"y":5259.0},"_name":"Check
+    State","$type":"NodeCanvas.StateMachines.ActionState","$id":"23"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"timerAreaElement":{"_name":"timerAreaElement","_targetVariableID":"e990aa21-cc7b-4142-bb22-c5475eecb98d"},"timerElement":{"_name":"timerElement","_targetVariableID":"f836d6c6-006c-4987-b4b2-56a71323cf6d"},"targetTime":{"_name":"_eventTimestamp"},"saveAsIsShow":{"_name":"isShowTimer","_targetVariableID":"f5a54653-182e-4e0c-af3d-6b0dae4c5dea"},"$type":"BagelCode.Tasks.Actions.UpdateMetaGameRemainingTimer"},{"element":{"_name":"_eventPassiveText"},"key":{"_value":"SCRATCHER_PASSIVE_EVENT"},"arg1":{"_value":"_eventMultiplierPercent"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"parameter":{"_value":"isFlip"},"parameterHashID":{},"setTo":{"_value":true},"overrideAgent":{"_name":"_eventTimer"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5362.0,"y":5435.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"31"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"isFlip"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"_eventTimer"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":6257.0,"y":5324.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"48"},{"_nestedBT":{"_value":1},"_position":{"x":6442.0,"y":5416.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"56"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"_eventId"},"valueB":{},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"_eventId"},"valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"48"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"RefreshPassive"},"value":{"_name":"_eventId"},"$type":"BagelCode.Task.Condition.CheckPassiveEventValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"OnEndTimer"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"48"},"_targetNode":{"$ref":"56"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"StartPassive"},"value":{"_value":"COLLECTING_GAME_CHEST_DROP_RATE_MULTIPLY"},"$type":"BagelCode.Task.Condition.CheckPassiveEventValue`1[[BagelCode.ClientModels.EventInfoType,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"_sourceNode":{"$ref":"56"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 23b9b26361be14d4db1dbe8445bebf63, type: 2}
+  _deserializationFailed: 0

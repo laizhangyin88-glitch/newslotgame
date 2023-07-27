@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Epic_Album_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-80.0,"y":-215.0},"zoomFactor":0.8899574,"nodes":[{"_actionList":{"actions":[{"waitTime":{"_value":0.2},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"eventName":{"_value":"OnClickClose"},"$type":"BagelCode.Tasks.Actions.SubscribeBackButtonEvent"},{"elementName":{"_value":"Anchor"},"saveAs":{"_name":"_anchor"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"method":{"_baseInfo":"BagelCode.EpicAlbum.EpicAlbumController|Init|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]},"_position":{"x":662.0,"y":260.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"id":{"_value":"Epic_Album_Enter"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"waitTime":{"_value":0.4},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":448.0,"y":455.0},"_name":"Album
+    Effect","$type":"NodeCanvas.StateMachines.ActionState","$id":"19"},{"_nestedFSM":{"_value":1},"_position":{"x":741.0,"y":561.0},"$type":"NodeCanvas.StateMachines.NestedFSMState","$id":"26"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"},{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":1101.0,"y":779.0},"_name":"Close","$type":"NodeCanvas.StateMachines.ActionState","$id":"28"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"OnLeaveEpicAlbum"},"delay":{},"sendGlobal":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent"}]},"_position":{"x":830.0,"y":676.0},"_name":"Leave
+    Epic Album","$type":"NodeCanvas.StateMachines.ActionState","$id":"35"},{"_position":{"x":1145.0,"y":586.0},"$type":"NodeCanvas.StateMachines.AnyState","$id":"41"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnEnterGame"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnClickClose"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"35"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SystemReset"},"$type":"BagelCode.Task.Condition.CheckSystemEvent"},"_sourceNode":{"$ref":"41"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 6089c58899c7041779945a58289bc0ba, type: 2}
+  _deserializationFailed: 0

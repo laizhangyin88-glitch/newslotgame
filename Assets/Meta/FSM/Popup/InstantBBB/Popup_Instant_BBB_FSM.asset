@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_Instant_BBB_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4942.0,"y":-5020.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{"_value":"Title
+    Area/Text"},"searchingType":"FullNameSearch","key":{"_value":"POPUP_INS_BBB_TITLE"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText"},{"elementName":{"_value":"Text
+    Message"},"key":{"_value":"POPUP_INS_BBB_TEXT"},"arg1":{"_value":"userName"},"arg2":{"_value":"insBbbCredit"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText2"},{"elementName":{"_value":"Button
+    Collect"},"key":{"_value":"BUTTON_COLLECT"},"eventName":{"_value":"OnCollect"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextClickable"},{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5034.0,"y":5160.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5517.0,"y":5266.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"24"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"$type":"BagelCode.Tasks.Actions.UnSubscribeBackButtonEvent"},{"$type":"SlotMaker.Task.Actions.ClosePopupAgent"},{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"action":{"_name":"endAction","_targetVariableID":"8ef297b6-4870-4d05-8c42-f90cf4869c86"},"$type":"SlotMaker.Tasks.Actions.RunSystemAction"}]},"_position":{"x":5600.0,"y":5345.0},"_name":"Close","$type":"NodeCanvas.StateMachines.ActionState","$id":"27"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnCollect"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"27"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

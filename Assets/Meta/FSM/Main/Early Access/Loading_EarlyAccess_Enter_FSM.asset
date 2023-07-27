@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Loading_EarlyAccess_Enter_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5361.0,"y":-5239.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{"_value":"Curtain
+    Left"},"saveAs":{"_name":"_leftCurtain"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Curtain
+    Right"},"saveAs":{"_name":"_rightCurtain"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"parameter":{"_value":"IsEarlyAccess"},"parameterHashID":{},"setTo":{"_name":"isEarlyAccess","_targetVariableID":"72a2d124-fdde-40d6-b2fb-1ba29705ad1e"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{"_value":true},"overrideAgent":{"_name":"_leftCurtain"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{"_value":true},"overrideAgent":{"_name":"_rightCurtain"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5295.0,"y":5297.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"waitTime":{"_value":0.1},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"},{"eventName":{"_value":"StartLoadScene"},"delay":{},"sendGlobal":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent"}]},"_position":{"x":5658.0,"y":5452.0},"_name":"Start
+    Load","$type":"NodeCanvas.StateMachines.ActionState","$id":"31"},{"_actionList":{"actions":[{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{},"_isDisabled":true,"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"_leftCurtain"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"_rightCurtain"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5917.0,"y":5539.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"39"},{"_actionList":{"actions":[{"parameter":{"_value":"Close"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"$type":"SlotMaker.Task.Actions.ClosePopupAgent"}]},"_position":{"x":6198.0,"y":5649.0},"_name":"Scene
+    Load Finished","$type":"NodeCanvas.StateMachines.ActionState","$id":"58"},{"_position":{"x":6227.0,"y":5475.0},"$type":"NodeCanvas.StateMachines.AnyState","$id":"65"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"LoadSceneFinished"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"39"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"39"},"_targetNode":{"$ref":"58"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SystemReset"},"$type":"BagelCode.Task.Condition.CheckSystemEvent"},"_sourceNode":{"$ref":"65"},"_targetNode":{"$ref":"58"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

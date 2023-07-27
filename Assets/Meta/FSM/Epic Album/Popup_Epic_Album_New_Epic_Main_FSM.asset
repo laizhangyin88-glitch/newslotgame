@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_Epic_Album_New_Epic_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":92.0,"y":105.0},"nodes":[{"_actionList":{"actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{"_value":"Image
+    Epic Win Area/Image"},"searchingType":"FullNameSearch","imageUrl":{"_value":"_completeInfo/screenshotUrl"},"cachingType":{"_value":"FileCache"},"priority":{},"isLoaded":{"_name":"_isLoaded"},"isLoadFailed":{"_name":""},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextWebImage"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":-90.0,"y":45.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"parameter":{"_value":"Active"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"eventName":{"_value":"OnShootNewEpic"},"eventValue":{"_name":"_completeInfo"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendMetaUIEvent`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}]},"_position":{"x":291.0,"y":178.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"14"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":696.0,"y":317.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"24"},{"_actionList":{"actions":[{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":879.0,"y":414.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"26"}],"connections":[{"_condition":{"valueA":{"_value":"_isLoaded"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnCompleteEffect"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 414fc44ec43c446f398140bf79468942, type: 2}
+  _deserializationFailed: 0

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Navigation_Buy Button_Main_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5369.0,"y":-5042.0},"nodes":[{"_position":{"x":6153.0,"y":5045.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},"_position":{"x":5972.0,"y":5151.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_position":{"x":6231.0,"y":5153.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"6"},{"repeaterMode":"RepeatForever","repeatTimes":{"_value":1},"_position":{"x":5985.0,"y":5309.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"7"},{"_position":{"x":5985.0,"y":5379.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"9"},{"_subTree":{"_value":1},"_position":{"x":5851.0,"y":5463.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"10"},{"_position":{"x":6047.0,"y":5464.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"12"},{"_condition":{"conditions":[{"valueA":{"_name":"_nextEventStartTimestamp"},"valueB":{},"_invert":true,"$type":"NodeCanvas.Tasks.Conditions.CheckLong"},{"valueA":{"_name":"_nextEventEndTimestamp"},"valueB":{},"_invert":true,"$type":"NodeCanvas.Tasks.Conditions.CheckLong"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":5805.0,"y":5572.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"13"},{"_subTree":{"_value":2},"_position":{"x":5787.0,"y":5684.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"22"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnCollectVipBonus"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"eventName":{"_value":"OnRefreshBuyButton"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"eventName":{"_value":"OnEndTimer"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"eventName":{"_value":"RefreshPassive"},"value":{"_name":"_viewPassiveEventID"},"$type":"BagelCode.Task.Condition.CheckPassiveEventValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"StartPassive"},"value":{"_value":"CREDIT_MULTIPLIER_WHEEL"},"$type":"BagelCode.Task.Condition.CheckPassiveEventValue`1[[BagelCode.ClientModels.EventInfoType,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"eventName":{"_value":"StartPassive"},"value":{"_value":"FREE_COIN_BOOSTER"},"$type":"BagelCode.Task.Condition.CheckPassiveEventValue`1[[BagelCode.ClientModels.EventInfoType,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"eventName":{"_value":"StartPassive"},"value":{"_value":"CREDIT_MULTIPLIER_WHEEL_MULTIPLY"},"$type":"BagelCode.Task.Condition.CheckPassiveEventValue`1[[BagelCode.ClientModels.EventInfoType,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"eventName":{"_value":"StartPassive"},"value":{"_value":"COIN_SHOP_EVENT_MULTIPLY"},"$type":"BagelCode.Task.Condition.CheckPassiveEventValue`1[[BagelCode.ClientModels.EventInfoType,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"eventName":{"_value":"StartPassive"},"value":{"_value":"GEM_SHOP_EVENT_MULTIPLY"},"$type":"BagelCode.Task.Condition.CheckPassiveEventValue`1[[BagelCode.ClientModels.EventInfoType,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"eventName":{"_value":"StartPassive"},"value":{},"$type":"BagelCode.Task.Condition.CheckPassiveEventValue`1[[BagelCode.ClientModels.EventInfoType,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":6102.0,"y":5573.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"24"},{"_action":{"$type":"NodeCanvas.Tasks.Actions.RaiseStatus"},"_position":{"x":6273.0,"y":5781.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"54"},{"_nestedFSM":{"_value":3},"_position":{"x":6154.0,"y":5307.0},"$type":"NodeCanvas.BehaviourTrees.AutoUpdateNestedFSM","$id":"56"},{"_nestedFSM":{"_value":4},"_position":{"x":6336.0,"y":5307.0},"$type":"NodeCanvas.BehaviourTrees.AutoUpdateNestedFSM","$id":"58"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"56"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"58"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"54"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 80f1d52089c394f5a9556b256f5d514d, type: 2}
+  - {fileID: 11400000, guid: 1c98e65ff327e4c81ac78ab74eae7dad, type: 2}
+  - {fileID: 11400000, guid: ee8b7dd92984c4074afbcddeacf96a43, type: 2}
+  - {fileID: 11400000, guid: afc0c1895fc2c4e64826509ea9e9ce39, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Ingame_Challenge_Complete_Manager_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5726.0,"y":-5076.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5731.0,"y":5476.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"In
+    Game Challenge Complete Popup Scene"},"combineApplicationType":{"_value":true},"parentName":{},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_completeObject"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync"},{"valueA":{"_value":"_completeInfo"},"valueB":{"_name":"_completeInfo"},"overrideAgent":{"_name":"_completeObject"},"$type":"SlotMaker.Tasks.Actions.SetBlackboard"},{"callee":{"_name":"_completeObject"},"$type":"SlotMaker.Tasks.Actions.SetCaller"},{"setTo":"Activate","overrideAgent":{"_name":"_completeObject"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"interactable":{"_name":"interactable","_targetVariableID":"27805dfe-004c-4265-98f1-efd421d274bb"},"$type":"BagelCode.RefreshCanvasGroupInteractable"}]},"_position":{"x":5917.0,"y":5242.0},"_name":"Set
+    Data","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"5"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"OnEndCompleteChallengePopup"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendMetaUIEvent"}]},"_position":{"x":6448.0,"y":5521.0},"_name":"Callback","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"25"},{"_actionList":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"In
+    Game Challenge Club Complete Popup Scene"},"combineApplicationType":{"_value":true},"parentName":{},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_completeObject"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync"},{"valueA":{"_value":"_completeInfo"},"valueB":{"_name":"_completeInfo"},"overrideAgent":{"_name":"_completeObject"},"$type":"SlotMaker.Tasks.Actions.SetBlackboard"},{"callee":{"_name":"_completeObject"},"$type":"SlotMaker.Tasks.Actions.SetCaller"},{"setTo":"Activate","overrideAgent":{"_name":"_completeObject"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":5840.0,"y":5674.0},"_name":"Club
+    Challenge Complete","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"31"}],"connections":[{"_condition":{"eventName":{"_value":"OnStartCompleteChallengePopup"},"saveEventValue":{"_name":"_completeInfo"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnStartCompleteClubChallengePopup"},"saveEventValue":{"_name":"_completeInfo"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnCalleeCallback"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"25"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"25"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnCalleeCallback"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"25"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

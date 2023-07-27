@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Gem_Booster_Spin_Result_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5844.0,"y":-4903.0},"nodes":[{"_position":{"x":6160.0,"y":5091.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"targetList":{"_name":"highLightContextList","_targetVariableID":"2b389253-08ef-4a3d-b965-06e04c86d5a8"},"index":{"_name":"currentcellIndex"},"saveAs":{"_name":"_currentHighlightElement"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[SlotMaker.ContextElement,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"parameter":{"_value":"Highlight"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"_currentHighlightElement"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"parameter":{"_value":"Win"},"parameterHashID":{},"setTo":{"_value":true},"overrideAgent":{"_name":"_currentHighlightElement"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"id":{"_value":"UI_Coin_Booster_Stop"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5479.0,"y":5243.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"actions":[{"parameter":{"_value":"Stop"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":3.0},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5932.0,"y":5245.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"22"},{"_action":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Popup
+    Gem Booster Total Result Scene"},"combineApplicationType":{"_value":true},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_resultPopup"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync"},{"valueA":{"_value":"prevEarnCoins"},"valueB":{"_name":"prevEarnGems","_targetVariableID":"7332f4a2-0251-42f4-ac82-aa7534f2cb57"},"_isDisabled":true,"overrideAgent":{"_name":"_resultPopup"},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"popup":{"_name":"_resultPopup"},"$type":"SlotMaker.Task.Actions.OpenPopup"},{"setTo":"Activate","overrideAgent":{"_name":"_resultPopup"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"valueA":{"_value":"isRedeem"},"valueB":{"_name":"isRedeem"},"overrideAgent":{"_name":"_resultPopup"},"$type":"SlotMaker.Tasks.Actions.SetBoolean1"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":6111.0,"y":5248.0},"_comment":"Open
+    Result Popup","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"30"},{"_condition":{"conditions":[{"valueA":{"_value":"caller"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckNull"},{"valueA":{"_name":"caller"},"valueB":{},"_invert":true,"$type":"NodeCanvas.Tasks.Conditions.CheckUnityObject"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":6696.0,"y":5249.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"52"},{"_action":{"callee":{"_name":"_resultPopup"},"overrideAgent":{"_name":"caller"},"$type":"SlotMaker.Tasks.Actions.SetCaller"},"_position":{"x":6684.0,"y":5347.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"60"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"52"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"52"},"_targetNode":{"$ref":"60"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

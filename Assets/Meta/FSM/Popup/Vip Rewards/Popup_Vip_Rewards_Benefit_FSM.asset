@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_Vip_Rewards_Benefit_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-3650.0,"y":-3832.0},"zoomFactor":0.75,"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueB":{},"overrideAgent":{"_name":"_tabElement"},"$type":"SlotMaker.Tasks.Actions.SetContextIntProperty"},{"setTo":"Activate","overrideAgent":{"_name":"_rewardsPageElement"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"setTo":"Deactivate","overrideAgent":{"_name":"_faqPageElement"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":5525.0,"y":5252.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"meTier":{"_name":"myTier","_targetVariableID":"b716060a-5c4a-4100-a470-24a1982af4d4"},"targetPageIndex":{"_name":"currentBenefitPageIndex","_targetVariableID":"dbd18c9c-9969-4c9f-91fc-a85a583c1b08"},"pageTierList":{"_name":"pageTierList","_targetVariableID":"2760198a-c29b-4927-a9c5-dd34cf41681f"},"pageBenefitCellList":{"_value":[],"_name":"pageCellList","_targetVariableID":"bea61dd5-2aa9-484b-9fc4-3879f76a35e1"},"$type":"BagelCode.Tasks.Actions.UpdateVipBenefitPage"}]},"_position":{"x":5828.0,"y":5380.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"12"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"PageChangeLeft"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"valueA":{"_name":"currentBenefitPageIndex","_targetVariableID":"dbd18c9c-9969-4c9f-91fc-a85a583c1b08"},"Operation":"Subtract","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"}]},"_position":{"x":6180.0,"y":5595.0},"_name":"Prev
+    Page","$type":"NodeCanvas.StateMachines.ActionState","$id":"21"},{"_actionList":{"actions":[]},"_position":{"x":5963.0,"y":5485.0},"_name":"Change
+    Effect","$type":"NodeCanvas.StateMachines.ActionState","$id":"30"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"PageChangeRight"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"valueA":{"_name":"currentBenefitPageIndex","_targetVariableID":"dbd18c9c-9969-4c9f-91fc-a85a583c1b08"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"}]},"_position":{"x":5585.0,"y":5617.0},"_name":"Next
+    Page","$type":"NodeCanvas.StateMachines.ActionState","$id":"33"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnPrevPage"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnNextPage"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

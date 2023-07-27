@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Navigation_Pot_Of_Gold_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-3877.0,"y":-4682.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"OpenPotOfGold"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SetContextClickable"},{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"valueA":{"_value":"/values/misc/PIGGY_BANK_APPEAR_COIN_COUNT"},"saveAs":{"_name":"_piggyBankAppearCoinCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":4124.0,"y":4848.0},"_name":"Init","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"2"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":4703.0,"y":5061.0},"$type":"NodeCanvas.StateMachines.AutoUpdateNestedBTState","$id":"13"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5019.0,"y":4844.0},"$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"15"},{"_actionList":{"actions":[{"eventName":{"_value":"client_click_pot_of_gold"},"$type":"BagelCode.Tasks.Actions.BI.BI_common_click"},{"bundleName":{"_value":"lobby0"},"assetName":{"_value":"Popup
+    Pot Of Gold Scene"},"combineApplicationType":{},"parentName":{"_value":"Popup
+    Manager/Area"},"saveAs":{"_name":"_potOfGold"},"$type":"SlotMaker.Tasks.Actions.LoadScene"},{"setTo":"Deactivate","overrideAgent":{"_name":"_potOfGold"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"popup":{"_name":"_potOfGold"},"$type":"SlotMaker.Task.Actions.OpenPopup"},{"id":{"_value":"UI_Potofgold"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"callee":{"_name":"_potOfGold"},"$type":"SlotMaker.Tasks.Actions.SetCaller"},{"setTo":"Activate","overrideAgent":{"_name":"_potOfGold"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":3861.0,"y":5277.0},"_name":"Open
+    Pot of gold","$type":"NodeCanvas.StateMachines.ActionState","$id":"18"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":4465.0,"y":5218.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"39"},{"_nestedBT":{"_value":3},"executionMode":"Once","_position":{"x":5021.0,"y":5291.0},"$type":"NodeCanvas.StateMachines.AutoUpdateNestedBTState","$id":"41"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"ClosePotOfGold"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"eventName":{"_value":"RefreshTier"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"eventName":{"_value":"EndTurn"},"$type":"BagelCode.Task.Condition.CheckContentEvent"},{"eventName":{"_value":"RefreshPOG"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OpenPotOfGold"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"conditions":[{"eventName":{"_value":"BeginTurn"},"$type":"BagelCode.Task.Condition.CheckContentEvent"},{"valueA":{"_value":"./isGameSpin"},"valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"41"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnCalleeCallback"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"39"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"39"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"41"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: b683b1743676446e3910b6c163fe622b, type: 2}
+  - {fileID: 11400000, guid: 6f6aa7fb0eaf642398a5b894e7201b05, type: 2}
+  - {fileID: 11400000, guid: d9c8e660db28847dd9ca040b1b34ee95, type: 2}
+  _deserializationFailed: 0

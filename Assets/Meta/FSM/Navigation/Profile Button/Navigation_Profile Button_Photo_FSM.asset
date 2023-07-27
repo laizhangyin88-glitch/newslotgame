@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Navigation_Profile Button_Photo_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.StateMachines.FSM","name":"FSM","translation":{"x":-4951.0,"y":-4947.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"elementName":{},"searchingType":"SelfContext","imageUrl":{"_value":"/me/profileUrl"},"cachingType":{"_value":"FileCache"},"priority":{"_value":true},"isLoaded":{"_name":"IsLoaded","_targetVariableID":"af51b9bb-cd87-4a90-a332-462b1931be81"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextWebImage"}]},"_position":{"x":5426.0,"y":5229.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5621.0,"y":5364.0},"_name":"Active","$type":"NodeCanvas.StateMachines.ActionState","$id":"11"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Active"},"parameterHashID":{},"setTo":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5272.0,"y":5362.0},"_name":"InActive","$type":"NodeCanvas.StateMachines.ActionState","$id":"18"}],"connections":[{"_condition":{"valueA":{"_name":"IsLoaded","_targetVariableID":"af51b9bb-cd87-4a90-a332-462b1931be81"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"IsLoaded","_targetVariableID":"af51b9bb-cd87-4a90-a332-462b1931be81"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"IsLoaded","_targetVariableID":"af51b9bb-cd87-4a90-a332-462b1931be81"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

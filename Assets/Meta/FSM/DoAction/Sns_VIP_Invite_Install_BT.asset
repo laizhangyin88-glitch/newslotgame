@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Sns_VIP_Invite_Install_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":160.0,"y":-463.0},"nodes":[{"_position":{"x":530.0,"y":249.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"_action/inviterUserId"},"saveAs":{"_name":"_inviterUserId"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_action/inviteInstallWithTierId"},"saveAs":{"_name":"_inviteInstallWithTierId"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":205.0,"y":348.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"$type":"SlotMaker.Tasks.Condition.CheckFriendInviteLinkUser"},"_position":{"x":627.0,"y":346.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"12"},{"_position":{"x":597.0,"y":457.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"14"},{"_action":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Popup
+    VIP Invite Link Welcome Scene"},"combineApplicationType":{"_value":true},"parent":{},"parentName":{"_value":"Popup
+    Manager/Area"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync1"},{"popup":{"_name":"_popupObj"},"$type":"SlotMaker.Task.Actions.OpenPopup"},{"valueA":{"_value":"_inviterUserId"},"valueB":{"_name":"_inviterUserId"},"overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetString"},{"valueA":{"_value":"_inviteInstallWithTierId"},"valueB":{"_name":"_inviteInstallWithTierId"},"overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"callee":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetCaller"},{"setTo":"Activate","overrideAgent":{"_name":"_popupObj"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":169.0,"y":616.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"15"},{"_condition":{"eventName":{"_value":"OnCalleeCallback"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_position":{"x":639.0,"y":620.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"40"},{"_action":{"status":"Success","$type":"NodeCanvas.Tasks.Actions.RaiseStatus"},"_position":{"x":662.0,"y":719.0},"_comment":"Ignore
+    Type","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"43"},{"_subTree":{"_value":1},"_position":{"x":823.0,"y":624.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"45"},{"_action":{"status":"Success","$type":"NodeCanvas.Tasks.Actions.RaiseStatus"},"_position":{"x":861.0,"y":459.0},"_comment":"Ignore
+    Type","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"47"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"47"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"45"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"40"},"_targetNode":{"$ref":"43"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: e54fc1ed6980548ffb46bc3083412a11, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

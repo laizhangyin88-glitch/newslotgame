@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Lobby_Bottom_Inbox_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5201.0,"y":-4996.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Badge"},"parentName":{"_value":"Anchor/Badge
+    Area"},"combineApplicationType":{"_value":true},"$type":"BagelCode.Tasks.Actions.InitBundlePrefab"},{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{"_value":"Badge"},"saveAs":{"_name":"_badge"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Badge/Text"},"searchingType":"FullNameSearch","saveAs":{"_name":"_badgeText"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{},"searchingType":"SelfContext","key":{"_value":"BUTTON_INBOX"},"eventName":{"_value":"OnEnterInbox"},"ignoreReset":{},"sendGlobal":true,"$type":"SlotMaker.Tasks.Actions.SimpleSetContextClickable"}]},"_position":{"x":5466.0,"y":5182.0},"_name":"Init","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"/inboxList"},"saveAs":{"_name":"_inboxList"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"/inboxBannerList"},"saveAs":{"_name":"_inboxBannerList"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"itemList":{"_value":[],"_name":"_inboxBannerList"},"$type":"BagelCode.Tasks.Actions.RemoveWatchedItemFromItemList"},{"targetList":{"_name":"_inboxList"},"saveAs":{"_name":"_inboxListCount"},"$type":"NodeCanvas.Tasks.Actions.GetListCount"},{"targetList":{"_name":"_inboxBannerList"},"saveAs":{"_name":"_inboxBannerListCount"},"$type":"NodeCanvas.Tasks.Actions.GetListCount"},{"valueA":{"_value":"_inboxListCount"},"Operation":"Add","valueB":{"_name":"_inboxBannerListCount"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"variable":{"_name":"_inboxListCount"},"toString":{"_name":"_inboxCountString"},"$type":"NodeCanvas.Tasks.Actions.GetToString"},{"element":{"_name":"_badgeText"},"arg0":{"_value":"_inboxCountString"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"parameter":{"_value":"value"},"parameterHashID":{},"setTo":{"_name":"_inboxListCount"},"overrideAgent":{"_name":"_badge"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"}]},"_position":{"x":5801.0,"y":5320.0},"$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"23"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":6236.0,"y":5489.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"55"},{"_actionList":{"actions":[{"$type":"BagelCode.Tasks.Actions.ClientAPI.InboxList"}]},"_position":{"x":6097.0,"y":5605.0},"_name":"Refresh
+    Inbox","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"58"},{"_position":{"x":6133.0,"y":5192.0},"$type":"NodeCanvas.StateMachines.AnyState","$id":"62"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"55"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnCollectCommonRewards"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent"},"_sourceNode":{"$ref":"55"},"_targetNode":{"$ref":"58"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"58"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"RefreshInbox"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"62"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

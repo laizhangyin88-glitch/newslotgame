@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Club_Info_Cell_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5397.0,"y":-5255.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{},"searchingType":"SelfContext","key":{},"eventName":{"_value":"OnSelectClub"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextClickable"}]},"_position":{"x":5474.0,"y":5285.0},"_name":"Init","_comment":"CellType\n0
+    : club list\n1 : club invite list","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"2"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":5866.0,"y":5417.0},"_name":"Update
+    Cell","$type":"NodeCanvas.StateMachines.AutoUpdateNestedBTState","$id":"12"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":6068.0,"y":5586.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"14"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"clubIDValue":{"_value":"clubInfo/id"},"clubNameValue":{"_value":"clubInfo/name"},"clubLevelValue":{"_value":"clubInfo/level"},"clubMemberCountValue":{"_value":"clubInfo/members"},"clubJoinTypeValue":{"_value":"clubInfo/joinType"},"cellIndex":{"_name":"cellIndex","_targetVariableID":"32c42632-7b5d-4515-ab23-a0430082d182"},"listType":{"_name":"biListType","_targetVariableID":"a7819e00-aeb2-4829-abab-94b5197501d4"},"contextID":{"_name":"biContextID","_targetVariableID":"bbae2bcc-229e-4f6b-8583-33655be7a972"},"$type":"BagelCode.Tasks.Actions.BI.BI_client_click_club_list"},{"eventName":{"_value":"OnOpenClub"},"eventValue":{"_name":"_clubID"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendMetaUIEvent`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":6510.0,"y":5752.0},"_name":"Open
+    Club","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"17"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"clubIDValue":{"_value":"clubInfo/id"},"clubNameValue":{"_value":"clubInfo/name"},"clubLevelValue":{"_value":"clubInfo/level"},"clubMemberCountValue":{"_value":"clubInfo/members"},"clubJoinTypeValue":{"_value":"clubInfo/joinType"},"cellIndex":{"_name":"cellIndex","_targetVariableID":"32c42632-7b5d-4515-ab23-a0430082d182"},"listType":{"_name":"biListType","_targetVariableID":"a7819e00-aeb2-4829-abab-94b5197501d4"},"contextID":{"_name":"biContextID","_targetVariableID":"bbae2bcc-229e-4f6b-8583-33655be7a972"},"$type":"BagelCode.Tasks.Actions.BI.BI_client_click_club_list"},{"eventName":{"_value":"OnOpenClubFromInvites"},"eventValue":{"_name":"_clubID"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendMetaUIEvent`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":6285.0,"y":5863.0},"_name":"Open
+    Club","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"33"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"conditions":[{"eventName":{"_value":"OnSelectClub"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"valueA":{"_name":"cellType","_targetVariableID":"3b7f2edc-8132-4f2f-8706-9da35be49ae5"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"conditions":[{"eventName":{"_value":"OnSelectClub"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"valueA":{"_name":"cellType","_targetVariableID":"3b7f2edc-8132-4f2f-8706-9da35be49ae5"},"valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: b52523e5009e948e5a17fdcfc28a80c1, type: 2}
+  _deserializationFailed: 0

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Main_Lobby_Sound View_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5135.0,"y":-5142.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"gameSound":{"_value":{},"_name":"lobbyMusic","_targetVariableID":"42a1dcbf-9990-44c3-ba37-be6e6d3fddab"},"excludePlaying":{"_value":true},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.PlayGameSound"},{"method":{"_baseInfo":"BagelCode.MetaStreamingSoundController|PlayBGM|System.Void","_paramsInfo":"System.Boolean"},"parameters":[{"_type":"System.Boolean","_value":{"$content":true,"$type":"System.Boolean"}}],"parameterIsByRef":[false],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]},"_position":{"x":5650.0,"y":5390.0},"$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"snapshotName":{"_value":"Lobby_Main"},"timeToReach":{"_value":2.0},"$type":"SlotMaker.Tasks.Actions.TransitionToAudioMixerSnapshot"},{"gameSound":{"_value":{},"_name":"lobbyAmbience","_targetVariableID":"042cd07c-bac4-461e-abfe-8ecce4ac5186"},"excludePlaying":{},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.PlayGameSound"},{"method":{"_baseInfo":"BagelCode.MetaStreamingSoundController|PlayAmbience|System.Void","_paramsInfo":"System.Boolean"},"parameters":[{"_type":"System.Boolean","_value":{"$content":true,"$type":"System.Boolean"}}],"parameterIsByRef":[false],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]},"_position":{"x":5940.0,"y":5508.0},"_name":"Lobby","$type":"NodeCanvas.StateMachines.ActionState","$id":"15"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"snapshotName":{"_value":"Lobby_Popup"},"timeToReach":{"_value":2.0},"$type":"SlotMaker.Tasks.Actions.TransitionToAudioMixerSnapshot"}]},"_position":{"x":5658.0,"y":5730.0},"_name":"Lobby
+    Popup","$type":"NodeCanvas.StateMachines.ActionState","$id":"31"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"conditions":[{"eventName":{"_value":"ChangedPopupCount"},"saveEventValue":{"_name":"popupCount","_targetVariableID":"9162fb44-6fcd-4eae-b1d2-407c01bf468d"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"popupCount","_targetVariableID":"9162fb44-6fcd-4eae-b1d2-407c01bf468d"},"checkType":"GreaterThan","valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"conditions":[{"eventName":{"_value":"ChangedPopupCount"},"saveEventValue":{"_name":"popupCount","_targetVariableID":"9162fb44-6fcd-4eae-b1d2-407c01bf468d"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"popupCount","_targetVariableID":"9162fb44-6fcd-4eae-b1d2-407c01bf468d"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0
