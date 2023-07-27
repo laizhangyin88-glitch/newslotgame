@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Foreground_Wild Travel Show_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-64.0,"y":-42.0},"nodes":[{"_position":{"x":943.0,"y":157.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"./flyingWildPool"},"saveAs":{"_name":"_flyingWildPool","_targetVariableID":"484efbd1-0e11-460e-97b8-721ae63b7e8c"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"./customData/wildPositions"},"saveAs":{"_name":"_oldWildPositions","_targetVariableID":"1f61fa8e-b5db-4393-ab49-fb71aa0af6bb"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":509.0,"y":340.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"targetList":{"_type":"System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]","_name":"_oldWildPositions","_targetVariableID":"1f61fa8e-b5db-4393-ab49-fb71aa0af6bb"},"current":{"_type":"System.Int32","_name":"_wildPos","_targetVariableID":"6a1136af-211d-4f9d-871f-2cd89ea52721"},"storeIndex":{"_name":""},"maxIteration":{"_value":-1},"_position":{"x":924.0,"y":349.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"12"},{"_action":{"actions":[{"poolName":{"_value":"_flyingWildPool"},"parent":{"_name":"_flyingWildPool"},"parentName":{},"activeSelf":{},"saveAs":{"_name":"_wild"},"$type":"BagelCode.Tasks.Actions.GetPooledObject"},{"targetList":{"_name":"_wilds","_targetVariableID":"9780ed75-c5ec-4025-b180-ef00131ed58f"},"targetElement":{"_name":"_wild"},"$type":"NodeCanvas.Tasks.Actions.AddElementToList`1[[SlotMaker.PooledObject,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"targetList":{"_name":"wildAnchors","_targetVariableID":"15c0c711-0fa1-4844-a286-5f1995963a79"},"index":{"_name":"_wildPos","_targetVariableID":"6a1136af-211d-4f9d-871f-2cd89ea52721"},"saveAs":{"_name":"_positionTransform","_targetVariableID":"3aa459e4-22d0-42e0-a66c-2ab622ea1beb"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[UnityEngine.Transform,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"method":{"_baseInfo":"UnityEngine.Transform|get_position|UnityEngine.Vector3","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_pos"},"overrideAgent":{"_name":"_positionTransform","_targetVariableID":"3aa459e4-22d0-42e0-a66c-2ab622ea1beb"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"},{"method":{"_baseInfo":"UnityEngine.Transform|set_position|System.Void","_paramsInfo":"UnityEngine.Vector3"},"parameter":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_pos"},"overrideAgent":{"_name":"_wild"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"},{"target":{"_name":"_wild"},"setTo":"Activate","$type":"SlotMaker.Tasks.Actions.SimpleSetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":859.0,"y":470.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"17"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

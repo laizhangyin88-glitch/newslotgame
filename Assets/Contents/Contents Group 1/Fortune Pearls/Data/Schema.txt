@@ -1,0 +1,51 @@
+using System.Collections;
+using System.Collections.Generic;
+using SlotMaker.Json;
+
+namespace SlotMaker.Contents.Internal.Ftp
+{
+    public class BonusInfo106
+    {
+        public List<long> scatterPay = new List<long>();
+        public List<int> bonusReel = new List<int>();
+        public List<int> jackpotAmounts = new List<int>();
+    }
+    
+    // FreeSpin
+    public class BonusResult10600
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+    
+    // FreeSpin Retrigger
+    public class BonusResult10601
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+    
+    public class BonusResult10602
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+    
+    // Expanding reels
+    public class BonusResult10610
+    {
+        public List<List<int>> positions;
+        public int icon;
+    }
+    
+    // Ticketed Bonus
+    public class BonusResult10650
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+}

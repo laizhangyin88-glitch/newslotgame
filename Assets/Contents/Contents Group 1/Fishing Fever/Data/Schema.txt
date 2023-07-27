@@ -1,0 +1,70 @@
+using System.Collections;
+using System.Collections.Generic;
+
+public class IFSFCell
+{
+    public int column;
+    public int row;
+}
+
+public class IFSFFrame
+{
+    public IFSFCell position;
+    public int width;
+    public int height;
+}
+
+public class IFSFCommunityResult
+{
+    public string profileUrl;
+    public string userName;
+    public int tier;
+    public bool isBot;
+    public int baseSpinCount;
+    public List<long> symbolMultiplierPerSpin;
+    public List<IFSFFrame> frameInfoPerSpin;
+    public List<long> frameMultiplierPerSpin;
+    public long enterBet;
+    public long totalEarnCredit;
+}
+
+public class IFSFSymbolMultiplierInfo
+{
+    public List<int> symbolList;
+    public List<long> multiplierList;
+}
+
+public class BonusInfo206
+{
+} 
+
+public class CustomData206
+{
+    public List<List<int>> finalOutputList;
+    public List<int> bucksSymbolJackpotIndexList;
+    public IFSFFrame frame;
+    public int clientReelSetIndex;
+    public int clientCommunityReelSetIndex;
+    public double accumulatedCreditRatioPerScatter;
+    public int roomCommunityTicketCount;
+    public int roomCommunityTicketMaxCount;
+    public long myCommunityTicketCount;
+    public long myCommunityTicketDivider;
+    public IFSFSymbolMultiplierInfo symbolMultiplierInfo;
+}
+
+// jackpot
+public class BonusResult20600
+{
+   public bool isJackpot;
+   public int jackpotIndex;
+}
+
+// community
+public class BonusResult20601
+{
+    public List<IFSFCommunityResult> userGameResultList;
+    public List<List<int>> reelOutputListPerSpin;
+    public List<List<List<int>>> finalOutputListPerSpin;
+}
+

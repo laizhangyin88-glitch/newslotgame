@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Fire Token_Value_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.9,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5184.0,"y":-4965.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./topBoard"},"saveAs":{"_name":"_topBoard"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}]},"_position":{"x":5607.0,"y":5189.0},"_name":"Start","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"targetVariableName":{"_value":"totalValue"},"saveAs":{"_type":"System.Int64","_value":{"$content":0,"$type":"System.Int64"},"_name":"_totalValue"},"overrideAgent":{"_name":"_topBoard"},"$type":"NodeCanvas.Tasks.Actions.GetOtherBlackboardVariable"},{"valueA":{"_value":"_totalValue"},"Operation":"Add","valueB":{"_name":"value","_targetVariableID":"f0ddc5ba-ca21-4e0d-acb7-e19c7a2aef4a"},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"targetVariableName":{"_value":"totalValue"},"newValue":{"_type":"System.Int64","_name":"_totalValue"},"overrideAgent":{"_name":"_topBoard"},"$type":"NodeCanvas.Tasks.Actions.SetOtherBlackboardVariable"},{"valueA":{"_value":"./customData/fireboltHitCount"},"Operation":"Add","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"./customData/fireboltTotalHitCount"},"Operation":"Add","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"eventName":{"_value":"FinishFirebolt"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"eventName":{"_value":"FinishFirebolt"},"eventValue":{"_name":"symbolIndex"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":5784.0,"y":5328.0},"_name":"Hit","$type":"NodeCanvas.StateMachines.ActionState","$id":"8"}],"connections":[{"_condition":{"eventName":{"_value":"Hit"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

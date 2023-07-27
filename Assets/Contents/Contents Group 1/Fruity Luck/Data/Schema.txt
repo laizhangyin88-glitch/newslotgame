@@ -1,0 +1,66 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Frl
+{
+    public class BonusInfo148
+    {
+        public List<long> symbolMultiplierList = new List<long>();
+        public List<List<long>> anyMixedPaytable = new List<List<long>>();
+        public List<long> scatterPaytable;
+    }
+
+    public class CustomData148
+    {
+    }
+
+    // FRLFreeSpinBonus
+    public class BonusResult14800
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // FRLFreeSpinRetriggerBonus
+    public class BonusResult14801
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // FRLJackpot
+    public class BonusResult14802
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // FRLWildBonus
+    public class BonusResult14803
+    {
+        public List<WildSymbolInfo> wilds;
+    }
+
+    // symbol: 0 - Wild Pay, 1 - Wild Spin
+    // value:
+    // 1) for symbol 0: multiplier value
+    // 2) for symbol 1: spin count value
+    public class WildSymbolInfo
+    {
+        public int symbol;
+        public int row;
+        public int column;
+        public int value;
+    }
+
+    // FRLTicketedFreeSpinBonus
+    public class BonusResult14850
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+}

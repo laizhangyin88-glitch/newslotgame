@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: StarFeature_Taro Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-333.0,"y":-157.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":1046.0,"y":323.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":754.0,"y":509.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"5"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":756.0,"y":154.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"7"},{"_nestedBT":{"_value":3},"executionMode":"Once","_position":{"x":1297.0,"y":165.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"9"},{"_nestedBT":{"_value":4},"executionMode":"Once","_position":{"x":1279.0,"y":477.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"11"},{"_nestedBT":{"_value":5},"executionMode":"Once","_position":{"x":1526.0,"y":603.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"13"},{"_nestedBT":{"_value":6},"executionMode":"Once","_position":{"x":1514.0,"y":28.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"15"},{"_nestedBT":{"_value":7},"executionMode":"Once","_position":{"x":395.0,"y":455.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"17"},{"_nestedBT":{"_value":8},"executionMode":"Once","_position":{"x":389.0,"y":190.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"19"},{"_nestedBT":{"_value":9},"executionMode":"Once","_position":{"x":1777.0,"y":725.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"21"}],"connections":[{"_condition":{"eventName":{"_value":"_from","_name":"_eventName","_targetVariableID":"3de2e275-a1c4-4819-a67f-a920d2798148"},"saveEventValue":{"_name":"_from"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent`1[[UnityEngine.Transform,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"InitGame"},"$type":"BagelCode.Task.Condition.CheckContentEvent"},{"eventName":{"_value":"UpdateBetCredit"},"$type":"BagelCode.Task.Condition.CheckCreditEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"Create
+    Stars"},"saveEventValue":{"_name":"_totalStarsList"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"StartChangeWild"},"saveEventValue":{"_name":"_startChangeWildReelList"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"CreateTallWild"},"saveEventValue":{"_name":"_createTallWildReelList"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"UpdateTotalStar"},"saveEventValue":{"_name":"_updateTotalStarReelList"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SpinBonusIntro"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SpinBonusOutro"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"CountDown"},"saveEventValue":{"_name":"_countDownList"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 265e69fa95c404be39b74e876003e563, type: 2}
+  - {fileID: 11400000, guid: e9a5babe07acd48ef853e1a395c8c0e5, type: 2}
+  - {fileID: 11400000, guid: 08f685f8d487442af944a7dd4b167e5e, type: 2}
+  - {fileID: 11400000, guid: d1e84d1df7ae14e5094cb669d3f1498f, type: 2}
+  - {fileID: 11400000, guid: 278ab63b4798e4066aea336f21758157, type: 2}
+  - {fileID: 11400000, guid: 8657ca69383b24cdd8a614c8dbe01411, type: 2}
+  - {fileID: 11400000, guid: 3519b9d3fad914edc855299ca434070b, type: 2}
+  - {fileID: 11400000, guid: 8bc5297f4a6f3432fb08e7215498023d, type: 2}
+  - {fileID: 11400000, guid: 94498335d0c994fbaad81c0264f47b96, type: 2}
+  _deserializationFailed: 0

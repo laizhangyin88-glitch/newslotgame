@@ -1,0 +1,94 @@
+using System.Collections;
+using System.Collections.Generic;
+using SlotMaker.Json;
+
+namespace SlotMaker.Contents.Internal.Fij
+{
+    public class BonusInfo142
+    {
+        public int grandEligibleLevel = 0;
+        public int megaEligibleLevel = 0;
+        public List<int> betScaleRange; // bet_scale_range
+    }
+
+    public class CustomData142
+    {
+        public List<int> rapidJackpots;
+        public List<int> respinSymbolLocketList;
+        public int reelSetCustomIndex;
+        public List<long> earnIconsList;
+        public List<int> needRespinIcons;
+        public int typeStopEffectPrize { get; set; };
+    }
+
+    // FREE_SPIN
+    public class BonusResult14200
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int extraBetIndex = 0;
+        public CustomData142 state = null;
+    }
+
+    // FREE_SPIN_RETRIGGER
+    public class BonusResult14201
+    {
+       public int addedSpinCount = 0;
+    }
+
+    // SPECIAL_RESPIN_BONUS
+    public class BonusResult14202
+    {
+        public int spinCount = 0;
+        public int addedSpinCount = 0;
+        public int reelSpinIndex = 0;
+        public long betCredit = 0;
+        public int extraBetIndex = 0;
+        public List<List<RapidSymbol>> newLocketSymbolList = null;
+        public List<List<int>> locketPositionList = null,
+        public List<int> coinBoxList = null,
+        public List<List<int>> reelOutputLists = null,
+        public List<long> earnIconsList = new List<long>();
+        public List<int> respinSymbolLocketList = new List<int>();
+    }
+
+    // JACKPOT_RAPID_WIN
+    public class BonusResult14203
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+    
+    // JACKPOT_FS_WIN
+    public class BonusResult14205
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // RAPID_ICONS
+    public class BonusResult14204
+    {
+        public List<RapidSymbol> symbols;
+        public List<long> earnIconsList = null;
+    }
+
+    public class RapidSymbol 
+    {
+        public int position;
+        public int valueIndex; // multiplier, -99, jp index
+        public float value;
+        public int typeOfIcon; // 0 - regular, 1 - collector, 2 - jackpot
+    }
+
+    public class BonusResult14250
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int extraBetIndex = 0;
+    }
+}
