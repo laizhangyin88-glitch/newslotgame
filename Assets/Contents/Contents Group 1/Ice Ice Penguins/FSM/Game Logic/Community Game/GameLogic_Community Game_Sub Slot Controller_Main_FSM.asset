@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: GameLogic_Community Game_Sub Slot Controller_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-3368.0,"y":-3379.0},"zoomFactor":0.7337424,"nodes":[{"_actionList":{"actions":[{"waitTime":{"_value":0.15},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"},{"eventName":{"_value":"IIPInitializeCommunityGame"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentEvent"}]},"_position":{"x":4653.0,"y":5631.0},"_name":"Initialize
+    Community Game","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":5009.0,"y":5514.0},"_name":"Setup
+    SlotMachines","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"10"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":5238.0,"y":5384.0},"_name":"Intro","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"12"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"IIPReadyCommunityGame"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentEvent"}]},"_position":{"x":5428.0,"y":5271.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"14"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_name":"stoppedSlotMachineCount","_targetVariableID":"233cc508-dcca-483a-962f-f0e28b4a9650"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetInt"}]},"_position":{"x":5708.0,"y":5175.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"20"},{"_nestedBT":{"_value":3},"executionMode":"Once","_position":{"x":5870.0,"y":5086.0},"_name":"Spin
+    Sub SlotMachines","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"26"},{"_nestedBT":{"_value":4},"executionMode":"Once","_position":{"x":5984.0,"y":5002.0},"_name":"Stop
+    Sub SlotMachines","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"28"},{"_nestedBT":{"_value":5},"executionMode":"Once","_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":6087.0,"y":4909.0},"_name":"Collect
+    Ice","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"30"},{"_nestedBT":{"_value":6},"executionMode":"Once","_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":6216.0,"y":4831.0},"_name":"Move
+    Penguins","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"32"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"StoppedAllSubSlotMachines"},"delay":{},"sendGlobal":true,"slotIndex":{},"_isDisabled":true,"$type":"BagelCode.Tasks.Actions.SendSlotEvent"},{"valueA":{"_name":"_spinCount"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"}]},"_position":{"x":6629.0,"y":5272.0},"_name":"Stopped","$type":"NodeCanvas.StateMachines.ActionState","$id":"34"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SpinSubSlotMachine"},"$type":"BagelCode.Task.Condition.CheckContentEvent"},"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"StopSubSlotMachine"},"$type":"BagelCode.Task.Condition.CheckContentEvent"},"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"CollectIce"},"$type":"BagelCode.Task.Condition.CheckContentEvent"},"_sourceNode":{"$ref":"28"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"MovePenguins"},"$type":"BagelCode.Task.Condition.CheckContentEvent"},"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"stoppedSlotMachineCount","_targetVariableID":"233cc508-dcca-483a-962f-f0e28b4a9650"},"checkType":"GreaterOrEqualTo","valueB":{"_name":"_slotMachineCount"},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_sourceNode":{"$ref":"32"},"_targetNode":{"$ref":"34"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"34"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 920e5f09713b246d381789972668df81, type: 2}
+  - {fileID: 11400000, guid: 1b9fa8b0259cb4067b2c5a77b0a006cb, type: 2}
+  - {fileID: 11400000, guid: 0fa50b44f2dd04a32b078ac9c07c0012, type: 2}
+  - {fileID: 11400000, guid: 102d3daccab674c5ab78f444236a6b3c, type: 2}
+  - {fileID: 11400000, guid: 6ba3dd699c3744a349d15eb2846e7994, type: 2}
+  - {fileID: 11400000, guid: be2ae99b65b444bcb981e5e5120852ea, type: 2}
+  _deserializationFailed: 0

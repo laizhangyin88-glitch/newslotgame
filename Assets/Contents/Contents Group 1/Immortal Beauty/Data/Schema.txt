@@ -1,0 +1,74 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Imb
+{
+    public class CustomData172
+    {
+        public Dictionary<long,List<int>> batCollectedAmounts;
+        public Dictionary<long,List<int>> wildReelSpinCount;
+        public List<int> collectibles;
+        public List<int> expectationInfo;
+        public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+    }
+    
+    public class BonusInfo172
+    {
+    }
+    
+    // FreeSpinBonus
+    public class BonusResult17200
+    {
+        public int type;
+        public long betCredit;
+        public int addedSpinCount;
+    }
+    
+    // FreeSpinTicketBonus
+    public class BonusResult17250  
+    {
+        public int type;
+        public long betCredit;
+        public int addedSpinCount;
+    }
+    
+    // PickBonusGame
+    public class BonusResult17201 
+    {
+        public List<BonusItem> winSequence;
+        public List<BonusItem> loseSequence;
+    }
+    
+    public class BonusItem
+    {
+        public double coinValue;
+        public int multiplier;
+        public int levelUp;
+        public bool canPlayBonus;
+    } 
+    
+    // TwinReelBonus
+    public class BonusResult17202 
+    {
+        public int currentReelSet;
+        public List<bool> twinReelIndexList;
+    }
+        
+    // WildReelBonus
+    public class BonusResult17205
+    {
+        public List<int> wildSpinReelCountOnStart;
+        public List<int> wildSpinReelCountOnEnd;
+        public List<bool> wildReelActivePerReelOnStart;
+        public List<bool> wildReelActivePerReelOnEnd;
+    }
+    
+    // COLLECT_SUB_SYMBOLS
+    public class BonusResult17203
+    {
+        public List<int> batCollectedAmountsPreviousSpinEnd;
+        public List<int> batCollectedAmountsCurrentSpinEnd;
+        public List<int> batCollectedAmountsCurrentSpinStart;
+    }
+}

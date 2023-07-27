@@ -1,0 +1,96 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Hpb
+{
+  
+    public class BonusInfo204
+    {
+        public RandomFeatureInfo randomFeatureInfo;
+        public List<int> jpBasePayMultipliers;
+    }
+    
+    public class RandomFeatureInfo
+    {
+        public List<int> reelTypes = new List<int>();
+    }
+
+    public class CustomData204
+    {
+
+    }
+    
+    // FREE_SPIN claimType - none
+    public class BonusResult20400
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public long piggyPotValue = 0;
+        public List<PiggySymbolsInfo> triggerSymbolsInfo;
+    }
+
+    // FREE_SPIN_RETRIGGER claimType - none
+    public class BonusResult20401
+    {
+       public int addedSpinCount = 0;
+    }
+
+    // POT_PAY claimType - always
+    public class BonusResult20402
+    {
+       public List<PotSymbolInfo> potSymbolsInfo = new List<PotSymbolInfo>();
+    }
+
+    // CASH_REEL_PAY claimType - always
+    public class BonusResult20403
+    {
+
+    }
+
+    // JACKPOT claimType - always
+    public class BonusResult20404
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+        public int wheelStopIndex = 0;
+    }
+
+    // CASH_REEL_INFO claimType - none
+    public class BonusResult20405
+    {
+       public bool isJackpot;
+       public int jackpotIndex = 0;
+       public bool isRandomSymbol = 0;
+       public long cashValue = 0;
+       public int reelIndex = 0;
+       public List<int> reelStopPosition = new List<int>();
+    }
+    
+    // INS FreeSpin
+    public class BonusResult20450
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int extraBetIndex = 0;
+        public long piggyPotValue = 0;
+    }
+    
+    public class PiggySymbolsInfo
+    {
+      public int cellPosition = 0;
+      public int rowIndex = 0;
+      public int columnIndex = 0;
+      public long value = 0;
+    }
+
+    public class PotSymbolInfo
+    {
+      public int cellPosition = 0;
+      public int rowIndex = 0;
+      public int columnIndex = 0;
+      public bool isRetrigger = 0;
+    }
+}

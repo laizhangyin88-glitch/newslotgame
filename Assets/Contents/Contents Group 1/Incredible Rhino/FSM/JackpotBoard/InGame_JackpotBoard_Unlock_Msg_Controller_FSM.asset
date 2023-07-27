@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: InGame_JackpotBoard_Unlock_Msg_Controller_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5061.0,"y":-4933.0},"zoomFactor":0.9932822,"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"boolVariable":{"_name":"isBoardUIOpened","_targetVariableID":"df44b102-2aa6-4035-8af0-e5022fdecca5"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5053.0,"y":5407.0},"_name":"Idle","_comment":"","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Lock
+    Message"},"parameterHashID":{},"overrideAgent":{"_name":"jackpotLockBoardAnimator","_targetVariableID":"7fa513b9-8c90-4c09-8f2b-104f1843df0e"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"boolVariable":{"_name":"isBoardUIOpened","_targetVariableID":"df44b102-2aa6-4035-8af0-e5022fdecca5"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"}]},"_position":{"x":5422.0,"y":5481.0},"_name":"Active
+    Board UI","_comment":"","$type":"NodeCanvas.StateMachines.ActionState","$id":"7"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"waitTime":{"_value":2.0},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"}]},"_position":{"x":5713.0,"y":5621.0},"_name":"Delay","$type":"NodeCanvas.StateMachines.ActionState","$id":"16"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"status":"Success","$type":"NodeCanvas.Tasks.Actions.RaiseStatus"}]},"_position":{"x":5954.0,"y":5487.0},"_name":"Reset
+    Time","$type":"NodeCanvas.StateMachines.ActionState","$id":"21"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Disappear"},"parameterHashID":{},"overrideAgent":{"_name":"jackpotLockBoardAnimator","_targetVariableID":"7fa513b9-8c90-4c09-8f2b-104f1843df0e"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":5428.0,"y":5809.0},"_name":"Disappear","$type":"NodeCanvas.StateMachines.ActionState","$id":"25"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Disappear"},"parameterHashID":{},"overrideAgent":{"_name":"jackpotLockBoardAnimator","_targetVariableID":"7fa513b9-8c90-4c09-8f2b-104f1843df0e"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":5296.0,"y":5700.0},"_name":"Forced
+    Disappear","$type":"NodeCanvas.StateMachines.ActionState","$id":"32"}],"connections":[{"_condition":{"eventName":{"_value":"AppearBoardUI"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"ResetBoardUI"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"25"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"DisappearBoardUI"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"25"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"32"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

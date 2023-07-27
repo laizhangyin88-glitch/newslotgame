@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: InGame_Signboard_Win Line_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-3662.0,"y":-4253.0},"nodes":[{"_position":{"x":4829.0,"y":4422.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"symbolWin":{"_value":{"cells":[]},"_name":"win"},"earnCredit":{"_name":"earnCredit"},"multiplier":{"_name":"multiplier"},"lineIndex":{"_name":"lineIndex"},"symbolIndex":{"_name":"symbolIndex"},"cells":{"_value":[],"_name":"cells"},"hitCount":{"_name":"hitCount"},"wayCount":{"_name":"wayCount"},"direction":{"_name":"direction"},"$type":"BagelCode.Tasks.Actions.Contents.SetSymbolWin"},{"symbolWin":{"_value":{"cells":[]},"_name":"win"},"$type":"BagelCode.Tasks.Actions.Contents.SetSymbolWinForSignboard"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4634.0,"y":4527.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"element":{"_name":"text"},"key":{"_value":"SIGN_BOARD_WIN_DESCRIPTION_0"},"tableType":"Content","arg1":{"_value":"lineIndex"},"arg2":{"_value":"earnCredit"},"$type":"SlotMaker.Tasks.Actions.SetContextText2"},"_position":{"x":4858.0,"y":4539.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"23"},{"_condition":{"valueA":{"_name":"symbolIndex"},"valueB":{"_value":11},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":4634.0,"y":4637.0},"_tag":"Scatter
+    Symbol","$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"29"},{"_action":{"actions":[{"valueA":{"_value":"./customData/symbolName"},"index":{"_name":"symbolIndex"},"fromLast":{},"saveAs":{"_name":"symbolName"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"element":{"_name":"text"},"key":{"_value":"SIGN_BOARD_SCATTER_WIN_DESCRIPTION"},"tableType":"Content","arg1":{"_value":"hitCount"},"arg2":{"_value":"symbolName"},"arg3":{"_value":"earnCredit"},"$type":"SlotMaker.Tasks.Actions.SetContextText3"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4064.0,"y":4788.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"33"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: FreeSpin_Set Added Wild Count Adding_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-64.0,"y":70.0},"nodes":[{"_position":{"x":515.0,"y":479.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"./customData/addedWildBaseDuration"},"saveAs":{"_type":"System.Single","_value":{"$content":0.0,"$type":"System.Single"},"_name":"_duration"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueUsingPath"},{"valueA":{"_value":"./customData/addedWildBaseDuration"},"saveAs":{"_name":"_duration"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./customData/addedWildCoefficient"},"saveAs":{"_type":"System.Single","_value":{"$content":0.0,"$type":"System.Single"},"_name":"_plusDuration"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueUsingPath"},{"valueA":{"_value":"./customData/addedWildCoefficient"},"saveAs":{"_name":"_plusDuration"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_plusDuration"},"Operation":"Multiply","valueB":{"_name":"_wildAddedCount"},"$type":"SlotMaker.Tasks.Actions.SetFloat"},{"valueA":{"_value":"_duration"},"Operation":"Add","valueB":{"_name":"_plusDuration"},"$type":"SlotMaker.Tasks.Actions.SetFloat"},{"valueA":{"_value":"_duration"},"Operation":"Divide","valueB":{"_name":"_wildAddedCount"},"$type":"SlotMaker.Tasks.Actions.SetFloat"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":13.0,"y":628.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"storeIndex":{},"maxIteration":{"_name":"_wildAddedCount"},"inverse":{},"resetIndex":true,"_position":{"x":463.0,"y":625.0},"$type":"SlotMaker.Slots.BehaviourTrees.ForLoop","$id":"27"},{"_action":{"actions":[{"valueA":{"_value":"_wildCount"},"Operation":"Add","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"element":{"_name":"wildCountText","_targetVariableID":"f8cef96c-d3e5-4908-95da-b5bccaa9fff7"},"arg0":{"_value":"_wildCount"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"waitTime":{"_value":1.0,"_name":"_duration"},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":462.0,"y":746.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"31"},{"_action":{"eventName":{"_value":"EndAddedWildUI"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"},"_position":{"x":674.0,"y":633.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"42"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"27"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"42"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"27"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"canvasGroups":[{"name":"Use
+    \u201cGet Blackboard Value Using Path\u201d Task","rect":{"xMin":-47.0,"yMin":586.0,"xMax":411.0,"yMax":788.0}}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

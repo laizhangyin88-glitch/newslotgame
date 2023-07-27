@@ -1,0 +1,72 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Iip
+{
+    public class CustomData215
+    {
+        public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+        public long roomCommunityTicketCount = 0;
+        public long roomCommunityTicketMaxCount = 0;
+        public long myCommunityTicketCount = 0;
+    }
+
+    public class Cell 
+    {
+        public int x;
+        public int y;
+    }
+
+    // IIP Wild Collect Bonus
+    public class BonusResult21500
+    {
+        public List<Cell> wildList = new List<Cell>();
+        public int wildCount;
+    }
+
+    // IIPCommunityGameBonus
+    public class BonusResult21501
+    {
+        public List<List<int>> initialGameBoard = new List<List<int>>();
+        public List<List<int>> secondTileBoard = new List<List<int>>();
+        public List<IIPCommunityGameResult> userGameResultList = new List<IIPCommunityGameResult>();
+        public int accPenguin = 0;
+    }
+
+    public class IIPCommunityGameResult
+    {
+        public List<IIPCommunityGameSpinResult> spinResultList = new List<IIPCommunityGameSpinResult>();
+        public long totalEarnCredit = 0;
+        public long betMultiplier = 0;
+        public string profileUrl = "";
+        public string userName = "";
+        public long bet = 0;
+        public int tier = 0;
+        public bool isBot = false;
+    }
+
+    public class IIPCommunityGameSpinResult
+    {
+        public List<int> reelOutputList = new List<int>();
+        public int symbolIndex;
+        public long earnCredit;
+        public IIPPlaceIceResult placeIceData = null;
+        public IIPFoundTreasureData treasureData = null;
+        public bool levelUp = false;
+        public List<List<Cell>> penguinLinkData = null;
+   }
+
+    public class IIPPlaceIceResult
+    {
+        public Cell cell;
+        public long earnCredit;
+    }
+
+    public class IIPFoundTreasureData
+    {
+        public Cell cell;
+        public long earnCredit;
+        public int multiplier;
+    }
+}

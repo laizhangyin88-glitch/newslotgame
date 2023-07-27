@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_WheelBonusGame_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-137.0,"y":32.0},"nodes":[{"_condition":{"bonusId":{"_value":15802},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_position":{"x":1035.0,"y":180.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_position":{"x":1050.0,"y":300.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"5"},{"_action":{"actions":[{"eventName":{"_value":"UpdateRobinProgressionForBonus"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"id":{"_value":"Base
+    Game BGM"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SimpleStopGameSound"},{"eventName":{"_value":"StopBgm"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendSoundEvent"},{"eventName":{"_value":"WheelBonusIntroSignboard"},"delay":{},"sendGlobal":true,"slotIndex":{},"$type":"BagelCode.Tasks.Actions.SendSlotEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":360.0,"y":421.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_action":{"waitTime":{"_value":3.8},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":750.0,"y":420.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"21"},{"_action":{"actions":[{"eventName":{"_value":"WheelBonusIntro"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"eventName":{"_value":"HideUI"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":900.0,"y":420.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"24"},{"_condition":{"eventName":{"_value":"StageEnd"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_position":{"x":1230.0,"y":420.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"33"},{"_action":{"actions":[{"eventName":{"_value":"WheelBonusOutro"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"id":{"_value":"Wheel
+    Disappear"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"eventName":{"_value":"ShowUI"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":1170.0,"y":540.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"36"},{"_action":{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":1440.0,"y":420.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"47"},{"_action":{"actions":[{"eventName":{"_value":"CollectibleFSIntro"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"disable":{},"_isDisabled":true,"$type":"NodeCanvas.Tasks.Actions.PauseEditor"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":1605.0,"y":420.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"50"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"47"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"50"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

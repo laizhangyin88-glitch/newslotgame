@@ -1,0 +1,81 @@
+using System.Collections;
+using System.Collections.Generic;
+using SlotMaker.Json;
+
+namespace SlotMaker.Contents.Internal.Icq
+{
+    public class CustomData102
+    {
+        // Room
+        public List<int> defaultTilesMap;
+        public Dictionary<long,List<int>> tilesMapPerTotalBet;
+        
+        // Spin
+        public List<int> tilesMap;
+    }
+
+    public class BonusInfo102
+    {
+        public List<long> scatterPay = new List<long>();
+    }
+
+    public class BonusResult10200
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+    
+    public class BonusResult10201
+    {
+        public List<int> wildsPositions;
+    }
+
+    public class BonusResult10210
+    {
+        public List<int> brokenTiles;
+        public List<int> brokenMysteryTiles;
+        public bool resetTileMap = false;
+    }
+    public class BonusResult10211
+    {
+        
+    }
+    
+    public class BonusResult10212
+    {
+        public long multiplier;
+    }
+    
+    public class BonusResult10213
+    {
+        public int additionalTile;
+    }
+    
+    public class BonusResult10217
+    {
+        public List<ICQBonusStep> sequence;
+        public long bet;
+    }
+    
+    public class BonusResult10220
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+    
+    public class ICQBonusStep
+    {
+        public long baseMult;
+        public long additionalMult;
+        public bool isCollect = false;
+    }
+    
+    public class BonusResult10250
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+}

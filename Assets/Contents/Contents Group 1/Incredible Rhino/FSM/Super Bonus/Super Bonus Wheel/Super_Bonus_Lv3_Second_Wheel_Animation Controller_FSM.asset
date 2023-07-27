@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Super_Bonus_Lv3_Second_Wheel_Animation Controller_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-2029.0,"y":-907.0},"nodes":[{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":913.0,"y":968.0},"_name":"Init
+    / Set Text","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"2"},{"_actionList":{"actions":[{"id":{"_value":"Wheel
+    Spin Start"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"targetVariableName":{"_value":"clockwise"},"newValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"overrideAgent":{"_name":"wheelSlice","_targetVariableID":"1ae256c4-6cf1-4a35-a011-ee0a505c3bca"},"$type":"NodeCanvas.Tasks.Actions.SetOtherBlackboardVariable"},{"valueA":{"_value":"./bonus/response/secondWheelSpotIndex"},"saveAs":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_spotIdx"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueUsingPath"},{"valueA":{"_value":"_sliceObjIdx"},"valueB":{"_name":"_spotIdx"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_sliceObjIdx"},"Operation":"Add","valueB":{"_value":11},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_sliceObjIdx"},"valueB":{"_value":12},"$type":"SlotMaker.Tasks.Actions.SetIntModulo"},{"index":{"_name":"_sliceObjIdx"},"segment":{"_value":12},"saveAs":{"_name":"_angle"},"overrideAgent":{"_name":"wheel","_targetVariableID":"9c59b28f-553d-4e3b-ae14-bfa2e67ab638"},"$type":"SlotMaker.Tasks.Actions.GetWheelSegmentAngle"},{"initialTorque":{},"desiredAngle":{"_name":"_angle"},"additionalRotationCount":{"_value":3},"overrideAgent":{"_name":"wheel","_targetVariableID":"9c59b28f-553d-4e3b-ae14-bfa2e67ab638"},"$type":"SlotMaker.Tasks.Actions.SpinWheel"},{"parameter":{"_value":"Active"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":1294.0,"y":1095.0},"_comment":"spin
+    to (spotIdx-1) because parent''s rotation is 30 degree over\n","$type":"NodeCanvas.StateMachines.ActionState","$id":"4"},{"_actionList":{"actions":[{"id":{"_value":"Wheel
+    Spin"},"$type":"SlotMaker.Tasks.Actions.SimpleStopGameSound"},{"parameter":{"_value":"Win"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"valueA":{"_value":"./betCredit"},"saveAs":{"_type":"System.Int64","_value":{"$content":0,"$type":"System.Int64"},"_name":"_betCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueUsingPath"},{"eventName":{"_value":"WheelStopped"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"}]},"_position":{"x":1680.0,"y":1362.0},"_name":"Result","$type":"NodeCanvas.StateMachines.ActionState","$id":"40"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":2094.0,"y":1540.0},"_name":"Set
+    Win Effect","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"55"},{"_actionList":{"actions":[{"waitTime":{"_name":"finalizeDelayTime","_targetVariableID":"f65a07ba-40aa-494f-aa99-6d1470ebb56c"},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"},{"parameter":{"_value":"Win"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"_winBorder"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"eventName":{"_value":"SBLv3SecondWheelEnd"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"},{"setTo":"Deactivate","overrideAgent":{"_name":"_winBorder"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"},{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"},{"setTo":"Deactivate","overrideAgent":{"_name":"_winBorderLv3"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"}]},"_position":{"x":2437.0,"y":1315.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"57"}],"connections":[{"_condition":{"eventName":{"_value":"SBLv3SecondWheelStart"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnWheelStopped"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"40"},"_targetNode":{"$ref":"55"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SecondWheelDisapper"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"55"},"_targetNode":{"$ref":"57"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 60fd713b783574817997e1f5772ea834, type: 2}
+  - {fileID: 11400000, guid: ad60c6712c52043a59297365dfcf7a1f, type: 2}
+  _deserializationFailed: 0

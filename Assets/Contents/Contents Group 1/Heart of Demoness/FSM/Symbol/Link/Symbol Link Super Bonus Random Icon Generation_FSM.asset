@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Symbol Link Super Bonus Random Icon Generation_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":1203.0,"y":-446.0},"zoomFactor":0.5000009,"nodes":[{"_position":{"x":-2082.0,"y":935.0},"_name":"Check
+    icon type","_comment":"11 - base\n13 - special\n14- multiplier\n15 - super bonus
+    mult\n","$type":"NodeCanvas.StateMachines.EmptyState","$id":"2"},{"_actionList":{"actions":[{"method":{"_baseInfo":"SlotMaker.WeightRandomGenerator|TakeOne|System.Int32","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{"_type":"System.Int32","_name":"_randomWinIndex"},"overrideAgent":{"_name":"SuperBonusSymbolGeneratorTransform"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":-1876.0,"y":1163.0},"_name":"Check
+    JP","_comment":"simple link","$type":"NodeCanvas.StateMachines.ActionState","$id":"3"},{"_actionList":{"actions":[{"valueA":{"_value":"_realJPindex"},"valueB":{"_name":"_randomWinIndex"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_realJPindex"},"Operation":"Subtract","valueB":{"_value":11},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"target":{"_name":"JPImage"},"setTo":"Activate","$type":"SlotMaker.Tasks.Actions.SimpleSetActive"},{"spriteRenderer":{"_name":"JPImage"},"spriteId":{"_name":"_realJPindex"},"$type":"SlotMaker.Tasks.Actions.SymbolSetSprite"},{"boolVariable":{"_name":"isJP"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"}]},"_position":{"x":-1367.0,"y":1357.0},"_name":"Set
+    JP","_comment":"type integer","$type":"NodeCanvas.StateMachines.ActionState","$id":"12"},{"_actionList":{"actions":[{"setTo":"Activate","overrideAgent":{"_name":"SymbolTextGameObject"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"},{"targetList":{"_name":"SBLinkValueMultipliersList"},"index":{"_name":"_randomWinIndex"},"saveAs":{"_name":"_winValue"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./totalBetCredit"},"saveAs":{"_name":"_totalBetCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"_winValue"},"Operation":"Multiply","valueB":{"_name":"_totalBetCredit"},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"element":{"_name":"textMeshPro"},"key":{"_value":"ICON_AMOUNT"},"tableType":"Content","arg1":{"_value":"_winValue"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"boolVariable":{"_name":"isJP"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"}]},"_position":{"x":-2222.0,"y":1362.0},"_name":"Set
+    coin value","$type":"NodeCanvas.StateMachines.ActionState","$id":"28"},{"_nestedFSM":{"_value":1},"_position":{"x":-2435.0,"y":1155.0},"$type":"NodeCanvas.StateMachines.NestedFSMState","$id":"49"}],"connections":[{"_condition":{"valueA":{"_name":"symbolIndex"},"valueB":{"_value":11},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"symbolIndex"},"valueB":{"_value":15},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"49"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"_randomWinIndex"},"checkType":"GreaterThan","valueB":{"_value":10},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"_randomWinIndex"},"checkType":"LessOrEqualTo","valueB":{"_value":10},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 470d4d7da9914534598846f9ba445ea2, type: 2}
+  _deserializationFailed: 0

@@ -1,0 +1,148 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Hod
+{
+  
+    public class BonusInfo171
+    {
+        public List<int> betScaleRange; // bet_scale_range
+        public List<int> jpBasePayMultipliers; // jp_base_pay_multipliers
+    }
+    
+    public class CustomData171
+    {
+        public bool leastOneWinLineHaveWild; // need for wild vox sound
+    }
+    
+    // FreeSpin
+    public class BonusResult17100
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int extraBetIndex = 0;
+    }
+
+    // FREE_SPIN_RETRIGGER
+    public class BonusResult17101
+    {
+       public int addedSpinCount = 0;
+    }
+
+    // FLOATING
+    public class BonusResult17102
+    {
+        public List<bool> currentFloatingColumns;
+        public List<LinkPosition> initializedLinkPositions;
+        public List<LinkPosition> bufferLinkPosition;
+        public bool isEndSpinFloatingActive;
+    }
+
+    // RESPIN
+    public class BonusResult17103
+    {
+       public List<RespinClientInfo> spinInfoPack;
+       public List<double> jpCashPayList;
+    }
+    
+    // JACKPOT
+    public class BonusResult17104
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+        // SUPER_RESPIN
+    public class BonusResult17105
+    {
+       public List<SuperBonusRespinClientInfo> spinInfoPack;
+       public List<double> jpCashPayList;
+    }
+    
+    // INS FreeSpin
+    public class BonusResult17150
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int extraBetIndex = 0;
+    }
+
+        // Super bonus 4x5
+    public class BonusResult17151
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // Super bonus 5x5
+    public class BonusResult17152
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // Super bonus 6x5
+    public class BonusResult17153
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    public class SuperBonusRespinClientInfo
+    {
+      public List<LinkPosition> baseSymbolConfigList;
+      public List<int> respinOutputList;
+      public List<LinkPosition> symbolConfigList;
+      public List<UpdateMultipliersSteps> updateMultipliersSteps;
+      public int reelSetIndex;
+      public SuperBonusExtraInfo extraInfo;
+    }
+
+    public class SuperBonusExtraInfo
+    { 
+      public bool resetSpinCount;
+    }
+
+    public class UpdateMultipliersSteps
+    {
+      public int multiplierPosition;
+      public List<int> multipliedSymbolsPosition;
+      public List<LinkPosition> currentSymbolConfigList;
+    }
+
+    public class RespinClientInfo
+    {
+      public List<LinkPosition> baseSymbolConfigList;
+      public List<int> respinOutputList;
+      public List<LinkPosition> symbolConfigList;
+      public int reelSetIndex;
+      public ExtraInfo extraInfo;
+    }
+
+    public class ExtraInfo
+    { 
+      public List<bool> heartFillRow;
+      public bool resetSpinCount;
+      public List<int> specialHeartSpinOutputList;
+    }
+
+    public class LinkPosition
+    {
+      public int valueIndex;
+      public double value;
+      public int iconType;
+      public bool isJp;
+      public int jpIndex;
+      public bool locked;
+      public bool isActive; // for eligible bet
+      public int othersMultiplier; // how much increases others
+      public long ownMultiplier; // how much does it increase itself
+    }
+   
+}

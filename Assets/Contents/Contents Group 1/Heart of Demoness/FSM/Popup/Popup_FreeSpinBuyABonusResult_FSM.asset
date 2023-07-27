@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_FreeSpinBuyABonusResult_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4883.0,"y":-5251.0},"nodes":[{"_actionList":{"actions":[{"id":{"_value":"Free
+    Game Result"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"valueA":{"_value":"./ticketClaim/earnCredit"},"saveAs":{"_name":"_tierEarnCredit"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./bonus/earnCredit"},"saveAs":{"_name":"_amount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./ticketClaim/tierMultiplier"},"saveAs":{"_name":"_tierMultiplier"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Double,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_totalAmount"},"valueB":{"_name":"_amount"},"$type":"SlotMaker.Tasks.Actions.SetDouble"},{"valueA":{"_value":"_totalAmount"},"Operation":"Multiply","valueB":{"_name":"_tierMultiplier"},"$type":"SlotMaker.Tasks.Actions.SetDouble"},{"element":{"_name":"textMultiplier","_targetVariableID":"e49b10d3-29a0-45cf-a035-643dea8ff889"},"key":{"_value":"BUY_A_BONUS_TIER_MULTIPLIER"},"tableType":"Content","arg1":{"_value":"./ticketClaim/tierMultiplier"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"element":{"_name":"coinsCounter","_targetVariableID":"8e7f2daf-b4c0-4c7a-991c-84f20b14e6f6"},"key":{"_value":"FREE_SPIN_RESULT_CREDIT_SIMPLE"},"tableType":"Content","arg1":{"_value":"_amount"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"element":{"_name":"coinsCounterTotal","_targetVariableID":"f3428f16-1e90-48c4-a89a-767b4de0f6c1"},"key":{"_value":"FREE_SPIN_RESULT_CREDIT"},"tableType":"Content","arg1":{"_value":"_totalAmount"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"parameter":{"_value":"appear"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5119.0,"y":5710.0},"_name":"SetCredit","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"id":{"_value":"Button"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"parameter":{"_value":"disappear"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":2.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"ClosedPopup"},"delay":{},"overrideAgent":{"_name":"caller","_targetVariableID":"bffa8b30-c065-45f3-89d4-814c2b316721"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"$type":"SlotMaker.Task.Actions.ClosePopup"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":5815.0,"y":5875.0},"_name":"Finalize","$type":"NodeCanvas.StateMachines.ActionState","$id":"37"}],"connections":[{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"Collect"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"37"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

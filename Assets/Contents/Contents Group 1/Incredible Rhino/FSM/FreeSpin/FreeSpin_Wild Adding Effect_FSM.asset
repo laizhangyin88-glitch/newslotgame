@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: FreeSpin_Wild Adding Effect_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-957.0,"y":-32.0},"nodes":[{"_actionList":{"actions":[{"valueA":{"_value":"./slotMachine"},"saveAs":{"_type":"UnityEngine.GameObject","_name":"_slotMachine"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueUsingPath"},{"valueA":{"_value":"./slotMachine"},"saveAs":{"_name":"_slotMachine"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"./customData/slotDataList/0/column"},"saveAs":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_column"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueUsingPath"},{"valueA":{"_value":"./customData/slotDataList/0/column"},"saveAs":{"_name":"_column"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./customData/slotDataList/0/row"},"saveAs":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_row"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueUsingPath"},{"valueA":{"_value":"./customData/slotDataList/0/row"},"saveAs":{"_name":"_row"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":785.0,"y":357.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./customData/addedWildBaseDuration"},"saveAs":{"_type":"System.Single","_value":{"$content":0.0,"$type":"System.Single"},"_name":"_duration"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueUsingPath"},{"valueA":{"_value":"./customData/addedWildBaseDuration"},"saveAs":{"_name":"_duration"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./customData/addedWildCoefficient"},"saveAs":{"_type":"System.Single","_value":{"$content":0.0,"$type":"System.Single"},"_name":"_plusDuration"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueUsingPath"},{"valueA":{"_value":"./customData/addedWildCoefficient"},"saveAs":{"_name":"_plusDuration"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_plusDuration"},"Operation":"Multiply","valueB":{"_name":"_wildCnt"},"$type":"SlotMaker.Tasks.Actions.SetFloat"},{"valueA":{"_value":"_duration"},"Operation":"Add","valueB":{"_name":"_plusDuration"},"$type":"SlotMaker.Tasks.Actions.SetFloat"}]},"_position":{"x":1045.0,"y":502.0},"_name":"Set
+    Play Time","$type":"NodeCanvas.StateMachines.ActionState","$id":"23"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":1502.0,"y":690.0},"_name":"Play
+    Added Wild","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"44"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"waitTime":{"_value":2.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"OffWildAddEffect"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"}]},"_position":{"x":1092.0,"y":783.0},"_name":"End
+    Added Wild","$type":"NodeCanvas.StateMachines.ActionState","$id":"46"}],"connections":[{"_condition":{"eventName":{"_value":"OnWildAddEffect"},"saveEventValue":{"_name":"_wildCnt"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"44"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"44"},"_targetNode":{"$ref":"46"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"46"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"canvasGroups":[{"name":"Use
+    \u201cGet Blackboard Value Using Path\u201d Task","rect":{"xMin":727.0,"yMin":293.0,"xMax":1465.0,"yMax":661.0}}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: d55cf82557b3d4630b197f649e896efd, type: 2}
+  _deserializationFailed: 0

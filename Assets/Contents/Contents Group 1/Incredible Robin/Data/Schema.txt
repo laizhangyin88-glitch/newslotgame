@@ -1,0 +1,129 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Icr
+{
+    public class BonusInfo158
+    {
+        public List<ICRWheel> bonusWheel;
+        public List<long> ladderTable;
+        public SuperBonus superBonus;
+    }
+
+    public class SuperBonus
+    {
+        public List<int> wheelMultipliers;
+    }
+
+    public class ICRWheel
+    {
+        public string name;
+        public List<int> segments;
+    }
+
+    public class CustomData158
+    {
+        public List<List<int>> reelOutputListTable;
+        public Dictionary<long,int> robinCollectedCount;
+    }
+
+    // IcrFreeSpinBonus
+    public class BonusResult15800
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // IcrSuperFreeSpinBonus
+    public class BonusResult15801
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // IcrWheelBonus
+    public class BonusResult15802
+    {
+        public int slotAmount;
+        public int spinAmount;
+        public List<int> stopIndexes;
+    }
+
+    // IcrHeistBonusInfo
+    public class BonusResult15803
+    {
+        public List<HeistSlotState> heistSlotStates;
+        public bool isMultiSlot;
+    }
+
+    // IcrHeistBonusPaid
+    public class BonusResult15804
+    {
+        public List<HeistSlotState> heistSlotStates;
+        public bool isMultiSlot;
+    }
+    
+    // IcrFreeSpinTicketBonus
+    public class BonusResult15850  
+    {
+        public int initialWheelIndex = 0;
+        public int slotAmount = 0;
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // IcrFreeSpinTicketBonus
+    public class BonusResult15851  
+    {
+        public int initialWheelIndex = 0;
+        public int slotAmount = 0;
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // IcrFreeSpinTicketBonus
+    public class BonusResult15852  
+    {
+        public int initialWheelIndex = 0;
+        public int slotAmount = 0;
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // IcrTicketBonusInfo
+    public class BonusResult15853  
+    {
+        public int wheelStopIndex;
+        public List<SuperBonusSlotInfo> superBonusSlots;
+    }
+
+    public class SuperBonusSlotInfo
+    {
+        public int slotIndex;
+        public int row;
+        public int column;
+        public long earnCredit;
+        public int chestIndex;
+    }
+
+    public class HeistSlotState
+    {
+        public int slotIndex;
+        public HeistSymbolInfo arrowSymbolInfo;
+        public HeistSymbolInfo heistSymbolInfo;
+        public bool isRobbed;
+        public long earnCredit;
+    }
+    
+    public class HeistSymbolInfo
+    {
+        public int row;
+        public int column;
+        public int symbolValue;
+    }
+}

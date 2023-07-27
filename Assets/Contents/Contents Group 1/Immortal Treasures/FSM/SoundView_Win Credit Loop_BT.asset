@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: SoundView_Win Credit Loop_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5214.0,"y":-5213.0},"nodes":[{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"UpdateTurnCredit"},"value":{},"$type":"BagelCode.Task.Condition.CheckCreditEventValue`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"TotalWin"},"slotIndex":{},"_isDisabled":true,"$type":"BagelCode.Task.Condition.CheckWinEvent"},{"eventName":{"_value":"TotalWinLine"},"slotIndex":{},"_isDisabled":true,"$type":"BagelCode.Task.Condition.CheckWinEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":5773.0,"y":5178.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"2"},{"_position":{"x":5847.0,"y":5335.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"14"},{"_action":{"id":{"_value":"Win
+    Credit Loop"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},"_position":{"x":5668.0,"y":5429.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"15"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"UpdateTurnCredit"},"value":{"_value":true},"$type":"BagelCode.Task.Condition.CheckCreditEventValue`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"UpdatedTurnCredit"},"$type":"BagelCode.Task.Condition.CheckCreditEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":5906.0,"y":5459.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"18"},{"_action":{"actions":[{"id":{"_value":"Win
+    Credit Loop"},"$type":"SlotMaker.Tasks.Actions.SimpleStopGameSound"},{"id":{"_value":"Win
+    Credit End"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":6165.0,"y":5613.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"26"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

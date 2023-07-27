@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Symbol Link_Multiplier take logic_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-1804.0,"y":-1680.0},"nodes":[{"_actionList":{"actions":[{"id":{"_value":"Fire
+    Ball Symbol Land"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"valueA":{"_value":"_columnVar"},"valueB":{"_name":"column","_targetVariableID":"74d8be02-db34-4046-bcdc-c43caa7b25eb"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_columnVar"},"Operation":"Multiply","valueB":{"_value":3},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_rowVal"},"valueB":{"_name":"row","_targetVariableID":"80677352-7dcf-4ff3-bb50-d019823f2c6a"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_indexAmount"},"valueB":{"_name":"_columnVar"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_indexAmount"},"Operation":"Add","valueB":{"_name":"_rowVal"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"targetList":{"_name":"Animator_BB/iconsRespinStateList","_targetVariableID":"6187f486-88eb-47d7-b195-4ed787b5c111"},"index":{"_name":"_indexAmount"},"saveAs":{"_name":"_iconState"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":2448.0,"y":2099.0},"_name":"Update
+    icon state from re-spin bonus info","_comment":"","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"valueA":{"_value":"value"},"saveAs":{"_name":"_value"},"overrideAgent":{"_name":"_iconState"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Double,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_totalBetCreditDouble"},"valueB":{"_name":"_totalBetCredit"},"$type":"SlotMaker.Tasks.Actions.SetDouble"},{"valueA":{"_value":"_value"},"Operation":"Multiply","valueB":{"_name":"_totalBetCreditDouble"},"$type":"SlotMaker.Tasks.Actions.SetDouble"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":2958.0,"y":2281.0},"_name":"Set
+    coin value","_comment":"","$type":"NodeCanvas.StateMachines.ActionState","$id":"26"},{"_actionList":{"actions":[{"element":{"_name":"_linkSymbolValueContext"},"key":{"_value":"ICON_AMOUNT"},"tableType":"Content","arg1":{"_value":"_value"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"parameter":{"_value":""},"parameterHashID":{"_value":1388369520},"setTo":{"_value":3},"overrideAgent":{"_name":"symbolLinkAnimator","_targetVariableID":"185765b8-f5b0-413f-b5f3-3ff907be816b"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"}]},"_position":{"x":3092.0,"y":2399.0},"_name":"Set
+    coin value","_comment":"type integer","$type":"NodeCanvas.StateMachines.ActionState","$id":"39"},{"_actionList":{"actions":[{"valueA":{"_value":"ownMultiplier"},"saveAs":{"_name":"_ownMultiplier"},"overrideAgent":{"_name":"_iconState"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"jpIndex"},"saveAs":{"_name":"_jpIndex"},"overrideAgent":{"_name":"_iconState"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"element":{"_name":"_linkSymbolMultiplierValueContext"},"key":{"_value":"ICON_MULTIPLIER"},"tableType":"Content","arg1":{"_value":"_ownMultiplier"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"parameter":{"_value":""},"parameterHashID":{"_value":1388369520},"setTo":{"_value":7},"overrideAgent":{"_name":"symbolLinkAnimator","_targetVariableID":"185765b8-f5b0-413f-b5f3-3ff907be816b"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"}]},"_position":{"x":1975.0,"y":2323.0},"_comment":"type
+    integer","$type":"NodeCanvas.StateMachines.ActionState","$id":"51"},{"_color":{"r":0.4313726,"g":0.7333333,"b":1.0,"a":1.0},"_position":{"x":2416.0,"y":1873.0},"_name":"INFO","_comment":"int
+    flow:\nlanding - 0\nwin - 1\nmultiplier give -2\nmultiplier take - 3\ntransform
+    label to number - 4\ntransfer win to panel - 5","$type":"NodeCanvas.StateMachines.EmptyState"}],"connections":[{"_condition":{"valueA":{"_name":"isJP","_targetVariableID":"5a60418d-d5e3-4ddc-a1af-963b01c50dba"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"isJP","_targetVariableID":"5a60418d-d5e3-4ddc-a1af-963b01c50dba"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"51"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"39"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

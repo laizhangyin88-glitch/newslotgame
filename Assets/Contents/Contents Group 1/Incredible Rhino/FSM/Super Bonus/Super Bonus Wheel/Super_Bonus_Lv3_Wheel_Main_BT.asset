@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Super_Bonus_Lv3_Wheel_Main_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-1018.0,"y":79.0},"nodes":[{"_position":{"x":1298.0,"y":197.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_condition":{"eventName":{"_value":"SBLv3FirstWheelEnd"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_position":{"x":1094.0,"y":317.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"3"},{"_action":{"actions":[{"parameter":{"_value":"Down"},"parameterHashID":{},"overrideAgent":{"_name":"firstWheel","_targetVariableID":"543b7f07-1a0f-4ec9-a957-15ae41db60c3"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"parameter":{"_value":"Up"},"parameterHashID":{},"overrideAgent":{"_name":"secondWheel","_targetVariableID":"42a4b5e9-49d5-46b8-8510-105d644aa47f"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"id":{"_value":"Wheel
+    Expand"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"id":{"_value":"All
+    Pays Bar Move"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"eventName":{"_value":"SBWheelPayUIAppear"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"},{"waitTime":{"_value":2.5},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"},{"eventName":{"_value":"SBLv3SecondWheelStart"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":1036.0,"y":459.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_condition":{"eventName":{"_value":"SBLv3SecondWheelEnd"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_position":{"x":1436.0,"y":319.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"29"},{"_action":{"actions":[{"eventName":{"_value":"SBWheelWildUIDisappear"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"},{"parameter":{"_value":"Disappear"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":1380.0,"y":461.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"32"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

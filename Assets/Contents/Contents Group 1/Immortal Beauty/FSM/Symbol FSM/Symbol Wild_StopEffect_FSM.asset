@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Symbol Wild_StopEffect_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-267.0,"y":-5.0},"nodes":[{"_actionList":{"actions":[{"valueA":{"_value":"./customData/wildReelCheckList"},"saveAs":{"_name":"_wildReelCheckList"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_wildReelCheckList"},"index":{"_name":"column"},"fromLast":{},"saveAs":{"_name":"_isWildReel"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":743.0,"y":214.0},"_name":"Stop
+    Effect","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"target":{"_name":"base"},"setTo":"Deactivate","$type":"SlotMaker.Tasks.Actions.SimpleSetActive"}]},"_position":{"x":1185.0,"y":339.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"13"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"prefabId":{"_value":1},"cachingId":{"_value":3},"$type":"SlotMaker.Tasks.Actions.SymbolGetGameObject"}]},"_position":{"x":974.0,"y":435.0},"_name":"Single
+    Pivot Wild","$type":"NodeCanvas.StateMachines.ActionState","$id":"18"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"cachingId":{},"setTo":"Deactivate","$type":"SlotMaker.Tasks.Actions.SymbolSetActiveCachingObject"},{"cachingId":{"_value":2},"setTo":"Deactivate","$type":"SlotMaker.Tasks.Actions.SymbolSetActiveCachingObject"}]},"_position":{"x":1351.0,"y":426.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"24"}],"connections":[{"_condition":{"valueA":{"_name":"_isWildReel"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckVariable`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"isPivot"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckVariable`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"isPivot"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckVariable`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

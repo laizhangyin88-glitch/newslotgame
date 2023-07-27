@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Respin Bonus_Special spin flow_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-1764.0,"y":-39.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"specialReelIndex"},"valueB":{"_value":2},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"./isDemonesSuperSpinActive"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"}]},"_position":{"x":1603.0,"y":751.0},"_comment":"isDemonesSuperSpinActive
+    - checked in link symbol for win","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"reelStripsIndex":{"_value":"specialReelIndex"},"$type":"BagelCode.Tasks.Actions.Contents.ApplyReelStripsIndex"},{"$type":"BagelCode.Tasks.Actions.Contents.BeginSpin"},{"eventName":{"_value":"SpinSlotMachine"},"delay":{},"sendGlobal":true,"slotIndex":{"_value":4},"$type":"BagelCode.Tasks.Actions.SendSlotEvent"},{"id":{"_value":"Heart
+    Bonus 5 Reel Spin"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"valueA":{"_value":"specialHeartSpinOutputList"},"saveAs":{"_name":"_respinReelOutputList"},"overrideAgent":{"_name":"_extraInfo"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":1844.0,"y":593.0},"_name":"Begin
+    Spin","$type":"NodeCanvas.StateMachines.ActionState","$id":"10"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":2135.0,"y":479.0},"_name":"Update
+    symbol custom data","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"26"},{"_actionList":{"actions":[{"slotIndex":{"_value":4},"$type":"BagelCode.Tasks.Actions.Contents.ClearDeckMask"},{"slotIndex":{"_value":4},"indices":{"_value":[],"_name":"_respinReelOutputList"},"targetBB":{"_value":"./spin/deck"},"checkAll":true,"masks":[false,false,false,false,false],"$type":"BagelCode.Tasks.Actions.Contents.UpdateSplitDeck"},{"slotIndex":{"_value":4},"column":{"_name":"_respinReelCount","_targetVariableID":"e503f68d-c9e2-473e-a677-106723973036"},"$type":"BagelCode.Tasks.Actions.Contents.InitExpectation"},{"slotIndex":{"_value":4},"splitColumn":{"_value":15,"_targetVariableID":"11d78c8e-ca80-4090-931e-2ea5ad3ed74c"},"column":{"_name":"_column"},"row":{"_name":"_row"},"visibleCounts":{"_value":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"_targetVariableID":"aa598f16-c677-4240-b18a-005475e4e36e"},"symbolMask":"Scatter2","checkAll":true,"ignoreExpectation":true,"masks":[],"splitCheckAll":true,"splitMasks":[],"$type":"BagelCode.Tasks.Actions.Contents.UpdateExpectationSpotBySplitReel"},{"slotMachine":{"_name":"_baseSeparatedSlotMachine","_targetVariableID":"d651a065-7fbb-4950-b6dd-259a3079e687"},"indices":{"_value":[],"_name":"_respinReelOutputList"},"offset":{"_value":-2},"$type":"SlotMaker.Tasks.Actions.Contents.UpdateSlotMachineIndices"},{"waitTime":{"_value":0.1},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"UpdateSpinCount"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"waitTime":{"_value":0.9},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"StopSlotMachine"},"delay":{},"sendGlobal":true,"slotIndex":{"_value":4},"$type":"BagelCode.Tasks.Actions.SendSlotEvent"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":2387.0,"y":258.0},"_name":"Update
+    Deck","$type":"NodeCanvas.StateMachines.ActionState","$id":"28"},{"_actionList":{"actions":[{"$type":"BagelCode.Tasks.Actions.Contents.EndSpin"},{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":2802.0,"y":437.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"67"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"StoppedSlotMachine"},"slotIndex":{"_value":4},"$type":"BagelCode.Task.Condition.CheckSlotEvent"},"_sourceNode":{"$ref":"28"},"_targetNode":{"$ref":"67"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: c3e00b89a96565f4883dc88425cfe383, type: 2}
+  _deserializationFailed: 0

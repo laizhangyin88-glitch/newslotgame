@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Symbol Link_Fly to collect panel_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-853.0,"y":-1229.0},"zoomFactor":0.9999688,"nodes":[{"_position":{"x":1553.0,"y":1575.0},"_name":"START","$type":"NodeCanvas.StateMachines.EmptyState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":""},"parameterHashID":{"_value":1388369520},"setTo":{"_value":5},"overrideAgent":{"_name":"symbolLinkAnimator","_targetVariableID":"185765b8-f5b0-413f-b5f3-3ff907be816b"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"}]},"_position":{"x":1330.0,"y":1733.0},"_name":"TransferWinToPanel","$type":"NodeCanvas.StateMachines.ActionState","$id":"3"},{"_actionList":{"actions":[{"valueA":{"_value":"./CollectPanelAnchor"},"saveAs":{"_name":"_toAnchor"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"saveAs":{"_name":"_to"},"overrideAgent":{"_name":"_toAnchor"},"$type":"NodeCanvas.Tasks.Actions.GetComponent`1[[UnityEngine.Transform,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"id":{"_value":"Heart
+    Effect"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":1683.0,"y":1810.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"11"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"poolName":{"_value":"./FlyMultiplierSymbol"},"parent":{"_name":"transform","_targetVariableID":"533e1813-a398-45de-8421-4bc41407b918"},"parentName":{},"activeSelf":{},"saveAs":{"_name":"_flyingSymbol"},"$type":"BagelCode.Tasks.Actions.GetPooledObject"}]},"_position":{"x":1844.0,"y":1924.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"22"},{"_actionList":{"actions":[{"method":{"_baseInfo":"UnityEngine.RectTransform|get_position|UnityEngine.Vector3","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Vector3","_name":"_fromPosition"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"},{"method":{"_baseInfo":"UnityEngine.RectTransform|set_position|System.Void","_paramsInfo":"UnityEngine.Vector3"},"parameter":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_fromPosition"},"overrideAgent":{"_name":"_flyingSymbol"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"},{"key":{"_value":"from"},"value":{"_name":"transform","_targetVariableID":"533e1813-a398-45de-8421-4bc41407b918"},"overrideAgent":{"_name":"_flyingSymbol"},"$type":"SlotMaker.Tasks.Actions.SetTransform"},{"key":{"_value":"to"},"value":{"_name":"_to"},"overrideAgent":{"_name":"_flyingSymbol"},"$type":"SlotMaker.Tasks.Actions.SetTransform"},{"setTo":"Activate","overrideAgent":{"_name":"_flyingSymbol"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":2155.0,"y":2005.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"31"},{"_color":{"r":0.4313726,"g":0.7333333,"b":1.0,"a":1.0},"_position":{"x":1143.0,"y":1628.0},"_name":"INFO","_comment":"int
+    flow:\nlanding - 0\nwin - 1\nmultiplier give -2\nmultiplier take - 3\ntransform
+    label to number - 4\ntransfer win to panewl - 5","$type":"NodeCanvas.StateMachines.EmptyState"}],"connections":[{"_condition":{"valueA":{"_name":"_isJP"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"_isJP"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

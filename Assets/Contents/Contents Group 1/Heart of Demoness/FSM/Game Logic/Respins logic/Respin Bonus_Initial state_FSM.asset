@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Respin Bonus_Initial state_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-138.0,"y":-580.0},"nodes":[{"_actionList":{"actions":[{"valueA":{"_value":"./bonus/response/spinInfoPack"},"saveAs":{"_name":"_respinsConfigPack","_targetVariableID":"e985336c-6c03-4743-83f5-1e8b75eb38f7"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"targetList":{"_name":"_respinsConfigPack"},"index":{},"saveAs":{"_name":"_initialSpinInfo"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"_initialSpinInfo/extraInfo"},"saveAs":{"_name":"_extraInfo"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"targetList":{"_name":"_respinsConfigPack"},"saveAs":{"_name":"_respinsConfigPackCount"},"$type":"NodeCanvas.Tasks.Actions.GetListCount"},{"valueA":{"_value":"_respinsConfigPackCount"},"Operation":"Subtract","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_respinsConfigPackCount"},"saveAs":{"_name":"_totalSpinCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./customData/remainReSpinCount"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"./customData/totalSpinCount"},"valueB":{"_value":3},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_name":"_spinIndex"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"valueA":{"_value":"_respinReelCount"},"valueB":{"_value":15},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"id":{"_value":"Heart
+    Bonus Intro Vox"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":-25.0,"y":675.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"valueA":{"_value":"./customData/useJackpotProgressList"},"saveAs":{"_name":"_useJackpotProgressList"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"_useJackpotProgressList"},"index":{"_value":3},"newValue":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.SetListElement`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"_useJackpotProgressList"},"index":{"_value":4},"newValue":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.SetListElement`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":410.0,"y":849.0},"_name":"Refresh
+    Jackpot Progress Flag","$type":"NodeCanvas.StateMachines.ActionState","$id":"38"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":837.0,"y":1011.0},"_name":"Initial
+    Locked Reels","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"52"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":1080.0,"y":1076.0},"_name":"Reset
+    values before spin","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"54"},{"_actionList":{"actions":[{"eventName":{"_value":"AppearSpinCount"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"waitTime":{"_value":1.55},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"valueA":{"_name":"_spinIndex"},"valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":1305.0,"y":1199.0},"_name":"Begin
+    Respin","$type":"NodeCanvas.StateMachines.ActionState","$id":"56"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"38"},"_targetNode":{"$ref":"52"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"52"},"_targetNode":{"$ref":"54"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"54"},"_targetNode":{"$ref":"56"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"canvasGroups":[],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 6ebbc5642da87d546b73b125a67f1d82, type: 2}
+  - {fileID: 11400000, guid: 0553fd1116f7e2f41872a7f811ec0daa, type: 2}
+  _deserializationFailed: 0
