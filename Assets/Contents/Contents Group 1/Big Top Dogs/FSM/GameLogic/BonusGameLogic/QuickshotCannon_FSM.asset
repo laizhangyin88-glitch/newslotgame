@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: QuickshotCannon_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: "{\"version\":2.6,\"type\":\"NodeCanvas.StateMachines.FSM\",\"translation\":{\"x\":-4656.0,\"y\":-4871.0},\"nodes\":[{\"_actionList\":{\"executionMode\":\"ActionsRunInParallel\",\"actions\":[]},\"_position\":{\"x\":4958.0,\"y\":5105.0},\"_name\":\"Entry\",\"$type\":\"NodeCanvas.StateMachines.ActionState\",\"$id\":\"2\"},{\"_nestedBT\":{\"_value\":1},\"executionMode\":\"Once\",\"_position\":{\"x\":5410.0,\"y\":5185.0},\"_name\":\"Initialize\",\"$type\":\"NodeCanvas.StateMachines.NestedBTState\",\"$id\":\"5\"},{\"_nestedBT\":{\"_value\":2},\"executionMode\":\"Once\",\"_position\":{\"x\":5747.0,\"y\":5352.0},\"_name\":\"QuickShot
+    Cannon\",\"$type\":\"NodeCanvas.StateMachines.NestedBTState\",\"$id\":\"7\"},{\"_actionList\":{\"executionMode\":\"ActionsRunInParallel\",\"actions\":[{\"eventName\":{\"_value\":\"FinishQuickShotCannon\"},\"delay\":{},\"sendGlobal\":true,\"$type\":\"BagelCode.Tasks.Actions.SendContentUIDetailEvent\"}]},\"_position\":{\"x\":5476.0,\"y\":5499.0},\"_name\":\"End\",\"$type\":\"NodeCanvas.StateMachines.ActionState\",\"$id\":\"9\"},{\"_nestedBT\":{\"_value\":3},\"executionMode\":\"Once\",\"_position\":{\"x\":5170.0,\"y\":5393.0},\"_name\":\"\x10Win\",\"$type\":\"NodeCanvas.StateMachines.NestedBTState\",\"$id\":\"15\"},{\"_nestedBT\":{\"_value\":4},\"executionMode\":\"Once\",\"_position\":{\"x\":5207.0,\"y\":4899.0},\"_name\":\"Restore\",\"$type\":\"NodeCanvas.StateMachines.NestedBTState\",\"$id\":\"17\"}],\"connections\":[{\"_condition\":{\"eventName\":{\"_value\":\"BeginBonus\"},\"variableName\":{\"_value\":\"bonusId\"},\"value\":{\"_value\":1602},\"$type\":\"BagelCode.Task.Condition.CheckContentEventBlackboardValue`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]\"},\"_sourceNode\":{\"$ref\":\"2\"},\"_targetNode\":{\"$ref\":\"5\"},\"$type\":\"NodeCanvas.StateMachines.FSMConnection\"},{\"_condition\":{\"eventName\":{\"_value\":\"SpinBonusOutro\"},\"$type\":\"BagelCode.Task.Condition.CheckContentUIEvent\"},\"_sourceNode\":{\"$ref\":\"2\"},\"_targetNode\":{\"$ref\":\"17\"},\"$type\":\"NodeCanvas.StateMachines.FSMConnection\"},{\"_sourceNode\":{\"$ref\":\"5\"},\"_targetNode\":{\"$ref\":\"7\"},\"$type\":\"NodeCanvas.StateMachines.FSMConnection\"},{\"_sourceNode\":{\"$ref\":\"7\"},\"_targetNode\":{\"$ref\":\"9\"},\"$type\":\"NodeCanvas.StateMachines.FSMConnection\"},{\"_sourceNode\":{\"$ref\":\"9\"},\"_targetNode\":{\"$ref\":\"15\"},\"$type\":\"NodeCanvas.StateMachines.FSMConnection\"},{\"_sourceNode\":{\"$ref\":\"15\"},\"_targetNode\":{\"$ref\":\"2\"},\"$type\":\"NodeCanvas.StateMachines.FSMConnection\"},{\"_sourceNode\":{\"$ref\":\"17\"},\"_targetNode\":{\"$ref\":\"2\"},\"$type\":\"NodeCanvas.StateMachines.FSMConnection\"}],\"primeNode\":{\"$ref\":\"2\"},\"localBlackboard\":{\"_name\":\"Local
+    Blackboard\",\"_variables\":{}}}"
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: d16199df9318c4ea48f6a244a8a9dbd9, type: 2}
+  - {fileID: 11400000, guid: bcd977aaa57c64183b665630ddfc179a, type: 2}
+  - {fileID: 11400000, guid: e75d5e9ca060b4db288ecf1d0fc48b1e, type: 2}
+  - {fileID: 11400000, guid: 808688aa580b14a1ea9fa18e08f21f3e, type: 2}
+  _deserializationFailed: 0

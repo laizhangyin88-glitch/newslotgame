@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Multiplier_In_Spinning
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5165.0,"y":-5325.0},"nodes":[{"_condition":{"valueA":{"_name":"_multiplierTiming"},"valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":5776.0,"y":5186.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_position":{"x":5820.0,"y":5289.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"6"},{"_action":{"actions":[{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"id":{"_value":"Multiplier
+    Appear"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5565.0,"y":5412.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"targetList":{"_name":"_reelMultipliers","_targetVariableID":"ca568ca8-f622-42cd-898c-6f02cb986619"},"current":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_reelMultiplier","_targetVariableID":"c2f490db-840c-4169-8bad-7e268f7efd81"},"storeIndex":{"_name":"_reelMultiplierIndex"},"maxIteration":{"_value":-1},"_position":{"x":5731.0,"y":5406.0},"$type":"NodeCanvas.BehaviourTrees.Iterator","$id":"14"},{"_condition":{"valueA":{"_name":"_reelMultiplier","_targetVariableID":"c2f490db-840c-4169-8bad-7e268f7efd81"},"valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":5775.0,"y":5514.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"19"},{"_action":{"status":"Success","$type":"NodeCanvas.Tasks.Actions.RaiseStatus"},"_position":{"x":5685.0,"y":5624.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"23"},{"_action":{"actions":[{"eventName":{"_value":"ActiveMultiplier"},"eventValue":{"_name":"_reelMultiplierIndex"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentEvent`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"UpdateJackpotMultiplier"},"eventValue":{"_name":"_reelMultiplierIndex"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentEvent`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"id":{"_value":"Multiplier
+    Appear"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5809.0,"y":5628.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"25"},{"_action":{"waitTime":{"_value":1.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":6008.0,"y":5410.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"38"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"25"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

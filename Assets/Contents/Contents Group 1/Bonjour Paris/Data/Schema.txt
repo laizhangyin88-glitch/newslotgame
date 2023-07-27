@@ -1,0 +1,67 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Bon
+{
+    // BONJackpot
+    public class BonusResult4100
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // BONWheelBonus
+    public class BonusResult4101
+    {
+        public int index = 0;
+        public int outerWheelIndex = 0;
+        public int innerWheelIndex = 0;
+        public int bonusType = 0;
+        public int bonusValue = 0;
+    }
+
+    // BONWildBonus
+    public class BonusResult4102
+    {
+        public long betCredit = 0;
+        public int totalSpinCount = 0;
+        public int reelSpinCount = 0;
+        public List<int> wildWheelIndexList = new List<int>();
+        public List<bool> wildWheelSpunList = new List<bool>();
+        public long totalEarnCredit = 0;
+    }
+
+    // BONFreeSpinBonus
+    public class BonusResult4103
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // BONJackpotWheelBonus
+    public class BonusResult4104
+    {
+        public int wheelIndex = 0;
+        public int awardType = 0;
+        public long betPerLine = 0;
+        public int awardMultiplier = 0;
+    }
+
+    // BONMultiplyWinBonus
+    public class BonusResult4105
+    {
+        public int multiplier = 0;
+        public long baseEarnCredit = 0;
+        public long totalEarnCredit = 0;
+    }
+
+    // BONWildBonusSpinResult
+    public class BonusResult4106
+    {
+        public int reelTypeIndex = 0;
+        public int addedWildCount = 0;
+        public SpinResult result = null;
+    }
+}

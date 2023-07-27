@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Wheel Bonus_Sound_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","nodes":[{"_position":{"x":5519.0,"y":5275.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"2"},{"repeaterMode":"RepeatForever","repeatTimes":{"_value":1},"_position":{"x":5400.0,"y":5395.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"3"},{"_condition":{"conditions":[{"eventName":{"_value":"TickInner"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"valueA":{"_name":"innerWheelTick","_targetVariableID":"d6ae0b81-1e0d-4c53-a53e-e575198ccd42"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":5365.0,"y":5472.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"5"},{"_action":{"id":{"_value":"Giant
+    Big Small Tick"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},"_position":{"x":5362.0,"y":5581.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"13"},{"repeaterMode":"RepeatForever","repeatTimes":{"_value":1},"_position":{"x":5630.0,"y":5395.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"16"},{"_condition":{"conditions":[{"eventName":{"_value":"TickOuter"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"valueA":{"_name":"outerWheelTick","_targetVariableID":"21546920-3bad-4893-822e-9cd347a49c3f"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":5601.0,"y":5472.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"18"},{"_action":{"id":{"_value":"Giant
+    Big Wheel Tick"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},"_position":{"x":5601.0,"y":5581.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"26"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

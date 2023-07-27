@@ -1,0 +1,84 @@
+using System.Collections;
+using System.Collections.Generic;
+using SlotMaker.Json;
+
+namespace SlotMaker.Contents.Internal.Btg
+{
+    public class CustomData117
+    {
+        public Dictionary<long,List<int>> crystals = new Dictionary<long,List<int>>();
+    }
+    
+    /*enum WinCellType
+    {
+         None,
+         Broken,
+         Scatter,
+         Wild,
+         CashPay,
+         Crystal1,
+         Crystal2,
+         Crystal3,
+         Crystal4,
+         Crystal5
+    }*/
+
+    // BTGFreeSpinBonus
+    public class BonusResult11700
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // BTGFreeSpinRetriggerBonus
+    public class BonusResult11701
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // BTGRespinBonus
+    public class BonusResult11710
+    {
+        public List<BonusResult> bonusResult = new List<BonusResult>();
+        public List<List<int>> winMatrix = new List<List<int>>();
+        public List<int> flatWinMatrix = new List<int>();
+        public SpinResult result = null;
+    }
+
+    // BTGExplosiveWildBonus
+    public class BonusResult11711
+    {
+        public List<int> positions = new List<int>();
+    }
+
+    // BTGCrystalBonus
+    public class BonusResult11712
+    {
+        public List<BTGCrystalBonusStep> sequence;
+    }
+
+    public class BTGCrystalBonusStep
+    {
+        public int picksLeft;
+        public int crystal;
+        public double mult;
+        public bool addPick;
+    }
+
+    // BTGCashPayBonus
+    public class BonusResult11713
+    {
+        public List<double> flatCashPayMatrix = new List<double>();
+    }
+
+    // BTGTicketedFreeSpinBonus
+    public class BonusResult11750
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+}

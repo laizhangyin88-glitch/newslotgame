@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: FreeSpin_Multiplier_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5154.0,"y":-5152.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{"_value":true},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"valueA":{"_name":"_initialMultiplier"},"valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetIntToLong"}]},"_position":{"x":5351.0,"y":5294.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"setTo":"Deactivate","overrideAgent":{"_name":"animator"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":5609.0,"y":5351.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"10"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":6039.0,"y":5651.0},"_name":"Multipler","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"15"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"TotalWin"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckWinEvent"},{"eventName":{"_value":"TotalWinLine"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckWinEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 1fc68bf5322244b11a87d80bd5496992, type: 2}
+  _deserializationFailed: 0

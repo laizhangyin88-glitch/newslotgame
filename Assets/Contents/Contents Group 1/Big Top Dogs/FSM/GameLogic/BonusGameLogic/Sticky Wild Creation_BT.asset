@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Sticky Wild Creation_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-4966.0,"y":-4918.0},"nodes":[{"_nodeColor":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":5658.0,"y":5152.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"column":{"_name":"_column"},"row":{"_name":"_row"},"symbolMask":"Wild","ignoreOverlay":true,"saveAs":{"_value":{"cells":[]},"_name":"_wildSymbols"},"$type":"BagelCode.Tasks.Actions.Contents.FindScatterSymbol"},{"symbolWin":{"_value":{"cells":[]},"_name":"_wildSymbols"},"saveAs":{"_value":[],"_name":"_hitCells"},"$type":"BagelCode.Tasks.Actions.Contents.GetSymbolCellList"},{"targetList":{"_name":"_hitCells"},"saveAs":{"_name":"hitCellCount","_targetVariableID":"93f96617-89b9-4644-aba0-b887dd77e94c"},"$type":"NodeCanvas.Tasks.Actions.GetListCount"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5269.0,"y":5302.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"targetList":{"_type":"System.Collections.Generic.List`1[[SlotMaker.Cell,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"_hitCells"},"current":{"_type":"SlotMaker.Cell","_name":"_hitCell"},"storeIndex":{"_name":"_index"},"maxIteration":{"_value":-1},"_position":{"x":5630.0,"y":5316.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"21"},{"_action":{"actions":[{"cell":{"_value":{},"_name":"_hitCell"},"symbolIndex":{},"attribute":"Wild,Overlay","$type":"BagelCode.Tasks.Actions.Contents.SetDeckMask"},{"slotMachine":{"_name":"_slotMachine"},"cell":{"_value":{},"_name":"_hitCell"},"symbolIndex":{},"attribute":"Wild,Overlay","$type":"SlotMaker.Tasks.Actions.Contents.SetSlotOverlaySymbol"},{"slotMachine":{"_name":"_slotMachine"},"cell":{"_value":{},"_name":"_hitCell"},"saveAs":{"_name":"_wildSymbol"},"$type":"SlotMaker.Tasks.Actions.Contents.GetPivotSymbol"},{"eventName":{"_value":"CreateStickyWild"},"delay":{},"overrideAgent":{"_name":"_wildSymbol"},"$type":"BagelCode.Tasks.Actions.SendSymbolEvent"},{"slotMachine":{"_name":"_slotMachine"},"cell":{"_value":{},"_name":"_hitCell"},"key":{"_value":"LifeCount"},"valueA":{"_value":2},"$type":"SlotMaker.Tasks.Actions.Contents.SetSlotSymbolCustomData`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"wildCount"},"valueB":{"_value":2},"overrideAgent":{"_name":"_wildSymbol"},"$type":"SlotMaker.Tasks.Actions.SetInt32"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5555.0,"y":5433.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"26"},{"_condition":{"valueA":{"_name":"hitCellCount","_targetVariableID":"93f96617-89b9-4644-aba0-b887dd77e94c"},"checkType":"GreaterThan","valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":5908.0,"y":5332.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"57"},{"_action":{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":5919.0,"y":5447.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"61"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"57"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"57"},"_targetNode":{"$ref":"61"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: TopBoard_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.9,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4990.0,"y":-5374.0},"zoomFactor":0.9984753,"nodes":[{"_actionList":{"actions":[{"valueA":{"_value":"./specialSymbolIndex"},"saveAs":{"_name":"_specialSymbolIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetVariableName":{"_value":"symbolIndex"},"newValue":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_specialSymbolIndex"},"overrideAgent":{"_name":"still","_targetVariableID":"a535373a-741d-4f07-a58c-6d257a0e155e"},"$type":"NodeCanvas.Tasks.Actions.SetOtherBlackboardVariable"},{"valueA":{"_value":"stillSprites"},"index":{"_name":"_specialSymbolIndex","_targetVariableID":"0623e077-ebca-4b4e-89a8-aa3ee174432f"},"fromLast":{},"saveAs":{"_name":"_specialSymbolSprite"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[UnityEngine.Sprite,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}]},"_position":{"x":5102.0,"y":5300.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"waitTime":{"_value":0.05},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"UpdateSprite"},"delay":{},"overrideAgent":{"_name":"still","_targetVariableID":"a535373a-741d-4f07-a58c-6d257a0e155e"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"}]},"_position":{"x":5451.0,"y":5447.0},"_name":"Update
+    Still","$type":"NodeCanvas.StateMachines.ActionState","$id":"17"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./bonus/spinCount"},"saveAs":{"_name":"_spinCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./bonus/totalSpinCount"},"saveAs":{"_name":"_totalSpinCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"format":{"_value":"FREE
+    GAME {0} OF {1}"},"argsList":[{"_name":"_spinCount","_targetVariableID":"554a9351-0498-4e09-92a7-8eb66d170fa6"},{"_name":"_totalSpinCount"}],"saveAs":{"_value":"totalCountString","_name":"countString","_targetVariableID":"c8b8b8e7-482a-4228-9f87-9f6015ba510d"},"$type":"SlotMaker.Tasks.Actions.GetStringFromCustomFormat"},{"element":{"_name":"countText","_targetVariableID":"4c10303d-50f2-422b-81f9-a0a7de6bc4e8"},"arg0":{"_value":"countString"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"}]},"_position":{"x":5644.0,"y":5610.0},"_name":"Update
+    Total Count","$type":"NodeCanvas.StateMachines.ActionState","$id":"26"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5988.0,"y":5798.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"44"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"44"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"UpdateFreeSpinCount"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"44"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

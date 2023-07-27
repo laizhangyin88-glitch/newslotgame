@@ -1,0 +1,58 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Bgl
+{
+    public class BGLPosition
+    {
+        public int col = 0;
+        public int row = 0;
+    }
+
+    public class CustomData100
+    {
+        public List<int> subSymbolHitList = new List<int>();
+    }
+
+    public class BonusInfo100
+    {
+        public int freeSpinCount;
+        public int bonusRowCount;
+        public int bonusColCount;
+        public List<long> scatterPay;
+    }
+
+    // BGL FreeSpinBonus
+    public class BonusResult10000
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // BGL LockedWildBonus
+    public class BonusResult10001
+    {
+        public BGLPosition spotPosition;
+    }
+
+    // BGL NeighbourWildBonus
+    public class BonusResult10002
+    {
+        public BGLPosition spotPosition;
+        public List<BGLPosition> spreadPositionList;
+    }
+
+    // BGL RandomWildBonus
+    public class BonusResult10003
+    {
+        public BGLPosition spotPosition;
+        public List<BGLPosition> spreadPositionList;
+    }
+
+    // BGL Bingo Bonus
+    public class BonusResult10004
+    {
+        public long multiplier;
+    }
+}

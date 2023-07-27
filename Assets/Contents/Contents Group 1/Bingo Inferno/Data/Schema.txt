@@ -1,0 +1,179 @@
+//
+// Bingo Infreno Schema
+//
+
+public class IBIFWheelInfo
+{
+    public List<int> wheelTypeList;
+    public List<long> wheelValueList;
+    public List<int> wheelJackpotIndexList;
+}
+
+public class IBIFBingoSpot
+{
+    public int spotIndex = 0;
+    public int spotType = 0;
+    public long spotValue = 0;
+    public int spotJackpotIndex = 0;
+    public bool isPreBingoSpot;
+}
+
+public class IBIFBingoProgress
+{
+    public List<IBIFBingoSpot> bingoInfo;
+    public bool isDiamondSpin;
+    public int diamondSpotIndex = 0;
+    public int leftDiamondSpinCount = 0;
+}
+
+public class IBIFDropSymbol
+{
+    public int spotIndex = 0;
+    public List<int> symbolIndexList = 0;
+    public int beginIndex = 0;
+    public long credit = 0;
+}
+
+public class IBIFWheelResult
+{
+    public int wheelSpotIndex = 0;
+    public int wheelJackpotIndex = 0;
+    public long wheelJackpotValue = 0;
+    public long wheelSpotMultiplier = 0;
+    public long finalSpotValue = 0;
+    public IBIFBingoSpot finalSpotInfo;
+}
+
+public class IBIFBingoLineResult
+{
+    public int bingoLineIndex = 0;
+    public List<long> bingoLinePayList;
+    public long totalBingoLinePay = 0;
+}
+
+public class BonusInfo182
+{
+    public int bingoColumn = 0;
+    public int bingoRow = 0;
+    public int diamondSpinCount = 0;
+    public List<long> scatterPayList;
+    public List<long> jackpotMultiplierList;
+    public IBIFWheelInfo wheelCommonInfo;
+    public List<List<int>> bingoTotalLineList;
+}
+
+public class CustomData182
+{
+    public int gameResultType = 0;
+
+    public List<bool> isScatterReelList;
+    public List<bool> isBingoStopEffectList;
+
+    public List<IBIFBingoSpot> defaultBingoInfo;
+    public Dictionary<long,IBIFBingoProgress> bingoProgressInfoPerTotalBet;
+    public IBIFBingoProgress bingoProgressInfo;
+    public IBIFBingoProgress superBonusBingoProgressInfo;
+
+    public int preBingoCount = 0;
+
+    public bool isHitWild;
+    public long freeSpinWildMultiplier = 0;
+    public long nextFreeSpinWildMultiplier = 0;
+    public List<int> finalOutputSymbolList = 0;
+}
+
+// FREE SPIN
+public class BonusResult18200
+{
+    public long betCredit;
+    public int addedSpinCount;
+}
+
+// FREE SPIN RETRIGGER
+public class BonusResult18201
+{
+    public long betCredit;
+    public int addedSpinCount;
+}
+
+// DROP SYMBOLS
+public class BonusResult18202
+{
+    public List<IBIFDropSymbol> dropBingoSymbolList;
+}
+
+// UPDATE BINGO
+public class BonusResult18203
+{
+    public List<IBIFBingoSpot> updatedBingoSpotList;
+    public List<long> bingoSpotValueList;
+    public List<IBIFBingoSpot> updatedBingoInfo;
+}
+
+// DAIMOND SPIN
+public class BonusResult18204
+{
+    public int diamondSpotIndex = 0;
+    public int diamondSpinCount = 0;
+}
+
+// WHEEL
+public class BonusResult18205
+{
+    public IBIFWheelResult wheelResultInfo;
+}
+
+// BINGO
+public class BonusResult18206
+{
+    public List<IBIFBingoLineResult> bingoResultLineList;
+    public List<int> nonBingoSpotIndexList;
+}
+
+// SPECIAL BINGO
+public class BonusResult18207
+{
+    public List<long> bingoSpotPayList;
+}
+
+// RESET BINGO
+public class BonusResult18208
+{
+    public List<IBIFBingoSpot> bingoJackpotSpotList;
+    public List<IBIFBingoSpot> bingoInfo;
+}
+
+// Super Bonus Lv 1
+public class BonusResult18250
+{
+    public int type;
+    public long betCredit;
+    public int addedSpinCount;
+    public List<bool> isSpecialSpotList;
+    public long nextFreeSpinWildMultiplier;
+    public IBIFBingoProgress superBonusBingoProgressInfo;
+}
+
+// Super Bonus Lv 2
+public class BonusResult18251
+{
+    public int type;
+    public long betCredit;
+    public int addedSpinCount;
+    public List<bool> isSpecialSpotList;
+    public long nextFreeSpinWildMultiplier;
+    public IBIFBingoProgress superBonusBingoProgressInfo;
+}
+
+// Super Bonus Lv 3
+public class BonusResult18252
+{
+    public int type;
+    public long betCredit;
+    public int addedSpinCount;
+    public List<bool> isSpecialSpotList;
+    public long nextFreeSpinWildMultiplier;
+    public IBIFBingoProgress superBonusBingoProgressInfo;
+}
+
+
