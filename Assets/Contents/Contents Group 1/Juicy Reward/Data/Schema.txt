@@ -1,0 +1,75 @@
+//
+// Juicy Rewards Schema
+//
+
+private class JuicyRewardInfo
+{
+    public List<int> reelOutputList;
+    public List<List<int>> finalOutputList;
+    public List<List<int>> rewardOutputList;
+}
+
+public class BonusInfo119
+{
+    public List<long> juicyBaseRewardsList;
+    public List<long> juicyFreeRewardsList;
+}
+
+public class CustomData119
+{
+    public bool juicySwitchTriggred;
+    public Dictionary<long,int> juicySwitchGaugePerBet;
+    public JuicyRewardInfo juicyRewardInfo;
+    public List<JuicyRewardInfo> juicyRewardInfoTablePerBet;
+    public Dictionary<long,int> juicyRewardKeyValueMapPerBet;
+    public Dictionary<int,int> nowMysterySymbols;
+    public Dictionary<int,int> nextMysterySymbols;
+}
+
+// FreeSpin
+public class BonusResult11900
+{
+    public long betCredit;
+    public int addedSpinCount;
+    public JuicyRewardInfo juicyRewardInfo;
+}
+
+// FreeSpin Retrigger
+public class BonusResult11901
+{
+    public long betCredit;
+    public int addedSpinCount;
+    public List<int> juicyReelOutputList;
+    public List<List<int>> juicyFinalOutputList;
+    public List<List<int>> juicyRewardOutputList;
+}
+
+// Juicy Rewards
+public class BonusResult11902
+{
+    public int juicyRewardType;
+    public List<List<int>> addedSymbolIndices;
+    public List<List<int>> addedRewardIndices;
+    public List<List<int>> addedReelIndices;
+    public List<int> hitSymbolCells;
+    public long cashEarnCredit;
+    public int freeSpinCount;
+}
+
+// Juicy Switch
+public class BonusResult11903
+{
+    public List<int> juicySwitchRewardList;
+    public List<int> juicySwitchSymbolList;
+    public List<int> juicySwitchReelIndexList;
+    public List<List<int>> juicyFinalOutputList;
+    public List<List<int>> juicyRewardOutputList;
+}
+
+// Ticketed Bonus
+public class BonusResult11950
+{
+    public long betCredit;
+    public int addedSpinCount;
+    public JuicyRewardInfo juicyRewardInfo;
+}

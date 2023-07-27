@@ -1,0 +1,66 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Jgq
+{
+    public class BonusInfo1
+    {
+        public List<long> scatterPay = new List<long>();
+        public JGQFreeSpin freeSpin = null;
+    }
+
+    // JGQJackpot
+    public class BonusResult100
+    {
+        public bool isJackpot;
+        public int jackpotIndex;
+        public long jackpotAwardAmount;
+    }
+
+    // JGQFreeSpinBonus
+    public class BonusResult101
+    {
+        public int type;
+        public long betCredit;
+        public List<JGQSpinCount> spinCountList = new List<JGQSpinCount>();
+    }
+
+    // JGQWildFreeSpinBonus
+    public class BonusResult102
+    {
+        public int type;
+        public long betCredit;
+        public int addedSpinCount;
+        public int multiplierIndex;
+        public int multiplierSetIndex;
+    }
+
+    // JGQFreeSpinRetriggerBonus
+    public class BonusResult103
+    {
+        public int type;
+        public long betCredit;
+        public int addedSpinCount;
+    }
+
+    // JGQTicketedFreeSpinBonus
+    public class BonusResult150
+    {
+        public int type;
+        public long betCredit;
+        public List<JGQSpinCount> spinCountList = new List<JGQSpinCount>();
+    }
+
+    public class JGQFreeSpin
+    {
+        public List<int> count = new List<int>();
+        public List<List<int>> multiplier = new List<List<int>>();
+    }
+
+    public class JGQSpinCount
+    {
+        public int count;
+        public int countIndex;
+        public int multiplierSet;
+    }
+}

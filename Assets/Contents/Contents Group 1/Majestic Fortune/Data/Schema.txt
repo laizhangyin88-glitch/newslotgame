@@ -1,0 +1,61 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Mjf
+{
+    public class CustomData10
+    {
+        public long baseBetForJackpot;
+    }
+
+    public class BonusInfo10
+    {
+        public int minimumScatter = 0;
+        public List<long> scatterPays = new List<long>();
+    }
+
+    // MJFJackpot
+    public class BonusResult1000
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // MJFWildFallBonus
+    public class BonusResult1001
+    {
+        public List<int> wildSpotIndexList = new List<int>();
+    }
+
+    // MJFSelectFreeSpinBonus
+    public class BonusResult1002
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public List<MJFFreeSpinType> freeSpinType = new List<MJFFreeSpinType>();
+    }
+
+    // MJFFreeSpinRetriggerBonus
+    public class BonusResult1004
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // MJFTicketedSelectFreeSpinBonus
+    public class BonusResult1050
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public List<MJFFreeSpinType> freeSpinType = new List<MJFFreeSpinType>();
+    }
+
+    public class MJFFreeSpinType
+    {
+        public int count = 0;
+        public int multiplier = 0;
+        public int reelIndex = 0;
+    }
+}

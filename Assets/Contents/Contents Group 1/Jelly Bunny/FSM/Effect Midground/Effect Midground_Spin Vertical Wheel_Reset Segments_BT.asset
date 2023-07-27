@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Effect Midground_Spin Vertical Wheel_Reset Segments_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-6423.0,"y":-4817.0},"nodes":[{"_position":{"x":7231.0,"y":4981.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"_segmentIndex"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"targetList":{"_name":"segments","_targetVariableID":"c9dccc51-e764-407e-91d8-0187c46d6e50"},"saveAs":{"_name":"_segmentsCount"},"$type":"NodeCanvas.Tasks.Actions.GetListCount"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":7072.0,"y":5117.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"repeatTimes":{"_value":1,"_name":"_segmentsCount"},"_position":{"x":7321.0,"y":5113.0},"$type":"SlotMaker.BehaviourTrees.OneFrameRepeater","$id":"12"},{"_position":{"x":7345.0,"y":5223.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"14"},{"_action":{"actions":[{"valueA":{"_value":"segments"},"index":{"_name":"_segmentIndex"},"fromLast":{},"saveAs":{"_name":"_segment"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"eventName":{"_value":"Reset"},"delay":{},"_isDisabled":true,"overrideAgent":{"_name":"_segment"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"parameter":{"_value":"Selected"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"_segment"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":7150.0,"y":5323.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"15"},{"_action":{"valueA":{"_value":"_segmentIndex"},"Operation":"Add","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},"_position":{"x":7432.0,"y":5324.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"32"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

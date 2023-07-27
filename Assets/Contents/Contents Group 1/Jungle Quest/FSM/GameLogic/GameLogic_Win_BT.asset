@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Win_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","name":"Win","translation":{"x":-4359.0,"y":-5231.0},"nodes":[{"_nodeColor":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":4883.429,"y":5356.915},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"./spin/multiplier"},"saveAs":{"_name":"_multiplier"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"column":{"_name":"_column"},"row":{"_name":"_row"},"betCredit":{"_name":"_betCredit"},"baseWager":{"_name":"_baseWager"},"payTable":{"_value":[],"_name":"_payTable"},"multiplier":{"_name":"_multiplier"},"symbolMultipliers":{"_value":[],"_name":""},"bidirectional":{},"excludeMaxWay":{},"saveAs":{"_value":[],"_name":"_winList","_targetVariableID":"afd13a44-504f-4206-b85f-15acc5610ed5"},"$type":"BagelCode.Tasks.Actions.Contents.CalcWayWin"},{"targetList":{"_name":"_winList","_targetVariableID":"afd13a44-504f-4206-b85f-15acc5610ed5"},"saveAs":{"_name":"_winCount"},"$type":"NodeCanvas.Tasks.Actions.GetListCount"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4700.825,"y":5423.912},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_name":"_winCount"},"checkType":"GreaterThan","valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":4959.0,"y":5430.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"26"},{"_nodeColor":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":4959.0,"y":5520.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"30"},{"_action":{"actions":[{"eventName":{"_value":"UpdateTurnCredit"},"eventValue":{},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendCreditEvent`1[[System.Boolean,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"TotalWin"},"eventValue":{"_value":[],"_name":"_winList","_targetVariableID":"afd13a44-504f-4206-b85f-15acc5610ed5"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendWinEventList`1[[SlotMaker.SymbolWin,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4679.886,"y":5606.886},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"31"},{"_condition":{"$type":"BagelCode.Task.Condition.CheckSpinButtonEvent"},"_position":{"x":5012.0,"y":5618.0},"$type":"NodeCanvas.BehaviourTrees.Interruptor","$id":"43"},{"_action":{"waitTime":{"_value":2.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":5012.0,"y":5718.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"45"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"43"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"43"},"_targetNode":{"$ref":"45"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

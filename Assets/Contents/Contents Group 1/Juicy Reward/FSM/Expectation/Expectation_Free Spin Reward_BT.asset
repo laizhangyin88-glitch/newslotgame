@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Expectation_Free Spin Reward_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":15.0,"y":-271.0},"nodes":[{"_condition":{"bonusId":{"_value":11902},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_position":{"x":344.0,"y":297.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_position":{"x":367.0,"y":374.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"5"},{"_action":{"actions":[{"bonusId":{"_value":11902},"response":{"_name":"_bonusResponse"},"$type":"BagelCode.Tasks.Actions.Contents.GetBonusResponse"},{"valueA":{"_value":"_bonusResponse/juicyRewardType"},"saveAs":{"_name":"expectationType","_targetVariableID":"af3d4b75-9e38-437d-a4e7-da555a5ba70b"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":13.0,"y":525.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_action":{"actions":[{"setTo":"Deactivate","overrideAgent":{"_name":"target","_targetVariableID":"092784b9-0613-44ee-858e-40a7458af834"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"valueA":{"_value":"./customData/expectationType"},"valueB":{"_value":3,"_name":"expectationType","_targetVariableID":"af3d4b75-9e38-437d-a4e7-da555a5ba70b"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"targets"},"index":{"_name":"expectationType","_targetVariableID":"af3d4b75-9e38-437d-a4e7-da555a5ba70b"},"fromLast":{},"saveAs":{"_name":"target","_targetVariableID":"092784b9-0613-44ee-858e-40a7458af834"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"setTo":"Activate","overrideAgent":{"_name":"target","_targetVariableID":"092784b9-0613-44ee-858e-40a7458af834"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":393.0,"y":527.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"15"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

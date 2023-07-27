@@ -1,0 +1,253 @@
+[
+  {
+    "name": "RapidValue",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "mult": {
+          "type": "double"
+        },
+        "jackpotIndex": {
+          "type": "int"
+        }
+      }
+    }
+  },
+  {
+    "name": "BonusInfo110",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "freespinTrigger": {
+          "ref": "WheelBonus"
+        },
+        "rapidSymbolValues": {
+          "type": "array",
+          "items": {
+            "ref": "RapidValue"
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "WheelBonus",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "wheel": {
+          "type": "array",
+          "items": {
+            "ref": "WheelSector"
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "CustomData110",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "addedRows": {
+          "type": "int"
+        },
+        "forceRapids": {
+          "type": "bool"
+        },
+        "multiplyRapids": {
+          "type": "bool"
+        },
+        "noMini": {
+          "type": "bool"
+        },
+        "nowMysterySymbols": {
+          "type": "map",
+          "code": {
+            "type": "int"
+          },
+          "text": {
+            "type": "int"
+          }
+        },
+        "nextMysterySymbols": {
+          "type": "map",
+          "code": {
+            "type": "int"
+          },
+          "text": {
+            "type": "int"
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "BonusResult11000",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "int"
+        },
+        "betCredit": {
+          "type": "long"
+        },
+        "addedSpinCount": {
+          "type": "int"
+        },
+        "sequence": {
+          "type": "array",
+          "items": {
+            "ref": "WheelSequenceStep"
+          }
+        },
+        "extraBetIndex": {
+          "type": "int"
+        },
+        "state": {
+          "ref": "WheelState"
+        }
+      }
+    }
+  },
+  {
+    "name": "BonusResult11001",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "isJackpot": {
+          "type": "bool"
+        },
+        "jackpotIndex": {
+          "type": "int"
+        },
+        "jackpotAwardAmount": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  {
+    "name": "BonusResult11010",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "symbols": {
+          "type": "array",
+          "items": {
+            "ref": "RapidSymbol"
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "BonusResult11011",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "isJackpot": {
+          "type": "bool"
+        },
+        "jackpotIndex": {
+          "type": "int"
+        },
+        "jackpotAwardAmount": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  {
+    "name": "RapidSymbol",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "type": "int"
+        },
+        "valueIndex": {
+          "type": "int"
+        }
+      }
+    }
+  },
+  {
+    "name": "WheelSequenceStep",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "int"
+        },
+        "sector": {
+          "ref": "WheelSector"
+        }
+      }
+    }
+  },
+  {
+    "name": "WheelSector",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  {
+    "name": "BonusResult11050",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "int"
+        },
+        "betCredit": {
+          "type": "long"
+        },
+        "addedSpinCount": {
+          "type": "int"
+        },
+        "sequence": {
+          "type": "array",
+          "items": {
+            "ref": "WheelSequenceStep"
+          }
+        },
+        "extraBetIndex": {
+          "type": "int"
+        },
+        "state": {
+          "ref": "WheelState"
+        }
+      }
+    }
+  },
+  {
+    "name": "WheelState",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "addedRows": {
+          "type": "int"
+        },
+        "forceRapids": {
+          "type": "bool"
+        },
+        "multiplyRapids": {
+          "type": "bool"
+        },
+        "noMini": {
+          "type": "bool"
+        }
+      }
+    }
+  }
+]

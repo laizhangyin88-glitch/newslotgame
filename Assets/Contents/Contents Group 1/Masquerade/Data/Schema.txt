@@ -1,0 +1,54 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Mqr
+{
+    public class BonusInfo24
+    {
+        public List<int> freeSpins = new List<int>();
+    }
+
+    public class CustomData24
+    {
+        public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+    }
+
+    // MQRWildMultiplierBonus
+    public class BonusResult2400
+    {
+        public List<int> multiplierList = new List<int>();
+    }
+
+    // MQRFreeSpinBonus
+    public class BonusResult2401
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // MQRFreeSpinRetriggerBonus
+    public class BonusResult2402
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // MQRJackpot
+    public class BonusResult2403
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // MQRTicketedBonus
+    public class BonusResult2450
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+}

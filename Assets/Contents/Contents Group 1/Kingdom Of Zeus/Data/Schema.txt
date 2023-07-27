@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using SlotMaker.Json;
+
+namespace SlotMaker.Contents.Internal.Koz
+{
+    public class BonusInfo33
+    {
+        public List<long> baseConsecutiveMultiplier = new List<long>();
+        public List<long> freeConsecutiveMultiplier = new List<long>();
+        public List<long> scatterPay = new List<long>();
+    }
+
+    // KOZJackpot
+    public class BonusResult3300
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // KOZRespinBonus
+    public class BonusResult3301
+    {
+        public List<BonusResult> bonusResult = new List<BonusResult>();
+        public int multiplier = 0;
+        public SpinResult result = null;
+    }
+
+    // KOZLightningBonus
+    public class BonusResult3302
+    {
+        public List<int> wildChangeList = new List<int>();
+    }
+
+    // KOZFreeSpinBonus
+    public class BonusResult3303
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // KOZFreeSpinRetreggierBonus
+    public class BonusResult3304
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // KOZTicketedFreeSpinBonus
+    public class BonusResult3350
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+}

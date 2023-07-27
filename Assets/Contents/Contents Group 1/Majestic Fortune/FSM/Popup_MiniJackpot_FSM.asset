@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_MiniJackpot_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5111.0,"y":-4828.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./bonus/response/earnCredit"},"saveAs":{"_name":"_earnCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"isForceUpdate":{"_value":true},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{"_value":"Button
+    Collect"},"saveAs":{"_name":"correntButton"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"eventName":{"_value":"OnCorrect"},"ignoreReset":{},"overrideAgent":{"_name":"correntButton"},"$type":"SlotMaker.Tasks.Actions.SetContextClickable"},{"gameSound":{"_value":{"id":"Mini
+    Jackpot"}},"excludePlaying":{},"$type":"SlotMaker.Tasks.Actions.PlayGameSound"}]},"_position":{"x":5352.0,"y":5081.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"element":{"_name":"text","_targetVariableID":"79323910-6a90-4903-83a6-56d221f4871f"},"key":{"_value":"JACKPOT_CREDIT"},"tableType":"Content","arg1":{"_value":"_earnCredit"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"id":{"_value":"Mini
+    Jackpot"},"$type":"SlotMaker.Tasks.Actions.SimpleStopGameSound"},{"gameSound":{"_value":{"id":"Mini
+    Jackpot End"}},"excludePlaying":{},"$type":"SlotMaker.Tasks.Actions.PlayGameSound"},{"eventName":{"_value":"FinalizeJackpotGame"},"delay":{},"sendGlobal":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"$type":"SlotMaker.Task.Actions.ClosePopupAgent"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":5934.0,"y":5236.0},"_name":"End","$type":"NodeCanvas.StateMachines.ActionState","$id":"21"}],"connections":[{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnCorrect"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

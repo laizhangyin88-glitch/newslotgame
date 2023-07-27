@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: InGame_Signboard_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-6361.0,"y":-4820.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./game/gameId"},"saveAs":{"_name":"_gameId"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"variable":{"_name":"_gameId"},"toString":{"_name":"_gameId"},"$type":"NodeCanvas.Tasks.Actions.GetToString"},{"key":{"_value":"CONTENTS_GAME_TITLE"},"argsList":{"_value":[]},"tableType":"Content","saveAs":{"_value":"_gameTitle","_name":"_gameTitle"},"$type":"SlotMaker.Tasks.Actions.GetStringFromStringTable"},{"elementName":{},"searchingType":"SelfContext","key":{"_value":"SIGN_BOARD_DEFAULT"},"tableType":"Content","arg1":{"_value":"_gameTitle"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"}]},"_position":{"x":6245.0,"y":4848.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":6670.0,"y":5007.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"20"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":6433.0,"y":5170.0},"_name":"Spin","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"23"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"elementName":{},"searchingType":"SelfContext","key":{"_value":"SIGN_BOARD_DEFAULT"},"tableType":"Content","arg1":{"_value":"_gameTitle"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"}]},"_position":{"x":7161.0,"y":5074.0},"_name":"Stop","$type":"NodeCanvas.StateMachines.ActionState","$id":"25"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":6916.0,"y":4850.0},"_name":"Win","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"32"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./spin/earnCredit"},"saveAs":{"_name":"totalEarnCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"element":{"_name":"text"},"key":{"_value":"SIGN_BOARD_TOTAL_EARN_CREDIT"},"tableType":"Content","arg1":{"_value":"totalEarnCredit"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"}]},"_position":{"x":6815.0,"y":5170.0},"_name":"Total
+    Win","$type":"NodeCanvas.StateMachines.ActionState","$id":"34"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SpinSlotMachine"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckSlotEvent"},"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"StoppedSlotMachine"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckSlotEvent"},"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"25"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SingleWin"},"saveEventValue":{"_name":"win"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckWinEvent`1[[SlotMaker.SymbolWin,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"TotalWin"},"saveEventValue":{"_name":"winList"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckWinEvent`1[[System.Object,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"34"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"25"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"32"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"34"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 3e17360dbe62a7b4fabfe7e6b01f3633, type: 2}
+  - {fileID: 11400000, guid: 90209040adddedc41bcb429f9b087863, type: 2}
+  _deserializationFailed: 0

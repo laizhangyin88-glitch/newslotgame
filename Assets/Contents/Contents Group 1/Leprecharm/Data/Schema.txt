@@ -1,0 +1,73 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Lpc
+{
+       public class CustomData97
+       {
+           public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+           public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+           public long wildPot = 0;
+           public int wildPotCount = 0;
+           public int rainbowSymbols = 0;
+       }
+       
+       public class BonusInfo97
+       {
+           public LPCWheelBonusInfo rainbowWheel = new LPCWheelBonusInfo();
+       }
+       
+       public class LPCWheelBonusInfo
+       {
+           public List<int> wheelReel = new List<int>();
+           public List<int> wheelReelJackpotIndexes = new List<int>();
+       }
+   
+       // Freespins
+       public class BonusResult9700
+       {
+           public int type = 0;
+           public long betCredit = 0;
+           public int addedSpinCount = 0;
+       }
+       
+       // Freespins Retrigger
+       public class BonusResult9701
+       {
+           public int type = 0;
+           public long betCredit = 0;
+           public int addedSpinCount = 0;
+       }
+   
+       // Wild Appear on Normal spin
+       public class BonusResult9702
+       {
+           public List<int> wildsPositions; //from 0 to 14 (symbols position)
+       }
+       
+       // WHEEL
+       public class BonusResult9703
+       {
+           public List<List<int>> gameSequence;
+           public List<int> gameSequenceOrder;
+           public long pot;
+           public List<int> wheelMarkers;
+           public int wheelIndex;
+           public int wheelJackpotOffset;
+           public bool isJackpot;
+           public int jackpotMultipliers;
+           public long jackpotAwardAmount;
+           public int jackpotIndex;
+           public List<int> jackpotIndexes;
+           public int jackpotAdditionalSize;
+       }
+           
+       // LPCFreeSpinTicketBonus
+       public class BonusResult9750   
+       {
+           public int type = 0;
+           public long betCredit = 0;
+           public int addedSpinCount = 0;
+       }
+
+}

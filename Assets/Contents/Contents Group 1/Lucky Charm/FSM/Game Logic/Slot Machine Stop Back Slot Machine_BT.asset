@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Slot Machine Stop Back Slot Machine_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-373.0,"y":-99.0},"nodes":[{"_position":{"x":927.0,"y":373.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"waitTime":{"_value":0.1},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"valueA":{"_value":"./customData/spinStep"},"valueB":{"_value":-1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"eventName":{"_value":"StopSlotMachine"},"delay":{},"sendGlobal":true,"slotIndex":{"_value":1},"$type":"BagelCode.Tasks.Actions.SendSlotEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":528.0,"y":502.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"eventName":{"_value":"PrepareStoppedReel"},"value":{"_value":7},"slotIndex":{"_value":1},"$type":"BagelCode.Task.Condition.CheckSlotDetailEventValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":849.0,"y":515.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"15"},{"_action":{"id":{"_value":"Reel
+    Stop 5"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},"_position":{"x":947.0,"y":636.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"20"},{"_condition":{"eventName":{"_value":"StoppedSlotMachine"},"slotIndex":{"_value":1},"$type":"BagelCode.Task.Condition.CheckSlotEvent"},"_position":{"x":1182.0,"y":516.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"23"},{"_action":{"status":"Success","$type":"NodeCanvas.Tasks.Actions.RaiseStatus"},"_position":{"x":1222.0,"y":634.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"27"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"27"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,109 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Mdg
+{
+    public class RapidValue 
+    {
+        public double mult;
+        public int jackpotIndex = -1;
+    }
+    
+    public class BonusInfo110
+    {
+        public WheelBonus freespinTrigger;
+        public List<RapidValue> rapidSymbolValues;
+    }
+    
+    public class WheelBonus 
+    {
+        public List<WheelSector> wheel;
+    }
+
+    public class CustomData110
+    {
+        public int addedRows = 0;
+        public bool forceRapids = false;
+        public bool multiplyRapids = false;
+        public bool noMini = false;
+        public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+    }
+    
+    // FreeSpin
+    public class BonusResult11000
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public List<WheelSequenceStep> sequence;
+        public int extraBetIndex = 0;
+        public WheelState state;
+    }
+
+    public class BonusResult11001
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+    
+    
+    // Rapid Win
+    public class BonusResult11010
+    {
+        public List<RapidSymbol> symbols;
+    }
+    
+    public class BonusResult11011
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+    
+    public class RapidSymbol 
+    {
+        public int position;
+        public int valueIndex;
+    }
+    
+    public class WheelSequenceStep 
+    {
+        public int index;
+        public WheelSector sector;
+    }
+    
+    /// Type from 0
+    /// no_mini
+    /// instant_win
+    /// freespin
+    /// jackpot
+    /// expand_reels
+    /// add_freespins
+    /// xp_mult
+    /// xp_stacked
+    public class WheelSector 
+    {
+        public string type;
+        public long value = 0;
+    }
+    
+    // INS FreeSpin
+    public class BonusResult11050
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public List<WheelSequenceStep> sequence;    
+        public int extraBetIndex = 0;
+        public WheelState state;
+    }
+    
+    public class WheelState
+    {
+        public int addedRows = 0;
+        public bool forceRapids = false;
+        public bool multiplyRapids = false;
+        public bool noMini = false;
+    }
