@@ -1,0 +1,324 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using SlotMaker.Json;
+
+namespace SlotMaker.Contents.Internal
+{
+    public class Enter
+    {
+        public int gameType;
+        public JackpotInfoWrapper jackpotInfo;
+        public string gambleAssetBundleName;
+        public Dictionary<string,int> winTypeMultiplierInfo;
+        public long delayBetweenSpinMs;
+        [BlackboardJsonProperty(Reference="ContentsInfo{0}", Discriminator="gameType", Inherit=true)]
+        public object gameInfo;
+        public ContentsStoreInfo contentsStoreInfo;
+    }
+
+    // Slot
+
+    public class ContentsInfo1
+    {
+        public int gameId;
+        public string gameTitle;
+        public long baseWager;
+        public List<long> betList;
+        public List<List<List<int>>> payLines;
+        public List<ReelSet> reelSetList;
+        public List<List<List<long>>> paytables;
+        [BlackboardJsonProperty(Reference="BonusInfo{0}", Discriminator="gameId", Inherit=true)]
+        public object bonusInfo;
+        [BlackboardJsonProperty(Reference="CustomData{0}", Discriminator="gameId", Inherit=true)]
+        public object customData;
+        public ReelSetIndex reelSetIndex;
+        public List<ExtraBetRatio> extraBetRatioList;
+    }
+
+    public class SlotSpin
+    {
+        public int gameId;
+        public SpinResult result;
+        public List<BonusResult> bonusResult;
+        [BlackboardJsonProperty(Reference="CustomData{0}", Discriminator="gameId", Inherit=true)]
+        public object customData;
+        public ReelSetIndex reelSetIndex;
+        public FreeSpinInfo freeSpinInfo;
+        public JackpotInfoWrapper jackpotInfo;
+        [BlackboardJsonProperty(Reference="ContentsStore{0}", Discriminator="gameId", Inherit=true)]
+        public object contentsStore;
+        public GambleTicket gambleTicket;
+    }
+
+    public class ClaimBonus
+    {
+        public long earnCredit;
+        public List<BonusResult> bonusResult;
+        public GambleTicket gambleTicket;
+    }
+
+    public class SpinResult
+    {
+        public List<int> reelOutputList;
+        public int paytableIndex;
+        public long earnCredit;
+    }
+
+    public class BonusResult
+    {
+        public string uid;
+        public int claimType;
+        public int bonusId;
+        public long earnCredit;
+        [BlackboardJsonProperty(Reference="BonusResult{0}", Discriminator="bonusId", Inherit=true)]
+        public object result;
+    }
+
+    public class FreeSpinInfo
+    {
+        public long bet;
+        public int count;
+        public int totalCount;
+        public int multiplier;
+    }
+
+    public class ReelSet
+    {
+        public List<List<int>> reelSequenceList;
+        public List<List<int>> subSymbolReelSequenceList;
+    }
+
+    public class ReelSetIndex
+    {
+        public int currentIndex;
+        public int nextIndex;
+    }
+
+    public class ExtraBetRatio
+    {
+        public int numerator;
+        public int denominator;
+    }
+
+    // VideoPoker
+
+    public class ContentsInfo2
+    {
+        public int gameId;
+        public string gameTitle;
+        public long baseWagerPerHand;
+        public List<long> betList;
+        public List<int> handList;
+        public List<HandMetaInfoForBet> handMetaInfoPerBet;
+        public List<ExtraBetRatio> extraBetRatioList;
+        public List<long> paytable;
+        [BlackboardJsonProperty(Reference="CustomData{0}", Discriminator="gameId", Inherit=true)]
+        public object customData;
+    }
+
+    public class VideoPokerDeal
+    {
+        public List<VideoPokerCardList> deck;
+        public HandMetaInfoForBet handMetaInfoForBet;
+        public JackpotInfoWrapper jackpotInfo;
+    }
+
+    public class VideoPokerDraw
+    {
+        public long earnCredit;
+        public List<BonusResult> bonusResult;
+        public List<VideoPokerCardList> deck;
+        public HandMetaInfoForBet handMetaInfoForBet;
+        public JackpotInfoWrapper jackpotInfo;
+        public GambleTicket gambleTicket;
+    }
+
+    public class HandMetaInfoForBet
+    {
+        public long betPerHand;
+        public List<HandMetaInfo> handMetaInfoPerHand;
+    }
+
+    public class HandMetaInfo
+    {
+        public long multiplier;
+    }
+
+    public class VideoPokerCardList
+    {
+        public List<int> cardList;
+    }
+
+    // Keno
+
+    public class ContentsInfo3
+    {
+        public int gameId;
+        public string gameTitle;
+        public long baseWager;
+        public List<long> betList;
+        public List<ExtraBetRatio> extraBetRatioList;
+        public List<List<List<long>>> paytables;
+        [BlackboardJsonProperty(Reference="BonusInfo{0}", Discriminator="gameId", Inherit=true)]
+        public object bonusInfo;
+        [BlackboardJsonProperty(Reference="CustomData{0}", Discriminator="gameId", Inherit=true)]
+        public object customData;
+    }
+
+    public class KenoWinInfo
+    {
+        public int paytableIndex;
+        public List<int> pickInfo;
+        public List<int> drawInfo;
+        public long earnCredit;
+        public long multiplier;
+    }
+
+    public class KenoPlay
+    {
+        public long earnCredit;
+        public List<KenoWinInfo> winResult;
+        public List<BonusResult> bonusResult;
+        public JackpotInfoWrapper jackpotInfo;
+        [BlackboardJsonProperty(Reference="CustomData{0}", Discriminator="gameId", Inherit=true)]
+        public object customData;
+    }
+
+    // Gamble
+
+    public class GambleStart
+    {
+        public GambleInfo gambleInfo;
+    }
+
+    public class GambleDeal
+    {
+        public GambleInfo gambleInfo;
+        public bool hasMoreOffer;
+        public long winCreditOnProgress;
+        public bool isWin;
+    }
+
+    public class GambleTake
+    {
+        public long earnCredit;
+        public List<BonusResult> bonusResult;
+    }
+
+    public class GambleInfo
+    {
+        public int type;
+        [BlackboardJsonProperty(Reference="GambleInfo{0}", Discriminator="type", Inherit=true)]
+        public object data;
+    }
+
+    // GambleType.RED_OR_BLACK
+    public class GambleInfo1
+    {
+        public List<int> cardHistory;
+        public int lastCard;
+        public int remainCount;
+    }
+
+    // GambleType.FOUR_GODS
+    public class GambleInfo2
+    {
+        public long maxWinCredit;
+        public int maxWinFreeSpinCount;
+        public int remainCount;
+        public List<int> flagItemTypeList;
+        public List<long> flagItemValueList;
+        public List<float> flagWinProbabilities;
+        public int winType;
+        public long winAmount;
+    }
+
+    public class GambleTicket
+    {
+        public string ticketId;
+        public long bet;
+        public int gambleType;
+    }
+
+    public class ContentsStoreInfo
+    {
+        public int gameId;
+        [BlackboardJsonProperty(Reference="ContentsStore{0}", Discriminator="gameId", Inherit=true)]
+        public object contentsStore;
+    }
+
+    public class TicketedBonus
+    {
+        public long earnCredit;
+        public TicketedBonusPrepareData prepareData;
+        public List<BonusResult> bonusResultList;
+        public JackpotInfoWrapper jackpotInfo;
+    }
+
+    public class TicketedBonusPrepareData
+    {
+        public int nextReelSetIndex;
+        public Dictionary<int,int> nextMysterySymbols;
+        public long extraBet;
+        public long baseBet;
+    }
+
+    public class TicketedBonusClaim
+    {
+        public long earnCredit;
+        public long totalEarnCredit;
+        public double tierMultiplier;
+        public int insBbbCredit;
+        public bool applyTierMultiplier;
+    }
+
+    public class JackpotInfoWrapper
+    {
+        public int type;
+        [BlackboardJsonProperty(Reference="JackpotInfo{0}", Discriminator="type", Inherit=true)]
+        public object info;
+    }
+
+    public class JackpotInfo
+    {
+        public long current;
+        public long prev;
+        public int deltaMs;
+        public long min;
+        public long max;
+        public bool alarm;
+    }
+
+    // WOLF_MOON
+    public class JackpotInfo1
+    {
+        public long eligibleMinBet;
+        public List<long> eligibleMinBetPerJackpot;
+        public List<JackpotInfo> infoList;
+        public long baseBet = 0;
+    }
+
+    // RICH_HITS
+    public class JackpotInfo2
+    {
+        public long eligibleMinBet;
+        public List<long> eligibleMinBetPerJackpot;
+        public List<JackpotInfo> infoList;
+        public long baseBet;
+    }
+
+    // MAJESTIC_FORTUNE
+    public class JackpotInfo3
+    {
+        public List<JackpotInfo> infoList;
+    }
+
+    // GRAND_JAZZY_SEVENS
+    public class JackpotInfo4
+    {
+        public List<int> payTypeList;
+        public List<JackpotInfo> infoList;
+        public long baseBet;
+    }
+}

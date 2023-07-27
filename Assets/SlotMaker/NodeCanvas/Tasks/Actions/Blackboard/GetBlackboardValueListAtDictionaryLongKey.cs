@@ -1,0 +1,46 @@
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using NodeCanvas.Framework;
+using ParadoxNotion.Design;
+
+namespace SlotMaker.Tasks.Actions
+{
+    [Category("★ SlotMaker/Blackboard/Generic")]
+    public class GetBlackboardValueListAtDictionaryLongKey<T> : ActionTask<Blackboard>
+    {
+        public BBParameter<string> source;
+        public BBParameter<long> key;
+
+        [BlackboardOnly]
+        public BBParameter<List<T>> saveAs;
+
+        protected override string info
+        {
+            get { return string.Format("{0} = {1}[{2}]", saveAs, source, key); }
+        }
+
+        protected override void OnExecute()
+        {
+            var variable = BlackboardUtils.FindVariable<Dictionary<long, List<T>>>(agent, source.value);
+            if (variable == null)
+            {
+                Debug.LogError("[Blackboard](" + agent.name + ") Null variable founded in " + source.value);
+                EndAction(false);
+            }
+            else
+            {
+                List<T> result;
+                if (!variable.value.TryGetValue(key.value, out result))
+                {
+                    EndAction(false);
+                }
+                else
+                {
+                    saveAs.value = result;
+                    EndAction();
+                }
+            }
+        }
+    }
+}
