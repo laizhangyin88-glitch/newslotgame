@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: InGame_JackpotBoard_Main_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5034.0,"y":-4476.0},"nodes":[{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"UpdatedTotalBetCredit"},"$type":"BagelCode.Task.Condition.CheckCreditEvent"},{"valueA":{"_name":"_isInitialized"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":5271.0,"y":4749.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"2"},{"_position":{"x":5301.0,"y":4891.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"10"},{"_position":{"x":5021.0,"y":5025.0},"$type":"NodeCanvas.BehaviourTrees.Optional","$id":"11"},{"_action":{"actions":[{"valueA":{"_value":"./betCredit"},"saveAs":{"_name":"_betCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./totalBetCredit"},"saveAs":{"_name":"_totalBetCredit","_targetVariableID":"5b544ba1-3775-4240-b51c-eb620b490e1f"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./betList"},"saveAs":{"_name":"_betList","_targetVariableID":"eb22e389-f6af-46b4-ab03-aa7fb25a669b"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./game/jackpotInfo/baseBet"},"saveAs":{"_name":"_baseBet","_targetVariableID":"9fdea7f9-9afa-41db-a37a-fbea0099b199"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"baseBet":{"_name":"_baseBet","_targetVariableID":"5b544ba1-3775-4240-b51c-eb620b490e1f"},"bet":{"_name":"_betCredit"},"multiplier":{"_name":"_jackpotMultiplier","_targetVariableID":"417e98ee-4600-444f-8908-153baf6a5805"},"$type":"BagelCode.Tasks.Actions.Contents.GetIngameJackpotMultiplier"},{"valueA":{"_value":"./game/jackpotInfo/eligibleMinBetPerJackpot"},"saveAs":{"_name":"_eligibleMinBetScaleList"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Collections.Generic.List`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"_eligibleMinBetScaleList"},"index":{"_name":"jackpotIndex","_targetVariableID":"00e6eec1-3f53-4e63-8591-8c8821f49cb8"},"saveAs":{"_name":"_eligibleMinBet"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_eligibleMinBet"},"Operation":"Multiply","valueB":{"_name":"_baseBet","_targetVariableID":"9fdea7f9-9afa-41db-a37a-fbea0099b199"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"boolVariable":{"_name":"_isInitialized"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4830.0,"y":5100.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"12"},{"_position":{"x":5524.0,"y":4981.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"43"},{"_nestedFSM":{"_value":1},"_position":{"x":5360.0,"y":5190.0},"_comment":"//
+    Shown credit is calculated by totalBetCredit","$type":"NodeCanvas.BehaviourTrees.NestedFSM","$id":"44"},{"_nestedFSM":{"_value":2},"_position":{"x":5654.0,"y":5200.0},"_comment":"//
+    Jackpot Board Activation is checked by betCredit\n","$type":"NodeCanvas.BehaviourTrees.NestedFSM","$id":"46"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"43"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"43"},"_targetNode":{"$ref":"44"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"43"},"_targetNode":{"$ref":"46"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 6275df80d04e049d59c0ef9b28dd79b7, type: 2}
+  - {fileID: 11400000, guid: ec46e9cee1b244ac597d62f131182209, type: 2}
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

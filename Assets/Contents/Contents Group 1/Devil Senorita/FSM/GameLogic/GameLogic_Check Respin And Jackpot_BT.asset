@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Check Respin And Jackpot_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-156.0,"y":-351.0},"nodes":[{"_position":{"x":618.0,"y":315.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_condition":{"bonusId":{"_value":11305},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_position":{"x":597.0,"y":404.0},"_comment":"Is
+    All Jackpot","$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"3"},{"_subTree":{"_value":1},"_position":{"x":478.0,"y":560.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"6"},{"_condition":{"bonusId":{"_value":11302},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_position":{"x":753.0,"y":561.0},"_comment":"Is
+    Respin Triggered","$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"8"},{"_subTree":{"_value":2},"_position":{"x":617.0,"y":689.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"11"},{"_condition":{"bonusId":{"_value":11306},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_position":{"x":853.0,"y":684.0},"_comment":"Is
+    Base Low Jackpot","$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"13"},{"_subTree":{"_value":3},"_position":{"x":741.0,"y":821.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"16"},{"_action":{"status":"Success","$type":"NodeCanvas.Tasks.Actions.RaiseStatus"},"_position":{"x":976.0,"y":826.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"18"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 1219467980cdb430da2fd0e9611c46c6, type: 2}
+  - {fileID: 11400000, guid: 0574866b188da4115b0b7fa5124d6b09, type: 2}
+  - {fileID: 11400000, guid: d91994f90ce3b403bbfdfdbf141bbdff, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

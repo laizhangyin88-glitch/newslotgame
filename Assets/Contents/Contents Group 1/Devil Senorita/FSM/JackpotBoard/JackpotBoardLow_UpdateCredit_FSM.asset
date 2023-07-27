@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: JackpotBoardLow_UpdateCredit_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4911.0,"y":-5068.0},"nodes":[{"_actionList":{"actions":[{"isForceUpdate":{"_value":true},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{"_value":"Coin"},"saveAs":{"_name":"creditText","_targetVariableID":"c9f690d5-89c5-48ee-857f-46ad77a1aef8"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"}]},"_position":{"x":5454.0,"y":5286.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"_jackpotCredit"},"valueB":{"_name":"_betCredit"},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"valueA":{"_value":"_jackpotCredit"},"Operation":"Multiply","valueB":{"_name":"_lowJackpotPayMultiplier"},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"element":{"_name":"creditText","_targetVariableID":"c9f690d5-89c5-48ee-857f-46ad77a1aef8"},"key":{"_value":"JACKPOT_CREDIT"},"tableType":"Content","arg1":{"_value":"_jackpotCredit"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"}]},"_position":{"x":5061.0,"y":5427.0},"_name":"Update
+    Credit","$type":"NodeCanvas.StateMachines.ActionState","$id":"10"},{"_actionList":{"actions":[]},"_position":{"x":5519.0,"y":5571.0},"$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"23"}],"connections":[{"_condition":{"valueA":{"_value":"./initializedContent"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.AutoUpdateCheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"UpdatedTotalBetCredit"},"saveEventValue":{"_name":"_betCredit","_targetVariableID":"89838f3b-2226-4ab7-8b40-b23372729850"},"$type":"BagelCode.Task.Condition.CheckCreditEvent`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

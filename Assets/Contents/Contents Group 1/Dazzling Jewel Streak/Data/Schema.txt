@@ -1,0 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Djs
+{
+    public class BonusInfo212
+    {
+    }
+
+    public class CustomData212
+    {
+        public List<MultiplierInfo> multipliersInfo;
+    }
+
+    // claimType - none  / RESPIN
+    public class BonusResult21200 
+    {
+        public int respinReel;
+        public int sequenceReelIndex;
+        public List<int> reelStopPositions;
+        public bool isJackpotWin;
+        public int jpIndex;
+        public List<MultiplierInfo> multipliersInfo;
+    }
+
+    // claimType - always / JACKPOT
+    public class BonusResult21201
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    public class MultiplierInfo 
+    {
+        public int cellPosition = 0;
+        public int rowIndex = 0;
+        public int columnIndex = 0;
+        public int value = 0;
+    }
+}

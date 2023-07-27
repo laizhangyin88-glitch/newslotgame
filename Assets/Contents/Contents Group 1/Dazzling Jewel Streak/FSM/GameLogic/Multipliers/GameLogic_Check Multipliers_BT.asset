@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Check Multipliers_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-3226.0,"y":-4396.0},"zoomFactor":0.9985238,"nodes":[{"_condition":{"valueA":{"_value":"_multipliersInfoListCount"},"checkType":"GreaterThan","valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":4091.0,"y":4669.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"targetList":{"_type":"System.Collections.Generic.List`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"_multipliersInfoList"},"current":{"_type":"NodeCanvas.Framework.Blackboard","_name":"_multipliersInfoBB"},"storeIndex":{"_name":""},"maxIteration":{"_value":-1},"_position":{"x":4108.0,"y":4787.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"6"},{"_position":{"x":4157.0,"y":4904.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"11"},{"_action":{"actions":[{"valueA":{"_value":"columnIndex"},"saveAs":{"_name":"_columnPos"},"overrideAgent":{"_name":"_multipliersInfoBB"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"rowIndex"},"saveAs":{"_name":"_rowPos"},"overrideAgent":{"_name":"_multipliersInfoBB"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"value"},"saveAs":{"_name":"_multiplier"},"overrideAgent":{"_name":"_multipliersInfoBB"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":3945.0,"y":5004.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"12"},{"_action":{"actions":[{"column":{"_name":"_columnPos"},"row":{"_name":"_rowPos","_targetVariableID":"3b942759-9219-4c0a-87eb-1ea00eb379e2"},"saveAs":{"_name":"_wildCellMult","_targetVariableID":"7af6b2bc-2350-49ed-8619-6770ff88cd1d"},"$type":"SlotMaker.Tasks.Actions.Contents.SetColumnRowToCell"},{"slotIndex":{},"cell":{"_name":"_wildCellMult"},"multiplier":{"_name":"_multiplier"},"$type":"BagelCode.Tasks.Actions.Contents.SetDeckMultiplier"},{"cell":{"_name":"_wildCellMult","_targetVariableID":"a6608af4-5012-4eeb-bacc-2c07a77f855b"},"multiplier":{"_name":"_multiplier"},"overrideAgent":{"_name":"_slotMachine"},"$type":"BagelCode.Tasks.Actions.Contents.SetSymbolMultiplierByCell"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4209.0,"y":5002.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"27"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"27"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

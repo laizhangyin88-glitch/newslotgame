@@ -1,0 +1,69 @@
+//
+// Eggstravaganza
+//
+
+public class ESZRespinBonusInfo
+{
+    public List<int> bonusPayJackpotIndices;
+    public List<long> bonusPayList;
+}
+
+public class BonusInfo108
+{
+    public int freeSpinCount;
+    public long respinBonusPayDenominator;
+    public List<ESZRespinBonusInfo> respinBonusInfoDeck;
+}
+
+// Respin
+public class ESZEarnInfo
+{
+    public bool isJackpot;
+    public int jackpotIndex;
+    public int pivotIndex;
+    public int bonusIndex;
+    public int symbolIndex;
+    public long earnCredit;
+}
+
+public class ESZSpotInfo
+{
+    public bool prevPivot;
+    public int prevBonus;
+    public bool nextPivot;
+    public int nextBonus;
+}
+
+public class ESZRespinResult
+{
+    public bool isUpdated;
+    public List<int> reelOutputList;
+    public List<bool> spinReelList;
+    public List<ESZSpotInfo> mergedSpotList;
+}
+
+// Respin Bonus
+public class BonusResult10800
+{
+    public int initSpinCount;
+    public int totalSpinCount;
+    public long betCredit;
+    public List<int> initReelOutputList;
+    public List<ESZSpotInfo> initMergedSpotList;
+    public List<bool> initHitBonusList;
+    public List<ESZRespinResult> respinResultList;
+    public List<ESZEarnInfo> earnInfoList;
+}
+
+// Ticketed Bonus
+public class BonusResult10850
+{
+    public int initSpinCount;
+    public int totalSpinCount;
+    public long betCredit;
+    public List<int> initReelOutputList;
+    public List<ESZSpotInfo> initMergedSpotList;
+    public List<bool> initHitBonusList;
+    public List<ESZRespinResult> respinResultList;
+    public List<ESZEarnInfo> earnInfoList;
+}

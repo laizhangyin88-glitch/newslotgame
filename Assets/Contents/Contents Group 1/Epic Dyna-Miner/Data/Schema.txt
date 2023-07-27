@@ -1,0 +1,230 @@
+//
+// Epic Dyna-Miner Infreno Schema
+//
+
+
+public class IEDMUserData
+{
+    public List<int> bonusSpotsReelOutputList;
+    public List<int> bonusSpotsSymbolIndexList;
+    public List<long> bonusSpotsCreditList;
+    public List<bool> bonusSpotsNextSpinReelList;
+}
+public class IEDMCell
+{
+    public int x;
+    public int y;
+}
+
+public class IEDMSpinExtraDataBonusReelSpinResult
+{
+    public int reelTypeIndex;
+    public List<int> reelOutputList;
+    public List<int> symbolIndexList;
+    public List<long> creditList;
+    public List<int> reelOutputListForClient;
+    public List<long> creditListForClient;
+
+}
+
+public class IEDMGameProgressData
+{
+    public Dictionary<long,IEDMUserData> userDataPerBet;
+}
+
+public class BonusInfo223
+{
+}
+
+
+public class CustomData223
+{
+    public IEDMGameProgressData gameProgress;
+    public int nextReelTypeIndex;
+    public IEDMSpinExtraDataBonusReelSpinResult baseGameBonusReelSpinResult;
+
+    public List<IEDMCell> baseGameCreditCellList;
+    public List<long> baseGameCreditValueList;
+    public List<int> baseGameCreditReelIndexList;
+}
+
+// CREATE_BONUS_REEL
+public class BonusResult22300
+{
+    public List<IEDMCell> randomSpotsList;
+    public List<int> reelOutputList;
+    public List<int> symbolIndexList;
+    public List<long> creditList;
+}
+
+// UPGRADE_RANDOM_SPOT
+public class BonusResult22301
+{
+    public List<long> newCreditValueList;
+    public List<int> newSymbolIndexList;
+    public List<IEDMCell> upgradedCreditSymbolCellList;
+    public List<IEDMCell> upgradedJackpotSymbolCellList;
+}
+
+// RESPIN
+public class BonusResult22302
+{
+    public List<IEDMRespinResult> respinResultList;
+    public List<IEDMSBRespinResult> superBonusRespinResultList;
+    public List<int> initalSymbolIndexList;
+    public List<long> initalCreditValueList;
+    public List<long> baseCreditAmountList;
+    public List<IEDMCell> baseCreditCellList; 
+    public IEDMRespinFinalJackpotData fullScreenJackpotBonus;
+    public long earnCreditForClient;
+}
+// SB LV01
+public class BonusResult22350
+{
+    public long betCredit;
+    public long extraBet;
+    public long baseBet;
+    public List<IEDMSBRespinResult> respinResultList;
+    public IEDMRespinFinalJackpotData fullScreenJackpotBonus;
+}
+// SB LV02
+public class BonusResult22351
+{
+    public long betCredit;
+    public long extraBet;
+    public long baseBet;   
+    public List<IEDMSBRespinResult> respinResultList;
+    public IEDMRespinFinalJackpotData fullScreenJackpotBonus;
+}
+// SB LV03
+public class BonusResult22352
+{
+    public long betCredit;
+    public long extraBet;
+    public long baseBet; 
+    public IEDMRespinFinalJackpotData fullScreenJackpotBonus;
+}
+
+public class IEDMRespinFinalJackpotData
+{
+    public int jackpotIndex;
+    public long jackpotAwardAmount;
+    public bool isEligible;
+}
+
+public class IEDMRespinCollectData
+{
+    public IEDMCell cell;
+    public List<IEDMCell> collectTargetCellList;
+    public List<long> collectAmountList;
+    public long totalCollectAmount;
+}
+
+public class IEDMRespinSaveData
+{
+    public IEDMCell cell;
+    public List<IEDMCell> collectTargetCellList;
+    public List<long> collectAmountList;
+    public long totalCollectAmount;
+    public long previousCollectAmount;
+}
+public class IEDMRespinLandJackpotData
+{    
+     public IEDMCell cell;
+   public int chestIndex;
+    public int initalSpinCount;
+}
+
+public class IEDMRespinJackpotData
+{
+    public IEDMCell cell;
+    public int chestIndex;
+    public int spinCountLeft;
+}
+
+public class IEDMRespinOpenJackpotData
+{
+    public IEDMCell cell;
+    public int jackpotIndex;
+    public long earnCredit;
+    public bool isEligible;
+}
+
+public class IEDMRespinOpenJackpotWithKeyData
+{
+    public IEDMCell cell;
+    public IEDMCell keyCell;
+    public int jackpotIndex;
+    public long earnCredit;
+}
+
+public class IEDMRespinUpgradeData
+{
+    public IEDMCell cell;
+    public IEDMCell targetCreditUpgradeCell;
+    public long targetCreditUpgradeAmount;
+    public IEDMCell targetJackpotUpgradeCell;
+}
+public class IEDMRespinUpgradeEverySpinData
+{
+    public IEDMCell cell;
+    public List<IEDMCell> targetCreditUpgradeCell;
+    public List<long> targetCreditUpgradeAmount;
+    public List<IEDMCell> targetJackpotUpgradeCell;
+}
+
+public class IEDMMoreSpinData
+{
+    public IEDMCell cell;
+}
+
+public class IEDMUpgradeRowData
+{
+    public IEDMCell cell;
+}
+
+public class IEDMRespinResult
+{
+    public List<int> reelOutputList;
+    public List<int> symbolIndexList;
+    public List<long> creditValueList;
+    public List<long> creditValueListForClient;
+    public List<bool> reelNeedSpinList;
+    public bool isRetrigger;
+    public int nextReelTypeIndex;
+    public int currentReelTypeIndex;
+    public bool fullscreenExpandBonus;
+    public int fullscreenExpandBonusCount;
+
+    public List<IEDMRespinCollectData> collectEventDataList;
+    public List<IEDMRespinSaveData> saveEventDataList;
+    public List<IEDMRespinLandJackpotData> jackpotLandEventDataList;
+    public List<IEDMRespinOpenJackpotData> jackpotOpenEventDataList;
+    public List<IEDMRespinUpgradeData> upgradeEventDataList;
+    public List<IEDMMoreSpinData> moreSpinDataList;
+    public List<IEDMUpgradeRowData> upgradeRowDataList;
+}
+
+public class IEDMSBRespinResult
+{
+    public List<int> reelOutputList;
+    public List<int> symbolIndexList;
+    public List<long> creditValueList;
+    public List<long> creditValueListForClient;
+    public List<bool> reelNeedSpinList;
+    public bool isRetrigger;
+    public int nextReelTypeIndex;
+    public int currentReelTypeIndex;
+    public bool fullscreenExpandBonus;
+    public int fullscreenExpandBonusCount;
+
+    public List<IEDMRespinCollectData> collectEventDataList;
+    public List<IEDMRespinSaveData> saveEventDataList;
+    public List<IEDMRespinLandJackpotData> jackpotLandEventDataList;
+    public List<IEDMRespinOpenJackpotData> jackpotOpenEventDataList;
+    public List<IEDMRespinOpenJackpotWithKeyData> jackpotOpenEventWithKeyDataList;
+    public List<IEDMRespinUpgradeData> upgradeEventDataList;
+    public List<IEDMRespinUpgradeEverySpinData> upgradeEverySpinEventDataList;
+    public List<IEDMMoreSpinData> moreSpinDataList;
+    public List<IEDMUpgradeRowData> upgradeRowDataList;
+}

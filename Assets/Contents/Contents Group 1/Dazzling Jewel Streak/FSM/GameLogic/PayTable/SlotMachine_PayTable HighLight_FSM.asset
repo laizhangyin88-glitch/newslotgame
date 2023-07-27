@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: SlotMachine_PayTable HighLight_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-908.0,"y":-529.0},"nodes":[{"_nestedBT":{"_value":1},"executionMode":"Once","_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":779.0,"y":355.0},"_name":"Init","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"2"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":1008.0,"y":553.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"4"},{"_nestedBT":{"_value":3},"executionMode":"Once","_position":{"x":718.0,"y":826.0},"_name":"Total
+    Win HighLight","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"6"},{"_nestedBT":{"_value":4},"_position":{"x":1417.0,"y":740.0},"_name":"Single
+    Win HighLight","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"8"},{"_actionList":{"actions":[{"parameter":{"_value":"hasWon
+    Line"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"_contextAnimator","_targetVariableID":"ae0f3d15-1e60-4c8f-9f08-bb7def448211"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"waitTime":{},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"}]},"_position":{"x":1694.0,"y":994.0},"_name":"Remove
+    Single Win HighLight","$type":"NodeCanvas.StateMachines.ActionState","$id":"10"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"TotalWin"},"saveEventValue":{"_name":"_winList"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckWinEventList`1[[SlotMaker.SymbolWin,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"eventName":{"_value":"TotalWinLine"},"saveEventValue":{"_name":"_winList"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckWinEventList`1[[SlotMaker.SymbolWin,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SingleWin"},"saveEventValue":{"_name":"_win"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckWinEvent`1[[SlotMaker.SymbolWin,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SpinSlotMachine"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckSlotEvent"},"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SingleWin"},"saveEventValue":{"_name":"_win"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckWinEvent`1[[SlotMaker.SymbolWin,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SpinSlotMachine"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckSlotEvent"},"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 498528054f599f9428d74c1f2494de9c, type: 2}
+  - {fileID: 11400000, guid: 954c93ed6e018a54fb9a2cdfec3487c2, type: 2}
+  - {fileID: 11400000, guid: ed7a00eb8fa5dbc47995f6c39460dc54, type: 2}
+  - {fileID: 11400000, guid: dc0d014dadd4c834aaa0eecacad5c8ab, type: 2}
+  _deserializationFailed: 0

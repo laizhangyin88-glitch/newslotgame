@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Expectation_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5308.0,"y":-5074.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":4995.0,"y":5429.0},"_name":"System
+    Initialize","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./slotMachine"},"saveAs":{"_name":"_slotMachine"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}]},"_position":{"x":5354.0,"y":5440.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"5"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"setTo":"Deactivate","overrideAgent":{"_name":"target","_targetVariableID":"5ad0596e-90ca-4f74-8730-1e4a08f473d3"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":5604.0,"y":5440.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"11"},{"_position":{"x":5832.0,"y":5409.0},"$type":"NodeCanvas.StateMachines.AnyState","$id":"16"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"slotMachine":{"_name":"_slotMachine"},"reelIndex":{"_name":"_reelIndex"},"overrideAgent":{"_name":"target","_targetVariableID":"5ad0596e-90ca-4f74-8730-1e4a08f473d3"},"$type":"SlotMaker.Tasks.Actions.MoveToReelPosition"},{"setTo":"Activate","overrideAgent":{"_name":"target","_targetVariableID":"5ad0596e-90ca-4f74-8730-1e4a08f473d3"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":5822.0,"y":5538.0},"_name":"Expectation","$type":"NodeCanvas.StateMachines.ActionState","$id":"17"}],"connections":[{"_condition":{"valueA":{"_value":"./initializedContent"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.AutoUpdateCheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"BeginExpectation"},"saveEventValue":{"_name":"_reelIndex"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckSlotDetailEvent`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"EndExpectation"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckSlotDetailEvent"},{"eventName":{"_value":"StoppedSlotMachine"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckSlotEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

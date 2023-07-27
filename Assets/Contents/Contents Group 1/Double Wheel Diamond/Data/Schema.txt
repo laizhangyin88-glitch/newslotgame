@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Dwd
+{
+    public class BonusInfo5
+    {
+        public MainWheel mainWheel = null;
+        public BonusWheel bonusWheel = null;
+        public List<List<long>> anyMixedPaytable = new List<List<long>>();
+    }
+
+    // DWDWheelBonus
+    public class BonusResult500
+    {
+        public List<int> selectList = new List<int>();
+        public bool isJackpot = false;
+        public long jackpotAwardAmount = 0;
+        public int jackpotIndex = 0;
+        public long earnCreditWithoutJackpot = 0;
+        public int selectAwardType = 0;
+        public int multiplierIndex = 0;
+    }
+
+    public class MainWheel
+    {
+        public List<long> awardList = new List<long>();
+        public List<int> awardWeightList = new List<int>();
+        public int awardWeightTotal = 0;
+        public List<int> awardTypeList = new List<int>();
+    }
+
+    public class BonusWheel
+    {
+        public List<long> multiplierList = new List<long>();
+        public List<int> multiplierWeightList = new List<int>();
+        public int multiplierWeightTotal = 0;
+    }
+}

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: ReSpinLogic_Bonus_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5030.0,"y":-5099.0},"nodes":[{"_position":{"x":5514.0,"y":5372.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"2"},{"_nestedFSM":{"_value":1},"successState":"","failureState":"","_position":{"x":5412.0,"y":5479.0},"$type":"NodeCanvas.BehaviourTrees.NestedFSM","$id":"3"},{"repeaterMode":"RepeatForever","repeatTimes":{"_value":1},"_position":{"x":5596.0,"y":5490.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"5"},{"_condition":{"eventName":{"_value":"StoppedToken"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_position":{"x":5588.0,"y":5569.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"7"},{"_action":{"actions":[{"parameter":{"_value":"Gain"},"parameterHashID":{},"overrideAgent":{"_name":"freeSpinTextAnimator","_targetVariableID":"7dc198c8-9011-48cd-8558-311e1c4fa2a8"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"id":{"_value":"Add
+    Free Spin"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"valueA":{"_value":"_freeSpinCount"},"Operation":"Add","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5579.0,"y":5651.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"10"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: f35d434fcec4041cbb21db3ea31483d6, type: 2}
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0
