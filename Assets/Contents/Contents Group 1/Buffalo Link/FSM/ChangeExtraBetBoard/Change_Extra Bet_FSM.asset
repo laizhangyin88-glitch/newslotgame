@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Change_Extra Bet_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4988.0,"y":-5086.0},"nodes":[{"_nestedBT":{"_value":1},"executionMode":"Once","_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5355.0,"y":5190.0},"_name":"Initialize","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"2"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":5595.0,"y":5295.0},"_name":"Refresh","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"4"},{"_nestedBT":{"_value":3},"executionMode":"Once","_position":{"x":5820.0,"y":5295.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"6"},{"_actionList":{"actions":[{"parameter":{"_value":"Appear"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"rootAnimator","_targetVariableID":"51224d40-dcd5-4920-9d48-6a2a00afeb59"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":6030.0,"y":5400.0},"_name":"Close","$type":"NodeCanvas.StateMachines.ActionState","$id":"8"},{"_position":{"x":5385.0,"y":5430.0},"$type":"NodeCanvas.StateMachines.AnyState","$id":"16"}],"connections":[{"_condition":{"eventName":{"_value":"OnOpenChangeExtraBet"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"CloseBetPopup"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},{"eventName":{"_value":"ClosePopup"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"BagelCode.Task.Condition.CheckSpinButtonEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnOpenChangeExtraBet"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 971eba7e1efc34694931e408bad8ca06, type: 2}
+  - {fileID: 11400000, guid: 8785a395e24564555b39550492270311, type: 2}
+  - {fileID: 11400000, guid: 4111edc88f1714553a648259c5d53547, type: 2}
+  _deserializationFailed: 0

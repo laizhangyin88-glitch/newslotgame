@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Fly sub symbol logic_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-6133.0,"y":-4699.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"setTo":"Deactivate","overrideAgent":{"_name":"subSymbolGO"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":7070.0,"y":5110.0},"_name":"subSymbolFly","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"saveAs":{"_name":"_from"},"overrideAgent":{"_name":"subSymbolGO"},"$type":"NodeCanvas.Tasks.Actions.GetComponent`1[[UnityEngine.Transform,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"method":{"_baseInfo":"UnityEngine.Transform|get_position|UnityEngine.Vector3","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_fromPosition"},"overrideAgent":{"_name":"_from","_targetVariableID":"5e15c655-2686-4172-afa9-b49282ab76eb"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":6769.0,"y":5183.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"7"},{"_actionList":{"actions":[{"pool":{"_name":"Anchor_BB/FlyingSymbolsPoolObject","_targetVariableID":"af47073c-7157-40bf-9de7-7203823f664c"},"parent":{"_name":"Anchor_BB/FlyingSymbolsPoolTransform","_targetVariableID":"b56c143c-2aef-4d41-b725-eedfc5f94ca6"},"activeSelf":{},"saveAs":{"_name":"_flyingSymbol"},"$type":"SlotMaker.Tasks.Actions.GetPooledObject"},{"method":{"_baseInfo":"UnityEngine.Transform|set_position|System.Void","_paramsInfo":"UnityEngine.Vector3"},"parameter":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_fromPosition"},"overrideAgent":{"_name":"_flyingSymbol"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"},{"key":{"_value":"from"},"value":{"_name":"_from","_targetVariableID":"5e15c655-2686-4172-afa9-b49282ab76eb"},"overrideAgent":{"_name":"_flyingSymbol"},"$type":"SlotMaker.Tasks.Actions.SetTransform"},{"key":{"_value":"to"},"value":{"_name":"Anchor_BB/FlyToLogoTransform","_targetVariableID":"b834c842-a840-4e44-a979-9bb0df46d20b"},"overrideAgent":{"_name":"_flyingSymbol"},"$type":"SlotMaker.Tasks.Actions.SetTransform"},{"setTo":"Activate","overrideAgent":{"_name":"_flyingSymbol"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":6865.0,"y":5294.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"17"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

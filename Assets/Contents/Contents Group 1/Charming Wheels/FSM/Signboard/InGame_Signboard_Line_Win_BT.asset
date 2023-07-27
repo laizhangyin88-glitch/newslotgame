@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: InGame_Signboard_Line_Win_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-6408.0,"y":-5098.0},"zoomFactor":0.9998287,"nodes":[{"_position":{"x":7216.0,"y":5270.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_position":{"x":7111.0,"y":5360.0},"$type":"NodeCanvas.BehaviourTrees.Optional","$id":"3"},{"_action":{"symbolWin":{"_value":{"cells":[]},"_name":"win"},"$type":"BagelCode.Tasks.Actions.Contents.SetSymbolWinForSignboard"},"_position":{"x":7065.0,"y":5433.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"4"},{"_condition":{"valueA":{"_name":"multiplier"},"checkType":"GreaterOrEqualTo","valueB":{"_value":2},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":7321.0,"y":5360.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"9"},{"_condition":{"valueA":{"_value":"./spin"},"$type":"SlotMaker.Tasks.Condition.CheckNull"},"_position":{"x":7127.0,"y":5650.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"13"},{"_action":{"actions":[{"valueA":{"_value":"./spin/earnCredit"},"saveAs":{"_name":"totalEarnCredit"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"element":{"_name":"text"},"key":{"_value":"SIGN_BOARD_TOTAL_EARN_CREDIT"},"tableType":"Content","arg1":{"_value":"earnCredit"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"waitTime":{"_value":0.1},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":6680.0,"y":5765.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"16"},{"_action":{"actions":[{"valueA":{"_value":"./spin/earnCredit"},"saveAs":{"_name":"totalEarnCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"element":{"_name":"text"},"key":{"_value":"SIGN_BOARD_TOTAL_EARN_CREDIT"},"tableType":"Content","arg1":{"_value":"totalEarnCredit"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"waitTime":{"_value":0.1},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":7214.0,"y":5763.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"28"},{"_action":{"element":{"_name":"text"},"key":{"_value":"SIGN_BOARD_WIN_DESCRIPTION_0"},"tableType":"Content","arg1":{"_value":"lineIndex"},"arg2":{"_value":"earnCredit"},"$type":"SlotMaker.Tasks.Actions.SetContextText2"},"_position":{"x":7484.0,"y":5661.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"40"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

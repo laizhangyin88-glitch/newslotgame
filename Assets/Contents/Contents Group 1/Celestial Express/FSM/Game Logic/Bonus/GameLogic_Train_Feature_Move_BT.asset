@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Train_Feature_Move_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-3005.0,"y":-3515.0},"zoomFactor":0.6371573,"nodes":[{"repeaterMode":"RepeatUntil","repeatTimes":{"_value":1},"repeatUntilStatus":"Failure","_position":{"x":5927.0,"y":6100.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"2"},{"_condition":{"valueA":{"_value":"_isMoving"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_position":{"x":5927.0,"y":6183.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"4"},{"_action":{"actions":[{"valueA":{"_name":"_position","_targetVariableID":"6a829ea8-6d51-4d3e-8d54-2c5aa77f4613"},"operation":"Add","valueB":{"_name":"_trainSpeed","_targetVariableID":"516ba7ca-68ed-4f24-80da-d79f0ac736a8"},"perSecond":true,"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"method":{"_baseInfo":"UnityEngine.Transform|set_localPosition|System.Void","_paramsInfo":"UnityEngine.Vector3"},"parameter":{"_type":"UnityEngine.Vector3","_name":"_position","_targetVariableID":"6a829ea8-6d51-4d3e-8d54-2c5aa77f4613"},"overrideAgent":{"_name":"_trainAnchor","_targetVariableID":"32c970cc-3749-422e-80f7-c181901426bc"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5729.0,"y":6276.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"8"},{"_action":{"$type":"NodeCanvas.Tasks.Actions.RaiseStatus"},"_position":{"x":6083.0,"y":6294.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"18"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

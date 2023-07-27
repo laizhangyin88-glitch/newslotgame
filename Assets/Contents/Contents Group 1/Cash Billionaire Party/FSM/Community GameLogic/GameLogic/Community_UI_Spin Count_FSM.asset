@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Community_UI_Spin Count_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-285.0,"y":-439.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":380.0,"y":401.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"In"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":732.0,"y":614.0},"_name":"Active","$type":"NodeCanvas.StateMachines.ActionState","$id":"5"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"element":{"_name":"textElement","_targetVariableID":"84ca7ecf-578f-4572-a8e7-3dc4e956ebd0"},"key":{"_value":"A_PER_B"},"arg1":{"_value":"./bonus/spinCount"},"arg2":{"_value":"./bonus/totalSpinCount"},"$type":"SlotMaker.Tasks.Actions.SetContextText2"}]},"_position":{"x":767.0,"y":737.0},"_name":"Update
+    Text","$type":"NodeCanvas.StateMachines.ActionState","$id":"11"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Out"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":559.0,"y":612.0},"_name":"Inactive","$type":"NodeCanvas.StateMachines.ActionState","$id":"19"}],"connections":[{"_condition":{"eventName":{"_value":"AppearSpinCount"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"DisappearSpinCount"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"UpdateSpinCount"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

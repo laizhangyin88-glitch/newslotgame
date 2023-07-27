@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_Community Retrigger_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-84.0,"y":-92.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./bonus/_extraSpinCount"},"saveAs":{"_name":"_extraSpinCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":925.0,"y":156.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"element":{"_name":"text"},"key":{"_value":"ADDED_SPIN_COUNT"},"tableType":"Content","arg1":{"_value":"./bonus/_extraSpinCount"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"}]},"_position":{"x":501.0,"y":317.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"8"},{"_actionList":{"actions":[{"waitTime":{"_value":2.5},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"},{"eventName":{"_value":"ClosedPopup"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"},{"$type":"SlotMaker.Task.Actions.ClosePopup"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":989.0,"y":485.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"15"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"element":{"_name":"text"},"key":{"_value":"ADDED_SPIN_COUNT_2"},"tableType":"Content","arg1":{"_value":"./bonus/_extraSpinCount"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"}]},"_position":{"x":1224.0,"y":323.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"25"}],"connections":[{"_condition":{"valueA":{"_value":"_extraSpinCount"},"valueB":{"_value":1},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"_extraSpinCount"},"checkType":"GreaterThan","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"25"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"25"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

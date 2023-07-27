@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Update_Session_Infos_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-447.0,"y":1.0},"zoomFactor":0.974254,"nodes":[{"_position":{"x":840.0,"y":467.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"valueA":{"_value":"./spin/response/bingoProgressInfo"},"saveAs":{"_type":"NodeCanvas.Framework.Blackboard","_name":"_bingoProgressInfoBB"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueUsingPath"},"_position":{"x":396.0,"y":573.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_value":"./game/bingoProgressInfoPerTotalBet"},"valueB":{"_value":"./totalBetCredit"},"$type":"SlotMaker.Tasks.Condition.SimpleCheckDictionaryLongKey"},"_position":{"x":942.0,"y":573.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"7"},{"_action":{"actions":[{"valueA":{"_value":"./game/bingoProgressInfoPerTotalBet"},"key":{"_name":"_totalBetCredit"},"saveAs":{"_name":"_originBingoProgressInfoBB"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryLongKey`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"method":{"_baseInfo":"UnityEngine.Transform|get_parent|UnityEngine.Transform","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Transform","_name":"_progressParent"},"overrideAgent":{"_name":"_originBingoProgressInfoBB"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"},{"method":{"_baseInfo":"UnityEngine.Transform|set_parent|System.Void","_paramsInfo":"UnityEngine.Transform"},"parameter":{"_type":"UnityEngine.Transform","_name":"_progressParent"},"overrideAgent":{"_name":"_bingoProgressInfoBB"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"},{"target":{"_name":"_originBingoProgressInfoBB"},"$type":"SlotMaker.Tasks.Actions.DestroyGameObject"},{"destination":{"_value":"./game/bingoProgressInfoPerTotalBet"},"key":{"_name":"_totalBetCredit"},"value":{"_name":"_bingoProgressInfoBB"},"$type":"SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryLongKey`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":600.0,"y":705.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"11"},{"_action":{"actions":[{"valueA":{"_value":"./game"},"saveAs":{"_type":"NodeCanvas.Framework.Blackboard","_name":"_gameBB"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueUsingPath"},{"method":{"_baseInfo":"UnityEngine.Transform|get_transform|UnityEngine.Transform","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Transform","_name":"_progressParent"},"overrideAgent":{"_name":"_gameBB"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"},{"method":{"_baseInfo":"UnityEngine.Transform|set_parent|System.Void","_paramsInfo":"UnityEngine.Transform"},"parameter":{"_type":"UnityEngine.Transform","_name":"_progressParent"},"overrideAgent":{"_name":"_bingoProgressInfoBB"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"},{"destination":{"_value":"./game/bingoProgressInfoPerTotalBet"},"key":{"_name":"_totalBetCredit"},"value":{"_name":"_bingoProgressInfoBB"},"$type":"SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryLongKey`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":1155.0,"y":704.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"32"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

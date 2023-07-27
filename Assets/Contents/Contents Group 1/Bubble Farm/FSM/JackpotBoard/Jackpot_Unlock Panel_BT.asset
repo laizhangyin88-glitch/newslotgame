@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Jackpot_Unlock Panel_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-961.0,"y":-265.0},"nodes":[{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"UpdatedTotalBetCredit"},"$type":"BagelCode.Task.Condition.CheckCreditEvent"},{"valueA":{"_name":"_isInitialized"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":1127.0,"y":332.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"2"},{"_position":{"x":1157.0,"y":474.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"10"},{"_action":{"actions":[{"valueA":{"_value":"./betCredit"},"saveAs":{"_name":"_betCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./totalBetCredit"},"saveAs":{"_name":"_totalBetCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./betList"},"saveAs":{"_name":"_betList","_targetVariableID":"eb22e389-f6af-46b4-ab03-aa7fb25a669b"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./game/jackpotInfo/baseBet"},"saveAs":{"_name":"_baseBet"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"baseBet":{"_name":"_baseBet"},"bet":{"_name":"_totalBetCredit"},"multiplier":{"_name":"_jackpotMultiplier"},"$type":"BagelCode.Tasks.Actions.Contents.GetIngameJackpotMultiplier"},{"valueA":{"_value":"./game/jackpotInfo/eligibleMinBetPerJackpot"},"saveAs":{"_name":"_eligibleMinBetScaleList"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Collections.Generic.List`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"_eligibleMinBetScaleList"},"index":{"_targetVariableID":"00e6eec1-3f53-4e63-8591-8c8821f49cb8"},"saveAs":{"_name":"_miniEligibleMinBet"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"_eligibleMinBetScaleList"},"index":{"_value":1,"_targetVariableID":"00e6eec1-3f53-4e63-8591-8c8821f49cb8"},"saveAs":{"_name":"_minorEligibleMinBet"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"_eligibleMinBetScaleList"},"index":{"_value":2,"_targetVariableID":"00e6eec1-3f53-4e63-8591-8c8821f49cb8"},"saveAs":{"_name":"_majorEligibleMinBet"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"_eligibleMinBetScaleList"},"index":{"_value":3,"_targetVariableID":"00e6eec1-3f53-4e63-8591-8c8821f49cb8"},"saveAs":{"_name":"_megaEligibleMinBet"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"_eligibleMinBetScaleList"},"index":{"_value":4,"_targetVariableID":"00e6eec1-3f53-4e63-8591-8c8821f49cb8"},"saveAs":{"_name":"_grandEligibleMinBet"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"boolVariable":{"_name":"_isInitialized"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":813.0,"y":637.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"11"},{"_position":{"x":1554.0,"y":584.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"55"},{"_subTree":{"_value":1},"_position":{"x":1348.0,"y":761.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"56"},{"_nestedFSM":{"_value":2},"_position":{"x":1633.0,"y":763.0},"_comment":"//
+    Jackpot Board Activation is checked by betCredit\n","$type":"NodeCanvas.BehaviourTrees.NestedFSM","$id":"58"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"55"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"55"},"_targetNode":{"$ref":"56"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"55"},"_targetNode":{"$ref":"58"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 0b9ac8030304c47ecb98c1c168fb9020, type: 2}
+  - {fileID: 11400000, guid: 34c5ed0715af542dc826c7a7ff4f19a0, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

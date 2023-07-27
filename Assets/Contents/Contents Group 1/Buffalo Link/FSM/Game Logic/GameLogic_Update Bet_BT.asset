@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Update Bet_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.9,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5302.0,"y":-5078.0},"nodes":[{"_condition":{"eventName":{"_value":"FinishedIntro"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_position":{"x":5715.0,"y":5235.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"2"},{"repeaterMode":"RepeatForever","repeatTimes":{"_value":1},"_position":{"x":5730.0,"y":5310.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"5"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"UpdatedTotalBetCredit"},"$type":"BagelCode.Task.Condition.CheckCreditEvent"},{"eventName":{"_value":"ForceAppearBetPopup"},"$type":"BagelCode.Task.Condition.CheckCreditEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":5685.0,"y":5385.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"7"},{"_position":{"x":5730.0,"y":5490.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"14"},{"_condition":{"valueA":{"_value":"./extraBetRatioIndex"},"valueB":{"_name":"prevExtraBetRatioIndex","_targetVariableID":"e829d52c-bfce-4f27-a4fd-d6aeb278c565"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":5490.0,"y":5625.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"15"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./extraBetRatioIndex"},"saveAs":{"_name":"prevExtraBetRatioIndex","_targetVariableID":"e829d52c-bfce-4f27-a4fd-d6aeb278c565"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"OnOpenChangeExtraBet"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5475.0,"y":5730.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"19"},{"_subTree":{"_value":1},"_position":{"x":5835.0,"y":5625.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"28"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./game/betScaleIndices"},"saveAs":{"_name":"_betScaleIndices"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./betRatioIndex"},"saveAs":{"_name":"_prevBetRatioIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4845.0,"y":5850.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 1bcf7a77c636e43458b70aab6f51526b, type: 2}
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_SuperBonus_Check_Last_Diamond_Spin_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":300.0,"y":146.0},"nodes":[{"_condition":{"valueA":{"_value":"./customData/isDiamondSpin"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_position":{"x":123.0,"y":75.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"2"},{"_condition":{"valueA":{"_value":"./customData/isDiamondSpinFinished"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_position":{"x":101.0,"y":183.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"6"},{"_color":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":204.0,"y":301.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"10"},{"_action":{"actions":[{"valueA":{"_value":"./bonus/response/superBonusBingoProgressInfo"},"saveAs":{"_type":"NodeCanvas.Framework.Blackboard","_name":"_bingoProgressInfoBB"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueUsingPath"},{"targetVariableName":{"_value":"leftDiamondSpinCount"},"saveAs":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_leftDiamondSpinCount"},"overrideAgent":{"_name":"_bingoProgressInfoBB"},"$type":"NodeCanvas.Tasks.Actions.GetOtherBlackboardVariable"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":-267.0,"y":396.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"11"},{"_condition":{"conditions":[{"valueA":{"_value":"_leftDiamondSpinCount"},"valueB":{"_value":1},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},{"bonusId":{"_value":17607},"_invert":true,"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"}],"$type":"NodeCanvas.Framework.ConditionList"},"_color":{"r":1.0,"g":0.07843138,"b":0.5764706,"a":1.0},"_position":{"x":290.0,"y":397.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"21"},{"_action":{"eventName":{"_value":"BingoFrameUpdateDiamond"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"},"_position":{"x":241.0,"y":515.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"29"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

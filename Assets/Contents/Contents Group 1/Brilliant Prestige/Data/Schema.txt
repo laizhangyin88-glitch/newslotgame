@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Brp
+{
+    public class CustomData116
+    {
+    }
+
+    public class BonusInfo116
+    {
+        public List<long> scatterPay = new List<long>();
+        public List<int> freeSpinCounts = new List<int>();
+    }
+
+    // BRPFreeSpin
+    public class BonusResult11600
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // BRPWildFeature
+    public class BonusResult11601
+    {
+        public List<WildMoveStep> items = new List<WildMoveStep>();
+    }
+
+    // 0 - no move, 1 - to down, 2 - to up, 3 - both
+    public class WildMoveStep
+    {
+        public int direction;
+        public int reel;
+        public List<int> positions = new List<int>();
+    }
+
+    // Bonus Game
+    public class BonusResult11610
+    {
+        public List<BRPBonusStep> sequence = new List<BRPBonusStep>();
+    }
+
+    public class BRPBonusStep
+    {
+        public int type;
+        public long mult;
+        public bool lose; // end of the game
+        public int fails; // current fail count
+    }
+
+    // BRPTicketedFreeSpinBonus
+    public class BonusResult11650
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+}

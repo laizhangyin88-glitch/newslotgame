@@ -1,0 +1,79 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.CMW
+{
+    public class BonusInfo177
+    {
+        public List<WheelRewardInfo> wheelsInfo;
+    }
+
+    public class CustomData177
+    {
+        public Dictionary<long,int> collectibles;
+    }
+
+    // FreeSpinBonus
+    public class BonusResult17700
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // FreeSpinRetriggerBonus
+    public class BonusResult17701
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // ONE_WHEEL
+    public class BonusResult17702
+    {
+        public int stopIndex;
+        public WheelReward reward;
+    }
+
+    // TRIPLE_WHEELS
+    public class BonusResult17703
+    {
+       public WheelSpinResult firstWheelSpinResult;
+       public WheelSpinResult secondWheelSpinResult;
+       public WheelSpinResult thirdWheelSpinResult;
+    }
+
+    // PROGRESSION_METER
+    public class BonusResult17704
+    {
+       public int columnIndexWithSubSymbol;
+       public int progressAfterUpdate;
+    }
+
+    // EXTRA_REEL_MULTIPLIER
+    public class BonusResult17705
+    {
+        public int multiplier;
+    }
+
+    public class WheelSpinResult
+    {
+        public int stopIndex;
+        public WheelReward reward;
+    }
+
+    public class WheelReward
+    {
+        // 0 - coins, 1- multiplier, 2 - freeSpins
+        public int type;
+        public int value;
+    }
+
+    public class WheelRewardInfo
+    {
+        public int rewardWheelType;
+        public List<int> types;
+        public List<int> values;
+    }
+}
