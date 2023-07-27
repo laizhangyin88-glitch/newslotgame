@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Four Gods Gamble Start_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5251.0,"y":-5138.0},"nodes":[{"_position":{"x":5831.0,"y":5158.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"targetList":{"_type":"System.Collections.Generic.List`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"flagObjectList","_targetVariableID":"6d4ffc27-4001-40f6-ae1f-c42e0556968a"},"current":{"_type":"UnityEngine.GameObject","_name":"_flagObj"},"storeIndex":{"_name":"_flagIndex"},"maxIteration":{"_value":-1},"_position":{"x":5492.0,"y":5281.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"3"},{"_action":{"actions":[{"minValue":{},"maxValue":{"_value":0.2},"floatVariable":{"_name":"_targetProb"},"$type":"NodeCanvas.Tasks.Actions.SetFloatRandom"},{"method":{"_baseInfo":"BagelCode.FourGodsFlagController|IntroMarkerMovement|System.Void","_paramsInfo":"System.Single"},"parameters":[{"_type":"System.Single","_value":{"$content":0.0,"$type":"System.Single"},"_name":"_targetProb"}],"parameterIsByRef":[false,false],"returnValue":{},"overrideAgent":{"_name":"_flagObj"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5422.0,"y":5376.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"8"},{"_action":{"actions":[{"id":{"_value":"Gamble
+    Lever Down"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"waitTime":{"_value":0.6},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5699.0,"y":5290.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"22"},{"_condition":{"valueA":{"_value":"./customData/gamblePlayed"},"valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_position":{"x":5894.0,"y":5292.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"29"},{"_subTree":{"_value":1},"_position":{"x":5927.0,"y":5379.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"33"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 47d69d97eac8b446699b80e1ad42766a, type: 2}
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0
