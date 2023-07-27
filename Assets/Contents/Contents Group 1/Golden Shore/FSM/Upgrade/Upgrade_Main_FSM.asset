@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Upgrade_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":169.0,"y":358.0},"zoomFactor":0.9999796,"nodes":[{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":479.0,"y":-58.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"2"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":727.0,"y":90.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"4"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":980.0,"y":281.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"6"},{"_nestedBT":{"_value":3},"executionMode":"Once","_position":{"x":1213.0,"y":446.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"9"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"UpdatedTotalBetCredit"},"saveEventValue":{"_name":"_betCredit","_targetVariableID":"89838f3b-2226-4ab7-8b40-b23372729850"},"$type":"BagelCode.Task.Condition.CheckCreditEvent`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"conditions":[{"eventName":{"_value":"Upgrade"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},{"valueA":{"_value":"./upgrade"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},{"valueA":{"_value":"./autoSpin"},"valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: df76d98e35e8646a7b02eaa8663b21a2, type: 2}
+  - {fileID: 11400000, guid: 0860a2cbeac434088b40df4dd4e1c25b, type: 2}
+  - {fileID: 11400000, guid: e806db25bb5bf46a3a796c6c1d13fd92, type: 2}
+  _deserializationFailed: 0

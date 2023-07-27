@@ -1,0 +1,54 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Gcb
+{
+    public class BonusInfo12
+    {
+        public List<long> scatterPay = new List<long>();
+        public GCBFreeSpin freeSpin = null;
+    }
+
+    public class CustomData12
+    {
+        public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+    }
+
+    // GCBFreeSpinBonus
+    public class BonusResult1200
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public List<GCBSpinCount> spinCountList = new List<GCBSpinCount>();
+        public List<int> reelTypeIndexList = new List<int>();
+    }
+
+    // GCBJackpot
+    public class BonusResult1201
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    public class GCBFreeSpin
+    {
+        public List<List<int>> count = new List<List<int>>();
+    }
+
+    public class GCBSpinCount
+    {
+        public int count = 0;
+        public int symbol = 0;
+    }
+
+    // GCBTicketedBonus
+    public class BonusResult1250
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public List<GCBSpinCount> spinCountList = new List<GCBSpinCount>();
+        public List<int> reelTypeIndexList = new List<int>();
+    }
+}

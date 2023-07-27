@@ -1,0 +1,56 @@
+//
+// Happy Dollars Schema
+//
+
+private class SelectableBonusInfo
+{
+    public List<int> selectedSymbolIndices;
+    public List<List<int>> spinCountDeck;
+    public List<int> reelTypeIndexList;
+}
+
+public class BonusInfo93
+{
+    public SelectableBonusInfo selectableBonusInfo;
+}
+
+// FreeSpin
+public class BonusResult9300
+{
+    public long betCredit;
+    public int triggeredTypeIndex;
+    public bool isRetrigger;
+}
+
+// FreeSpin Retrigger
+public class BonusResult9301
+{
+    public long betCredit;
+    public int bonusStackCount;
+}
+
+// Respin
+public class BonusResult9302
+{
+    public int spinCount;
+    public int totalSpinCount;
+    public List<List<int>> reelOutputTable;
+    public List<List<bool>> reelSpinTable;
+    public int bonusSymbolIndex;
+}
+
+// Mystery
+public class BonusResult9303
+{
+    public int reelOutputIndex;
+    public int symbolIndex;
+    public List<int> reelIndexList;
+}
+
+// Ticketed Bonus
+public class BonusResult9350
+{
+    public long betCredit;
+    public int triggeredTypeIndex;
+    public bool isAddedFreeSpin;
+}

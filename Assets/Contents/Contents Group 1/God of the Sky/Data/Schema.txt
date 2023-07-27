@@ -1,0 +1,74 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Gos
+{
+    public class BonusInfo55
+    {
+        public List<float> litSymbolProbPerReel = new List<float>();
+        public List<List<int>> wheelItemTypes = new List<List<int>>();
+        public List<List<int>> wheelItemValues = new List<List<int>>();
+    }
+
+    public class CustomData55
+    {
+        public List<List<int>> wildSpreadList = new List<List<int>>();
+        public List<int> addedWildSpotList = new List<int>();
+        public List<int> originalWildSpotList = new List<int>();
+    }
+
+    // GOSJackpot
+    public class BonusResult5500
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // GOSLitBonus
+    public class BonusResult5501
+    {
+        public List<List<int>> litResult = new List<List<int>>();
+        public List<int> wheelTriggeredLitSpot = new List<int>();
+        public List<int> wheelTriggeredLitLength = new List<int>();
+        public List<bool> litExpectationList = new List<bool>();
+    }
+
+    // GOSWheelBonus
+    public class BonusResult5502
+    {
+        public int triggeredRow = 0;
+        public int initialWheelIndex = 0;
+        public List<int> wheelItemSequence = new List<int>();
+        public int itemType = 0;
+        public int itemValue = 0;
+    }
+
+    // GOSCreditBonus
+    public class BonusResult5503
+    {
+        public long betCredit = 0;
+        public int multiplier = 0;
+        public long totalEarnCredit = 0;
+    }
+
+    // GOSFreeSpinBonus
+    public class BonusResult5504
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // GOSWildSpinBonus
+    public class BonusResult5505
+    {
+        public List<List<int>> wildSpreadList = new List<List<int>>();
+        public List<int> addedWildSpotList = new List<int>();
+        public List<int> originalWildSpotList = new List<int>();
+        public int reelTypeIndex = 0;
+        public SpinResult result = null;
+        public List<int> addedWildOverlayPositions = new List<int>();
+        public List<List<int>> wildOverlaySpreadList = new List<List<int>>();
+    }
+}

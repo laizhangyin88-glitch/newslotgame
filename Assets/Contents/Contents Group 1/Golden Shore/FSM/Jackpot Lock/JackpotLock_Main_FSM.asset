@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: JackpotLock_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":132.0,"y":-48.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"setTo":"Activate","overrideAgent":{"_name":"tooltip","_targetVariableID":"93267cf1-aa32-43dc-8d08-ef9c0191aa6a"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":737.0,"y":127.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":998.0,"y":293.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"7"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":1239.0,"y":461.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"10"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"setTo":"Activate","overrideAgent":{"_name":"tooltip","_targetVariableID":"93267cf1-aa32-43dc-8d08-ef9c0191aa6a"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":726.0,"y":466.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"12"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"DisappearJackpotLockTooltip"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"AppearJackpotLockTooltip"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 7f66d1e575f124488b367a183866f01a, type: 2}
+  _deserializationFailed: 0

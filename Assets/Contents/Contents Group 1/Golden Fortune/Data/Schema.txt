@@ -1,0 +1,60 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Gfn
+{
+    public class BonusInfo46
+    {
+        public List<long> scatterPay = new List<long>();
+        public long goldReelAward = 0;
+        public long goldReelProgressiveAward = 0;
+    }
+
+    public class CustomData46
+    {
+        public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<int,int> multipliers = new Dictionary<int,int>();
+        public int paylineIndex = 0;
+    }
+
+    // GFNJackpot
+    public class BonusResult4600
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+        public List<int> jackpotPicks = new List<int>();
+    }
+
+    // GFNFreeSpinBonus
+    public class BonusResult4601
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // GFNFreeSpinRetriggerBonus
+    public class BonusResult4602
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // GFNRandomGoldReelAppearBonus
+    public class BonusResult4603
+    {
+        public List<bool> goldReelFlags = new List<bool>();
+        public long betCredit = 0;
+    }
+
+    // GFNAwardBonus
+    public class BonusResult4604
+    {
+        public long betCredit = 0;
+        public int goldReelIndex = 0;
+        public int goldReelCount = 0;
+    }
+}

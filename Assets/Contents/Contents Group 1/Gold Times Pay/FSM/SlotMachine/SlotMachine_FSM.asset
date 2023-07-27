@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: SlotMachine_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4576.0,"y":-4592.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":4635.0,"y":4875.0},"_name":"System
+    Initialize","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./customData/slotDataList/0/column"},"saveAs":{"_name":"_column"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./customData/slotDataList/0/row"},"saveAs":{"_name":"_row"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":4785.0,"y":4785.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"5"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5115.0,"y":4755.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"14"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":5355.0,"y":4845.0},"_name":"Spin","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"17"},{"_nestedBT":{"_value":2},"executionMode":"Once","_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5565.0,"y":5070.0},"_name":"Stop","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"19"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"method":{"_baseInfo":"SlotMaker.SlotMachineMovement|OnStoppedSlotMachine|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]},"_position":{"x":5250.0,"y":4980.0},"_name":"Stopped","$type":"NodeCanvas.StateMachines.ActionState","$id":"21"}],"connections":[{"_condition":{"valueA":{"_value":"./initializedContent"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"conditions":[{"spinState":{"_name":"spinState","_targetVariableID":"02cfff9f-67bc-4d2f-9e09-19a70a6f5568"},"condition":{},"$type":"SlotMaker.Tasks.Condition.CheckSlotSequence"},{"spinState":{"_name":"spinState","_targetVariableID":"02cfff9f-67bc-4d2f-9e09-19a70a6f5568"},"condition":{"_value":"Stopped"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckSlotSequence"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"spinState":{"_name":"spinState","_targetVariableID":"02cfff9f-67bc-4d2f-9e09-19a70a6f5568"},"condition":{"_value":"Stopping"},"$type":"SlotMaker.Tasks.Condition.CheckSlotSequence"},"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"spinState":{"_name":"spinState","_targetVariableID":"02cfff9f-67bc-4d2f-9e09-19a70a6f5568"},"condition":{"_value":"Stopped"},"$type":"SlotMaker.Tasks.Condition.CheckSlotSequence"},"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 1d7c95452a55dad47b599b21ab0af6a8, type: 2}
+  - {fileID: 11400000, guid: a314ea9a79ce5f84d98f967d62932992, type: 2}
+  _deserializationFailed: 0

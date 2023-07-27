@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_FreeSpin_Update Multiplier_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5013.0,"y":-4997.0},"nodes":[{"_condition":{"valueA":{"_name":"_stackCount"},"checkType":"GreaterThan","valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":5660.0,"y":5318.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_nodeColor":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":5671.0,"y":5389.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"6"},{"_action":{"actions":[{"cell":{"_value":{},"_name":"_stackingCell"},"animationName":{"_value":"Update
+    Multiplier"},"overrideAgent":{"_name":"_slotMachine"},"$type":"BagelCode.Tasks.Actions.Contents.PlayPivotSymbolAnimationByCell"},{"id":{"_value":"Wild
+    Multiplier"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5453.0,"y":5475.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"_condition":{"eventName":{"_value":"EndUpdate"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_position":{"x":5748.0,"y":5479.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"17"},{"_action":{"actions":[{"valueA":{"_value":"_stackMultiplier"},"Operation":"Multiply","valueB":{"_name":"_initialMultiplier"},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"valueA":{"_name":"_stackCount"},"Operation":"Subtract","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"slotMachine":{"_name":"_slotMachine"},"cell":{"_value":{},"_name":"_stackingCell"},"$type":"SlotMaker.Tasks.Actions.ApplySlotOverlaySymbol"},{"eventName":{"_value":"SkipWin"},"delay":{},"sendGlobal":true,"slotIndex":{},"$type":"BagelCode.Tasks.Actions.SendWinEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5687.0,"y":5549.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"20"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

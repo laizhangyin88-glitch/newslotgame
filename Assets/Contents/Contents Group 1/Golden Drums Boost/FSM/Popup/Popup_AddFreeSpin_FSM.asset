@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_AddFreeSpin_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5468.886,"y":-5362.887},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{"_value":true},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"id":{"_value":"Free
+    Game Retrigger Popup"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"snapshotName":{"_value":"Content_Popup"},"timeToReach":{},"$type":"SlotMaker.Tasks.Actions.TransitionToAudioMixerSnapshot"}]},"_position":{"x":5761.0,"y":5601.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"valueA":{"_value":"./bonus/bonusId"},"saveAs":{"_name":"_bonusId"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"bonusId":{"_value":2303,"_name":"_bonusId"},"response":{"_name":"response","_targetVariableID":"260b7e43-cf83-4e2f-a1f4-174a2619e9c0"},"$type":"BagelCode.Tasks.Actions.Contents.GetBonusResponse"},{"valueA":{"_value":"addedSpinCount"},"saveAs":{"_name":"addedSpinCount","_targetVariableID":"a387d056-cf01-4650-a0ca-860c34fc5841"},"overrideAgent":{"_name":"response","_targetVariableID":"260b7e43-cf83-4e2f-a1f4-174a2619e9c0"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./spin/parent/totalSpinCount"},"Operation":"Add","valueB":{"_name":"addedSpinCount","_targetVariableID":"cc85ab0a-6ee2-41a8-a1c6-24f3a6fb7318"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"elementName":{"_value":"Animator/Free
+    Games Count"},"searchingType":"FullNameSearch","key":{"_value":"ADD_FREE_SPIN_COUNT"},"tableType":"Content","arg1":{"_value":"addedSpinCount"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"elementName":{"_value":"Animator"},"saveAs":{"_name":"animator","_targetVariableID":"1eef7c02-4106-44bb-84f7-829013679769"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"isAdd":{"_value":true},"$type":"BagelCode.Tasks.Actions.BI.BI_freespin_trigger"}]},"_position":{"x":5850.0,"y":5749.0},"_name":"Set
+    Text","$type":"NodeCanvas.StateMachines.ActionState","$id":"12"},{"_actionList":{"actions":[{"waitTime":{"_value":4.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"ClosedPopup"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"snapshotName":{"_value":"Content_Main"},"timeToReach":{},"$type":"SlotMaker.Tasks.Actions.TransitionToAudioMixerSnapshot"},{"setTo":"Deactivate","$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":6398.0,"y":5946.0},"_name":"Finalize","$type":"NodeCanvas.StateMachines.ActionState","$id":"37"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"37"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"37"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

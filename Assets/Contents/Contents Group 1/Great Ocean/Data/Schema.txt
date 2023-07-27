@@ -1,0 +1,66 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Gto
+{
+    public class BonusInfo50
+    {
+        public List<long> scatterPay = new List<long>();
+        public GTOAwardBigWheel awardWheel = null;
+        public GTOBonusBigWheel bonusWheel = null;
+    }
+
+    // GTOJackpot
+    public class BonusResult5000
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+        public long jackpotRawCredit = 0;
+        public long jackpotMultiplier = 0;
+    }
+
+    // GTOFreeSpinBonus
+    public class BonusResult5001
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int freeReelTypeIndex = 0;
+    }
+
+    // GTOFreeSpinRetriggerBonus
+    public class BonusResult5002
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int freeReelTypeIndex = 0;
+    }
+
+    // GTOWildBonus
+    public class BonusResult5003
+    {
+        public List<int> wildMultiplierList = new List<int>();
+        public List<int> wildMultiplierPosition = new List<int>();
+    }
+
+    // GTOBigWheelBonus
+    public class BonusResult5004
+    {
+        public List<int> awardWheelIndexList = new List<int>();
+        public List<int> bonusWheelIndexList = new List<int>();
+    }
+
+    public class GTOAwardBigWheel
+    {
+        public List<int> additionalBonusList = new List<int>();
+        public List<int> mainWheelList = new List<int>();
+    }
+
+    public class GTOBonusBigWheel
+    {
+        public List<int> wheelWeightList = new List<int>();
+        public List<int> multiplierList = new List<int>();
+    }
+}

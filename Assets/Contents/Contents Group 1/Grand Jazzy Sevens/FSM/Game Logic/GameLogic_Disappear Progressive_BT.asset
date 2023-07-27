@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Disappear Progressive_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-4998.0,"y":-4921.0},"nodes":[{"_condition":{"valueA":{"_value":"./spin/response/mergedClumpCount"},"checkType":"GreaterThan","valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":5572.0,"y":5252.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"2"},{"_position":{"x":5654.0,"y":5337.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"6"},{"_action":{"actions":[{"valueA":{"_value":"./customData/progressiveObjs"},"saveAs":{"_name":"_progObjs"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"waitTime":{"_value":1.0,"_name":"preProgDisappearDelay","_targetVariableID":"1ed11b84-6e44-4754-af7f-b8115c73f7eb"},"skip":{},"$type":"NodeCanvas.Tasks.Actions.SkippableWait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5333.0,"y":5440.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"targetList":{"_type":"System.Collections.Generic.List`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"_progObjs"},"current":{"_type":"UnityEngine.GameObject","_name":"_currProgObj"},"storeIndex":{"_name":""},"maxIteration":{"_value":-1},"_position":{"x":5629.0,"y":5439.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"16"},{"_action":{"actions":[{"saveAs":{"_name":"_currProgAnim"},"overrideAgent":{"_name":"_currProgObj"},"$type":"NodeCanvas.Tasks.Actions.GetComponent`1[[UnityEngine.Animator,
+    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"parameter":{"_value":"Disappear"},"parameterHashID":{},"overrideAgent":{"_name":"_currProgAnim"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5622.0,"y":5525.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"21"},{"_action":{"waitTime":{"_name":"postProgDisappearDelay","_targetVariableID":"86fd9c0a-5c7e-4794-ad0f-90ca2cef6d47"},"skip":{},"$type":"NodeCanvas.Tasks.Actions.SkippableWait"},"_position":{"x":5851.0,"y":5440.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"31"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

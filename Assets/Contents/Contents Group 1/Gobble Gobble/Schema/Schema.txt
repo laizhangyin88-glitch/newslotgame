@@ -1,0 +1,66 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Gbg
+{
+    public class CustomData90
+    {
+        public Dictionary<long,int> baseCyclePerBetCredit = new Dictionary<int,int>();
+        public Dictionary<long,List<int>> baseLockedSubsymbolSpotListPerBetCredit = new Dictionary<int,List<int>>();
+        public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+    }
+
+    public class BonusInfo90
+    {
+        public int freeSpinCount;
+    }
+
+     // GBGJackpot
+    public class BonusResult9001
+    {
+        public bool isJackpot;
+        public int jackpotIndex;
+        public long jackpotAwardAmount;
+    }
+
+    // GBGFreeSpinBonus
+    public class BonusResult9002
+    {
+        public int type;
+        public long betCredit;
+        public int addedSpinCount;
+    }
+
+    // GBGFreeSpinBonusRetriggered
+    public class BonusResult9003
+    {
+        public int type;
+        public long betCredit;
+        public int addedSpinCount;
+        public int slotIndex;
+    }
+
+    // GBGLockSubsymbolBonus
+    public class BonusResult9004
+    {
+        public List<List<int>> lockedSubsymbolRowsList;
+        public int slotIndex;
+    }
+
+    // GBGExplodeWildBonus
+    public class BonusResult9005
+    {
+        public List<List<int>> explodeWildRowsList;
+        public List<List<int>> newExplodeWildRowsList;
+        public int slotIndex;
+    }
+
+    // GBGTickedFreeSpinBonus
+    public class BonusResult9050
+    {
+        public int type;
+        public long betCredit;
+        public int addedSpinCount;
+    }
+}

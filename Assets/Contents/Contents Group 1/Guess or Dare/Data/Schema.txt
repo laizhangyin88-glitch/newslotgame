@@ -1,0 +1,114 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.God
+{
+    public class BonusInfo180
+    {
+        public List<int> stepsPrizes;
+        public List<int> winAmount;
+    }
+
+    public class CustomData180
+    {
+        public Dictionary<long,List<int>> collectedSymbols;
+        public List<Position> wildMultiply;
+    }
+
+    // GODJACKPOT_MODE
+    public class BonusResult18000
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int allCountLockedSymbol = 0;
+        public int countNewLockedSymbol = 0;
+        public List<List<bool>> symbolsLockedBoolMatrix;
+        public List<Position> positionsLockedSymbol;
+    }
+
+    // GODSYMBOLS_PROGRESSION_Bonus
+    public class BonusResult18001
+    {
+        public List<int> new_collect_symbols_win;
+    }
+
+    // FRLJackpot
+    public class BonusResult14802
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // FRLWildBonus
+    public class BonusResult14803
+    {
+        public List<WildSymbolInfo> wilds;
+    }
+
+    // GODHiLoBonusGame
+    public class BonusResult18004
+    {
+        public List<StepInfo> stepSequence;
+        public long startIndex;
+        public long earnCredit;
+        public long totalBet;
+    }
+
+    public class StepInfo
+    {
+        public bool isGuessed;
+        public long earnCredit;
+        public int targetNumber;
+        public int playerNumberLow;
+        public int playerNumberHigh;
+        public List<ClientWinInfo> clientWinInfoList;
+    }
+
+    // PlayerAction: 0 - Low, 1 - High
+    public class ClientWinInfo
+    {
+        public int playerAction;
+        public int targetNumber;
+        public int playerNumber;
+    }
+
+    // GODHiLoBonusGamePay
+    public class BonusResult18005
+    {
+    }
+
+     // GODStartBonusMode
+    public class BonusResult18006
+    {
+        public int addedSpinCount = 0;
+    }
+
+    public class WildSymbolInfo
+    {
+        public int symbol;
+        public int row;
+        public int column;
+        public int value;
+    }
+
+    public class WildSymbolInfo
+    {
+        public int symbol;
+        public int row;
+        public int column;
+        public int value;
+    }
+
+    public class Position
+    {
+        public int column;
+        public int row;
+    }
+
+    public class BonusResult18007
+    {
+    public bool used;
+    }
+}

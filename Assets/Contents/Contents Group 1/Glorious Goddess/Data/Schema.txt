@@ -1,0 +1,81 @@
+//
+// Glorious Goddess
+//
+
+public class CustomData109
+{
+    public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+    public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+}
+
+public partial class GLGSpinCountInfo
+{
+    public int count = 0;
+    public int countIndex = 0;
+    public int symbol = 0;
+    public int symbolIndex = 0;
+    public bool isRandomFreeSpin = false;
+}
+
+// GLGJackpot
+public class BonusResult10900
+{
+    public int jackpotIndex;
+    public long jackpotAwardAmount;
+}
+
+// GLGFreeSpinBonus
+public class BonusResult10901
+{
+    public int type = 0;
+    public long betCredit = 0;
+    public List<GLGSpinCountInfo> spinCountList = new List<GLGSpinCountInfo>();
+}
+
+// GLGFreeSpinRetriggerBonus
+public class BonusResult10902
+{
+    public int type = 0;
+    public long betCredit = 0;
+    public int addedSpinCount = 0;
+}
+
+// GLGRespinBonus
+public class BonusResult10903
+{
+    public int spinCount = 0;
+    public List<List<int>> reelOutputResultList = new List<List<int>>();
+    public List<List<int>> respinSpinReelResultList = new List<List<int>>();
+    public List<bool> retriggerExistsList = new List<bool>();
+    public List<int> mergeIndexList = new List<int>();
+    public List<int> mergePivotList = new List<int>();
+}
+
+// GLGJackpotSpinBonus
+public class BonusResult10904
+{
+    public int totalSpinCount = 0;
+    public List<List<int>> wedgeResultList = new List<List<int>>();
+    public List<List<int>> reelOutputResultList = new List<List<int>>();
+    public List<List<bool>> expectationResultList = new List<List<bool>>();
+    public List<int> jackpotWinList = new List<int>();
+    public bool isSingleJackpot = true;
+    public long earnCreditForClient = 0;
+}
+
+// GLGMergeSymbolBonus
+public class BonusResult10905
+{
+    public List<int> reelList = new List<int>(); 
+    public int symbolIndex = 0;
+    public int mergeIndex = 0;
+    public int mergePivot = 0;
+}
+
+// GLGTicketedFreeSpinBonus
+public class BonusResult10950
+{
+    public int type = 0;
+    public long betCredit = 0;
+    public List<GLGSpinCountInfo> spinCountList = new List<GLGSpinCountInfo>();
+}

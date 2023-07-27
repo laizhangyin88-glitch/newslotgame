@@ -1,0 +1,73 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Gdp
+{
+    public class BonusInfo37
+    {
+        public List<long> baseScatterPay = new List<long>();
+        public List<long> freeScatterPay = new List<long>();
+    }
+
+    // GDPFreeSpinBonus
+    public class BonusResult3700
+    {
+        public int selected = 0;
+        public int addedSpinCount = 0;
+        public int freeReelTypeIndex = 0;
+        public int earnedWildCount = 0;
+        public int scatterCount = 0;
+    }
+
+    // GDPFreeSpinRetriggerBonus
+    public class BonusResult3701
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // GDPSpinAgainBonus
+    public class BonusResult3702
+    {
+        public bool winMegaJackpot = false;
+        public GDPEarnInfo megaJackpotResult = null;
+        public List<int> newSymbolList = new List<int>();
+        public List<GDPEarnInfo> earnList = new List<GDPEarnInfo>();
+        public int fixedSymbolCount = 0;
+        public List<List<int>> spotReelOutputTable = new List<List<int>>();
+        public bool isCombo = false;
+    }
+
+    // GDPTicketedFreeSpinBonus
+    public class BonusResult3750
+    {
+        public int selected = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int freeReelTypeIndex = 0;
+        public int earnedWildCount = 0;
+        public int scatterCount = 0;
+    }
+
+    // GDPTicketedSpinAgainBonus
+    public class BonusResult3751
+    {
+        public bool winMegaJackpot = false;
+        public GDPEarnInfo megaJackpotResult = null;
+        public List<int> newSymbolList = new List<int>();
+        public List<GDPEarnInfo> earnList = new List<GDPEarnInfo>();
+        public int fixedSymbolCount = 0;
+        public List<List<int>> spotReelOutputTable = new List<List<int>>();
+        public bool isCombo = false;
+    }
+
+    public class GDPEarnInfo
+    {
+        public bool isJackpot = false;
+        public int symbol = 0;
+        public long earnCredit = 0;
+        public int jackpotIndex = 0;
+        public int oysterSymbol = 0;
+    }
+}

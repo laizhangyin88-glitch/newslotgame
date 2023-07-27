@@ -1,0 +1,87 @@
+//
+// GDD Schema
+//
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.GDD
+{
+//public class BonusInfo89
+//{
+//    public List<long> countList = new List<long>();
+//    public List<long> heightList = new List<long>();
+//    public List<long> scatterPay = new List<long>();
+//}
+//
+public class ContentsStore190
+{
+    public long bowl = 0;
+}
+
+public class CustomData190
+{
+    public int freeSpinIndex = 0;
+    public int currentRowCount = 0;
+    public List<long> scatterPay = new List<int>;
+    public Dictionary<long,int> bowl = new Dictionary<long,int> bowl;
+    public Dictionary<int,int> mysterySymbolTable;
+    public List<bool> chainedWildColList = new List<bool>;
+    public long spinScatterPay = 0;
+}
+
+public class GDDFreeSpinOptionData
+{
+    public int index = 0;
+    public int countIndex = 0;
+    public int count = 0;
+    public int row = 0;
+    public int rowIndex = 0;
+}
+
+
+// GDD Scatter1 FreeGame Bonus
+public class BonusResult19000
+{
+    public int type = 0;
+    public long betCredit = 0;
+    public List<GDDFreeSpinOptionData> selectOptionList = new List<GDDFreeSpinOptionData>();
+}
+
+// GDD Scatter2 FreeGame Bonus
+public class BonusResult19001
+{
+    public int type = 0;
+    public long betCredit = 0;
+    public List<GDDFreeSpinOptionData> selectOptionList = new List<GDDFreeSpinOptionData>();
+}
+
+// ZJBTicketedFreeSpinBonus
+public class BonusResult19050
+{
+    public int type = 0;
+    public long betCredit = 0;
+    public List<GDDFreeSpinOptionData> selectOptionList = new List<GDDFreeSpinOptionData>();
+}
+// GDD Retrigger Bonus
+public class BonusResult19002
+{
+    public int addedSpinCount = 0;
+}
+// GDD JackpotPick Bonus
+public class BonusResult19003
+{
+    public bool isJackpot = false;
+    public int jackpotIndex = 0;
+    public long jackpotAwardAmount = 0;
+    public List<int> pickList = new List<int>();
+    public List<int> unpickList = new List<int>();
+    public List<int> ineligibleList = new List<int>();
+}
+
+// GDD RemoveSymbol
+public class BonusResult19004
+{
+    public List<int> removeSymbolList;
+}
+
+}

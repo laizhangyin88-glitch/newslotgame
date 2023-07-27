@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Gold Reel Popup_5X_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4904.0,"y":-5067.0},"nodes":[{"_actionList":{"actions":[{"isForceUpdate":{"_value":true},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"bonusId":{"_value":4604},"response":{"_name":"response"},"$type":"BagelCode.Tasks.Actions.Contents.GetBonusResponse"},{"valueA":{"_value":"./betCredit"},"saveAs":{"_name":"unitCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"response/earnCredit"},"saveAs":{"_name":"targetCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"elementName":{"_value":"Coin"},"saveAs":{"_name":"_coinText"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"eventName":{"_value":"SkipJackpotWin"},"ignoreReset":{},"$type":"SlotMaker.Tasks.Actions.SetContextClickable"}]},"_position":{"x":5190.0,"y":5063.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"creditText":{"_name":"_coinText"},"targetCredit":{"_name":"targetCredit","_targetVariableID":"c76c81fe-41e4-4ab1-93ba-3f28ed9e4164"},"$type":"BagelCode.Tasks.Actions.SetContentCount"},{"waitTime":{"_value":4.0},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":5707.0,"y":5220.0},"_name":"Skip","$type":"NodeCanvas.StateMachines.ActionState","$id":"22"},{"_actionList":{"actions":[{"creditText":{"_name":"_coinText"},"targetCredit":{"_name":"targetCredit","_targetVariableID":"c76c81fe-41e4-4ab1-93ba-3f28ed9e4164"},"$type":"BagelCode.Tasks.Actions.SetContentCount"},{"parameter":{"_value":"Disappear"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"ClosedPopup"},"delay":{},"overrideAgent":{"_name":"caller","_targetVariableID":"59d030f7-44bd-44b4-a77d-922400ed5203"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":5908.0,"y":5418.0},"_name":"End","$type":"NodeCanvas.StateMachines.ActionState","$id":"30"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Remove_Symbol_Effect_Controller_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-436.0,"y":-106.0},"nodes":[{"_position":{"x":735.0,"y":278.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"2"},{"repeaterMode":"RepeatForever","repeatTimes":{"_value":1},"_position":{"x":723.0,"y":390.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"3"},{"_condition":{"eventName":{"_value":"RemoveSymbol"},"saveEventValue":{"_name":"_row"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":677.0,"y":462.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"5"},{"_position":{"x":730.0,"y":576.0},"$type":"NodeCanvas.BehaviourTrees.Selector","$id":"9"},{"_condition":{"valueA":{"_name":"_row"},"valueB":{"_value":3},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":608.0,"y":676.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"10"},{"_action":{"actions":[{"setTo":"Activate","overrideAgent":{"_name":"Effect
+    3x5","_targetVariableID":"5c9cd471-4049-422b-b0ac-bf5ed740bac2"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"},{"waitTime":{"_value":1.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"setTo":"Deactivate","overrideAgent":{"_name":"Effect
+    3x5","_targetVariableID":"5c9cd471-4049-422b-b0ac-bf5ed740bac2"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":543.0,"y":779.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"14"},{"_condition":{"valueA":{"_name":"_row"},"valueB":{"_value":4},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":721.0,"y":682.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"23"},{"_action":{"actions":[{"setTo":"Activate","overrideAgent":{"_name":"Effect
+    4x5","_targetVariableID":"0ba52caa-9517-42ac-9505-8f8c61ad56ce"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"},{"waitTime":{"_value":1.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"setTo":"Deactivate","overrideAgent":{"_name":"Effect
+    4x5","_targetVariableID":"0ba52caa-9517-42ac-9505-8f8c61ad56ce"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":720.0,"y":774.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"27"},{"_condition":{"valueA":{"_name":"_row"},"valueB":{"_value":5},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":836.0,"y":678.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"36"},{"_action":{"actions":[{"setTo":"Activate","overrideAgent":{"_name":"Effect
+    5x5","_targetVariableID":"7a1497ce-f2ce-43bb-b08c-f957abfa3814"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"},{"waitTime":{"_value":1.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"setTo":"Deactivate","overrideAgent":{"_name":"Effect
+    5x5","_targetVariableID":"7a1497ce-f2ce-43bb-b08c-f957abfa3814"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":882.0,"y":780.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"40"},{"_condition":{"valueA":{"_name":"_row"},"valueB":{"_value":6},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":952.0,"y":675.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"49"},{"_action":{"actions":[{"setTo":"Activate","overrideAgent":{"_name":"Effect
+    6x5","_targetVariableID":"1ec7331c-533f-4047-a880-d1a6157b2bdb"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"},{"waitTime":{"_value":1.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"setTo":"Deactivate","overrideAgent":{"_name":"Effect
+    6x5","_targetVariableID":"1ec7331c-533f-4047-a880-d1a6157b2bdb"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":1039.0,"y":778.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"53"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"49"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"27"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"36"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"49"},"_targetNode":{"$ref":"53"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

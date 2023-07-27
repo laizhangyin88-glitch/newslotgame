@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_JackpotSpin_Win_Reel_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-4589.0,"y":-5299.0},"nodes":[{"_position":{"x":5053.0,"y":5373.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"valueA":{"_value":"./hasFullStack"},"setTo":"False","$type":"SlotMaker.Tasks.Actions.SetBoolean"},"_position":{"x":4635.0,"y":5512.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"targetList":{"_type":"System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]","_name":"_prevWedgeList"},"current":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_prevWedgeValue"},"storeIndex":{"_name":"_currIndex"},"maxIteration":{"_value":-1},"_position":{"x":4930.0,"y":5517.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"6"},{"_position":{"x":4967.0,"y":5631.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"11"},{"_action":{"actions":[{"targetList":{"_name":"_wedgeList"},"index":{"_name":"_currIndex"},"saveAs":{"_name":"_currWedgeValue"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"_valueDiff"},"valueB":{"_name":"_currWedgeValue"},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"valueA":{"_value":"_valueDiff"},"Operation":"Subtract","valueB":{"_name":"_prevWedgeValue"},"$type":"SlotMaker.Tasks.Actions.SetInt32"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4689.0,"y":5732.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"12"},{"_condition":{"valueA":{"_value":"_valueDiff"},"valueB":{"_value":1},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":5157.0,"y":5744.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"25"},{"_action":{"actions":[{"slotIndex":{"_value":1},"index":{"_name":"_currIndex"},"saveAs":{"_name":"_jackpotReel"},"$type":"BagelCode.Tasks.Actions.Contents.GetReel"},{"parameter":{"_value":"HighLight"},"parameterHashID":{},"overrideAgent":{"_name":"_jackpotReel"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"valueA":{"_value":"./hasFullStack"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5113.0,"y":5868.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"29"},{"_condition":{"valueA":{"_value":"./hasFullStack"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_position":{"x":5309.0,"y":5526.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"42"},{"_action":{"id":{"_value":"Jackpot
+    Game Point Up"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},"_position":{"x":5355.0,"y":5655.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"46"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"42"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"25"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"25"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"42"},"_targetNode":{"$ref":"46"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Jackpot Main Logic_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4463.0,"y":-4871.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"bonusId":{"_value":4600},"response":{"_name":"_bonus"},"$type":"BagelCode.Tasks.Actions.Contents.GetBonusResponse"}]},"_position":{"x":4788.0,"y":4935.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":5174.0,"y":5056.0},"_name":"Show
+    Unselected Jackpot Button","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"8"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"OpenJackpotPopup"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentEvent"}]},"_position":{"x":5415.0,"y":5180.0},"_name":"End","$type":"NodeCanvas.StateMachines.ActionState","$id":"10"}],"connections":[{"_condition":{"eventName":{"_value":"FinishedJackpotSelection"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: e722b6423abe04c4797d4362eee44a2b, type: 2}
+  _deserializationFailed: 0

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Check SpinAgain Free_Pearl Cover_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-3646.0,"y":-5367.0},"nodes":[{"_nodeColor":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":4167.664,"y":5687.484},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"slotMachine":{"_name":"_slotMachine"},"cell":{"_value":{"column":1,"row":2}},"saveAs":{"_name":"_superSymbol"},"$type":"SlotMaker.Tasks.Actions.Contents.GetSymbol"},{"valueA":{"_value":"coin"},"saveAs":{"_name":"_superCoin"},"overrideAgent":{"_name":"_superSymbol"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[UnityEngine.GameObject,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"jackpot"},"saveAs":{"_name":"_superJackpot"},"overrideAgent":{"_name":"_superSymbol"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[UnityEngine.GameObject,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":3919.57,"y":5781.908},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"overrideAgent":{"_name":"_superCoin"},"$type":"NodeCanvas.Tasks.Conditions.IsActive"},"_nodeColor":{"r":0.7019608,"g":1.0,"b":0.4980392,"a":1.0},"_position":{"x":4268.187,"y":5797.349},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"19"},{"_action":{"actions":[{"elementName":{"_value":"Coin"},"searchingType":"SelfContext","saveAs":{"_name":"_superCoinContext"},"overrideAgent":{"_name":"_superCoin"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"saveAs":{"_name":"_superCoinText"},"overrideAgent":{"_name":"_superCoinContext"},"$type":"SlotMaker.Tasks.Actions.GetContextText"},{"eventName":{"_value":"SymbolCoverWithCoin"},"eventValue":{"_name":"_superCoinText"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentEvent`1[[System.String,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"waitTime":{"_value":0.1},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":3880.141,"y":5920.047},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"22"},{"_action":{"actions":[{"saveAs":{"_name":"_superJackpotSR"},"overrideAgent":{"_name":"_superJackpot"},"$type":"NodeCanvas.Tasks.Actions.GetComponent`1[[UnityEngine.SpriteRenderer,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"method":{"_returnInfo":"UnityEngine.Sprite","_baseInfo":"UnityEngine.SpriteRenderer|get_sprite","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Sprite","_name":"_superJackpotSprite"},"overrideAgent":{"_name":"_superJackpotSR"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"},{"eventName":{"_value":"SymbolCoverWithJackpot"},"eventValue":{"_name":"_superJackpotSprite"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentEvent`1[[UnityEngine.Sprite,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"waitTime":{"_value":0.1},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4247.478,"y":5922.288},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"38"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

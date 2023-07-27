@@ -1,0 +1,101 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Gop
+{
+    public class BonusInfo92
+    {
+        public List<long> scatterPay = new List<long>();
+        public GOPPiggyWheelInfo piggyWheel;
+        public GOPCoinPickInfo coinPick;
+    }
+
+    public class CustomData92
+    {
+        public List<int> subSymbolSpotList;
+    }
+
+    public class GOPPiggyWheelInfo
+    {
+        public GOPPiggyWheelItemInfo wheelItems;
+        public List<int> wheelCoinPrizePay;
+    }
+
+    public class GOPPiggyWheelItemInfo
+    {
+        public List<int> list;
+        public List<int> value;
+    }
+
+    public class GOPCoinPickInfo
+    {
+	public List<int> prizeList;
+	public List<long> jackpotValueList;
+        public List<int> jackpotRequirements;
+    }
+
+    // GOPJackpot
+    public class BonusResult9200
+    {
+    	public bool isJackpot;
+    	public int jackpotIndex;
+    	public long jackpotAwardAmount;
+    }
+
+    // GOPFreeSpinBonus
+    public class BonusResult9201
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // GOPFreeSpinRetriggerBonus
+    public class BonusResult9202
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // GOPRandomWildBonus
+    public class BonusResult9203
+    {
+        public int addedWildCount = 0;
+        public List<int> addedWildSpotList = new List<int>();
+    }
+
+    // GOPPiggyWheelBonus
+    public class BonusResult9204
+    {
+       public int wheelAwardIndex;
+       public int wheelAwardType;
+       public long wheelAwardValue;
+    }
+
+    // GOPCoinPickBonus
+    public class BonusResult9205
+    {
+       public List<int> pickSequence;
+       public List<long> pickedPrizes;
+       public long pickedPrizeSum;
+       public List<int> pickedJackpotValues;
+       public int pickedJackpotValueSum;
+    }
+
+    // GOPCoinPrizeBonus
+    public class BonusResult9206
+    {
+       public long bet;
+       public long coinPrizeMultiplier;
+       public long totalEarnCredit;
+    }
+
+    // GOPTicketedFreeSpinBonus
+    public class BonusResult9250
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+}
