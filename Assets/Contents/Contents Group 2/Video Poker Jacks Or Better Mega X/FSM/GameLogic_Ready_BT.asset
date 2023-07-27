@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Ready_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-4500.0,"y":-4715.0},"zoomFactor":0.9712918,"nodes":[{"_position":{"x":5463.0,"y":5017.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"eventName":{"_value":"Ready"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentEvent"},"_position":{"x":5323.0,"y":5128.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"repeaterMode":"RepeatForever","repeatTimes":{"_value":1},"_position":{"x":5546.0,"y":5111.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"7"},{"_condition":{"eventName":{"_value":"NextHandsGroup"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_position":{"x":5523.0,"y":5188.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"9"},{"_action":{"actions":[{"valueA":{"_name":"handsGroupIndex","_targetVariableID":"18f421b9-64a8-4afc-aa70-60a64e76bd67"},"Operation":"Add","valueB":{"_value":1},"list":{"_value":[],"_name":"handsCountList","_targetVariableID":"a37b0d28-ad53-45a3-b4a4-24d0a3264497"},"repeat":true,"$type":"SlotMaker.Tasks.Actions.SetListIndex`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"videoPoker":{"_name":"videoPoker","_targetVariableID":"34783ee8-3799-4449-bb33-7bfe3df393de"},"handsGroup":{"_name":"handsGroupIndex","_targetVariableID":"18f421b9-64a8-4afc-aa70-60a64e76bd67"},"$type":"SlotMaker.Cards.Tasks.Actions.VideoPoker_SetHandsGroup"},{"targetList":{"_name":"handsCountList","_targetVariableID":"a37b0d28-ad53-45a3-b4a4-24d0a3264497"},"index":{"_name":"handsGroupIndex","_targetVariableID":"18f421b9-64a8-4afc-aa70-60a64e76bd67"},"saveAs":{"_name":"handsCount","_targetVariableID":"9a2f8eb7-e87c-4cbd-b0ec-85b37051532b"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"UpdateHandsGroup"},"eventValue":{"_name":"handsCount","_targetVariableID":"9a2f8eb7-e87c-4cbd-b0ec-85b37051532b"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentEvent`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5443.0,"y":5268.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"12"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

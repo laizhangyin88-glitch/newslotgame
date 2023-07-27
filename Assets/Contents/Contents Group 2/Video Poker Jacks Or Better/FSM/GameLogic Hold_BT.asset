@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic Hold_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-4957.0,"y":-5340.0},"nodes":[{"_position":{"x":5732.0,"y":5254.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"Holding"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentEvent"},{"targetList":{"_name":"winList","_targetVariableID":"97baa728-29f7-4856-b999-2690ced620f8"},"saveAs":{"_name":"_winCount"},"$type":"NodeCanvas.Tasks.Actions.GetListCount"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5590.0,"y":5410.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_position":{"x":5817.0,"y":5400.0},"$type":"NodeCanvas.BehaviourTrees.Optional","$id":"12"},{"_condition":{"valueA":{"_name":"_winCount"},"checkType":"GreaterThan","valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":5813.0,"y":5463.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"13"},{"_action":{"actions":[{"targetList":{"_name":"winList","_targetVariableID":"97baa728-29f7-4856-b999-2690ced620f8"},"index":{},"saveAs":{"_name":"_win"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[SlotMaker.Cards.PokerWin,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"win":{"_value":{},"_name":"_win"},"decks":{"_name":"decks","_targetVariableID":"4c1a147e-f3ee-4fd1-ae73-c386f7b67e6d"},"saveAs":{"_name":"helds","_targetVariableID":"2db5237b-e774-4ada-be45-c81490d13781"},"$type":"SlotMaker.Cards.Tasks.Actions.VideoPoker_GetHits"},{"videoPoker":{"_name":"videoPoker","_targetVariableID":"34783ee8-3799-4449-bb33-7bfe3df393de"},"handsCount":{"_value":1,"_name":"handsCount","_targetVariableID":"9a2f8eb7-e87c-4cbd-b0ec-85b37051532b"},"helds":{"_value":[],"_name":"helds","_targetVariableID":"2db5237b-e774-4ada-be45-c81490d13781"},"$type":"SlotMaker.Cards.Tasks.Actions.VideoPoker_Holds"},{"id":{"_value":"Held"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5781.0,"y":5548.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"17"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

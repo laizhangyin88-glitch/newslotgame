@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_WheelSpotDeactive_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":236.9982,"y":-109.0017},"zoomFactor":0.5025719,"nodes":[{"_condition":{"valueA":{"_value":"_wheelSymbolList"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckNull"},"_position":{"x":511.0,"y":472.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"2"},{"_position":{"x":564.0,"y":585.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"5"},{"targetList":{"_type":"System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]","_name":"_wheelSymbolList"},"current":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_wheelSymbolIndex"},"storeIndex":{"_name":""},"maxIteration":{"_value":-1},"_position":{"x":533.0,"y":678.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"6"},{"_action":{"actions":[{"valueA":{"_value":"_wheelSymbolIndex"},"Operation":"Subtract","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"mediator":{"_name":"KenoMediator"},"eventName":{"_value":"DeactivateSpecialSpot"},"index":{"_name":"_wheelSymbolIndex"},"$type":"SlotMaker.Keno.Tasks.Actions.Keno_SendSpotEventByIndex"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":461.0,"y":807.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"11"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

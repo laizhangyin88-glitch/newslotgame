@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Idle_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":2056.0,"y":-1998.0},"nodes":[{"_position":{"x":-879.0,"y":1789.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_condition":{"conditions":[{"valueA":{"_value":"./autoSpin"},"valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},{"valueA":{"_name":"winCount","_targetVariableID":"a1614ca0-d2fd-4b24-83c7-c9a40b3f2821"},"checkType":"GreaterThan","valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":-913.0,"y":1878.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"3"},{"repeaterMode":"RepeatForever","repeatTimes":{"_value":1},"_position":{"x":-1000.0,"y":2063.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"12"},{"targetList":{"_type":"System.Collections.Generic.List`1[[SlotMaker.Keno.KenoWin,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"winList","_targetVariableID":"50e5b243-0c41-4ab6-9a54-528d1010ef84"},"current":{"_type":"SlotMaker.Keno.KenoWin","_name":"_win"},"storeIndex":{"_name":"_winIndex"},"maxIteration":{"_value":-1},"_position":{"x":-1023.0,"y":2155.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"14"},{"_action":{"actions":[{"mediator":{"_name":"KenoMediator","_targetVariableID":"c2201e6f-c2cc-4b7c-8b4a-ea66d4a0d4f7"},"$type":"SlotMaker.Keno.Tasks.Actions.Keno_SkipWin"},{"mediator":{"_name":"KenoMediator","_targetVariableID":"c2201e6f-c2cc-4b7c-8b4a-ea66d4a0d4f7"},"kenoWin":{"_value":{"spots":[]},"_name":"_win"},"$type":"SlotMaker.Keno.Tasks.Actions.Keno_Win"},{"eventName":{"_value":"SingleWin"},"eventValue":{"_name":"_win"},"delay":{},"sendGlobal":true,"slotIndex":{},"$type":"BagelCode.Tasks.Actions.SendWinEvent`1[[SlotMaker.Keno.KenoWin,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"waitTime":{"_value":2.0},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":-1073.0,"y":2272.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"19"},{"_action":{"status":"Success","$type":"NodeCanvas.Tasks.Actions.RaiseStatus"},"_position":{"x":-806.0,"y":2061.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"36"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0
