@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>%UNITY_WEB_NAME%</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <script src="config.js"></script>
+    <script>
+        var ORIG_GAME_CONTAINER_WIDTH = Number("%UNITY_WIDTH%");
+        var ORIG_GAME_CONTAINER_HEIGHT = Number("%UNITY_HEIGHT%");
+    </script>
+    <script src="TemplateData/BiEvent.js"></script>
+    <script>requestPageLoadBIEvent();</script>
+    <script src="TemplateData/Bookmark.js"></script>
+    <script src="TemplateData/UnityProgress.js"></script>
+    <script src="%UNITY_WEBGL_LOADER_URL%"></script>
+    <script>
+        function CheckCompatibility(gameInstance, onsuccess, onerror) {
+			if (!UnityLoader.SystemInfo.hasWebGL) {
+                document.getElementById("webgl-support-error").style.visibility = "visible";
+				onerror();
+			} else if (UnityLoader.SystemInfo.mobile) {
+                document.getElementById("mobile-support-error").style.visibility = "visible";
+				onerror();
+			} else if (["Firefox", "Chrome", "Safari"].indexOf(UnityLoader.SystemInfo.browser) == -1) {
+                document.getElementById("browser-support-error").style.visibility = "visible";
+				onerror();
+			} else if (navigator.userAgent.indexOf('Edge') != -1) {
+                // CheckCompatibility detect Edge as Chrome (maybe Unity bug)
+                document.getElementById("browser-support-error").style.visibility = "visible";
+				onerror();
+            } else {
+				onsuccess();
+			}
+        }
+        var gameInstance = null;
+        var instantiateGame = function () {
+            gameInstance = UnityLoader.instantiate("gameContainer", "%UNITY_WEBGL_BUILD_URL%", {
+                onProgress: UnityProgress,
+                compatibilityCheck: CheckCompatibility,
+                Module: {
+                    CachedXMLHttpRequestLoader: true,
+                    CachedXMLHttpRequestBlacklist: [/\.xml/, /\.php/, 'xhr_nocache'],
+                    CachedXMLHttpRequestRevalidateBlacklist: [/\.unity3d/],
+                    CachedXMLHttpRequestSilent: true,
+                    onRuntimeInitialized: function() {
+                        wipeOutLoadingScene(gameInstance);
+                    },
+                },
+                popup: function(message, callbacks) {
+                    if (!callbacks || !callbacks.length) {
+                        return;
+                    } else if (callbacks.length > 1) {
+                        return UnityLoader.Error.popup(this, message, callbacks);
+                    } else if (callbacks[0].callback) {
+                        callbacks[0].callback();
+                    }
+                },
+            });
+        };
+        var SUPPORT_PAGE_URL = "https://help.bagelcode.com/clubvegas";
+        function openSupportPage() {
+            var win = window.open(SUPPORT_PAGE_URL, '_blank');
+            win.focus();
+        }
+    </script>
+    <script src="TemplateData/FacebookSDK.js"></script>
+</head>
+
+<body>
+    <div class="webgl-content">
+        <div class="header">
+            <div class="circle-glow-effect"></div>
+            <div class="bookmark">
+                <a id="bookmark-link" onclick="addBookmark(); requestBookmarkButtonClickBIEvent();">Bookmark</a>
+            </div>
+            <div class="shortcut-download">
+                <a id="shortcut-download-link" href="data:text/html;base64,PCFET0NUWVBFIEhUTUw+CjxodG1sIGxhbmc9ImVuLVVTIj4KICAgIDxoZWFkPgogICAgICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04Ij4KICAgICAgICA8bWV0YSBodHRwLWVxdWl2PSJyZWZyZXNoIiBjb250ZW50PSIwOyB1cmw9aHR0cHM6Ly9hcHBzLmZhY2Vib29rLmNvbS9jbHVidmVnYXM/ZmJfc291cmNlPWRlc2t0b3Bfc2hvcnRjdXQiPgogICAgICAgIDxsaW5rIHJlbD0iaWNvbiIgaHJlZj0iaHR0cDovL3d3dy5iYWdlbGNvZGUuY29tL2Zhdmljb24uaWNvIj4KICAgICAgICA8c2NyaXB0IHR5cGU9InRleHQvamF2YXNjcmlwdCI+CiAgICAgICAgICAgIHdpbmRvdy5sb2NhdGlvbi5ocmVmID0gImh0dHBzOi8vYXBwcy5mYWNlYm9vay5jb20vY2x1YnZlZ2FzP2ZiX3NvdXJjZT1kZXNrdG9wX3Nob3J0Y3V0IjsKICAgICAgICA8L3NjcmlwdD4KICAgICAgICA8dGl0bGU+UGFnZSBSZWRpcmVjdGlvbjwvdGl0bGU+CiAgICA8L2hlYWQ+CiAgICA8Ym9keT4KICAgICAgICBJZiB5b3UgYXJlIG5vdCByZWRpcmVjdGVkIGF1dG9tYXRpY2FsbHksIGZvbGxvdyB0aGlzIDxhIGhyZWY9J2h0dHBzOi8vYXBwcy5mYWNlYm9vay5jb20vY2x1YnZlZ2FzP2ZiX3NvdXJjZT1kZXNrdG9wX3Nob3J0Y3V0Jz5saW5rIHRvIENsdWIgVmVnYXM8L2E+LgogICAgPC9ib2R5Pgo8L2h0bWw+Cg==" download="Club Vegas - Real Vegas Slots.html">Desktop Icon</a>
+            </div>
+            <iframe class="fb-like-frame" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FClubVegasSlots&amp;layout=button&amp;action=like&amp;size=large&amp;show_faces=false&amp;share=false&amp;height=35&amp;colorscheme=dark&amp;appId=1881581215396162" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+            <div class="game-logo" align="center"></div>
+            <div class="store-links">
+                <div class="store-links-title">AVAILABLE ON</div>
+                <div class="store-links-box">
+                    <a href="https://clubvegas.page.link/fb-canvas-microsoft-store-link" onclick="requestFbAppIconClickBIEvent('windows');" target="_blank">
+                        <div class="microsoft-store-link"></div>
+                    </a>
+                    <a href="https://clubvegas.page.link/fb-canvas-apple-store-link" onclick="requestFbAppIconClickBIEvent('ios');" target="_blank">
+                        <div class="apple-store-link"></div>
+                    </a>
+                    <a href="https://clubvegas.page.link/fb-canvas-google-store-link" onclick="requestFbAppIconClickBIEvent('android');" target="_blank">
+                        <div class="google-store-link"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="gameContainer" style="width: %UNITY_WIDTH%px; height: %UNITY_HEIGHT%px"></div>
+        <div id="loading-screen">
+            <div id="overlay" class="overlay"></div>
+            <div id="qa-wrapper">
+                <div class="question"></div>
+                <div class="answers">
+                    <div class="answer-wrapper">
+                        <div class="answer"></div>
+                    </div>
+                    <div class="answer-wrapper">
+                        <div class="answer"></div>
+                    </div>
+                    <div class="answer-wrapper">
+                        <div class="answer"></div>
+                    </div>
+                    <div class="answer-wrapper">
+                        <div class="answer"></div>
+                    </div>
+                </div>
+                <div class="answer-instruction"></div>
+            </div>
+            <div class="counter">
+                <p id="loadingInfo">Loading...</p>
+                <div id="ProgressLine"> </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
+            <div class="license">© <year></year> Bagelcode, Inc. All intellectual property rights reserved.</div>
+            <script>
+                var thisYear = (new Date()).getFullYear();
+                var licenseElement = document.querySelector('year');
+                licenseElement.innerHTML = thisYear;
+            </script>
+            <div class="related-links">
+                <a href="https://www.facebook.com/ClubVegasSlots/?fref=ts" target="_blank">Fan Page</a> |
+                <a href="https://cdn.bagelgames.com/policy.html" target="_blank">Privacy Policy</a> |
+                <a href="https://cdn.bagelgames.com/terms.html" target="_blank">Terms and Conditions</a> |
+                <a style="cursor: pointer;" onClick="openSupportPage()">Support</a>
+            </div>
+        </div>
+        <script src="TemplateData/RandomQuiz.js"></script>
+    </div>
+    <div class="error-banners">
+        <div id="webgl-support-error" onclick="this.style.visibility = 'hidden';">
+            <p>WebGL is not supported on your device.</p>
+            <p>Click this banner to close</p>
+        </div>
+        <div id="mobile-support-error" onclick="this.style.visibility = 'hidden';">
+            <p>Please note that Unity WebGL is not currently supported on mobiles.</p>
+            <p>Click this banner to close</p>
+        </div>
+        <div id="browser-support-error" onclick="this.style.visibility = 'hidden';">
+            <p>Your browser may not be compatible with this website.</p>
+            <p>For an optimal experience, we suggest you to download one of these popular web browsers.</p>
+            <br/>
+            <a href="https://www.google.com/chrome" target="_blank"><img src="TemplateData/browser-chrome.png" alt="Chrome browser"></a>
+            <a href="https://www.mozilla.org/firefox" target="_blank"><img src="TemplateData/browser-firefox.png" alt="Firefox browser"></a>
+            <p>Click this banner to close</p>
+        </div>
+    </div>
+</body>
+
+</html>
