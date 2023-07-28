@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Respin Bonus_Set Spin_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-4919.0,"y":-4956.0},"nodes":[{"_position":{"x":5626.0,"y":5272.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"minValue":{},"maxValue":{"_value":49},"count":{"_value":15},"exceptionList":{"_value":[]},"saveAs":{"_name":"_respinReelOutputList"},"$type":"NodeCanvas.Tasks.Actions.SetListRandom"},{"valueA":{"_value":"_respinResponse/respinSpotResultTable"},"index":{"_name":"_spinIndex"},"saveAs":{"_name":"_respinDeckResult"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList1`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4919.0,"y":5433.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_position":{"x":5467.0,"y":5429.0},"$type":"NodeCanvas.BehaviourTrees.Optional","$id":"17"},{"targetList":{"_type":"System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]","_name":"_respinDeckResult"},"current":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_currSymbolIndex"},"storeIndex":{"_name":"_spotReelIndex"},"maxIteration":{"_value":-1},"_position":{"x":5408.0,"y":5482.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"18"},{"_action":{"actions":[{"valueA":{"_value":"_respinReelOutputList"},"index":{"_name":"_spotReelIndex"},"fromLast":{},"saveAs":{"_name":"_spotReelOutputIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"_replaceList","_targetVariableID":"d8f15cd8-d03a-408c-b89f-704d89f5a46c"},"index":{},"newValue":{"_name":"_currSymbolIndex"},"$type":"NodeCanvas.Tasks.Actions.SetListElement`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"slotIndex":{},"reelStripObject":{},"reelIndex":{"_name":"_spotReelIndex"},"beginIndex":{"_name":"_spotReelOutputIndex"},"replaceList":{"_value":[],"_name":"_replaceList","_targetVariableID":"d8f15cd8-d03a-408c-b89f-704d89f5a46c"},"$type":"BagelCode.Tasks.Actions.Contents.ReplaceReelStrip"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5229.0,"y":5585.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"23"},{"_action":{"valueA":{"_value":"_respinResponse/respinHitCountList"},"index":{"_name":"_spinIndex"},"fromLast":{},"saveAs":{"_name":"_addedMiniSlotCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":5683.0,"y":5430.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"42"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"42"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

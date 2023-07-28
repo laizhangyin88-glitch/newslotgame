@@ -1,0 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Mrs
+{
+    public class BonusInfo210
+    {
+        public List<List<long>> anyMixedPaytable = new List<List<long>>();
+    }
+    
+    public class CustomData210
+    {
+        public List<bool> stopEffectList = new List<bool>();
+    }
+
+    // Jackpot
+    public class BonusResult21000
+    {
+        public bool isJackpot;
+        public int jackpotIndex;
+        public long jackpotAwardAmount;
+    }
+
+    // Wild Respin
+    public class BonusResult21001
+    {
+        public List<int> reelOutputListForClient = new List<int>();
+    }
+
+    // Respin 
+    public class BonusResult21002
+    {
+        public int startWild;
+        public List<RespinResult> respinResultList = new List<RespinResult>();
+    }
+
+    public class RespinResult
+    {
+        public List<int> reelOutputList = List<int>();
+        public List<List<int>> finalOutputList = List<List<int>>();
+        public BonusResult21000 jackpotBonus;
+        public BonusResult21001 wildRespinBonus;
+    }
+}

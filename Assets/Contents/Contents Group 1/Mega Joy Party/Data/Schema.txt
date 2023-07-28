@@ -1,0 +1,113 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Mjp
+{
+    // from value file
+    public class BonusInfo179
+    {
+        public int megaEligibleLevel = 0;
+        public int majorEligibleLevel = 0;
+        public List<int> betScaleRange; // betScaleRange
+        public List<int> jackpotThresholdLevels;
+    }
+
+    // from extraData on spinResult
+    public class CustomData179
+    {
+    }
+
+    // FreeSpinBonus
+    public class BonusResult17900
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // FreeSpinRetriggerBonus
+    public class BonusResult17901
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // Jackpot
+    public class BonusResult17902
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+        public bool onSlotJp;
+    }
+
+    // RAPID_BONUS
+    public class BonusResult17903
+    {
+        public List<SymbolReward> symbolRewardList;
+    }
+
+    public class SymbolReward 
+    {
+        public bool isJackpot;
+        public int reelIndex;
+        public JackpotReward jackpotReward;
+        public int coinValue;
+        public bool isAvailable;
+    }
+
+    public class JackpotReward 
+    {
+        public int jackpotIndex;
+        public int rewardValue;
+    }
+
+    // BONUS_GAME
+    public class BonusResult17904
+    {
+        public BonusGameResult bonusGameResult;
+    }
+
+    public class BonusGameResult 
+    {
+        public long earnCredit;
+        public bool isJackpot;
+        public List<GameStep> stepSequence;
+        public List<ICell> gameField;
+    }
+
+    public class GameStep 
+    {
+        public int currentIndex;
+        public int targetIndex;
+        public int targetFieldType;
+        public int direction;
+        public bool canMakeMove;
+        public long coinValue;
+    }
+
+    // FieldType: Center = 0, Inner = 1, Outer = 2, EndGame = 3.
+    public class ICell
+    {
+        public int index;
+        public int fieldType;
+        public ICellReward reward;
+        public bool isFixed;
+    }
+
+    public class ICellReward
+    {
+        public bool isJackpot;
+        public int jackpotIndex;
+        public int coinValue;
+    }
+
+    // TicketedFreeSpinBonus
+    public class BonusResult17950
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+}

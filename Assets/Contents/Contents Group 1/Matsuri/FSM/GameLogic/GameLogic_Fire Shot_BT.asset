@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Fire Shot_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5073.0,"y":-4729.0},"zoomFactor":0.9999863,"nodes":[{"_nodeColor":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":5871.081,"y":4959.068},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"elementName":{"_value":"Firework
+    Intro Effect"},"setTo":"Activate","$type":"SlotMaker.Tasks.Actions.SimpleSetContextActive"},"_position":{"x":5436.075,"y":5069.069},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"repeatTimes":{"_value":1,"_name":"fireShotCount"},"_position":{"x":5747.0,"y":5088.896},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"6"},{"_action":{"actions":[{"id":{"_value":"Launching
+    Of Wilds"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"targetList":{"_value":["Left
+    01","Left 02","Left 03","Right 01","Right 02","Right 03"]},"saveAs":{"_name":"positionName"},"$type":"NodeCanvas.Tasks.Actions.PickRandomListElement`1[[System.String,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_value":["Fire
+    Shot 01","Fire Shot 02","Fire Shot 03"]},"saveAs":{"_name":"fireShotName"},"$type":"NodeCanvas.Tasks.Actions.PickRandomListElement`1[[System.String,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"elementName":{"_name":"positionName"},"saveAs":{"_name":"position"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"saveAs":{"_name":"positionTransform"},"overrideAgent":{"_name":"position"},"$type":"NodeCanvas.Tasks.Actions.GetComponent`1[[UnityEngine.Transform,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"assetName":{"_value":"Fire
+    Shot 01","_name":"fireShotName"},"parent":{"_name":"positionTransform"},"parentName":{"_value":""},"uniqueName":{"_value":"Fire
+    Shot"},"saveAs":{"_name":"fireShot"},"$type":"SlotMaker.Tasks.Actions.LoadContentPrefab"},{"setTo":"Deactivate","overrideAgent":{"_name":"fireShot"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"setTo":"Activate","overrideAgent":{"_name":"fireShot"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"saveAs":{"_name":"fireShotTransform"},"_isDisabled":true,"overrideAgent":{"_name":"fireShot"},"$type":"NodeCanvas.Tasks.Actions.GetComponent`1[[UnityEngine.Transform,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"isForceUpdate":{"_value":true},"_isDisabled":true,"overrideAgent":{"_name":"fireShot"},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{"_value":"Destination"},"saveAs":{"_name":"destination"},"_isDisabled":true,"overrideAgent":{"_name":"fireShot"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"saveAs":{"_name":"destinationTransform"},"_isDisabled":true,"overrideAgent":{"_name":"destination"},"$type":"NodeCanvas.Tasks.Actions.GetComponent`1[[UnityEngine.Transform,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"waitTime":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5666.991,"y":5191.999},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"8"},{"_action":{"actions":[{"elementName":{"_value":"Firework
+    Intro Effect"},"setTo":"Deactivate","$type":"SlotMaker.Tasks.Actions.SimpleSetContextActive"},{"eventName":{"_value":"OnFinishedFireShot"},"delay":{"_value":1.0},"sendGlobal":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":6019.083,"y":5066.069},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"52"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"52"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

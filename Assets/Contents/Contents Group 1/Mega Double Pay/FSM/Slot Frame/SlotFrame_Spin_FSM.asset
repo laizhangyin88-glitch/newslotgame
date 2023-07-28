@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: SlotFrame_Spin_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5379.0,"y":-5116.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Spin"},"parameterHashID":{},"setTo":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5425.0,"y":5285.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Spin"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"valueA":{"_value":"backAnimList"},"index":{},"fromLast":{},"saveAs":{"_name":"_backAnim"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[UnityEngine.Animator,
+    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"parameter":{"_value":"On"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"_backAnim"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"valueA":{"_value":"backAnimList"},"index":{"_value":1},"fromLast":{},"saveAs":{"_name":"_backAnim"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[UnityEngine.Animator,
+    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"parameter":{"_value":"On"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"_backAnim","_targetVariableID":"2c37a33e-0f3a-4903-92e5-0dd03513ce42"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"valueA":{"_value":"backAnimList"},"index":{"_value":2},"fromLast":{},"saveAs":{"_name":"_backAnim"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[UnityEngine.Animator,
+    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"parameter":{"_value":"On"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"_backAnim","_targetVariableID":"e16fc4c5-489b-4d9c-8140-6a136c223bea"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5777.0,"y":5428.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"9"}],"connections":[{"_condition":{"eventName":{"_value":"SpinSlotMachine"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckSlotEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"StoppedSlotMachine"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckSlotEvent"},"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

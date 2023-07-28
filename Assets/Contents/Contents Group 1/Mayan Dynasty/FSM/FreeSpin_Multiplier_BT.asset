@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: FreeSpin_Multiplier_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","name":"Multipler","translation":{"x":-4986.0,"y":-5049.0},"nodes":[{"_condition":{"conditions":[{"valueA":{"_value":"./bonus"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckNull"},{"valueA":{"_value":"./bonus/bonusId"},"valueB":{"_value":1101},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},{"valueA":{"_value":"./bonus/multiplier"},"checkType":"GreaterThan","valueB":{"_name":"_initialMultiplier"},"$type":"SlotMaker.Tasks.Condition.CheckInt64"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":5453.0,"y":5258.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_action":{"actions":[{"elementName":{"_value":"Text
+    Multiplier"},"searchingType":"FullNameSearch","key":{"_value":"ATC_FREE_SPIN_MULTIPLIER"},"tableType":"Content","arg1":{"_value":"./bonus/multiplier"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"setTo":"Activate","overrideAgent":{"_name":"animator","_targetVariableID":"4cf2529e-e06b-4445-921a-43af64a97cc8"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"id":{"_value":"Multiplier"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"waitTime":{"_value":1.5},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5334.0,"y":5427.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"13"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

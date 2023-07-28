@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: SlotMachine_Spin_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-4748.894,"y":-4765.894},"nodes":[{"_position":{"x":5419.0,"y":5048.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"movementType":{"_name":"movementType","_targetVariableID":"b76cfe40-55dc-46c3-a805-21771bb919b8"},"$type":"SlotMaker.Tasks.Actions.UpdateMovementType"},"_position":{"x":4968.0,"y":5156.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"actions":[{"valueA":{"_value":"./customData/orderedSpinReels"},"saveAs":{"_name":"_orderedSpinReels"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"_index"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"targetList":{"_name":"_orderedSpinReels"},"saveAs":{"_name":"_orderSpinReelCount"},"$type":"NodeCanvas.Tasks.Actions.GetListCount"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5129.0,"y":5150.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"repeatTimes":{"_value":1,"_name":"_orderSpinReelCount"},"repeatUntilStatus":"Failure","_position":{"x":5513.0,"y":5139.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"18"},{"_position":{"x":5548.0,"y":5219.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"20"},{"_action":{"actions":[{"valueA":{"_value":"_orderedSpinReels"},"index":{"_name":"_index"},"fromLast":{},"saveAs":{"_name":"_reelIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"reelIndex":{"_name":"_reelIndex"},"$type":"SlotMaker.Tasks.Actions.SpinReel"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5365.0,"y":5294.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"21"},{"_action":{"valueA":{"_name":"_index"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5660.0,"y":5302.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"31"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

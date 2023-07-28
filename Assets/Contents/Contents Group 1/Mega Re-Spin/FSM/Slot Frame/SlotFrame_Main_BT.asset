@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: SlotFrame_Main_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5322.0,"y":-5025.0},"nodes":[{"_position":{"x":5685.0,"y":5128.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"2"},{"repeaterMode":"RepeatForever","repeatTimes":{"_value":1},"_position":{"x":5523.0,"y":5214.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"3"},{"_condition":{"eventName":{"_value":"SLOTFRAME_FIRE_ENABLE"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_position":{"x":5485.0,"y":5285.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"5"},{"_action":{"parameter":{"_value":"Respin"},"parameterHashID":{},"setTo":{"_value":true},"overrideAgent":{"_name":"animator","_targetVariableID":"fbecf328-1807-4385-89d3-274352bb9b02"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},"_position":{"x":5489.0,"y":5382.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"8"},{"repeaterMode":"RepeatForever","repeatTimes":{"_value":1},"_position":{"x":5776.0,"y":5243.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"14"},{"_condition":{"eventName":{"_value":"SLOTFRAME_FIRE_DISABLE"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_position":{"x":5738.0,"y":5314.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"16"},{"_action":{"parameter":{"_value":"Respin"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"animator","_targetVariableID":"fbecf328-1807-4385-89d3-274352bb9b02"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},"_position":{"x":5763.0,"y":5387.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"19"},{"_subTree":{"_value":1},"_position":{"x":5898.0,"y":5691.0},"$type":"NodeCanvas.BehaviourTrees.SubTree"},{"_nestedFSM":{"_value":2},"_position":{"x":5759.0,"y":5689.0},"$type":"NodeCanvas.BehaviourTrees.NestedFSM"},{"_nestedFSM":{"_value":3},"_position":{"x":5622.0,"y":5689.0},"$type":"NodeCanvas.BehaviourTrees.NestedFSM"},{"_nestedFSM":{"_value":4},"_position":{"x":5441.0,"y":5691.0},"$type":"NodeCanvas.BehaviourTrees.NestedFSM"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: d61bebfd2eed64ec484b8b7e1fb8e78c, type: 2}
+  - {fileID: 11400000, guid: e534e3d6b72b44d4694381366a4d3b3e, type: 2}
+  - {fileID: 11400000, guid: 491ecd7a70e2e4a12aa05dbdabe673a6, type: 2}
+  - {fileID: 11400000, guid: 35b764949fae54852a1ff89023c4da78, type: 2}
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

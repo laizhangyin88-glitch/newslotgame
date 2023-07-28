@@ -1,0 +1,120 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Mdg
+{
+    public class MGBCell
+    {
+        public int row = 0;
+        public int column = 0;
+    }
+
+    public class MGBScatter
+    {
+        public MGBCell cell;
+        public int valueIndex = 0;
+        public long valueEarnCredit = 0;
+    }
+
+    public class MGBBingoCell
+    {
+        public int bingoNumber = 0;
+        public int index = 0;
+        public long bingoValue = 0;
+        public bool isMultiplier; 
+    }
+
+    public class MGBBingoTurnInfo
+    {
+        public int bingoIndex = 0;
+        public int giftboxIndex = 0;
+        public bool isGiftboxOpened;
+    }
+
+    public class MGBBingoLine
+    {
+        public List<int> indexList;
+        public List<int> valueIndexList;
+        public List<int> multiplierIndexList;
+        public long earnCredit;
+    }
+
+    public class MGBGiftBox
+    {
+        public int pivotRow = 0;
+        public int pivotCol = 0;
+        public int width = 0;
+        public int height = 0;
+        public int boxType = 0;
+
+        public int pivotIndex = 0;
+        public int count = 0;
+        public int turn = 0;
+        public long earnCredit = 0;
+    }
+
+    public class BonusInfo151
+    {
+    }
+
+    public class CustomData151
+    {
+    }
+
+    // MGB Drop Scatter Values
+    public class BonusResult15100
+    {
+        public List<MGBScatter> scatterList;
+    }
+
+    // MGB Choose Bonus Game
+    public class BonusResult15101
+    {
+        public int bonusIndex = 0;
+        
+        public List<MGBScatter> scatterList;
+        public long scatterEarnCredit = 0;
+    }
+
+    // MGB Free Spin
+    public class BonusResult15102
+    {
+        public int addedSpinCount = 0;
+    }
+
+    // MGB Free Spin Wild Pay
+    public class BonusResult15103
+    {
+        public List<MGBCell> wildList;
+        public long wildPayMultiplier = 0;
+    }
+
+    // MGB Bingo
+    public class BonusResult15104
+    {
+        public int bingoTurnCount = 0;
+
+        public List<MGBBingoCell> bingoCellList;
+        public List<MGBBingoLine> bingoLineList;
+        public List<List<int>> bingoLineEffectList;
+
+        public List<MGBGiftBox> giftboxList;
+
+        public List<MGBBingoTurnInfo> bingoTurnInfoList;
+
+        public long bingoEarnCredit;
+        public long giftboxEarnCredit;
+    }
+
+    // MDG Ticketed Bonus (Choose Bonus Game)
+    public class BonusResult15150
+    {
+        public long totalBet = 0;
+        public long baseBet = 0;
+        public long betPerLine = 0;
+
+        public int bonusIndex = 0;
+        public int freeSpinCount = 0;
+        public long scatterEarnCredit = 0;
+    }
+}

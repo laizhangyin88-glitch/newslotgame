@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: InGame_UpdateJackpotCredit_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4336.0,"y":-4966.0},"nodes":[{"_actionList":{"actions":[]},"_position":{"x":5220.0,"y":5205.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"jackpotIndex":{"_name":"jackpotIndex","_targetVariableID":"7296a373-95fd-4619-919e-389a2b986c9a"},"jackpotList":{"_value":"./jackpotList"},"prev":{"_name":"prev","_targetVariableID":"91668747-c1a3-4de9-a067-e6371d9e93a8"},"current":{"_name":"current","_targetVariableID":"310b82b9-25cb-4924-81aa-bf35a7365f55"},"deltaMs":{"_name":"deltaMs","_targetVariableID":"35890957-d908-4dab-b765-4c998977b93e"},"min":{"_name":"min","_targetVariableID":"73293dca-88d3-4ccc-8b69-7010d0a84dda"},"max":{"_name":"max","_targetVariableID":"ccae6883-24fa-43e5-afbd-c55a34652733"},"alarm":{"_name":"alarm","_targetVariableID":"1d71ddfc-4575-4f97-bf43-bc493972c810"},"endTime":{"_name":"endTime","_targetVariableID":"a4cdeb65-f708-4533-a139-c114e2ea3141"},"$type":"BagelCode.Tasks.Actions.Contents.UpdateJackpotCreditInfo"}]},"_position":{"x":4890.0,"y":5341.0},"_name":"Update
+    Jackpot Credit","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"5"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"creditText":{"_name":"creditText","_targetVariableID":"f72d6697-eb91-438f-8ec3-272e0c734160"},"jackpotMultiplier":{"_name":"_jackpotMultiplier"},"prev":{"_name":"prev","_targetVariableID":"91668747-c1a3-4de9-a067-e6371d9e93a8"},"current":{"_name":"current","_targetVariableID":"310b82b9-25cb-4924-81aa-bf35a7365f55"},"endTime":{"_name":"endTime","_targetVariableID":"a4cdeb65-f708-4533-a139-c114e2ea3141"},"isBetChanged":{"_name":"_isBetChanged"},"key":{"_value":"JACKPOT_CREDIT"},"tableType":"Content","$type":"BagelCode.Tasks.Actions.UpdateJackpotCredit"}]},"_position":{"x":5084.0,"y":5429.0},"_name":"Update
+    Credit","$type":"NodeCanvas.StateMachines.ActionState","$id":"18"},{"_actionList":{"actions":[{"baseBet":{"_name":"_baseBet"},"bet":{"_name":"_betCredit"},"multiplier":{"_name":"_jackpotMultiplier"},"$type":"BagelCode.Tasks.Actions.Contents.GetIngameJackpotMultiplier"},{"valueA":{"_value":"_isBetChanged"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"}]},"_position":{"x":5295.0,"y":5490.0},"$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"29"}],"connections":[{"_condition":{"valueA":{"_value":"./initializedContent"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.AutoUpdateCheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"UpdateJackpotInfo"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent"},"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"UpdateBetCredit"},"saveEventValue":{"_name":"_betCredit","_targetVariableID":"89838f3b-2226-4ab7-8b40-b23372729850"},"$type":"BagelCode.Task.Condition.CheckCreditEvent`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

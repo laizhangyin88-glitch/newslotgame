@@ -1,0 +1,91 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Mtk
+{
+    public class BonusInfo147
+    {
+        public int megaEligibleLevel = 0;
+        public int majorEligibleLevel = 0;
+        public List<int> betScaleRange; // betScaleRange
+        public List<int> jackpotThresholdLevels;
+    }
+    
+    public class CustomData147
+    {
+        public int prizeExpectationType = 0;
+    }
+
+    // MTKFreeSpinBonus
+    public class BonusResult14700
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+    
+    // MTKFreeSpinRetriggerBonus
+    public class BonusResult14701
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // MTKJackpot
+    public class BonusResult14702
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // MTKRespin
+    public class BonusResult14703
+    {
+        public List<RespinStep> respinStepList;
+        public SortedInitialSymbolIndexes initialSymbolIndexes;
+        public int jackpotIndex;
+        public int respinReelIndex;
+        public int spinCount;
+        public int initialJackpotIndex;
+        public List<long> topPanelIconsEarnInfo;
+    }
+
+    public class SortedInitialSymbolIndexes
+    {
+        public List<int> base;
+        public List<int> respins;
+    }
+
+    public class RespinStep
+    {
+        public List<int> reelOutputList;
+        public List<int> symbolValueIndexesList;
+        public List<bool> lockedSymbolsList;
+        public int jackpotIndex;
+    }
+    
+    // MTKWildCopy
+    public class BonusResult14704
+    {
+        public List<WildCopyInfo> wildCopyList;
+        public List<int> fullWildReels;
+    }
+    
+    public class WildCopyInfo
+    {
+        public int row;
+        public int sourceColumn;
+        public int destinationColumn;
+        public int copyToDirection;
+    }
+
+    // MTKFreeSpinTicketBonus
+    public class BonusResult14750  
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+}

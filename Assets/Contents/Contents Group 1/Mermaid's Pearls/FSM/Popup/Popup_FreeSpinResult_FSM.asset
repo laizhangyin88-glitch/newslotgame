@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_FreeSpinResult_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5116.0,"y":-4904.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"Free
+    Game Result Popup"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":5574.0,"y":5142.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"element":{"_name":"spinCountText","_targetVariableID":"731542ac-6ad2-469f-bdfa-b90ded23fdbf"},"arg0":{"_value":"./bonus/totalSpinCount"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"valueA":{"_value":"./bonus/singleCredit"},"saveAs":{"_name":"_scatterPay"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./bonus/earnCredit"},"saveAs":{"_name":"_totalPay"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"_spinPay"},"valueB":{"_name":"_totalPay"},"_isDisabled":true,"$type":"NodeCanvas.Tasks.Actions.SetLong"},{"valueA":{"_name":"_spinPay"},"Operation":"Subtract","valueB":{"_name":"_scatterPay"},"_isDisabled":true,"$type":"NodeCanvas.Tasks.Actions.SetLong"},{"element":{"_name":"scatterEarnCreditText","_targetVariableID":"80964404-38bc-467e-a665-a49708cb2f3a"},"key":{"_value":"FREE_SPIN_SIMPLE_CREDIT"},"tableType":"Content","arg1":{"_value":"_scatterPay"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"element":{"_name":"spinEarnCreditText","_targetVariableID":"f404052b-cd24-4eec-8de0-5b234e6ab48c"},"key":{"_value":"FREE_SPIN_SIMPLE_CREDIT"},"tableType":"Content","arg1":{"_value":"_spinPay"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"element":{"_name":"totalEarnCreditText","_targetVariableID":"6bfb0b7c-27c8-4100-ae71-07f5a1f8951c"},"key":{"_value":"FREE_SPIN_RESULT_CREDIT"},"tableType":"Content","arg1":{"_value":"_totalPay"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"}]},"_position":{"x":5601.0,"y":5274.0},"_name":"SetCredit","$type":"NodeCanvas.StateMachines.ActionState","$id":"7"},{"_actionList":{"actions":[{"id":{"_value":"Button"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"parameter":{"_value":"Disappear"},"parameterHashID":{},"overrideAgent":{"_name":"animator","_targetVariableID":"2fee1a40-f269-4a6d-b86e-95a7315cf85a"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"ClosedPopup"},"delay":{},"overrideAgent":{"_name":"caller","_targetVariableID":"bffa8b30-c065-45f3-89d4-814c2b316721"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"$type":"SlotMaker.Task.Actions.ClosePopup"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":6233.0,"y":5433.0},"_name":"Finalize","$type":"NodeCanvas.StateMachines.ActionState","$id":"37"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnButtonClicked"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"37"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

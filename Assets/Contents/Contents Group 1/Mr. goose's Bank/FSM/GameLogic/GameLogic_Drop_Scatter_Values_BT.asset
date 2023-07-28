@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Drop_Scatter_Values_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-3514.0,"y":-3390.0},"zoomFactor":0.7367759,"nodes":[{"_condition":{"bonusId":{"_value":15100},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_position":{"x":5064.0,"y":5035.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_color":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":5092.0,"y":5159.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"5"},{"_action":{"actions":[{"bonusId":{"_value":15100},"$type":"BagelCode.Tasks.Actions.Contents.BeginBonus"},{"valueA":{"_value":"./spin/response/result/reelOutputList"},"saveAs":{"_name":"_reelOutputList"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./bonus/response/scatterList"},"saveAs":{"_name":"_scatterList"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"targetList":{"_name":"scatterCellList","_targetVariableID":"d01b8552-fe8a-4b18-aae3-a4c72bf1ec0e"},"_isDisabled":true,"$type":"NodeCanvas.Tasks.Actions.ClearList"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4771.0,"y":5308.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"targetList":{"_type":"System.Collections.Generic.List`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"_scatterList"},"current":{"_type":"NodeCanvas.Framework.Blackboard","_name":"_scatter"},"storeIndex":{"_name":"_index"},"maxIteration":{"_value":-1},"_position":{"x":5161.0,"y":5306.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"19"},{"_action":{"actions":[{"valueA":{"_value":"cell"},"saveAs":{"_name":"_scatterCellObject"},"_isDisabled":true,"overrideAgent":{"_name":"_scatter"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"cell"},"saveAs":{"_name":"_scatterCellBlackboard"},"overrideAgent":{"_name":"_scatter"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"column"},"saveAs":{"_name":"_columnIndex"},"overrideAgent":{"_name":"_scatterCellBlackboard"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"row"},"saveAs":{"_name":"_rowIndex"},"overrideAgent":{"_name":"_scatterCellBlackboard"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"valueIndex"},"saveAs":{"_name":"_valueIndex"},"overrideAgent":{"_name":"_scatter"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_reelOutputList"},"index":{"_name":"_columnIndex"},"fromLast":{},"saveAs":{"_name":"_beginIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_beginIndex"},"Operation":"Add","valueB":{"_name":"_rowIndex"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"reelStripsObject":{},"slotIndex":{},"reelIndex":{"_name":"_columnIndex"},"beginIndex":{"_name":"_beginIndex"},"replaceList":{"_value":[9],"_targetVariableID":"f6b85f2a-22b5-4145-9f3d-3ad1cada76b6"},"customDataKey":{"_value":"index"},"customDataValue":{"_name":"_valueIndex"},"clearCustomData":{},"$type":"BagelCode.Tasks.Actions.Contents.ReplaceReelStripWithCustomData`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"column":{"_name":"_columnIndex"},"row":{"_name":"_rowIndex"},"saveAs":{"_value":{},"_name":"_scatterCell"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.Contents.SetColumnRowToCell"},{"targetList":{"_name":"scatterCellList","_targetVariableID":"d01b8552-fe8a-4b18-aae3-a4c72bf1ec0e"},"targetElement":{"_name":"_scatterCell"},"_isDisabled":true,"$type":"NodeCanvas.Tasks.Actions.AddElementToList`1[[SlotMaker.Cell,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5109.0,"y":5451.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"24"},{"_action":{"$type":"BagelCode.Tasks.Actions.Contents.EndBonus"},"_position":{"x":5333.0,"y":5304.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"73"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"73"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0
