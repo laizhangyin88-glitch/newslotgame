@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Update_sticky_wilds
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":2863.0,"y":-687.0},"nodes":[{"_position":{"x":-1876.0,"y":785.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"targetList":{"_name":"_cells"},"saveAs":{"_name":"_cellCount"},"$type":"NodeCanvas.Tasks.Actions.GetListCount"},"_position":{"x":-2028.0,"y":958.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_value":"_cellCount"},"checkType":"GreaterThan","valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":-1769.0,"y":871.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"7"},{"targetList":{"_type":"System.Collections.Generic.List`1[[SlotMaker.Cell,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"_cells"},"current":{"_type":"SlotMaker.Cell","_name":"_wildCell"},"storeIndex":{"_name":"_cellIndex"},"maxIteration":{"_value":-1},"_position":{"x":-1779.0,"y":964.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"11"},{"_action":{"actions":[{"slotMachine":{"_name":"_slotMachine"},"cell":{"_name":"_wildCell"},"$type":"SlotMaker.Tasks.Actions.ApplySlotSymbol"},{"cell":{"_name":"_wildCell"},"column":{"_name":"_colIndex","_targetVariableID":"914fa332-c76c-4712-b792-51dec47b7a9d"},"row":{"_name":"_rowIndex","_targetVariableID":"a443ee3f-2b31-43f5-b2d6-358080b0aef7"},"$type":"BagelCode.Tasks.Actions.Contents.SetCellToColumnRow"},{"valueA":{"_value":"_reelOutputList"},"index":{"_name":"_colIndex","_targetVariableID":"914fa332-c76c-4712-b792-51dec47b7a9d"},"fromLast":{},"saveAs":{"_name":"_beginIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"_beginIndex"},"Operation":"Add","valueB":{"_name":"_rowIndex","_targetVariableID":"a443ee3f-2b31-43f5-b2d6-358080b0aef7"},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"targetList":{"_name":"_wildTypes"},"index":{"_name":"_cellIndex"},"saveAs":{"_name":"_wildType"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"_replaceList"},"index":{},"newValue":{"_name":"_wildType"},"$type":"NodeCanvas.Tasks.Actions.SetListElement`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"slotIndex":{},"reelStripObject":{},"reelIndex":{"_name":"_colIndex","_targetVariableID":"914fa332-c76c-4712-b792-51dec47b7a9d"},"beginIndex":{"_value":10,"_name":"_beginIndex"},"replaceList":{"_value":[0],"_name":"_replaceList"},"$type":"BagelCode.Tasks.Actions.Contents.ReplaceReelStrip"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":-1832.0,"y":1083.0},"_comment":"Change
+    symbol on reel","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"16"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

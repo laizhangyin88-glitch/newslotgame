@@ -1,0 +1,174 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Vls
+{
+    public class BonusInfo118
+    {
+        public VLSMapBonusInfo boardBonusInfo;
+    }
+    
+    public class VLSMapBonusInfo
+    {
+        public List<int> spots;
+    }
+
+    public class CustomData118
+    {
+        public Dictionary<int,int> nowMysterySymbols;
+        public Dictionary<int,int> nextMysterySymbols;
+        public Dictionary<long,List<int>> questTypes;
+        public Dictionary<long,List<int>> questSymbols;
+        public Dictionary<long,List<int>> questSymbolsRequired;
+        public Dictionary<long,List<int>> questProgressCounts;
+        public Dictionary<long,List<int>> completedQuestTypes;
+        public Dictionary<long,List<int>> freeGameMultipliers;
+        public Dictionary<long,List<int>> freeGameRemainingCounts;
+        
+        public Dictionary<long,QuestsPerBet> activeQuests; 
+        public Dictionary<long,QuestsPerBet> completedQuests; 
+        public Dictionary<long,FreeGamesPerBet> remainingFreeGames; 
+        public Dictionary<long,int> bonusGamePlayerPositions; 
+    }
+    
+    public class QuestsPerBet 
+    {
+     public List<Quest> questList;
+    }
+    
+    public class FreeGamesPerBet 
+    {
+      public List<FreeGameInfo> freeGameList;
+    }
+    
+    public class FreeGameInfo 
+    {
+      public int multiplier = 0;
+      public int remainingCount = 0; 
+    }
+
+    public class Quest
+    {
+        public int quest = 0;
+        public int symbol = 0;
+        public int symbolReqd = 0;
+        public int progressCount = 0;
+    }
+
+    public class QuestsPerBet
+    {
+        public List<Quest> questList;
+    }
+
+    public class FreeGamesPerBet
+    {
+        public List<FreeGameInfo> freeGameList;
+    }
+
+    public class FreeGameInfo 
+    {
+        public int multiplier = 0;
+        public int remainingCount = 0;
+    }
+
+    // Freespins red
+    public class BonusResult11800
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // Freespins green
+    public class BonusResult11801
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // Freespins blue
+    public class BonusResult11802
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // Freespins Random wilds
+    public class BonusResult11803
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // Freespins wild reels
+    public class BonusResult11804
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // Freespins no low symbols
+    public class BonusResult11805
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // BoardBonusGame
+    public class BonusResult11806
+    {
+        public List<BonusStep> stepList;
+        public int playerPosition;
+        public List<FreeGameInfo> prevFreeGameList;
+    }
+
+    // Jackpot
+    public class BonusResult11807
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // Freespins Wild Reels Mechanic
+    public class BonusResult11808
+    {
+        public List<int> wildReels;
+        public List<ReplacedSymbol> replacedSymbolList;
+    }
+
+    public class ReplacedSymbol
+    {
+        public int reelIndex;
+        public int startIndex;
+        public List<int> symbolValueList;
+    }
+
+    // Freespins Random Wilds Mechanic
+    public class BonusResult11809
+    {
+        public List<int> wildPositions;   
+    }
+
+    // VLSFreeSpinTicketBonus
+    public class BonusResult11850  
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    public class BonusStep
+    {
+        public int wheelIndex;
+        public bool isJackpot;
+        public int stepCount;
+        public int spotValue;
+        public int spotTargetIndex;
+    }
+} 

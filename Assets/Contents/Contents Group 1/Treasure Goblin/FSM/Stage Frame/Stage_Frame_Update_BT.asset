@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Stage_Frame_Update_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5066.0,"y":-4787.0},"nodes":[{"_position":{"x":5339.0,"y":5145.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_condition":{"valueA":{"_value":"./game/levelPerTotalBet"},"valueB":{"_value":"./totalBetCredit"},"$type":"SlotMaker.Tasks.Condition.SimpleCheckDictionaryLongKey"},"_position":{"x":5121.0,"y":5278.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"3"},{"_action":{"valueA":{"_value":"./game/levelPerTotalBet"},"key":{"_name":"_totalBetCredit"},"saveAs":{"_name":"curLevel","_targetVariableID":"83150a4b-e50d-47f8-a1b7-840de781a373"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryLongKey`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":4958.0,"y":5472.0},"_comment":"Level1:
+    1 / Level2: 2 / Level3: 3","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"_action":{"valueA":{"_name":"curLevel","_targetVariableID":"83150a4b-e50d-47f8-a1b7-840de781a373"},"valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5352.0,"y":5468.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"12"},{"_subTree":{"_value":1},"_position":{"x":5455.0,"y":5282.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"16"},{"_action":{"eventName":{"_value":"ForcedLevelUpdate"},"eventValue":{"_name":"curLevel","_targetVariableID":"83150a4b-e50d-47f8-a1b7-840de781a373"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":5656.0,"y":5283.0},"_comment":"Send
+    Event to Main Transition","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"18"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"canvasGroups":[],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: d46174cbac6e94e789cbd3475e53a598, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

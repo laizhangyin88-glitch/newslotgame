@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: FreeSpin Wheel_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.9,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5750.0,"y":-5082.0},"nodes":[{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":5685.0,"y":5355.0},"_name":"Initialize
+    Wheels","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5955.0,"y":5505.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"4"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":6180.0,"y":5325.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"7"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":6420.0,"y":5475.0},"_name":"Spin
+    Wheels","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"10"},{"_actionList":{"actions":[{"waitTime":{"_value":1.0,"_name":"wheelSpinOutroDelay","_targetVariableID":"46c23fda-3ff1-4f7a-8e78-db4cd139962d"},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"OnEndFreeSpinWheel"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"}]},"_position":{"x":6165.0,"y":5670.0},"_name":"End
+    Wheel Bonus","$type":"NodeCanvas.StateMachines.ActionState","$id":"12"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnEndFreeWheelIntro"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"SpinWheel"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: beb4d802e3d4d4bb68df9173cff70b02, type: 2}
+  - {fileID: 11400000, guid: 43f8811ecc472420dbe21a8d1f426ca0, type: 2}
+  _deserializationFailed: 0

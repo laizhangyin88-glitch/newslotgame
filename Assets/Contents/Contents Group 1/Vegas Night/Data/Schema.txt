@@ -1,0 +1,46 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Vgn
+{
+    public class BonusInfo43
+    {
+        public List<int> roundMaxMultiplier = new List<int>();
+    }
+
+    public class CustomData43
+    {
+        public long roomCommunityTicketCount = 0;
+        public long roomCommunityTicketMaxCount = 0;
+        public long myCommunityTicketCount = 0;
+        public List<Dictionary<int,int>> nextMysterySet = new List<Dictionary<int,int>>();
+        public int selectedCharacter = 0;
+    }
+
+    // VGNCommunityGameBonus
+    public class BonusResult4300
+    {
+        public bool isTriggeredByMe = false;
+        public string triggerUserProfileUrl = "";
+        public string triggerUserName = "";
+        public int triggerUserTier = 0;
+        public List<List<int>> multiplierSetList = new List<List<int>>();
+        public List<int> closingDoorCountList = new List<int>();
+        public List<List<int>> randomRoomIndexTable = new List<List<int>>();
+        public List<VGNCommunityGameUserGameResult> userGameResultList = new List<VGNCommunityGameUserGameResult>();
+    }
+
+    public class VGNCommunityGameUserGameResult
+    {
+        public long placeMultiplier = 0;
+        public long friendMultiplier = 0;
+        public List<int> multiplierIndexList = new List<int>();
+        public long totalEarnCredit = 0;
+        public long betMultiplier = 0;
+        public string profileUrl = "";
+        public string userName = "";
+        public long bet = 0;
+        public int tier = 0;
+        public bool isBot = false;
+    }
+}

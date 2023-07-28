@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Change MegaScatter_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","name":"Change
+    Mega Scatter","translation":{"x":-4451.0,"y":-3389.0},"nodes":[{"_condition":{"valueA":{"_value":"./bonus/spinCount"},"valueB":{},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":5091.0,"y":3288.0},"_comment":"For
+    the first free spin","$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_nodeColor":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":5117.0,"y":3389.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"6"},{"_action":{"actions":[{"column":{"_name":"_column"},"row":{"_name":"_row"},"symbolMask":"Scatter2","saveAs":{"_value":{"cells":[]},"_name":"_megaScatterWin"},"$type":"BagelCode.Tasks.Actions.Contents.FindScatterSymbol"},{"symbolWin":{"_value":{"cells":[]},"_name":"_megaScatterWin"},"saveAs":{"_value":[],"_name":"_megaScatterCells"},"$type":"BagelCode.Tasks.Actions.Contents.GetSymbolCellList"},{"boolVariable":{"_name":"_isAddedH1"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4828.865,"y":3498.874},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"_condition":{"targetList":{"_name":"_megaScatterCells"},"_invert":true,"$type":"NodeCanvas.Tasks.Conditions.ListIsEmpty"},"_position":{"x":5220.0,"y":3507.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"24"},{"_action":{"actions":[{"eventName":{"_value":"SkipWin"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendWinEvent"},{"eventName":{"_value":"ShowSlotCover"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"symbolWin":{"_value":{"cells":[]},"_name":"_megaScatterWin"},"animationName":{"_value":"Change"},"overrideAgent":{"_name":"_slotMachine"},"$type":"BagelCode.Tasks.Actions.Contents.PlaySymbolAnimations"},{"id":{"_value":"Scatter
+    Win"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"boolVariable":{"_name":"_isAddedH1"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"waitTime":{"_value":3.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"HideSlotCover"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5216.0,"y":3599.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"27"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"27"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

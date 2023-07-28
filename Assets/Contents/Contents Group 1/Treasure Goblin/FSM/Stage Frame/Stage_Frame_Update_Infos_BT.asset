@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Stage_Frame_Update_Infos_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5187.0,"y":-4836.0},"nodes":[{"_position":{"x":5339.0,"y":5145.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"./customData/curLevel"},"valueB":{"_name":"curLevel","_targetVariableID":"83150a4b-e50d-47f8-a1b7-840de781a373"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_nextIndex"},"valueB":{"_name":"curLevel","_targetVariableID":"83150a4b-e50d-47f8-a1b7-840de781a373"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_nextIndex"},"Operation":"Subtract","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"./game/reelSetIndex/nextIndex"},"valueB":{"_name":"_nextIndex"},"$type":"SlotMaker.Tasks.Actions.SetInt32"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5072.0,"y":5254.0},"_comment":"Send
+    Event to Main Transition","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_color":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":5476.0,"y":5321.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"18"},{"_condition":{"valueA":{"_value":"./game/subSymbolCountPerTotalBet"},"valueB":{"_value":"./totalBetCredit"},"$type":"SlotMaker.Tasks.Condition.SimpleCheckDictionaryLongKey"},"_position":{"x":5111.0,"y":5423.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"19"},{"_action":{"valueA":{"_value":"./game/subSymbolCountPerTotalBet"},"key":{"_name":"_totalBetCredit"},"saveAs":{"_name":"curSubSymbolCount","_targetVariableID":"9fa002cc-8ee4-4a31-afef-376f2650e075"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryLongKey`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":4874.0,"y":5554.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"23"},{"_action":{"valueA":{"_name":"curSubSymbolCount","_targetVariableID":"9fa002cc-8ee4-4a31-afef-376f2650e075"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5375.0,"y":5553.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"28"},{"_action":{"element":{"_name":"Level3CountText","_targetVariableID":"ebcc234b-7299-424e-90e3-dc5caef61b4f"},"key":{"_value":"TRG_SUB_SYMBOL_COUNT_TEXT"},"tableType":"Content","arg1":{"_value":"curSubSymbolCount"},"arg2":{"_value":"_subSymbolMaxCount"},"$type":"SlotMaker.Tasks.Actions.SetContextText2"},"_position":{"x":5538.0,"y":5432.0},"_comment":"Send
+    Event to Main Transition","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"32"},{"_subTree":{"_value":1},"_position":{"x":5676.0,"y":5279.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"38"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"canvasGroups":[],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 15906f9e9badd4f41abe3245ca38100d, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

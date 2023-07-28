@@ -1,0 +1,77 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Trd
+{
+    public class BonusInfo13
+    {
+        public TRDScatterInfo freeSpin = null;
+    }
+
+    public class CustomData13
+    {
+        public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+    }
+
+    // TRDJackpot
+    public class BonusResult1300
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // TRDSecondChance
+    public class BonusResult1301
+    {
+        public int rewardIndex = 0;
+        public TRDRewardInfo reward = null;
+    }
+
+    // TRDFreeSpinBonus
+    public class BonusResult1302
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // TRDFreeSpinRetriggerBonus
+    public class BonusResult1303
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // TRDTicketedFreeSpinBonus
+    public class BonusResult1350
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // TRDTicketedMegaFreeSpinBonus
+    public class BonusResult1351
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    public class TRDScatterInfo
+    {
+        public List<int> count = new List<int>();
+        public List<int> retriggerCount = new List<int>();
+        public List<long> bonusScatterPay = new List<long>();
+        public List<int> addedH1SymbolCount = new List<int>();
+    }
+
+    public class TRDRewardInfo
+    {
+        public int credit = 0;
+        public int freeSpin = 0;
+    }
+}

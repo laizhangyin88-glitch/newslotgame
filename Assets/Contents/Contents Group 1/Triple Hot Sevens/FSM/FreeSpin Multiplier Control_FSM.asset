@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: FreeSpin Multiplier Control_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4787.0,"y":-4925.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"setTo":"Deactivate","overrideAgent":{"_name":"Flames","_targetVariableID":"bac0f9a9-20ef-40d6-862a-a599a2721c1a"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":5254.0,"y":5265.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"setTo":"Activate","overrideAgent":{"_name":"Flames","_targetVariableID":"bac0f9a9-20ef-40d6-862a-a599a2721c1a"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_position":{"x":5626.0,"y":5325.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"7"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Outro"},"parameterHashID":{},"overrideAgent":{"_name":"flamesAni","_targetVariableID":"7a95f2cd-a8d6-4533-8a54-04573bc7daa0"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":5409.0,"y":5407.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"12"}],"connections":[{"_condition":{"eventName":{"_value":"UpdateMultiplier"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SpinBonusOutro"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

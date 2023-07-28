@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Default_Entry_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4343.0,"y":-5130.0},"zoomFactor":0.9832378,"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"spriteRenderer":{"_name":"baseImage","_targetVariableID":"f60c63c5-5c3c-4b36-ba32-50c529b8effb"},"spriteId":{},"$type":"SlotMaker.Tasks.Actions.SymbolSetSprite"},{"spriteRenderer":{"_name":"baseImage","_targetVariableID":"f60c63c5-5c3c-4b36-ba32-50c529b8effb"},"sortingLayerId":-1422705371,"$type":"SlotMaker.Tasks.Actions.SymbolSetSortingOrder"},{"target":{"_name":"baseImage","_targetVariableID":"f7262ed8-fc32-4134-aaa0-719cfcb0b5c0"},"setTo":"Activate","$type":"SlotMaker.Tasks.Actions.SimpleSetActive"},{"target":{"_name":"base","_targetVariableID":"f7262ed8-fc32-4134-aaa0-719cfcb0b5c0"},"setTo":"Activate","$type":"SlotMaker.Tasks.Actions.SimpleSetActive"},{"setTo":"Deactivate","overrideAgent":{"_name":"subSymbolGO"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"},{"valueA":{"_value":"isOverlay"},"setTo":"False","$type":"SlotMaker.Tasks.Actions.SetBoolean"}]},"_position":{"x":4789.0,"y":5280.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"key":{"_value":"subSymbol"},"saveAs":{"_name":"_subSymbol"},"$type":"SlotMaker.Tasks.Actions.SymbolGetCustomData`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":4991.0,"y":5571.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"18"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"setTo":"Deactivate","overrideAgent":{"_name":"subSymbolGO"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"}]},"_position":{"x":4558.0,"y":5450.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"24"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"setTo":"Activate","overrideAgent":{"_name":"subSymbolGO"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"}]},"_position":{"x":5394.0,"y":5705.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"29"}],"connections":[{"_condition":{"key":{"_value":"subSymbol"},"$type":"SlotMaker.Tasks.Conditions.SymbolCheckCustomDataKey"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"key":{"_value":"subSymbol"},"_invert":true,"$type":"SlotMaker.Tasks.Conditions.SymbolCheckCustomDataKey"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"_subSymbol"},"checkType":"LessThan","valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"_subSymbol"},"checkType":"GreaterThan","valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

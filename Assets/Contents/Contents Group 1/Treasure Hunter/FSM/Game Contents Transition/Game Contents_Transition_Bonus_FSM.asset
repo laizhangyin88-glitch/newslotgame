@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Game Contents_Transition_Bonus_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.9,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5259.0,"y":-4722.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5550.0,"y":5130.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"parameter":{"_value":"Pick
+    Bonus"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5685.0,"y":5010.0},"_name":"Pick
+    Bonus Intro","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"5"},{"_actionList":{"actions":[{"parameter":{"_value":"Pick
+    Bonus"},"parameterHashID":{},"setTo":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5880.0,"y":4920.0},"_name":"Pick
+    Bonus Intro","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"12"},{"_actionList":{"actions":[{"parameter":{"_value":"Free
+    Games Wheel"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5175.0,"y":5265.0},"_name":"Free
+    Spin Wheel Intro","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"19"},{"_actionList":{"actions":[{"parameter":{"_value":"Free
+    Games Wheel"},"parameterHashID":{},"setTo":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"parameter":{"_value":"Free
+    Games Wheel State"},"parameterHashID":{},"setTo":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":4845.0,"y":5415.0},"_name":"Free
+    Spin Intro","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"26"},{"_actionList":{"actions":[{"parameter":{"_value":"Free
+    Games Wheel State"},"parameterHashID":{},"setTo":{"_name":"_freeWheelState"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":4965.0,"y":5340.0},"_name":"Free
+    Spin Wheel Next Step","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"37"},{"_actionList":{"actions":[{"parameter":{"_value":"Multi
+    Reel Outro"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":4665.0,"y":5505.0},"_name":"Free
+    Spin Outro","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"44"},{"_actionList":{"actions":[{"parameter":{"_value":"Wheel
+    Bonus"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5235.0,"y":5010.0},"_name":"Wheel
+    Bonus Intro","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"50"},{"_actionList":{"actions":[{"parameter":{"_value":"Wheel
+    Bonus"},"parameterHashID":{},"setTo":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":4995.0,"y":4875.0},"_name":"Wheel
+    Bonus Outro","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"57"},{"_actionList":{"actions":[{"parameter":{"_value":"Shaking"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5130.0,"y":4935.0},"_name":"Wheel
+    Bonus Spin","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"64"},{"_actionList":{"actions":[{"parameter":{"_value":"Cash
+    Prize"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5715.0,"y":5265.0},"_name":"Pick
+    Bonus Intro","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"70"}],"connections":[{"_condition":{"eventName":{"_value":"OnTriggerPickBonus"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnEndPickBonus"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnBeginFreeSpinWheel"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnEndFreeSpinWheel"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnStepFreeWheel"},"saveEventValue":{"_name":"_freeWheelState"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"37"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SpinBonusOutro"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"44"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnTriggerWheelBonus"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"50"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnEndWheelBonus"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"57"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnFinishSelection"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"64"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnBeginCashPrize"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"70"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"37"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"44"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"50"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"57"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"64"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"70"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Wheel Bonus_Set_Target_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-4984.0,"y":-5109.0},"nodes":[{"_position":{"x":5295.0,"y":5370.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"wheelPickList"},"index":{},"fromLast":{},"saveAs":{"_name":"_targetIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_arrowOffset"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_segCount"},"valueB":{"_value":14},"$type":"SlotMaker.Tasks.Actions.SetInt32"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4965.0,"y":5520.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_value":"hasLeftArrow"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_position":{"x":5175.0,"y":5520.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"17"},{"_action":{"valueA":{"_value":"_arrowOffset"},"valueB":{"_value":2},"$type":"SlotMaker.Tasks.Actions.SetInt32"},"_position":{"x":5175.0,"y":5610.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"21"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"_targetIndex"},"Operation":"Add","valueB":{"_name":"_arrowOffset"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_targetIndex"},"valueB":{"_name":"_segCount"},"$type":"SlotMaker.Tasks.Actions.SetIntModulo"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5340.0,"y":5520.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"25"},{"_condition":{"valueA":{"_value":"_targetIndex"},"checkType":"GreaterThan","valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":5550.0,"y":5520.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"34"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"_reverseIndex"},"valueB":{"_name":"_segCount"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_reverseIndex"},"Operation":"Subtract","valueB":{"_name":"_targetIndex"},"$type":"SlotMaker.Tasks.Actions.SetInt32"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5415.0,"y":5640.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"38"},{"_action":{"valueA":{"_value":"_reverseIndex"},"valueB":{"_name":"_targetIndex"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},"_position":{"x":5625.0,"y":5640.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"47"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"25"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"34"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"34"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"34"},"_targetNode":{"$ref":"47"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

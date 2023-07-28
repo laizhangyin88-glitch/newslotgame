@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_FreeSpinAddPopup_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4578.0,"y":-5130.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"Popup
+    Open"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":4817.0,"y":5230.0},"_name":"Start","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"valueA":{"_value":"./bonus/bonusId"},"saveAs":{"_name":"_bonusId"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"bonusId":{"_value":3000,"_name":"_bonusId"},"response":{"_name":"response","_targetVariableID":"260b7e43-cf83-4e2f-a1f4-174a2619e9c0"},"$type":"BagelCode.Tasks.Actions.Contents.GetBonusResponse"},{"valueA":{"_value":"addedSpinCount"},"saveAs":{"_name":"addedSpinCount","_targetVariableID":"a387d056-cf01-4650-a0ca-860c34fc5841"},"overrideAgent":{"_name":"response","_targetVariableID":"260b7e43-cf83-4e2f-a1f4-174a2619e9c0"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"format":{"_value":"+
+    {0}"},"argsList":[{"_name":"addedSpinCount","_targetVariableID":"471f51cd-f8d3-46df-8e2b-2135baa213ce"}],"saveAs":{"_value":"textString","_name":"_textString"},"$type":"SlotMaker.Tasks.Actions.GetStringFromCustomFormat"},{"element":{"_name":"textCount","_targetVariableID":"48efc765-0e0b-4c2d-8b1e-a971aff3b49f"},"arg0":{"_value":"addedSpinCount"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"element":{"_name":"textCount","_targetVariableID":"48efc765-0e0b-4c2d-8b1e-a971aff3b49f"},"arg0":{"_value":"_textString"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"valueA":{"_value":"./spin/parent/totalSpinCount"},"Operation":"Add","valueB":{"_name":"addedSpinCount","_targetVariableID":"a387d056-cf01-4650-a0ca-860c34fc5841"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"./spin/parent/totalSpinCount"},"saveAs":{"_name":"_totalSpinCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./spin/parent/spinCount"},"saveAs":{"_name":"_spinCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./bonus/totalSpinCount"},"valueB":{"_name":"_totalSpinCount"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"./bonus/spinCount"},"valueB":{"_name":"_spinCount"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"eventName":{"_value":"UpdateSpinCount"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"isAdd":{},"$type":"BagelCode.Tasks.Actions.BI.BI_freespin_trigger"},{"waitTime":{"_value":3.5},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":4924.0,"y":5444.0},"_name":"Set
+    Text","$type":"NodeCanvas.StateMachines.ActionState","$id":"7"},{"_actionList":{"actions":[{"eventName":{"_value":"ClosedPopup"},"delay":{},"overrideAgent":{"_name":"caller","_targetVariableID":"59d030f7-44bd-44b4-a77d-922400ed5203"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"id":{"_value":"Popup
+    Close"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"waitTime":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"$type":"SlotMaker.Task.Actions.ClosePopup"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":5532.0,"y":5647.0},"_name":"Finalize","$type":"NodeCanvas.StateMachines.ActionState","$id":"53"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"53"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

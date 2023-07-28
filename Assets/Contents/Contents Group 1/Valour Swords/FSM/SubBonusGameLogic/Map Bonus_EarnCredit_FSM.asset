@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Map Bonus_EarnCredit_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4884.0,"y":-4966.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./betCredit"},"saveAs":{"_name":"betCredit","_targetVariableID":"4528279d-7130-434a-a9b4-ceee2610ad50"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"credit","_targetVariableID":"694f69e1-784a-491c-b82a-730876d3349b"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetIntToLong"}]},"_position":{"x":5311.0,"y":5104.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"valueA":{"_name":"credit","_targetVariableID":"694f69e1-784a-491c-b82a-730876d3349b"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetIntToLong"},{"creditText":{"_name":"self","_targetVariableID":"d5bdda76-4950-4427-ac79-c2ca26466e8c"},"targetCredit":{"_name":"credit","_targetVariableID":"694f69e1-784a-491c-b82a-730876d3349b"},"$type":"BagelCode.Tasks.Actions.SetContentCount"}]},"_position":{"x":5585.0,"y":5237.0},"_name":"Set
+    Credit","$type":"NodeCanvas.StateMachines.ActionState","$id":"11"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"creditText":{"_name":"self","_targetVariableID":"d5bdda76-4950-4427-ac79-c2ca26466e8c"},"unitCount":{"_name":"betCredit","_targetVariableID":"4528279d-7130-434a-a9b4-ceee2610ad50"},"targetCount":{"_name":"credit","_targetVariableID":"694f69e1-784a-491c-b82a-730876d3349b"},"$type":"BagelCode.Tasks.Actions.UpdateContentCount"}]},"_position":{"x":5800.0,"y":5416.0},"_name":"Update
+    Content Credit","$type":"NodeCanvas.StateMachines.ActionState","$id":"20"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"UpdateMapEarnCredit"},"saveEventValue":{"_name":"credit","_targetVariableID":"694f69e1-784a-491c-b82a-730876d3349b"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent`1[[System.Int64,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SkipMapBonusCreditAnimation"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

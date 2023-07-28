@@ -1,0 +1,109 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Tfr
+{
+    public class BonusInfo214
+    {
+        public List<int> jpBasePayMultipliers;
+    }
+
+    public class CustomData214
+    {
+        public int multiplier;
+        public Dictionary<long,Progression> progressionPerBet;
+        public Progression currentProgression;
+    }
+
+    public class Progression
+    {
+        public int superProgression;
+        public List<int> fishSizes;
+        public List<int> wildCount;
+    }
+    
+    // FreeSpin
+    public class BonusResult21400
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public List<bool> triggerList;
+    }
+
+    // FreeSpin Retrigger
+    public class BonusResult21401
+    {
+        public List<bool> triggerList;
+        public List<bool> nextFreeSpinCircle;
+    }
+
+    // Pick bonus
+    public class BonusResult21402
+    {
+        public int jackpotType;
+        public bool isJackpot;
+        public int pickedItem;
+        public List<int> unpickedItems;
+    }
+
+    // Random JP
+    public class BonusResult21403
+    {
+        public int jackpotType;
+        public bool isJackpot;
+        public int stopIndex;
+        public List<int> wheel;
+        public List<int> coinValues;
+    }
+
+    public class SubSymbolInfo
+    {
+        public List<int> numberSubSymbols;
+        public List<int> values;
+    }
+
+     // Jackpot
+    public class BonusResult21405
+    {
+       public int  jackpotIndex;
+       public bool isJackpot;
+       public bool isEligible;
+    }
+
+    // Wild Fly
+    public class BonusResult21406
+    {
+       public List<WildInfo> wildList;
+       public List<bool> blockedProgressionList;
+    }
+
+    // Sub symbols
+    public class BonusResult21407
+    {
+        public List<List<bool>> subSymbolsPos;
+        public int subSymbolsCount;
+    }
+
+    public class BonusResult21408
+    {
+       public int rewardType;
+       public int freeSpinCount;
+       public long coinAmount;
+       public List<int> position;
+    }
+
+    public class WildInfo
+    {
+        public int type;
+        public List<int> position;
+    }
+
+    // INS FreeSpin
+    public class BonusResult17850
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+}

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Refresh Symbol Win Sound Flags_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-578.0,"y":-101.0},"nodes":[{"_position":{"x":988.0,"y":293.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_condition":{"valueA":{"_value":"./isFreeSpin"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_position":{"x":840.0,"y":410.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"3"},{"_action":{"valueA":{"_value":"_combinedWinList"},"index":{},"fromLast":{},"saveAs":{"_name":"_win"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[SlotMaker.SymbolWin,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"_position":{"x":729.0,"y":519.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"_action":{"valueA":{"_value":"_winList"},"index":{},"fromLast":{},"saveAs":{"_name":"_win"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[SlotMaker.SymbolWin,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"_position":{"x":963.0,"y":523.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"13"},{"_action":{"actions":[{"symbolWin":{"_name":"_win"},"earnCredit":{"_name":""},"multiplier":{"_name":""},"lineIndex":{"_name":""},"symbolIndex":{"_name":"_symbolIndex"},"cells":{"_name":""},"hitCount":{"_name":""},"wayCount":{"_name":""},"direction":{"_name":""},"$type":"BagelCode.Tasks.Actions.Contents.SetSymbolWin"},{"valueA":{"_value":"./symbolIndexToPlaySound"},"valueB":{"_name":"_symbolIndex"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"eventName":{"_value":"RefreshSymbolWinSoundFlags"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendSoundEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":1089.0,"y":415.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"19"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

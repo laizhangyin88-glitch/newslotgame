@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Check Bonus For Free And ReSpin_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-3566.0,"y":-4538.0},"nodes":[{"repeaterMode":"RepeatUntil","repeatTimes":{"_value":1},"repeatUntilStatus":"Failure","_position":{"x":4051.0,"y":4795.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"2"},{"_position":{"x":4053.0,"y":4869.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"4"},{"_action":{"actions":[{"response":{"_name":"_currentBonusResult"},"$type":"BagelCode.Tasks.Actions.Contents.GetNextUnusedBonusResponse"},{"valueA":{"_value":"bonusId"},"saveAs":{"_name":"_currentBonusId"},"overrideAgent":{"_name":"_currentBonusResult"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":3679.0,"y":4956.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"5"},{"_position":{"x":4149.0,"y":4957.0},"$type":"NodeCanvas.BehaviourTrees.Optional","$id":"14"},{"_position":{"x":4149.0,"y":5002.0},"$type":"NodeCanvas.BehaviourTrees.Selector","$id":"15"},{"_condition":{"valueA":{"_value":"_currentBonusId"},"valueB":{"_value":13803},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":3963.0,"y":5121.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"16"},{"_action":{"actions":[{"bonusId":{"_name":"_currentBonusId"},"$type":"BagelCode.Tasks.Actions.Contents.BeginBonus"},{"boolVariable":{"_name":"_isScatterCascade"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"targetVariableName":{"_value":"used"},"newValue":{"_type":"System.Boolean","_value":{"$content":true,"$type":"System.Boolean"}},"overrideAgent":{"_name":"_currentBonusResult"},"$type":"NodeCanvas.Tasks.Actions.SetOtherBlackboardVariable"},{"$type":"BagelCode.Tasks.Actions.Contents.EndBonus"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":3965.0,"y":5228.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"20"},{"_condition":{"valueA":{"_value":"_currentBonusId"},"valueB":{"_value":13802},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":4262.0,"y":5128.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"32"},{"_subTree":{"_value":1},"_position":{"x":4267.0,"y":5205.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"36"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"32"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 9949bd7281343470d9f8c1028e66195b, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

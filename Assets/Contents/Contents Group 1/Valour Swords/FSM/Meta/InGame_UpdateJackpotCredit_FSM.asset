@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: InGame_UpdateJackpotCredit_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4482.865,"y":-4856.854},"nodes":[{"_actionList":{"actions":[{"isForceUpdate":{"_value":true},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{"_value":"Grand
+    Jackpot Counter"},"saveAs":{"_name":"creditText","_targetVariableID":"c4e5a229-0e11-4736-8b09-547973909d00"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"}]},"_position":{"x":5221.0,"y":5212.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"jackpotIndex":{"_name":"jackpotIndex","_targetVariableID":"9906149d-f4dd-447d-9194-b34b4b70b8e5"},"jackpotList":{"_value":"./jackpotList"},"prev":{"_name":"prev","_targetVariableID":"b3a78cc5-542e-48b1-8160-036510939964"},"current":{"_name":"current","_targetVariableID":"2cf515bc-0b61-420f-a9f3-7be146923393"},"deltaMs":{"_name":"deltaMs","_targetVariableID":"a8f4700d-087a-4ab6-ba8a-b6eb1da9b06d"},"min":{"_name":"min","_targetVariableID":"c4969f4c-727c-4cd2-99a8-cb19a8fe2f51"},"max":{"_name":"max","_targetVariableID":"54317b16-5a7f-41c7-a661-23ce919806c5"},"alarm":{"_name":"alarm","_targetVariableID":"94efa321-3c53-4edc-9184-a96cb676bd16"},"endTime":{"_name":"endTime","_targetVariableID":"a09410e1-c12d-45c3-ab50-d3fcb9f4378b"},"$type":"BagelCode.Tasks.Actions.Contents.UpdateJackpotCreditInfo"}]},"_position":{"x":4885.0,"y":5333.0},"_name":"Update
+    Jackpot Credit","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"10"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"creditText":{"_name":"creditText","_targetVariableID":"c4e5a229-0e11-4736-8b09-547973909d00"},"jackpotMultiplier":{"_name":"_jackpotMultiplier"},"prev":{"_name":"prev","_targetVariableID":"b3a78cc5-542e-48b1-8160-036510939964"},"current":{"_name":"current","_targetVariableID":"2cf515bc-0b61-420f-a9f3-7be146923393"},"endTime":{"_name":"endTime","_targetVariableID":"a09410e1-c12d-45c3-ab50-d3fcb9f4378b"},"isBetChanged":{"_name":"_isBetChanged"},"key":{"_value":"JACKPOT_CREDIT"},"tableType":"Content","$type":"BagelCode.Tasks.Actions.UpdateJackpotCredit"}]},"_position":{"x":5094.0,"y":5443.0},"_name":"Update
+    Credit","$type":"NodeCanvas.StateMachines.ActionState","$id":"23"},{"_actionList":{"actions":[{"baseBet":{"_name":"_baseBet"},"bet":{"_name":"_betCredit"},"multiplier":{"_name":"_jackpotMultiplier"},"$type":"BagelCode.Tasks.Actions.Contents.GetIngameJackpotMultiplier"},{"valueA":{"_value":"_isBetChanged"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"}]},"_position":{"x":5294.0,"y":5495.0},"$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"34"}],"connections":[{"_condition":{"valueA":{"_value":"./initializedContent"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.AutoUpdateCheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"UpdateJackpotInfo"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent"},"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"UpdatedTotalBetCredit"},"saveEventValue":{"_name":"_betCredit","_targetVariableID":"89838f3b-2226-4ab7-8b40-b23372729850"},"$type":"BagelCode.Task.Condition.CheckCreditEvent`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"34"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"34"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

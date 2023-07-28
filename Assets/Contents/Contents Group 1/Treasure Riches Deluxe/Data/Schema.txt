@@ -1,0 +1,81 @@
+//
+// TRL Schema
+//
+using System.Collections;
+using System.Collections.Generic;
+namespace SlotMaker.Contents.Internal.TRL
+{
+public class BonusInfo200
+{
+}
+
+public class TRLCommunityGameData
+{
+    public List<List<TRLCommunityGameCollectData>> collectData = new List<List<TRLCommunityGameCollectData>>();
+    public int totalCollectCount;
+}
+public class ContentsStore200
+{    
+    public TRLCommunityGameData community_game_data = new TRLCommunityGameData();
+}
+
+public class TRLCommunityGameCollectData
+{
+    public string userId;
+    public long credit;
+    public int column;
+    public int row;
+    public bool collected;
+}
+
+public class CustomData200
+{
+    public Dictionary<int,int> mysterySymbolTable = new Dictionary<int,int>();
+    public List<List<TRLCommunityGameCollectData>> communityCollectData = new List<List<TRLCommunityGameCollectData>>();
+    public List<bool> checkJackpot = new List<bool>();
+    public List<bool> checkScatterStack = new List<bool>();
+    public List<List<int>> jackpotCell = new List<List<int>>();
+}
+
+// Jackpot
+public class BonusResult20000
+{
+   public bool isJackpot = false;
+   public int jackpotIndex = 0;
+   public long jackpotAwardAmount = 0;
+   public int jackpotRowIndex;
+}
+
+// Treasure Prize
+public class BonusResult20001
+{
+    public List<int> scatterStackColumns = new List<int>();
+    public int boardColumn;
+    public int boardRow;
+    public long collectAmount;
+    public string userId;
+    public int collectMultiplier;
+}
+
+// Add Free Spin
+public class BonusResult20002
+{
+    public List<long> earnCreditPerRound = new List<long>();
+    public List<TRLCommunityGameCommonData> frameMovementData = new List<TRRCommunityGameCommonData>();
+    public long totalEarnCredit;
+    public TRLCommunityGameTopWinnerData topWinnerData;
+    public TRLCommunityGameData bonusGameData;
+}
+
+public class TRLCommunityGameTopWinnerData
+{
+    public string userId;
+    public long earnCredit;
+}
+
+public class TRLCommunityGameCommonData
+{
+    public List<int> horizontalFrameIndex = new List<int>();
+    public List<int> verticalFrameIndex = new List<int>();
+}
+}

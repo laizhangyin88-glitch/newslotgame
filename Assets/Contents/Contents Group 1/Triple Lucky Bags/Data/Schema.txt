@@ -1,0 +1,94 @@
+using System.Collections;
+using System.Collections.Generic;
+
+public class IDLBCellIdx
+{
+    public int col = 0;
+    public int row = 0;
+}
+
+public class IDLBJackpotReward
+{
+    public int type;
+    public int alphabet;
+}
+
+public class BonusInfo203
+{
+} 
+
+public class CustomData203
+{
+    public Dictionary<long,List<int>> pot;
+    public Dictionary<int,int> nowMysterySymbols;
+    public Dictionary<int,int> nextMysterySymbols;
+    public List<List<int>> finalOutputListForFake;
+    public long multiplier;
+}
+
+// free spin
+public class BonusResult20300
+{
+    public long betCredit;
+    public int addedSpinCount;
+    public List<bool> triggeredFreeSpin;
+    public int triggerCount;
+}
+
+// collect scatter
+public class BonusResult20301
+{
+    public List<IDLBCellIdx> scatterPosList;
+    public List<int> scatterColorList;
+    public List<int> addedPotList;
+    public List<bool> nowTriggerNextFreeSpin;
+    public bool isTriggerFake;
+}
+
+// wild expand
+public class BonusResult20302
+{
+    public List<int> expandReelList;
+    public List<int> additionalExpandReelList;
+}
+
+// next free spin
+public class BonusResult20303
+{
+    public long betCredit;
+    public int addedSpinCount;
+    public List<bool> triggeredFreeSpin;
+    public int triggerCount;
+}
+
+// free spin scatter bonus
+public class BonusResult20304
+{
+    public List<IDLBCellIdx> scatterPosList;
+    public List<int> scatterTypeList;
+    public List<IDLBJackpotReward> jackpotRewardList;
+    public List<int> fortuneRewardList;
+}
+
+// jackpot
+public class BonusResult20305
+{
+    public bool isJackpot;
+    public int jackpotIndex;
+    public long jackpotAwardAmount;
+}
+
+// nowTriggerNextFreeSpin
+public class BonusResult20306
+{
+    public List<bool> nowTriggerNextFreeSpin;
+}
+
+// free spin
+public class BonusResult20350
+{
+    public long betCredit;
+    public int addedSpinCount;
+    public List<bool> triggeredFreeSpin;
+    public int triggerCount;
+}

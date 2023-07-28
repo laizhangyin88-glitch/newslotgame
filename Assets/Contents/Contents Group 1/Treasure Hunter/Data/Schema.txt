@@ -1,0 +1,94 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Trh
+{
+    public partial class TRHFreeSpinInfo
+    {
+        public List<int> slotCountList = new List<int>();
+        public List<List<int>> stickyReelList = new List<List<int>>();
+    }
+
+    public partial class BonusInfo70
+    {
+        public TRHFreeSpinInfo freeSpin = null;
+        public List<int> mapPieceCountList = new List<int>();
+        public List<int> mapPieceAccumulatedList = new List<int>();
+        public List<int> mapPieceBonusIndex = new List<int>();
+        public List<long> cashPrizePay = new List<long>();
+        public List<long> pickBonusPay = new List<long>();
+        public List<long> wheelBonusPayTable = new List<long>();
+        public List<int> wheelBonusColor = new List<int>();
+    }
+
+    public partial class CustomData70
+    {
+        public long mapBonusBet = 0;
+        public int mapSymbolCount = 0;
+        public List<List<int>> reelOutputListForEachArray = new List<List<int>>();
+        public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+    }
+
+    // TRHFreeSpinBonus
+    public partial class BonusResult7000
+    {
+        public long betCredit = 0;
+        public int slotWheelIndex = 0;
+        public int stickyWheelIndex = 0;
+        public int addedSpinCount = 0;
+        public int totalSlotCount = 0;
+        public List<int> stickyReelIndices = new List<int>();
+    }
+
+    // TRHJackpot
+    public partial class BonusResult7001
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // TRHMysteryMapSymbol
+    public partial class BonusResult7002
+    {
+        public int mapSymbolCount = 0;
+        public int mapPieceTargetIndex = 0;
+        public long mapBonusBet = 0;
+    }
+
+    // TRHCashPrize
+    public partial class BonusResult7003
+    {
+        public long mapBonusBet = 0;
+    }
+
+    // TRHPickBonus
+    public partial class BonusResult7004
+    {
+        public long mapBonusBet = 0;
+        public int pickIndex = 0;
+    }
+
+    // TRHWheelBonus
+    public partial class BonusResult7005
+    {
+        public long mapBonusBet = 0;
+        public List<long> wheelBonusChangedPayTable = new List<long>();
+        public List<int> selectionPickList = new List<int>();
+        public List<int> selectionUnpickList = new List<int>();
+        public List<int> wheelPickList = new List<int>();
+    }
+
+    // TRHTicketedBonus
+    public partial class BonusResult7050
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int slotWheelIndex = 0;
+        public int stickyWheelIndex = 0;
+        public int addedSpinCount = 0;
+        public int totalSlotCount = 0;
+        public List<int> stickyReelIndices = new List<int>();
+    }
+}

@@ -1,0 +1,80 @@
+//
+// TRR Schema
+//
+using System.Collections;
+using System.Collections.Generic;
+namespace SlotMaker.Contents.Internal.TRR
+{
+public class BonusInfo199
+{
+}
+
+public class TRRCommunityGameData
+{
+    public List<List<TRRCommunityGameCollectData>> collectData = new List<List<TRRCommunityGameCollectData>>();
+    public int totalCollectCount;
+}
+public class ContentsStore199
+{    
+    public TRRCommunityGameData community_game_data = new TRRCommunityGameData();
+}
+
+public class TRRCommunityGameCollectData
+{
+    public string userId;
+    public long credit;
+    public int column;
+    public int row;
+    public bool collected;
+}
+
+public class CustomData199
+{
+    public Dictionary<int,int> mysterySymbolTable = new Dictionary<int,int>();
+    public List<List<TRRCommunityGameCollectData>> communityCollectData = new List<List<TRRCommunityGameCollectData>>();
+    public List<bool> checkJackpot = new List<bool>();
+    public List<bool> checkScatterStack = new List<bool>();
+    public List<List<int>> jackpotCell = new List<List<int>>();
+}
+
+// Jackpot
+public class BonusResult19900
+{
+   public bool isJackpot = false;
+   public int jackpotIndex = 0;
+   public long jackpotAwardAmount = 0;
+}
+
+// Treasure Prize
+public class BonusResult19901
+{
+    public List<int> scatterStackColumns = new List<int>();
+    public int boardColumn;
+    public int boardRow;
+    public long collectAmount;
+    public string userId;
+    public int collectMultiplier;
+}
+
+// Add Free Spin
+public class BonusResult19902
+{
+    public List<long> earnCreditPerRound = new List<long>();
+    public List<TRRCommunityGameCommonData> frameMovementData = new List<TRRCommunityGameCommonData>();
+    public long totalEarnCredit;
+    public TRRCommunityGameTopWinnerData topWinnerData;
+    public TRRCommunityGameData bonusGameData;
+}
+
+public class TRRCommunityGameTopWinnerData
+{
+    public string userId;
+    public long earnCredit;
+}
+
+public class TRRCommunityGameCommonData
+{
+    public List<int> horizontalFrameIndex = new List<int>();
+    public List<int> verticalFrameIndex = new List<int>();
+}
+}

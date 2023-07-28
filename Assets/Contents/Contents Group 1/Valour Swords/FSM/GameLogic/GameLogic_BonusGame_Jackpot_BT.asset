@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_BonusGame_Jackpot_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-118.0,"y":-383.0},"nodes":[{"_condition":{"bonusId":{"_value":11807},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_position":{"x":165.0,"y":450.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_position":{"x":180.0,"y":555.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"5"},{"_action":{"actions":[{"bonusId":{"_value":11807},"$type":"BagelCode.Tasks.Actions.Contents.BeginBonus"},{"bonusId":{"_value":11807},"response":{"_name":"_ticketJackpotWinBonus","_targetVariableID":"9c17b9aa-bd3b-4d96-8b7c-eac907a989fe"},"$type":"BagelCode.Tasks.Actions.Contents.GetBonusResponse"},{"valueA":{"_value":"isJackpot"},"saveAs":{"_name":"_isJackpot"},"overrideAgent":{"_name":"_ticketJackpotWinBonus"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"jackpotIndex"},"saveAs":{"_name":"_jackpotIndex"},"overrideAgent":{"_name":"_ticketJackpotWinBonus"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"jackpotAwardAmount"},"saveAs":{"_name":"_jackpotAwardAmount"},"overrideAgent":{"_name":"_ticketJackpotWinBonus"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":-705.0,"y":690.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_action":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Grand
+    Jackpot Trigger Popup Scene"},"combineApplicationType":{"_value":true},"parentName":{"_value":"Popup
+    Manager/Contents"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_jackpotPopup"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync"},{"popup":{"_name":"_jackpotPopup"},"$type":"SlotMaker.Tasks.Actions.SimpleOpenContentPopup"},{"setTo":"Activate","overrideAgent":{"_name":"_jackpotPopup"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":-240.0,"y":690.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"26"},{"_condition":{"eventName":{"_value":"FinalizeJackpotGame"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_position":{"x":435.0,"y":690.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"40"},{"_action":{"$type":"BagelCode.Tasks.Actions.BI.BI_jackpot"},"_position":{"x":480.0,"y":780.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"43"},{"_action":{"actions":[{"bonusId":{"_value":11807},"selectedIndex":{},"$type":"BagelCode.Tasks.Actions.ClientAPI.ClaimBonus"},{"earnCredit":{"_value":"./bonus/response/earnCredit"},"$type":"BagelCode.Tasks.Actions.Contents.AddBonusEarnCredit"},{"valueA":{"_value":"./bonus/response/used"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"},{"bonusId":{"_value":"11807"},"$type":"BagelCode.Tasks.Actions.BI.BI_bonus"},{"$type":"BagelCode.Tasks.Actions.Contents.EndBonus"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":660.0,"y":690.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"45"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"45"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"40"},"_targetNode":{"$ref":"43"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Check_Cash_Prize_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.9,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5158.0,"y":-5161.0},"nodes":[{"_position":{"x":5460.0,"y":5445.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"bonusId":{"_value":7003},"$type":"BagelCode.Tasks.Actions.Contents.BeginBonus"},"_position":{"x":5145.0,"y":5580.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"actions":[{"earnCredit":{"_value":"./bonus/response/earnCredit"},"$type":"BagelCode.Tasks.Actions.Contents.AddBonusEarnCredit"},{"valueA":{"_value":"./bonus/response/uid"},"saveAs":{"_name":"_uid"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"uid":{"_name":"_uid"},"selectedIndex":{},"$type":"BagelCode.Tasks.Actions.ClientAPI.ClaimBonusV1"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5265.0,"y":5580.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_action":{"eventName":{"_value":"OnUpdateMapPiece"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},"_position":{"x":5565.0,"y":5580.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"17"},{"_condition":{"eventName":{"_value":"OnUpdatedMapPiece"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_position":{"x":5850.0,"y":5580.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"21"},{"_action":{"actions":[{"eventName":{"_value":"UpdateTurnCredit"},"eventValue":{},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendCreditEvent`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"OnBeginCashPrize"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5835.0,"y":5685.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"24"},{"_condition":{"eventName":{"_value":"OnEndCashPrize"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_position":{"x":6075.0,"y":5580.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"34"},{"_action":{"actions":[{"bonusId":{"_value":"7003"},"$type":"BagelCode.Tasks.Actions.BI.BI_bonus"},{"$type":"BagelCode.Tasks.Actions.Contents.EndBonus"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":6135.0,"y":5685.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"37"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"34"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"34"},"_targetNode":{"$ref":"37"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0
