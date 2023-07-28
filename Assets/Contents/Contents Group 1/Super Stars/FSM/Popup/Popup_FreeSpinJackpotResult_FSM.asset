@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_FreeSpinJackpotResult_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4882.0,"y":-4739.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{"_value":true},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"id":{"_value":"FreeSpin
+    Result Popup"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":5282.0,"y":5125.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":5455.0,"y":4998.0},"_name":"Init","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"9"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./freeSpinCoinCredit"},"saveAs":{"_name":"_currentCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"elementName":{"_value":"Animator/Button"},"searchingType":"FullNameSearch","saveAs":{"_name":"button","_targetVariableID":"c702e04a-63c7-4cc0-ae24-7c75ecdfd709"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Animator/Total
+    Win"},"searchingType":"FullNameSearch","key":{"_value":"FREE_SPIN_RESULT_CREDIT"},"tableType":"Content","arg1":{"_value":"_currentCredit"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"elementName":{"_value":"Animator/Coin
+    Win"},"searchingType":"FullNameSearch","key":{"_value":"FREE_SPIN_RESULT_CREDIT"},"tableType":"Content","arg1":{"_value":"_currentCredit"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"eventName":{"_value":"Collect"},"ignoreReset":{},"overrideAgent":{"_name":"button","_targetVariableID":"c702e04a-63c7-4cc0-ae24-7c75ecdfd709"},"$type":"SlotMaker.Tasks.Actions.SetContextClickable"},{"elementName":{"_value":"Animator"},"saveAs":{"_name":"animator","_targetVariableID":"5d8d4a40-ec5d-4cbb-ba1c-113405a30c5d"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"}]},"_position":{"x":5776.0,"y":5085.0},"_name":"SetCredit","$type":"NodeCanvas.StateMachines.ActionState","$id":"11"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":6322.0,"y":4865.0},"_name":"Score
+    Board","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"35"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":6607.0,"y":4999.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"37"},{"_actionList":{"actions":[{"id":{"_value":"Button"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"parameter":{"_value":"Disappear"},"parameterHashID":{},"overrideAgent":{"_name":"animator","_targetVariableID":"5d8d4a40-ec5d-4cbb-ba1c-113405a30c5d"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"ClosedPopup"},"delay":{},"overrideAgent":{"_name":"caller","_targetVariableID":"bffa8b30-c065-45f3-89d4-814c2b316721"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"$type":"SlotMaker.Task.Actions.ClosePopup"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":6789.0,"y":5146.0},"_name":"Finalize","$type":"NodeCanvas.StateMachines.ActionState","$id":"40"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"35"},"_targetNode":{"$ref":"37"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"Collect"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"37"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 90382aea718da4a8cb2bd95638e98442, type: 2}
+  - {fileID: 11400000, guid: 919808fb94e1d48f8a79eac5848ec584, type: 2}
+  _deserializationFailed: 0

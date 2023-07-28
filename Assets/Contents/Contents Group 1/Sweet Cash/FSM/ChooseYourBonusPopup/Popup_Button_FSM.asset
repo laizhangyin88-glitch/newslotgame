@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_Button_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5089.0,"y":-5015.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Pressed"},"parameterHashID":{},"setTo":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5133.0,"y":5478.0},"_name":"InActive","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Pressed"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5890.0,"y":5242.0},"_name":"Active","$type":"NodeCanvas.StateMachines.ActionState","$id":"9"},{"_nestedBT":{"_value":1},"_position":{"x":5575.0,"y":5326.0},"_name":"Active","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"16"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5692.0,"y":5057.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"18"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Pressed"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5362.0,"y":5399.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"21"}],"connections":[{"_condition":{"conditions":[{"eventType":"PointerDown","$type":"NodeCanvas.Tasks.Conditions.InterceptEvent"},{"valueA":{"_name":"isTouchable","_targetVariableID":"2b6f0e62-e2af-4a44-b9a9-67b0d5499f67"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"conditions":[{"valueA":{"_name":"isTouchable","_targetVariableID":"2b6f0e62-e2af-4a44-b9a9-67b0d5499f67"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventType":"PointerUp","$type":"NodeCanvas.Tasks.Conditions.InterceptEvent"},"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventType":"PointerExit","$type":"NodeCanvas.Tasks.Conditions.InterceptEvent"},"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"$type":"NodeCanvas.Tasks.Conditions.InterceptEvent"},"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventType":"PointerUp","$type":"NodeCanvas.Tasks.Conditions.InterceptEvent"},"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 0e4b3f7790b27459c8eef4c2967e529f, type: 2}
+  _deserializationFailed: 0

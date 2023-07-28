@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Blow_Bubble_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-2560.0,"y":-5522.0},"nodes":[{"_position":{"x":3424.0,"y":5823.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"gridColumns"},"saveAs":{"_name":"_gridColumns"},"overrideAgent":{"_name":"_baseGridBB"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"targetList":{"_name":"_gridColumns","_targetVariableID":"ea295b93-6061-4555-8b9c-4ee4567547fc"},"index":{"_name":"_bubbleColumn"},"saveAs":{"_name":"_bubbleColumnListBB"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"bubbleGOList"},"saveAs":{"_name":"_bubbleColumnList"},"overrideAgent":{"_name":"_bubbleColumnListBB"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"targetList":{"_name":"_bubbleColumnList"},"index":{"_name":"_bubbleRow"},"saveAs":{"_name":"_bubbleGO"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":2840.0,"y":5959.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_value":"_bubbleDisplayPrizeCredit"},"valueB":{"_value":4,"_name":"_bubblePrizeCredit"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_color":{"r":1.0,"g":0.07843138,"b":0.5764706,"a":1.0},"_position":{"x":3283.0,"y":5959.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"22"},{"_action":{"actions":[{"parameter":{"_value":"JackpotChange"},"parameterHashID":{},"overrideAgent":{"_name":"_bubbleGO"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":0.15},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"parameter":{"_value":"Type"},"parameterHashID":{},"setTo":{"_value":250,"_name":"_bubblePrizeCredit"},"overrideAgent":{"_name":"_bubbleGO"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"},{"waitTime":{"_value":0.3},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":3328.0,"y":6067.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"26"},{"_action":{"actions":[{"parameter":{"_value":"Blow"},"parameterHashID":{},"overrideAgent":{"_name":"_bubbleGO"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"eventName":{"_value":"BlowBubble"},"delay":{},"sendGlobal":true,"slotIndex":{},"$type":"BagelCode.Tasks.Actions.SendWinEvent"},{"waitTime":{"_value":0.3},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":3724.0,"y":5965.0},"_comment":"Event
+    BlowBublle to SoundView","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"42"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"42"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

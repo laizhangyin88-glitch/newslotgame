@@ -1,0 +1,137 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Sww
+{
+    public class CustomData122
+    {
+        public Dictionary<long,BubbleGrids> baseBubbleGridPerBet; 
+        public List<List<int>> reelOutputListTable;
+        public List<int> currentReelTypeIndices;
+        public bool isBubbleAppear;
+    }
+
+    public class BubbleGrids
+    {
+        public List<BubbleGrid> baseBubbleGrids;
+    }
+
+    // SWWFreeSpinBonus
+    public class BonusResult12200
+    {
+        public int type;
+        public long betCredit;
+        public int addedSpinCount;
+    }
+    
+    // SWWFreeSpinRetriggerBonus
+    public class BonusResult12201
+    {
+        public int type;
+        public long betCredit;
+        public int addedSpinCount;
+    }
+
+    // Bubbles on Base
+    public class BonusResult12202
+    {
+        public List<BubbleGrid> baseBubbleGrids;
+    }
+
+    // Bubbles on free spins
+    public class BonusResult12203
+    {
+        public int addedSpinCount;
+        public int newUnlockedSlotsCount;
+        public int newExpandedRowCount;
+        public List<List<BubbleGrid>> freeSpinBubbleGrids;
+    }
+
+    // Free Spin 2 Trigger
+    public class BonusResult12204
+    {
+        public int type;
+        public long betCredit;
+        public int addedSpinCount;
+        public int slotCount;
+    }
+
+    // Free Spin 1 Trigger
+    public class BonusResult12205
+    {
+        public int type;
+        public long betCredit;
+        public int addedSpinCount;
+        public int slotCount;
+    }
+
+    // Update bubbles (Free spins)
+    public class BonusResult12206
+    {
+        public List<List<BubbleGrid>> freeSpinBubbleGrids;
+    }
+
+    //Jackpot
+    public class BonusResult12207
+    {
+        public long jackpotAwardAmount;
+        public int jackpotIndex;
+        public bool isJackpot;
+    }
+
+    // Bubbles on Base info
+    public class BonusResult12208
+    {
+        public List<BubbleGrid> baseBubbleGrids;
+    }
+
+    // FREE_SPIN_TICKET
+    public class BonusResult12209
+    {
+        public int type;
+        public long betCredit;
+        public int addedSpinCount;
+        public int slotCount;
+        public int paySlots;
+        public int customSlotAmount;
+        public int freeGameType;
+    }
+
+    // FREE_SPIN_2_TICKET
+    public class BonusResult12210
+    {
+        public int type;
+        public long betCredit;
+        public int addedSpinCount;
+        public int slotCount;
+        public int paySlots;
+        public int customSlotAmount;
+        public int freeGameType;
+    }
+
+    // Instant bonus FREE_SPIN_TRIGGER
+    public class BonusResult12250
+    {
+        public int type;
+        public long betCredit;
+        public int addedSpinCount;
+        public int slotCount;
+        public int freeGameType;
+        public Dictionary<long,BubbleGrids> baseBubbleGridPerBet; 
+    }
+
+    public class BubbleGrid
+    {
+        public int position;
+        public int index;
+        public List<int> positionList;
+        public List<int> sizeList;
+        public List<int> typeList;
+        public List<int> displayPrizeCreditList;
+        public List<int> prizeCreditList;
+        public List<bool> hasFeatureList;
+        public List<bool> isTriggeredList;
+        public List<int> expandedRowCountList;
+        public List<int> activatorPositionList;
+    }
+}

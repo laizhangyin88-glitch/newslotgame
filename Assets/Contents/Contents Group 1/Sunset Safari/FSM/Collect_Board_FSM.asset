@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Collect_Board_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-174.0,"y":131.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"element":{"_name":"valueText","_targetVariableID":"3d984478-b4a6-4cd9-813e-75d9a1654bd9"},"key":{"_value":"SSS_LINK_COIN_VALUE"},"tableType":"Content","arg1":{"_value":"_creditAward"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"valueA":{"_name":"index","_targetVariableID":"69cfd439-2841-413a-b9be-fa3da7f5faa9"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetInt"}]},"_position":{"x":20.0,"y":360.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":414.0,"y":248.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"12"},{"_actionList":{"actions":[{"valueA":{"_value":"./customData/triggeringLinkValueList"},"index":{"_name":"index","_targetVariableID":"69cfd439-2841-413a-b9be-fa3da7f5faa9"},"fromLast":{},"saveAs":{"_name":"value","_targetVariableID":"eda94d85-aa0e-4353-8872-896287b56a15"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_creditAward"},"Operation":"Add","valueB":{"_name":"value","_targetVariableID":"eda94d85-aa0e-4353-8872-896287b56a15"},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"element":{"_name":"valueText","_targetVariableID":"3d984478-b4a6-4cd9-813e-75d9a1654bd9"},"key":{"_value":"SSS_LINK_COIN_VALUE"},"tableType":"Content","arg1":{"_value":"_creditAward"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"id":{"_value":"Bonus
+    Credit Up"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"valueA":{"_name":"index","_targetVariableID":"69cfd439-2841-413a-b9be-fa3da7f5faa9"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"}]},"_position":{"x":612.0,"y":49.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"15"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"_creditAward"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt64"}]},"_position":{"x":273.0,"y":123.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"35"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"HitBottomBoard"},"saveEventValue":{"_name":"value","_targetVariableID":"eda94d85-aa0e-4353-8872-896287b56a15"},"_isDisabled":true,"$type":"BagelCode.Task.Condition.CheckContentUIEvent`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"HitBottomBoard"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"TriggerCollectBoardOff"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"valueA":{"_value":"./isLinkBonus"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},{"valueA":{"_value":"./isFreeSpin"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"35"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

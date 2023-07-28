@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Expectation_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-6915.0,"y":-4785.0},"nodes":[{"_position":{"x":6997.0,"y":5095.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"slotIndex":{},"column":{"_name":"_column","_targetVariableID":"695fa6d6-9687-4dae-a156-260f49777b14"},"$type":"BagelCode.Tasks.Actions.Contents.InitExpectation"},{"slotIndex":{},"column":{},"row":{"_name":"_row"},"symbolMask":"Wild","ignoreOverlay":true,"saveAs":{"_value":[],"_name":"_snowmanSymbolList"},"$type":"BagelCode.Tasks.Actions.Contents.FindScatterSymbolAtReel"},{"targetList":{"_name":"_snowmanSymbolList"},"saveAs":{"_name":"_snowmanSymbolListCount"},"$type":"NodeCanvas.Tasks.Actions.GetListCount"},{"slotIndex":{},"column":{"_name":"_column"},"row":{"_name":"_row"},"symbolMask":"Scatter1","saveAs":{"_name":"_snowballSymbolWin"},"$type":"BagelCode.Tasks.Actions.Contents.FindScatterSymbol"},{"symbolWin":{"_name":"_snowballSymbolWin"},"earnCredit":{"_name":""},"multiplier":{"_name":""},"lineIndex":{"_name":""},"symbolIndex":{"_name":""},"cells":{"_name":"_snowballSymbolList"},"hitCount":{"_name":""},"wayCount":{"_name":""},"direction":{"_name":""},"$type":"BagelCode.Tasks.Actions.Contents.SetSymbolWin"},{"targetList":{"_name":"_snowballSymbolList"},"saveAs":{"_name":"_snowballSymbolListCount"},"$type":"NodeCanvas.Tasks.Actions.GetListCount"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":6643.0,"y":5223.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_value":"_snowmanSymbolListCount"},"checkType":"GreaterThan","valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":7115.0,"y":5229.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"36"},{"_action":{"actions":[{"slotIndex":{},"column":{"_name":"_column"},"row":{"_name":"_row"},"visibleCounts":{"_value":[],"_name":"_visibleCounts"},"payLine":{"_value":[],"_name":"_payLines"},"symbolMask":"Wild","minimumSymbolCount":1,"checkAll":true,"$type":"BagelCode.Tasks.Actions.Contents.UpdateExpectationSpotLine"},{"valueA":{"_value":"./customData/snowmanSymbolList"},"valueB":{"_name":"_snowmanSymbolList"},"$type":"SlotMaker.Tasks.Actions.SetList"},{"valueA":{"_value":"./customData/snowballSymbolList"},"valueB":{"_name":"_snowballSymbolList"},"$type":"SlotMaker.Tasks.Actions.SetList"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":6877.0,"y":5395.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"40"},{"_action":{"slotIndex":{},"column":{"_name":"_column"},"row":{"_name":"_row"},"visibleCounts":{"_value":[],"_name":"_visibleCounts"},"payLine":{"_value":[],"_name":"_payLines"},"symbolMask":"Scatter1","checkAll":true,"ignoreExpectation":true,"$type":"BagelCode.Tasks.Actions.Contents.UpdateExpectationSpotLine"},"_position":{"x":7289.0,"y":5393.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"57"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"36"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"36"},"_targetNode":{"$ref":"57"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

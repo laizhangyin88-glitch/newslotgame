@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Check Bonus_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5085.0,"y":-4958.0},"nodes":[{"_condition":{"bonusId":{"_value":601},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_position":{"x":5570.0,"y":5041.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_position":{"x":5564.0,"y":5119.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"5"},{"_action":{"slotMachine":{"_name":"_slotMachine"},"saveAs":{"_value":"./spin/slotMachine"},"$type":"BagelCode.Tasks.Actions.Contents.SaveSlotMachine"},"_position":{"x":4934.0,"y":5323.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_action":{"actions":[{"bonusId":{"_value":600},"response":{"_name":"_jackpot"},"$type":"BagelCode.Tasks.Actions.Contents.GetBonusResponse"},{"bonusId":{"_value":601},"$type":"BagelCode.Tasks.Actions.Contents.BeginSpinBonus"},{"bonusId":{"_value":"601"},"$type":"BagelCode.Tasks.Actions.BI.BI_bonus"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5198.0,"y":5318.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"10"},{"_nestedFSM":{"_value":1},"_position":{"x":5544.0,"y":5316.0},"$type":"NodeCanvas.BehaviourTrees.NestedFSM","$id":"20"},{"_action":{"actions":[{"slotIndex":{},"column":{"_name":"_column"},"row":{"_name":"_row"},"columnOffset":{},"rowOffset":{},"betCredit":{"_name":"_betCredit"},"payTable":{"_value":[],"_name":"_scatterPayTable"},"multiplier":{"_value":1},"symbolCount":{},"symbolMask":"Seven","continuous":{},"creditPath":{"_value":"./spin"},"saveAs":{"_value":{"cells":[]},"_name":"_scatterWin"},"_isDisabled":true,"$type":"BagelCode.Tasks.Actions.Contents.CalcScatterWin"},{"eventName":{"_value":"SingleWin"},"eventValue":{"_value":{"cells":[]},"_name":"_scatterWin"},"delay":{},"sendGlobal":true,"_isDisabled":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent`1[[SlotMaker.SymbolWin,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"earnCredit":{"_value":"./bonus/response/earnCredit"},"_isDisabled":true,"$type":"BagelCode.Tasks.Actions.Contents.AddBonusEarnCredit"},{"eventName":{"_value":"UpdateTurnCredit"},"eventValue":{},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendCreditEvent`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5741.0,"y":5324.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"22"},{"_action":{"$type":"BagelCode.Tasks.Actions.Contents.EndBonus"},"_position":{"x":6013.0,"y":5322.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"53"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"53"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: d3168a919109b4f9ea6963fd2f4ba2e5, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

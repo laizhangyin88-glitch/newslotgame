@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: GameLogic_Bubble_Grid_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5005.0,"y":-4610.0},"nodes":[{"_actionList":{"actions":[{"valueA":{"_value":"./baseGridPositionGO"},"saveAs":{"_name":"_baseGridPositionGO","_targetVariableID":"0da7d56b-4a8e-4d3d-a6c6-2fa19bf67f57"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"baseGridPositionList"},"saveAs":{"_name":"_baseGridPositionList"},"overrideAgent":{"_name":"_baseGridPositionGO"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[UnityEngine.Transform,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"./customData/slotDataList/0/column"},"saveAs":{"_name":"_column","_targetVariableID":"32e8e6b0-47e0-4c7c-a550-1e89023249d3"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":5613.0,"y":4852.0},"_name":"Intro","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_nestedBT":{"_value":1},"_position":{"x":5982.0,"y":5064.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"15"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":5523.0,"y":5313.0},"_name":"Bubble
+    animation","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"17"},{"_nestedBT":{"_value":3},"executionMode":"Once","_position":{"x":5755.0,"y":5197.0},"_name":"Turn
+    off Bubbles","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"19"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SetBubblesAnimation"},"saveEventValue":{"_name":"_animationName"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"TurnOffBubbles"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 9ba08e70d01c8464f894ab265278cca3, type: 2}
+  - {fileID: 11400000, guid: c7090d3c10122419a846f1036ac90fc5, type: 2}
+  - {fileID: 11400000, guid: 71997f19790dcfb40b2de1aab8aa2f6e, type: 2}
+  _deserializationFailed: 0

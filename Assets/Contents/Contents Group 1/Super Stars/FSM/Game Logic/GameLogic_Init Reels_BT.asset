@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Init Reels_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-18.0,"y":-128.0},"nodes":[{"_position":{"x":399.0,"y":192.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"targetVariableName":{"_value":"reels"},"saveAs":{"_type":"System.Collections.Generic.List`1[[SlotMaker.BaseReel,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"_reels"},"overrideAgent":{"_name":"_slotMachine"},"$type":"NodeCanvas.Tasks.Actions.GetOtherBlackboardVariable"},{"targetVariableName":{"_value":"rows"},"saveAs":{"_type":"System.Collections.Generic.List`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"_rows"},"overrideAgent":{"_name":"_slotMachine"},"$type":"NodeCanvas.Tasks.Actions.GetOtherBlackboardVariable"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":321.0,"y":273.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"storeIndex":{"_name":"_rowIndex"},"maxIteration":{"_value":3,"_name":"_row"},"inverse":{},"resetIndex":true,"_position":{"x":457.0,"y":276.0},"$type":"SlotMaker.Slots.BehaviourTrees.ForLoop","$id":"14"},{"_position":{"x":485.0,"y":364.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"18"},{"_action":{"actions":[{"valueA":{"_name":"_reelIndex"},"valueB":{"_name":"_rowIndex"},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"valueA":{"_value":"_rows"},"index":{"_name":"_rowIndex"},"fromLast":{},"saveAs":{"_name":"_rowObj"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":302.0,"y":462.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"19"},{"storeIndex":{"_name":"_columnIndex"},"maxIteration":{"_name":"_column"},"inverse":{},"resetIndex":true,"_position":{"x":524.0,"y":462.0},"$type":"SlotMaker.Slots.BehaviourTrees.ForLoop","$id":"30"},{"_action":{"actions":[{"valueA":{"_value":"_reels"},"index":{"_name":"_reelIndex"},"fromLast":{},"saveAs":{"_name":"_reel"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[SlotMaker.BaseReel,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"method":{"_baseInfo":"UnityEngine.Transform|set_parent|System.Void","_paramsInfo":"UnityEngine.Transform"},"parameter":{"_type":"UnityEngine.Transform","_name":"_rowObj"},"overrideAgent":{"_name":"_reel"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"},{"valueA":{"_name":"_reelIndex"},"Operation":"Add","valueB":{"_value":3,"_name":"_row"},"$type":"NodeCanvas.Tasks.Actions.SetInt"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":524.0,"y":583.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"34"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"34"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

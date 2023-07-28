@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Skip Scatter Stop Effect_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":75.0,"y":-171.0},"nodes":[{"storeIndex":{"_name":"_columnIndex"},"maxIteration":{"_name":"_column"},"inverse":{},"resetIndex":true,"_position":{"x":437.0,"y":177.0},"$type":"SlotMaker.Slots.BehaviourTrees.ForLoop","$id":"2"},{"storeIndex":{"_name":"_rowIndex"},"maxIteration":{"_name":"_row"},"inverse":{},"resetIndex":true,"_position":{"x":458.0,"y":273.0},"$type":"SlotMaker.Slots.BehaviourTrees.ForLoop","$id":"6"},{"_position":{"x":486.0,"y":372.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"10"},{"_action":{"actions":[{"valueA":{"_name":"_reelIndex"},"valueB":{"_name":"_columnIndex"},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"valueA":{"_name":"_reelIndex"},"Operation":"Multiply","valueB":{"_name":"_row"},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"valueA":{"_name":"_reelIndex"},"Operation":"Add","valueB":{"_name":"_rowIndex"},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"column":{"_name":"_reelIndex"},"row":{"_name":"_rowIndex"},"saveAs":{"_name":"_cell"},"$type":"SlotMaker.Tasks.Actions.Contents.SetColumnRowToCell"},{"slotMachine":{"_name":"_slotMachine"},"cell":{"_value":{},"_name":"_cell"},"saveAs":{"_name":"_symbol"},"$type":"SlotMaker.Tasks.Actions.Contents.GetSymbol"},{"targetVariableName":{"_value":"symbolIndex"},"saveAs":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_symbolIndex"},"overrideAgent":{"_name":"_symbol"},"$type":"NodeCanvas.Tasks.Actions.GetOtherBlackboardVariable"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":207.0,"y":467.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"11"},{"_condition":{"valueA":{"_name":"_symbolIndex"},"valueB":{"_value":3},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":582.0,"y":471.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"36"},{"_action":{"symbol":{"_name":"_symbol"},"animationName":{"_value":"Skip
+    Stop Effect"},"$type":"SlotMaker.Tasks.Actions.Contents.PlaySymbolAnimation"},"_position":{"x":535.0,"y":613.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"40"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"36"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

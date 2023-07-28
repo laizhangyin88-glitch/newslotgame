@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Random_Snowball_Apply_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-4553.0,"y":-4834.0},"nodes":[{"_position":{"x":5068.0,"y":4994.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_condition":{"valueA":{"_name":"randomSnowballCount","_targetVariableID":"931b303e-8435-49b7-b6de-467da464ff83"},"checkType":"GreaterThan","valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":5023.0,"y":5081.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"3"},{"_color":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":5050.0,"y":5186.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"7"},{"targetList":{"_type":"System.Collections.Generic.List`1[[SlotMaker.Cell,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"randomSnowballCellList","_targetVariableID":"4a5f38f0-c388-4458-a163-c5070a32048d"},"current":{"_type":"SlotMaker.Cell","_name":"_snowballCell"},"storeIndex":{"_name":""},"maxIteration":{"_value":-1},"_position":{"x":4814.0,"y":5303.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"8"},{"_action":{"actions":[{"slotIndex":{},"cell":{"_value":{},"_name":"_snowballCell"},"symbolIndex":{"_value":1},"attribute":"Wild","$type":"BagelCode.Tasks.Actions.Contents.SetDeckSymbol"},{"slotMachine":{"_name":"_slotMachine"},"cell":{"_value":{},"_name":"_snowballCell"},"symbolIndex":{"_value":1},"attribute":"Wild","$type":"SlotMaker.Tasks.Actions.Contents.SetSlotSymbol"},{"slotMachine":{"_name":"_slotMachine"},"cell":{"_value":{},"_name":"_snowballCell"},"saveAs":{"_name":"_wildSymbol"},"$type":"SlotMaker.Tasks.Actions.Contents.GetSymbol"},{"overrideAgent":{"_name":"_wildSymbol"},"$type":"SlotMaker.Tasks.Actions.ApplySymbol"},{"cell":{"_value":{},"_name":"_snowballCell"},"animationName":{"_value":"Disappear
+    Snowball"},"overrideAgent":{"_name":"_slotMachine"},"$type":"BagelCode.Tasks.Actions.Contents.PlayPivotSymbolAnimationByCell"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4763.0,"y":5419.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"13"},{"_action":{"slotIndex":{},"$type":"BagelCode.Tasks.Actions.Contents.ClearDeckMask"},"_position":{"x":5079.0,"y":5307.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"38"},{"_condition":{"eventName":{"_value":"OnAniEndDisappear"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_position":{"x":5245.0,"y":5311.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"41"},{"_action":{"slotMachine":{"_name":"_slotMachine"},"$type":"SlotMaker.Tasks.Actions.Contents.ClearSlotOverlay"},"_position":{"x":5264.0,"y":5417.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"44"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"41"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"41"},"_targetNode":{"$ref":"44"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

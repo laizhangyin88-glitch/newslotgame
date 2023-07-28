@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Check Add FreeSpin_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-4200.0,"y":-5154.0},"nodes":[{"_condition":{"bonusId":{"_value":12603},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_position":{"x":5023.0,"y":5185.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_position":{"x":5043.0,"y":5289.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"5"},{"_action":{"actions":[{"bonusId":{"_value":12603},"$type":"BagelCode.Tasks.Actions.Contents.BeginBonus"},{"eventName":{"_value":"SkipWin"},"delay":{},"sendGlobal":true,"slotIndex":{"_value":1},"$type":"BagelCode.Tasks.Actions.SendWinEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4625.0,"y":5482.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_position":{"x":4870.0,"y":5481.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"15"},{"_subTree":{"_value":1},"_position":{"x":4625.0,"y":5633.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"16"},{"_action":{"actions":[{"id":{"_value":"Rainbow
+    Win"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"waitTime":{"_value":2.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"SkipWin"},"delay":{},"sendGlobal":true,"slotIndex":{"_value":1},"$type":"BagelCode.Tasks.Actions.SendWinEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4943.0,"y":5631.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"18"},{"_action":{"valueA":{"_value":"./bonus/response/bonusId"},"saveAs":{"_name":"_bonusId"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":5032.0,"y":5491.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"29"},{"_position":{"x":5624.0,"y":5525.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"33"},{"_action":{"assetName":{"_value":"Add
+    Free Game Popup"},"uniqueName":{"_value":"Add Free Game Popup"},"saveAs":{"_name":"_popup"},"$type":"SlotMaker.Tasks.Actions.OpenContentPopup"},"_position":{"x":5290.0,"y":5602.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"34"},{"_condition":{"eventName":{"_value":"ClosedPopup"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_position":{"x":5767.0,"y":5598.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"39"},{"_action":{"actions":[{"$type":"BagelCode.Tasks.Actions.Contents.EndBonus"},{"bonusId":{"_value":"12603"},"$type":"BagelCode.Tasks.Actions.BI.BI_bonus"},{"eventName":{"_value":"UpdateSpinCount"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"snapshotName":{"_value":"Content_Main"},"timeToReach":{"_value":1.0},"$type":"SlotMaker.Tasks.Actions.TransitionToAudioMixerSnapshot"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5700.0,"y":5721.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"42"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"34"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"39"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"39"},"_targetNode":{"$ref":"42"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 96335316300ee4fe08dfbd0728d78a9d, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

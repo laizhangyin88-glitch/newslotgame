@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Win Add Free Spin_Play Animation_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-311.0,"y":-296.0},"zoomFactor":0.9127092,"nodes":[{"storeIndex":{"_name":"_flyingIndex"},"maxIteration":{"_name":"_freeColumn"},"inverse":{},"resetIndex":true,"_position":{"x":1130.0,"y":477.0},"$type":"SlotMaker.Slots.BehaviourTrees.ForLoop","$id":"2"},{"_position":{"x":1185.0,"y":581.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"6"},{"_action":{"actions":[{"valueA":{"_value":"resultFlyingReelIndices"},"index":{"_name":"_flyingIndex"},"fromLast":{},"saveAs":{"_name":"_columnIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_outputList"},"index":{"_name":"_columnIndex"},"fromLast":{},"saveAs":{"_name":"_symbolIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":725.0,"y":710.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"_action":{"actions":[{"column":{"_name":"_columnIndex"},"row":{},"saveAs":{"_name":"_cell"},"$type":"SlotMaker.Tasks.Actions.Contents.SetColumnRowToCell"},{"slotMachine":{"_name":"_subSlotMachine"},"cell":{"_value":{},"_name":"_cell"},"saveAs":{"_name":"_symbol"},"$type":"SlotMaker.Tasks.Actions.Contents.GetSymbol"},{"targetVariableName":{"_value":"symbolIndex"},"saveAs":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_symbolIndex"},"_isDisabled":true,"overrideAgent":{"_name":"_symbol"},"$type":"NodeCanvas.Tasks.Actions.GetOtherBlackboardVariable"},{"targetVariableName":{"_value":"coinTextString"},"saveAs":{"_type":"System.String","_name":"_coinTextString"},"_isDisabled":true,"overrideAgent":{"_name":"_symbol"},"$type":"NodeCanvas.Tasks.Actions.GetOtherBlackboardVariable"},{"valueA":{"_value":"_isFlyingStarAppeared"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SetBoolean"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":1087.0,"y":710.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"20"},{"_condition":{"valueA":{"_name":"_symbolIndex"},"valueB":{"_value":5},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":1402.0,"y":717.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"42"},{"_action":{"symbol":{"_name":"_symbol"},"animationName":{"_value":"Win"},"$type":"SlotMaker.Tasks.Actions.Contents.PlaySymbolAnimation"},"_position":{"x":1389.0,"y":827.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"46"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"42"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"42"},"_targetNode":{"$ref":"46"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

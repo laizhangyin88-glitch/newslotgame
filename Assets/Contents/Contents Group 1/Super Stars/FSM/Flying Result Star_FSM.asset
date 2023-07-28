@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Flying Result Star_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-125.0,"y":48.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"element":{"_name":"value","_targetVariableID":"5599ed1d-072c-4f41-a903-f5a515bdfe98"},"key":{"_value":"STAR_CREDIT"},"tableType":"Content","arg1":{"_value":"credit"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"}]},"_position":{"x":195.0,"y":242.0},"_name":"Start","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./flyingResultStarHitCount"},"Operation":"Add","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"./bonusTopBoardCredit"},"Operation":"Add","valueB":{"_name":"credit","_targetVariableID":"5e1a945c-7d64-4353-ada5-0b1954b997aa"},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"eventName":{"_value":"HitBonusTopWinBoard"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"}]},"_position":{"x":451.0,"y":340.0},"_name":"Hit","$type":"NodeCanvas.StateMachines.ActionState","$id":"9"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"Jackpot
+    Coin Addition"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":755.0,"y":441.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"21"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"Coin
+    Addition"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":755.0,"y":291.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"26"}],"connections":[{"_condition":{"eventName":{"_value":"Hit"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"overrideAgent":{"_name":"jackpot","_targetVariableID":"35f7a7fa-f92b-4b3c-8fb2-ad03818baf91"},"$type":"NodeCanvas.Tasks.Conditions.IsActive"},"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0
