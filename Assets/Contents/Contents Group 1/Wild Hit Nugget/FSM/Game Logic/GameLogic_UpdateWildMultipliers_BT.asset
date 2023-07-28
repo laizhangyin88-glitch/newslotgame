@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_UpdateWildMultipliers_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-479.0,"y":-98.0},"nodes":[{"_condition":{"bonusId":{"_value":19706},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_position":{"x":765.0,"y":210.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_action":{"actions":[{"bonusId":{"_value":19706},"response":{"_name":"_tallWildBonus","_targetVariableID":"9c17b9aa-bd3b-4d96-8b7c-eac907a989fe"},"$type":"BagelCode.Tasks.Actions.Contents.GetBonusResponse"},{"valueA":{"_value":"multiplierList"},"saveAs":{"_name":"_wildMultiplierList","_targetVariableID":"1a2ed40c-0fa9-4d26-a9c3-54bbe9700691"},"overrideAgent":{"_name":"_tallWildBonus"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./customData/wildMultipliers"},"valueB":{"_name":"_wildMultiplierList","_targetVariableID":"1a2ed40c-0fa9-4d26-a9c3-54bbe9700691"},"$type":"SlotMaker.Tasks.Actions.CopyList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":658.0,"y":329.0},"_comment":"Update
+    wild multipliers shortly ater spin start to ensure spinning symbols will receive
+    corrent multiplier values!","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"5"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

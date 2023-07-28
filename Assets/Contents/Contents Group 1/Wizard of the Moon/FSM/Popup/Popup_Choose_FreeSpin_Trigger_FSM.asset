@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_Choose_FreeSpin_Trigger_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-3785.0,"y":-4126.0},"zoomFactor":0.787843,"nodes":[{"_actionList":{"actions":[{"id":{"_value":"Choose
+    Your Bonus Popup"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":4034.0,"y":5793.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"valueA":{"_value":"_bonusID"},"valueB":{"_value":15502},"$type":"SlotMaker.Tasks.Actions.SetInt32"}]},"_position":{"x":4285.0,"y":5664.0},"_name":"Set
+    Bonus","$type":"NodeCanvas.StateMachines.ActionState","$id":"7"},{"_actionList":{"actions":[{"valueA":{"_value":"./bonus/response/freeSpinCount"},"saveAs":{"_name":"_freeSpinCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"element":{"_name":"countBlueText","_targetVariableID":"06dcaa16-10e7-448c-96ad-1419a642de8d"},"arg0":{"_value":"_freeSpinCount"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"element":{"_name":"countBlueShadowText","_targetVariableID":"5f2bf27e-87a4-4e0d-b14c-97ec4b4e2df1"},"arg0":{"_value":"_freeSpinCount"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"element":{"_name":"countRedText","_targetVariableID":"1b53e4a5-5887-454e-8ef3-cf88ea776c60"},"arg0":{"_value":"_freeSpinCount"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"element":{"_name":"countRedShadowText","_targetVariableID":"e8abe918-fb89-4d49-a5ff-1e039813e628"},"arg0":{"_value":"_freeSpinCount"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":4550.0,"y":5750.0},"_name":"Set
+    Text","$type":"NodeCanvas.StateMachines.ActionState","$id":"13"},{"_actionList":{"actions":[{"id":{"_value":"Choose
+    Your Bonus Popup"},"$type":"SlotMaker.Tasks.Actions.SimpleStopGameSound"},{"id":{"_value":"Free
+    Game Entrance"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"bonusId":{"_name":"_bonusID"},"selectedIndex":{"_value":1},"$type":"BagelCode.Tasks.Actions.ClientAPI.ClaimBonus"},{"parameter":{"_value":"Pick
+    Expand FS"},"parameterHashID":{},"overrideAgent":{"_name":"animator","_targetVariableID":"21e71825-7891-476a-996e-b99307871203"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":5038.0,"y":5909.0},"_name":"Set
+    Text","$type":"NodeCanvas.StateMachines.ActionState","$id":"33"},{"_actionList":{"actions":[{"waitTime":{"_value":1.8},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":5388.0,"y":5804.0},"_name":"End
+    Setting","$type":"NodeCanvas.StateMachines.ActionState","$id":"47"},{"_actionList":{"actions":[{"eventName":{"_value":"ClosedPopup"},"delay":{},"overrideAgent":{"_name":"caller","_targetVariableID":"bffa8b30-c065-45f3-89d4-814c2b316721"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"$type":"SlotMaker.Task.Actions.ClosePopup"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":5524.0,"y":5959.0},"_name":"Finalize","$type":"NodeCanvas.StateMachines.ActionState","$id":"52"},{"_actionList":{"actions":[{"id":{"_value":"Choose
+    Your Bonus Popup"},"$type":"SlotMaker.Tasks.Actions.SimpleStopGameSound"},{"id":{"_value":"Free
+    Game Entrance"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"bonusId":{"_name":"_bonusID"},"selectedIndex":{},"$type":"BagelCode.Tasks.Actions.ClientAPI.ClaimBonus"},{"parameter":{"_value":"Pick
+    Lock FS"},"parameterHashID":{},"overrideAgent":{"_name":"animator","_targetVariableID":"21e71825-7891-476a-996e-b99307871203"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":5037.0,"y":5664.0},"_name":"Set
+    Text","$type":"NodeCanvas.StateMachines.ActionState","$id":"61"},{"_actionList":{"actions":[{"valueA":{"_value":"_bonusID"},"valueB":{"_value":15550},"$type":"SlotMaker.Tasks.Actions.SetInt32"}]},"_position":{"x":4286.0,"y":5918.0},"_name":"Set
+    INS Bonus","$type":"NodeCanvas.StateMachines.ActionState","$id":"75"}],"connections":[{"_condition":{"bonusId":{"_value":15502},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"bonusId":{"_value":15550},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"75"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnClickExpandFreeSpin"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnClickLockFreeSpin"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"61"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"47"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"47"},"_targetNode":{"$ref":"52"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"61"},"_targetNode":{"$ref":"47"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"75"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

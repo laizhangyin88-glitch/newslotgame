@@ -1,0 +1,57 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Wld
+{
+    public class BonusInfo2
+    {
+        public WLDScatterInfo baseSpin = null;
+        public WLDScatterInfo freeSpin = null;
+    }
+
+    // WLDWildCopyBonus
+    public class BonusResult200
+    {
+        public long betCredit = 0;
+        public List<int> wildCopy = new List<int>();
+    }
+
+    // WLDJackpot
+    public class BonusResult201
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // WLDFreeSpinBonus
+    public class BonusResult202
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // WLDFreeSpinRetriggerBonus
+    public class BonusResult203
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // WLDTicketedFreeSpinBonus
+    public class BonusResult250
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    public class WLDScatterInfo
+    {
+        public int minimumScatter;
+        public List<long> scatterPay = new List<long>();
+        public int freeSpinCount;
+    }
+}

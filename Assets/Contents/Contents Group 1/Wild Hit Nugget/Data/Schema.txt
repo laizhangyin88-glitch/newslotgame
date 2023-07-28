@@ -1,0 +1,86 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Whs
+{
+    public class BonusInfo197
+    {
+        public RandomFeatureInfo randomFeatureInfo;
+    }
+
+    public class RandomFeatureInfo
+    {
+        public List<int> reelTypes = new List<int>();
+    }
+    
+    // WHSFreeSpinBonus
+    public class BonusResult19700
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // WHSFreeSpinRetriggerBonus
+    public class BonusResult19701
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // WHSWildExpandBonus
+    public class BonusResult19702
+    {
+        public List<int> wildDirections;
+        public List<int> wildMoveSteps;
+        public List<bool> wildNudgeHits;
+    }
+
+    // WHSCashPayBonus
+    public class BonusResult19703
+    {
+        public List<CashSymbol> cashSymbolsList;
+    }
+    
+    public class CashSymbol
+    {
+        public int column;
+        public int row;
+        public float prize;
+    }
+    
+    // WHS Random Jackpot Feature
+    public class BonusResult19704
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+        public int wheelStopIndex = 0;
+    }
+    
+    // WHS CASH_NUDGE
+        public class BonusResult19705
+        {
+           public List<int> cashSymbolDirections;
+           public List<int> cashSymbolMoveSteps;
+           public List<bool> cashSymbolNudgeHits;
+           public bool isExpandReels = false;
+           public int expandType = 0;
+        }
+        
+    // WHS WILD_MULTIPLIER
+        public class BonusResult19706
+        {
+          public longBetCredit = 0;
+          public List<int> multiplierList;
+          public int maxPayIndex = 0;
+        }
+        // WHSFreeSpinBonus
+            public class BonusResult19750
+            {
+                public int type = 0;
+                public long betCredit = 0;
+                public int addedSpinCount = 0;
+            }
+}

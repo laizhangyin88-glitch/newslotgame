@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Wheel_Initialize sectors_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-13.0,"y":-422.0},"nodes":[{"targetList":{"_type":"System.Collections.Generic.List`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"_wheelValues","_targetVariableID":"721d8dd3-3413-40c5-89ca-e139e74a6a1a"},"current":{"_type":"NodeCanvas.Framework.Blackboard","_name":"sectorWheelData","_targetVariableID":"a51aeb9f-e725-4573-8ba1-d4419f6e936e"},"storeIndex":{"_name":"_index","_targetVariableID":"eff599dd-c090-4e7a-b530-4fe3961cec90"},"maxIteration":{"_value":-1},"_position":{"x":600.0,"y":540.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"2"},{"_position":{"x":645.0,"y":690.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"7"},{"_action":{"valueA":{"_value":"type"},"saveAs":{"_name":"_sectorType","_targetVariableID":"3fad7f8e-3a49-459c-8b2d-4352c365861c"},"overrideAgent":{"_name":"sectorWheelData","_targetVariableID":"a51aeb9f-e725-4573-8ba1-d4419f6e936e"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":495.0,"y":810.0},"_comment":"Get
+    segment type","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"8"},{"_condition":{"valueA":{"_name":"_sectorType","_targetVariableID":"3fad7f8e-3a49-459c-8b2d-4352c365861c"},"valueB":{"_value":"cash"},"$type":"NodeCanvas.Tasks.Conditions.CheckString"},"_position":{"x":750.0,"y":810.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"13"},{"_action":{"actions":[{"targetList":{"_name":"sectorsBBList","_targetVariableID":"7e70951e-b356-4267-bda1-0c65fff4a4e1"},"index":{"_name":"_index","_targetVariableID":"eff599dd-c090-4e7a-b530-4fe3961cec90"},"saveAs":{"_name":"sectorBB","_targetVariableID":"b881aa55-b8cb-4a78-aa59-6378f569cacf"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"sectorBB/value"},"saveAs":{"_name":"_contextElement","_targetVariableID":"6edc89f3-1ea5-4046-ad84-900233efec10"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[SlotMaker.ContextElement,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"value"},"saveAs":{"_name":"segmentValue","_targetVariableID":"96fbf857-d3fa-4387-bbf0-c7ae823c4a0d"},"overrideAgent":{"_name":"sectorWheelData","_targetVariableID":"a51aeb9f-e725-4573-8ba1-d4419f6e936e"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./totalBetCredit"},"saveAs":{"_name":"_sectorWinAmount","_targetVariableID":"d638a088-410e-4cf7-8002-9a7d48a8c13d"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"_sectorWinAmount","_targetVariableID":"d638a088-410e-4cf7-8002-9a7d48a8c13d"},"Operation":"Multiply","valueB":{"_name":"segmentValue","_targetVariableID":"96fbf857-d3fa-4387-bbf0-c7ae823c4a0d"},"$type":"NodeCanvas.Tasks.Actions.SetLong"},{"element":{"_name":"_contextElement","_targetVariableID":"6edc89f3-1ea5-4046-ad84-900233efec10"},"key":{"_value":"WHEEL_SEGMENT_VALUE"},"tableType":"Content","arg1":{"_value":"_sectorWinAmount"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":570.0,"y":960.0},"_comment":"-
+    get segment context\n- calculate value for segment\n- set value on segment with
+    localization","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"17"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

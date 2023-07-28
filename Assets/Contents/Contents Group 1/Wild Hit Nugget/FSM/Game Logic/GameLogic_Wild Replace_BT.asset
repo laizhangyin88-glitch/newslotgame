@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Wild Replace_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-216.0,"y":171.0},"nodes":[{"_condition":{"bonusId":{"_value":14502},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_position":{"x":924.0,"y":139.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_position":{"x":940.0,"y":260.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"5"},{"_action":{"actions":[{"bonusId":{"_value":14502},"response":{"_name":"_wildPayResult"},"$type":"BagelCode.Tasks.Actions.Contents.GetBonusResponse"},{"valueA":{"_value":"_wildPayResult/wildRowIndex"},"saveAs":{"_name":"_wildRowIndexList"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_wildPayResult/wildColIndex"},"saveAs":{"_name":"_wildColIndexList"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_wildPayResult/wildPayAmount"},"saveAs":{"_name":"_wildPayAmountList"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":524.0,"y":364.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"targetList":{"_type":"System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]","_name":"_wildRowIndexList"},"current":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_wildRowIndex"},"storeIndex":{"_name":"_index"},"maxIteration":{"_value":-1},"_position":{"x":1076.0,"y":361.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"21"},{"_action":{"actions":[{"valueA":{"_value":"_wildColIndexList"},"index":{"_name":"_index"},"fromLast":{},"saveAs":{"_name":"_wildColIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_reelOutputList"},"index":{"_name":"_wildColIndex"},"fromLast":{},"saveAs":{"_name":"_beginIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_beginIndex"},"Operation":"Add","valueB":{"_name":"_wildRowIndex"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_beginIndex"},"Operation":"Add","valueB":{"_value":3},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_wildPayAmountList"},"index":{"_name":"_index"},"fromLast":{},"saveAs":{"_name":"_wildPayAmount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"reelStripsObject":{},"slotIndex":{},"reelIndex":{"_name":"_wildColIndex"},"beginIndex":{"_name":"_beginIndex"},"replaceList":{"_name":"_replaceList","_targetVariableID":"a0c32507-060f-454c-baa9-f94e6fa34b25"},"customDataKey":{"_value":"index"},"customDataValue":{"_name":"_wildPayAmount"},"clearCustomData":{},"$type":"BagelCode.Tasks.Actions.Contents.ReplaceReelStripWithCustomData`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":981.0,"y":485.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"26"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

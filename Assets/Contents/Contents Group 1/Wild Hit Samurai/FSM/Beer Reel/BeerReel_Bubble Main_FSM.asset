@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: BeerReel_Bubble Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":888.0,"y":-532.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":25.0,"y":703.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":-316.0,"y":825.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"5"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"setTo":"Deactivate","_isDisabled":true,"overrideAgent":{"_name":"WaysPanel","_targetVariableID":"477a9385-0c21-46d3-957b-00a7562eb639"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"setTo":"Deactivate","_isDisabled":true,"overrideAgent":{"_name":"WaysPanel2","_targetVariableID":"7811bbdb-0cd6-4160-b933-386ed0b5ad39"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"parameter":{"_value":"Disappear"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"valueA":{"_name":"Panel","_targetVariableID":"7219930f-4b6e-46b5-956c-700c9c1f936d"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetVariable`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":280.0,"y":812.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"7"}],"connections":[{"_condition":{"eventName":{"_value":"ChangeWays"},"saveEventValue":{"_name":"_lastIndex"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"conditions":[{"eventName":{"_value":"DeactivatePanel"},"saveEventValue":{"_name":""},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"Panel","_targetVariableID":"7219930f-4b6e-46b5-956c-700c9c1f936d"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckVariable`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 7f05036dbab06814685fd134561aa7a8, type: 2}
+  _deserializationFailed: 0

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: SB_Curtain_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":27.0,"y":42.0},"zoomFactor":0.9362618,"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"setTo":"Deactivate","overrideAgent":{"_name":"animator","_targetVariableID":"281faf6b-8341-46db-bbf0-f290dc1894ad"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"}]},"_position":{"x":100.0,"y":272.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"setTo":"Deactivate","overrideAgent":{"_name":"animator","_targetVariableID":"281faf6b-8341-46db-bbf0-f290dc1894ad"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"},{"setTo":"Activate","overrideAgent":{"_name":"animator","_targetVariableID":"281faf6b-8341-46db-bbf0-f290dc1894ad"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"},{"waitTime":{"_value":0.35},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"CurtainClosed"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"}]},"_position":{"x":313.0,"y":378.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"7"},{"_actionList":{"actions":[{"parameter":{"_value":"Outro"},"parameterHashID":{},"_isDisabled":true,"overrideAgent":{"_name":"animator","_targetVariableID":"281faf6b-8341-46db-bbf0-f290dc1894ad"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"setTo":"Deactivate","overrideAgent":{"_name":"animator","_targetVariableID":"281faf6b-8341-46db-bbf0-f290dc1894ad"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"},{"setTo":"Activate","overrideAgent":{"_name":"animator","_targetVariableID":"281faf6b-8341-46db-bbf0-f290dc1894ad"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"},{"waitTime":{"_value":0.45},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"CurtainClosed"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"}]},"_position":{"x":624.0,"y":532.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"19"}],"connections":[{"_condition":{"eventName":{"_value":"OnCurtain"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnCurtain"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnCurtain"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

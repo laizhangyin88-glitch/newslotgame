@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Respin_Grand_Jackpot_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5144.0,"y":-4898.0},"nodes":[{"_position":{"x":5595.0,"y":5250.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"waitTime":{"_value":0.3},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"TopBoardTrigger"},"eventValue":{"_value":"Mega"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent`1[[System.String,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"MegaJackpot"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"valueA":{"_value":"./bonus/response/megaJackpotResult/earnCredit"},"saveAs":{"_name":"_jackpotEarnCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./bonus/response/earnCredit"},"valueB":{"_name":"_jackpotEarnCredit"},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"valueA":{"_value":"./bonus/response/jackpotIndex"},"valueB":{"_value":3},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"waitTime":{"_value":2.2},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5070.0,"y":5355.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"actions":[{"bundleName":{"_value":"lobby"},"assetName":{"_value":"Grand
+    Jackpot Trigger Popup Scene"},"combineApplicationType":{"_value":true},"parentName":{"_value":"Popup
+    Manager/Contents"},"constraintSceneActivation":{"_value":true},"saveAs":{"_name":"_jackpotPopup"},"$type":"SlotMaker.Tasks.Actions.LoadSceneAsync"},{"popup":{"_name":"_jackpotPopup"},"$type":"SlotMaker.Tasks.Actions.SimpleOpenContentPopup"},{"setTo":"Activate","overrideAgent":{"_name":"_jackpotPopup"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5190.0,"y":5550.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"26"},{"_condition":{"eventName":{"_value":"FinalizeJackpotGame"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_position":{"x":5820.0,"y":5355.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"40"},{"_action":{"actions":[{"$type":"BagelCode.Tasks.Actions.BI.BI_jackpot"},{"valueA":{"_value":"./bonus/response/earnCredit"},"valueB":{"_name":"_responseCredit"},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"valueA":{"_value":"./bonus/response/jackpotIndex"},"valueB":{"_value":-1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"waitTime":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"MegaJackpotEnd"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5745.0,"y":5430.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"43"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"40"},"_targetNode":{"$ref":"43"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

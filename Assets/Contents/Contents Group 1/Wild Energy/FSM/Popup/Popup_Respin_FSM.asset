@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_Respin_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":199.0,"y":89.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":353.0,"y":116.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"Fire
+    Blast Respins"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":515.0,"y":499.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"5"},{"_actionList":{"actions":[{"waitTime":{"_value":1.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"parameter":{"_value":"Out"},"parameterHashID":{},"overrideAgent":{"_name":"animator"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":0.3},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"ClosedPopup"},"delay":{},"overrideAgent":{"_name":"caller","_targetVariableID":"bffa8b30-c065-45f3-89d4-814c2b316721"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"$type":"SlotMaker.Task.Actions.ClosePopup"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":949.0,"y":289.0},"_name":"Finalize","$type":"NodeCanvas.StateMachines.ActionState","$id":"10"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"Frozen
+    Wild Respins"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":612.0,"y":404.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"27"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"Mystery
+    Respin Popup"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":699.0,"y":239.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"32"}],"connections":[{"_condition":{"bonusId":{"_value":15703},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"bonusId":{"_value":15704},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"27"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"bonusId":{"_value":15702},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},{"bonusId":{"_value":15705},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"27"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"32"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: JackpotBoard_Update_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":403.0,"y":-450.0},"nodes":[{"_position":{"x":498.0,"y":481.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"./betCredit"},"saveAs":{"_name":"_betCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./game/jackpotInfo/baseBet"},"saveAs":{"_name":"_baseBet"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"baseBet":{"_name":"_baseBet"},"bet":{"_name":"_betCredit"},"multiplier":{"_name":"_jackpotMultiplier"},"_isDisabled":true,"$type":"BagelCode.Tasks.Actions.Contents.GetIngameJackpotMultiplier"},{"valueA":{"_value":"./betList"},"saveAs":{"_name":"_betList"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"_betList"},"targetElement":{"_name":"_betCredit"},"saveIndexAs":{"_name":"_currentBetIndex"},"_isDisabled":true,"$type":"NodeCanvas.Tasks.Actions.GetIndexOfElement`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./game/jackpotInfo/multiplierList"},"index":{"_name":"_currentBetIndex"},"fromLast":{},"saveAs":{"_name":"_jackpotMultiplier"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Double,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./game/jackpotInfo/eligibleMinBet"},"saveAs":{"_name":"_eligibleMinBet"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":197.0,"y":578.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"conditions":[{"valueA":{"_value":"_betCredit"},"checkType":"GreaterOrEqualTo","valueB":{"_name":"_eligibleMinBet"},"$type":"SlotMaker.Tasks.Condition.CheckInt64"},{"valueA":{"_value":"IsOn"},"valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":617.0,"y":593.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"31"},{"_action":{"actions":[{"parameter":{"_value":"01"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"valueA":{"_value":"IsOn"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":665.0,"y":730.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"40"},{"_condition":{"conditions":[{"valueA":{"_value":"_betCredit"},"checkType":"LessThan","valueB":{"_name":"_eligibleMinBet"},"$type":"SlotMaker.Tasks.Condition.CheckInt64"},{"valueA":{"_value":"IsOn"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":879.0,"y":596.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"48"},{"_action":{"actions":[{"parameter":{"_value":"00"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"parameter":{"_value":"Appear"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"valueA":{"_value":"IsOn"},"setTo":"False","$type":"SlotMaker.Tasks.Actions.SetBoolean"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":906.0,"y":729.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"57"},{"_condition":{"valueA":{"_value":"_betCredit"},"checkType":"GreaterOrEqualTo","valueB":{"_name":"_eligibleMinBet"},"$type":"SlotMaker.Tasks.Condition.CheckInt64"},"_position":{"x":1190.0,"y":656.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"48"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"48"},"_targetNode":{"$ref":"57"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

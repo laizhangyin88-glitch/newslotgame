@@ -1,0 +1,135 @@
+using System.Collections;
+using System.Collections.Generic;
+using SlotMaker.Json;
+
+namespace SlotMaker.Contents.Internal.Wwh
+{
+    public class CustomData123
+    {
+        public List<int> wildSpots;
+        public List<int> mysteryRandom;
+        public Dictionary<long,List<int>> wilds = new Dictionary<long,List<int>>();
+        public Dictionary<long,List<int>> crystals = new Dictionary<long,List<int>>();
+        public long averageBet;
+
+        public FreeSpinState freespinState;
+        public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+    }
+
+    public class FreeSpinState
+    {
+        public List<StickyWildItem> stickyWilds;
+        public List<int> stickyWildsIntersection;
+
+        public int activeType;
+        public int currentSpinsLeft;
+        public List<int> queue;
+        public int mysteryOffset = 0;
+    }
+    
+    public class StickyWildItem
+    {
+        public int position;
+        public int prevPosition;
+        public int nextPosition;
+        public int type;
+    }
+
+    public class BonusInfo123
+    {
+        public WheelInfo pickWheel;
+        public WheelInfo leftWheel;
+        public WheelInfo rightWheel;
+    }
+
+    public class WheelInfo
+    {
+        public List<WheelSegment> values;
+    }
+
+    public class BonusResult12300
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+    
+    public class BonusResult12301
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // Retrigger
+    public class BonusResult12302
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        
+    }
+
+    // 3 scatter bonus
+    public class BonusResult12303
+    {
+        public List<BonusStep> sequence;
+    }
+    
+    public class BonusStep
+    {
+        public string type;
+        public int value;
+        public bool collect;
+        public bool fail;
+    }
+
+    // Scatter Wheel Bonus
+    public class BonusResult12304
+    {
+        public int index;
+        public WheelSegment sector;
+    }
+    
+    public class WheelSegment
+    {
+        public string type;
+        public int value;
+    }
+
+    // Wheel Bonus Left
+    public class BonusResult12305
+    {
+        public int index;
+        public WheelSegment sector;
+    }
+
+    // Wheel Bonus Right
+    public class BonusResult12306
+    {
+        public int index;
+        public WheelSegment sector;
+    }
+
+    // Potion Bonus
+    public class BonusResult12310
+    {
+        public List<List<PotionBonusStep>> sequence;
+        public List<List<PotionBonusStep>> failPositions;
+    }
+    
+     // Scatter Wheel Bonus
+     public class BonusResult12350
+     {
+         public int index;
+         public WheelSegment sector;
+     }
+
+    public class PotionBonusStep 
+    {
+        public double mult;
+        public bool potion;
+        public bool blocked;
+    }
+}

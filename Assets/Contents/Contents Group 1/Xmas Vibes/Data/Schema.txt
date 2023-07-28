@@ -1,0 +1,108 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Xmv
+{
+    public class BonusInfo175
+    {
+        public List<int> wheelMultiplierValuesForClient;
+        public WheelBonus freespinTrigger;
+        public List<RapidValue> rapidSymbolValues;
+    }
+
+    public class CustomData175
+    {
+        public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<long,CollectibleProgression> progressionPerBet;
+        public int multiplier;
+    }
+
+    public class CollectibleProgression
+    {
+        public List<int> collectedItems;
+        public int lastItem;
+        public long coinAmount;
+    }
+
+    // FreeSpin
+    public class BonusResult17500
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int extraBetIndex = 0;
+        public int multiplier = 0;
+    }
+
+    public class BonusResult17550
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int extraBetIndex = 0;
+        public Dictionary<long,CollectibleProgression> progressionPerBet;
+    }
+
+    public class BonusResult17501
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int extraBetIndex = 0;
+    }
+
+    // Pick bonus
+    public class BonusResult17502
+    {  
+        public List<PickBonusStep> pickStepList;
+        public List<PickBonusStep> unusedPicks;
+        public long startCoinAmount;
+    }
+
+    public class PickBonusStep 
+    {
+      public bool isNextPick;
+      public int multiplier;
+      public bool isWheelBonus;
+      public WheelResult wheelResult;
+    }
+
+    public class WheelResult 
+    {
+      public int index;
+      public long coinAmount;
+    }
+
+    // Fast reward
+    public class BonusResult17503
+    {  
+        public List<FastReward> fastRewardSymbolList;
+    }
+
+     // Super Fast reward info
+    public class BonusResult17504
+    {  
+        public List<FastReward> superFastReward;
+    }
+
+    public class FastReward 
+    {
+        public int multiplier;
+        public int symbolType;
+        public int rewardType;
+        public List<int> symbolPosition;
+        public double coinReward;
+        public int addedFreeSpinCount;
+        public List<int> items;
+        public double bonusBet;
+    }
+
+    // Nudge
+    public class BonusResult17505
+    {
+        public List<int> rewardDirections;
+        public List<int> rewardMoveSteps;
+        public List<bool> rewardNudgeHits;
+    }
+}

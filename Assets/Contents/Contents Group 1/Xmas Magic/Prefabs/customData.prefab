@@ -1,0 +1,626 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1058747049064934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4851521888923654}
+  m_Layer: 0
+  m_Name: Pools
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4851521888923654
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058747049064934}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4796433897569916}
+  - {fileID: 4778951561424042}
+  - {fileID: 4383523550484866}
+  - {fileID: 4176443468427600}
+  m_Father: {fileID: 224163804294436898}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1239104538945882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4077957685518822}
+  - component: {fileID: 114172916801929926}
+  - component: {fileID: 114454247979074594}
+  m_Layer: 0
+  m_Name: GS Handler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4077957685518822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239104538945882}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224163804294436898}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114172916801929926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239104538945882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serializedBlackboard: '{"_variables":{"Base Game BGM":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    BGM"},"output":"Music","loop":true,"volume":0.7,"fadeOut":{"easeType":"EaseInQuad","time":0.5},"autoRelease":false},"_name":"Base
+    Game BGM","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Free Game BGM":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    Bonus BGM"},"output":"Music","loop":true,"volume":0.5,"fadeOut":{"easeType":"EaseInQuad","time":0.5},"autoRelease":false},"_name":"Free
+    Game BGM","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Game Intro":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    Game Intro"},"delay":0.5,"fadeOut":{"easeType":"EaseInQuad","time":1.0},"autoRelease":false},"_name":"Game
+    Intro","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Reel Stop 1":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    Reel Stop 1"},"output":"Compressor"},"_name":"Reel Stop 1","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Reel
+    Stop 2":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM Reel Stop 2"},"output":"Compressor"},"_name":"Reel
+    Stop 2","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Reel Stop 3":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    Reel Stop 3"},"output":"Compressor"},"_name":"Reel Stop 3","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Reel
+    Stop 4":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM Reel Stop 4"},"output":"Compressor"},"_name":"Reel
+    Stop 4","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Reel Stop 5":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    Reel Stop 5"},"output":"Compressor"},"_name":"Reel Stop 5","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Wild
+    Land":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM Wild Land"},"output":"Compressor"},"_name":"Wild
+    Land","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Wild Expand":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    Wild Expand"},"volume":0.8},"_name":"Wild Expand","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Coin
+    High Win":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM High Win"},"volume":0.8},"_name":"Coin
+    High Win","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Coin Med Win":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    Medium Win"},"volume":0.8},"_name":"Coin Med Win","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Coin
+    Low Win":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM Low Win"},"volume":0.8},"_name":"Coin
+    Low Win","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Coin Win End":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    Win End"},"volume":0.8},"_name":"Coin Win End","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Expectation":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    Expectation"},"volume":0.9,"playingType":"LastOnly","fadeOut":{"easeType":"EaseInQuad","time":0.3}},"_name":"Expectation","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Popup":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    FreeSpin Result PopUp"},"volume":0.8},"_name":"Popup","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"FreeSpin
+    Start PopUp":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM FreeSpin Start
+    PopUp"},"volume":0.8},"_name":"FreeSpin Start PopUp","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"FreeSpin
+    Result PopUp":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM FreeSpin
+    Result PopUp"},"volume":0.6},"_name":"FreeSpin Result PopUp","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Button":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    Button"},"volume":0.6,"playingType":"FirstOnly"},"_name":"Button","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Wild
+    Box Land":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM Wild Box Land"}},"_name":"Wild
+    Box Land","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Santa Sleigh Passing":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    Santa Sleigh Passing"},"delay":0.5,"playingType":"LastOnly"},"_name":"Santa Sleigh
+    Passing","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Scatter Land 1":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    Scatter 1"},"output":"Compressor"},"_name":"Scatter Land 1","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Scatter
+    Land 2":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM Scatter 2"},"output":"Compressor"},"_name":"Scatter
+    Land 2","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Scatter Land 3":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    Scatter 3"},"output":"Compressor"},"_name":"Scatter Land 3","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Scatter
+    Land 4":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM Scatter 4"},"output":"Compressor"},"_name":"Scatter
+    Land 4","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Scatter Land 5":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM
+    Scatter 5"},"output":"Compressor"},"_name":"Scatter Land 5","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Scatter
+    win":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM Scatter Win"}},"_name":"Scatter
+    win","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"FreeSpin Retrigger
+    PopUp":{"_value":{"clip":{"bundleName":"xmm","assetName":"XMM FreeSpin Retrigger
+    PopUp"}},"_name":"FreeSpin Retrigger PopUp","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
+  _objectReferences: []
+--- !u!114 &114454247979074594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239104538945882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b69b183a68374d3783b87add991662e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  googleSpreadSheetId: 1yb3kzFUcbwvTeTMVg80BXMjuZuG6mA7U0yLMydsgTAo
+  tableName: xmm
+--- !u!1 &1388810222798028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4176443468427600}
+  - component: {fileID: 114093633935894028}
+  m_Layer: 0
+  m_Name: Scatter Badge Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4176443468427600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388810222798028}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4851521888923654}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114093633935894028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388810222798028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5750e32a55b434dc9b3ad9ea8e365078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1214243185529904, guid: 01131ab440f0a4f2ab37e5c85ec4cdc3, type: 3}
+  poolSize: 5
+  availiableObjects: []
+--- !u!1 &1523083907431256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4631544093196888}
+  m_Layer: 0
+  m_Name: slotDataList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4631544093196888
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523083907431256}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4980729844564702}
+  m_Father: {fileID: 224163804294436898}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1593059822365538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4778951561424042}
+  - component: {fileID: 114919296752369472}
+  m_Layer: 0
+  m_Name: Stop Effect Scatter Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4778951561424042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593059822365538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4851521888923654}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114919296752369472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593059822365538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5750e32a55b434dc9b3ad9ea8e365078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1327793155283146, guid: 9f98e6068588b416cb413f1b281f6cc8, type: 3}
+  poolSize: 5
+  availiableObjects: []
+--- !u!1 &1678958929651720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4383523550484866}
+  - component: {fileID: 114875786496279856}
+  m_Layer: 0
+  m_Name: Stop Effect Wild A Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4383523550484866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678958929651720}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4851521888923654}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114875786496279856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678958929651720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5750e32a55b434dc9b3ad9ea8e365078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1327793155283146, guid: eeba58f39b85241019a87ab542ca1985, type: 3}
+  poolSize: 5
+  availiableObjects: []
+--- !u!1 &1875862049504102
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 224163804294436898}
+  - component: {fileID: 114959660423544742}
+  - component: {fileID: 114332013852081072}
+  - component: {fileID: 114813460245942592}
+  - component: {fileID: 114251568420779132}
+  m_Layer: 0
+  m_Name: customData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &224163804294436898
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875862049504102}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4077957685518822}
+  - {fileID: 4851521888923654}
+  - {fileID: 4631544093196888}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &114959660423544742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875862049504102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0dbb264a5ab46f0b33902a6726b4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  symbolCount: 17
+  symbolSortingOrder:
+    sortingLayerName: Base
+    orders: 0000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000001000000
+  symbolSprite: {fileID: 114251568420779132}
+  symbolName:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  gsHandler: {fileID: 114172916801929926}
+  slotDataList:
+  - {fileID: 114407416024395106}
+--- !u!114 &114332013852081072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875862049504102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serializedBlackboard: '{"_variables":{"slotDataList":{"_value":[1],"_name":"slotDataList","_id":"a3e62141-5a1b-4f84-9ec8-0d0cc6da51af","$type":"NodeCanvas.Framework.Variable`1[[System.Collections.Generic.List`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib,
+    Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"symbolSortingOrder":{"_propertyPath":"SlotMaker.ContentCustomData.symbolSortingOrder","_name":"symbolSortingOrder","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.SymbolSortingOrder,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"isReady":{"_name":"isReady","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"spinReels":{"_value":[true,true,true,true,true],"_name":"spinReels","_id":"205c4de6-1b7f-44e2-8b08-b287902da46d","$type":"NodeCanvas.Framework.Variable`1[[System.Collections.Generic.List`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 114748889361029602}
+--- !u!114 &114813460245942592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875862049504102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b2b02d26f514778b29c0a6857bebdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assets:
+  - {fileID: 11400000, guid: 055884bda627843b8baaa4352d0a2689, type: 2}
+  - {fileID: 11400000, guid: 0da8e3f963cee466bad4ceb54768d0d3, type: 2}
+  - {fileID: 11400000, guid: 16afc7855bb664d1ba79346b995b71d5, type: 2}
+  - {fileID: 11400000, guid: 0048dae2b8ff044ccad28e941401caf3, type: 2}
+  - {fileID: 11400000, guid: 489d3187b76a44933bb955b8cfc0b6d0, type: 2}
+  - {fileID: 11400000, guid: 38c47325ec5214e5886ff7f4dbe79d5f, type: 2}
+  - {fileID: 11400000, guid: d377f74b34a694c6da7c3b715639e99d, type: 2}
+  - {fileID: 11400000, guid: 7d50f85c9315543c68031046849e3756, type: 2}
+  - {fileID: 11400000, guid: 1249ca73f0f5c41acb5477d8035f5590, type: 2}
+  - {fileID: 11400000, guid: c47e411a1e72f4343a26ad6dc999c588, type: 2}
+  - {fileID: 11400000, guid: 226818dac19e1451bb87377e4e0f16e9, type: 2}
+  - {fileID: 11400000, guid: 27dc62d10ac4b43f2818087e9fbc4942, type: 2}
+  - {fileID: 11400000, guid: 2fc488cf759774d93bee170190450511, type: 2}
+  - {fileID: 11400000, guid: 4fd6d0b17cf384c5fb26423f09426155, type: 2}
+  - {fileID: 11400000, guid: 46027bf90c8d044cfba617457836ca15, type: 2}
+  - {fileID: 11400000, guid: 2594f5b5158c24f4c9131973227e316f, type: 2}
+  - {fileID: 11400000, guid: 489d3187b76a44933bb955b8cfc0b6d0, type: 2}
+  pools:
+  - {fileID: 114481098674545142}
+  - {fileID: 114919296752369472}
+  - {fileID: 114875786496279856}
+  - {fileID: 114093633935894028}
+  assetGroupId: 0
+--- !u!114 &114251568420779132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875862049504102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75e8ba917190474f8751c0b492c095d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 5401e87663d8241c5be8547e1c9ea138, type: 3}
+  - {fileID: 21300000, guid: ae7201b7211974c6aa88a155ea7c2cb3, type: 3}
+  - {fileID: 21300000, guid: 40dd1770fb4764072a9e01f02d72e2e5, type: 3}
+  - {fileID: 21300000, guid: 7cfc66170274f476ca566a86380555dc, type: 3}
+  - {fileID: 21300000, guid: 759c263eda73d439bae46bfcc127c9e6, type: 3}
+  - {fileID: 21300000, guid: 330de295d4d944db0b008d79600eda87, type: 3}
+  - {fileID: 21300000, guid: d9483c7bc858e4bc280eb27824bb79ba, type: 3}
+  - {fileID: 21300000, guid: 847fd51aea053474caa3ebeccf14b9a4, type: 3}
+  - {fileID: 21300000, guid: ed9f93ea6431a4352883103d60d37457, type: 3}
+  - {fileID: 21300000, guid: 8185321715e184dd1b7c6b7386085ba0, type: 3}
+  - {fileID: 21300000, guid: a1bab91bc40494528891370ecb5750e9, type: 3}
+  - {fileID: 21300000, guid: dd1e68458eaec4c799db1d0f164a902d, type: 3}
+  - {fileID: 21300000, guid: 4791c5857eabb4a9ba7b6afee0c05112, type: 3}
+  - {fileID: 21300000, guid: a3d2b3cb0dd47454ab087aeffa01197d, type: 3}
+  - {fileID: 21300000, guid: 6e5d48c1378004a19b1517dc27529f21, type: 3}
+  - {fileID: 21300000, guid: e538f4bae1e004157bda8021db452591, type: 3}
+  - {fileID: 21300000, guid: 759c263eda73d439bae46bfcc127c9e6, type: 3}
+--- !u!1 &1952978336581732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4980729844564702}
+  - component: {fileID: 114407416024395106}
+  - component: {fileID: 114748889361029602}
+  m_Layer: 0
+  m_Name: slotData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4980729844564702
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952978336581732}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4631544093196888}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114407416024395106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952978336581732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7840e8e61691c43798b77775834232a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  column: 5
+  row: 3
+  visibleCounts: 0300000003000000030000000300000003000000
+  symbolMask:
+    mask: 2100000001000000010000000100000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000019000000
+  mixedLineWinInfos: []
+  deck:
+    stripIndices: 
+  expectation:
+    expectations: 
+  mysterySymbolTable:
+    singleMysteryTable: 0
+  slotMachine: {fileID: 0}
+--- !u!114 &114748889361029602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952978336581732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serializedBlackboard: '{"_variables":{"column":{"_propertyPath":"SlotMaker.SlotData.column","_name":"column","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"row":{"_propertyPath":"SlotMaker.SlotData.row","_name":"row","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"visibleCounts":{"_propertyPath":"SlotMaker.SlotData.visibleCounts","_name":"visibleCounts","$type":"NodeCanvas.Framework.Variable`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
+  _objectReferences: []
+--- !u!1 &1976982166780672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4796433897569916}
+  - component: {fileID: 114481098674545142}
+  m_Layer: 0
+  m_Name: Win Border Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4796433897569916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976982166780672}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4851521888923654}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114481098674545142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976982166780672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5750e32a55b434dc9b3ad9ea8e365078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1372653710993196, guid: 8e8da8794e62f44f99a003a143c5b604, type: 3}
+  poolSize: 15
+  availiableObjects: []

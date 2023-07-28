@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: WildFlying_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":4.0,"y":-121.0},"zoomFactor":0.9115023,"nodes":[{"_actionList":{"actions":[{"valueA":{"_value":"./betCredit"},"saveAs":{"_name":"_baseBet"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./game/collectedWildList"},"key":{"_name":"_baseBet"},"saveAs":{"_name":"_wildCountList"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryLongKey`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_wildCountList"},"index":{"_name":"index","_targetVariableID":"de9b608b-3eba-4a23-afa1-13b45e044d59"},"fromLast":{},"saveAs":{"_name":"_wildCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"value","_targetVariableID":"24e53c27-8373-4193-96a4-e80fc976c822"},"index":{"_value":1},"newValue":{"_name":"_wildCount"},"$type":"NodeCanvas.Tasks.Actions.SetListElement`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"waitTime":{"_value":0.8},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"}]},"_position":{"x":751.0,"y":159.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":528.0,"y":362.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"23"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"UpdateWildCount"},"eventValue":{"_name":"index","_targetVariableID":"de9b608b-3eba-4a23-afa1-13b45e044d59"},"delay":{},"sendGlobal":true,"_isDisabled":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"UpdateWildCount"},"eventValue":{"_name":"value","_targetVariableID":"24e53c27-8373-4193-96a4-e80fc976c822"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"id":{"_value":"Wild
+    Collect","_name":"collectSound","_targetVariableID":"aa504b46-1def-4d83-9507-57b83c9dc26a"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":1156.0,"y":329.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"26"}],"connections":[{"_condition":{"eventName":{"_value":"UpdatedTotalBetCredit"},"saveEventValue":{"_name":"_betCredit","_targetVariableID":"89838f3b-2226-4ab7-8b40-b23372729850"},"$type":"BagelCode.Task.Condition.CheckCreditEvent`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

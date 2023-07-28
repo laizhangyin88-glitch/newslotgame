@@ -1,0 +1,62 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Wsn
+{
+    public class BonusInfo40
+    {
+        public List<long> scatterPay = new List<long>();
+    }
+
+    public class CustomData40
+    {
+        public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+    }
+
+    // WSNFreeSpinBonus
+    public class BonusResult4000
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // WSNFreeSpinRetriggerBonus
+    public class BonusResult4001
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // WSNMoneyAwardRespin
+    public class BonusResult4002
+    {
+        public bool winMegaJackpot = false;
+        public WSNEarnInfo megaJackpotResult = null;
+        public List<int> newSymbolList = new List<int>();
+        public List<WSNEarnInfo> earnList = new List<WSNEarnInfo>();
+        public int initialSymbolCount = 0;
+        public List<List<int>> spotReelOutputTable = new List<List<int>>();
+        public List<List<int>> revolverSpotTable = new List<List<int>>();
+        public List<int> spotPointerTable = new List<int>();
+        public List<int> upgradeCountTable = new List<int>();
+    }
+
+    // WSNRevolverShot
+    public class BonusResult4003
+    {
+        public List<int> revolverSpotList = new List<int>();
+        public List<int> revolverIndexList = new List<int>();
+    }
+
+    public class WSNEarnInfo
+    {
+        public bool isJackpot = false;
+        public int symbol = 0;
+        public long earnCredit = 0;
+        public int jackpotIndex = 0;
+        public int initJackpotIndex = 0;
+    }
+}

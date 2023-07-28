@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: GameLogic_Update Expectation_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-183.0,"y":122.0},"nodes":[{"_actionList":{"actions":[{"key":{"_value":"./spin/response/reelSetIndex"},"_isDisabled":true,"$type":"BagelCode.Tasks.Actions.Contents.UpdateReelStripsIndex"},{"valueA":{"_value":"./spin/response/result/reelOutputList"},"saveAs":{"_name":"_reelOutputList","_targetVariableID":"b6b42253-dda7-4d41-a686-77ec3745cd60"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./spin/response"},"saveAs":{"_name":"_mysteryBB","_targetVariableID":"0fa594e7-9475-4e51-ba19-173076bfec88"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"slotIndex":{},"indices":{"_value":[],"_name":"_reelOutputList","_targetVariableID":"b6b42253-dda7-4d41-a686-77ec3745cd60"},"targetBB":{"_value":"./spin/deck"},"$type":"BagelCode.Tasks.Actions.Contents.UpdateDeck"},{"slotIndex":{},"column":{"_name":"_column","_targetVariableID":"8f60ab82-3ad7-4a99-aa1d-2030843307ef"},"$type":"BagelCode.Tasks.Actions.Contents.InitExpectation"},{"slotIndex":{},"column":{"_name":"_column","_targetVariableID":"8f60ab82-3ad7-4a99-aa1d-2030843307ef"},"row":{"_name":"_row","_targetVariableID":"4408d848-1ac7-4e0b-a87e-bdbd11779a29"},"visibleCounts":{"_value":[],"_name":"_visibleCounts","_targetVariableID":"aa518f10-b63c-43de-9b8c-abf25787c296"},"symbolMask":"Scatter1","symbolCount":3,"minimumSymbolCount":2,"multipleSpot":false,"checkAll":true,"masks":[],"$type":"BagelCode.Tasks.Actions.Contents.UpdateExpectationSpot"},{"slotIndex":{},"column":{"_name":"_column","_targetVariableID":"8f60ab82-3ad7-4a99-aa1d-2030843307ef"},"row":{"_name":"_row","_targetVariableID":"4408d848-1ac7-4e0b-a87e-bdbd11779a29"},"visibleCounts":{"_value":[],"_name":"_visibleCounts","_targetVariableID":"aa518f10-b63c-43de-9b8c-abf25787c296"},"symbolMask":"Scatter3","symbolCount":3,"minimumSymbolCount":2,"multipleSpot":false,"checkAll":true,"continuous":true,"masks":[true,true,false,false,false],"_isDisabled":true,"$type":"BagelCode.Tasks.Actions.Contents.UpdateExpectationSpot"}]},"_position":{"x":51.0,"y":197.0},"_name":"Update
+    Deck #1","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":365.0,"y":379.0},"_name":"Check
+    Scatter Expectation Effect","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"35"},{"_actionList":{"actions":[{"slotIndex":{},"column":{"_name":"_column","_targetVariableID":"8f60ab82-3ad7-4a99-aa1d-2030843307ef"},"$type":"BagelCode.Tasks.Actions.Contents.InitExpectation"},{"slotIndex":{},"column":{"_name":"_column","_targetVariableID":"8f60ab82-3ad7-4a99-aa1d-2030843307ef"},"row":{"_name":"_row","_targetVariableID":"4408d848-1ac7-4e0b-a87e-bdbd11779a29"},"visibleCounts":{"_value":[],"_name":"_visibleCounts","_targetVariableID":"aa518f10-b63c-43de-9b8c-abf25787c296"},"symbolMask":"Scatter3","symbolCount":3,"minimumSymbolCount":2,"multipleSpot":false,"checkAll":true,"continuous":true,"masks":[true,true,false,false,false],"$type":"BagelCode.Tasks.Actions.Contents.UpdateExpectationSpot"}]},"_position":{"x":593.0,"y":167.0},"_name":"Update
+    Deck #2","$type":"NodeCanvas.StateMachines.ActionState","$id":"37"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":705.0,"y":14.0},"_name":"Check
+    Bucks Expectation Effect","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"50"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"slotIndex":{},"column":{"_name":"_column","_targetVariableID":"8f60ab82-3ad7-4a99-aa1d-2030843307ef"},"row":{"_name":"_row","_targetVariableID":"4408d848-1ac7-4e0b-a87e-bdbd11779a29"},"visibleCounts":{"_value":[],"_name":"_visibleCounts","_targetVariableID":"aa518f10-b63c-43de-9b8c-abf25787c296"},"symbolMask":"Scatter1","symbolCount":3,"minimumSymbolCount":2,"multipleSpot":false,"checkAll":true,"masks":[],"$type":"BagelCode.Tasks.Actions.Contents.UpdateExpectationSpot"}]},"_position":{"x":933.0,"y":160.0},"_name":"","$type":"NodeCanvas.StateMachines.ActionState","$id":"52"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"35"},"_targetNode":{"$ref":"37"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"37"},"_targetNode":{"$ref":"50"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"50"},"_targetNode":{"$ref":"52"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 4520cc1c0623d41e4babdb9b5feb2ec0, type: 2}
+  - {fileID: 11400000, guid: d0abd2fcce8934c989cdc3555f767e29, type: 2}
+  _deserializationFailed: 0

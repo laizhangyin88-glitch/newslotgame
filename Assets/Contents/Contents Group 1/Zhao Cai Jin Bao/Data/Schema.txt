@@ -1,0 +1,63 @@
+//
+// ZJB Schema
+//
+
+public partial class BonusInfo62
+{
+    public List<long> countList = new List<long>();
+    public List<long> heightList = new List<long>();
+    public List<long> scatterPay = new List<long>();
+}
+
+public partial class ContentsStore62
+{
+    public long bowl = 0;
+}
+
+public partial class CustomData62
+{
+    public int wildMultiplier = 0;
+    public int fakeWildMultiplier = 0;
+}
+
+public partial class ZJBSpinCountInfo
+{
+    public int count = 0;
+    public int countIndex = 0;
+    public int height = 0;
+    public int heightIndex = 0;
+    public bool isRandomFreeSpin = false;
+}
+
+// ZJBJackpot
+public partial class BonusResult6200
+{
+    public bool isJackpot = false;
+    public int jackpotIndex = 0;
+    public long jackpotAwardAmount = 0;
+    public List<int> jackpotPicks = new List<int>();
+}
+
+// ZJBFreeSpinBonus
+public partial class BonusResult6201
+{
+    public int type = 0;
+    public long betCredit = 0;
+    public List<ZJBSpinCountInfo> spinCountList = new List<ZJBSpinCountInfo>();
+}
+
+// ZJBFreeSpinBonusRetriggered
+public partial class BonusResult6202
+{
+    public int type = 0;
+    public long betCredit = 0;
+    public int addedSpinCount = 0;
+}
+
+// ZJBTicketedFreeSpinBonus
+public partial class BonusResult6250
+{
+    public int type = 0;
+    public long betCredit = 0;
+    public List<ZJBSpinCountInfo> spinCountList = new List<ZJBSpinCountInfo>();
+}

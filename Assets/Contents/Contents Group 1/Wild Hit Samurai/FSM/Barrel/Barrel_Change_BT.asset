@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Barrel_Change_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":99.0,"y":-184.0},"nodes":[{"_condition":{"targetList":{"_name":"_changeReelIndexList"},"checkElement":{"_name":"ReelIndex","_targetVariableID":"752d6281-98f7-41fb-9d02-d1250a0b10a0"},"$type":"NodeCanvas.Tasks.Conditions.ListContainsElement`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":794.0,"y":206.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"2"},{"_position":{"x":880.0,"y":318.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"6"},{"_action":{"actions":[{"valueA":{"_value":"./customData/_freeSpinReelPayList"},"index":{"_name":"ReelIndex","_targetVariableID":"752d6281-98f7-41fb-9d02-d1250a0b10a0"},"fromLast":{},"saveAs":{"_name":"_reelPay"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./customData/_freeSpinReelIndexList"},"index":{"_name":"ReelIndex","_targetVariableID":"752d6281-98f7-41fb-9d02-d1250a0b10a0"},"fromLast":{},"saveAs":{"_name":"_reelPayIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"element":{"_name":"LowText","_targetVariableID":"53670bad-b490-4054-8b48-eba4ff64c76b"},"key":{"_value":"OKF_SIMPLE_NUMBER"},"tableType":"Content","arg1":{"_value":"_reelPay"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SetContextText1"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":340.0,"y":397.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"_condition":{"valueA":{"_name":"_reelPayIndex"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckVariable`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":925.0,"y":410.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"24"},{"_action":{"actions":[{"parameter":{"_value":"Change"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"element":{"_name":"LowText","_targetVariableID":"53670bad-b490-4054-8b48-eba4ff64c76b"},"key":{"_value":"OKF_SIMPLE_NUMBER"},"tableType":"Content","arg1":{"_value":"_reelPay"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":622.0,"y":555.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"28"},{"_action":{"element":{"_name":"HighText","_targetVariableID":"279d21cc-b873-4e33-a4e1-7c49cb4fc783"},"key":{"_value":"OKF_SIMPLE_NUMBER"},"tableType":"Content","arg1":{"_value":"_reelPay"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SetContextText1"},"_position":{"x":1072.0,"y":565.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"38"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

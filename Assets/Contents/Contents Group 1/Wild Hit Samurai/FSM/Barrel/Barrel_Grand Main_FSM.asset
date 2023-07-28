@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Barrel_Grand Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-90.0,"y":-388.0},"nodes":[{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":492.0,"y":412.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":768.0,"y":609.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"4"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":1012.0,"y":470.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"7"},{"_nestedBT":{"_value":3},"executionMode":"Once","_position":{"x":514.0,"y":759.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"9"},{"_nestedBT":{"_value":4},"executionMode":"Once","_position":{"x":1031.0,"y":758.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"11"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"JackpotBarrel"},"saveEventValue":{"_name":""},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"ReelExpand"},"saveEventValue":{"_name":"_expandReelIndexList"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"Hit"},"saveEventValue":{"_name":"_hitReelIndexList"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 447ba1cd98dc44f41bb9573fefe9b65c, type: 2}
+  - {fileID: 11400000, guid: fc68f70cb6da5f941bf41c729830c3e6, type: 2}
+  - {fileID: 11400000, guid: f37c2a93028e10b42abb0984a817b012, type: 2}
+  - {fileID: 11400000, guid: 44d2b67ee6f5ad84fa255254c296111d, type: 2}
+  _deserializationFailed: 0

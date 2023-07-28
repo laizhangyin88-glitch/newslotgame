@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Check Update Total Wild Count_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-429.0,"y":263.0},"nodes":[{"_condition":{"valueA":{"_value":"_resetInitialWildCountIndex"},"valueB":{"_value":-1},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":1130.0,"y":64.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"2"},{"_position":{"x":1200.0,"y":180.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"6"},{"_action":{"valueA":{"_value":"_resetWildWait"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetFloat"},"_position":{"x":802.0,"y":337.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"_action":{"valueA":{"_value":"_resetWildWaitTime"},"index":{"_name":"_resetInitialWildCountIndex"},"fromLast":{},"saveAs":{"_name":"_resetWildWait"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":994.0,"y":321.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"11"},{"_action":{"actions":[{"eventName":{"_value":"UpdateTotalWildCount"},"eventValue":{"_name":"_resetInitialWildCountIndex"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"waitTime":{"_value":1.0,"_name":"_resetWildWait"},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":1461.0,"y":299.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"17"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

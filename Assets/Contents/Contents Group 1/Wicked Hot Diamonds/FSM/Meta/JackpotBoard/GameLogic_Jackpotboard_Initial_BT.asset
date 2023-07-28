@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Jackpotboard_Initial_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-1999.0,"y":-3087.0},"zoomFactor":0.5300345,"nodes":[{"_position":{"x":5073.0,"y":6199.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"./game/jackpotInfo/baseBet"},"saveAs":{"_name":"_baseBet"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./betCredit"},"saveAs":{"_name":"_betCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./betIndex"},"saveAs":{"_name":"_betIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"_preInactiveJPCount","_targetVariableID":"a733faed-440b-4213-85a7-7191a7fbf034"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"valueA":{"_value":"./game/jackpotInfo/eligibleMinBetPerJackpot"},"saveAs":{"_name":"_eligibleMinBetList"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":3864.0,"y":6454.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"actions":[{"valueA":{"_value":"./popupDenomination"},"saveAs":{"_name":"_popupDenominationGO"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"saveAs":{"_name":"_popupDenominationBB"},"overrideAgent":{"_name":"_popupDenominationGO"},"$type":"NodeCanvas.Tasks.Actions.GetComponent`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"saveAs":{"_name":"_popupDenominationAnimator"},"overrideAgent":{"_name":"_popupDenominationGO"},"$type":"NodeCanvas.Tasks.Actions.GetComponent`1[[UnityEngine.Animator,
+    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"jpTooltipCounterContextTextList"},"saveAs":{"_name":"_jpTooltipCounterContextTextList"},"overrideAgent":{"_name":"_popupDenominationBB"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[SlotMaker.ContextElement,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4350.0,"y":6460.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"21"},{"targetList":{"_type":"System.Collections.Generic.List`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]","_name":"_eligibleMinBetList"},"reverseIterator":true,"current":{"_type":"System.Int64","_value":{"$content":0,"$type":"System.Int64"},"_name":"_eligibleValue"},"storeIndex":{"_name":"_index"},"maxIteration":{"_value":-1},"_position":{"x":4878.0,"y":6487.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"37"},{"_action":{"actions":[{"targetList":{"_name":"_jpTooltipCounterContextTextList","_targetVariableID":"a9c0875b-e263-4ec1-89a3-f566c7d332bf"},"index":{"_name":"_index"},"saveAs":{"_name":"_jpTooltipCounterContextText"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[SlotMaker.ContextElement,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"element":{"_name":"_jpTooltipCounterContextText"},"key":{"_value":"TOOLTIP_ELIGIBLE_TEXT"},"tableType":"Content","arg1":{"_value":"_eligibleValue"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4692.0,"y":6633.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"42"},{"_subTree":{"_value":1},"_position":{"x":5168.0,"y":6506.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"53"},{"repeaterMode":"RepeatForever","repeatTimes":{"_value":1},"_position":{"x":5560.0,"y":6482.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"55"},{"_condition":{"conditions":[{"eventName":{"_value":"UpdatedTotalBetCredit"},"saveEventValue":{"_name":"_betCredit","_targetVariableID":"42680445-bb9b-411b-9b25-1a1e4fb92cc7"},"$type":"BagelCode.Task.Condition.CheckCreditEvent`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./isINSBonus"},"valueB":{},"_isDisabled":true,"$type":"SlotMaker.Tasks.Condition.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":5484.0,"y":6578.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"57"},{"_subTree":{"_value":1},"_position":{"x":5475.0,"y":6712.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"66"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"37"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"53"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"55"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"37"},"_targetNode":{"$ref":"42"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"55"},"_targetNode":{"$ref":"57"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"57"},"_targetNode":{"$ref":"66"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: be8082b1c5b607f4589ab654102512ae, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0
