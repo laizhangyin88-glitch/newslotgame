@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_JackpotWinCommon_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4902.0,"y":-4443.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{"_value":true},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"id":{"_value":"Jackpot
+    Popup"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"id":{"_value":"Vox
+    Free Game Pop Up"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":5550.0,"y":4605.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./customData/totalTicketPrize"},"saveAs":{"_name":"_ticketPrize"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"elementName":{"_value":"Counter
+    1"},"searchingType":"ChildrenDeepSearch","key":{"_value":"TICKET_WIN_VALUE"},"tableType":"Content","arg1":{"_value":"_ticketPrize"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"elementName":{"_value":"Counter
+    2"},"searchingType":"ChildrenDeepSearch","key":{"_value":"TICKET_WIN_VALUE"},"tableType":"Content","arg1":{"_value":"_ticketPrize"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText1"},{"elementName":{"_value":"Animator"},"saveAs":{"_name":"animator"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Button
+    scale anchor"},"searchingType":"ChildrenDeepSearch","saveAs":{"_name":"collectButton"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"eventName":{"_value":"OnTicketRegularWin"},"ignoreReset":{},"overrideAgent":{"_name":"collectButton"},"$type":"SlotMaker.Tasks.Actions.SetContextClickable"}]},"_position":{"x":5805.0,"y":4755.0},"_name":"Set
+    Text","$type":"NodeCanvas.StateMachines.ActionState","$id":"11"},{"_actionList":{"actions":[{"id":{"_value":"Button"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"parameter":{"_value":"Disappear"},"parameterHashID":{},"overrideAgent":{"_name":"animator"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"ClosedPopup"},"delay":{},"overrideAgent":{"_name":"caller","_targetVariableID":"59d030f7-44bd-44b4-a77d-922400ed5203"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"$type":"SlotMaker.Task.Actions.ClosePopup"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":6330.0,"y":4965.0},"_name":"Finalize","$type":"NodeCanvas.StateMachines.ActionState","$id":"35"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnTicketRegularWin"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

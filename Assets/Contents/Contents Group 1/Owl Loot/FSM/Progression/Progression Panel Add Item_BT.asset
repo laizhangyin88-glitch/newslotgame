@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Progression Panel Add Item_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-6867.0,"y":-6669.0},"nodes":[{"_color":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":7459.0,"y":7060.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"_lastAciveEggIndex"},"Operation":"Add","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_collectibleAmount"},"Operation":"Add","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"./customData/collectibleAmount"},"valueB":{"_name":"_collectibleAmount","_targetVariableID":"00b93614-2cbe-4923-8001-1ec5dc014455"},"$type":"SlotMaker.Tasks.Actions.SetInt32"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":7143.0,"y":7160.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_value":"_lastAciveEggIndex"},"checkType":"LessThan","valueB":{"_value":12},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_color":{"r":1.0,"g":0.07843138,"b":0.5764706,"a":1.0},"_position":{"x":7576.0,"y":7204.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"15"},{"_action":{"actions":[{"targetList":{"_name":"eggs","_targetVariableID":"298a967f-5825-447d-a729-70a041897872"},"index":{"_name":"_lastAciveEggIndex"},"saveAs":{"_name":"_eggAnimator"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[UnityEngine.Animator,
+    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"parameter":{"_value":"On"},"parameterHashID":{},"setTo":{"_value":true},"overrideAgent":{"_name":"_eggAnimator"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":7552.0,"y":7328.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"19"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

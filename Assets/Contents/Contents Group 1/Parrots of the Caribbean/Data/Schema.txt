@@ -1,0 +1,68 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Ptc
+{
+    public class BonusInfo57
+    {
+        public int minimumScatter = 0;
+        public List<long> freeSpinScatterPay = new List<long>();
+        public List<long> bonusGameScatterPay = new List<long>();
+        public List<int> freeSpinCounts = new List<int>();
+        public PTCMapBonusInfo mapBonusInfo = null;
+    }
+
+    // PTCJackpot
+    public class BonusResult5700
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // PTCFreeSpinBonus
+    public class BonusResult5701
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // PTCFreeSpinRetriggerBonus
+    public class BonusResult5702
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // PTCMapBonus
+    public class BonusResult5703
+    {
+        public List<int> diceList1 = new List<int>();
+        public List<int> diceList2 = new List<int>();
+        public List<int> targetPlace = new List<int>();
+        public List<long> earnCredits = new List<long>();
+    }
+
+    // PTCStickyWildBonus
+    public class BonusResult5704
+    {
+        public List<int> stickyWilds = new List<int>();
+    }
+
+    // PTCTicketedFreeSpinBonus
+    public class BonusResult5750
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    public class PTCMapBonusInfo
+    {
+        public List<long> awardMultipliers = new List<long>();
+        public List<int> spinAgainCounts = new List<int>();
+        public List<int> landMarks = new List<int>();
+    }
+}

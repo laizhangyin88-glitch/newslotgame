@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: InGame_FreeSpinRemainCount_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-3721.0,"y":-3066.0},"zoomFactor":0.6924751,"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{"_value":true},"$type":"SlotMaker.Tasks.Actions.UpdateContext"}]},"_position":{"x":5852.0,"y":4728.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_position":{"x":6076.0,"y":4843.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.EmptyState","$id":"7"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Appear"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":6471.0,"y":5038.0},"_name":"Active","$type":"NodeCanvas.StateMachines.ActionState","$id":"8"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Appear"},"parameterHashID":{},"setTo":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":6235.0,"y":5052.0},"_name":"Inactive","$type":"NodeCanvas.StateMachines.ActionState","$id":"15"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./bonus/bonusId"},"saveAs":{"_name":"_bonusId"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":6917.0,"y":5094.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"22"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"elementName":{"_value":"Text"},"key":{"_value":"INGAME_LEFT_BOTTOM_FREE_SPIN_COUNT"},"arg1":{"_value":"./bonus/spinCount"},"arg2":{"_value":"./bonus/totalSpinCount"},"$type":"SlotMaker.Tasks.Actions.SimpleSetContextText2"}]},"_position":{"x":6424.0,"y":5214.0},"_name":"Update
+    Text","$type":"NodeCanvas.StateMachines.ActionState","$id":"28"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"AppearSpinCount"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"DisappearSpinCount"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"UpdateSpinCount"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"valueA":{"_name":"_bonusId"},"valueB":{"_value":18800},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"_bonusId"},"valueB":{"_value":18850},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"28"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

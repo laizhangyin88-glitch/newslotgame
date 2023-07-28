@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: InGame_UpdateJackpotCredit_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-3470.0,"y":-3950.0},"zoomFactor":0.7500077,"nodes":[{"_actionList":{"actions":[]},"_position":{"x":5220.0,"y":5205.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"jackpotIndex":{"_name":"jackpotIndex","_targetVariableID":"b0a8d254-096a-4422-a498-0fd7ca886c3f"},"jackpotList":{"_value":"./jackpotList"},"prev":{"_name":"prev","_targetVariableID":"25d31c99-8502-4f70-9b30-8544ccde1f3e"},"current":{"_name":"current","_targetVariableID":"07340468-9010-4f4c-9839-4abe0109f4c1"},"deltaMs":{"_name":"deltaMs","_targetVariableID":"2c7a0dd9-bfcd-4793-90ea-97e1a198e6eb"},"min":{"_name":"min","_targetVariableID":"96623eb9-6689-4e7c-84c1-826ec5ce86c7"},"max":{"_name":"max","_targetVariableID":"cf37c44b-f78e-4b6c-a6c4-9f9f76277ef6"},"alarm":{"_name":"alarm","_targetVariableID":"15a4847f-1456-4322-a7b7-5461f43bf591"},"endTime":{"_name":"endTime","_targetVariableID":"e1237cc2-45a5-456f-a7e4-644d8b698678"},"$type":"BagelCode.Tasks.Actions.Contents.UpdateJackpotCreditInfo"}]},"_position":{"x":4890.0,"y":5341.0},"_name":"Update
+    Jackpot Credit","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"5"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"creditText":{"_name":"creditText","_targetVariableID":"9cbb4599-df82-4925-af00-1f56d98dd990"},"jackpotMultiplier":{"_name":"_jackpotMultiplier"},"prev":{"_name":"prev","_targetVariableID":"25d31c99-8502-4f70-9b30-8544ccde1f3e"},"current":{"_name":"current","_targetVariableID":"07340468-9010-4f4c-9839-4abe0109f4c1"},"endTime":{"_name":"endTime","_targetVariableID":"e1237cc2-45a5-456f-a7e4-644d8b698678"},"isBetChanged":{"_name":"_isBetChanged"},"key":{"_value":"JACKPOT_CREDIT"},"tableType":"Content","$type":"BagelCode.Tasks.Actions.UpdateJackpotCredit"}]},"_position":{"x":5084.0,"y":5429.0},"_name":"Update
+    Credit","$type":"NodeCanvas.StateMachines.ActionState","$id":"18"},{"_actionList":{"actions":[{"baseBet":{"_name":"_baseBet"},"bet":{"_name":"_betCredit"},"multiplier":{"_name":"_jackpotMultiplier"},"$type":"BagelCode.Tasks.Actions.Contents.GetIngameJackpotMultiplier"},{"valueA":{"_value":"_isBetChanged"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"}]},"_position":{"x":5295.0,"y":5490.0},"$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"29"}],"connections":[{"_condition":{"valueA":{"_value":"./initializedContent"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.AutoUpdateCheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"UpdateJackpotInfo"},"$type":"BagelCode.Task.Condition.CheckMetaUIEvent"},"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"UpdateBetCredit"},"saveEventValue":{"_name":"_betCredit","_targetVariableID":"89838f3b-2226-4ab7-8b40-b23372729850"},"$type":"BagelCode.Task.Condition.CheckCreditEvent`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

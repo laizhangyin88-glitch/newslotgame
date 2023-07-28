@@ -1,0 +1,58 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Paw
+{
+    public class BonusInfo42
+    {
+        public List<long> symbolMultiplierList = new List<long>();
+        public List<long> catDogPay = new List<long>();
+        public PAWCommunityInfo communityGame = null;
+    }
+
+    public class CustomData42
+    {
+        public long roomCommunityTicketCount = 0;
+        public long roomCommunityTicketMaxCount = 0;
+        public long myCommunityTicketCount = 0;
+        public int communityTeamIndex = 0;
+        public Dictionary<long,int> teamSymbolStackPerBetCredit = new Dictionary<long,int>();
+    }
+
+    // PAWCommunityGameBonus
+    public class BonusResult4200
+    {
+        public int battleCount = 0;
+        public int firstTurnIndex = 0;
+        public int faceOffTeamIndex = 0;
+        public List<PAWCommunityGameUserGameResult> userGameResultList = new List<PAWCommunityGameUserGameResult>();
+    }
+
+    public class PAWCommunityInfo
+    {
+        public List<List<int>> itemMultiplierList = new List<List<int>>();
+        public List<List<int>> extraPickList = new List<List<int>>();
+        public List<List<int>> specialPickList = new List<List<int>>();
+    }
+
+    public class PAWCommunityGameUserGameResult
+    {
+        public List<PAWCommunityGameBonusResult> bonusResult = new List<PAWCommunityGameBonusResult>();
+        public long totalEarnCredit = 0;
+        public long betMultiplier = 0;
+        public string profileUrl = "";
+        public string userName = "";
+        public long bet = 0;
+        public int tier = 0;
+        public bool isBot = false;
+        public int communityTeamIndex = 0;
+    }
+
+    public class PAWCommunityGameBonusResult
+    {
+        public List<int> pickIndexList = new List<int>();
+        public List<int> multiplierList = new List<int>();
+        public List<int> stealIndexList = new List<int>();
+        public int faceOffIndex = 0;
+    }
+}

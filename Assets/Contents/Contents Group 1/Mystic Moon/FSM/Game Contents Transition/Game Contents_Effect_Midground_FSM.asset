@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Game Contents_Effect_Midground_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4519.0,"y":-5197.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5256.402,"y":5482.085},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Orca
+    Tail"},"parameterHashID":{},"setTo":{"_value":true},"_isDisabled":true,"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"setTo":"Activate","overrideAgent":{"_name":"reelWaveEffect","_targetVariableID":"c4754d2d-1caf-4e4c-b02e-fca9bbd2bb45"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"setTo":"Activate","overrideAgent":{"_name":"symbolAddAnimationController","_targetVariableID":"7babf883-73e1-4b90-a81c-8d0c31568d8d"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_nodeColor":{"r":1.0,"g":0.07843138,"b":0.5764706,"a":1.0},"_position":{"x":5679.676,"y":5276.711},"_name":"Add
+    Wild","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"5"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Disappear"},"parameterHashID":{},"overrideAgent":{"_name":"symbolAddAnimationControllerAnimator","_targetVariableID":"f7dee50c-1393-42e4-b1dc-3ad0ddc67b95"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"setTo":"Deactivate","overrideAgent":{"_name":"reelWaveEffect","_targetVariableID":"c4754d2d-1caf-4e4c-b02e-fca9bbd2bb45"},"$type":"SlotMaker.Tasks.Actions.SetActive"},{"setTo":"Deactivate","overrideAgent":{"_name":"symbolAddAnimationController","_targetVariableID":"7babf883-73e1-4b90-a81c-8d0c31568d8d"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_nodeColor":{"r":1.0,"g":0.07843138,"b":0.5764706,"a":1.0},"_position":{"x":5516.0,"y":5677.0},"_name":"Add
+    Wild End","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"16"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"setTo":"Activate","overrideAgent":{"_name":"reelWaveEffect","_targetVariableID":"c4754d2d-1caf-4e4c-b02e-fca9bbd2bb45"},"$type":"SlotMaker.Tasks.Actions.SetActive"}]},"_nodeColor":{"r":1.0,"g":0.07843138,"b":0.5764706,"a":1.0},"_position":{"x":4838.0,"y":5672.0},"_name":"Reel
+    Wave Effect","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"27"}],"connections":[{"_condition":{"eventName":{"_value":"WildAdd"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"WildAddEnd"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"ReelWaveEffect"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"27"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"27"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

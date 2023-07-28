@@ -1,0 +1,963 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &850876473274789434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2525418676650566908}
+  - component: {fileID: 471650698806930202}
+  m_Layer: 8
+  m_Name: MoveBackward
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2525418676650566908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850876473274789434}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -305, y: 60734, z: 0}
+  m_LocalScale: {x: 0.99981, y: 0.99981, z: 1.00046}
+  m_Children: []
+  m_Father: {fileID: 3523741249516238890}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &471650698806930202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850876473274789434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771e8d04ad23ec04ca6178c3be664c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skippable: 1
+  playOnAwake: 0
+  _serializedList: '{"actions":[{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"Spinning","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"},{"boolVariable":{"_name":"freeMove","_targetVariableID":"b9377021-231b-4738-a51e-cdc693ad9a71"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"method":{"_baseInfo":"SlotMaker.BaseReel|PushBackSymbols|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":1,"$type":"System.Int32"},"_name":"nudgeCount","_targetVariableID":"5f61d2fe-7421-4edf-a1f3-277b7197e631"}],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"method":{"_baseInfo":"SlotMaker.DefaultReelMovement|UpdateManualDisplacement|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":1,"$type":"System.Int32"},"_name":"nudgeCount","_targetVariableID":"5f61d2fe-7421-4edf-a1f3-277b7197e631"}],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":2},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"position":{"_name":"position","_targetVariableID":"1292c9db-2961-4d53-8f6a-992253e68d97"},"desiredPosition":{},"velocity":{"_name":"velocity","_targetVariableID":"276e44e5-fc09-4bc6-ad02-d8e4501e3402"},"desiredVelocity":{},"frequency":{"_name":"nudgeFrequency","_targetVariableID":"354e52c6-30cd-42b0-9132-9c6776eaadcd"},"damping":{"_name":"nudgeDamping","_targetVariableID":"74484c4a-d03b-461a-a61a-b52eec7593f8"},"epsilon":{"_name":"epsilon","_targetVariableID":"72ed5077-ace6-4e5f-8f96-3a06c2d4bef9"},"saveAs":{"_name":"acceleration","_targetVariableID":"ec5eb231-e4ae-4999-b2d9-7b6663b3fb55"},"$type":"SlotMaker.Tasks.Actions.SetPIDForce"},{"method":{"_baseInfo":"GameStudio.Slot.NDS.NDSReelBGController|OnEndNudge|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"reelBG","_targetVariableID":"7fc067e1-c8db-4d92-bc96-147708b2568f"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"method":{"_baseInfo":"GameStudio.Slot.NDS.NDSSlotResultBoardController|OnEndNudge|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"machine"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"valueA":{"_name":"velocity","_targetVariableID":"276e44e5-fc09-4bc6-ad02-d8e4501e3402"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"valueA":{"_name":"displacement","_targetVariableID":"c552fcc4-3ba3-497b-8227-6e5ee6123853"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"method":{"_baseInfo":"SlotMaker.BaseReel|PopFrontSymbols|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":1,"$type":"System.Int32"},"_name":"nudgeCount","_targetVariableID":"5f61d2fe-7421-4edf-a1f3-277b7197e631"}],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"method":{"_baseInfo":"SlotMaker.BaseReel|UpdateSymbolsTransform|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"boolVariable":{"_name":"freeMove","_targetVariableID":"b9377021-231b-4738-a51e-cdc693ad9a71"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"Stopped","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"}]}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 4806725139139078530}
+  - {fileID: 2633292660606600513}
+  _blackboard: {fileID: 4837336723435102748}
+--- !u!1 &1670336369217539793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4513703810446741366}
+  - component: {fileID: 1556307753217937347}
+  m_Layer: 8
+  m_Name: Spin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4513703810446741366
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670336369217539793}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6528481427621685758}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1556307753217937347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670336369217539793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771e8d04ad23ec04ca6178c3be664c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skippable: 1
+  playOnAwake: 0
+  _serializedList: '{"actions":[{"method":{"_baseInfo":"SlotMaker.DefaultReelMovement|OnSpin|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"Spinning","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"},{"force":{"_name":"spinForce","_targetVariableID":"60540780-a04d-4bcd-9a6a-b7d1de95476d"},"time":{"_name":"spinTime","_targetVariableID":"9d320a39-3ced-44c6-bffe-3e07e225bfb8"},"saveAs":{"_name":"acceleration","_targetVariableID":"ec5eb231-e4ae-4999-b2d9-7b6663b3fb55"},"$type":"SlotMaker.Tasks.Actions.SetForce"}]}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 2633292660606600513}
+  _blackboard: {fileID: 4837336723435102748}
+--- !u!1 &2124104976447344072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3744810223575702929}
+  - component: {fileID: 8718782856690082506}
+  m_Layer: 8
+  m_Name: Expectation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3744810223575702929
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124104976447344072}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3523741249516238890}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8718782856690082506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124104976447344072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771e8d04ad23ec04ca6178c3be664c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skippable: 1
+  playOnAwake: 0
+  _serializedList: '{"actions":[{"force":{"_name":"expectationForce","_targetVariableID":"c81cfd4d-c56d-4022-b8a6-c6fd5a7a8cec"},"time":{"_name":"expectationTime","_targetVariableID":"6939e3a4-5b57-4cf2-9184-b0f98cf7c2ea"},"saveAs":{"_name":"acceleration","_targetVariableID":"ec5eb231-e4ae-4999-b2d9-7b6663b3fb55"},"$type":"SlotMaker.Tasks.Actions.SetForce"},{"waitTime":{"_name":"expectationDelay","_targetVariableID":"af4d9924-1bf5-4a00-8b16-9c2c9ccdfe29"},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"force":{"_name":"expectationEndForce","_targetVariableID":"587840be-af57-441a-8e46-626a95d31fb9"},"time":{"_name":"expectationEndTime","_targetVariableID":"48272098-da38-44f0-9a77-c0663cf3b38d"},"saveAs":{"_name":"acceleration","_targetVariableID":"ec5eb231-e4ae-4999-b2d9-7b6663b3fb55"},"$type":"SlotMaker.Tasks.Actions.SetForce"}]}'
+  _objectReferences: []
+  _blackboard: {fileID: 4837336723435102748}
+--- !u!1 &3115735688636516639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8032177868611365449}
+  - component: {fileID: 6242415848656459993}
+  m_Layer: 8
+  m_Name: Expectation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8032177868611365449
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3115735688636516639}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6528481427621685758}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6242415848656459993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3115735688636516639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771e8d04ad23ec04ca6178c3be664c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skippable: 1
+  playOnAwake: 0
+  _serializedList: '{"actions":[{"force":{"_name":"expectationForce","_targetVariableID":"c81cfd4d-c56d-4022-b8a6-c6fd5a7a8cec"},"time":{"_name":"expectationTime","_targetVariableID":"6939e3a4-5b57-4cf2-9184-b0f98cf7c2ea"},"saveAs":{"_name":"acceleration","_targetVariableID":"ec5eb231-e4ae-4999-b2d9-7b6663b3fb55"},"$type":"SlotMaker.Tasks.Actions.SetForce"},{"waitTime":{"_name":"expectationDelay","_targetVariableID":"af4d9924-1bf5-4a00-8b16-9c2c9ccdfe29"},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"force":{"_name":"expectationEndForce","_targetVariableID":"587840be-af57-441a-8e46-626a95d31fb9"},"time":{"_name":"expectationEndTime","_targetVariableID":"48272098-da38-44f0-9a77-c0663cf3b38d"},"saveAs":{"_name":"acceleration","_targetVariableID":"ec5eb231-e4ae-4999-b2d9-7b6663b3fb55"},"$type":"SlotMaker.Tasks.Actions.SetForce"}]}'
+  _objectReferences: []
+  _blackboard: {fileID: 4837336723435102748}
+--- !u!1 &4805734555476425212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4731325741363665318}
+  m_Layer: 8
+  m_Name: Symbols
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4731325741363665318
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4805734555476425212}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7949661190142174200}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &4806725139150363700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4806725139128063696}
+  - component: {fileID: 4806725139139078528}
+  - component: {fileID: 4806725139139078530}
+  - component: {fileID: 4837399694941532148}
+  - component: {fileID: 4837299689172729114}
+  - component: {fileID: 4837336723435102748}
+  - component: {fileID: 2633292660606600513}
+  m_Layer: 8
+  m_Name: Reel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4806725139128063696
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806725139150363700}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7949661190142174200}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4806725139139078528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806725139150363700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b660323742a8e4baca3e136b4ef4296c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pool: {fileID: 0}
+--- !u!114 &4806725139139078530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806725139150363700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56df0c62499094e45876446313f3c11b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beginColumn: 0
+  beginRow: 0
+  endColumn: 0
+  endRow: 0
+  expandTopCount: 0
+  topBuffer: 1
+  bottomBuffer: 1
+  index: 0
+  nextIndex: 0
+  reelIndex: 0
+  rectTransform: {fileID: 4806725139128063696}
+  symbolsTransform: {fileID: 4731325741363665318}
+  movement: {fileID: 2633292660606600513}
+  slotMachine: {fileID: 0}
+  _strip: {fileID: 0}
+  _symbolAssets: {fileID: 0}
+  symbols: []
+  onSkip:
+    m_PersistentCalls:
+      m_Calls: []
+  onChangedReel:
+    m_PersistentCalls:
+      m_Calls: []
+  onCreatedReel:
+    m_PersistentCalls:
+      m_Calls: []
+  onDestroyedReel:
+    m_PersistentCalls:
+      m_Calls: []
+  onChangedRect:
+    m_PersistentCalls:
+      m_Calls: []
+  onExpandedTop:
+    m_PersistentCalls:
+      m_Calls: []
+  onContractedTop:
+    m_PersistentCalls:
+      m_Calls: []
+  onInserted:
+    m_PersistentCalls:
+      m_Calls: []
+  onReplaced:
+    m_PersistentCalls:
+      m_Calls: []
+  onRemoved:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlay:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4837399694941532148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806725139150363700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79eb1e5278f5744e4a34b2b352aed935, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4837299689172729114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806725139150363700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42db86a89785c4196a8beb8cea069a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 0}
+  sendGlobal: 1
+  eventId: 0
+--- !u!114 &4837336723435102748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806725139150363700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serializedBlackboard: '{"_variables":{"spinState":{"_propertyPath":"SlotMaker.DefaultReelMovement.spinState","_name":"spinState","_id":"bec0abd1-9b94-4012-a917-7db8c24985a7","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.SpinState,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"acceleration":{"_propertyPath":"SlotMaker.DefaultReelMovement.acceleration","_name":"acceleration","_id":"ec5eb231-e4ae-4999-b2d9-7b6663b3fb55","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Vector3,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"velocity":{"_propertyPath":"SlotMaker.DefaultReelMovement.velocity","_name":"velocity","_id":"276e44e5-fc09-4bc6-ad02-d8e4501e3402","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Vector3,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"displacement":{"_propertyPath":"SlotMaker.DefaultReelMovement.displacement","_name":"displacement","_id":"c552fcc4-3ba3-497b-8227-6e5ee6123853","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Vector3,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"position":{"_propertyPath":"SlotMaker.DefaultReelMovement.position","_name":"position","_id":"1292c9db-2961-4d53-8f6a-992253e68d97","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Vector3,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"locked":{"_propertyPath":"SlotMaker.DefaultReelMovement.locked","_name":"locked","_id":"5e581fec-cc34-4e93-901c-c5894b7eb30f","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"epsilon":{"_value":1.0,"_name":"epsilon","_id":"72ed5077-ace6-4e5f-8f96-3a06c2d4bef9","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"spinForce":{"_value":{"y":-3500.0},"_name":"spinForce","_id":"60540780-a04d-4bcd-9a6a-b7d1de95476d","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Vector3,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"spinTime":{"_value":0.25,"_name":"spinTime","_id":"9d320a39-3ced-44c6-bffe-3e07e225bfb8","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"boostSpinForce":{"_value":{"y":-3500.0},"_name":"boostSpinForce","_id":"28500c36-c641-4066-9bca-e7cf72c5b4b4","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Vector3,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"boostSpinTime":{"_value":0.25,"_name":"boostSpinTime","_id":"5db84747-3653-4782-8929-234a944f5b28","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"frequency":{"_value":12.0,"_name":"frequency","_id":"b6d27f5d-9736-4fa0-9e1f-3175a683235b","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"damping":{"_value":0.3,"_name":"damping","_id":"7e4b8a5d-b90b-4325-8487-ee7cb768fc9f","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"expectationForce":{"_value":{"y":-2000.0},"_name":"expectationForce","_id":"c81cfd4d-c56d-4022-b8a6-c6fd5a7a8cec","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Vector3,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"expectationTime":{"_value":0.25,"_name":"expectationTime","_id":"6939e3a4-5b57-4cf2-9184-b0f98cf7c2ea","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"expectationDelay":{"_value":0.5,"_name":"expectationDelay","_id":"af4d9924-1bf5-4a00-8b16-9c2c9ccdfe29","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"expectationEndForce":{"_value":{"y":500.0},"_name":"expectationEndForce","_id":"587840be-af57-441a-8e46-626a95d31fb9","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Vector3,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"expectationEndTime":{"_value":0.75,"_name":"expectationEndTime","_id":"48272098-da38-44f0-9a77-c0663cf3b38d","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"freeMove":{"_propertyPath":"SlotMaker.DefaultReelMovement.freeMove","_name":"freeMove","_id":"b9377021-231b-4738-a51e-cdc693ad9a71","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"reelBG":{"_name":"reelBG","_id":"7fc067e1-c8db-4d92-bc96-147708b2568f","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"nudgeCount":{"_name":"nudgeCount","_id":"5f61d2fe-7421-4edf-a1f3-277b7197e631","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"nudgeFrequency":{"_value":100.0,"_name":"nudgeFrequency","_id":"354e52c6-30cd-42b0-9132-9c6776eaadcd","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"nudgeDamping":{"_value":0.3,"_name":"nudgeDamping","_id":"74484c4a-d03b-461a-a61a-b52eec7593f8","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
+  _objectReferences: []
+--- !u!114 &2633292660606600513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806725139150363700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5008ee67b5a1b4066a318b38adbf1ab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spinState: 3
+  actions:
+  - {fileID: 3728838139120831171}
+  - {fileID: 7555891693566526596}
+  acceleration: {x: 0, y: 0, z: 0}
+  velocity: {x: 0, y: 0, z: 0}
+  displacement: {x: 0, y: 0, z: 0}
+  forceStopVelocity: {x: 0, y: -1000, z: 0}
+  locked: 0
+  lockedOutOfBound: 0
+  freeMove: 0
+  srcPatchCount: 0
+  dstPatchCount: 0
+  blankSolver: 1
+  onPrepareStopped:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4837399694941532148}
+        m_MethodName: OnPrepareStoppedReel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4837399694941532148}
+        m_MethodName: OnPrepareStoppedSpecialReel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onTargetPosition:
+    m_PersistentCalls:
+      m_Calls: []
+  onStopped:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &5085163188435135905
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7077683693438038914}
+  - component: {fileID: 4373149129254032740}
+  m_Layer: 8
+  m_Name: Stop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7077683693438038914
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5085163188435135905}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6528481427621685758}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4373149129254032740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5085163188435135905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771e8d04ad23ec04ca6178c3be664c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skippable: 1
+  playOnAwake: 0
+  _serializedList: '{"actions":[{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"Stopping","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"},{"boolVariable":{"_name":"locked","_targetVariableID":"5e581fec-cc34-4e93-901c-c5894b7eb30f"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"method":{"_baseInfo":"SlotMaker.DefaultReelMovement|UpdateStopDisplacement|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"direction":{"_name":"displacement","_targetVariableID":"c552fcc4-3ba3-497b-8227-6e5ee6123853"},"waitDirection":{"_value":{"y":-1.0}},"$type":"SlotMaker.Tasks.Actions.WaitChangedDirection"},{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"PrepareStopped","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"},{"method":{"_baseInfo":"SlotMaker.DefaultReelMovement|OnPrepareStopped|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"boolVariable":{"_name":"locked","_targetVariableID":"5e581fec-cc34-4e93-901c-c5894b7eb30f"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"position":{"_name":"position","_targetVariableID":"1292c9db-2961-4d53-8f6a-992253e68d97"},"desiredPosition":{},"velocity":{"_name":"velocity","_targetVariableID":"276e44e5-fc09-4bc6-ad02-d8e4501e3402"},"desiredVelocity":{},"frequency":{"_name":"frequency","_targetVariableID":"b6d27f5d-9736-4fa0-9e1f-3175a683235b"},"damping":{"_name":"damping","_targetVariableID":"7e4b8a5d-b90b-4325-8487-ee7cb768fc9f"},"epsilon":{"_name":"epsilon","_targetVariableID":"72ed5077-ace6-4e5f-8f96-3a06c2d4bef9"},"saveAs":{"_name":"acceleration","_targetVariableID":"ec5eb231-e4ae-4999-b2d9-7b6663b3fb55"},"$type":"SlotMaker.Tasks.Actions.SetPIDForce"},{"valueA":{"_name":"velocity","_targetVariableID":"276e44e5-fc09-4bc6-ad02-d8e4501e3402"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"valueA":{"_name":"displacement","_targetVariableID":"c552fcc4-3ba3-497b-8227-6e5ee6123853"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"boolVariable":{"_name":"locked","_targetVariableID":"5e581fec-cc34-4e93-901c-c5894b7eb30f"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"boolVariable":{"_name":"locked","_targetVariableID":"5e581fec-cc34-4e93-901c-c5894b7eb30f"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"Stopped","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"},{"method":{"_baseInfo":"SlotMaker.DefaultReelMovement|OnStopped|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 2633292660606600513}
+  _blackboard: {fileID: 4837336723435102748}
+--- !u!1 &5382698709732807848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6528481427621685758}
+  - component: {fileID: 3728838139120831171}
+  m_Layer: 8
+  m_Name: Default Actions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6528481427621685758
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5382698709732807848}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4513703810446741366}
+  - {fileID: 7077683693438038914}
+  - {fileID: 8032177868611365449}
+  - {fileID: 6773634255131691536}
+  - {fileID: 4208331179446782294}
+  m_Father: {fileID: 7949661190142174200}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3728838139120831171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5382698709732807848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0efdbca5a81824ca7990e946bff450f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionListPlayers:
+  - {fileID: 1556307753217937347}
+  - {fileID: 4373149129254032740}
+  - {fileID: 6242415848656459993}
+  - {fileID: 4561607578146102423}
+  - {fileID: 4314679450206242704}
+--- !u!1 &5800981278576399879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3523741249516238890}
+  - component: {fileID: 7555891693566526596}
+  m_Layer: 8
+  m_Name: Boost Actions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3523741249516238890
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800981278576399879}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1728831099581879142}
+  - {fileID: 2092394085537951074}
+  - {fileID: 3744810223575702929}
+  - {fileID: 2603910106647881472}
+  - {fileID: 2525418676650566908}
+  m_Father: {fileID: 7949661190142174200}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7555891693566526596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800981278576399879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0efdbca5a81824ca7990e946bff450f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionListPlayers:
+  - {fileID: 7678270507963512617}
+  - {fileID: 1805410109275843009}
+  - {fileID: 8718782856690082506}
+  - {fileID: 8927594109175869373}
+  - {fileID: 471650698806930202}
+--- !u!1 &6646186140603282633
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4208331179446782294}
+  - component: {fileID: 4314679450206242704}
+  m_Layer: 8
+  m_Name: MoveBackward
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4208331179446782294
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6646186140603282633}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -305, y: 60734, z: 0}
+  m_LocalScale: {x: 0.99981, y: 0.99981, z: 1.00046}
+  m_Children: []
+  m_Father: {fileID: 6528481427621685758}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4314679450206242704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6646186140603282633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771e8d04ad23ec04ca6178c3be664c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skippable: 1
+  playOnAwake: 0
+  _serializedList: '{"actions":[{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"Spinning","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"},{"boolVariable":{"_name":"freeMove","_targetVariableID":"b9377021-231b-4738-a51e-cdc693ad9a71"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"method":{"_baseInfo":"SlotMaker.BaseReel|PushBackSymbols|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":1,"$type":"System.Int32"},"_name":"nudgeCount","_targetVariableID":"5f61d2fe-7421-4edf-a1f3-277b7197e631"}],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"method":{"_baseInfo":"SlotMaker.DefaultReelMovement|UpdateManualDisplacement|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":1,"$type":"System.Int32"},"_name":"nudgeCount","_targetVariableID":"5f61d2fe-7421-4edf-a1f3-277b7197e631"}],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":2},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"position":{"_name":"position","_targetVariableID":"1292c9db-2961-4d53-8f6a-992253e68d97"},"desiredPosition":{},"velocity":{"_name":"velocity","_targetVariableID":"276e44e5-fc09-4bc6-ad02-d8e4501e3402"},"desiredVelocity":{},"frequency":{"_name":"nudgeFrequency","_targetVariableID":"354e52c6-30cd-42b0-9132-9c6776eaadcd"},"damping":{"_name":"nudgeDamping","_targetVariableID":"74484c4a-d03b-461a-a61a-b52eec7593f8"},"epsilon":{"_name":"epsilon","_targetVariableID":"72ed5077-ace6-4e5f-8f96-3a06c2d4bef9"},"saveAs":{"_name":"acceleration","_targetVariableID":"ec5eb231-e4ae-4999-b2d9-7b6663b3fb55"},"$type":"SlotMaker.Tasks.Actions.SetPIDForce"},{"method":{"_baseInfo":"GameStudio.Slot.NDS.NDSReelBGController|OnEndNudge|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"reelBG","_targetVariableID":"7fc067e1-c8db-4d92-bc96-147708b2568f"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"method":{"_baseInfo":"GameStudio.Slot.NDS.NDSSlotResultBoardController|OnEndNudge|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"machine"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"valueA":{"_name":"velocity","_targetVariableID":"276e44e5-fc09-4bc6-ad02-d8e4501e3402"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"valueA":{"_name":"displacement","_targetVariableID":"c552fcc4-3ba3-497b-8227-6e5ee6123853"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"method":{"_baseInfo":"SlotMaker.BaseReel|PopFrontSymbols|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":1,"$type":"System.Int32"},"_name":"nudgeCount","_targetVariableID":"5f61d2fe-7421-4edf-a1f3-277b7197e631"}],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"method":{"_baseInfo":"SlotMaker.BaseReel|UpdateSymbolsTransform|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"boolVariable":{"_name":"freeMove","_targetVariableID":"b9377021-231b-4738-a51e-cdc693ad9a71"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"Stopped","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"}]}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 4806725139139078530}
+  - {fileID: 2633292660606600513}
+  _blackboard: {fileID: 4837336723435102748}
+--- !u!1 &6687920279937025470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2603910106647881472}
+  - component: {fileID: 8927594109175869373}
+  m_Layer: 8
+  m_Name: MoveFoward
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2603910106647881472
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6687920279937025470}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -305, y: 60734, z: 0}
+  m_LocalScale: {x: 0.99981, y: 0.99981, z: 1.00046}
+  m_Children: []
+  m_Father: {fileID: 3523741249516238890}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8927594109175869373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6687920279937025470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771e8d04ad23ec04ca6178c3be664c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skippable: 1
+  playOnAwake: 0
+  _serializedList: '{"actions":[{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"Spinning","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"},{"boolVariable":{"_name":"freeMove","_targetVariableID":"b9377021-231b-4738-a51e-cdc693ad9a71"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"method":{"_baseInfo":"SlotMaker.BaseReel|PushFrontSymbols|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":1,"$type":"System.Int32"},"_name":"nudgeCount","_targetVariableID":"5f61d2fe-7421-4edf-a1f3-277b7197e631"}],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"valueA":{"_value":"displacementCount"},"valueB":{"_name":"nudgeCount","_targetVariableID":"5f61d2fe-7421-4edf-a1f3-277b7197e631"},"overrideAgent":{"_value":2},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"displacementCount"},"Operation":"Multiply","valueB":{"_value":-1},"overrideAgent":{"_value":2},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"method":{"_baseInfo":"SlotMaker.DefaultReelMovement|UpdateManualDisplacement|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":-1,"$type":"System.Int32"},"_name":"displacementCount","_targetVariableID":"f4d6d22e-2ab2-440c-9883-d98e6d6488e9"}],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":3},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"position":{"_name":"position","_targetVariableID":"1292c9db-2961-4d53-8f6a-992253e68d97"},"desiredPosition":{},"velocity":{"_name":"velocity","_targetVariableID":"276e44e5-fc09-4bc6-ad02-d8e4501e3402"},"desiredVelocity":{},"frequency":{"_name":"nudgeFrequency","_targetVariableID":"354e52c6-30cd-42b0-9132-9c6776eaadcd"},"damping":{"_name":"nudgeDamping","_targetVariableID":"74484c4a-d03b-461a-a61a-b52eec7593f8"},"epsilon":{"_name":"epsilon","_targetVariableID":"72ed5077-ace6-4e5f-8f96-3a06c2d4bef9"},"saveAs":{"_name":"acceleration","_targetVariableID":"ec5eb231-e4ae-4999-b2d9-7b6663b3fb55"},"$type":"SlotMaker.Tasks.Actions.SetPIDForce"},{"method":{"_baseInfo":"GameStudio.Slot.NDS.NDSReelBGController|OnEndNudge|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"reelBG","_targetVariableID":"7fc067e1-c8db-4d92-bc96-147708b2568f"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"method":{"_baseInfo":"GameStudio.Slot.NDS.NDSSlotResultBoardController|OnEndNudge|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"machine"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"valueA":{"_name":"velocity","_targetVariableID":"276e44e5-fc09-4bc6-ad02-d8e4501e3402"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"valueA":{"_name":"displacement","_targetVariableID":"c552fcc4-3ba3-497b-8227-6e5ee6123853"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"method":{"_baseInfo":"SlotMaker.BaseReel|PopBackSymbols|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":1,"$type":"System.Int32"},"_name":"nudgeCount","_targetVariableID":"5f61d2fe-7421-4edf-a1f3-277b7197e631"}],"parameterIsByRef":[false],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"method":{"_baseInfo":"SlotMaker.BaseReel|UpdateSymbolsTransform|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"boolVariable":{"_name":"freeMove","_targetVariableID":"b9377021-231b-4738-a51e-cdc693ad9a71"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"Stopped","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"}]}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 4806725139139078530}
+  - {fileID: 4837336723435102748}
+  - {fileID: 2633292660606600513}
+  _blackboard: {fileID: 4837336723435102748}
+--- !u!1 &6994905109577481737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7949661190142174200}
+  m_Layer: 8
+  m_Name: Reel Anchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7949661190142174200
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6994905109577481737}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6528481427621685758}
+  - {fileID: 3523741249516238890}
+  - {fileID: 4731325741363665318}
+  m_Father: {fileID: 4806725139128063696}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &7099079149071484301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1728831099581879142}
+  - component: {fileID: 7678270507963512617}
+  m_Layer: 8
+  m_Name: Spin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1728831099581879142
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7099079149071484301}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3523741249516238890}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7678270507963512617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7099079149071484301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771e8d04ad23ec04ca6178c3be664c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skippable: 1
+  playOnAwake: 0
+  _serializedList: '{"actions":[{"method":{"_baseInfo":"SlotMaker.DefaultReelMovement|OnSpin|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"Spinning","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"},{"force":{"_name":"boostSpinForce","_targetVariableID":"28500c36-c641-4066-9bca-e7cf72c5b4b4"},"time":{"_name":"boostSpinTime","_targetVariableID":"5db84747-3653-4782-8929-234a944f5b28"},"saveAs":{"_name":"acceleration","_targetVariableID":"ec5eb231-e4ae-4999-b2d9-7b6663b3fb55"},"$type":"SlotMaker.Tasks.Actions.SetForce"}]}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 2633292660606600513}
+  _blackboard: {fileID: 4837336723435102748}
+--- !u!1 &7190435243982766910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2092394085537951074}
+  - component: {fileID: 1805410109275843009}
+  m_Layer: 8
+  m_Name: Stop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2092394085537951074
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7190435243982766910}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3523741249516238890}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1805410109275843009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7190435243982766910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771e8d04ad23ec04ca6178c3be664c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skippable: 1
+  playOnAwake: 0
+  _serializedList: '{"actions":[{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"Stopping","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"},{"boolVariable":{"_name":"locked","_targetVariableID":"5e581fec-cc34-4e93-901c-c5894b7eb30f"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"method":{"_baseInfo":"SlotMaker.DefaultReelMovement|UpdateStopDisplacement|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"direction":{"_name":"displacement","_targetVariableID":"c552fcc4-3ba3-497b-8227-6e5ee6123853"},"waitDirection":{"_value":{"y":-1.0}},"$type":"SlotMaker.Tasks.Actions.WaitChangedDirection"},{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"PrepareStopped","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"},{"method":{"_baseInfo":"SlotMaker.DefaultReelMovement|OnPrepareStopped|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"boolVariable":{"_name":"locked","_targetVariableID":"5e581fec-cc34-4e93-901c-c5894b7eb30f"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"position":{"_name":"position","_targetVariableID":"1292c9db-2961-4d53-8f6a-992253e68d97"},"desiredPosition":{},"velocity":{"_name":"velocity","_targetVariableID":"276e44e5-fc09-4bc6-ad02-d8e4501e3402"},"desiredVelocity":{},"frequency":{"_name":"frequency","_targetVariableID":"b6d27f5d-9736-4fa0-9e1f-3175a683235b"},"damping":{"_name":"damping","_targetVariableID":"7e4b8a5d-b90b-4325-8487-ee7cb768fc9f"},"epsilon":{"_name":"epsilon","_targetVariableID":"72ed5077-ace6-4e5f-8f96-3a06c2d4bef9"},"saveAs":{"_name":"acceleration","_targetVariableID":"ec5eb231-e4ae-4999-b2d9-7b6663b3fb55"},"$type":"SlotMaker.Tasks.Actions.SetPIDForce"},{"valueA":{"_name":"velocity","_targetVariableID":"276e44e5-fc09-4bc6-ad02-d8e4501e3402"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"valueA":{"_name":"displacement","_targetVariableID":"c552fcc4-3ba3-497b-8227-6e5ee6123853"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"boolVariable":{"_name":"locked","_targetVariableID":"5e581fec-cc34-4e93-901c-c5894b7eb30f"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"boolVariable":{"_name":"locked","_targetVariableID":"5e581fec-cc34-4e93-901c-c5894b7eb30f"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"Stopped","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"},{"method":{"_baseInfo":"SlotMaker.DefaultReelMovement|OnStopped|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 2633292660606600513}
+  _blackboard: {fileID: 4837336723435102748}
+--- !u!1 &8387563266138264457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6773634255131691536}
+  - component: {fileID: 4561607578146102423}
+  m_Layer: 8
+  m_Name: MoveFoward
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6773634255131691536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8387563266138264457}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -305, y: 60734, z: 0}
+  m_LocalScale: {x: 0.99981, y: 0.99981, z: 1.00046}
+  m_Children: []
+  m_Father: {fileID: 6528481427621685758}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4561607578146102423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8387563266138264457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771e8d04ad23ec04ca6178c3be664c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skippable: 1
+  playOnAwake: 0
+  _serializedList: '{"actions":[{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"Spinning","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"},{"boolVariable":{"_name":"freeMove","_targetVariableID":"b9377021-231b-4738-a51e-cdc693ad9a71"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"method":{"_baseInfo":"SlotMaker.BaseReel|PushFrontSymbols|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":1,"$type":"System.Int32"},"_name":"nudgeCount","_targetVariableID":"5f61d2fe-7421-4edf-a1f3-277b7197e631"}],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"valueA":{"_value":"displacementCount"},"valueB":{"_name":"nudgeCount","_targetVariableID":"5f61d2fe-7421-4edf-a1f3-277b7197e631"},"overrideAgent":{"_value":2},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"displacementCount"},"Operation":"Multiply","valueB":{"_value":-1},"overrideAgent":{"_value":2},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"method":{"_baseInfo":"SlotMaker.DefaultReelMovement|UpdateManualDisplacement|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":-1,"$type":"System.Int32"},"_name":"displacementCount","_targetVariableID":"f4d6d22e-2ab2-440c-9883-d98e6d6488e9"}],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":3},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"position":{"_name":"position","_targetVariableID":"1292c9db-2961-4d53-8f6a-992253e68d97"},"desiredPosition":{},"velocity":{"_name":"velocity","_targetVariableID":"276e44e5-fc09-4bc6-ad02-d8e4501e3402"},"desiredVelocity":{},"frequency":{"_name":"nudgeFrequency","_targetVariableID":"354e52c6-30cd-42b0-9132-9c6776eaadcd"},"damping":{"_name":"nudgeDamping","_targetVariableID":"74484c4a-d03b-461a-a61a-b52eec7593f8"},"epsilon":{"_name":"epsilon","_targetVariableID":"72ed5077-ace6-4e5f-8f96-3a06c2d4bef9"},"saveAs":{"_name":"acceleration","_targetVariableID":"ec5eb231-e4ae-4999-b2d9-7b6663b3fb55"},"$type":"SlotMaker.Tasks.Actions.SetPIDForce"},{"method":{"_baseInfo":"GameStudio.Slot.NDS.NDSReelBGController|OnEndNudge|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"reelBG","_targetVariableID":"7fc067e1-c8db-4d92-bc96-147708b2568f"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"method":{"_baseInfo":"GameStudio.Slot.NDS.NDSSlotResultBoardController|OnEndNudge|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"machine"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"valueA":{"_name":"velocity","_targetVariableID":"276e44e5-fc09-4bc6-ad02-d8e4501e3402"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"valueA":{"_name":"displacement","_targetVariableID":"c552fcc4-3ba3-497b-8227-6e5ee6123853"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"method":{"_baseInfo":"SlotMaker.BaseReel|PopBackSymbols|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":1,"$type":"System.Int32"},"_name":"nudgeCount","_targetVariableID":"5f61d2fe-7421-4edf-a1f3-277b7197e631"}],"parameterIsByRef":[false],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"method":{"_baseInfo":"SlotMaker.BaseReel|UpdateSymbolsTransform|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"boolVariable":{"_name":"freeMove","_targetVariableID":"b9377021-231b-4738-a51e-cdc693ad9a71"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"valueA":{"_type":"System.Enum","_name":"spinState","_targetVariableID":"bec0abd1-9b94-4012-a917-7db8c24985a7"},"valueB":{"_type":"SlotMaker.SpinState","_value":{"$content":"Stopped","$type":"SlotMaker.SpinState"}},"$type":"NodeCanvas.Tasks.Actions.SetEnum"}]}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 4806725139139078530}
+  - {fileID: 4837336723435102748}
+  - {fileID: 2633292660606600513}
+  _blackboard: {fileID: 4837336723435102748}

@@ -1,0 +1,77 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Psk
+{
+    public class BonusInfo188
+    {
+        public RandomFeatureInfo randomFeatureInfo;
+    }
+
+    public class RandomFeatureInfo
+    {
+        public List<int> reelTypes = new List<int>();
+    }
+    
+    public class CustomData188
+    {
+        public List<LockedSymbol> lockedWildPositionsInfo = new List<LockedSymbol>();
+        public List<LockedSymbol> wildsTwoInfo = new List<LockedSymbol>();
+    }
+    
+    // FreeSpin
+    public class BonusResult18800
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int extraBetIndex = 0;
+    }
+
+    // FREE_SPIN_RETRIGGER
+    public class BonusResult18801
+    {
+       public int addedSpinCount = 0;
+    }
+
+    // RespinBonus
+    public class BonusResult18802
+    {
+        public List<RespinStep> respinSteps = new List<RespinStep>();
+    }
+
+    // JP
+    public class BonusResult18803
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+        public int wheelStopIndex = 0;
+    }
+    
+    // INS FreeSpin
+    public class BonusResult18850
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int extraBetIndex = 0;
+    }
+
+    public class RespinStep 
+    {
+       public List<int> reelOutputList = new List<int>();
+       public List<LockedSymbol> lockedLinkPositionListBefore = new List<LockedSymbol>();
+       public List<LockedSymbol> lockedLinkPositionListAfter = new List<LockedSymbol>();
+    }
+    
+    public class LockedSymbol
+    {
+      public int columnPos = 0;
+      public int rowPos = 0;
+      public int multiplier = 0;
+      public bool isNewOne = 0;
+      public bool isActive = 0;
+      public int iconType = 0;
+    }
+}
