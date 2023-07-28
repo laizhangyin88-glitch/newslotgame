@@ -1,0 +1,63 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Ths
+{
+    public class CustomData125
+    {
+        public List<int> multiplierValues;
+        public List<int> maxCoinPerMultiplierIndex;
+        public Dictionary<long,int> totalCollectedCoinPerTotalBet;
+        public Dictionary<long,int> multiplierIndexPerTotalBet;
+    }
+    
+    public class BonusInfo125
+    {
+        public List<long> subSymbolMultiplierList;
+    }
+        
+    // Collect Coin
+    public class BonusResult12501
+    {
+        public List<PBSCoinInfo> collectCoinList;
+        public int coinCountPerSymbol;
+    }
+    
+    // Start Prime Bucks
+    public class BonusResult12502
+    {
+    }
+    
+    // Prime Bucks
+    public class BonusResult12503
+    {
+        public int offerCount;
+        public long totalBet;
+        public long betPerLine;
+        
+        public long primeBucksEarnCredit;
+        public List<int> primeBucksValues;
+
+        public int gambleMultiplier;
+    }
+    
+    // Gamble
+    public class BonusResult12504
+    {
+        public bool isGambleSuccess;
+        public int gambleMultiplier;
+        public int leftCollectedCoin;
+        public long primeBucksEarnCredit;
+    }
+    
+    // Ticketed Bonus
+    public class BonusResult12550
+    {
+    }
+    
+    public class PBSCoinInfo
+    {
+        public int coinIndex;
+        public long earnCredit;
+    }
+}

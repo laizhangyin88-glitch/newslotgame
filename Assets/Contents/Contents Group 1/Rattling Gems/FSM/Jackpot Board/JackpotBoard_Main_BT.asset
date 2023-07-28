@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: JackpotBoard_Main_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5151.0,"y":-4631.0},"nodes":[{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"UpdatedTotalBetCredit"},"$type":"BagelCode.Task.Condition.CheckCreditEvent"},{"valueA":{"_name":"_isInitialized"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":5271.0,"y":4749.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"2"},{"_position":{"x":5301.0,"y":4891.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"10"},{"_position":{"x":5021.0,"y":5025.0},"$type":"NodeCanvas.BehaviourTrees.Optional","$id":"11"},{"_action":{"actions":[{"valueA":{"_value":"./betCredit"},"saveAs":{"_name":"_betCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./totalBetCredit"},"saveAs":{"_name":"_totalBetCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./betList"},"saveAs":{"_name":"_betList","_targetVariableID":"eb22e389-f6af-46b4-ab03-aa7fb25a669b"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./game/jackpotInfo/baseBet"},"saveAs":{"_name":"_baseBet"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"baseBet":{"_name":"_baseBet"},"bet":{"_name":"_totalBetCredit"},"multiplier":{"_name":"_jackpotMultiplier"},"$type":"BagelCode.Tasks.Actions.Contents.GetIngameJackpotMultiplier"},{"valueA":{"_value":"./game/jackpotInfo/eligibleMinBet"},"saveAs":{"_name":"_eligibleMinBet"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"element":{"_name":"lockText","_targetVariableID":"782291f3-aa76-47af-9841-cd5bd0671e43"},"key":{"_value":"RTG_JACKPOT_LOCK_TEXT"},"tableType":"Content","arg1":{"_value":"_eligibleMinBet"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"boolVariable":{"_name":"_isInitialized"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4829.0,"y":5105.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"12"},{"_position":{"x":5524.0,"y":4981.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"40"},{"_nestedFSM":{"_value":1},"_position":{"x":5331.0,"y":5188.0},"_comment":"//
+    Shown credit is calculated by totalBetCredit","$type":"NodeCanvas.BehaviourTrees.NestedFSM","$id":"41"},{"_nestedFSM":{"_value":2},"_position":{"x":5627.0,"y":5190.0},"_comment":"//
+    Jackpot Board Activation is checked by betCredit\n","$type":"NodeCanvas.BehaviourTrees.NestedFSM","$id":"43"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"40"},"_targetNode":{"$ref":"41"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"40"},"_targetNode":{"$ref":"43"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: fc007316497db475ab6c36648c2afabc, type: 2}
+  - {fileID: 11400000, guid: e174237dc8ed44af5b0d9f61afd02724, type: 2}
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

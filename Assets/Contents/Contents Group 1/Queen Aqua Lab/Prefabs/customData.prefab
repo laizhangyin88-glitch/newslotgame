@@ -1,0 +1,642 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1239104538945882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4077957685518822}
+  - component: {fileID: 114172916801929926}
+  - component: {fileID: 114454247979074594}
+  m_Layer: 0
+  m_Name: GS Handler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4077957685518822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239104538945882}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224882544154447012}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114172916801929926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239104538945882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serializedBlackboard: '{"_variables":{"Intro":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Game Intro"},"delay":0.7,"fadeOut":{"easeType":"EaseInQuad","time":1.0}},"_name":"Intro","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Base
+    Game BGM":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Base Game BGM"},"output":"Music","loop":true,"volume":0.5,"fadeOut":{"easeType":"EaseInQuad","time":0.5},"autoRelease":false},"_name":"Base
+    Game BGM","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Free Game BGM":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Free Game BGM"},"output":"Music","loop":true,"volume":0.6,"fadeOut":{"easeType":"EaseInQuad","time":0.5},"autoRelease":false},"_name":"Free
+    Game BGM","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Potion BGM":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Potion BGM"},"output":"Music","loop":true,"volume":0.4},"_name":"Potion BGM","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Bonus
+    Select BGM":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Bonus Select
+    BGM"},"output":"Music","loop":true,"volume":0.4,"fadeOut":{"easeType":"EaseInQuad","time":0.5}},"_name":"Bonus
+    Select BGM","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"RPS BGM":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    RPS BGM"},"output":"Music","loop":true,"volume":0.4,"fadeOut":{"easeType":"EaseInQuad","time":0.5}},"_name":"RPS
+    BGM","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"WAB BGM":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Whackablue BGM"},"output":"Music","loop":true,"volume":0.4,"fadeOut":{"easeType":"EaseInQuad","time":0.5}},"_name":"WAB
+    BGM","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Reel Stop":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Reel Stop"},"volume":0.7,"playingType":"LastOnly"},"_name":"Reel Stop","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Scatter
+    Land 1":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Bonus Land"},"output":"Compressor"},"_name":"Scatter
+    Land 1","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Scatter Land 2":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Bonus Land"},"output":"Compressor"},"_name":"Scatter Land 2","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Scatter
+    Land 3":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Bonus Land"},"output":"Compressor"},"_name":"Scatter
+    Land 3","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Expectation":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Expectation"},"volume":0.8},"_name":"Expectation","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Reel
+    Expand":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Reel Expand"},"volume":0.7,"delay":0.3},"_name":"Reel
+    Expand","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Coin Low Win":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Low Win"},"volume":0.8},"_name":"Coin Low Win","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Coin
+    Win End":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Win End"},"volume":0.8},"_name":"Coin
+    Win End","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Coin Med Win":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Med Win"},"loop":true,"volume":0.8},"_name":"Coin Med Win","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Coin
+    High Win":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL High Win"},"loop":true,"volume":0.8},"_name":"Coin
+    High Win","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Reel Wild Expectation":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Reel Wild Expectation"}},"_name":"Reel Wild Expectation","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Reel
+    Wild Hit":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Reel Wild Hit"},"playingType":"FirstOnly"},"_name":"Reel
+    Wild Hit","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Scatter Win":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Bonus Scatter Win"}},"_name":"Scatter Win","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Bonus
+    Selector Ready":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Bonus Selector
+    Ready"},"delay":0.5},"_name":"Bonus Selector Ready","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Bonus
+    Selector Catch":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Bonus Selector
+    Catch"}},"_name":"Bonus Selector Catch","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Bonus
+    Selected Voice":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Bonus Selected
+    Voice"},"delay":0.3},"_name":"Bonus Selected Voice","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"PopUp":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    PopUp"}},"_name":"PopUp","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Notice
+    Adding":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Notice Adding"}},"_name":"Notice
+    Adding","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Wild Add":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Wild Add"}},"_name":"Wild Add","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Potion
+    Picked Vial":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Potion Picked
+    Vial"}},"_name":"Potion Picked Vial","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"VO_Potion
+    Pick A Vial":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL VO_Potion
+    Pic A Vial"}},"_name":"VO_Potion Pick A Vial","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Potion
+    Success Explosion":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Potion
+    Success Explosion"}},"_name":"Potion Success Explosion","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Potion
+    Collect Explosion":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Potion
+    Collect Explosion"}},"_name":"Potion Collect Explosion","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Potion
+    Fail Explosion":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Potion
+    Fail Explosion"}},"_name":"Potion Fail Explosion","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Potion
+    Button":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Potion Button"}},"_name":"Potion
+    Button","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Result PopUp":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Result PopUp"}},"_name":"Result PopUp","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"RPS
+    Queen Push Button Ani":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    RPS Queen Push Button Ani"}},"_name":"RPS Queen Push Button Ani","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"RPS
+    Selected Button":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL RPS Selected
+    Button"}},"_name":"RPS Selected Button","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"RPS
+    Lose":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL RPS Lose"}},"_name":"RPS
+    Lose","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"RPS Get Multiply":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    RPS Get Multiply"}},"_name":"RPS Get Multiply","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"RPS
+    Loop":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL RPS Loop"},"volume":0.7},"_name":"RPS
+    Loop","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Whackablue Get Multiply":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Whackablue Get Multiply"}},"_name":"Whackablue Get Multiply","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Whackablue
+    Queen Appear":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Whackablue
+    Qeen Appear"}},"_name":"Whackablue Queen Appear","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Whackablue
+    Ready":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Whackablue Ready"}},"_name":"Whackablue
+    Ready","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Whackablue 100 multiply":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Whackablue 100 multiply"}},"_name":"Whackablue 100 multiply","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Whackablue
+    GameOver":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL Whackablue GameOver
+    Sound"}},"_name":"Whackablue GameOver","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"Button":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL
+    Button"},"volume":0.7},"_name":"Button","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"RPS
+    100 multiply":{"_value":{"clip":{"bundleName":"qal","assetName":"QAL RPS 100 multiply"},"volume":0.7},"_name":"RPS
+    100 multiply","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.GSHandler, Assembly-CSharp,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
+  _objectReferences: []
+--- !u!114 &114454247979074594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239104538945882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b69b183a68374d3783b87add991662e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  googleSpreadSheetId: 1yb3kzFUcbwvTeTMVg80BXMjuZuG6mA7U0yLMydsgTAo
+  tableName: qal
+--- !u!1 &1370048099308364
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4569851585019118}
+  m_Layer: 0
+  m_Name: Pools
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4569851585019118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370048099308364}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4511231661162180}
+  - {fileID: 4676548125755680}
+  - {fileID: 4338043426869984}
+  m_Father: {fileID: 224882544154447012}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1457656063283064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4338043426869984}
+  - component: {fileID: 114799541585053616}
+  - component: {fileID: 114312971001717976}
+  m_Layer: 0
+  m_Name: Blue Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4338043426869984
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457656063283064}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4569851585019118}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114799541585053616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457656063283064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5750e32a55b434dc9b3ad9ea8e365078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1229499644155634, guid: e12b8b135ef72407bb0ea750017cd5eb, type: 3}
+  poolSize: 8
+  availiableObjects: []
+--- !u!114 &114312971001717976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457656063283064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b016a8fe119940d394fee2f78f68073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: ./bluePool
+--- !u!1 &1534060649770326
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 224251567441206486}
+  - component: {fileID: 114703557574190352}
+  - component: {fileID: 114951253487796998}
+  m_Layer: 0
+  m_Name: slotData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &224251567441206486
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534060649770326}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224627351326346486}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &114703557574190352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534060649770326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7840e8e61691c43798b77775834232a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  column: 5
+  row: 9
+  visibleCounts: 0300000003000000030000000300000003000000
+  symbolMask:
+    mask: 0100000000000000000000000000000000000000000000000000000000000000000000000000000008000000
+  mixedLineWinInfos: []
+  deck:
+    stripIndices: 
+  expectation:
+    expectations: 
+  mysterySymbolTable:
+    singleMysteryTable: 0
+  slotMachine: {fileID: 0}
+--- !u!114 &114951253487796998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534060649770326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serializedBlackboard: '{"_variables":{"column":{"_propertyPath":"SlotMaker.SlotData.column","_name":"column","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"row":{"_propertyPath":"SlotMaker.SlotData.row","_name":"row","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"visibleCounts":{"_propertyPath":"SlotMaker.SlotData.visibleCounts","_name":"visibleCounts","$type":"NodeCanvas.Framework.Variable`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
+  _objectReferences: []
+--- !u!1 &1772931453135664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4511231661162180}
+  - component: {fileID: 114573219150923474}
+  m_Layer: 0
+  m_Name: Stop Effect Scatter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4511231661162180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772931453135664}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4569851585019118}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114573219150923474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772931453135664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5750e32a55b434dc9b3ad9ea8e365078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1744608818295434, guid: 2fec1d5523d0148c7b949a7e1bd8d767, type: 3}
+  poolSize: 0
+  availiableObjects: []
+--- !u!1 &1786456998515048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4676548125755680}
+  - component: {fileID: 114695107540456602}
+  - component: {fileID: 114929308355102300}
+  m_Layer: 0
+  m_Name: Reel Wild Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4676548125755680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786456998515048}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4569851585019118}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114695107540456602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786456998515048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5750e32a55b434dc9b3ad9ea8e365078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1287333866158880, guid: d07060321ddbf42e9962b08cd18d04cf, type: 3}
+  poolSize: 0
+  availiableObjects: []
+--- !u!114 &114929308355102300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786456998515048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b016a8fe119940d394fee2f78f68073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: ./reelWildPool
+--- !u!1 &1804529853846296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 224627351326346486}
+  m_Layer: 0
+  m_Name: SlotDataList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &224627351326346486
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804529853846296}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224251567441206486}
+  m_Father: {fileID: 224882544154447012}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1875862049504102
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 224882544154447012}
+  - component: {fileID: 114959660423544742}
+  - component: {fileID: 114251568420779132}
+  - component: {fileID: 114332013852081072}
+  - component: {fileID: 114094729849234422}
+  m_Layer: 0
+  m_Name: customData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &224882544154447012
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875862049504102}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4077957685518822}
+  - {fileID: 4569851585019118}
+  - {fileID: 224627351326346486}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &114959660423544742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875862049504102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0dbb264a5ab46f0b33902a6726b4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  symbolCount: 11
+  symbolSortingOrder:
+    sortingLayerName: Base
+    orders: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  symbolSprite: {fileID: 114251568420779132}
+  symbolName:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  gsHandler: {fileID: 114172916801929926}
+  slotDataList:
+  - {fileID: 114703557574190352}
+--- !u!114 &114251568420779132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875862049504102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75e8ba917190474f8751c0b492c095d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: c01705e1c2ec1488a8629a3c2b8a203c, type: 3}
+  - {fileID: 21300000, guid: f3d7a93a5a98a4f7fadf41aaca5b323d, type: 3}
+  - {fileID: 21300000, guid: 75a4750c6a9a24ffd9873b5d9185cef2, type: 3}
+  - {fileID: 21300000, guid: cbaf7986432304d94b99c86b87bdda39, type: 3}
+  - {fileID: 21300000, guid: db68243d2166841d283ff790d45adc12, type: 3}
+  - {fileID: 21300000, guid: 8c08235686bf84c1ab9290dd7f52099f, type: 3}
+  - {fileID: 21300000, guid: a20c711941a844024b299d32e1c1afcb, type: 3}
+  - {fileID: 21300000, guid: 85767060f74e34fe2992baccbc15281d, type: 3}
+  - {fileID: 21300000, guid: 5cc69edb0dbe549a88cb4883e00d62b9, type: 3}
+  - {fileID: 21300000, guid: 9f8ff19a13ab441a68f0bded3ad1cc31, type: 3}
+  - {fileID: 21300000, guid: 61e9e1f6c23e7440db1c7a43e04ba722, type: 3}
+--- !u!114 &114332013852081072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875862049504102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serializedBlackboard: '{"_variables":{"symbolSortingOrder":{"_propertyPath":"SlotMaker.ContentCustomData.symbolSortingOrder","_name":"symbolSortingOrder","$type":"NodeCanvas.Framework.Variable`1[[SlotMaker.SymbolSortingOrder,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"isReady":{"_name":"isReady","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"slotDataList":{"_value":[1],"_name":"slotDataList","_id":"608f1a91-dc40-42f3-991a-7275eeb370a7","$type":"NodeCanvas.Framework.Variable`1[[System.Collections.Generic.List`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib,
+    Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 114951253487796998}
+--- !u!114 &114094729849234422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875862049504102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b2b02d26f514778b29c0a6857bebdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assets:
+  - {fileID: 11400000, guid: bed2144796d82404d8b6eafa916be197, type: 2}
+  - {fileID: 11400000, guid: 0f84fae97aeed4274830b5aae55ad8c1, type: 2}
+  - {fileID: 11400000, guid: fb0e458de71574ca3b3d4ea26e79e39e, type: 2}
+  - {fileID: 11400000, guid: 7b35c6a5d7ebe4204905f7d581931eb3, type: 2}
+  - {fileID: 11400000, guid: 1fc54fa2a3f644a959e9f1c0f8730fb9, type: 2}
+  - {fileID: 11400000, guid: ea9fe3fbe7ccb47b88f72335db4412d1, type: 2}
+  - {fileID: 11400000, guid: 143dca69206cc48be83617f2b122d466, type: 2}
+  - {fileID: 11400000, guid: 693288799edd84405ba0f00026e89a14, type: 2}
+  - {fileID: 11400000, guid: 2eb06e803bafb4a96bcdcd41ffd9cc8c, type: 2}
+  - {fileID: 11400000, guid: 9cd266ab8a52e44339034047efdaa653, type: 2}
+  - {fileID: 11400000, guid: 37bf1f20ba9b24c51bc48729813e622c, type: 2}
+  pools:
+  - {fileID: 114573219150923474}
+  assetGroupId: 0

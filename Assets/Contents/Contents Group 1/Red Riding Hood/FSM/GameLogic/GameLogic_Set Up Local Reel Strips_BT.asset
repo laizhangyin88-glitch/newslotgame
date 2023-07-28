@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: "GameLogic_Set Up Local Reel Strips_BT\uF746"
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-2476.0,"y":-3136.0},"zoomFactor":0.6192359,"nodes":[{"repeatTimes":{"_value":5},"_position":{"x":5294.0,"y":5264.0},"$type":"SlotMaker.BehaviourTrees.OneFrameRepeater","$id":"2"},{"_position":{"x":5294.0,"y":5414.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"4"},{"_action":{"actions":[{"slotIndex":{"_name":"_localSlotIndex"},"reelSetIndex":{"_value":1},"saveAs":{"_name":"_localReelStrip"},"$type":"BagelCode.Tasks.Actions.Contents.CreateReelStrips"},{"valueA":{"_value":"./customData/localReelStrips"},"saveAs":{"_name":"_localReelStrips"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"targetList":{"_name":"_localReelStrips"},"targetElement":{"_name":"_localReelStrip"},"$type":"NodeCanvas.Tasks.Actions.AddElementToList`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5042.0,"y":5542.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"5"},{"_action":{"valueA":{"_value":"_localSlotIndex"},"Operation":"Add","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},"_position":{"x":5481.0,"y":5567.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"18"},{"_position":{"x":5313.0,"y":5112.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"22"},{"_action":{"valueA":{"_value":"_localSlotIndex"},"valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},"_position":{"x":5061.0,"y":5248.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"23"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

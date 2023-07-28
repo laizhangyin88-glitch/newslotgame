@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Bonus_Info_Collect Pizza_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":397.0,"y":-453.0},"nodes":[{"_position":{"x":571.0,"y":598.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_name":"_repeatTime"},"valueB":{"_value":5},"$type":"NodeCanvas.Tasks.Actions.SetVariable`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"_repeatTime"},"Operation":"Subtract","valueB":{"_value":1,"_name":"_lastIndex"},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"eventName":{"_value":"ResetCash"},"eventValue":{},"delay":{},"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"_lastIndex"},"Operation":"Add","valueB":{"_value":1},"_isDisabled":true,"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"eventName":{"_value":"ResetJackpot"},"eventValue":{},"delay":{},"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":269.0,"y":693.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"repeatTimes":{"_value":1,"_name":"_repeatTime"},"_position":{"x":572.0,"y":727.0},"$type":"SlotMaker.BehaviourTrees.OneFrameRepeater","$id":"23"},{"_action":{"actions":[{"valueA":{"_value":"PizzaAnimator"},"index":{"_name":"_lastIndex"},"fromLast":{},"saveAs":{"_name":"_getPizzaAnimator"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[UnityEngine.Animator,
+    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"parameter":{"_value":"Disappear"},"parameterHashID":{},"overrideAgent":{"_name":"_getPizzaAnimator"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"targetList":{"_name":"LeftCountBooleanList","_targetVariableID":"95f2dc63-7854-436a-9226-30d1bf450a1d"},"index":{"_name":"_lastIndex"},"newValue":{},"$type":"NodeCanvas.Tasks.Actions.SetListElement`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"_lastIndex"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":473.0,"y":835.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"25"},{"_action":{"actions":[{"valueA":{"_name":"_lastIndex"},"valueB":{"_value":5},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"valueA":{"_name":"_PizzaCount"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetInt"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":843.0,"y":713.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"44"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"44"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"25"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,62 @@
+//
+// RHG Schema
+//
+
+public partial class BonusInfo61
+{
+    public List<long> richHitsScatterPay = new List<long>();
+    public List<long> richHitsScatterBonusPay = new List<long>();
+}
+
+public partial class CustomData61
+{
+    public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+    public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+    public long roomCommunityTicketCount = 0;
+    public long roomCommunityTicketMaxCount = 0;
+    public long myCommunityTicketCount = 0;
+}
+
+public partial class RHGCommunityGameUserSpinResult
+{
+    public List<int> reelOutputList = new List<int>();
+    public Dictionary<int,int> mysterySymbols = new Dictionary<int,int>();
+    public long earnCredit = 0;
+    public bool hitScatterSymbol = false;
+    public int totalScatterCount = 0;
+    public BonusResult bonusInfo = null;
+}
+
+public partial class RHGCommunityGameUserGameResult
+{
+    public List<RHGCommunityGameUserSpinResult> spinResultList = new List<RHGCommunityGameUserSpinResult>();
+    public long totalEarnCredit = 0;
+    public long betMultiplier = 0;
+    public string profileUrl = "";
+    public string userName = "";
+    public long bet = 0;
+    public int tier = 0;
+    public bool isBot = false;
+}
+
+// RHGCommunityGameBonus
+public partial class BonusResult6100
+{
+    public bool isTriggeredByMe = false;
+    public string triggerUserProfileUrl = "";
+    public string triggerUserName = "";
+    public int triggerUserTier = 0;
+    public int paytableIndex = 0;
+    public int paylineIndex = 0;
+    public int reelTypeIndex = 0;
+    public List<RHGCommunityGameUserGameResult> userGameResultList = new List<RHGCommunityGameUserGameResult>();
+}
+
+// RHGRichHitsBonus
+public partial class BonusResult6101
+{
+    public bool isJackpot = false;
+    public int jackpotIndex = 0;
+    public long jackpotAwardAmount = 0;
+    public bool isHitScatter = false;
+}

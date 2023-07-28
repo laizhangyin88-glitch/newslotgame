@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: IceDiamond_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5364.0,"y":-5015.0},"nodes":[{"_nodeColor":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":5971.0,"y":5160.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_position":{"x":5651.0,"y":5340.0},"$type":"NodeCanvas.BehaviourTrees.Optional","$id":"3"},{"_action":{"actions":[{"id":{"_value":"Ice
+    Diamonds Stone Land"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"isForceUpdate":{"_value":true},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"bonusId":{"_value":2006},"response":{"_name":"diamondBonus"},"$type":"BagelCode.Tasks.Actions.Contents.GetBonusResponse"},{"valueA":{"_value":"noBonus"},"saveAs":{"_name":"noBonusList"},"overrideAgent":{"_name":"diamondBonus"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"noBonusList"},"index":{},"fromLast":{},"saveAs":{"_name":"noBonusIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"noBonusList"},"index":{"_value":1},"fromLast":{},"saveAs":{"_name":"finishIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./pickCount"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"./gemCount"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"./failedCount"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"./isClickable"},"valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"./noBonusIndex"},"valueB":{"_name":"noBonusIndex"},"$type":"SlotMaker.Tasks.Actions.SetInt32"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5539.0,"y":5399.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"4"},{"_condition":{"valueA":{"_value":"./pickCount"},"checkType":"GreaterThan","valueB":{"_name":"finishIndex"},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":5949.0,"y":5389.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"43"},{"_action":{"actions":[{"valueA":{"_value":"./isClickable"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"eventName":{"_value":"ShowIceDiamondCover"},"delay":{},"sendGlobal":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"id":{"_value":"Ice
+    Diamonds Result"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"FinishIceDiamondBonus"},"delay":{},"sendGlobal":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5910.0,"y":5466.0},"_comment":"FinishIceDiamondBonus,
+    makes cover appear (like ShowIceDiamondCover Event)","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"47"},{"_condition":{"eventName":{"_value":"EndBonusDiamond"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_position":{"x":6310.0,"y":5389.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"63"},{"_action":{"eventName":{"_value":"EndIceDiamond"},"delay":{},"sendGlobal":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent"},"_position":{"x":6273.0,"y":5471.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"66"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"43"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"63"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"43"},"_targetNode":{"$ref":"47"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"63"},"_targetNode":{"$ref":"66"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

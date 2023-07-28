@@ -1,0 +1,66 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Rog
+{
+    public class BonusInfo20
+    {
+        public List<long> scatterPay = new List<long>();
+        public DiamondBonus diamondBonus = null;
+    }
+
+    // ROGJackpot
+    public class BonusResult2000
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // ROGFreeSpinBonus
+    public class BonusResult2001
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // ROGFreeSpinRetriggerBonus
+    public class BonusResult2002
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // ROGRandomWildBonus
+    public class BonusResult2003
+    {
+        public List<int> wildSpotList = new List<int>();
+    }
+
+    // ROGMultiplyPayBonus
+    public class BonusResult2004
+    {
+        public long multiplier = 0;
+    }
+
+    // ROGSpinTillYouWinBonus
+    public class BonusResult2005
+    {
+        public List<List<int>> spinList = new List<List<int>>();
+    }
+
+    // ROGDiamondBonus
+    public class BonusResult2006
+    {
+        public List<int> noBonus = new List<int>();
+    }
+
+    public class DiamondBonus
+    {
+        public int maximumChance = 0;
+        public List<int> count = new List<int>();
+        public List<long> pay = new List<long>();
+    }
+}

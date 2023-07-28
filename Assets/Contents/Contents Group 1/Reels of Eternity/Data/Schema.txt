@@ -1,0 +1,61 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Roe
+{
+    public class BonusInfo64
+    {
+        public long freeSpinCount = 0;
+        public List<long> scatterPay = new List<long>();
+        public List<long> reelExpandAllWeightList = new List<long>();
+        public long reelExpandAllWeightTotal = 0;
+        public List<List<int>> reelExpandWeightList = new List<List<int>>();
+        public List<long> reelExpandWeightTotalList = new List<long>();
+    }
+
+    // ROEReelExpandBonus
+    public class BonusResult6400
+    {
+        public List<long> reelIndexList = new List<long>();
+    }
+
+    // ROEFreeSpinBonus
+    public class BonusResult6401
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // ROEFreeSpinRetriggerBonus
+    public class BonusResult6402
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // ROEJackpot
+    public class BonusResult6403
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+        public List<long> jackpotPicks = new List<long>();
+        public List<long> jackpotUnpicks = new List<long>();
+    }
+
+    // ROETicketedFreeSpinBonus
+    public class BonusResult6450
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // ROEContentsStore
+    public class ContentsStore64
+    {
+        public long bowl = 0;
+    }
+}

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Reel_Frame_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5599.0,"y":-5197.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5492.0,"y":5590.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./customData/slotDataList/0/column"},"saveAs":{"_name":"_column"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./slotMachine"},"saveAs":{"_name":"_slotMachine"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}]},"_position":{"x":5725.0,"y":5797.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"5"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":6143.0,"y":5690.0},"_name":"Play","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"14"},{"_nestedBT":{"_value":2},"executionMode":"Once","_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":6370.0,"y":5561.0},"_name":"Stop","_comment":"","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"16"}],"connections":[{"_condition":{"valueA":{"_value":"./initializedContent"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SpinSlotMachine"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckSlotEvent"},"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"reelIndex":{},"overrideAgent":{"_name":"_slotMachine"},"$type":"SlotMaker.Tasks.Condition.CheckStoppingReel"},"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 1ee012325633241c0a39bd8c5c240893, type: 2}
+  - {fileID: 11400000, guid: 16361a31895ac4a608ecaaadc8f02264, type: 2}
+  _deserializationFailed: 0

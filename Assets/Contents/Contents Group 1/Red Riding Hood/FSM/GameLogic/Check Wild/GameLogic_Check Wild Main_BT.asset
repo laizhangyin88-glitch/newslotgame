@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Check Wild Main_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-4506.0,"y":-5042.0},"nodes":[{"_condition":{"bonusId":{"_value":9501},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_position":{"x":5194.0,"y":4972.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_position":{"x":5209.0,"y":5072.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"5"},{"_action":{"actions":[{"bonusId":{"_value":9501},"$type":"BagelCode.Tasks.Actions.Contents.BeginBonus"},{"bonusId":{"_value":"9501"},"$type":"BagelCode.Tasks.Actions.BI.BI_bonus"},{"bonusId":{"_value":9501},"response":{"_name":"_bonus"},"$type":"BagelCode.Tasks.Actions.Contents.GetBonusResponse"},{"valueA":{"_value":"_bonus/changeSymbol"},"saveAs":{"_name":"_changeSymbol"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./customData/slotDataList/0/column"},"saveAs":{"_name":"_column"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./customData/slotDataList/0/row"},"saveAs":{"_name":"_row"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_collIndex"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_rowIndex"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt32"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4138.0,"y":5259.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_subTree":{"_value":1},"_position":{"x":4491.0,"y":5258.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"31"},{"_action":{"actions":[{"valueA":{"_value":"./partyPoints"},"saveAs":{"_name":"_partyPoints"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"animator"},"saveAs":{"_name":"_partyPointsAnimator"},"overrideAgent":{"_name":"_partyPoints"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[UnityEngine.Animator,
+    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"parameter":{"_value":"IsOn"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"_partyPointsAnimator"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"waitTime":{"_value":0.4},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4697.0,"y":5263.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"33"},{"_action":{"actions":[{"valueA":{"_value":"./wildAppear"},"saveAs":{"_name":"_wildAppear"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"target":{"_name":"_wildAppear"},"setTo":"Activate","$type":"SlotMaker.Tasks.Actions.SimpleSetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4987.0,"y":5289.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"50"},{"_subTree":{"_value":2},"_position":{"x":5214.0,"y":5303.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"58"},{"_subTree":{"_value":3},"_position":{"x":5457.0,"y":5304.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"60"},{"_action":{"$type":"BagelCode.Tasks.Actions.Contents.EndBonus"},"_position":{"x":5685.0,"y":5298.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"62"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"50"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"58"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"60"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"62"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 80072314458d54d25af28621fbc22cf4, type: 2}
+  - {fileID: 11400000, guid: 696f42c53657a4463873260d7aa8085d, type: 2}
+  - {fileID: 11400000, guid: eae12c625018741b2bb6b590a0b429a9, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

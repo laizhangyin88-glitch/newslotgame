@@ -1,0 +1,104 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Pht
+{
+    public class BonusInfo152
+    {
+        public List<WheelData> bonusWheel;
+        public int grandEligibleLevel = 0;
+        public int minorEligibleLevel = 0;
+        public List<int> betScaleRange; // betScaleRange
+    }
+    
+    public class WheelData
+    {
+        public List<double> values;
+    }
+    
+    public class CustomData152
+    {
+        public Dictionary<long,List<int>> collectedSubSymbolCount;
+        public Dictionary<long,PasswordListForBet> activePasswords;
+        public Dictionary<long,PasswordListForBet> completedPasswords;
+        public Dictionary<long,List<int>> subSymbolColorMap;
+    }
+
+    public class PasswordListForBet
+    {
+        public List<Password> passwordList;
+    }
+
+    public class Password
+    {
+        public List<Digit> digitList;
+        public int color;
+        public bool isGuessed;
+    }
+
+    public class Digit
+    {
+        public int passDigit;
+        public bool isMatched;
+    }
+
+    // PHTFreeSpinBonus
+    public class BonusResult15200
+    {
+         public int type = 0;
+         public long betCredit = 0;
+         public int addedSpinCount = 0;
+    }
+
+    public class BonusResult15203
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // PHTSubSymbolBonus
+    public class BonusResult15204
+    {
+        public List<SubSymbolInfo> subSymbolInfoList;
+    }
+    
+    public class SubSymbolInfo
+    {
+        public int position;
+        public List<int> orderInPasswordList;
+        public List<int> colorList;
+    }
+
+    // PHTFreeSpinRetriggerBonus
+    public class BonusResult15201
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // PHTFreeSpinTicketBonus
+    public class BonusResult15250  
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // PHTWheelBonus
+    public class BonusResult15202  
+    {
+        public List<WheelStep> wheelStepList;
+    }
+
+    public class WheelStep
+    {
+       public bool isJackpot;
+       public double multiplier;
+       public int stopIndex;
+       public bool isAvailable;
+       public int wheelIndex;
+       public int nextWheelIndex;
+    }
+}

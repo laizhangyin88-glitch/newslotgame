@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Midground_Pixie_Symbol Image_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.9,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-6182.0,"y":-4595.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"targetVariableName":{"_value":"symbolImageList"},"saveAs":{"_type":"System.Collections.Generic.List`1[[UnityEngine.Sprite,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"_symbolImageList"},"overrideAgent":{"_name":"pixie","_targetVariableID":"25723502-078a-485d-b1b4-c9304c9c187d"},"$type":"NodeCanvas.Tasks.Actions.GetOtherBlackboardVariable"},{"valueA":{"_name":"_symbolIndex"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetInt"}]},"_position":{"x":6423.0,"y":4282.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"_symbolImageList"},"index":{"_name":"_symbolIndex"},"fromLast":{},"saveAs":{"_name":"_sprite"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[UnityEngine.Sprite,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}]},"_position":{"x":6709.0,"y":4470.0},"_name":"Update","$type":"NodeCanvas.StateMachines.ActionState","$id":"12"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"targetVariableName":{"_value":"sprite"},"newValue":{"_type":"UnityEngine.Sprite","_name":"_sprite"},"$type":"NodeCanvas.Tasks.Actions.SetOtherBlackboardVariable"}]},"_position":{"x":6486.0,"y":4742.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"20"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"_symbolImageList"},"index":{},"fromLast":{},"saveAs":{"_name":"_sprite"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[UnityEngine.Sprite,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"targetVariableName":{"_value":"sprite"},"newValue":{"_type":"UnityEngine.Sprite","_name":"_sprite"},"$type":"NodeCanvas.Tasks.Actions.SetOtherBlackboardVariable"}]},"_position":{"x":6779.0,"y":4893.0},"_name":"TurnToWild","$type":"NodeCanvas.StateMachines.ActionState","$id":"26"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"targetVariableName":{"_value":"sprite"},"newValue":{"_type":"UnityEngine.Sprite","_name":""},"$type":"NodeCanvas.Tasks.Actions.SetOtherBlackboardVariable"}]},"_position":{"x":7047.0,"y":5039.0},"_name":"End","$type":"NodeCanvas.StateMachines.ActionState","$id":"37"}],"connections":[{"_condition":{"eventName":{"_value":"UpdateSprite"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"UpdateSprite"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"TurnToWild"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"End"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"37"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

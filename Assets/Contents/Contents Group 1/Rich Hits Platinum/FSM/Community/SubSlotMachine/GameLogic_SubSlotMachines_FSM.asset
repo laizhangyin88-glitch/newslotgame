@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: GameLogic_SubSlotMachines_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5596.0,"y":-5294.0},"nodes":[{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":5520.0,"y":5490.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"OnReadySubSlotMachine"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"valueA":{"_name":"stoppedSlotMachineCount","_targetVariableID":"233cc508-dcca-483a-962f-f0e28b4a9650"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetInt"}]},"_position":{"x":5745.0,"y":5580.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"4"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":6120.0,"y":5700.0},"_name":"Spin
+    Sub SlotMachines","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"13"},{"_nestedBT":{"_value":3},"executionMode":"Once","_position":{"x":6375.0,"y":5835.0},"_name":"Stop
+    Sub SlotMachines","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"15"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"StoppedAllSubSlotMachines"},"delay":{},"sendGlobal":true,"slotIndex":{},"_isDisabled":true,"$type":"BagelCode.Tasks.Actions.SendSlotEvent"},{"eventName":{"_value":"StoppedAllSubSlotMachines"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentEvent"},{"valueA":{"_name":"_spinCount"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"}]},"_position":{"x":6630.0,"y":6015.0},"_name":"Stopped","$type":"NodeCanvas.StateMachines.ActionState","$id":"17"}],"connections":[{"_condition":{"eventName":{"_value":"OnReadyAllSubSlots"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"SpinSubSlotMachine"},"$type":"BagelCode.Task.Condition.CheckContentEvent"},"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"stoppedSlotMachineCount","_targetVariableID":"233cc508-dcca-483a-962f-f0e28b4a9650"},"checkType":"GreaterOrEqualTo","valueB":{"_name":"_slotMachineCount"},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnEndSubSlotMachine"},"$type":"BagelCode.Task.Condition.CheckContentEvent"},"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: f4088e22231bc46d783f83d325e50029, type: 2}
+  - {fileID: 11400000, guid: cf4581820a7fb46c58139294f3724657, type: 2}
+  - {fileID: 11400000, guid: 9693b9bb264464024ae3995e97f39e72, type: 2}
+  _deserializationFailed: 0

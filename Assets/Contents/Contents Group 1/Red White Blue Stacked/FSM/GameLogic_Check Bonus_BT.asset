@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Check Bonus_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5346.0,"y":-4868.0},"zoomFactor":0.9999871,"nodes":[{"_condition":{"bonusId":{"_value":401},"$type":"BagelCode.Tasks.Conditions.Contents.CheckBonus"},"_position":{"x":5806.163,"y":5084.143},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_nodeColor":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":5813.836,"y":5172.653},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"5"},{"_action":{"slotMachine":{"_name":"_slotMachine"},"saveAs":{"_value":"./spin/slotMachine"},"$type":"BagelCode.Tasks.Actions.Contents.SaveSlotMachine"},"_position":{"x":5407.162,"y":5299.847},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_action":{"actions":[{"bonusId":{"_value":401},"$type":"BagelCode.Tasks.Actions.Contents.BeginBonus"},{"bonusId":{"_value":401},"selectedIndex":{},"$type":"BagelCode.Tasks.Actions.ClientAPI.ClaimBonus"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5679.996,"y":5298.084},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"10"},{"_action":{"actions":[{"column":{"_name":"_column"},"row":{"_name":"_row"},"betCredit":{"_name":"_betCredit"},"payTable":{"_value":[],"_name":"_scatterPayTable"},"multiplier":{"_value":1},"symbolCount":{},"symbolMask":"Seven","continuous":{},"saveAs":{"_value":{"cells":[]},"_name":"_scatterWin"},"$type":"BagelCode.Tasks.Actions.Contents.CalcScatterWin"},{"eventName":{"_value":"SingleWin"},"eventValue":{"_value":{"cells":[]},"_name":"_scatterWin"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendWinEvent`1[[SlotMaker.SymbolWin,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"earnCredit":{"_value":"./bonus/response/earnCredit"},"$type":"BagelCode.Tasks.Actions.Contents.AddBonusEarnCredit"},{"eventName":{"_value":"UpdateTurnCredit"},"eventValue":{},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendCreditEvent`1[[System.Boolean,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"id":{"_value":"Scatter
+    Win"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"bonusId":{"_value":"401"},"$type":"BagelCode.Tasks.Actions.BI.BI_bonus"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5886.774,"y":5284.135},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"18"},{"_action":{"actions":[{"waitTime":{"_value":2.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"SkipWin"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendWinEvent"},{"eventName":{"_value":"HideSlotCover"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"$type":"BagelCode.Tasks.Actions.Contents.EndBonus"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":6194.703,"y":5289.615},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"49"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"49"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

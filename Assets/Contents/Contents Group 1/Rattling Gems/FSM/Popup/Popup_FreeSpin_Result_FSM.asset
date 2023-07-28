@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_FreeSpin_Result_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-6015.0,"y":-4672.0},"nodes":[{"_actionList":{"actions":[{"id":{"_value":"Free
+    Spin Result Pop Up"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"element":{"_name":"textReward","_targetVariableID":"5d388ebf-2d1f-43ce-a3bc-ab78001cec60"},"key":{"_value":"RTG_FREE_SPIN_RESULT_REWARD"},"tableType":"Content","arg1":{"_value":"./bonus/parent/earnCredit"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"element":{"_name":"textTotalFreeSpinCount","_targetVariableID":"0aad4ff0-20fa-4eda-9b13-e4d5b5edf658"},"key":{"_value":"RTG_FREE_SPIN_TOTAL_COUNT"},"tableType":"Content","arg1":{"_value":"./bonus/totalSpinCount"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5710.0,"y":4913.0},"_name":"Initialize","_comment":"Onclick
+    Event is in Prefab which has this FSM.\n(Free Game Result Popup -> Button)","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"id":{"_value":"Button"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"eventName":{"_value":"ClosedPopup"},"delay":{},"overrideAgent":{"_name":"caller","_targetVariableID":"bffa8b30-c065-45f3-89d4-814c2b316721"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"waitTime":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"parameter":{"_value":"Disappear"},"parameterHashID":{},"overrideAgent":{"_name":"animator","_targetVariableID":"65b6c5e5-7593-46bf-91fb-d84eb6cb6174"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"$type":"SlotMaker.Task.Actions.ClosePopup"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":6357.0,"y":5131.0},"_name":"Finalize","_comment":"Send
+    \"Closed Popup\" early because Disappear Popup and Outro play simultaneously","$type":"NodeCanvas.StateMachines.ActionState","$id":"17"}],"connections":[{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnClickButton"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

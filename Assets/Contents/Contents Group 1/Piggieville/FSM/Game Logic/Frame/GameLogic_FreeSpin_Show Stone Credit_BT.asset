@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_FreeSpin_Show Stone Credit_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-342.0,"y":-397.0},"nodes":[{"storeIndex":{"_name":"_subSlotIndex"},"maxIteration":{"_value":2},"inverse":{"_value":true},"resetIndex":true,"_position":{"x":619.0,"y":311.0},"$type":"SlotMaker.Slots.BehaviourTrees.ForLoop","$id":"2"},{"targetList":{"_type":"System.Collections.Generic.List`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"houseGoList","_targetVariableID":"a50edcc2-17ee-4a49-967e-12cba9f97c68"},"current":{"_type":"UnityEngine.GameObject","_name":"_house"},"storeIndex":{"_name":""},"maxIteration":{"_value":-1},"_position":{"x":651.0,"y":401.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"6"},{"_position":{"x":673.0,"y":521.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"11"},{"_action":{"actions":[{"targetVariableName":{"_value":"level"},"saveAs":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_level"},"overrideAgent":{"_name":"_house"},"$type":"NodeCanvas.Tasks.Actions.GetOtherBlackboardVariable"},{"targetVariableName":{"_value":"subSlotIndex"},"saveAs":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_houseSubSlotIndex"},"overrideAgent":{"_name":"_house"},"$type":"NodeCanvas.Tasks.Actions.GetOtherBlackboardVariable"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":484.0,"y":633.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"12"},{"_condition":{"conditions":[{"valueA":{"_name":"_level"},"valueB":{"_value":3},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"_houseSubSlotIndex"},"valueB":{"_name":"_subSlotIndex"},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":760.0,"y":630.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"23"},{"_action":{"actions":[{"parameter":{"_value":"Disappear"},"parameterHashID":{},"overrideAgent":{"_name":"_house"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":800.0,"y":783.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"32"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

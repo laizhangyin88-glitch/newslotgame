@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: GameLogic_Show Random Wild_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":338.0,"y":-102.0},"zoomFactor":0.5364464,"nodes":[{"_actionList":{"actions":[{"valueA":{"_value":"_targetSymbolIndex"},"valueB":{"_name":"_toWildSymbolIndex"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_targetSymbolIndex"},"Operation":"Subtract","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_symbolList"},"index":{"_name":"_targetSymbolIndex"},"fromLast":{},"saveAs":{"_name":"_curSymbolGo"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"key":{"_value":"curSymbolGo"},"value":{"_name":"_curSymbolGo"},"overrideAgent":{"_name":"_wildAppear"},"$type":"SlotMaker.Tasks.Actions.SetGameObject"}]},"_position":{"x":-519.0,"y":416.0},"_name":"Init","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"target":{"_name":"_curSymbolGo"},"setTo":"Activate","$type":"SlotMaker.Tasks.Actions.SimpleSetActive"},{"parameter":{"_value":"ChangeSymbol"},"parameterHashID":{},"overrideAgent":{"_name":"_wildAppear"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":-55.0,"y":543.0},"_name":"Play
+    Change Symbol","$type":"NodeCanvas.StateMachines.ActionState","$id":"20"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":413.0,"y":722.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"29"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"target":{"_name":"_curSymbolGo"},"setTo":"Deactivate","$type":"SlotMaker.Tasks.Actions.SimpleSetActive"}]},"_position":{"x":888.0,"y":862.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"31"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":1286.0,"y":990.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"36"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"WildSymbolCoverOn"},"$type":"BagelCode.Task.Condition.CheckContentEvent"},"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"WildSymbolChanged"},"$type":"BagelCode.Task.Condition.CheckContentEvent"},"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: edca5e7ae8c024dd49a2d1933ce0df81, type: 2}
+  - {fileID: 11400000, guid: e4c324b47c4484766a82ad3465caf903, type: 2}
+  _deserializationFailed: 0

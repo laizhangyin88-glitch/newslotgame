@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Potion_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5004.0,"y":-5122.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5025.0,"y":5745.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_nestedBT":{"_value":1},"executionMode":"Once","_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5265.0,"y":5865.0},"_name":"Initialize","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"5"},{"_nestedBT":{"_value":2},"executionMode":"Once","successEvent":"Next","failureEvent":"Fail","_position":{"x":5910.0,"y":5715.0},"_name":"Logic","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"7"},{"_nestedBT":{"_value":3},"executionMode":"Once","_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5985.0,"y":5235.0},"_name":"Next","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"9"},{"_nestedBT":{"_value":4},"executionMode":"Once","_position":{"x":5460.0,"y":5430.0},"_name":"Choose","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"11"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"Potion
+    Button"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":5115.0,"y":5520.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"13"},{"_nestedBT":{"_value":5},"executionMode":"Once","_position":{"x":5265.0,"y":5610.0},"_name":"End","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"18"},{"_nestedBT":{"_value":6},"executionMode":"Once","_position":{"x":5640.0,"y":5505.0},"_name":"Ready","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"20"},{"_nestedBT":{"_value":7},"executionMode":"Once","_position":{"x":5730.0,"y":5595.0},"_name":"Saying","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"22"}],"connections":[{"_condition":{"eventName":{"_value":"BeginPotion"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"Next"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"Fail"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"_pickNumber"},"valueB":{"_value":8},"_invert":true,"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"_pickNumber"},"valueB":{"_value":8},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnCollect"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"weight":3,"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnNext"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"weight":5,"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: cb774b49b776d419cbc53d6c937eefb3, type: 2}
+  - {fileID: 11400000, guid: 2bfd9fbb4c60a4db09cca1b01527f1c8, type: 2}
+  - {fileID: 11400000, guid: a57d758ac528043c9b72a08f4ce19381, type: 2}
+  - {fileID: 11400000, guid: 5658760df204249e1a990394a58e8696, type: 2}
+  - {fileID: 11400000, guid: 39cda1ece60cb486fac7be7ff7da5ff0, type: 2}
+  - {fileID: 11400000, guid: 1680b70ac2b464e55a765356d82232e4, type: 2}
+  - {fileID: 11400000, guid: 6a4a7fddcd23f4bc2a80291f84322416, type: 2}
+  _deserializationFailed: 0
