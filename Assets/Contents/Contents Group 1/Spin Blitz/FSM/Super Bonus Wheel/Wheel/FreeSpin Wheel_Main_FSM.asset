@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: FreeSpin Wheel_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5303.0,"y":-5565.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5613.0,"y":5824.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./bonus/response/wheelReelTypeIndex"},"saveAs":{"_name":"_wheelReelTypeIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./bonus/response/wheelReplicaIndex"},"saveAs":{"_name":"_wheelReplicaIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"wheelIndices","_targetVariableID":"d3aca7ca-cbb7-482b-aaf3-537538f7ea68"},"index":{},"newValue":{"_name":"_wheelReelTypeIndex"},"$type":"NodeCanvas.Tasks.Actions.SetListElement`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"targetList":{"_name":"wheelIndices","_targetVariableID":"d3aca7ca-cbb7-482b-aaf3-537538f7ea68"},"index":{"_value":1},"newValue":{"_name":"_wheelReplicaIndex"},"$type":"NodeCanvas.Tasks.Actions.SetListElement`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":5849.0,"y":5596.0},"_name":"Update
+    Info","$type":"NodeCanvas.StateMachines.ActionState","$id":"5"},{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":6350.0,"y":5807.0},"_name":"Spin
+    Wheels","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"22"},{"_actionList":{"actions":[{"parameter":{"_value":"Outro"},"parameterHashID":{},"overrideAgent":{"_name":"cursorAnimator","_targetVariableID":"0fba9cf3-022b-41e1-91a6-af3985ace330"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":1.0,"_name":"wheelOutroDelay","_targetVariableID":"a39dc7b8-02d9-4082-8e06-422a5755c832"},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"OnEndSuperBonusWheel"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"}]},"_position":{"x":6542.0,"y":6010.0},"_name":"End
+    Wheel Bonus","$type":"NodeCanvas.StateMachines.ActionState","$id":"24"}],"connections":[{"_condition":{"eventName":{"_value":"OnEndSuperBonusWheelIntro"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 90e7d40d8dc6843169af5917aa014103, type: 2}
+  _deserializationFailed: 0

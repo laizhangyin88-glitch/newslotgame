@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: SetPickItem_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":26.0,"y":102.0},"zoomFactor":0.3914367,"nodes":[{"_position":{"x":690.0,"y":165.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"_currentDrumItem/cash"},"saveAs":{"_name":"_itemCoin"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_currentDrumItem/mult"},"saveAs":{"_name":"_itemMult"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":420.0,"y":300.0},"_comment":"Set
+    Game Step","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"valueA":{"_value":"_itemMult"},"checkType":"GreaterThan","valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":840.0,"y":300.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"12"},{"_action":{"valueA":{"_value":"pickType"},"valueB":{"_value":2},"$type":"SlotMaker.Tasks.Actions.SetInt32"},"_position":{"x":750.0,"y":420.0},"_comment":"Multiplier","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"16"},{"_position":{"x":930.0,"y":420.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"20"},{"_action":{"actions":[{"valueA":{"_value":"_coinValue"},"valueB":{"_name":"_itemCoin"},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"valueA":{"_value":"_coinValue"},"Operation":"Multiply","valueB":{"_name":"_betValue"},"$type":"SlotMaker.Tasks.Actions.SetInt64"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":795.0,"y":555.0},"_comment":"Get
+    Coin Prize","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"21"},{"_condition":{"valueA":{"_name":"_drumInfoIndex"},"valueB":{"_name":"_keyIndex"},"$type":"NodeCanvas.Tasks.Conditions.CheckVariable`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":1005.0,"y":555.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"30"},{"_action":{"valueA":{"_value":"pickType"},"valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},"_position":{"x":960.0,"y":750.0},"_comment":"Key","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"34"},{"_action":{"valueA":{"_value":"pickType"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt32"},"_position":{"x":1125.0,"y":750.0},"_comment":"Coin","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"38"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"34"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

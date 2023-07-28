@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Win_Jackpot_Orb_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-30.07796,"y":-69.40933},"zoomFactor":0.9035441,"nodes":[{"_position":{"x":709.0,"y":305.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"bonusId":{"_value":20504},"$type":"BagelCode.Tasks.Actions.Contents.BeginBonus"},{"valueA":{"_value":"./bonus/response/orbIndex"},"saveAs":{"_name":"_orbIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"WinOrb"},"eventValue":{"_name":"_orbIndex"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./bonus/response/jackpotReel"},"saveAs":{"_name":"_jackpotReel"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./bonus/response/jackpotStopIndex"},"saveAs":{"_name":"_jackpotStopIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./bonus/response/jackpotType"},"saveAs":{"_name":"_jackpotIndex"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./customData/jackpotReel"},"valueB":{"_name":"_jackpotReel"},"$type":"SlotMaker.Tasks.Actions.SetList"},{"valueA":{"_value":"./customData/jackpotStopIndex"},"valueB":{"_name":"_jackpotStopIndex"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"./customData/jackpotIndex"},"valueB":{"_name":"_jackpotIndex"},"$type":"SlotMaker.Tasks.Actions.SetInt32"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":179.0,"y":446.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"actions":[{"eventName":{"_value":"JackpotAwarded"},"delay":{},"sendGlobal":true,"slotIndex":{},"$type":"BagelCode.Tasks.Actions.SendWinEvent"},{"eventName":{"_value":"StopBgm"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendSoundEvent"},{"id":{"_value":"Cat
+    Symbol"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"waitTime":{"_name":"_winOrbDelay","_targetVariableID":"47529326-d9b3-4268-bcf2-a69f04038bcf"},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":587.0,"y":468.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"33"},{"_subTree":{"_value":1},"_position":{"x":898.0,"y":470.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"47"},{"_action":{"$type":"BagelCode.Tasks.Actions.Contents.EndBonus"},"_position":{"x":1118.0,"y":486.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"49"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"47"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"49"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: db2a771ef7ed17e49ab1179bca538460, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

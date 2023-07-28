@@ -1,0 +1,124 @@
+using System.Collections;
+using System.Collections.Generic;
+using SlotMaker.Json;
+
+namespace SlotMaker.Contents.Internal.Svd
+{
+    public class BonusInfo165
+    {
+        public List<int> bonusReel = new List<int>();
+        public List<int> jackpotAmounts = new List<int>();
+        public int eligibleMinBetScale = 0;
+        public List<int> betScaleRange;
+        public List<int> jackpotThresholdLevels;
+    }
+
+    public class CustomData165
+    {
+        public int expectationType;
+        public List<double> jpContributionsList;
+    }
+    
+    // FreeSpin
+    public class BonusResult16500
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+    
+    // FreeSpin Retrigger
+    public class BonusResult16501
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+    
+    // WILD NUDGE
+    public class BonusResult16502
+    {
+       public List<int> wildDirections;
+       public List<int> wildMoveSteps;
+       public List<bool> wildNudgeHits;
+     }
+    
+    // Respins
+    public class BonusResult16503
+    {
+       public List<RespinStep> respinStepList;
+       public List<int> initialJackpotIndexList;
+       public List<int> finalJackpotIndexList;
+       public List<int> initialPrizeIndexesList;
+       public List<bool> initialLockedSymbolsList;
+       public List<int> initialSymbolTypesList;
+       public List<int> initialRespinPrizeIndexesList;
+       public List<SymbolWinPosition> initialWinSymbolPositions;
+       public List<int> initialResizedIndexesList;
+    }
+    
+    // Jackpot
+    public class BonusResult16505
+    {
+      public bool isJackpot = true;
+      public int jackpotIndex = 0;
+      public long jackpotAwardAmount = 0;
+    }
+
+    public class RespinStep
+    {
+       public List<int> reelOutputList;
+       public List<int> symbolValueIndexesList;
+       public List<bool> lockedSymbolsList;
+       public List<int> symbolValuesBeforeDrop;
+       public List<int> jackpotIndexesList;
+	   public List<int> originalJackpotIndexesList;
+       public int respinReelIndex;
+       public int respinReelType;
+       public int spinCountClient;
+       public int respinCoinWin;
+       public int finalExpandType;
+       public List<SymbolWinPosition> winSymbolPositions;
+       public List<int> symbolTypesList;
+       public int initialExpandType;
+       public RespinStepDropInfo stepInfoBeforeDrop;
+       public RespinStepDropInfo stepInfoAfterDrop;
+    }
+    
+    public class RespinStepDropInfo
+    {
+        public List<bool> lockedSymbolsList;
+        public List<int> symbolTypesList;
+        public List<int> symbolValueIndexesList;
+        public List<int> jackpotIndexesList;
+        public List<int> originalJackpotIndexes;
+    }
+    
+    public class SymbolWinPosition
+    {
+        public int row;
+        public int column;
+        public double coin;
+        public bool isJackpot;
+        public int jackpotIndex;
+        public int symbolType;
+        public int previousColumn;
+        public int previousRow;
+        public double multiplier;
+    }
+
+    // Expanding reels
+    public class BonusResult16510
+    {
+        public List<List<int>> positions;
+        public int icon;
+    }
+    
+    // Ticketed Bonus
+    public class BonusResult16550
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+}

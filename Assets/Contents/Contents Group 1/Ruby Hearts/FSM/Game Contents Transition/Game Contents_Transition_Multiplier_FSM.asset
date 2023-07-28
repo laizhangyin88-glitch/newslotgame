@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Game Contents_Transition_Multiplier_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.9,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5266.0,"y":-4641.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5490.0,"y":5130.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"element":{"_name":"wildMultiplierText","_targetVariableID":"14337374-dbec-4d39-98f5-81fe9de39912"},"key":{"_value":"MULTIPLIER_BOARD_TEXT"},"tableType":"Content","arg1":{"_value":"_winMultiplier"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"parameter":{"_value":"Multiplier
+    Win"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5685.0,"y":4995.0},"_name":"Update
+    Multiplier","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"5"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Multiplier
+    Win"},"parameterHashID":{},"setTo":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"}]},"_position":{"x":5130.0,"y":5250.0},"_name":"Reset
+    Multiplier","$type":"NodeCanvas.StateMachines.AutoUpdateActionState","$id":"16"}],"connections":[{"_condition":{"eventName":{"_value":"OnUpdateWildMutiplier"},"saveEventValue":{"_name":"_winMultiplier"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnResetWildMultiplier"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: InGame_WheelPopup_Main_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-1047.0,"y":-208.0},"zoomFactor":0.9062257,"nodes":[{"_position":{"x":1298.0,"y":357.0},"_name":"IDLE","$type":"NodeCanvas.StateMachines.EmptyState","$id":"2"},{"_nestedBT":{"_value":1},"executionMode":"Once","_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":1119.0,"y":543.0},"_name":"Wheel
+    init","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"3"},{"_actionList":{"actions":[{"parameter":{"_value":"JP"},"parameterHashID":{},"setTo":{"_name":"_jackpotIndex","_targetVariableID":"127552cf-8ecd-48db-a203-7cafe50f9754"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"},{"parameter":{"_value":"In"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":0.4},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":1461.0,"y":653.0},"_name":"Wheel
+    appear","$type":"NodeCanvas.StateMachines.ActionState","$id":"5"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"target":{"_name":"_jackpotStopIndex","_targetVariableID":"71f89113-e474-40e3-9a9b-33c75547dc63"},"overrideAgent":{"_name":"wheelTransform","_targetVariableID":"88123e89-83ae-460c-a2ea-5e294df33780"},"$type":"SlotMaker.Tasks.Actions.SpinAnimationLinearWheel"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":1712.0,"y":582.0},"_name":"Spin
+    wheel","$type":"NodeCanvas.StateMachines.ActionState","$id":"17"},{"_actionList":{"actions":[{"segmentIndex":{"_name":"_jackpotStopIndex","_targetVariableID":"71f89113-e474-40e3-9a9b-33c75547dc63"},"saveAs":{"_name":"_winSegment"},"overrideAgent":{"_name":"wheelTransform","_targetVariableID":"88123e89-83ae-460c-a2ea-5e294df33780"},"$type":"SlotMaker.Tasks.Actions.GetLinearWheelSegment"},{"parameter":{"_value":"Win"},"parameterHashID":{},"overrideAgent":{"_name":"_winSegment"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"parameter":{"_value":"Win"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"id":{"_value":"Wheel
+    Stop"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"waitTime":{"_value":2.0},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":1890.0,"y":324.0},"_name":"Animate
+    Wheel Win","_comment":"","$type":"NodeCanvas.StateMachines.ActionState","$id":"23"},{"_actionList":{"actions":[{"parameter":{"_value":"Out"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":0.3},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"WheelPopupDone"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":1519.0,"y":217.0},"_name":"Wheel
+    done","$type":"NodeCanvas.StateMachines.ActionState","$id":"41"}],"connections":[{"_condition":{"eventName":{"_value":"WheelPopupActivate"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"WheelStopped"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"41"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"41"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 1000b50072260e44a8f45261b49ee950, type: 2}
+  _deserializationFailed: 0

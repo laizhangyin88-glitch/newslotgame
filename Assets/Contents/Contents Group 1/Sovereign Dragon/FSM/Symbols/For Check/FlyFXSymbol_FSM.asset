@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: FlyFXSymbol_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":337.0,"y":83.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":488.0,"y":181.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"valueA":{"_value":"applyCoinValue"},"saveAs":{"_name":"_applyCoinValue"},"overrideAgent":{"_name":"flyFxBB","_targetVariableID":"bcf099b3-1ab8-41d2-8b7a-63daeec7ae88"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Double,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"eventName":{"_value":"winForLineCoint"},"eventValue":{"_name":"_applyCoinValue"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent`1[[System.Double,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":159.0,"y":432.0},"_name":"SendCoinEvent","$type":"NodeCanvas.StateMachines.ActionState","$id":"5"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"OnCollectAllGoldSymbols"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIEvent"},{"valueA":{"_value":"_goldSymbolCollectCount"},"valueB":{"_value":-1},"$type":"SlotMaker.Tasks.Actions.SetInt32"}]},"_position":{"x":705.0,"y":286.0},"_name":"Collect
+    Ended","$type":"NodeCanvas.StateMachines.ActionState","$id":"16"}],"connections":[{"_condition":{"eventName":{"_value":"FinishCollect"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"./customData/goldSymbolWinCount"},"valueB":{"_name":"_goldSymbolCollectCount"},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

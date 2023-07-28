@@ -1,0 +1,156 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Son
+{
+    // public int wild_col_index; -> reel number with mechanic
+    // collectibles[0,1,2] - key for each bonus game
+    // collectibles[3] - key count progression
+    // averageBets - bet for each game by index
+    public class CustomData104
+    {
+        public List<int> collectibles;
+        public List<long> averageBets;
+    }
+    
+    public class BonusInfo104
+    {
+        public List<SONWheel> bonusWheel = new List<SONWheel>();
+        public List<long> scatterPay = new List<long>();
+    }
+    
+    public class SONWheel
+    {
+        public List<int> wheel = new List<int>();
+    }
+    
+    // SONFreeSpinBonus
+    public class BonusResult10400
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+    
+    // SONFreeSpinRetriggerBonus
+    public class BonusResult10401
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+    
+    // SONFreeSpinTicketBonus
+    public class BonusResult10450  
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // SON_TALL_WILD_LEFT
+    public class BonusResult10410
+    {
+        public int wildColIndex;
+    }
+    
+    // SON_TALL_WILD_RIGHT
+    public class BonusResult10411
+    {
+        public int wildColIndex;
+    }
+    
+    // SON_TALL_WILD_BOTH
+    public class BonusResult10412
+    {
+        public int wildColIndex;
+    }
+    
+    // SON_TALL_WILD_CROSS:
+    public class BonusResult10413
+    {
+        public int wildColIndex;
+    }
+    
+    // SON_TALL_WILD_HIGH2WILD
+    public class BonusResult10414
+    {
+        public List<List<int>> changedIcons = new List<List<int>>();
+        public int wildColIndex;
+    }
+    
+    // SON_COLLECT_SUB_SYMBOLS
+    public class BonusResult10420
+    {
+        public int variant;
+        public int randomCompleted;
+    }
+    
+    // SON_BONUS_1
+    public class BonusResult10421
+    {
+        public long bet = 0;
+        public List<SONBonusCardsStep> cards;
+        public List<SONBonusChestsStep> chests;
+    }
+    
+    public class SONBonusCardsStep
+    {
+        public int mainCard;
+        public int minCard;
+        public int maxCard;
+        public bool pickAwarded;
+    }
+    
+    public class SONBonusChestsStep
+    {
+        public int mult;
+        public bool key;
+        public bool pick;
+    }
+    
+    // SON_BONUS_2
+    public class BonusResult10422
+    {
+        public List<SONBonusDrumsStep> sequence;
+        public long bet;
+    }
+    
+    public class SONBonusDrumsStep
+    {
+        public List<SONBonusDrum> items;
+        public int keyIndex = -1;
+        public bool keyFound = false;
+    }
+    
+    public class SONBonusDrum
+    {
+        public int cash = 0;
+        public int mult = 0;
+    }
+    
+    // SON_BONUS_3
+    public class BonusResult10423
+    {
+        public List<SONBonusPickStep> sequence;
+        public long bet;
+    }
+    
+    public class SONBonusPickStep
+    {
+        public bool collect;
+        public int baseMult;
+        public int value;
+        public bool key;
+    }
+    
+    // SON_BONUS_4
+    // indexes - stop index for each wheel
+    public class BonusResult10424
+    {
+        public long bet;
+        public List<int> indexes;
+        public bool isJackpot;
+        public int jackpotIndex;
+    }
+}

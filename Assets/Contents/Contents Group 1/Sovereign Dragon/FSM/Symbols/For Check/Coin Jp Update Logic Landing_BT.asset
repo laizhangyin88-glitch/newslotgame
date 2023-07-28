@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Coin Jp Update Logic Landing_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":562.0,"y":-552.0},"nodes":[{"_position":{"x":315.0,"y":885.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"spriteRenderer":{"_name":"eggImage","_targetVariableID":"e6c09657-6ecc-4e2f-9944-0c1f4dd8b861"},"sortingLayerId":-1422705371,"$type":"SlotMaker.Tasks.Actions.SymbolSetSortingOrder"},{"parameter":{"_value":"Title"},"parameterHashID":{},"setTo":{"_value":2},"overrideAgent":{"_name":"baseAnimator","_targetVariableID":"4dfae871-ab51-4b49-ab8a-7e024f251692"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"},{"parameter":{"_value":"JP"},"parameterHashID":{},"setTo":{"_value":3,"_name":"jpIndex"},"overrideAgent":{"_name":"baseAnimator","_targetVariableID":"4dfae871-ab51-4b49-ab8a-7e024f251692"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"},{"parameter":{"_value":"Egg"},"parameterHashID":{},"setTo":{"_value":5,"_name":"jpIndex"},"overrideAgent":{"_name":"baseAnimator","_targetVariableID":"4dfae871-ab51-4b49-ab8a-7e024f251692"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":-270.0,"y":1065.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"valueA":{"_value":"jpIndexList"},"index":{"_name":"jpIndex"},"fromLast":{},"saveAs":{"_name":"_jpMult","_targetVariableID":"53fd3fac-7146-4a9f-a990-1d09945c19fa"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":-30.0,"y":1077.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"23"},{"_action":{"actions":[{"valueA":{"_value":"./betCredit"},"saveAs":{"_name":"_Bet","_targetVariableID":"6dbe4148-f1f4-415e-8616-726b92093e31"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_cashPayValue"},"valueB":{"_name":"_Bet","_targetVariableID":"6dbe4148-f1f4-415e-8616-726b92093e31"},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"valueA":{"_value":"_cashPayValue"},"Operation":"Multiply","valueB":{"_name":"_jpMult","_targetVariableID":"53fd3fac-7146-4a9f-a990-1d09945c19fa"},"$type":"SlotMaker.Tasks.Actions.SetInt64"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":232.0,"y":1081.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"29"},{"_action":{"element":{"_name":"jpCoinText","_targetVariableID":"0aa75730-71cc-4791-9dc8-17dd5b519444"},"key":{"_value":"VALUE_CREDIT_TEXT"},"tableType":"Content","arg1":{"_value":"_cashPayValue"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},"_position":{"x":495.0,"y":1092.0},"_comment":"Jp
+    text","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"41"},{"_action":{"actions":[{"valueA":{"_value":"_jpOffsetIndex"},"valueB":{"_name":"jpIndex"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_jpOffsetIndex"},"Operation":"Add","valueB":{"_value":6},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"prefabId":{"_name":"_jpOffsetIndex","_targetVariableID":"17a78e85-3c83-42a3-854b-2a0cfe9f634f"},"cachingId":{},"$type":"SlotMaker.Tasks.Actions.SymbolGetGameObject"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":972.0,"y":1081.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"46"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"41"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"46"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

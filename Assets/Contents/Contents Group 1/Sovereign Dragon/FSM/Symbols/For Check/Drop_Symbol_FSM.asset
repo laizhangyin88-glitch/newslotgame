@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Drop_Symbol_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-793.0,"y":-920.0},"nodes":[{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":1040.0,"y":1052.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"setTo":"Deactivate","overrideAgent":{"_name":"anchor","_targetVariableID":"7f7a13d3-abed-4559-b6a6-27c317a68aa2"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"}]},"_position":{"x":1289.0,"y":936.0},"_name":"Disapear","$type":"NodeCanvas.StateMachines.ActionState","$id":"4"},{"_actionList":{"actions":[{"target":{"_name":"base","_targetVariableID":"f7262ed8-fc32-4134-aaa0-719cfcb0b5c0"},"setTo":"Deactivate","$type":"SlotMaker.Tasks.Actions.SimpleSetActive"},{"spriteRenderer":{"_name":"baseImage","_targetVariableID":"aaeb29e4-0e70-4adf-b57c-fd803bdb4bfe"},"spriteId":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SymbolSetSprite"},{"parameter":{"_value":"Title"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"baseAnimator","_targetVariableID":"4dfae871-ab51-4b49-ab8a-7e024f251692"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"},{"parameter":{"_value":"Egg"},"parameterHashID":{},"setTo":{"_value":-1},"overrideAgent":{"_name":"baseAnimator","_targetVariableID":"4dfae871-ab51-4b49-ab8a-7e024f251692"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"},{"parameter":{"_value":"JP"},"parameterHashID":{},"setTo":{"_value":-1},"overrideAgent":{"_name":"baseAnimator","_targetVariableID":"4dfae871-ab51-4b49-ab8a-7e024f251692"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"},{"cachingId":{},"setTo":"Deactivate","$type":"SlotMaker.Tasks.Actions.SymbolSetActiveCachingObject"}]},"_position":{"x":980.0,"y":1190.0},"_name":"Drop","$type":"NodeCanvas.StateMachines.ActionState"},{"_position":{"x":1393.0,"y":1119.0},"$type":"NodeCanvas.StateMachines.AnyState","$id":"34"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"$type":"NodeCanvas.Tasks.Actions.ForceFinishGraph"}]},"_position":{"x":1397.0,"y":1250.0},"_name":"Force
+    Stop Logic","$type":"NodeCanvas.StateMachines.ActionState","$id":"35"}],"connections":[{"_condition":{"eventName":{"_value":"Disappear"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"ClearDropSymbols"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},"_sourceNode":{"$ref":"34"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 1c7f170e3e36140c9bf971a0cb8d4369, type: 2}
+  _deserializationFailed: 0

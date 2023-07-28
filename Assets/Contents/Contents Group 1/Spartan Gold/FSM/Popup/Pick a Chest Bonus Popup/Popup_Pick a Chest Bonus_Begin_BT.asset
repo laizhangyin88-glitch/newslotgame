@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Popup_Pick a Chest Bonus_Begin_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5188.0,"y":-5147.0},"nodes":[{"_position":{"x":5706.0,"y":5299.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"addedSpinCount"},"saveAs":{"_name":"_addedSpinCount","_targetVariableID":"cc85ab0a-6ee2-41a8-a1c6-24f3a6fb7318"},"_isDisabled":true,"overrideAgent":{"_name":"response","_targetVariableID":"56f30791-b37e-4296-b23d-52223d305072"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./bonus/totalSpinCount"},"Operation":"Add","valueB":{"_name":"_addedSpinCount","_targetVariableID":"a387d056-cf01-4650-a0ca-860c34fc5841"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"isAdd":{},"_isDisabled":true,"$type":"BagelCode.Tasks.Actions.BI.BI_freespin_trigger"},{"elementName":{"_value":"Animator"},"searchingType":"ChildrenDeepSearch","saveAs":{"_name":"animator"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"element":{"_name":"_text"},"arg0":{"_value":"_addedSpinCount"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SetContextText0"},{"parameter":{"_value":"Free
+    Game Trigger"},"parameterHashID":{},"_isDisabled":true,"overrideAgent":{"_name":"animator","_targetVariableID":"4e657d60-d643-4653-9ab7-42334b3e4bdf"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"parameter":{"_value":"Disappear"},"parameterHashID":{},"overrideAgent":{"_name":"animator","_targetVariableID":"601844b8-e726-4b40-a044-d4f0a4e1ec7c"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"id":{"_value":"Bonus
+    Game Selected"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5578.0,"y":5424.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"waitTime":{"_value":2.0},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":5798.0,"y":5424.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"31"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

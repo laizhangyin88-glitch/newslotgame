@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Big Icon_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":346.0,"y":-135.0},"nodes":[{"_position":{"x":472.0,"y":256.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"slotMachine":{"_name":"_slotMachine"},"saveAs":{"_value":"./customData/slotMachineFS"},"$type":"BagelCode.Tasks.Actions.Contents.SaveSlotMachine"},{"slotIndex":{},"targetBB":{"_value":"./customData/deckFS"},"$type":"BagelCode.Tasks.Actions.Contents.GetDeck"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":13.0,"y":550.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"actions":[{"method":{"_baseInfo":"SlotMaker.SlotMachine|GetReels|System.Collections.Generic.List`1[[SlotMaker.BaseReel,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{"_type":"System.Collections.Generic.List`1[[SlotMaker.BaseReel,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"_reels"},"overrideAgent":{"_name":"_slotMachine"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"valueA":{"_value":"_reels"},"index":{"_value":1},"fromLast":{},"saveAs":{"_name":"_bigReel"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[SlotMaker.BaseReel,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"saveAs":{"_name":"_rectMask2D"},"overrideAgent":{"_name":"_bigReel"},"$type":"NodeCanvas.Tasks.Actions.GetComponent`1[[UnityEngine.UI.RectMask2D,
+    UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"method":{"_baseInfo":"UnityEngine.UI.RectMask2D|set_enabled|System.Void","_paramsInfo":"System.Boolean"},"parameter":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"overrideAgent":{"_name":"_rectMask2D"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":358.0,"y":550.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"12"},{"_action":{"slotMachine":{"_name":"_slotMachine"},"indices":{"_name":"_reelstripIndices"},"offset":{"_value":3},"$type":"SlotMaker.Tasks.Actions.Contents.UpdateSlotMachineIndices"},"_position":{"x":602.0,"y":598.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"33"},{"_condition":{"eventName":{"_value":"InitializeSymbols"},"slotIndex":{},"$type":"BagelCode.Task.Condition.CheckSlotEvent"},"_position":{"x":813.0,"y":506.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"38"},{"_action":{"slotMachine":{"_name":"_slotMachine"},"shuffle":{},"$type":"SlotMaker.Tasks.Actions.Contents.InitializeSymbols"},"_position":{"x":842.0,"y":597.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"42"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"38"},"_targetNode":{"$ref":"42"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

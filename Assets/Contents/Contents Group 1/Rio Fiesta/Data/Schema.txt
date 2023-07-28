@@ -1,0 +1,55 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Rio
+{
+    // RIOJackpot
+    public class BonusResult3100
+    {
+        public bool isJackpot = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // RIOLitBonus
+    public class BonusResult3101
+    {
+        public List<int> reelOutputList = new List<int>();
+        public List<bool> litExpectationList = new List<bool>();
+    }
+
+    // RIOWheelBonus
+    public class BonusResult3102
+    {
+        public List<int> selectedIndexList = new List<int>();
+        public List<int> tagIndexList = new List<int>();
+        public int freeSpinCount = 0;
+        public int wildCount = 0;
+        public int initialPointerCount = 0;
+        public int triggeredRowIndex = 0;
+    }
+
+    // RIOWildSpinBonus
+    public class BonusResult3103
+    {
+        public List<int> wildSpotList = new List<int>();
+        public int reelTypeIndex = 0;
+        public SpinResult result = null;
+    }
+
+    // RIOFreeSpinBonus
+    public class BonusResult3104
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // RIOFreeSpinRetriggerBonus
+    public class BonusResult3105
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+}

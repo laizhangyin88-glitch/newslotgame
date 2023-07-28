@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_InfoButton_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":203.0,"y":161.0},"zoomFactor":0.2500094,"nodes":[{"_position":{"x":915.0,"y":-210.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"isForceUpdate":{"_value":true},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"elementName":{"_value":"Button
+    Info"},"searchingType":"ChildrenDeepSearch","saveAs":{"_name":"_buttonInfo"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"eventName":{"_value":"OnClickInfo"},"ignoreReset":{},"overrideAgent":{"_name":"_buttonInfo"},"$type":"SlotMaker.Tasks.Actions.SetContextClickable"},{"on":{},"_isDisabled":true,"overrideAgent":{"_name":"_buttonHigh"},"$type":"SlotMaker.Tasks.Actions.SetSelectableInteractable"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":510.0,"y":15.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"repeaterMode":"RepeatForever","repeatTimes":{"_value":1},"_position":{"x":1170.0,"y":-60.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"18"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnClickInfo"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":1245.0,"y":195.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"20"},{"_position":{"x":1170.0,"y":315.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"26"},{"_action":{"actions":[{"id":{"_value":"Button"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"assetName":{"_value":"Tooltip
+    Popup"},"uniqueName":{"_value":"Tooltip Popup"},"saveAs":{"_name":"_popup"},"$type":"SlotMaker.Tasks.Actions.OpenContentPopup"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":945.0,"y":480.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"27"},{"_condition":{"eventName":{"_value":"ClosedPopup"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_position":{"x":1275.0,"y":480.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"36"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"27"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 0
+  updateInterval: 0

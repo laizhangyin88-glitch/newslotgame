@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_FadeOut_Symbols_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5459.0,"y":-3753.0},"zoomFactor":0.7500092,"nodes":[{"_position":{"x":8221.0,"y":5131.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"_rowCountWithBuffer"},"valueB":{"_name":"_row"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_rowCountWithBuffer"},"Operation":"Add","valueB":{"_value":6},"$type":"SlotMaker.Tasks.Actions.SetInt32"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":7986.0,"y":5240.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"storeIndex":{"_name":"_columnIndex"},"maxIteration":{"_name":"_column"},"inverse":{},"resetIndex":true,"_position":{"x":8291.0,"y":5257.0},"$type":"SlotMaker.Slots.BehaviourTrees.ForLoop","$id":"12"},{"storeIndex":{"_name":"_rowIndex"},"maxIteration":{"_name":"_rowCountWithBuffer"},"inverse":{},"resetIndex":true,"_position":{"x":8261.0,"y":5364.0},"$type":"SlotMaker.Slots.BehaviourTrees.ForLoop","$id":"16"},{"_action":{"actions":[{"valueA":{"_value":"_rowIndexOffset"},"valueB":{"_name":"_rowIndex"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_rowIndexOffset"},"Operation":"Subtract","valueB":{"_value":6},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"column":{"_name":"_columnIndex"},"row":{"_name":"_rowIndexOffset"},"saveAs":{"_name":"_symbolCell"},"$type":"SlotMaker.Tasks.Actions.Contents.SetColumnRowToCell"},{"cell":{"_name":"_symbolCell"},"animationName":{"_value":"FadeOut"},"overrideAgent":{"_name":"_slotMachine"},"$type":"BagelCode.Tasks.Actions.Contents.PlaySymbolAnimationByCell"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":8178.0,"y":5467.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"20"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: BigWheel Ready_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-4875.0,"y":-5131.0},"nodes":[{"_nodeColor":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":5511.0,"y":5167.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"valueA":{"_value":"./bonus/response/wheelIndex"},"saveAs":{"_name":"wheelIndex","_targetVariableID":"bcb362a5-e8ff-4654-8117-71463b5ed4e1"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":5289.0,"y":5378.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"actions":[{"parameter":{"_value":"IsActive"},"parameterHashID":{},"setTo":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.MecanimSetBool"},{"parameter":{"_value":"Ready"},"parameterHashID":{},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5594.0,"y":5363.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"},{"eventName":{"_value":"ReadyToSpinBigWheel"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_nodeColor":{"r":1.0,"g":0.07843138,"b":0.5764706,"a":1.0},"_position":{"x":5795.0,"y":5367.0},"$type":"SlotMaker.BehaviourTrees.AutoUpdateWaitUntil","$id":"17"},{"_action":{"actions":[{"index":{"_name":"wheelIndex","_targetVariableID":"bcb362a5-e8ff-4654-8117-71463b5ed4e1"},"segment":{"_value":24},"saveAs":{"_name":"angle","_targetVariableID":"b87c883c-e0f8-4e91-9d0f-08ac0412e850"},"overrideAgent":{"_name":"BigWheel","_targetVariableID":"fedcfa30-1353-4538-84d1-1720e9229942"},"$type":"SlotMaker.Tasks.Actions.GetWheelSegmentAngle"},{"valueA":{"_name":"_negAngle"},"valueB":{"_value":360.0},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"valueA":{"_name":"angle","_targetVariableID":"b87c883c-e0f8-4e91-9d0f-08ac0412e850"},"Operation":"Add","valueB":{"_name":"initialAngle","_targetVariableID":"3116c2fb-a271-451e-8958-956b87cc1cb8"},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"valueA":{"_name":"_negAngle"},"Operation":"Subtract","valueB":{"_name":"angle","_targetVariableID":"b87c883c-e0f8-4e91-9d0f-08ac0412e850"},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"initialTorque":{},"desiredAngle":{"_name":"_negAngle"},"additionalRotationCount":{"_value":2},"overrideAgent":{"_name":"BigWheel","_targetVariableID":"fedcfa30-1353-4538-84d1-1720e9229942"},"$type":"SlotMaker.Tasks.Actions.SpinWheel"},{"targetList":{"_name":"slices","_targetVariableID":"d47318d7-c5b8-49b4-a0aa-44023e7dbe66"},"index":{"_name":"wheelIndex","_targetVariableID":"bcb362a5-e8ff-4654-8117-71463b5ed4e1"},"saveAs":{"_name":"_targetObject"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[SlotMaker.ContextElement,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5770.0,"y":5486.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"23"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

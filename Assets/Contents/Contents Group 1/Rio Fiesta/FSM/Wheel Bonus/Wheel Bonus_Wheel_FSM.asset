@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Wheel Bonus_Wheel_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.6,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-5139.0,"y":-5113.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5433.0,"y":5511.0},"_name":"Initialize","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"valueA":{"_name":"_reversedWheelIndex"},"valueB":{"_value":23},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"valueA":{"_name":"_reversedWheelIndex"},"Operation":"Subtract","valueB":{"_value":23,"_name":"_wheelIndex"},"$type":"NodeCanvas.Tasks.Actions.SetInt"},{"index":{"_name":"_reversedWheelIndex"},"segment":{"_value":23},"saveAs":{"_name":"_wheelSpinAngle"},"overrideAgent":{"_name":"bigWheel","_targetVariableID":"506f8a34-420a-4b1b-a3e0-f8e757dea09d"},"$type":"SlotMaker.Tasks.Actions.GetWheelSegmentAngle"},{"initialTorque":{"_value":1.5,"_name":"initialTorque","_targetVariableID":"368112ed-21f3-4034-912a-47b37d382db4"},"desiredAngle":{"_name":"_wheelSpinAngle"},"additionalRotationCount":{"_value":2,"_name":"additionalRotationCount","_targetVariableID":"40913b1b-7d16-4732-989f-dba007ce50a5"},"overrideAgent":{"_name":"bigWheel","_targetVariableID":"506f8a34-420a-4b1b-a3e0-f8e757dea09d"},"$type":"SlotMaker.Tasks.Actions.SpinWheel"}]},"_position":{"x":5659.0,"y":5312.0},"_name":"Spin","$type":"NodeCanvas.StateMachines.ActionState","$id":"5"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"StoppedWheel"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"},{"id":{"_value":"Wheel
+    Stop"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":5849.0,"y":5511.0},"_name":"Stop","$type":"NodeCanvas.StateMachines.ActionState","$id":"24"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"parameter":{"_value":"Win"},"parameterHashID":{},"overrideAgent":{"_name":"frameLightAnimator","_targetVariableID":"adbd5957-ea09-40dd-9ae8-1bbce83742d4"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"}]},"_position":{"x":5659.0,"y":5704.0},"_name":"Win","$type":"NodeCanvas.StateMachines.ActionState","$id":"32"}],"connections":[{"_condition":{"eventName":{"_value":"SpinWheel"},"saveEventValue":{"_name":"_wheelIndex"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"StoppedWheel"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"WinWedge"},"$type":"BagelCode.Task.Condition.CheckContentUIDetailEvent"},"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"32"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

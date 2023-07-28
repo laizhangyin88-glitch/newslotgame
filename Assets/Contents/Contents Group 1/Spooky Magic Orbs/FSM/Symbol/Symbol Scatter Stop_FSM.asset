@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Symbol Scatter Stop_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-519.0,"y":-125.0},"zoomFactor":0.6603636,"nodes":[{"_actionList":{"actions":[]},"_position":{"x":1165.0,"y":476.0},"_name":"Stop
+    Effect","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./game/scatterLanding"},"index":{"_name":"column"},"fromLast":{},"saveAs":{"_name":"_isScatterLand"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":1299.0,"y":546.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"5"},{"_actionList":{"actions":[{"prefabId":{},"cachingId":{},"$type":"SlotMaker.Tasks.Actions.SymbolGetGameObject"},{"target":{"_name":"base","_targetVariableID":"f7262ed8-fc32-4134-aaa0-719cfcb0b5c0"},"setTo":"Deactivate","$type":"SlotMaker.Tasks.Actions.SimpleSetActive"},{"valueA":{"_value":"./customData/scatterSoundList"},"index":{"_name":"column"},"fromLast":{},"saveAs":{"_name":"_scatterSound"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"id":{"_name":"_scatterSound"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":1621.0,"y":664.0},"_name":"Show
+    win animation","$type":"NodeCanvas.StateMachines.ActionState","$id":"13"}],"connections":[{"_condition":{"valueA":{"_name":"isPivot","_targetVariableID":"af39881a-149c-4893-81e7-9b20729c1fa0"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"_isScatterLand"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

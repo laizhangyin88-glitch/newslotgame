@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Fly_Expand_Symbol_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":414.0,"y":-553.9999},"zoomFactor":0.5549411,"nodes":[{"_color":{"r":0.7490196,"g":0.4980392,"b":1.0,"a":1.0},"_position":{"x":42.0,"y":1603.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"slotMachine":{"_name":"_slotMachine"},"cell":{"_name":"_symbolCell"},"saveAs":{"_name":"_targetSymbol","_targetVariableID":"957f621b-51b8-4400-8e8d-3d419aef6edb"},"$type":"SlotMaker.Tasks.Actions.Contents.GetSymbol"},{"saveAs":{"_name":"_from"},"overrideAgent":{"_name":"_targetSymbol"},"$type":"NodeCanvas.Tasks.Actions.GetComponent`1[[UnityEngine.Transform,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"method":{"_baseInfo":"UnityEngine.Transform|get_position|UnityEngine.Vector3","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_fromPosition"},"overrideAgent":{"_name":"_from","_targetVariableID":"5e15c655-2686-4172-afa9-b49282ab76eb"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":-415.0,"y":1791.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"actions":[{"slotMachine":{"_name":"_slotMachine"},"cell":{"_name":"_newSymbolCell"},"saveAs":{"_name":"_targetSymbol","_targetVariableID":"957f621b-51b8-4400-8e8d-3d419aef6edb"},"$type":"SlotMaker.Tasks.Actions.Contents.GetSymbol"},{"saveAs":{"_name":"_to"},"overrideAgent":{"_name":"_targetSymbol"},"$type":"NodeCanvas.Tasks.Actions.GetComponent`1[[UnityEngine.Transform,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":-83.0,"y":1802.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"17"},{"_action":{"actions":[{"poolName":{"_value":"_expandPool"},"parent":{"_name":"_expandPool"},"parentName":{},"activeSelf":{},"saveAs":{"_name":"_flyingSymbol"},"$type":"BagelCode.Tasks.Actions.GetPooledObject"},{"method":{"_baseInfo":"UnityEngine.Transform|set_position|System.Void","_paramsInfo":"UnityEngine.Vector3"},"parameter":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_fromPosition"},"overrideAgent":{"_name":"_flyingSymbol"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"},{"key":{"_value":"from"},"value":{"_name":"_from","_targetVariableID":"5e15c655-2686-4172-afa9-b49282ab76eb"},"overrideAgent":{"_name":"_flyingSymbol"},"$type":"SlotMaker.Tasks.Actions.SetTransform"},{"key":{"_value":"to"},"value":{"_name":"_to","_targetVariableID":"48a17791-de28-483f-89c1-e1d7a2268b11"},"overrideAgent":{"_name":"_flyingSymbol"},"$type":"SlotMaker.Tasks.Actions.SetTransform"},{"setTo":"Activate","overrideAgent":{"_name":"_flyingSymbol"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":285.0,"y":1767.0},"_comment":"Set
+    Up And Activate Flying Object","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"27"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"27"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: GE_Reset Symbol_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":428.0,"y":-1105.0},"zoomFactor":0.8684711,"nodes":[{"_actionList":{"actions":[{"parameter":{"_value":"Egg"},"parameterHashID":{},"setTo":{"_value":-1},"overrideAgent":{"_name":"baseAnimator","_targetVariableID":"4dfae871-ab51-4b49-ab8a-7e024f251692"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"},{"parameter":{"_value":"Title"},"parameterHashID":{},"setTo":{},"overrideAgent":{"_name":"baseAnimator","_targetVariableID":"4dfae871-ab51-4b49-ab8a-7e024f251692"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"},{"spriteRenderer":{"_name":"baseImage","_targetVariableID":"aaeb29e4-0e70-4adf-b57c-fd803bdb4bfe"},"spriteId":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SymbolSetSprite"},{"valueA":{"_value":"applyCoinValue"},"valueB":{"_targetVariableID":"36f9b990-7380-4ec3-8f98-df76cc0a7de2"},"$type":"SlotMaker.Tasks.Actions.SetDouble"}]},"_position":{"x":143.0,"y":1691.0},"_name":"Reset
+    Symbol","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./customData/goldSymbolWinCollectCount"},"Operation":"Add","valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"./customData/goldSymbolWinCollectCount"},"saveAs":{"_name":"_goldSymbolCollectCount"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_goldSymbolCollectCount"},"valueB":{"_name":"_goldSymbolCollectCount"},"overrideAgent":{"_name":"_WinAnimatorContext"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"parameter":{"_value":"Fly"},"parameterHashID":{},"overrideAgent":{"_name":"_WinAnimatorContext"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"valueA":{"_name":"shouldFly","_targetVariableID":"57e4a6ed-ee6a-4684-a51e-60518fb60dd3"},"valueB":{},"$type":"NodeCanvas.Tasks.Actions.SetVariable`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":344.0,"y":1856.0},"_name":"Fly","$type":"NodeCanvas.StateMachines.ActionState","$id":"21"}],"connections":[{"_condition":{"valueA":{"_value":"./customData/canFlySymbol"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"canvasGroups":[],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

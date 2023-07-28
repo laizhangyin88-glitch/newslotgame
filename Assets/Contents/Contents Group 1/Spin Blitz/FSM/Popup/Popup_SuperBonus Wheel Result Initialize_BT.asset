@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Popup_SuperBonus Wheel Result Initialize_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":542.0,"y":-168.0},"zoomFactor":0.9885767,"nodes":[{"_position":{"x":459.0,"y":106.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"./bonus/response/payMultiplier"},"saveAs":{"_name":"_payMultiplier"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./bonus/response/replicaReelCount"},"saveAs":{"_name":"_replicaReelCount","_targetVariableID":"3789dbb3-81ed-4300-8feb-afe3bc8eb8be"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./bonus/response/reelTypeIndex"},"saveAs":{"_name":"_reelTypeIndex","_targetVariableID":"3789dbb3-81ed-4300-8feb-afe3bc8eb8be"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":-211.0,"y":349.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"actions":[{"valueA":{"_value":"_replicaReelTypeIndex"},"valueB":{"_name":"_replicaReelCount"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_replicaReelTypeIndex"},"Operation":"Subtract","valueB":{"_value":2},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"replicaReelBannerList"},"index":{"_name":"_replicaReelTypeIndex"},"fromLast":{},"saveAs":{"_name":"_replicaReelBanner"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"setTo":"Activate","overrideAgent":{"_name":"_replicaReelBanner"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":213.0,"y":344.0},"_comment":"set
+    replica reel info","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"15"},{"_condition":{"valueA":{"_name":"_payMultiplier"},"checkType":"GreaterThan","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Conditions.CheckLong"},"_position":{"x":719.0,"y":352.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"31"},{"_action":{"actions":[{"valueA":{"_value":"_multiplierTypeIndex"},"valueB":{"_name":"_payMultiplier"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_multiplierTypeIndex"},"Operation":"Subtract","valueB":{"_value":2},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"multiplierBannerList"},"index":{"_name":"_multiplierTypeIndex"},"fromLast":{},"saveAs":{"_name":"_multiplierBanner"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"setTo":"Activate","overrideAgent":{"_name":"_multiplierBanner"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":364.0,"y":570.0},"_comment":"set
+    multiplier","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"35"},{"_action":{"actions":[{"valueA":{"_value":"_bonusReelTypeIndex"},"valueB":{"_name":"_reelTypeIndex"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_bonusReelTypeIndex"},"Operation":"Subtract","valueB":{"_value":6},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"reelTypeBannerList"},"index":{"_name":"_bonusReelTypeIndex"},"fromLast":{},"saveAs":{"_name":"_reelTypeBanner"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"setTo":"Activate","overrideAgent":{"_name":"_reelTypeBanner"},"$type":"SlotMaker.Tasks.Actions.SetActive"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":835.0,"y":572.0},"_comment":"set
+    reel","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"51"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"51"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Ways_Counter_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":106.0,"y":-275.0},"zoomFactor":0.8530134,"nodes":[{"_position":{"x":589.0,"y":368.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"_isNeedShow"},"$type":"SlotMaker.Tasks.Actions.SetBoolean"},{"valueA":{"_value":"./customData/slotDataList/0/visibleCounts"},"saveAs":{"_name":"_visibleCounts"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_waysCount"},"valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":80.0,"y":510.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_subTree":{"_value":1},"_position":{"x":539.0,"y":521.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"14"},{"repeaterMode":"RepeatForever","repeatTimes":{"_value":1},"_position":{"x":818.0,"y":524.0},"$type":"NodeCanvas.BehaviourTrees.Repeater","$id":"16"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"UpdateWaysCount"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},{"eventName":{"_value":"UpdateWaysCount"},"saveEventValue":{"_name":"_isNeedShow"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":763.0,"y":606.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"18"},{"_subTree":{"_value":1},"_position":{"x":768.0,"y":757.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"26"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 051146b77399ce84e9d825af57ef7b30, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

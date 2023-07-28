@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: GameLogic_Reel_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-202.6345,"y":-137.6192},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_value":"./customData/slotDataList/0/visibleCounts"},"saveAs":{"_name":"_visibleCounts"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":1087.0,"y":116.0},"_name":"Start","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":948.0,"y":270.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"8"},{"_actionList":{"actions":[{"targetList":{"_name":"_visibleCounts"},"index":{"_name":"reelIndex","_targetVariableID":"0d5dfa8d-76c4-4e52-be53-59eb10717475"},"saveAs":{"_name":"reelSize"},"$type":"NodeCanvas.Tasks.Actions.PickListElement`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"parameter":{"_value":"Expand"},"parameterHashID":{},"setTo":{"_name":"reelSize"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"}]},"_position":{"x":644.0,"y":349.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"11"},{"_actionList":{"actions":[{"parameter":{"_value":"Expand"},"parameterHashID":{},"overrideAgent":{"_name":"waysAnimator","_targetVariableID":"28e0b830-9ae5-42e2-9ff1-48126182f4be"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"element":{"_name":"waysText","_targetVariableID":"36ea88a7-418f-4219-ba26-71b6b5ba27ef"},"arg0":{"_value":"./waysCount"},"$type":"SlotMaker.Tasks.Actions.SetContextText0"}]},"_position":{"x":322.0,"y":453.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"22"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":1203.0,"y":575.0},"$type":"NodeCanvas.StateMachines.AutoUpdateActionState"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"ExpandReel"},"value":{"_name":"reelIndex","_targetVariableID":"0d5dfa8d-76c4-4e52-be53-59eb10717475"},"$type":"BagelCode.Task.Condition.CheckContentUIEventValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"ShowReelWays"},"value":{"_name":"reelIndex","_targetVariableID":"0d5dfa8d-76c4-4e52-be53-59eb10717475"},"$type":"BagelCode.Task.Condition.CheckContentUIEventValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

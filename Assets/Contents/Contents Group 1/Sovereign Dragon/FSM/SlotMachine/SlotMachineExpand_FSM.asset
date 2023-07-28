@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: SlotMachineExpand_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-3184.0,"y":-3215.0},"zoomFactor":0.7500077,"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_name":"_reelStartSpinIndexes"},"valueB":{"_value":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34]},"$type":"NodeCanvas.Tasks.Actions.SetVariable`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_name":"_reelStartSpinIndexesBase"},"valueB":{"_value":[0,1,2,3,4]},"$type":"NodeCanvas.Tasks.Actions.SetVariable`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":4964.0,"y":4806.0},"_name":"System
+    Initialize","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"valueA":{"_value":"_row"},"valueB":{"_value":7},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_column"},"valueB":{"_value":5},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_reSpinReelCount"},"valueB":{"_name":"_row"},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_reSpinReelCount"},"Operation":"Multiply","valueB":{"_name":"_column"},"$type":"SlotMaker.Tasks.Actions.SetInt32"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5269.0,"y":4909.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"13"},{"_position":{"x":5578.0,"y":5009.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.EmptyState","$id":"28"},{"_nestedBT":{"_value":1},"executionMode":"Once","_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5865.0,"y":5145.0},"_name":"Spin","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"29"},{"_nestedBT":{"_value":2},"executionMode":"Once","_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5670.0,"y":5295.0},"_name":"Stop","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"31"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"method":{"_baseInfo":"SlotMaker.SlotMachineMovement|OnStoppedSlotMachine|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]},"_position":{"x":5325.0,"y":5175.0},"_name":"Stopped","$type":"NodeCanvas.StateMachines.ActionState","$id":"33"}],"connections":[{"_condition":{"valueA":{"_value":"./initializedContent"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"conditions":[{"spinState":{"_name":"spinState","_targetVariableID":"7b269ec3-490b-457d-be6f-3a6faeb502c0"},"condition":{},"$type":"SlotMaker.Tasks.Condition.CheckSlotSequence"},{"spinState":{"_name":"spinState","_targetVariableID":"7b269ec3-490b-457d-be6f-3a6faeb502c0"},"condition":{"_value":"Stopped"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckSlotSequence"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"28"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"spinState":{"_name":"spinState","_targetVariableID":"7b269ec3-490b-457d-be6f-3a6faeb502c0"},"condition":{"_value":"Stopping"},"$type":"SlotMaker.Tasks.Condition.CheckSlotSequence"},"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"spinState":{"_name":"spinState","_targetVariableID":"7b269ec3-490b-457d-be6f-3a6faeb502c0"},"condition":{"_value":"Stopped"},"$type":"SlotMaker.Tasks.Condition.CheckSlotSequence"},"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"canvasGroups":[],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: efa2de08c354643d18fda4dd34d12f50, type: 2}
+  - {fileID: 11400000, guid: 5bdd0fe273a804571b071486e3ceb81d, type: 2}
+  _deserializationFailed: 0

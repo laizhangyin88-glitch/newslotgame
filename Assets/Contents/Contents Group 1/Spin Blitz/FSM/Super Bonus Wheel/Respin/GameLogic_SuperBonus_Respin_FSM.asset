@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: GameLogic_SuperBonus_Respin_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4919.0,"y":-3555.0},"nodes":[{"_nestedBT":{"_value":1},"executionMode":"Once","_position":{"x":4425.0,"y":3548.0},"_name":"Intro","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"2"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":4634.0,"y":3647.0},"_name":"Lock
+    Symbol","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"4"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":4981.0,"y":3763.0},"_name":"Delay","$type":"NodeCanvas.StateMachines.ActionState","$id":"6"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"waitTime":{"_value":0.2},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5142.0,"y":3877.0},"_name":"Ready","$type":"NodeCanvas.StateMachines.ActionState","$id":"11"},{"_nestedBT":{"_value":3},"executionMode":"Once","_position":{"x":5350.0,"y":3534.0},"_name":"Try
+    Spin","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"16"},{"_nestedBT":{"_value":4},"executionMode":"Once","_position":{"x":5621.0,"y":3685.0},"_name":"Begin
+    Spin","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"18"},{"_nestedBT":{"_value":5},"executionMode":"Once","_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5893.0,"y":3824.0},"_name":"Stop
+    Spin","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"20"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"eventName":{"_value":"StoppedSlotMachineAll"},"delay":{},"sendGlobal":true,"$type":"BagelCode.Tasks.Actions.SendContentUIDetailEvent"}]},"_position":{"x":6139.0,"y":3967.0},"_name":"Stop
+    SlotMachine","$type":"NodeCanvas.StateMachines.ActionState","$id":"22"},{"_nestedBT":{"_value":2},"executionMode":"Once","_position":{"x":6440.0,"y":4130.0},"_name":"Lock
+    Symbol","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"28"},{"_nestedBT":{"_value":6},"executionMode":"Once","_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":6075.0,"y":4227.0},"_name":"Update
+    Slots","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"30"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"$type":"BagelCode.Tasks.Actions.Contents.EndSpin"},{"waitTime":{"_value":1.0},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":5826.0,"y":4364.0},"_name":"End
+    Spin","$type":"NodeCanvas.StateMachines.ActionState","$id":"32"},{"_nestedBT":{"_value":7},"executionMode":"Once","_position":{"x":6464.0,"y":4368.0},"_name":"Win","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"38"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"./bonus/spinCount"},"checkType":"LessThan","valueB":{"_value":"_totalRespinCount"},"$type":"SlotMaker.Tasks.Condition.SimpleCheckInt32"},"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"StoppedSlotMachine"},"slotIndex":{"_name":"_lastSlotIndex"},"$type":"BagelCode.Task.Condition.CheckSlotEvent"},"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"28"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"./bonus/spinCount"},"checkType":"LessThan","valueB":{"_value":"_totalRespinCount"},"$type":"SlotMaker.Tasks.Condition.SimpleCheckInt32"},"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"./bonus/spinCount"},"checkType":"GreaterOrEqualTo","valueB":{"_value":"_totalRespinCount"},"$type":"SlotMaker.Tasks.Condition.SimpleCheckInt32"},"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"32"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: db6e24e2b5b644caebf97ff214a7076f, type: 2}
+  - {fileID: 11400000, guid: bdcb5e5e6d9224be0a77fb132ef27e69, type: 2}
+  - {fileID: 11400000, guid: ecc9ee4ada0e64f71a388a2749fdfbae, type: 2}
+  - {fileID: 11400000, guid: c9f13361b5b3945b2a64a1d79acbf601, type: 2}
+  - {fileID: 11400000, guid: eb97aedf546fd4d55b6cba107566d9c6, type: 2}
+  - {fileID: 11400000, guid: 4a8474c60c69e4df9b013407d77b6e8d, type: 2}
+  - {fileID: 11400000, guid: ea7cca3ac10b8497295d8911749cdce1, type: 2}
+  _deserializationFailed: 0

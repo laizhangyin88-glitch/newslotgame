@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Init Bonus Count_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-495.0,"y":-104.0},"nodes":[{"_position":{"x":1021.0,"y":235.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"bb":{"_value":"./game"},"location":{"_value":"./previous"},"$type":"BagelCode.Tasks.Actions.BlackboardQuery.AddBlackboard"},{"valueA":{"_value":"./betCredit"},"saveAs":{"_name":"_betCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":807.0,"y":341.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"failureRemap":"Success","_position":{"x":1020.0,"y":340.0},"$type":"NodeCanvas.BehaviourTrees.Remapper","$id":"12"},{"_condition":{"valueA":{"_value":"./game/bonusSpinCountsPerBetCredit"},"valueB":{"_value":"_betCredit"},"$type":"SlotMaker.Tasks.Condition.SimpleCheckDictionaryLongKey"},"_position":{"x":893.0,"y":454.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"13"},{"_action":{"valueA":{"_value":"./game/bonusSpinCountsPerBetCredit"},"key":{"_name":"_betCredit"},"saveAs":{"_name":"bonusSpinCountsPerBetCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryLongKey`1[[System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":601.0,"y":595.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"17"},{"_action":{"actions":[{"valueA":{"_value":"bonusSpinCountsPerBetCredit"},"valueB":{"_name":"initialBonusSpinCountsPerBetCredit","_targetVariableID":"de0bc984-da90-41c5-bebf-147f34987b2d"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SetList"},{"valueA":{"_value":"bonusSpinCountsPerBetCredit"},"valueB":{"_name":"initialBonusSpinCountsPerBetCredit","_targetVariableID":"de0bc984-da90-41c5-bebf-147f34987b2d"},"$type":"SlotMaker.Tasks.Actions.CopyList`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":1136.0,"y":590.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"22"},{"_subTree":{"_value":1},"_position":{"x":1148.0,"y":339.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"31"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: b77770be3eed944e39e920ecc72bc1b8, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

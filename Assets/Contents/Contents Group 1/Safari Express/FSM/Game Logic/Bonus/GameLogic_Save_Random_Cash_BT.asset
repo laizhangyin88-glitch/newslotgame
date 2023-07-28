@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Save_Random_Cash_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5274.0,"y":-3802.0},"zoomFactor":0.7500096,"nodes":[{"_position":{"x":7731.0,"y":5170.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"slotIndex":{},"column":{"_name":"_column"},"row":{"_name":"_row"},"symbolMask":"Scatter4","saveAs":{"_name":"_cashWin"},"$type":"BagelCode.Tasks.Actions.Contents.FindScatterSymbol"},{"symbolWin":{"_name":"_cashWin"},"saveAs":{"_value":[],"_name":"_cashCellList"},"$type":"BagelCode.Tasks.Actions.Contents.GetSymbolCellList"},{"symbolWin":{"_value":{"cells":[]},"_name":"_cashWin"},"earnCredit":{"_name":""},"multiplier":{"_name":""},"lineIndex":{"_name":""},"symbolIndex":{"_name":""},"cells":{"_value":[],"_name":"_cashCellList"},"hitCount":{"_name":""},"wayCount":{"_name":""},"direction":{"_name":""},"_isDisabled":true,"$type":"BagelCode.Tasks.Actions.Contents.SetSymbolWin"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":7361.0,"y":5240.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_condition":{"targetList":{"_name":"_cashCellList"},"_invert":true,"$type":"NodeCanvas.Tasks.Conditions.ListIsEmpty"},"_position":{"x":7825.0,"y":5251.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"28"},{"targetList":{"_type":"System.Collections.Generic.List`1[[SlotMaker.Cell,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"_cashCellList"},"current":{"_type":"SlotMaker.Cell","_name":"_currentCashCell"},"storeIndex":{"_name":""},"maxIteration":{"_value":-1},"_position":{"x":7806.0,"y":5340.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"31"},{"_action":{"actions":[{"slotMachine":{"_name":"_slotMachine"},"cell":{"_name":"_currentCashCell"},"saveAs":{"_name":"_symbolGO"},"$type":"SlotMaker.Tasks.Actions.Contents.GetSymbol"},{"saveAs":{"_name":"_symbolBB"},"overrideAgent":{"_name":"_symbolGO"},"$type":"NodeCanvas.Tasks.Actions.GetComponent`1[[NodeCanvas.Framework.Blackboard,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"valueA":{"_value":"_randomAmount"},"saveAs":{"_name":"_randomCashAmount"},"overrideAgent":{"_name":"_symbolBB"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Double,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_randomIntAmount"},"valueB":{"_name":"_randomCashAmount"},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"slotMachine":{"_name":"_slotMachine"},"cell":{"_name":"_currentCashCell"},"key":{"_value":"cashAmount"},"valueA":{"_name":"_randomIntAmount"},"$type":"SlotMaker.Tasks.Actions.Contents.SetSlotSymbolCustomData`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":7679.0,"y":5446.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"36"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"28"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

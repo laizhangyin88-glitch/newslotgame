@@ -1,0 +1,94 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Smo
+{
+    public class BonusInfo205
+    {
+        public List<int> jpBasePayMultipliers;
+    }
+
+    public class CustomData205
+    {
+        public Dictionary<long,Progression> progressionPerBet;
+        public Dictionary<int,int> nowMysterySymbols = new Dictionary<int,int>();
+        public Dictionary<int,int> nextMysterySymbols = new Dictionary<int,int>();
+        public List<Orb> orbSequence;
+        public List<Orb> orbSequenceOnStart;
+        public List<bool> scatterLanding;
+        public bool isFinalSpin;
+    }
+
+    public class Progression
+    {
+        public List<int> reelsSize;
+        public List<Orb> orbSequence;
+    }
+
+    public class Orb
+    {
+        public int type;
+        public double amount;
+        public int cashType;
+    }
+
+    // Regular FS
+    public class BonusResult20500
+    {
+       public int addedSpinCount;
+       public List<Orb> orbSequence;
+    }
+
+    // Free spin end
+    public class BonusResult20501
+    {
+       public int orbIndex;
+    }
+
+    // Expand Reel
+    public class BonusResult20502
+    {
+      public int newReelSize;
+      public List<int> symbolPos;
+      public int newSymbol;
+    }
+
+    // Cash Orb
+    public class BonusResult20503
+    {
+       public int orbIndex;
+    }
+
+    // Jackpot orb
+    public class BonusResult20504
+    {
+       public int orbIndex;
+       public int jackpotType;
+       public int jackpotStopIndex;
+       public List<int> jackpotReel;
+    }
+
+    // FS Orb
+    public class BonusResult20505
+    {
+       public int orbIndex;
+       public int addedSpinCount;
+       public List<Orb> orbSequence;
+    }
+
+    // Jackpot
+    public class BonusResult20506
+    {
+       public int jackpotIndex;
+       public bool isEligible;
+    }
+
+    // Ticket FS
+    public class BonusResult20550
+    {
+       public int addedSpinCount;
+       public long baseBet;
+       public List<Orb> orbSequence;
+       public Dictionary<long,Progression> progressionPerBet;
+    }
+}

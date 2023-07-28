@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: SuperFortune_Respin Update Original Output_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.92,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":243.0,"y":-364.0},"nodes":[{"_position":{"x":130.0,"y":608.0},"_comment":"//
+    originalReelOutputList == locked reel output list\n// Note that multiplier symbols
+    should be removed after multiplier collect sequence","$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"valueA":{"_value":"_blankIndex"},"valueB":{"_value":7},"$type":"SlotMaker.Tasks.Actions.SetInt32"},"_position":{"x":37.0,"y":696.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"targetList":{"_type":"System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]","_name":"_respinReelOutputList"},"current":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_output"},"storeIndex":{"_name":"_reelIndex"},"maxIteration":{"_value":-1},"_position":{"x":188.0,"y":693.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"7"},{"_position":{"x":233.0,"y":791.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"12"},{"_action":{"valueA":{"_value":"_superFortuneSpinReelsForSpinAgain"},"index":{"_name":"_reelIndex"},"fromLast":{},"saveAs":{"_name":"_checker"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValueAtList`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":-95.0,"y":876.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"13"},{"_condition":{"conditions":[{"valueA":{"_value":"_output"},"valueB":{"_name":"_blankIndex","_targetVariableID":"c0cab677-c9c1-47e4-8af0-d8c418128032"},"_invert":true,"$type":"SlotMaker.Tasks.Condition.CheckInt32"},{"valueA":{"_value":"_checker"},"valueB":{"_value":true},"$type":"SlotMaker.Tasks.Condition.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":315.0,"y":876.0},"$type":"SlotMaker.BehaviourTrees.OptionalConditional","$id":"19"},{"_action":{"targetList":{"_name":"_originalReelOutputList","_targetVariableID":"9b95f601-5f63-4601-9050-45914dae49cb"},"index":{"_name":"_reelIndex"},"newValue":{"_name":"_output"},"$type":"NodeCanvas.Tasks.Actions.SetListElement`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"_position":{"x":333.0,"y":982.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"28"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"19"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

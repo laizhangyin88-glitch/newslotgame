@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_FreeSpinBuyABonusResult_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-3624.0,"y":-3797.0},"zoomFactor":0.750009,"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"Free
+    Spin Result Popup"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":5305.0,"y":5238.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"valueA":{"_value":"./ticketClaim/totalEarnCredit"},"saveAs":{"_name":"_bonusEarnCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"./ticketClaim/earnCredit"},"saveAs":{"_name":"_tierEarnCredit"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int64,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"_bonusEarnCredit"},"Operation":"Subtract","valueB":{"_name":"_tierEarnCredit"},"$type":"SlotMaker.Tasks.Actions.SetInt64"},{"element":{"_name":"rewardText","_targetVariableID":"584405b1-3fbd-43a5-b78a-942f1b42150a"},"key":{"_value":"FREE_SPIN_RESULT_CREDIT"},"tableType":"Content","arg1":{"_value":"_bonusEarnCredit"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"element":{"_name":"tierText","_targetVariableID":"00fa0c82-ebb2-4ab1-9228-151511888530"},"key":{"_value":"BUY_A_BONUS_TIER_MULTIPLIER"},"tableType":"Content","arg1":{"_value":"./ticketClaim/tierMultiplier"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"element":{"_name":"totalRewardText","_targetVariableID":"bb19b49b-9c8d-4531-865f-c06a02abd6d2"},"key":{"_value":"FREE_SPIN_RESULT_CREDIT"},"tableType":"Content","arg1":{"_value":"./ticketClaim/totalEarnCredit"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"element":{"_name":"totalRewardShaodwText","_targetVariableID":"f36f7534-2385-4e3b-a051-88083fba7c56"},"key":{"_value":"FREE_SPIN_RESULT_CREDIT"},"tableType":"Content","arg1":{"_value":"./ticketClaim/totalEarnCredit"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"}]},"_transitionEvaluation":"CheckAfterStateFinished","_position":{"x":5268.0,"y":5363.0},"_name":"SetCredit","$type":"NodeCanvas.StateMachines.ActionState","$id":"7"},{"_actionList":{"actions":[{"id":{"_value":"Button"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"parameter":{"_value":"Disappear"},"parameterHashID":{},"overrideAgent":{"_name":"animator","_targetVariableID":"e1b70972-f1a9-4952-828b-19b4016b954d"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"ClosedPopup"},"delay":{},"overrideAgent":{"_name":"caller","_targetVariableID":"59d030f7-44bd-44b4-a77d-922400ed5203"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"$type":"SlotMaker.Task.Actions.ClosePopup"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":6082.0,"y":5540.0},"_name":"Finalize","$type":"NodeCanvas.StateMachines.ActionState","$id":"35"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnClickButton"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0
