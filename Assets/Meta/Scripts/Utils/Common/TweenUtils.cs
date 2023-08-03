@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace BagelCode
@@ -24,6 +25,26 @@ namespace BagelCode
         public static Vector3 VectorTweenOutSine(Vector3 from, Vector3 to, float t)
         {
             return Vector3.Lerp(from, to, TweenOutSine(t));
+        }
+
+        public static Vector3 VectorTweenInCubic(Vector3 from, Vector3 to, float t)
+        {
+            return Vector3.Lerp(from, to, TweenInCubic(t));
+        }
+
+        public static Vector3 VectorTweenOutCubic(Vector3 from, Vector3 to, float t)
+        {
+            return Vector3.Lerp(from, to, TweenOutCubic(t));
+        }
+
+        public static Vector3 VectorTweenInQuint(Vector3 from, Vector3 to, float t)
+        {
+            return Vector3.Lerp(from, to, TweenInQuint(t));
+        }
+
+        public static Color ColorTweenInQuad(Color from, Color to, float t)
+        {
+            return Color.Lerp(from, to, TweenInQuad(t));
         }
 
         #endregion
@@ -64,6 +85,21 @@ namespace BagelCode
         public static float TweenCollectMove(float t)
         {
             return -t * t + 2f * t;
+        }
+
+        public static float TweenInCubic(float t)
+        {
+            return t * t * t;
+        }
+
+        public static float TweenOutCubic(float t)
+        {
+            return 1 - Mathf.Pow(1 - t, 3);
+        }
+
+        public static float TweenInQuint(float t)
+        {
+            return t * t * t * t * t;
         }
 
         #endregion

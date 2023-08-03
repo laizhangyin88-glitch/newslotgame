@@ -34,6 +34,8 @@ public class Lobby : ActionTask
 			// For bi client_lobby_status.
 			BiEventUtils.SetLobbyStatusData(response);
 
+            BlackboardQueryUtils.SaveWebSocketHost(response.wsHost);
+
             EndAction(true);
 		},
 		(error) =>
