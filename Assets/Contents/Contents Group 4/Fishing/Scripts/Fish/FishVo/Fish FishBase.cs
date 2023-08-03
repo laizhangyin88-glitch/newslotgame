@@ -177,6 +177,7 @@ namespace BagelCode
             IsEnableBoxcollider(true);
             IsShowFishLight(false);
             isCanDestroy = false;
+            gameObject.SetActive(true);
         }
 
         public void BeginMove()
@@ -514,6 +515,7 @@ namespace BagelCode
             fishBehaviour.curFishStatus = FishStatus.Stop;
             gameObject.transform.localScale = Vector3.one;
             gameObject.transform.localPosition = new Vector3(10000, 10000, 0);
+            gameObject.SetActive(false);
         }
 
         public abstract void Destroy();

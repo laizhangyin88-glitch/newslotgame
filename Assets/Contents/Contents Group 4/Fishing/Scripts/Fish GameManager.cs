@@ -24,6 +24,7 @@ namespace BagelCode
         private bool isAutoShoot;
         private bool isLock;
         private bool isSpeed;
+        private bool isInGame;
 
 
         public void Init(GameObject gameObject)
@@ -62,6 +63,11 @@ namespace BagelCode
         public bool IsResourceLoadComplete()
         {
             return  isResourceLoadComplete;
+        }
+
+        public bool IsInGame()
+        {
+            return isInGame;
         }
 
         public void LoadResourcesCompleteCallBack()
@@ -241,6 +247,7 @@ namespace BagelCode
                 FishGameUIManager.Instance.gameData.playerChairId = (int)enterGameRsp.my_chair_id;
                 gameId = (int)enterGameRsp.game_id;
                 SyncGameState();
+                isInGame = true;
             }
             else
             {
@@ -354,6 +361,7 @@ namespace BagelCode
             hall.ExitGameRsp exitGameRsp = WebSocketTool.Deserialize<hall.ExitGameRsp>(bytes);
             if (exitGameRsp.exit_type == 1)
             {
+                isInGame = false;
                 returnBtn.GetComponent<SendEvent>().DispatchContentEvent("LeaveGame");
                 WebSocketManager.Instance.CloseConnect();
                 ClearFishManager();

@@ -128,7 +128,7 @@ namespace BagelCode
         {
             Debug.LogError("webSocket连接出错  ====> " + e.Message);
             socket = null;
-            Reconnect();
+            //Reconnect();
         }
 
         private void Reconnect()
@@ -235,5 +235,9 @@ namespace BagelCode
             return (ulong)timeSpan.TotalSeconds;
         }
 
+        protected override void OnDestroy()
+        {
+
+        }
     }
 }

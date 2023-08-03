@@ -157,5 +157,10 @@ namespace BagelCode
             }
             return bombIns;
         }
+
+        protected override void OnDestroy()
+        {
+
+        }
     }
 }
