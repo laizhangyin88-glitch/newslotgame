@@ -93,7 +93,7 @@ namespace BagelCode
                 {
                     bulletIns.UpdateBulletVo(vo);
                     bulletIns.BaseInitViewData();
-                    if (CurrentUseBulletInsList[vo.chairId] == null)
+                    if (!CurrentUseBulletInsList.ContainsKey(vo.chairId) || CurrentUseBulletInsList[vo.chairId] == null)
                     {
                         CurrentUseBulletInsList[vo.chairId] = new Dictionary<int, FishBullet> ();
                     }

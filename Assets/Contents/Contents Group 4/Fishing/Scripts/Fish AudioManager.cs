@@ -160,6 +160,11 @@ namespace BagelCode
             StopMusic();
             StopAllNormalAudio();
         }
+
+        protected override void OnDestroy()
+        {
+            
+        }
     }
 }
 

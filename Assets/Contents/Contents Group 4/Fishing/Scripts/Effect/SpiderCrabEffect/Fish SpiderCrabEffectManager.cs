@@ -261,5 +261,10 @@ namespace BagelCode
             UpdateRemoveSpiderCrabBossHurtEffect();
             UpdateRemoveSpiderCrabBossScoreEffect();
         }
+
+        protected override void OnDestroy()
+        {
+
+        }
     }
 }

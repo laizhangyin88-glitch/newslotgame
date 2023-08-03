@@ -71,6 +71,10 @@ namespace BagelCode
 
         public FishFishBase GetFish(FishVo vo, bool isAddCurrentUseFishList)
         {
+            if (vo.FishId == 4 && AllUsedFishInsList.ContainsKey(4))
+            {
+                Debug.LogError("Get => " + AllUsedFishInsList[4].Count);
+            }
             if (AllUsedFishInsList != null && AllUsedFishInsList.Count > 0
                 && AllUsedFishInsList.ContainsKey(vo.FishId) && AllUsedFishInsList[vo.FishId] != null && AllUsedFishInsList[vo.FishId].Count > 0)
             {
@@ -160,11 +164,11 @@ namespace BagelCode
             FishFishBase tempFish = CurrentUseFishList[fish.FishVo.UID];
             if (tempFish != null)
             {
-                if (!AllUsedFishInsList.ContainsKey(fish.FishVo.UID) || AllUsedFishInsList[fish.FishVo.UID] == null)
+                if (!AllUsedFishInsList.ContainsKey(fish.FishVo.FishId) || AllUsedFishInsList[fish.FishVo.FishId] == null)
                 {
-                    AllUsedFishInsList[fish.FishVo.UID] = new List<FishFishBase>();
+                    AllUsedFishInsList[fish.FishVo.FishId] = new List<FishFishBase>();
                 }
-                AllUsedFishInsList[fish.FishVo.UID].Add(tempFish);
+                AllUsedFishInsList[fish.FishVo.FishId].Add(tempFish);
                 CurrentUseFishList.Remove(fish.FishVo.UID);
             }
             else

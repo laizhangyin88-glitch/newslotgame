@@ -251,6 +251,11 @@ namespace BagelCode
         {
             UpdateRemoveGoldEffect();
         }
+
+        protected override void OnDestroy()
+        {
+
+        }
     }
 
     public class EffectVo

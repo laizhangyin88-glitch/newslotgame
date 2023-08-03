@@ -166,5 +166,10 @@ namespace BagelCode
                     item.Update();
             UpdateRemoveScoreEffect();
         }
+
+        protected override void OnDestroy()
+        {
+            
+        }
     }
 }
