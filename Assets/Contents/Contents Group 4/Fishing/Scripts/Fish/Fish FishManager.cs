@@ -95,11 +95,7 @@ namespace BagelCode
             }
             else
             {
-                string fishName;
-                if (vo.FishId < 10)
-                    fishName = FishPrefixName + "0" + vo.FishId;
-                else
-                    fishName = FishPrefixName + vo.FishId;
+                string fishName = string.Format("{0}{1:D2}", FishPrefixName, vo.FishId);
                 GameObject FishItem = FishGameObjectPoolManager.Instance.GetGameObject(fishName, PoolType.FishPool);
                 FishFishBase fish = null;
                 if (FishItem != null)
@@ -182,7 +178,8 @@ namespace BagelCode
                 List<int> removeCatch = new List<int>();
                 foreach (var item in CurrentUseFishList)
                 {
-                    Destroy(item.Value.gameObject);
+                    // Destroy(item.Value.gameObject);
+                    item.Value.Destroy();
                     removeCatch.Add(item.Key);
                 }
                 for (int i = 0; i < removeCatch.Count; i++)
@@ -201,7 +198,8 @@ namespace BagelCode
                 {
                     if (CurrentUseFishList[i].GetIsDie() && CurrentUseFishList[i].chairId == chairID && CurrentUseFishList[i].FishVo.DieEffectConfig.fishDieBehavior == 3)
                     {
-                        Destroy(CurrentUseFishList[i].gameObject);
+                        // Destroy(CurrentUseFishList[i].gameObject);
+                        CurrentUseFishList[i].Destroy();
                         RemoveFish(CurrentUseFishList[i]);
                     }
                 }

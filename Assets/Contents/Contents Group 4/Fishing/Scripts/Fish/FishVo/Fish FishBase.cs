@@ -173,6 +173,7 @@ namespace BagelCode
 
         public void ResetBaseFishStateData(FishVo vo)
         {
+         //   gameObject.SetActive(true);
             UpdateFishVo(vo);
             IsEnableBoxcollider(true);
             IsShowFishLight(false);
@@ -514,6 +515,7 @@ namespace BagelCode
             fishBehaviour.curFishStatus = FishStatus.Stop;
             gameObject.transform.localScale = Vector3.one;
             gameObject.transform.localPosition = new Vector3(10000, 10000, 0);
+            //gameObject.SetActive(false);
         }
 
         public abstract void Destroy();

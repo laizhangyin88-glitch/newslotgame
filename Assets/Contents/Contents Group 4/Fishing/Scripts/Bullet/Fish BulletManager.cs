@@ -168,7 +168,8 @@ namespace BagelCode
                 {
                     foreach (var item1 in item.Values)
                     {
-                        Destroy(item1.gameObject);
+                        // Destroy(item1.gameObject);
+                        item1.Destroy();
                         RecycleBullet(item1);
                     }
                 }
@@ -178,7 +179,8 @@ namespace BagelCode
             {
                 foreach (var item in AllBulletInsList)
                 {
-                    Destroy(item.gameObject);
+                    // Destroy(item.gameObject);
+                    item.Destroy();
                 }
             }
         }
