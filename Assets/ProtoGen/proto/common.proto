@@ -1,0 +1,19 @@
+syntax = "proto2";
+package rpc;
+option go_package = ".;rpc";
+
+//服务类型
+enum SERVICE{
+    NONE= 0;
+    CLIENT= 1;
+    APISERVER= 2;//网关,转发服务
+};
+
+message RpcPacket{
+    required uint32 MsgId = 1;
+    optional uint32 SubMsgId = 2;
+	required SERVICE ServiceType = 3;
+	optional uint32  SrcClusterId = 4;//源集群id,客户端不需要填
+    optional uint32 DstClusterId = 5;  //目标集群id,客户端不需要填
+    optional bytes RpcBody = 6;	//具体的消息体
+}

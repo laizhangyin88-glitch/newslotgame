@@ -20,8 +20,10 @@ namespace BagelCode
                 if (gameId != 0)
                 {
                     BlackboardQueryUtils.SetEnterGameInfo(gameId, enterType, fromType, targetRoomId, 0, null, false);
-
-                    gameObject.SendMessage("SendNow", "OnEnterGame");
+                    if (gameId ==8)
+                        gameObject.SendMessage("SendNow", "OnEnterFishRoom");
+                    else
+                        gameObject.SendMessage("SendNow", "OnEnterGame");
                 }
             }
             else if (slotStatus == 5)

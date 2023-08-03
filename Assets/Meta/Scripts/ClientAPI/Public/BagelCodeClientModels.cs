@@ -790,7 +790,8 @@ public enum GameType
     UNKNOWN = -666,
     SLOT_MACHINE = 1,
     VIDEO_POKER = 2,
-    KENO = 3
+    KENO = 3,
+    FISH = 4,
 }
 
 public enum GameUnlockStatus
