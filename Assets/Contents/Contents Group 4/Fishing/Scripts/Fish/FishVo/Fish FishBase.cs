@@ -173,6 +173,7 @@ namespace BagelCode
 
         public void ResetBaseFishStateData(FishVo vo)
         {
+         //   gameObject.SetActive(true);
             UpdateFishVo(vo);
             IsEnableBoxcollider(true);
             IsShowFishLight(false);

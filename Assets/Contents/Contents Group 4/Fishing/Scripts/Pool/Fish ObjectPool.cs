@@ -124,6 +124,7 @@ namespace BagelCode
         {
             gameObj.SetActive(false);
             SetPoolParent(gameObj, poolType);
+            ObjectPoolList[gameObj.name].Add(gameObj);
         }
 
         private GameObject GetActiveGameObject(string keyName)
@@ -133,7 +134,9 @@ namespace BagelCode
                 if (ObjectPoolList[keyName][i].activeSelf == false)
                 {
                     ObjectPoolList[keyName][i].SetActive(true);
-                    return ObjectPoolList[keyName][i];
+                    GameObject go = ObjectPoolList[keyName][i];
+                    ObjectPoolList[keyName].RemoveAt(i);
+                    return go;
                 }
             }
             return null;

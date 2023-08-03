@@ -1,4 +1,4 @@
-protogen -i:proto/common.proto -o:build/Common.cs
-protogen -i:proto/hall.proto -o:build/Hall.cs
-protogen -i:proto/fishMsg.proto -o:build/FishMsg.cs
+protogen -i:proto/common.proto -o:message/Common.cs
+protogen -i:proto/hall.proto -o:message/Hall.cs
+protogen -i:proto/fishMsg.proto -o:message/FishMsg.cs
 pause
