@@ -337,22 +337,22 @@ namespace BagelCode
         {
             BGRes = new BGTexture[]
             {
-                new BGTexture {name = "t_bg_1", path = "Sprties/BG/t_bg_1.png", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_2", path = "Sprties/BG/t_bg_2.png", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_3", path = "Sprties/BG/t_bg_3.png", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_4", path = "Sprties/BG/t_bg_4.png", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_5", path = "Sprties/BG/t_bg_5.png", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_6", path = "Sprties/BG/t_bg_6.png", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_7", path = "Sprties/BG/t_bg_7.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_8", path = "Sprties/BG/t_bg_8.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_9", path = "Sprties/BG/t_bg_9.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_10", path = "Sprties/BG/t_bg_10.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_11", path = "Sprties/BG/t_bg_11.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_12", path = "Sprties/BG/t_bg_12.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_13", path = "Sprties/BG/t_bg_13.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_14", path = "Sprties/BG/t_bg_14.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_15", path = "Sprties/BG/t_bg_15.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_16", path = "Sprties/BG/t_bg_16.jpg", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_1", path = "Texture/BG/t_bg_1.png", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_2", path = "Texture/BG/t_bg_2.png", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_3", path = "Texture/BG/t_bg_3.png", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_4", path = "Texture/BG/t_bg_4.png", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_5", path = "Texture/BG/t_bg_5.png", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_6", path = "Texture/BG/t_bg_6.png", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_7", path = "Texture/BG/t_bg_7.jpg", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_8", path = "Texture/BG/t_bg_8.jpg", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_9", path = "Texture/BG/t_bg_9.jpg", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_10", path = "Texture/BG/t_bg_10.jpg", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_11", path = "Texture/BG/t_bg_11.jpg", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_12", path = "Texture/BG/t_bg_12.jpg", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_13", path = "Texture/BG/t_bg_13.jpg", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_14", path = "Texture/BG/t_bg_14.jpg", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_15", path = "Texture/BG/t_bg_15.jpg", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_16", path = "Texture/BG/t_bg_16.jpg", amout = 1, count = 1},
             };
         }
 
