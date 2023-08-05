@@ -254,7 +254,7 @@ namespace BagelCode
         public void PlayGunFireStormAnim(string animationName)
         {
             int curUseRealGunLevel = SkillVo.PlayerIns.currentUseRealGunLevel;
-            SkillVo.PlayerIns.Panel.PlayGunShotAnim01(curUseRealGunLevel, animationName);
+            SkillVo.PlayerIns.Panel.PlayFireStormShootAnim(curUseRealGunLevel, animationName);
         }
 
         public void ShowFireStormSpecialDeclare()

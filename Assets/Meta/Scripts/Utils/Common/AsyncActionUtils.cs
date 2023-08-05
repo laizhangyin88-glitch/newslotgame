@@ -57,6 +57,12 @@ namespace BagelCode
             return agent.StartCoroutine(ImageColorCoroutine(agent, image, from, to, time, tween, delayBeforeStart, onComplete));
         }
 
+        public static Coroutine ApplyTextColor(MonoBehaviour agent, Text text, Color from, Color to, float time, ColorTweener tween, float delayBeforeStart = 0f, System.Action onComplete = null)
+        {
+            text.color = from;
+            return agent.StartCoroutine(TextColorCoroutine(agent, text, from, to, time, tween, delayBeforeStart, onComplete));
+        }
+
         public static Coroutine DelayedAction(MonoBehaviour agent, float delay, System.Action action)
         {
             return agent.StartCoroutine(DelayedActionCoroutine(delay, action));
@@ -107,7 +113,7 @@ namespace BagelCode
         }
         
 
-        public static IEnumerator AnchoredMoveCoroutine(MonoBehaviour agent, Transform transform, Vector2 from, Vector2 to, float time, VectorTweener tween, float delayBeforeStart, System.Action onComplete)
+        public static IEnumerator AnchoredMoveCoroutine(MonoBehaviour agent, Transform transform, Vector2 from, Vector2 to, float time, VectorTweener tween, float delayBeforeStart = 0, System.Action onComplete = null)
         {
             yield return new WaitForSeconds(delayBeforeStart);
 
@@ -189,6 +195,23 @@ namespace BagelCode
             {
                 if (!(agent == null || image == null))
                     image.color = tween(from, to, progress);
+            }, onComplete));
+        }
+
+        public static IEnumerator TextColorCoroutine(MonoBehaviour agent, Text text, Color from, Color to, float time, ColorTweener tween, float delayBeforeStart, System.Action onComplete)
+        {
+            yield return new WaitForSeconds(delayBeforeStart);
+
+            if (agent == null || text == null)
+            {
+                Debug.LogWarning("TextColorCoroutine failure. agent: " + agent + ", text: " + text);
+                yield break;
+            }
+
+            yield return agent.StartCoroutine(ProgressiveActionCoroutine(time, null, (float progress) =>
+            {
+                if (!(agent == null || text == null))
+                    text.color = tween(from, to, progress);
             }, onComplete));
         }
 

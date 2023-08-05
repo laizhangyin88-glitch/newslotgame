@@ -18,8 +18,6 @@ namespace BagelCode
         public List<Transform> CatchFishPosList;
         public Transform SwrilPanel;
         public Transform SpecialDeclarePanel;
-        public List<Animator> GunLevelAnimList;
-        public string[] GunAnimPramsList = { "shot01", "shot02", "shot03", "FireStormGun_Shoot" };
         public Timer ImHereTimer = null;
         public Transform SkillGun;
         public Transform SKillPanel = null;
@@ -28,7 +26,6 @@ namespace BagelCode
         public GameObject GunLockPoint;
         public GameObject ImHere;
         public Animator ImHereAnimator;
-        public GameObject GunParticleEffect;
         public GameObject LockFishPanel;
         public GameObject LockRotation;
         public Animator LockRotationAnim;
@@ -44,6 +41,19 @@ namespace BagelCode
         public Text PlayerMoneyLabel;
         public Text PlayerNameLabel;
         public bool showImHere;
+
+        //跑升级特效
+        private GameObject GunParticleEffect;
+        private List<Animator> GunLevelAnimList;
+        private string[] GunAnimPramsList = { "shot01", "shot02", "shot03", "FireStormGun_Shoot" };
+
+        private Animator gunBaseAnimator;
+        private Animator gunNormalAnimator;
+        private Animator gunSpeedAnimator;
+        private Animator ammunitionAnimator;
+        private Animator fireStormAnimator;
+        public bool isSpeed;
+
         public FishPlayerPanel(GameObject gameObj)
         {
             InitData();
@@ -105,13 +115,53 @@ namespace BagelCode
             ImHereAnimator = ImHere.GetComponent<Animator>();
             ImHere.SetActive(false);
             GunParticleEffect = trans.Find("Gun_Team/GunParticleEffect").gameObject;
-            for (int i = 1; i <= GunLevelCount; i++)
+            //for (int i = 1; i <= GunLevelCount; i++)
+            //{
+            //    Animator tempGunAnim = trans.Find("Gun_Team/GunType0" + i).GetComponent<Animator>();
+            //    GunLevelAnimList.Add(tempGunAnim);
+            //}
+            //Animator gunFireStorm = trans.Find("Gun_Team/GunFireStorm").GetComponent<Animator>();
+            //GunLevelAnimList.Add(gunFireStorm);
+
+            fireStormAnimator = trans.Find("Gun_Team/GunFireStorm").GetComponent<Animator>();
+            gunBaseAnimator = trans.Find("GunBase").GetComponent<Animator>();
+            gunNormalAnimator = trans.Find("Gun_Team/GunNormal").GetComponent <Animator>();
+            gunSpeedAnimator = trans.Find("Gun_Team/GunSpeed").GetComponent<Animator>();
+            ammunitionAnimator = trans.Find("Ammunition").GetComponent<Animator>();
+        }
+
+        public void ChangeGunModeAnim(bool isToSpeed)
+        {
+            if (isToSpeed)
             {
-                Animator tempGunAnim = trans.Find("Gun_Team/GunType0" + i).GetComponent<Animator>();
-                GunLevelAnimList.Add(tempGunAnim);
+                gunBaseAnimator.SetFloat("AnimSpeed", 1.0f);
+                gunBaseAnimator.Play("GunChange", 0, 0);
+                AsyncActionUtils.DelayedAction(FishPlayerManager.Instance, 1, () =>
+                {
+                    isSpeed = true;
+                    gunNormalAnimator.gameObject.SetActive(false);
+                    gunSpeedAnimator.gameObject.SetActive(true);
+                    ammunitionAnimator.gameObject.SetActive(true);
+                    AsyncActionUtils.ApplyScaling(FishPlayerManager.Instance, gunSpeedAnimator.transform, Vector3.one * 1.5f, Vector3.one, 0.5f, TweenUtils.VectorTweenLinear);
+                    AsyncActionUtils.ApplyScaling(FishPlayerManager.Instance, ammunitionAnimator.transform, Vector3.one * 1.5f, Vector3.one, 0.5f, TweenUtils.VectorTweenLinear);
+                });
+                AsyncActionUtils.DelayedAction(FishPlayerManager.Instance, 2.4f, SetShowGunPanel);
             }
-            Animator gunFireStorm = trans.Find("Gun_Team/GunFireStorm").GetComponent<Animator>();
-            GunLevelAnimList.Add(gunFireStorm);
+            else
+            {
+                gunBaseAnimator.SetFloat("AnimSpeed", -1.0f);
+                gunBaseAnimator.Play("GunChange",0, 1);
+
+                AsyncActionUtils.DelayedAction(FishPlayerManager.Instance, 1, () =>
+                {
+                    isSpeed = false;
+                    gunNormalAnimator.gameObject.SetActive(true);
+                    gunSpeedAnimator.gameObject.SetActive(false);
+                    ammunitionAnimator.gameObject.SetActive(false);
+                    AsyncActionUtils.ApplyScaling(FishPlayerManager.Instance, gunNormalAnimator.transform, Vector3.one * 1.5f, Vector3.one, 0.5f, TweenUtils.VectorTweenLinear);
+                });
+                AsyncActionUtils.DelayedAction(FishPlayerManager.Instance, 2.4f, SetShowGunPanel);
+            }
         }
 
         public void FindLockFishView(Transform mTF)
@@ -131,7 +181,7 @@ namespace BagelCode
             ReduceBetBtn = mTF.Find("BetPanel/Reduce").GetComponent<Button>();
             FlyScorePos = mTF.Find("PlayerInfoPanel/ScoreImage/ScorePoint");
             FlyCoinPos = mTF.Find("PlayerInfoPanel/ScoreImage/CoinPos");
-            BetScoreLabel = mTF.Find("PlayerInfoPanel/BetImage/Text").GetComponent<Text>();
+            BetScoreLabel = mTF.Find("PlayerInfoPanel/BetText").GetComponent<Text>();
             PlayerMoneyLabel = mTF.Find("PlayerInfoPanel/ScoreImage/Text").GetComponent<Text>();
             PlayerNameLabel = mTF.Find("PlayerInfoPanel/Name").GetComponent<Text>();
         }
@@ -227,46 +277,51 @@ namespace BagelCode
             LockTips.transform.position = targetPos;
         }
 
-        public void PlayGunShotAnim(int index)
+        public void PlayGunShotAnim()
         {
-            string animName = GunAnimPramsList[index];
-            if (!string.IsNullOrEmpty(animName))
+            if (isSpeed)
             {
-                GunLevelAnimList[index].Play(animName, 0, 0);
+                gunSpeedAnimator.Play("GunShoot", 0, 0);
+                ammunitionAnimator.Play("Ammunition", 0, 0);
             }
+            else
+                gunNormalAnimator.Play("GunShoot", 0, 0);
         }
 
-        public void PlayGunShotAnim01(int index, string animName)
+        public void PlayFireStormShootAnim(int index, string animName)
         {
             if (!string.IsNullOrEmpty(animName))
-                GunLevelAnimList[index].Play(animName, 0, 0);
+                fireStormAnimator.Play(animName, 0, 0);
         }
 
-        public void SetShowGunPanel(int index, bool isDisplay)
+        public void SetShowGunPanel()
         {
-            bool show;
-            for (int i = 0; i < GunLevelAnimList.Count; i++)
-            {
-                if (i == index)
-                    show = isDisplay;
-                else
-                    show = !isDisplay;
-                GunLevelAnimList[i].gameObject.SetActive(show);
-            }
+            string animName = isSpeed ? "SpeedGunIdel" : "NormalGunIdel";
+            gunBaseAnimator.Play(animName, 0, 0);
+            gunNormalAnimator.gameObject.SetActive(!isSpeed);
+            gunSpeedAnimator.gameObject.SetActive(isSpeed);
+            ammunitionAnimator.gameObject.SetActive(isSpeed);
         }
 
+        /// <summary>
+        /// 炮升级特效
+        /// </summary>
         public void IsShowGunParticleEffect()
         {
-            GunParticleEffect.SetActive(false);
-            GunParticleEffect.SetActive(true);
+            //GunParticleEffect.SetActive(false);
+            //GunParticleEffect.SetActive(true);
         }
 
         public void HideGunPanel()
         {
-            for (int i = 0; i < GunLevelAnimList.Count; i++)
-            {
-                GunLevelAnimList[i].gameObject.SetActive(false);
-            }
+            gunNormalAnimator.gameObject.SetActive (false);
+            gunSpeedAnimator.gameObject.SetActive(false);
+            fireStormAnimator.gameObject.SetActive(false);
+            ammunitionAnimator.gameObject.SetActive(false);
+            //for (int i = 0; i < GunLevelAnimList.Count; i++)
+            //{
+            //    GunLevelAnimList[i].gameObject.SetActive(false);
+            //}
         }
 
         public void IsShowImHere(bool isDisplay)
@@ -287,3 +342,4 @@ namespace BagelCode
         }
     }
 }
+

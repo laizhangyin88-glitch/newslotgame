@@ -133,10 +133,13 @@ namespace BagelCode
         public void MoveToEndPoint(float delay)
         {
             float duration = EffectVo.DurationTime;
-            _ = duration < 0.3f ? 0.3f : duration;
-            _ = duration > 0.5f ? 0.5f : duration;
-            AsyncActionUtils.DelayedAction(FishGoldEffectManager.Instance, delay, () => {
-                AsyncActionUtils.ApplyMovement(FishGoldEffectManager.Instance, transform, transform.position, endPos, duration, TweenUtils.VectorTweenInSine, 0);
+            duration = duration < 0.8f ? 0.8f : duration;
+            duration = duration > 1.5f ? 1.5f : duration;
+            AsyncActionUtils.DelayedAction(FishGoldEffectManager.Instance, delay, () =>
+            {
+                Vector3 beginPos = transform.TransformPoint(transform.position);
+                Vector2 temp = transform.GetComponent<RectTransform>().anchoredPosition;
+                AsyncActionUtils.ApplyAnchoredMovement(FishGoldEffectManager.Instance, transform, temp, new Vector2(endPos.x, endPos.y), duration, TweenUtils.VectorTweenInSine);
                 AsyncActionUtils.ApplyScaling(FishGoldEffectManager.Instance, transform, transform.localScale, new Vector3(0.6f, 0.6f, 1), duration, TweenUtils.VectorTweenInSine, 0, GoldMoveEnd);
             });
         }

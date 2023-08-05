@@ -1,4 +1,5 @@
 using fishMsg;
+using SlotMaker;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -14,18 +15,12 @@ namespace BagelCode
         string _tag;
         public GameObject gameObject;
         public Transform transform;
-        Vector3 position;
-        Vector3 localPositon;
-        Vector3 eulerAngles;
         Animator animator;
-        Vector3 endPos;
-        Vector3 beginPos;
         public bool isCanSeen;
         FishStatus fishMoveStatus;
         public FishBehaviour fishBehaviour;
         public bool isCanDestroy;
         bool isDie;
-        Timer beHitTimer;
         public FishPlayerInfo playerIns;
         public int chairId;
         Vector3 dieMoveToTargetPos;
@@ -66,13 +61,10 @@ namespace BagelCode
             fishBehaviour = null;
             transform = null;
             gameObject = null;
-            endPos = Vector3.zero;
-            beginPos = Vector3.zero;
             isCanSeen = false;
             fishMoveStatus = FishStatus.Born;
             isCanDestroy = false;
             isDie = false;
-            beHitTimer = null;
             playerIns = null;
             chairId = 0;
             dieMoveToTargetPos = Vector3.zero;
@@ -119,11 +111,6 @@ namespace BagelCode
             transform = obj.transform;
             FishVo = vo;
             gameObject.tag = _tag;
-            endPos = Vector3.zero;
-            beginPos = Vector3.zero;
-            localPositon = gameObject.transform.localPosition;
-            position = gameObject.transform.position;
-            eulerAngles = Vector3.zero;
             gameObject.SetActive(true);
             animator = gameObject.GetComponent<Animator>();
         }
@@ -173,7 +160,6 @@ namespace BagelCode
 
         public void ResetBaseFishStateData(FishVo vo)
         {
-         //   gameObject.SetActive(true);
             UpdateFishVo(vo);
             IsEnableBoxcollider(true);
             IsShowFishLight(false);
@@ -273,9 +259,9 @@ namespace BagelCode
             isCanDestroy = isDestroy;
         }
 
-        public void FishBaseDie()
+        private void FishBaseDie()
         {
-            SetFishMoveStatus(FishStatus.Stop);
+            //SetFishMoveStatus(FishStatus.Stop);
             SetIsDie(true);
         }
 
@@ -286,6 +272,7 @@ namespace BagelCode
             if (coinEffectId != 0 && fishConfigData.coinEffectCount > 0)
             {
                 Vector3 endPos = playerIns.GetFlyCoinPos();
+                endPos = gameObject.transform.parent.InverseTransformPoint(endPos);
                 FishGoldEffectManager.Instance.SetCoinEffectShowMode(transform, playerIns.GetPlayerChairId(), FishVo.UID, coinEffectId,
                     fishConfigData.coinEffectCount, endPos, FishVo.DieEffectConfig.fishDieBehavior);
                 PlayCoinAudio();
@@ -305,6 +292,7 @@ namespace BagelCode
             }
         }
 
+        //文字分数
         public void ShowWinScoreEffect(Vector3 beginPos)
         {
             if (FishVo.DieEffectConfig.winScoreID > 0)
@@ -383,27 +371,28 @@ namespace BagelCode
             float delayTime = 0;
             if (FishVo.DieEffectConfig.fishDieOneShowTime != 0)
                 delayTime = FishVo.DieEffectConfig.fishDieOneShowTime;
+
             switch (FishVo.DieEffectConfig.fishDieBehavior)
             {
                 case 1:
-                    ShowCoinEffect();
-                    ShowWinScoreEffect(gameObject.transform.position);
+                    SetFishMoveStatus(FishStatus.Stop);
+                    ShowWinScoreEffect(gameObject.transform.localPosition);
                     AsyncActionUtils.DelayedAction(fishBehaviour, delayTime, FishDieRotation);
                     break;
                 case 2:
                     FishHitFly();
-                    ShowCoinEffect();
-                    ShowWinScoreEffect(gameObject.transform.position);
+                    ShowWinScoreEffect(gameObject.transform.localPosition);
                     break;
                 case 3:
+                    SetFishMoveStatus(FishStatus.Stop);
                     dieMoveToTargetPos = playerIns.Panel.GetPlayerCatchFishPos();
                     AsyncActionUtils.DelayedAction(fishBehaviour, delayTime, FishCatchToGun);
                     break;
                 case 4:
+                    SetFishMoveStatus(FishStatus.Stop);
                     Vector3 localPos = gameObject.transform.parent.InverseTransformPoint(playerIns.SwrilPanel.position);
                     dieMoveToTargetPos = localPos - new Vector3(UnityEngine.Random.Range(-50, 50), UnityEngine.Random.Range(-50, 50), 0);
-                    ShowCoinEffect();
-                    ShowWinScoreEffect(gameObject.transform.position);
+                    ShowWinScoreEffect(gameObject.transform.localPosition);
                     AsyncActionUtils.DelayedAction(fishBehaviour, delayTime, FishAdsorptionToSwirl);
                     break;
                 default:
@@ -430,8 +419,14 @@ namespace BagelCode
 
         public void FishHitFly()
         {
-            Vector3 targetPos = hitFlyDirection * FishVo.DieEffectConfig.hitFlyDistance + gameObject.transform.localPosition;
-            AsyncActionUtils.ApplyLocalMovement(fishBehaviour, transform, transform.localPosition, targetPos, 0.3f, TweenUtils.VectorTweenOutCubic, 0f, FishDieRotation);
+            //Vector3 targetPos = hitFlyDirection * FishVo.DieEffectConfig.hitFlyDistance + gameObject.transform.localPosition;
+            //AsyncActionUtils.ApplyLocalMovement(fishBehaviour, transform, transform.localPosition, targetPos, 0.3f, TweenUtils.VectorTweenOutCubic, 0f, FishDieRotation);
+            AsyncActionUtils.DelayedAction(FishBombManager.Instance, 0.8f, () =>
+            {
+                SetFishMoveStatus(FishStatus.Stop);
+                ShowCoinEffect();
+                gameObject.transform.localPosition = new Vector3(10000, 10000, 0);
+            });
         }
 
         public void FishDieRotation()
@@ -447,6 +442,7 @@ namespace BagelCode
 
             AsyncActionUtils.ApplyRotation(fishBehaviour, gameObject.transform, gameObject.transform.rotation.eulerAngles, angle, time, TweenUtils.VectorTweenLinear, 0f);
             AsyncActionUtils.ApplyScaling(fishBehaviour, gameObject.transform, gameObject.transform.localScale, new Vector3(0, 0, 0), time, TweenUtils.VectorTweenInCubic, 0f, () => {
+                ShowCoinEffect();
                 gameObject.transform.localPosition = new Vector3(10000, 10000, 0);
             });
         }
@@ -456,11 +452,21 @@ namespace BagelCode
             Vector2 targetPos = dieMoveToTargetPos;
             if (targetPos == null) return;
             float duration = 0.6f;
-            AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, duration, TweenUtils.VectorTweenOutCubic, 0f, () => { });
-            AsyncActionUtils.ApplyRotation(fishBehaviour, gameObject.transform, gameObject.transform.rotation.eulerAngles, new Vector3(0, 0, 180), duration, TweenUtils.VectorTweenLinear, 0f, () =>
+            //AsyncActionUtils.ApplyRotation(fishBehaviour, gameObject.transform, gameObject.transform.rotation.eulerAngles, new Vector3(0, 0, 180), duration, TweenUtils.VectorTweenLinear, 0f, () =>
+            //{
+
+            //});
+            AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, duration, TweenUtils.VectorTweenOutCubic, 0, () =>
             {
                 ShowWinScoreEffect(gameObject.GetComponent<RectTransform>().anchoredPosition);
-                AsyncActionUtils.DelayedAction(fishBehaviour, FishVo.DieEffectConfig.fishDieTwoShowTime, FishDieRotation);
+                float temp = FishVo.DieEffectConfig.fishDieTwoShowTime == 2.5f ? temp = 540 : 900;
+                Vector3 angle = new Vector3(0, 0, temp);
+                AsyncActionUtils.ApplyRotation(fishBehaviour, gameObject.transform, gameObject.transform.rotation.eulerAngles, angle, FishVo.DieEffectConfig.fishDieTwoShowTime, TweenUtils.VectorTweenLinear, 0f);
+                AsyncActionUtils.DelayedAction(fishBehaviour, FishVo.DieEffectConfig.fishDieTwoShowTime, () =>
+                {
+                    gameObject.transform.rotation = Quaternion.Euler(0, 0, 180);
+                    FishDieRotation();
+                });
             });
         }
 

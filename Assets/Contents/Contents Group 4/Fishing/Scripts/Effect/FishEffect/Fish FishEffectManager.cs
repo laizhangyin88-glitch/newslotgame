@@ -151,7 +151,6 @@ namespace BagelCode
                 List<int> removeKeyCatch = new List<int>();
                 foreach (var item in CurrentUseEffectInsList)
                 {
-                    item.Value.Update();
                     if (item.Value.isCanDestroy)
                     {
                         item.Value.Destroy();
@@ -171,7 +170,14 @@ namespace BagelCode
         }
 
         public void Update()
-        {       
+        {
+            //临时这么弄
+            List<int> tempKeyList = new List<int>();
+            foreach (var item in CurrentUseEffectInsList.Keys)
+                tempKeyList.Add(item);
+            for (int i = 0; i < tempKeyList.Count; i++)
+                CurrentUseEffectInsList[tempKeyList[i]].Update();
+            
             UpdateRemoveFishEffect();
         }
     }
