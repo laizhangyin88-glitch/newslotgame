@@ -71,10 +71,6 @@ namespace BagelCode
 
         public FishFishBase GetFish(FishVo vo, bool isAddCurrentUseFishList)
         {
-            if (vo.FishId == 4 && AllUsedFishInsList.ContainsKey(4))
-            {
-                Debug.LogError("Get => " + AllUsedFishInsList[4].Count);
-            }
             if (AllUsedFishInsList != null && AllUsedFishInsList.Count > 0
                 && AllUsedFishInsList.ContainsKey(vo.FishId) && AllUsedFishInsList[vo.FishId] != null && AllUsedFishInsList[vo.FishId].Count > 0)
             {
@@ -399,8 +395,8 @@ namespace BagelCode
                     FishFishBase hitFish = GetUsingFishByFishUID(hitFishMsg.mainFishUID);
                     if (hitFish != null)
                         return hitFish;
-                    else
-                        Debug.LogError("获取本地KillFish为null-KillFish的UID==> " + hitFishMsg.mainFishUID);
+                    //else
+                    //    Debug.LogError("获取本地KillFish为null-KillFish的UID==> " + hitFishMsg.mainFishUID);
                 }
                 else
                     Debug.LogError("ResponesPlayerHitFishMsg获取玩家为null");

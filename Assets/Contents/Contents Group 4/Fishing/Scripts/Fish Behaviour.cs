@@ -39,17 +39,15 @@ namespace BagelCode
 
         private ObjType m_objType = ObjType.None;
 
-        [HideInInspector][System.NonSerialized] public FishStatus curFishStatus = FishStatus.Born;
+        [HideInInspector][NonSerialized] public FishStatus curFishStatus = FishStatus.Born;
 
         private Vector3 m_orientation;
 
-        [HideInInspector][System.NonSerialized] public Vector3 m_direction;
+        [HideInInspector][NonSerialized] public Vector3 m_direction;
 
         private float m_delayBornTime = 0.0f;
 
         private float m_moveSpeed;
-
-        private float m_rotationSpeed;
 
         private bool m_isFishSeen;
 

@@ -186,7 +186,7 @@ namespace BagelCode
 
         public void SetPlayerChairID(int index, int chairId)
         {
-            GetPlayerInsBySeatId(index).SetPlayerChairID(chairId);
+            GetPlayerInsBySeatId(index).SetPlayerChairId(chairId);
         }
 
         public void PlayerEnter(UserInfo playerInfo)
@@ -232,7 +232,7 @@ namespace BagelCode
                 playerIns.ResetLockTargetFishState(msg.onOff);
                 if (msg.chairId == gameData.playerChairId)
                 {
-                    //todo gameSet
+                    FishGameManager.Instance.lockBtnEffect.gameObject.SetActive(msg.onOff);
                 }
             }
         }

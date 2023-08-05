@@ -77,12 +77,15 @@ namespace BagelCode
             if (isPlayingAnim)
             {
                 currentTime += Time.deltaTime;
+                //连环炸弹 2023.8.5 临时处理
+                if (currentTime >= delayTime - 0.5f)
+                    EndCallBack();
                 if (currentTime >= totalTime)
                 {
                     currentTime = 0;
                     isPlayingAnim = false;
-                    EndCallBack();
                     isCanDestroy = true;
+
                 }
             }
         }

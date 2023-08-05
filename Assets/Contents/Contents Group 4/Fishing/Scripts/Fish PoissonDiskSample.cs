@@ -13,7 +13,7 @@ namespace BagelCode
             Vector3 tempPos;
             for (int i = 0; i < vectorList.Count; ++i)
             {
-                tempPos = trans.position + vectorList[i] + new Vector3(0, yOffset, 0) - (new Vector3(width * 0.5f, height * 0.5f, 0));
+                tempPos = trans.localPosition + vectorList[i] + new Vector3(0, yOffset, 0) - (new Vector3(width * 0.5f, height * 0.5f, 0));
                 bornPosList.Add(tempPos);
             }
             return bornPosList;

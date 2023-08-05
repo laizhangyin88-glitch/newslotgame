@@ -169,7 +169,6 @@ namespace BagelCode
             float lifeTime = 1.5f;
             string effectAudio = null;
             FishFishEffectManager.Instance.ShowFishEffect(beginPos, type, name, delayTime, lifeTime, effectAudio,() => {
-                //Debug.LogError("Dispatch multbomb => " + SkillVo.killFishUID);
                 MessageDispatcher.Dispatch("FishBombEnd", new EventData<int>("MainFishUID", SkillVo.killFishUID));
             });
         }

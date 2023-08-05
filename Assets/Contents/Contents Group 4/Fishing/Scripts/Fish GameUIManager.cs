@@ -135,7 +135,7 @@ namespace BagelCode
 
         public void SetGameBG(int index, RawImage bgImage, bool isFadeAnimation)
         {
-            Debug.LogError("SetGameBG index => " + index);
+            isFadeAnimation = true;
             if (!AllGameBG.ContainsKey(index) || AllGameBG[index] == null)
             {
                 Action<FishResourceBase, float> LoadBGCallBack;
@@ -163,7 +163,7 @@ namespace BagelCode
 
         public void SceneFishOutTips(int tipsType, int fishId)
         {
-            //tipsType == LuaProtoBufManager.Enum("Fish_Msg.ePromptInfoType","eInfoType_YuChao_Come")
+
             if (tipsType == 0)
             {
                 string tipsResource = "YuChao_Coming";
@@ -267,7 +267,7 @@ namespace BagelCode
             FishAudioManager.Instance.PlayNormalAudio(68);
             tideGroupRectTrans.gameObject.SetActive(true);
             AsyncActionUtils.DelayedAction(this, 1, () => { tideGroupRectTrans.gameObject.SetActive(true); });
-            AsyncActionUtils.DelayedAction(this, 2, () => { SetGameBG(sceneId, GameBG, true); });
+            AsyncActionUtils.DelayedAction(this, 2, () => { FishTideOver(sceneId); });
            
         }
 

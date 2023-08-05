@@ -14,9 +14,14 @@ namespace BagelCode
         private bool isResourceLoadComplete;
 
         PIDButton returnBtn;
+
         PIDButton autoBtn;
+
         PIDButton lockBtn;
+        public Transform lockBtnEffect;
+
         PIDButton speedBtn;
+        public Transform speedBtnEffect;
 
         public Camera UICamera;
         public Canvas fishCanvas;
@@ -95,9 +100,11 @@ namespace BagelCode
 
             lockBtn = contentGameObject.transform.Find("GamePanel/UIPanel/Button Lock").GetComponent<PIDButton>();
             lockBtn.onClick.AddListener(OnClickClockBtn);
+            lockBtnEffect = lockBtn.transform.Find("Effect");
 
             speedBtn = contentGameObject.transform.Find("GamePanel/UIPanel/Button Speed").GetComponent<PIDButton>();
             speedBtn.onClick.AddListener(OnClickSpeedBtn);
+            speedBtnEffect = speedBtn.transform.Find("Effect");
 
             UICamera = contentGameObject.transform.Find("Cameras/Camera_UI").GetComponent<Camera>();
             fishCanvas = contentGameObject.transform.Find("FishPanel").GetComponent<Canvas>();
@@ -413,6 +420,7 @@ namespace BagelCode
             var playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(gameData.playerChairId);
             playerIns.SetAutoSendShootBullet(isAutoShoot);
             playerIns.UploadAutoShootBullet(isAutoShoot);
+            autoBtn.transform.Find("Effect").gameObject.SetActive(isAutoShoot);
         }
 
         public void OnClickClockBtn()
@@ -431,6 +439,7 @@ namespace BagelCode
             var playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(gameData.playerChairId);
             int level = playerIns.SetShootBulletRateLevel();
             playerIns.UploadShootBulletRateLevel(level);
+            
             //todo UI显示
         }
 

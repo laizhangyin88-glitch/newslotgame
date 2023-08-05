@@ -33,7 +33,6 @@ namespace BagelCode
 
         public void ConnetServer()
         {
-            Debug.LogError("正在连接 ==> " + host);
             socket = new WebSocket(host);
             InitHandle();
             socket.ConnectAsync();
@@ -64,7 +63,6 @@ namespace BagelCode
 
         public void OnConnectedServer(object sender, OpenEventArgs e)
         {
-            Debug.LogError("webSocket连接成功  ====> ");
             FirstHeartBeat();
             HeartCheck();
             EventData eventData = new EventData("ConnectedFishServer");
@@ -107,8 +105,6 @@ namespace BagelCode
                 }
 
             }
-            else if (e.IsText)
-                Debug.LogError("接到text ==> " + e.Data);
         }
 
         IEnumerator ReceiveEnterFishGameRsp(string msgName, byte[] rpcBody)
@@ -119,14 +115,12 @@ namespace BagelCode
 
         private void OnClosed(object sender, CloseEventArgs e)
         {
-            Debug.LogError("Closed: StatusCode: " + e.StatusCode + " , Reason: " + e.Reason);
             socket = null;
             //Reconnect();
         }
 
         private void OnConnectError(object sender, ErrorEventArgs e)
         {
-            Debug.LogError("webSocket连接出错  ====> " + e.Message);
             socket = null;
             //Reconnect();
         }
