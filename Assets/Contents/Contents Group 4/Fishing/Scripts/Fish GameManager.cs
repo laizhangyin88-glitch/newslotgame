@@ -322,8 +322,8 @@ namespace BagelCode
 
         public void ResponesSceneFishOutTipsMsg(byte[] bytes)
         {
-            PromptInfoRsp data = WebSocketTool.Deserialize<PromptInfoRsp>(bytes);
-            FishGameUIManager.Instance.SceneFishOutTips((int)data.infoType, (int)data.fishKindId);
+            //PromptInfoRsp data = WebSocketTool.Deserialize<PromptInfoRsp>(bytes);
+            //FishGameUIManager.Instance.SceneFishOutTips((int)data.infoType, (int)data.fishKindId);
         }
 
         public void ClearGameResources()

@@ -329,7 +329,8 @@ namespace BagelCode
         public void SetShowGun(string index)
         {
             currentUseRealGunLevel = int.Parse(index) - 1;
-            Panel.SetShowGunPanel();
+            //currentUseRealGunLevel == 3 是火焰风暴
+            Panel.SetShowGunPanel(currentUseRealGunLevel == 3);
         }
 
         public int GetGunLevel()

@@ -145,7 +145,7 @@ namespace BagelCode
                     AsyncActionUtils.ApplyScaling(FishPlayerManager.Instance, gunSpeedAnimator.transform, Vector3.one * 1.5f, Vector3.one, 0.5f, TweenUtils.VectorTweenLinear);
                     AsyncActionUtils.ApplyScaling(FishPlayerManager.Instance, ammunitionAnimator.transform, Vector3.one * 1.5f, Vector3.one, 0.5f, TweenUtils.VectorTweenLinear);
                 });
-                AsyncActionUtils.DelayedAction(FishPlayerManager.Instance, 2.4f, SetShowGunPanel);
+                AsyncActionUtils.DelayedAction(FishPlayerManager.Instance, 2.4f, () => { SetShowGunPanel(); });
             }
             else
             {
@@ -160,7 +160,7 @@ namespace BagelCode
                     ammunitionAnimator.gameObject.SetActive(false);
                     AsyncActionUtils.ApplyScaling(FishPlayerManager.Instance, gunNormalAnimator.transform, Vector3.one * 1.5f, Vector3.one, 0.5f, TweenUtils.VectorTweenLinear);
                 });
-                AsyncActionUtils.DelayedAction(FishPlayerManager.Instance, 2.4f, SetShowGunPanel);
+                AsyncActionUtils.DelayedAction(FishPlayerManager.Instance, 2.4f, () => { SetShowGunPanel(); });
             }
         }
 
@@ -294,13 +294,24 @@ namespace BagelCode
                 fireStormAnimator.Play(animName, 0, 0);
         }
 
-        public void SetShowGunPanel()
+        public void SetShowGunPanel(bool isFireStrom = false)
         {
-            string animName = isSpeed ? "SpeedGunIdel" : "NormalGunIdel";
-            gunBaseAnimator.Play(animName, 0, 0);
-            gunNormalAnimator.gameObject.SetActive(!isSpeed);
-            gunSpeedAnimator.gameObject.SetActive(isSpeed);
-            ammunitionAnimator.gameObject.SetActive(isSpeed);
+            if (isFireStrom)
+            {
+                gunNormalAnimator.gameObject.SetActive(false);
+                gunSpeedAnimator.gameObject.SetActive(false);
+                ammunitionAnimator.gameObject.SetActive(false);
+                fireStormAnimator.gameObject.SetActive(isFireStrom);
+            }
+            else
+            {
+                string animName = isSpeed ? "SpeedGunIdel" : "NormalGunIdel";
+                gunBaseAnimator.Play(animName, 0, 0);
+                gunNormalAnimator.gameObject.SetActive(!isSpeed);
+                gunSpeedAnimator.gameObject.SetActive(isSpeed);
+                ammunitionAnimator.gameObject.SetActive(isSpeed);
+                fireStormAnimator.gameObject.SetActive(isFireStrom);
+            }
         }
 
         /// <summary>
