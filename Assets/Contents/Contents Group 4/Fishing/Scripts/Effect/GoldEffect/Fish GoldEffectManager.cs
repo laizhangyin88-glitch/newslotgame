@@ -76,7 +76,7 @@ namespace BagelCode
                     beginPos = bornPosList[i];
                 beginPos = fishIns.parent.TransformPoint(beginPos);
                 ShowGoldEffect(goldEffectID, fishUID, chairID, beginPos, endPos, delayTime, durationTime, behaviourType);
-                delayTime += UnityEngine.Random.Range(0.1f, 0.15f);
+                delayTime += UnityEngine.Random.Range(0.02f, 0.04f);
             }
         }
 
@@ -184,7 +184,7 @@ namespace BagelCode
                         JumpGoldMap[fishUID][index + i].MoveToEndPoint(delay);
                     index += rand;
                 }
-                delay += 0.1f;
+                delay += 0.04f;
             }
             JumpGoldMap[fishUID].Clear();
         }
