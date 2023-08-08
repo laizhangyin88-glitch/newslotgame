@@ -9,7 +9,6 @@ namespace BagelCode
     {
         GameObject gameObject;
         Transform transform;
-        FishGameUIManager gameUIManager;
         FishGoldEffectManager goldEffectManager;
         Animator Anim;
         GameObject GoldImageObj;
@@ -18,12 +17,9 @@ namespace BagelCode
         string MyAnimName;
         string OtherAnimName;
         public bool isCanDestroy;
-        bool isPlayingAnim;
         Vector3 endPos;
         float jumpHeight;
         float yValue;
-        float speed;
-        float initScale;
 
         public FishSingleGoldEffect(GameObject gameObj)
         {
@@ -35,17 +31,14 @@ namespace BagelCode
 
         private void InitData()
         {
-            gameUIManager = FishGameUIManager.Instance;
             goldEffectManager = FishGoldEffectManager.Instance;
             MyAnimName = "Gold01";
             OtherAnimName = "Gold02";
 
             isCanDestroy = false;
             endPos = Vector3.zero;
-            jumpHeight = 200;
+            jumpHeight = 100;
             yValue = 0;
-            speed = 1000;
-            initScale = 0.8f;
         }
 
         private void InitView()
@@ -71,7 +64,6 @@ namespace BagelCode
         {
             EffectVo = vo;
             isCanDestroy = false;
-            isPlayingAnim = false;
         }
 
         public void ResetState(Vector3 beginPos, Vector3 endPos, float delayTime, Action callBack)
@@ -109,19 +101,25 @@ namespace BagelCode
 
         public void TwoStepJump()
         {
+            //float y2 = jumpHeight * 0.4f + yValue;
+            //Vector3 targetPos = new Vector3(transform.localPosition.x, y2, transform.localPosition.z);
+            //AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.1f, TweenUtils.VectorTweenOutCubic, 0, () => {
+            //    targetPos = new Vector3(transform.localPosition.x, yValue, transform.localPosition.z);
+            //    AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.1f, TweenUtils.VectorTweenInCubic, 0, () =>
+            //    {
+            //        targetPos = new Vector3(transform.localPosition.x, y2, transform.localPosition.z);
+            //        AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.07f, TweenUtils.VectorTweenOutCubic, 0, () =>
+            //        {
+            //            targetPos = new Vector3(transform.localPosition.x, yValue, transform.localPosition.z);
+            //            AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.07f, TweenUtils.VectorTweenOutCubic, 0, CenterToJumpOver);
+            //        });
+            //    });
+            //});
             float y2 = jumpHeight * 0.4f + yValue;
             Vector3 targetPos = new Vector3(transform.localPosition.x, y2, transform.localPosition.z);
             AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.1f, TweenUtils.VectorTweenOutCubic, 0, () => {
                 targetPos = new Vector3(transform.localPosition.x, yValue, transform.localPosition.z);
-                AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.1f, TweenUtils.VectorTweenInCubic, 0, () =>
-                {
-                    targetPos = new Vector3(transform.localPosition.x, y2, transform.localPosition.z);
-                    AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.07f, TweenUtils.VectorTweenOutCubic, 0, () =>
-                    {
-                        targetPos = new Vector3(transform.localPosition.x, yValue, transform.localPosition.z);
-                        AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.07f, TweenUtils.VectorTweenOutCubic, 0, CenterToJumpOver);
-                    });
-                });
+                AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.1f, TweenUtils.VectorTweenInCubic, 0, CenterToJumpOver);
             });
         }
 
@@ -158,10 +156,9 @@ namespace BagelCode
 
         public void Destroy()
         {
-            isPlayingAnim = false;
             isCanDestroy = false;
             callBack = null;
-            //gameObject.transform.localPosition = new Vector3(10000, 10000, 0);
+            gameObject.transform.localPosition = new Vector3(10000, 10000, 0);
         }
     }
 }
