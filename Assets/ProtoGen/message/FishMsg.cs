@@ -3006,6 +3006,198 @@ namespace fishMsg
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"CreateGhostShipRsp")]
+  public partial class CreateGhostShipRsp : global::ProtoBuf.IExtensible
+  {
+    public CreateGhostShipRsp() {}
+    
+    private int _usChairId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"usChairId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usChairId
+    {
+      get { return _usChairId; }
+      set { _usChairId = value; }
+    }
+    private int _usGhostShipId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"usGhostShipId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usGhostShipId
+    {
+      get { return _usGhostShipId; }
+      set { _usGhostShipId = value; }
+    }
+    private int _usKilledFishId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"usKilledFishId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usKilledFishId
+    {
+      get { return _usKilledFishId; }
+      set { _usKilledFishId = value; }
+    }
+    private int _usRunDirection = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"usRunDirection", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usRunDirection
+    {
+      get { return _usRunDirection; }
+      set { _usRunDirection = value; }
+    }
+    private int _usStatus = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"usStatus", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usStatus
+    {
+      get { return _usStatus; }
+      set { _usStatus = value; }
+    }
+    private int _usStatusTime = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"usStatusTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usStatusTime
+    {
+      get { return _usStatusTime; }
+      set { _usStatusTime = value; }
+    }
+    private int _usTotalScore = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"usTotalScore", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usTotalScore
+    {
+      get { return _usTotalScore; }
+      set { _usTotalScore = value; }
+    }
+    private int _usTotalMul = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"usTotalMul", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usTotalMul
+    {
+      get { return _usTotalMul; }
+      set { _usTotalMul = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"DestoryGhostShipRsp")]
+  public partial class DestoryGhostShipRsp : global::ProtoBuf.IExtensible
+  {
+    public DestoryGhostShipRsp() {}
+    
+    private int _usChairId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"usChairId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usChairId
+    {
+      get { return _usChairId; }
+      set { _usChairId = value; }
+    }
+    private int _usGhostShipId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"usGhostShipId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usGhostShipId
+    {
+      get { return _usGhostShipId; }
+      set { _usGhostShipId = value; }
+    }
+    private int _usTotalScore = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"usTotalScore", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usTotalScore
+    {
+      get { return _usTotalScore; }
+      set { _usTotalScore = value; }
+    }
+    private int _usTotalMul = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"usTotalMul", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usTotalMul
+    {
+      get { return _usTotalMul; }
+      set { _usTotalMul = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GhostShipStatusRsp")]
+  public partial class GhostShipStatusRsp : global::ProtoBuf.IExtensible
+  {
+    public GhostShipStatusRsp() {}
+    
+    private int _usChairId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"usChairId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usChairId
+    {
+      get { return _usChairId; }
+      set { _usChairId = value; }
+    }
+    private int _usGhostShipId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"usGhostShipId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usGhostShipId
+    {
+      get { return _usGhostShipId; }
+      set { _usGhostShipId = value; }
+    }
+    private int _usStatus = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"usStatus", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usStatus
+    {
+      get { return _usStatus; }
+      set { _usStatus = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GhostShipScoreRsp")]
+  public partial class GhostShipScoreRsp : global::ProtoBuf.IExtensible
+  {
+    public GhostShipScoreRsp() {}
+    
+    private int _usChairId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"usChairId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usChairId
+    {
+      get { return _usChairId; }
+      set { _usChairId = value; }
+    }
+    private int _usGhostShipId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"usGhostShipId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usGhostShipId
+    {
+      get { return _usGhostShipId; }
+      set { _usGhostShipId = value; }
+    }
+    private int _usTotalScore = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"usTotalScore", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usTotalScore
+    {
+      get { return _usTotalScore; }
+      set { _usTotalScore = value; }
+    }
+    private int _usTotalMul = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"usTotalMul", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usTotalMul
+    {
+      get { return _usTotalMul; }
+      set { _usTotalMul = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
     [global::ProtoBuf.ProtoContract(Name=@"Proto_Fish_CMD")]
     public enum Proto_Fish_CMD
     {
@@ -3174,6 +3366,18 @@ namespace fishMsg
             
       [global::ProtoBuf.ProtoEnum(Name=@"NF_FISH_CMD_MADCOWSCORE_RSP", Value=10086)]
       NF_FISH_CMD_MADCOWSCORE_RSP = 10086,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NF_FISH_CMD_CREATEGHOSTSHIP_RSP", Value=10095)]
+      NF_FISH_CMD_CREATEGHOSTSHIP_RSP = 10095,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NF_FISH_CMD_DISTORYGHOSTSHIP_RSP", Value=10096)]
+      NF_FISH_CMD_DISTORYGHOSTSHIP_RSP = 10096,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NF_FISH_CMD_GHOSTSHIPSTATUS_RSP", Value=10097)]
+      NF_FISH_CMD_GHOSTSHIPSTATUS_RSP = 10097,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NF_FISH_CMD_GHOSTSHIPSCORE_RSP", Value=10098)]
+      NF_FISH_CMD_GHOSTSHIPSCORE_RSP = 10098,
             
       [global::ProtoBuf.ProtoEnum(Name=@"NF_FISH_CMD_CREATEDELAYBOMB_RSP", Value=10106)]
       NF_FISH_CMD_CREATEDELAYBOMB_RSP = 10106,

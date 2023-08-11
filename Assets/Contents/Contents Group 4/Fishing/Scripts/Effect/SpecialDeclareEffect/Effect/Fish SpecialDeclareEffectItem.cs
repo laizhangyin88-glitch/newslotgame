@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +15,6 @@ namespace BagelCode
     public class FishSpecialDeclareEffectItem
     {
         private GameObject gameObject;
-        private FishGameData gameData;
         private string[][] myAnimParms;
         private string[][] otherAnimParms;
         private ScoreStep targetChangeScoreStep;
@@ -33,7 +30,6 @@ namespace BagelCode
         private float currentTime;
         private bool isChangeScore;
         private Vector3 targetPos;
-        private Vector3 beginPos;
         private Animator animator;
         private Text scoreText;
         public EffectVo effectVo;
@@ -49,7 +45,6 @@ namespace BagelCode
 
         private void InitData()
         {
-            gameData = FishGameUIManager.Instance.gameData;
             myAnimParms = new string[][]
             {
                 new string[]{"My_OneStep_01","My_ToStep_01","My_ThreeStep_01","My_FourStep_01","My_FiveStep_01" },
@@ -65,7 +60,6 @@ namespace BagelCode
 
             changeScoreTotalTime = 1;
             targetPos = Vector3.zero;
-            beginPos = Vector3.zero;
         }
 
         private void InitView()

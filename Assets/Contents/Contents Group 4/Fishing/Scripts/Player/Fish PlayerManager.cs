@@ -233,6 +233,7 @@ namespace BagelCode
                 if (msg.chairId == gameData.playerChairId)
                 {
                     FishGameManager.Instance.lockBtnEffect.gameObject.SetActive(msg.onOff);
+                    FishGameManager.Instance.isLock = msg.onOff;
                 }
             }
         }

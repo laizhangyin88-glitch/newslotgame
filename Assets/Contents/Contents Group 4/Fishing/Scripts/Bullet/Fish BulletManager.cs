@@ -286,7 +286,11 @@ namespace BagelCode
 
         public void ResponesBulletSpeedNetMsg(byte[] bytes)
         {
-            WebSocketTool.Deserialize<BulletSpeedReq>(bytes);
+            BulletSpeedRsp msg = WebSocketTool.Deserialize<BulletSpeedRsp>(bytes);
+            if (msg.usErrorCode != 0 || msg.usChairId == gameData.playerChairId)
+                return;
+            var playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(msg.usChairId);
+            playerIns.SetShootBulletRateLevel(msg.usIntervalIndex);
         }
 
         protected override void OnDestroy()

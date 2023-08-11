@@ -27,7 +27,7 @@ namespace BagelCode
         public Canvas fishCanvas;
         private int gameId;
         private bool isAutoShoot;
-        private bool isLock;
+        public bool isLock;
         private bool isSpeed;
         private bool isInGame;
 
@@ -214,6 +214,7 @@ namespace BagelCode
             FishFireStormSkillManager.Instance.ClearAllFireStormSkill();
             FishDrillSkillManager.Instance.ClearAllDrillSkill();
             FishBisonSkillManager.Instance.ClearAllBisonSkill();
+            FishGhostShipSkillManager.Instance.ClearAllGhostShipSkill();
             FishBombSkillManager.Instance.ClearAllBombSkill();
             FishMultBombSkillManager.Instance.ClearAllMultBombSkill();
             FishThunderHammerSkillManager.Instance.ClearAllSkill();
@@ -222,7 +223,6 @@ namespace BagelCode
 
         public void EnterGame(byte[] bytes)
         {
-            //todo
             hall.EnterGameRsp data = WebSocketTool.Deserialize<hall.EnterGameRsp>(bytes);
             SetBaseDeskInfoState(data);
         }
@@ -241,7 +241,6 @@ namespace BagelCode
 
         public void ResponesStateSyncMsg(byte[] bytes)
         {
-            //todo
             GameStatusRsp gameStatusRsp = WebSocketTool.Deserialize<GameStatusRsp>(bytes);
             SyncDeskInfoState(gameStatusRsp);
         }
@@ -397,6 +396,7 @@ namespace BagelCode
             Destroy(FishFireStormSkillManager.Instance.gameObject);
             Destroy(FishDrillSkillManager.Instance.gameObject);
             Destroy(FishBisonSkillManager.Instance.gameObject);
+            Destroy(FishGhostShipSkillManager.Instance.gameObject);
             Destroy(FishBombManager.Instance.gameObject);
             Destroy(FishBombSkillManager.Instance.gameObject);
             Destroy(FishAudioManager.Instance.gameObject);
@@ -415,7 +415,6 @@ namespace BagelCode
 
         public void OnClickAutoBtn()
         {
-            //todo Audio
             isAutoShoot = !isAutoShoot;
             var playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(gameData.playerChairId);
             playerIns.SetAutoSendShootBullet(isAutoShoot);
@@ -425,7 +424,6 @@ namespace BagelCode
 
         public void OnClickClockBtn()
         {
-            //todo audio
             isLock = !isLock;
             var playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(gameData.playerChairId);
             playerIns.UploadAutoLockFish(isLock);
@@ -433,14 +431,14 @@ namespace BagelCode
 
         public void OnClickSpeedBtn()
         {
-            //todo audio
             if (!isSpeed)
                 isSpeed = true;
             var playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(gameData.playerChairId);
             int level = playerIns.SetShootBulletRateLevel();
+            speedBtnEffect.gameObject.SetActive(level > 0);
+            for (int i = 1; i < 3; i++)
+               speedBtnEffect.Find("speedText" + i).gameObject.SetActive(i == level);
             playerIns.UploadShootBulletRateLevel(level);
-            
-            //todo UI显示
         }
 
         public void DisConnectFishServer()

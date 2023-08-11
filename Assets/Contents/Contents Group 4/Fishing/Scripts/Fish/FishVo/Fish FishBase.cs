@@ -342,7 +342,7 @@ namespace BagelCode
             }
         }
 
-        public void FishNormalDie(FishPlayerInfo playerIns, KillFishRsp hitFishMsg, bool isShowSpecialDeclare = false)
+        public void FishNormalDie(FishPlayerInfo playerIns, KillFishRsp hitFishMsg)
         {
             this.playerIns = playerIns;
             this.hitFishMsg = hitFishMsg;
@@ -358,15 +358,9 @@ namespace BagelCode
             }
             PlayDieAnim(isLoop);
 
-            SetMainFishOrder(FishVo.FishConfig.fishDieLayer);
+            SetMainFishOrder(FishVo.FishConfig.fishDieLayer + UnityEngine.Random.Range(0, 10));
             if (FishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
                 FishAudioManager.Instance.PlayNormalAudio(64);
-
-            if (isShowSpecialDeclare)
-            {
-                //todo audio
-                ShowSpecialDeclareEffect(playerIns, hitFishMsg);
-            }
             AsyncActionUtils.DelayedAction(fishBehaviour, FishVo.FishConfig.fishDieTime, () => SetDestroy(true));
             float delayTime = 0;
             if (FishVo.DieEffectConfig.fishDieOneShowTime != 0)
@@ -395,32 +389,35 @@ namespace BagelCode
                     ShowWinScoreEffect(gameObject.transform.localPosition);
                     AsyncActionUtils.DelayedAction(fishBehaviour, delayTime, FishAdsorptionToSwirl);
                     break;
+                case 5:
+                    SetFishMoveStatus(FishStatus.Stop);
+                    dieMoveToTargetPos = playerIns.Panel.GetPlayerCatchFishPos();
+                    AsyncActionUtils.DelayedAction(fishBehaviour, delayTime, FishShake);
+                    break;
                 default:
                     break;
             }
         }
 
-        public void ShowSpecialDeclareEffect(FishPlayerInfo playerIns, KillFishRsp hitFishMsg)
+        public void ShowBossDeclareEffect()
         {
             int parentFishId = hitFishMsg.bombUID;
             int score = hitFishMsg.totalScore;
             int multiple = hitFishMsg.totalRatio;
 
-            if (parentFishId == 0)
+            Vector3 beginPos = gameObject.transform.localPosition;
+            FishSpecialDeclareConfig specialDeclareConfig = FishSpecialDeclareEffectManager.Instance.GetSpecialDeclareEffectConfig(FishVo.DieEffectConfig.specialDeclareID);
+            int specialDeclareUID = FishSpecialDeclareEffectManager.Instance.SetSpecialDeclareEffectShowMode(playerIns.GetPlayerChairId(), beginPos, specialDeclareConfig, true);
+            AsyncActionUtils.DelayedAction(FishBombManager.Instance, specialDeclareConfig.delayTime, () =>
             {
-                FishSpecialDeclareConfig specialDeclareConfig = FishSpecialDeclareEffectManager.Instance.GetSpecialDeclareEffectConfig(FishVo.DieEffectConfig.specialDeclareID);
-                int specialDeclareUID = FishSpecialDeclareEffectManager.Instance.SetSpecialDeclareEffectShowMode(playerIns.GetPlayerChairId(), playerIns.specialDeclarePanel.position, specialDeclareConfig);
-                AsyncActionUtils.DelayedAction(FishBombManager.Instance, specialDeclareConfig.delayTime, () =>
-                {
-                    FishSpecialDeclareEffectManager.Instance.BeginSpecialDeclareEffectChangeScore(specialDeclareUID, score, multiple);
-                });
-            }
+                FishSpecialDeclareEffectManager.Instance.BeginBossDeclare(specialDeclareUID, score, multiple);
+            });
+
+
         }
 
         public void FishHitFly()
         {
-            //Vector3 targetPos = hitFlyDirection * FishVo.DieEffectConfig.hitFlyDistance + gameObject.transform.localPosition;
-            //AsyncActionUtils.ApplyLocalMovement(fishBehaviour, transform, transform.localPosition, targetPos, 0.3f, TweenUtils.VectorTweenOutCubic, 0f, FishDieRotation);
             AsyncActionUtils.DelayedAction(FishBombManager.Instance, 0.8f, () =>
             {
                 SetFishMoveStatus(FishStatus.Stop);
@@ -452,10 +449,6 @@ namespace BagelCode
             Vector2 targetPos = dieMoveToTargetPos;
             if (targetPos == null) return;
             float duration = 0.6f;
-            //AsyncActionUtils.ApplyRotation(fishBehaviour, gameObject.transform, gameObject.transform.rotation.eulerAngles, new Vector3(0, 0, 180), duration, TweenUtils.VectorTweenLinear, 0f, () =>
-            //{
-
-            //});
             AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, duration, TweenUtils.VectorTweenOutCubic, 0, () =>
             {
                 ShowWinScoreEffect(gameObject.GetComponent<RectTransform>().anchoredPosition);
@@ -468,6 +461,44 @@ namespace BagelCode
                     FishDieRotation();
                 });
             });
+        }
+
+        public void FishShake()
+        {
+            float originalY = transform.GetComponent<RectTransform>().anchoredPosition.y;
+            float ranY = UnityEngine.Random.Range(10, 21);
+            Vector2 targetPos = new Vector2(transform.GetComponent<RectTransform>().anchoredPosition.x, originalY + ranY);
+            AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.1f, TweenUtils.VectorTweenLinear, 0, () =>
+            {
+                ranY = UnityEngine.Random.Range(10, 21) * -1;
+                AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.1f, TweenUtils.VectorTweenLinear, 0, () =>
+                {
+                    ranY = UnityEngine.Random.Range(10, 21) * -1;
+                    targetPos = new Vector2(transform.GetComponent<RectTransform>().anchoredPosition.x, originalY + ranY);
+                    AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.1f, TweenUtils.VectorTweenLinear, 0, () =>
+                    {
+                        ranY = UnityEngine.Random.Range(10, 21) * -1;
+                        targetPos = new Vector2(transform.GetComponent<RectTransform>().anchoredPosition.x, originalY + ranY);
+                        AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.1f, TweenUtils.VectorTweenLinear, 0, () =>
+                        {
+                            ranY = UnityEngine.Random.Range(10, 21) * -1;
+                            targetPos = new Vector2(transform.GetComponent<RectTransform>().anchoredPosition.x, originalY + ranY);
+                            AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.1f, TweenUtils.VectorTweenLinear, 0, () =>
+                            {
+                                ranY = UnityEngine.Random.Range(10, 21) * -1;
+                                targetPos = new Vector2(transform.GetComponent<RectTransform>().anchoredPosition.x, originalY + ranY);
+                                AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.1f, TweenUtils.VectorTweenLinear, 0, () =>
+                                {
+                                    ShowCoinEffect();
+                                    ShowBossDeclareEffect();
+                                    gameObject.transform.localPosition = new Vector3(10000, 10000, 0);
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+
         }
 
         public void FishAdsorptionToSwirl()
