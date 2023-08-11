@@ -10,6 +10,8 @@ namespace BagelCode
         private int UID;
         private Dictionary<int, List<FishSpecialDeclareEffectItem>> AllUseEffectInsList;
         private Dictionary<int, FishSpecialDeclareEffectItem> CurrentUseEffectInsList;
+        private Dictionary<int, List<FishBossDeclareEffectItem>> AllUseBossEffectList;
+        private Dictionary<int, FishBossDeclareEffectItem> CurrentUseBossEffectList;
 
         private void Awake()
         {
@@ -22,6 +24,8 @@ namespace BagelCode
             gameData = FishGameUIManager.Instance.gameData;
             AllUseEffectInsList = new Dictionary<int, List<FishSpecialDeclareEffectItem>>();
             CurrentUseEffectInsList = new Dictionary<int, FishSpecialDeclareEffectItem>();
+            AllUseBossEffectList = new Dictionary<int, List<FishBossDeclareEffectItem>>();
+            CurrentUseBossEffectList = new Dictionary<int, FishBossDeclareEffectItem>();
         }
 
         public int GetSpecialDeclareEffectUID()
@@ -52,14 +56,19 @@ namespace BagelCode
             return vo;
         }
 
-        public int SetSpecialDeclareEffectShowMode(int chairId, Vector3 specialDeclarePos, FishSpecialDeclareConfig specialDeclareConfig)
+        public int SetSpecialDeclareEffectShowMode(int chairId, Vector3 specialDeclarePos, FishSpecialDeclareConfig specialDeclareConfig, bool isBoss = false)
         {
             EffectVo vo = GetSpecialDeclareEffectVo(specialDeclareConfig, chairId);
-            FishSpecialDeclareEffectItem tempSpecialDeclareIns = GetSpecialDeclareEffect(vo);
             Vector3 targetPos = specialDeclarePos;
-            if (tempSpecialDeclareIns != null)
+            if (isBoss)
             {
-                tempSpecialDeclareIns.ResetState(targetPos);
+                FishBossDeclareEffectItem temp = GetBossDeclareEffect(vo);
+                temp?.ResetState(targetPos);
+            }
+            else
+            {
+                FishSpecialDeclareEffectItem tempSpecialDeclareIns = GetSpecialDeclareEffect(vo);
+                tempSpecialDeclareIns?.ResetState(targetPos);
             }
             return vo.UID;
         }
@@ -72,6 +81,16 @@ namespace BagelCode
                 specialDelareEffect.effectVo.score = score;
                 specialDelareEffect.effectVo.multiple = mul;
                 specialDelareEffect.BeginShowScore();
+            }
+        }
+
+        public void BeginBossDeclare(int UID, int score, int mul)
+        {
+            var obj = CurrentUseBossEffectList[UID];
+            if (obj != null)
+            {
+                obj.effectVo.score = score;
+                obj.effectVo.multiple = mul;
             }
         }
 
@@ -109,6 +128,37 @@ namespace BagelCode
             return null;
         }
 
+        private FishBossDeclareEffectItem GetBossDeclareEffect(EffectVo vo)
+        {
+            if (AllUseBossEffectList.ContainsKey(vo.SpecialDeclareEffectConfig.id) && AllUseBossEffectList[vo.SpecialDeclareEffectConfig.id].Count > 0)
+            {
+                var tempEffectIns = AllUseBossEffectList[vo.SpecialDeclareEffectConfig.id][0];
+                AllUseBossEffectList[vo.SpecialDeclareEffectConfig.id].RemoveAt(0);
+                if (tempEffectIns != null)
+                {
+                    tempEffectIns.ResetEffectVo(vo);
+                    CurrentUseBossEffectList[vo.UID] = tempEffectIns;
+                    return tempEffectIns;
+                }
+            }
+            else
+            {
+                var effectItem = FishGameObjectPoolManager.Instance.GetGameObject(vo.SpecialDeclareEffectConfig.specialDeclareRes, PoolType.SpecialDeclarePool);
+                var tempEffectIns = new FishBossDeclareEffectItem(effectItem);
+                if (tempEffectIns != null)
+                {
+                    tempEffectIns.ResetEffectVo(vo);
+                    CurrentUseBossEffectList[vo.UID] = tempEffectIns;
+                    return tempEffectIns;
+                }
+                else
+                {
+                    FishGameObjectPoolManager.Instance.ReCycleToGameObject(effectItem, PoolType.SpecialDeclarePool);
+                }
+            }
+            return null;
+        }
+
         public void RecycleSpecialDeclareEffect(FishSpecialDeclareEffectItem specialDeclareEffectItem)
         {
             var tempEfffectIns = CurrentUseEffectInsList[specialDeclareEffectItem.effectVo.UID];
@@ -124,6 +174,21 @@ namespace BagelCode
                 Debug.LogError("移除的specialDeclareEffectIns为nil==>UID" + specialDeclareEffectItem.effectVo.UID);
         }
 
+        public void RecycleBossDeclare(FishBossDeclareEffectItem bossDeclareItem)
+        {
+            var tempEfffectIns = CurrentUseBossEffectList[bossDeclareItem.effectVo.UID];
+            if (tempEfffectIns != null)
+            {
+                if (!AllUseBossEffectList.ContainsKey(bossDeclareItem.effectVo.SpecialDeclareEffectConfig.id)
+                    || AllUseBossEffectList[bossDeclareItem.effectVo.SpecialDeclareEffectConfig.id] == null)
+                    AllUseBossEffectList[bossDeclareItem.effectVo.SpecialDeclareEffectConfig.id] = new List<FishBossDeclareEffectItem>();
+                AllUseBossEffectList[bossDeclareItem.effectVo.SpecialDeclareEffectConfig.id].Add(bossDeclareItem);
+                CurrentUseBossEffectList.Remove(bossDeclareItem.effectVo.UID);
+            }
+            else
+                Debug.LogError("移除的BossDeclareIns为nil==>UID" + bossDeclareItem.effectVo.UID);
+        }
+
         public void ClearAllSpecialDeclareEffect()
         {
             if (CurrentUseEffectInsList != null)
@@ -134,7 +199,18 @@ namespace BagelCode
                 CurrentUseEffectInsList.Clear();
             }
         }
-        
+
+        public void ClearAllBossDeclare()
+        {
+            if (CurrentUseBossEffectList != null)
+            {
+                foreach (var item in CurrentUseBossEffectList.Values)
+                    item.isCanDestroy = true;
+                UpdateRemoveBossDeclare();
+                CurrentUseBossEffectList.Clear();
+            }
+        }
+
         public void ClearOtherPlayerSpecialDeclareEffect(int chairId)
         {
             if (CurrentUseEffectInsList != null)
@@ -144,6 +220,18 @@ namespace BagelCode
                         item.isCanDestroy = true;
                 UpdateRemoveSpecialDeclareEffect();
                 CurrentUseEffectInsList.Clear();
+            }
+        }
+
+        public void ClearOtherPlayerBossDeclare(int chairId)
+        {
+            if (CurrentUseBossEffectList != null)
+            {
+                foreach (var item in CurrentUseBossEffectList.Values)
+                    if (item.effectVo.chairId == chairId)
+                        item.isCanDestroy = true;
+                UpdateRemoveBossDeclare();
+                CurrentUseBossEffectList.Clear();
             }
         }
 
@@ -165,11 +253,33 @@ namespace BagelCode
             }
         }
 
+        private void UpdateRemoveBossDeclare()
+        {
+            if (CurrentUseBossEffectList != null)
+            {
+                List<int> removeKeyCatch = new List<int>();
+                foreach (var item in CurrentUseBossEffectList)
+                {
+                    if (item.Value.isCanDestroy)
+                    {
+                        item.Value.Destroy();
+                        removeKeyCatch.Add(item.Key);
+                    }
+                }
+                for (int i = 0; i < removeKeyCatch.Count; i++)
+                    RecycleBossDeclare(CurrentUseBossEffectList[removeKeyCatch[i]]);
+            }
+        }
+
         private void Update()
         {
+            foreach (var item in CurrentUseBossEffectList.Values)
+                item.Update();
+            UpdateRemoveBossDeclare();
             foreach (var item in CurrentUseEffectInsList.Values)
                 item.Update();
             UpdateRemoveSpecialDeclareEffect();
+
         }
 
         protected override void OnDestroy()

@@ -86,7 +86,7 @@ namespace BagelCode
             if (SkillVo.IsMe)
             {
                 SkillVo.PlayerIns.ResetBulletRate();
-                SkillVo.PlayerIns.UploadShootBulletRateLevel(1);
+                SkillVo.PlayerIns.UploadShootBulletRateLevel(0);
             }
 
             SkillVo.PlayerIns.SetCanShootBullet(false);
@@ -253,8 +253,7 @@ namespace BagelCode
 
         public void PlayGunFireStormAnim(string animationName)
         {
-            int curUseRealGunLevel = SkillVo.PlayerIns.currentUseRealGunLevel;
-            SkillVo.PlayerIns.Panel.PlayFireStormShootAnim(curUseRealGunLevel, animationName);
+            SkillVo.PlayerIns.Panel.PlayFireStormShootAnim(animationName);
         }
 
         public void ShowFireStormSpecialDeclare()

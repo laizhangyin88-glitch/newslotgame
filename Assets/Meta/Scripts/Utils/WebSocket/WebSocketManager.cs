@@ -135,7 +135,6 @@ namespace BagelCode
 
         private IEnumerator SetReconnect()
         {
-            Debug.LogError("正在重连webSocket");
             yield return new WaitForSeconds(5);
             ConnetServer();
             lockReconnect = false;
@@ -182,6 +181,7 @@ namespace BagelCode
         private IEnumerator ServerPing()
         {
             yield return new WaitForSeconds(beating);
+            Debug.LogError("30s 未接收到心跳, 自动断开");
             socket.CloseAsync();
         }
 
@@ -197,7 +197,7 @@ namespace BagelCode
 
         public void SendGameMessage(Proto_Fish_CMD SubMsgId, byte[] bytes)
         {
-
+            //Debug.LogError(SubMsgId.ToString() + ":" + (UInt32)SubMsgId + " ==> " + bytes.Length);
             Send((UInt32)HALL_CMD.HALL_CMD_FishGame_Req, bytes, (UInt32)SubMsgId);
         }
 
@@ -207,11 +207,16 @@ namespace BagelCode
                 return;
             if (socket.ReadyState == WebSocketState.Open)
             {
-                rpc.RpcPacket rpcPacket = new rpc.RpcPacket();
-                rpcPacket.MsgId = MsgId;
-                rpcPacket.SubMsgId = subMsgId;
-                rpcPacket.ServiceType = rpc.SERVICE.CLIENT;
-                rpcPacket.RpcBody = bytes;
+                RpcPacket rpcPacket = new RpcPacket
+                {
+                    MsgId = MsgId,
+                    SubMsgId = subMsgId,
+                    ServiceType = SERVICE.CLIENT,
+                    RpcBody = bytes
+                };
+                //Debug.LogError("MsgId => " + MsgId + ", SubMsgId => " + subMsgId + ", length => " + WebSocketTool.Serialize(rpcPacket).Length);
+                if (WebSocketTool.Serialize(rpcPacket).Length <= 8)
+                    Debug.LogError("wrong Mes : MsgId => " + MsgId + ", SubMsgId => " + subMsgId + ", length => " + WebSocketTool.Serialize(rpcPacket).Length);
                 socket.SendAsync(WebSocketTool.Serialize(rpcPacket));
             }
         }

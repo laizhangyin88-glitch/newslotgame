@@ -31,8 +31,6 @@ namespace BagelCode
         public int CurrentGunLevel = 0;
         private string currentNetAnimName = "";
         private string currentBulletAnimName = "";
-        public int currentUseRealGunLevel = 0;
-        private bool IsDoubleScoreStatus = false;
         private bool IsFreeStatus = false;
         private bool isOnLine = false;
         private int LimitBulletCount = 0;
@@ -44,7 +42,6 @@ namespace BagelCode
         private Vector3 bulletCreatePos;
         private Transform gunLockPointTrans;
         private List<GameObject> lockPointList;
-        private GameObject lockTips;
         private Button addBetBtn;
         private Button ReduceBetBtn;
         private Text BetScoreLabel;
@@ -86,8 +83,6 @@ namespace BagelCode
             CurrentGunLevel = 0;        // current cannon level
             currentNetAnimName = "Net_01_net01";     // current Net level animation
             currentBulletAnimName = "Bullet_01";     // current bullet level animation
-            currentUseRealGunLevel = 0;               // current client real use of the turret resource level
-            IsDoubleScoreStatus = false;    // whether it is in double score status
             IsFreeStatus = false;           // whether it is in free status
             isOnLine = false;
             LimitBulletCount = 999999;
@@ -121,7 +116,6 @@ namespace BagelCode
             bulletCreatePos = new Vector3(Panel.BulletPos.position.x, Panel.BulletPos.position.y, Panel.BulletPos.position.z);
             gunLockPointTrans = Panel.GunLockPoint.transform;
             lockPointList = Panel.LockPointList;
-            lockTips = Panel.LockTips;
             addBetBtn = Panel.AddBetBtn;
             ReduceBetBtn = Panel.ReduceBetBtn;
             BetScoreLabel = Panel.BetScoreLabel;
@@ -185,7 +179,7 @@ namespace BagelCode
 
         public void ResetBulletRate()
         {
-            CurrentShootBulletRateIndex = 0;
+            SetShootBulletRateLevel(0);
             FishGameManager.Instance.speedBtnEffect.gameObject.SetActive(false);
         }
 
@@ -219,7 +213,6 @@ namespace BagelCode
             SetOnlineState(true);
             SetCanShootBullet(true);
             Panel.IsShowLockFishPanel(true);
-            IsDoubleScoreStatus = false;
             IsFreeStatus = false;
         }
 
@@ -298,7 +291,7 @@ namespace BagelCode
         {
             CurrentGunLevel = level;
             SetBetScore(gameData.GunLevelConfig[level].cannon_value);
-            SetShowGun(gameData.GunConfigList[(int)gameData.GunLevelConfig[level].cannon_value_gun_id - 1].freeGunRes);
+            SetShowGun(true);
             SetNetAnimName(gameData.GunConfigList[level].freeNetRes);
             SetBulletAnimName(gameData.GunConfigList[level].freeBulletRes);
         }
@@ -307,7 +300,7 @@ namespace BagelCode
         {
             CurrentGunLevel = level;
             SetBetScore(gameData.GunLevelConfig[level].cannon_value);
-            SetShowGun(gameData.GunConfigList[(int)gameData.GunLevelConfig[level].cannon_value_gun_id - 1].doubleGunRes);
+            SetShowGun(false);
             SetNetAnimName(gameData.GunConfigList[level].doubleNetRes);
             SetBulletAnimName(gameData.GunConfigList[level].doubleBulletRes);
         }
@@ -316,7 +309,7 @@ namespace BagelCode
         {
             CurrentGunLevel = level;
             SetBetScore(gameData.GunLevelConfig[level].cannon_value);
-            SetShowGun(gameData.GunConfigList[(int)gameData.GunLevelConfig[level].cannon_value_gun_id - 1].normalGunRes);
+            SetShowGun(false);
             SetNetAnimName(gameData.GunConfigList[level].normalNetRes);
             SetBulletAnimName(gameData.GunConfigList[level].normalBulletRes);
         }
@@ -326,11 +319,9 @@ namespace BagelCode
             Panel.IsShowGunParticleEffect();
         }
 
-        public void SetShowGun(string index)
+        public void SetShowGun(bool isFireStorm)
         {
-            currentUseRealGunLevel = int.Parse(index) - 1;
-            //currentUseRealGunLevel == 3 是火焰风暴
-            Panel.SetShowGunPanel(currentUseRealGunLevel == 3);
+            Panel.SetShowGunPanel(isFireStorm);
         }
 
         public int GetGunLevel()
@@ -605,19 +596,16 @@ namespace BagelCode
             FishBulletManager.Instance.RequestAutoShootBulletSwitchMsg(mes);
         }
 
-        public int SetShootBulletRateLevel()
+        public int SetShootBulletRateLevel(int level = -1)
         {
-            if (CurrentShootBulletRateIndex == 0)
+            if (CurrentShootBulletRateIndex == 0 && level != CurrentShootBulletRateIndex)
                 Panel.ChangeGunModeAnim(true);
-            CurrentShootBulletRateIndex++;
-            if (CurrentShootBulletRateIndex >= ShootBulletRate.Length)
+            CurrentShootBulletRateIndex = level > -1 ? level : CurrentShootBulletRateIndex + 1;
+            if ((CurrentShootBulletRateIndex >= ShootBulletRate.Length  || (level == 0)) && Panel.isSpeed)
             {
                 CurrentShootBulletRateIndex = 0;
                 Panel.ChangeGunModeAnim(false);
             }
-            FishGameManager.Instance.speedBtnEffect.gameObject.SetActive(CurrentShootBulletRateIndex > 0);
-            for (int i = 1; i < 3; i++)
-                FishGameManager.Instance.speedBtnEffect.Find("speedText" + i).gameObject.SetActive(i == CurrentShootBulletRateIndex);
             return CurrentShootBulletRateIndex;
         }
 

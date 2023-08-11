@@ -64,7 +64,11 @@ enum Proto_Fish_CMD {
 	NF_FISH_CMD_DESTORYMADCOW_RSP       =10082;   //销毁疯牛
 	NF_FISH_CMD_MADCOWSTATUS_RSP        =10084;   //疯牛状态
 	NF_FISH_CMD_MADCOWSCORE_RSP         =10086;   //疯牛分数
-
+	
+	NF_FISH_CMD_CREATEGHOSTSHIP_RSP     =10095;   //创建幽灵船
+	NF_FISH_CMD_DISTORYGHOSTSHIP_RSP    =10096;   //销毁幽灵船
+	NF_FISH_CMD_GHOSTSHIPSTATUS_RSP     =10097;   //幽灵船状态
+	NF_FISH_CMD_GHOSTSHIPSCORE_RSP      =10098;   //幽灵船分数
 
 	NF_FISH_CMD_CREATEDELAYBOMB_RSP     =10106;   //创建延时炸弹
 	NF_FISH_CMD_DELAYBOMB_BOMB_RSP      =10108;   //延时炸弹爆炸
@@ -744,3 +748,43 @@ message ThunderHammer_Bomb_Rsp
 	optional int32 usTotalMul          = 4;  //总倍数
 }
 //===========================================================
+//===========================================================
+//幽灵船相关
+//#define NF_FISH_CMD_CREATEGHOSTSHIP_RSP         10095   //创建幽灵船
+message CreateGhostShipRsp
+{
+	optional int32 usChairId           = 1;  //玩家座位号
+	optional int32 usGhostShipId          = 2;  //幽灵船Id
+	optional int32 usKilledFishId      = 3;  //被打死的幽灵船id
+	optional int32 usRunDirection      = 4;  //1-向左、2-向右  
+	optional int32 usStatus            = 5;  //1-待机、2-发射
+	optional int32 usStatusTime        = 6;  //当前状态已消耗免费时间 
+	optional int32 usTotalScore        = 7;  //总分
+	optional int32 usTotalMul          = 8;  //总倍数
+}
+
+//#define NF_FISH_CMD_DISTORYGHOSTSHIP_RSP        10096   //销毁幽灵船
+message DestoryGhostShipRsp
+{
+	optional int32 usChairId           = 1;  //玩家座位号
+	optional int32 usGhostShipId          = 2;  //幽灵船Id
+	optional int32 usTotalScore        = 3;  //总分
+	optional int32 usTotalMul          = 4;  //总倍数
+}
+
+//#define NF_FISH_CMD_GHOSTSHIPSTATUS_RSP          10097   //幽灵船状态
+message GhostShipStatusRsp
+{
+	optional int32 usChairId           = 1;  //玩家座位号
+	optional int32 usGhostShipId          = 2;  //幽灵船Id
+	optional int32 usStatus            = 3;  //幽灵船状态 1-待机  2-发射 
+}
+
+//#define NF_FISH_CMD_GHOSTSHIPSCORE_RSP           10098   //幽灵船分数
+message GhostShipScoreRsp
+{
+	optional int32 usChairId           = 1;  //玩家座位号
+	optional int32 usGhostShipId          = 2;  //幽灵船Id
+	optional int32 usTotalScore        = 3;  //总分
+	optional int32 usTotalMul          = 4;  //总倍数,使用总击杀数来代替
+}

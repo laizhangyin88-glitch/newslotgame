@@ -53,6 +53,7 @@ namespace BagelCode
         private Animator ammunitionAnimator;
         private Animator fireStormAnimator;
         public bool isSpeed;
+        private bool isFireStorm;
 
         public FishPlayerPanel(GameObject gameObj)
         {
@@ -214,27 +215,22 @@ namespace BagelCode
             }
         }
 
-        public Vector2 GetPlayerCatchFishPos()
+        public Vector2 GetPlayerCatchFishPos(int index = 0)
         {
-            CatchFishPosIndex++;
+            CatchFishPosIndex = index > 0 ? index : CatchFishPosIndex + 1;
             if (CatchFishPosIndex > 3)
-            {
                 CatchFishPosIndex = 1;
-            }
-            Vector2 targetPos;
             Vector2 catchFishScreenPos = FishGameManager.Instance.UICamera.WorldToScreenPoint(CatchFishPosList[CatchFishPosIndex - 1].position);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(FishGameManager.Instance.fishCanvas.GetComponent<RectTransform>(), catchFishScreenPos, FishGameManager.Instance.UICamera, out targetPos);
-            //targetPos = new Vector2(targetPos.x / 2, targetPos.y / 2);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(FishGameManager.Instance.fishCanvas.GetComponent<RectTransform>(), catchFishScreenPos, FishGameManager.Instance.UICamera, out Vector2 targetPos);
             return targetPos;
         }
+
 
         public void RemovePlayerCatchFishPos()
         {
             CatchFishPosIndex--;
             if (CatchFishPosIndex < 0)
-            {
                 CatchFishPosIndex = 0;
-            }
         }
 
         public void IsShowBetPanel(bool isDisPlay)
@@ -279,7 +275,9 @@ namespace BagelCode
 
         public void PlayGunShotAnim()
         {
-            if (isSpeed)
+            if (isFireStorm)
+                fireStormAnimator.Play("GunShoot", 0, 0);
+            else if (isSpeed)
             {
                 gunSpeedAnimator.Play("GunShoot", 0, 0);
                 ammunitionAnimator.Play("Ammunition", 0, 0);
@@ -288,20 +286,21 @@ namespace BagelCode
                 gunNormalAnimator.Play("GunShoot", 0, 0);
         }
 
-        public void PlayFireStormShootAnim(int index, string animName)
+        public void PlayFireStormShootAnim(string animName)
         {
             if (!string.IsNullOrEmpty(animName))
                 fireStormAnimator.Play(animName, 0, 0);
         }
 
-        public void SetShowGunPanel(bool isFireStrom = false)
+        public void SetShowGunPanel(bool isFireStorm = false)
         {
-            if (isFireStrom)
+            this.isFireStorm = isFireStorm;
+            if (isFireStorm)
             {
                 gunNormalAnimator.gameObject.SetActive(false);
                 gunSpeedAnimator.gameObject.SetActive(false);
                 ammunitionAnimator.gameObject.SetActive(false);
-                fireStormAnimator.gameObject.SetActive(isFireStrom);
+                fireStormAnimator.gameObject.SetActive(isFireStorm);
             }
             else
             {
@@ -310,7 +309,7 @@ namespace BagelCode
                 gunNormalAnimator.gameObject.SetActive(!isSpeed);
                 gunSpeedAnimator.gameObject.SetActive(isSpeed);
                 ammunitionAnimator.gameObject.SetActive(isSpeed);
-                fireStormAnimator.gameObject.SetActive(isFireStrom);
+                fireStormAnimator.gameObject.SetActive(isFireStorm);
             }
         }
 

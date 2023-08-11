@@ -131,7 +131,6 @@ namespace BagelCode
                         {
                             if (CurrentUseFishList.ContainsKey(vo.UID) && CurrentUseFishList[vo.UID] != null)
                             {
-                                Debug.LogError("FishUID存在相同==>> " + vo.UID);
                                 FishGameObjectPoolManager.Instance.ReCycleToGameObject(FishItem, PoolType.FishPool);
                                 return null;
                             }
@@ -198,7 +197,6 @@ namespace BagelCode
                 {
                     if (CurrentUseFishList[i].GetIsDie() && CurrentUseFishList[i].chairId == chairID && CurrentUseFishList[i].FishVo.DieEffectConfig.fishDieBehavior == 3)
                     {
-                        // Destroy(CurrentUseFishList[i].gameObject);
                         CurrentUseFishList[i].Destroy();
                         RemoveFish(CurrentUseFishList[i]);
                     }
@@ -254,7 +252,6 @@ namespace BagelCode
             return null;
         }
 
-        //todo
         public FishVo ParseFishConfig(FishInfo msg)
         {
             FishFishConfig localConfig = gameData.FishConfigList[(int)msg.usFishKind];
@@ -421,6 +418,7 @@ namespace BagelCode
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATESOMEZUANTOU_RSP.ToString(), ResponesCreateSerialZuanTouMsg);
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATEFIRESTORM_RSP.ToString(), ResponesCreateFireStormMsg);
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATEMADCOW_RSP.ToString(), ResponesCreateBisonMsg);
+            WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATEGHOSTSHIP_RSP.ToString(), ResponesCreateGhostShipMsg);
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATEDELAYBOMB_RSP.ToString(), ResponesCreateBombMsg);
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATESERIALBOMBCRAB_RSP.ToString(), ResponesCreateMultBombMsg);
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATETHUNDERHAMMER_RSP.ToString(), ResponesCreateThunderHammerMsg);
@@ -581,6 +579,12 @@ namespace BagelCode
             FishBisonSkillManager.Instance.EnterBisonSkillMode(data);
         }
 
+        public void ResponesCreateGhostShipMsg(byte[] bytes)
+        {
+            CreateGhostShipRsp data = WebSocketTool.Deserialize<CreateGhostShipRsp>(bytes);
+            FishGhostShipSkillManager.Instance.EnterGhostShipSkillMode(data);
+        }
+
         public void ResponesCreateBombMsg(byte[] bytes)
         {
             CreateDelayBombRsp data = WebSocketTool.Deserialize<CreateDelayBombRsp>(bytes);
@@ -612,7 +616,10 @@ namespace BagelCode
             FishSpiderCrabEffectManager.Instance.CreateSpiderCrabBoardScore(data.usChairId, data.usPartMul, data.usSelfScore, data.usTotalScore, data.usTotalMul, playerIns.specialDeclarePanel.position);
         }
 
+        public void ResponesKillGhostShipMsg(byte[] bytes)
+        {
 
+        }
 
         public int GetFishRuleType(int fishId)
         {

@@ -19,16 +19,16 @@ namespace BagelCode
 
         private void AddEventListener()
         {
-            WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_DESTORYMADCOW_RSP.ToString(), ResponesBisonDestroyMsg);
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_MADCOWSTATUS_RSP.ToString(), ResponesBisonShootMsg);
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_MADCOWSCORE_RSP.ToString(), ResponesBisonScoreMsg);
+            WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_DESTORYMADCOW_RSP.ToString(), ResponesBisonDestroyMsg);
         }
 
         private void RemoveEventListener()
         {
-            WebSocketTool.UnRegisterHandler(Proto_Fish_CMD.NF_FISH_CMD_DESTORYMADCOW_RSP.ToString(), ResponesBisonDestroyMsg);
             WebSocketTool.UnRegisterHandler(Proto_Fish_CMD.NF_FISH_CMD_MADCOWSTATUS_RSP.ToString(), ResponesBisonShootMsg);
             WebSocketTool.UnRegisterHandler(Proto_Fish_CMD.NF_FISH_CMD_MADCOWSCORE_RSP.ToString(), ResponesBisonScoreMsg);
+            WebSocketTool.UnRegisterHandler(Proto_Fish_CMD.NF_FISH_CMD_DESTORYMADCOW_RSP.ToString(), ResponesBisonDestroyMsg);
         }
 
         private void ResponesBisonShootMsg(byte[] bytes)

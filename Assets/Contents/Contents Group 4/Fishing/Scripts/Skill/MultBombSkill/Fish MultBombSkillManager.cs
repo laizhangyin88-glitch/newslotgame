@@ -1,7 +1,5 @@
 using fishMsg;
-using ParadoxNotion.Serialization.FullSerializer;
 using SlotMaker;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
