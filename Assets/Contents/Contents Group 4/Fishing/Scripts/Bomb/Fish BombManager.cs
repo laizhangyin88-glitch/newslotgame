@@ -47,6 +47,13 @@ namespace BagelCode
                 SetFishDieProcess(hitFishMsg, tempFish, playerIns);
             else
             {
+                if (hitFishMsg.mainFishType == 0)
+                {
+                    Debug.LogError("hitFishMsg.bombUID => " + hitFishMsg.bombUID);
+                    Debug.LogError("hitFishMsg.mainFishUID => " + hitFishMsg.mainFishUID);
+                    Debug.LogError("hitFishMsg.mainFishId => " + hitFishMsg.mainFishId);
+                    Debug.LogError("hitFishMsg.mainFishType => " + hitFishMsg.mainFishType);
+                }
                 FishBombBaseFish bombIns = BuildBombInstance(hitFishMsg.mainFishType);
                 if (bombIns != null)
                 {

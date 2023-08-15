@@ -282,6 +282,7 @@ namespace BagelCode
                 new Effect {name = "burst_coin_large_luckyCat", path = "Prefabs/Effect/burst_coin_large_luckyCat.prefab", amout = 1, count = 1},
                 new Effect {name = "KingCrabcoinPrefab", path = "Prefabs/Effect/KingCrabcoinPrefab.prefab", amout = 1, count = 1},
                 new Effect {name = "burst_coin_long", path = "Prefabs/Effect/burst_coin_long.prefab", amout = 1, count = 5},
+                new Effect {name = "burst_coin_long1", path = "Prefabs/Effect/burst_coin_long1.prefab", amout = 1, count = 5},
                 new Effect {name = "Effect_Warning", path = "Prefabs/Effect/Effect_Warning.prefab", amout = 1, count = 5},
             };
         }

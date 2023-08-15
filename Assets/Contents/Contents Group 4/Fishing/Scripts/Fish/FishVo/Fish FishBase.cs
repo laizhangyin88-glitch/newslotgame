@@ -399,6 +399,11 @@ namespace BagelCode
             }
         }
 
+        public bool IsGetHitFishMsg()
+        {
+            return hitFishMsg != null;
+        }
+
         public void ShowBossDeclareEffect()
         {
             int parentFishId = hitFishMsg.bombUID;
@@ -412,8 +417,6 @@ namespace BagelCode
             {
                 FishSpecialDeclareEffectManager.Instance.BeginBossDeclare(specialDeclareUID, score, multiple);
             });
-
-
         }
 
         public void FishHitFly()
@@ -453,6 +456,7 @@ namespace BagelCode
             {
                 ShowWinScoreEffect(gameObject.GetComponent<RectTransform>().anchoredPosition);
                 float temp = FishVo.DieEffectConfig.fishDieTwoShowTime == 2.5f ? temp = 540 : 900;
+                temp = FishVo.FishId == 26 || FishVo.FishId == 28 ? 45 : temp;
                 Vector3 angle = new Vector3(0, 0, temp);
                 AsyncActionUtils.ApplyRotation(fishBehaviour, gameObject.transform, gameObject.transform.rotation.eulerAngles, angle, FishVo.DieEffectConfig.fishDieTwoShowTime, TweenUtils.VectorTweenLinear, 0f);
                 AsyncActionUtils.DelayedAction(fishBehaviour, FishVo.DieEffectConfig.fishDieTwoShowTime, () =>
@@ -468,37 +472,24 @@ namespace BagelCode
             float originalY = transform.GetComponent<RectTransform>().anchoredPosition.y;
             float ranY = UnityEngine.Random.Range(10, 21);
             Vector2 targetPos = new Vector2(transform.GetComponent<RectTransform>().anchoredPosition.x, originalY + ranY);
-            AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.1f, TweenUtils.VectorTweenLinear, 0, () =>
+            AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.05f, TweenUtils.VectorTweenLinear, 0, () =>
             {
-                ranY = UnityEngine.Random.Range(10, 21) * -1;
-                AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.1f, TweenUtils.VectorTweenLinear, 0, () =>
+                int tweenCount = 0;
+                for (int i = 1; i < 10; i++)
                 {
-                    ranY = UnityEngine.Random.Range(10, 21) * -1;
+                    ranY = UnityEngine.Random.Range(5, 11) * Mathf.Pow(-1, i);
                     targetPos = new Vector2(transform.GetComponent<RectTransform>().anchoredPosition.x, originalY + ranY);
-                    AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.1f, TweenUtils.VectorTweenLinear, 0, () =>
+                    AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.05f, TweenUtils.VectorTweenLinear, (i - 1) * 0.05f, () =>
                     {
-                        ranY = UnityEngine.Random.Range(10, 21) * -1;
-                        targetPos = new Vector2(transform.GetComponent<RectTransform>().anchoredPosition.x, originalY + ranY);
-                        AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.1f, TweenUtils.VectorTweenLinear, 0, () =>
+                        tweenCount++;
+                        if (tweenCount == 9)
                         {
-                            ranY = UnityEngine.Random.Range(10, 21) * -1;
-                            targetPos = new Vector2(transform.GetComponent<RectTransform>().anchoredPosition.x, originalY + ranY);
-                            AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.1f, TweenUtils.VectorTweenLinear, 0, () =>
-                            {
-                                ranY = UnityEngine.Random.Range(10, 21) * -1;
-                                targetPos = new Vector2(transform.GetComponent<RectTransform>().anchoredPosition.x, originalY + ranY);
-                                AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.1f, TweenUtils.VectorTweenLinear, 0, () =>
-                                {
-                                    ShowCoinEffect();
-                                    ShowBossDeclareEffect();
-                                    gameObject.transform.localPosition = new Vector3(10000, 10000, 0);
-                                });
-                            });
-                        });
+                            ShowCoinEffect();
+                            gameObject.transform.localPosition = new Vector3(10000, 10000, 0);
+                        }
                     });
-                });
+                }
             });
-
         }
 
         public void FishAdsorptionToSwirl()

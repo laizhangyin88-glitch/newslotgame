@@ -126,7 +126,17 @@ namespace BagelCode
 
         public override List<Vector3> GetEffectPoint(int partId = 0)
         {
-            return null;
+            List<Vector3> points = new List<Vector3>();
+            for (int i = 1; i < 4; i++)
+            {
+                var temp = transform.Find("Collider/BoxCollider_0" + i);
+                if (temp != null)
+                    points.Add(temp.position);
+            }
+            if (points.Count > 0)
+                return points;
+            else
+                return null;
         }
 
         public override void RemoveFishPart(int id)

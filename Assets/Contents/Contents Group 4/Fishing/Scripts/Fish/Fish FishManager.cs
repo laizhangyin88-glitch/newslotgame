@@ -17,8 +17,6 @@ namespace BagelCode
         private Dictionary<int, List<FishFishBase>> AllUsedFishInsList;
         private Dictionary<int, FishFishBase> CurrentUseFishList;
         private Dictionary<int, int> FishSortingOrderList = new Dictionary<int, int>();
-        private int fishUID;
-        private float AddFishTimer;
         private void Awake()
         {
             Init();
@@ -582,7 +580,21 @@ namespace BagelCode
         public void ResponesCreateGhostShipMsg(byte[] bytes)
         {
             CreateGhostShipRsp data = WebSocketTool.Deserialize<CreateGhostShipRsp>(bytes);
-            FishGhostShipSkillManager.Instance.EnterGhostShipSkillMode(data);
+            if (data.usDieType == 1)
+            {
+                FishGhostShipSkillManager.Instance.EnterGhostShipSkillMode(data);
+            }
+            else
+            {
+                var fishIns = GetUsingFishByFishUID(data.usKilledFishId);
+                StartCoroutine(ShowBossDeclareEffect(fishIns));
+            }
+        }
+
+        IEnumerator ShowBossDeclareEffect(FishFishBase fishIns)
+        {
+            yield return new WaitUntil(fishIns.IsGetHitFishMsg);
+            fishIns.ShowBossDeclareEffect();
         }
 
         public void ResponesCreateBombMsg(byte[] bytes)
