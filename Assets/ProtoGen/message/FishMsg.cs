@@ -3075,6 +3075,14 @@ namespace fishMsg
       get { return _usTotalMul; }
       set { _usTotalMul = value; }
     }
+    private int _usDieType = default(int);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"usDieType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usDieType
+    {
+      get { return _usDieType; }
+      set { _usDieType = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

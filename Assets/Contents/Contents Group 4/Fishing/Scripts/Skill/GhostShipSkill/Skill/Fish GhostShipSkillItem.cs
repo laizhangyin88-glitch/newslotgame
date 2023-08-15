@@ -111,7 +111,6 @@ namespace BagelCode
 
         public void ShowGhostShipIdel()
         {
-            Debug.LogError("ShowGhostShipIdel");
             curSkillState = GhostShipSkillState.Idle;
             anchorAnim = ghostShipTrans.Find("anchorAnimator").GetComponent<Animator>();
             anchorAnim.gameObject.SetActive(true);
@@ -121,7 +120,6 @@ namespace BagelCode
 
         public void GhostShipPlay()
         {
-            Debug.LogError("GhostShipPlay");
             if (anchorAnim != null)
                 anchorAnim.gameObject.SetActive(false);
             bombAnim = ghostShipTrans.Find("bombAnimator").GetComponent<Animator>();
@@ -152,7 +150,7 @@ namespace BagelCode
                 ghostShipHitList = new List<int>();
             ghostShipHitList.Add(hit);
             FishGameUIManager.Instance.SetShake(false);
-            if (hitCount == 7)
+            if (hitCount == 6)
                 ShowHungeShipAmimate();
         }
 
@@ -251,7 +249,6 @@ namespace BagelCode
                 }
                 else if (curSkillState == GhostShipSkillState.Destroy)
                 {
-                    Debug.LogError("Set can Destroy");
                     isPlaying = false;
                     isCanDestroy = true;
                     callBack?.Invoke();
