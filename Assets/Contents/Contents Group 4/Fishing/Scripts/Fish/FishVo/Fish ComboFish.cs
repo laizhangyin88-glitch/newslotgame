@@ -59,7 +59,7 @@ namespace BagelCode
 
         public void CaculateComboFishCount()
         {
-            ComboFishCount = FishVo.FishKindGroup.Count;
+            ComboFishCount = fishVo.FishKindGroup.Count;
         }
 
         public void FindBGComboFishRenderView(Transform trans)
@@ -115,17 +115,17 @@ namespace BagelCode
 
         public void BuildChildFish()
         {
-            if (FishVo.FishKindGroup != null)
+            if (fishVo.FishKindGroup != null)
             {
-                if (FishVo.FishKindGroup.Count > 0)
+                if (fishVo.FishKindGroup.Count > 0)
                 {
-                    for (int i = 0; i < FishVo.FishKindGroup.Count; i++)
+                    for (int i = 0; i < fishVo.FishKindGroup.Count; i++)
                     {
-                        int tempFishId = (int)FishVo.FishKindGroup[i];
+                        int tempFishId = (int)fishVo.FishKindGroup[i];
                         FishFishBase childFish = FishFishManager.Instance.GetChildFish(tempFishId);
                         if (childFish != null)
                         {
-                            int fishRuleType = FishFishManager.Instance.GetFishRuleType(FishVo.FishId);
+                            int fishRuleType = FishFishManager.Instance.GetFishRuleType(fishVo.fishId);
                             childFish.IsEnableBoxcollider(false);
                             if (fishRuleType == 2)
                                 childFish.IsShowFishLight(true);
@@ -160,9 +160,9 @@ namespace BagelCode
                 {
                     for (int i = 0; i < ChildFishInsList.Count; i++)
                     {
-                        if (ChildFishInsList[i].FishVo.FishId <= 11)
+                        if (ChildFishInsList[i].fishVo.fishId <= 11)
                         {
-                            Vector3 scale = SubScaleFishList[ChildFishInsList[i].FishVo.FishId - 1].localScale;
+                            Vector3 scale = SubScaleFishList[ChildFishInsList[i].fishVo.fishId - 1].localScale;
                             gameObject.transform.Find("Bone/BGGroup").localScale = scale;
                         }
                         ChildFishInsList[i].SetFishParent(FishGroupList[i].transform);
@@ -177,7 +177,7 @@ namespace BagelCode
             {
                 for (int i = 0; i < ChildFishInsList.Count; i++)
                 {
-                    int fishRuleType = FishFishManager.Instance.GetFishRuleType(FishVo.FishId);
+                    int fishRuleType = FishFishManager.Instance.GetFishRuleType(fishVo.fishId);
                     if (fishRuleType == 2)
                         ChildFishInsList[i].IsShowFishLight(true);
                     ChildFishInsList[i].PlayMoveAnim();

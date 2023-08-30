@@ -78,7 +78,7 @@ namespace BagelCode
         {
             if (SpineAnim == null) return;
             SpineAnim.timeScale = 1.0f;
-            string animName = FishVo.FishConfig.fishMoveAnimationName;
+            string animName = fishVo.FishConfig.fishMoveAnimationName;
             if (!string.IsNullOrEmpty(animName))
             {
                 SpineAnim.loop = isLoop;
@@ -102,13 +102,14 @@ namespace BagelCode
 
         public void PlayBornAnim()
         {
-            animator.Play("Fish_Born", 0, 0);
+            if (animator != null)
+                animator.Play("Fish_Born", 0, 0);
         }
 
         public override void PlayDieAnim(bool isLoop)
         {
-            string animName = FishVo.FishConfig.fishDieAnimationName;
-            if (!string.IsNullOrEmpty(animName))
+            string animName = fishVo.FishConfig.fishDieAnimationName;
+            if (!string.IsNullOrEmpty(animName) && animator != null)
                 animator.Play(animName, 0, 0);
         }
 

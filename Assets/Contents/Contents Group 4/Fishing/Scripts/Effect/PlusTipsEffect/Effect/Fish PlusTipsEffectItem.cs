@@ -76,6 +76,7 @@ namespace BagelCode
         {
             isCanMove = false;
             isCanDestroy = false;
+            gameObject.SetActive(true);
             this.beginPos = beginPos;
             gameObject.transform.position = new Vector3(10000, 10000, 0);
             this.delayTime = delayTime;
@@ -119,6 +120,7 @@ namespace BagelCode
 
         public void Destroy()
         {
+            gameObject.SetActive(false);
             isPlayingAnim = false;
             isDelayPlay = false;
             isCanDestroy = false;

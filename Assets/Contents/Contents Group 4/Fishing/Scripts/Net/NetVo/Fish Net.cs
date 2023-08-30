@@ -44,6 +44,7 @@ namespace BagelCode
         public void ResetNetState()
         {
             currentUpdateTime = 0;
+            _gameObject.SetActive(true);
             SetPlayAnimState(false);
         }
 
@@ -99,6 +100,7 @@ namespace BagelCode
         public void Destroy()
         {
             IsPlayAnim = false;
+            _gameObject.SetActive(false);
             _gameObject.transform.localPosition = new Vector3(10000, 10000);
         }
     }

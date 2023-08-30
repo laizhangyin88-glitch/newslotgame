@@ -3206,6 +3206,236 @@ namespace fishMsg
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"CreateAnglerFishRsp")]
+  public partial class CreateAnglerFishRsp : global::ProtoBuf.IExtensible
+  {
+    public CreateAnglerFishRsp() {}
+    
+    private int _usChairId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"usChairId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usChairId
+    {
+      get { return _usChairId; }
+      set { _usChairId = value; }
+    }
+    private int _usAnglerFishId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"usAnglerFishId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usAnglerFishId
+    {
+      get { return _usAnglerFishId; }
+      set { _usAnglerFishId = value; }
+    }
+    private int _usKilledFishId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"usKilledFishId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usKilledFishId
+    {
+      get { return _usKilledFishId; }
+      set { _usKilledFishId = value; }
+    }
+    private int _usStatus = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"usStatus", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usStatus
+    {
+      get { return _usStatus; }
+      set { _usStatus = value; }
+    }
+    private int _usStatusTime = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"usStatusTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usStatusTime
+    {
+      get { return _usStatusTime; }
+      set { _usStatusTime = value; }
+    }
+    private int _usBombPosX = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"usBombPosX", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usBombPosX
+    {
+      get { return _usBombPosX; }
+      set { _usBombPosX = value; }
+    }
+    private int _usBombPosY = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"usBombPosY", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usBombPosY
+    {
+      get { return _usBombPosY; }
+      set { _usBombPosY = value; }
+    }
+    private int _usNextBombPosX = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"usNextBombPosX", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usNextBombPosX
+    {
+      get { return _usNextBombPosX; }
+      set { _usNextBombPosX = value; }
+    }
+    private int _usNextBombPosy = default(int);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"usNextBombPosy", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usNextBombPosy
+    {
+      get { return _usNextBombPosy; }
+      set { _usNextBombPosy = value; }
+    }
+    private int _usBombCount = default(int);
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"usBombCount", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usBombCount
+    {
+      get { return _usBombCount; }
+      set { _usBombCount = value; }
+    }
+    private int _bombFishId = default(int);
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"bombFishId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int bombFishId
+    {
+      get { return _bombFishId; }
+      set { _bombFishId = value; }
+    }
+    private int _usDieType = default(int);
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"usDieType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usDieType
+    {
+      get { return _usDieType; }
+      set { _usDieType = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AnglerFishBombRsp")]
+  public partial class AnglerFishBombRsp : global::ProtoBuf.IExtensible
+  {
+    public AnglerFishBombRsp() {}
+    
+    private int _usChairId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"usChairId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usChairId
+    {
+      get { return _usChairId; }
+      set { _usChairId = value; }
+    }
+    private int _usAnglerFishId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"usAnglerFishId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usAnglerFishId
+    {
+      get { return _usAnglerFishId; }
+      set { _usAnglerFishId = value; }
+    }
+    private int _usTotalScore = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"usTotalScore", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usTotalScore
+    {
+      get { return _usTotalScore; }
+      set { _usTotalScore = value; }
+    }
+    private int _usTotalMul = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"usTotalMul", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usTotalMul
+    {
+      get { return _usTotalMul; }
+      set { _usTotalMul = value; }
+    }
+    private int _usBombPosX = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"usBombPosX", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usBombPosX
+    {
+      get { return _usBombPosX; }
+      set { _usBombPosX = value; }
+    }
+    private int _usBombPosY = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"usBombPosY", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usBombPosY
+    {
+      get { return _usBombPosY; }
+      set { _usBombPosY = value; }
+    }
+    private int _usNextBombPosX = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"usNextBombPosX", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usNextBombPosX
+    {
+      get { return _usNextBombPosX; }
+      set { _usNextBombPosX = value; }
+    }
+    private int _usNextBombPosy = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"usNextBombPosy", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usNextBombPosy
+    {
+      get { return _usNextBombPosy; }
+      set { _usNextBombPosy = value; }
+    }
+    private int _usBombCount = default(int);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"usBombCount", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usBombCount
+    {
+      get { return _usBombCount; }
+      set { _usBombCount = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"DestoryAnglerFishRsp")]
+  public partial class DestoryAnglerFishRsp : global::ProtoBuf.IExtensible
+  {
+    public DestoryAnglerFishRsp() {}
+    
+    private int _usChairId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"usChairId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usChairId
+    {
+      get { return _usChairId; }
+      set { _usChairId = value; }
+    }
+    private int _usAnglerFishId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"usAnglerFishId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usAnglerFishId
+    {
+      get { return _usAnglerFishId; }
+      set { _usAnglerFishId = value; }
+    }
+    private int _usTotalScore = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"usTotalScore", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usTotalScore
+    {
+      get { return _usTotalScore; }
+      set { _usTotalScore = value; }
+    }
+    private int _usTotalMul = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"usTotalMul", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int usTotalMul
+    {
+      get { return _usTotalMul; }
+      set { _usTotalMul = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
     [global::ProtoBuf.ProtoContract(Name=@"Proto_Fish_CMD")]
     public enum Proto_Fish_CMD
     {
@@ -3415,7 +3645,16 @@ namespace fishMsg
       NF_FISH_CMD_CREATETHUNDERHAMMER_RSP = 10110,
             
       [global::ProtoBuf.ProtoEnum(Name=@"NF_FISH_CMD_THUNDERHAMMER_BOMB_RSP", Value=10112)]
-      NF_FISH_CMD_THUNDERHAMMER_BOMB_RSP = 10112
+      NF_FISH_CMD_THUNDERHAMMER_BOMB_RSP = 10112,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NF_FISH_CMD_CREATEANGLERFISH_RSP", Value=10113)]
+      NF_FISH_CMD_CREATEANGLERFISH_RSP = 10113,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NF_FISH_CMD_ANGLERFISH_BOMB_RSP", Value=10114)]
+      NF_FISH_CMD_ANGLERFISH_BOMB_RSP = 10114,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NF_FISH_CMD_DESTORYANGLERFISH_RSP", Value=10115)]
+      NF_FISH_CMD_DESTORYANGLERFISH_RSP = 10115
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"ePromptInfoType")]

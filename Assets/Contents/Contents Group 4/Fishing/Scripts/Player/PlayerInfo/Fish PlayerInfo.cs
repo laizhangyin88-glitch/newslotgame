@@ -408,8 +408,8 @@ namespace BagelCode
             {
                 int tempUID = 0;
                 if (LockTargetFish != null)
-                    tempUID = LockTargetFish.FishVo.UID;
-                if (tempUID != fish.FishVo.UID)
+                    tempUID = LockTargetFish.fishVo.UID;
+                if (tempUID != fish.fishVo.UID)
                 {
                     UpLoadLockFish(fish);
                     Panel.PlayLockTipsAnim();
@@ -448,7 +448,7 @@ namespace BagelCode
 
         public void UpLoadLockFish(FishFishBase lockFish)
         {
-            int lockFishUID = lockFish.FishVo.UID;
+            int lockFishUID = lockFish.fishVo.UID;
             if (lockFishUID != 0)
             {
                 IsShowLockFishStatePanel(true);
@@ -516,12 +516,12 @@ namespace BagelCode
         public void CaculateLockFishDistance(FishFishBase targetFish, Transform currentTrans)
         {
             Vector3 lockFishPos;
-            if (targetFish.FishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
+            if (targetFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
             {
                 FishPartFish partFish = targetFish as FishPartFish;
                 lockFishPos = currentTrans.InverseTransformPoint(partFish.GetLockPartPoint().position);
             }
-            else if (targetFish.FishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
+            else if (targetFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
             {
                 FishDragonFish dragonFish = targetFish as FishDragonFish;
                 lockFishPos = currentTrans.InverseTransformPoint(dragonFish.GetLockPartPoint().position);
@@ -558,12 +558,12 @@ namespace BagelCode
 
         public void SetTargetLockFishTips(FishFishBase targetFish)
         {
-            if (targetFish.FishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
+            if (targetFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
             {
                 FishPartFish partFish = targetFish as FishPartFish;
                 Panel.SetLockTipsPos(partFish.GetLockPartPoint().position);
             }
-            else if (targetFish.FishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
+            else if (targetFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
             {
                 FishDragonFish dragonFish = targetFish as FishDragonFish;
                 Panel.SetLockTipsPos(dragonFish.GetLockPartPoint().position);
@@ -738,9 +738,7 @@ namespace BagelCode
         public void ShootBullet(FishBullet bulletIns)
         {
             if ((bulletIns.BulletVo.chairId != gameData.playerChairId && !IsLockFish) || (IsLockFish && LockTargetFish == null && bulletIns.BulletVo.chairId != gameData.playerChairId))
-            {
                 SetMuzzleEulerAngles(bulletIns.BulletVo.BulletAngle / PrecisionValue);
-            }
             if (IsLockFish && LockTargetFish != null)
                 bulletIns.SetBulletLockTargetFish(LockTargetFish);
             Panel.PlayGunShotAnim();

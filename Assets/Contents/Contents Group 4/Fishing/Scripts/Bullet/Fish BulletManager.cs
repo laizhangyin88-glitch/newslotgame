@@ -43,12 +43,14 @@ namespace BagelCode
 
         public void LocalCreatBullet(int myChairId, int bulletUID, int bulletSpeedIndex, int bulletIntervalTimeIndex, int bulletLevel)
         {
-            BulletVo vo = new BulletVo();
-            vo.BulletUID = bulletUID;
-            vo.chairId = myChairId;
-            vo.BulletSpeedIndex = bulletSpeedIndex;
-            vo.BulletIntervalTimeIndex = bulletIntervalTimeIndex;
-            vo.BulletLevel = bulletLevel;
+            BulletVo vo = new BulletVo
+            {
+                BulletUID = bulletUID,
+                chairId = myChairId,
+                BulletSpeedIndex = bulletSpeedIndex,
+                BulletIntervalTimeIndex = bulletIntervalTimeIndex,
+                BulletLevel = bulletLevel
+            };
             CreateBullet(vo, false);
         }
 
@@ -168,7 +170,6 @@ namespace BagelCode
                 {
                     foreach (var item1 in item.Values)
                     {
-                        // Destroy(item1.gameObject);
                         item1.Destroy();
                         RecycleBullet(item1);
                     }
@@ -179,7 +180,6 @@ namespace BagelCode
             {
                 foreach (var item in AllBulletInsList)
                 {
-                    // Destroy(item.gameObject);
                     item.Destroy();
                 }
             }

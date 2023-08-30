@@ -174,6 +174,9 @@ namespace BagelCode
                 new Fish {name = "Fish_43", ParentName = "Fish_Pack_06", amout = 15, count = 1},
                 new Fish {name = "Fish_44", ParentName = "Fish_Pack_06", amout = 15, count = 1},
                 new Fish {name = "Fish_45", ParentName = "Fish_Pack_06", amout = 15, count = 1},
+                new Fish {name = "Fish_46", ParentName = "Fish_Pack_06", amout = 15, count = 1},
+                new Fish {name = "Fish_47", ParentName = "Fish_Pack_06", amout = 15, count = 1},
+                new Fish {name = "Fish_48", ParentName = "Fish_Pack_06", amout = 15, count = 1},
             };
         }
         private void InitBulletConfig()
@@ -258,6 +261,8 @@ namespace BagelCode
                 new SpecialDeclare {name = "SpecialDeclare_Hammer", path = "Prefabs/SpecialDeclare/SpecialDeclare_Hammer.prefab", amout = 1, count = 1},
                 new SpecialDeclare {name = "DeclareLight", path = "Prefabs/SpecialDeclare/Boss/DeclareLight.prefab", amout = 1, count = 1},
                 new SpecialDeclare {name = "GhostShipDeclare", path = "Prefabs/SpecialDeclare/Boss/GhostShipDeclare.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "LanternFishDeclare", path = "Prefabs/SpecialDeclare/Boss/LanternFishDeclare.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "DragonDeclare", path = "Prefabs/SpecialDeclare/Boss/DragonDeclare.prefab", amout = 1, count = 1},
             };
         }
 
@@ -305,6 +310,9 @@ namespace BagelCode
                 new Skill {name = "Skill_MultiBomb", path = "Prefabs/Skill/Skill_MultiBomb.prefab", amout = 1, count = 1},
                 new Skill {name = "ThunderHammer", path = "Prefabs/Skill/ThunderHammer.prefab", amout = 1, count = 1},
                 new Skill {name = "Skill_GhostShip", path = "Prefabs/Skill/Skill_GhostShip.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_LaternFish", path = "Prefabs/Skill/Skill_LaternFish.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_DragonTurtle", path = "Prefabs/Skill/Skill_DragonTurtle.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_ThunderDragon", path = "Prefabs/Skill/Skill_ThunderDragon.prefab", amout = 1, count = 1},
             };
         }
         public void InitAudioConfig()
