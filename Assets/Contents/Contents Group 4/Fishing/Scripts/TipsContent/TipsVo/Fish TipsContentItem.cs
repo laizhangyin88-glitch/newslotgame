@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,11 +38,11 @@ namespace BagelCode
         public void ResetState(FishFishBase tempIns, int uID)
         {
             targetObjIns = tempIns;
-            showTime = tempIns.FishVo.FishConfig.tCShowTime;
+            showTime = tempIns.fishVo.FishConfig.tCShowTime;
             SetUID(uID);
             isShowTips = true;
             SetCurrentPos();
-            SetShowText(tempIns.FishVo.FishConfig.TipsContentInfo);
+            SetShowText(tempIns.fishVo.FishConfig.TipsContentInfo);
             IsShowText(true);
             currentTime = 0;
             isCanDestroy = false;

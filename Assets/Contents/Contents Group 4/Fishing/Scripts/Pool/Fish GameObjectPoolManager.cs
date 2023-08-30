@@ -1,6 +1,4 @@
-using BagelCode.Tasks.Actions.ClientAPI;
 using SlotMaker;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,23 +20,17 @@ namespace BagelCode
     }
     public class FishGameObjectPoolManager : MonoSingleton<FishGameObjectPoolManager>
     {
-        FishGameData gameData;
         GameObject _gameObject;
         FishPoolPanel PoolPanel;
         FishObjectPool ObjectPool;
         public List<GameObject> PoolList;
         private void Awake()
         {
-            InitData();
             InitView();
             InitInstance();
             InitViewData();
         }
 
-        private void InitData()
-        {
-            gameData = FishGameManager.Instance.gameData;
-        }
         private void InitView()
         {
             _gameObject = FishGameManager.Instance.contentGameObject.transform.Find("FishPanel/GameObjectPool").gameObject;

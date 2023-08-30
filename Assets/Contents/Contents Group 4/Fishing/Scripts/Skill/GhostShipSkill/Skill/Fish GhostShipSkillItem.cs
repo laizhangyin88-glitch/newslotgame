@@ -21,7 +21,8 @@ namespace BagelCode
         private float curTime;
         private float changeScoreCurTime;
         private float changeHitCurTime;
-        private float changeHitTotalTime = 0.5f;
+        private float changeHitPerTime;
+        private float changeHitTotalTime = 0.8f;
         private bool isPlaying;
         private bool isChangeScore;
         private bool isChangeMul;
@@ -54,6 +55,7 @@ namespace BagelCode
             hitCount = 0;
             changeScoreCurTime = 0;
             changeHitCurTime = 0;
+            changeHitPerTime = 0;
             this.skillScore = skillScore;
             isChangeScore = false;
             isChangeMul = false;
@@ -99,6 +101,7 @@ namespace BagelCode
 
         public void ShowGhostShipAppear()
         {
+
             Animator apearAnim = ghostShipTrans.Find("apearAnimator").GetComponent<Animator>();
             apearAnim.gameObject.SetActive(true);
             apearAnim.Play("GhostShipAppear", 0, 0);   //during 0.29f
@@ -161,16 +164,23 @@ namespace BagelCode
             if (ghostShipHitList != null && ghostShipHitList.Count > 0)
             {
                 changeHitCurTime += Time.deltaTime;
+                changeHitPerTime += Time.deltaTime;
 
                 if (changeHitCurTime <= changeHitTotalTime)
                 {
-                    int hitResult = skillHit + (int)Math.Ceiling(hitTemp * (changeHitCurTime / changeHitTotalTime));
-                    SetGhostShipHit(hitResult);
+                    if (changeHitPerTime > 0.1f)
+                    {
+                        changeHitPerTime = 0;
+                        int hitResult = skillHit + (int)Math.Ceiling(hitTemp * (changeHitCurTime / changeHitTotalTime));
+                        SetGhostShipHit(hitResult);
+                    }
+                    
                 }
                 else
                 {
                     ghostShipHitList.RemoveAt(0);
                     changeHitCurTime = 0;
+                    changeHitPerTime = 0;
                     skillHit += hitTemp;
                     SetGhostShipHit(skillHit);
 
@@ -183,9 +193,9 @@ namespace BagelCode
         public void SetGhostShipHit(int hit)
         {
             hitText.text = hit.ToString();
-            AsyncActionUtils.ApplyScaling(FishGhostShipSkillManager.Instance, scoreAnimTrans, Vector3.one, Vector3.one * 1.5f, 0.01f, TweenUtils.VectorTweenLinear, 0, () =>
+            AsyncActionUtils.ApplyScaling(FishGhostShipSkillManager.Instance, scoreAnimTrans, Vector3.one, Vector3.one * 1.2f, 0.05f, TweenUtils.VectorTweenLinear, 0, () =>
             {
-                AsyncActionUtils.ApplyScaling(FishGhostShipSkillManager.Instance, scoreAnimTrans, Vector3.one * 1.5f, Vector3.one, 0.01f, TweenUtils.VectorTweenLinear);
+                AsyncActionUtils.ApplyScaling(FishGhostShipSkillManager.Instance, scoreAnimTrans, Vector3.one * 1.2f, Vector3.one, 0.05f, TweenUtils.VectorTweenLinear);
             });
         }
 
@@ -214,12 +224,18 @@ namespace BagelCode
             isCanDestroy = false;
             isPlaying = false;
             callBack = null;
+            anchorAnim.gameObject.SetActive(false);
+            enviorAnim.gameObject.SetActive(false);
+            shipsAnim.gameObject.SetActive(false);
+            bombAnim.gameObject.SetActive(false);
+            hungeAnimator.gameObject.SetActive(false);
             if (ghostShipTrans != null)
             {
                 FishGameObjectPoolManager.Instance.ReCycleToGameObject(ghostShipTrans.gameObject, PoolType.EffectPool);
                 ghostShipTrans = null;
             }
-        }
+
+    }
 
         public void EndGhostShipSkill(int score, int mul)
         {

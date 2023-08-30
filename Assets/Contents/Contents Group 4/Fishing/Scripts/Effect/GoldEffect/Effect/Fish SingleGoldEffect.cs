@@ -70,6 +70,7 @@ namespace BagelCode
         {
             this.endPos = endPos;
             this.callBack = callBack;
+            gameObject.SetActive(true);
             Anim.enabled = true;
             transform.position = beginPos;
             transform.localScale = Vector3.one;
@@ -101,20 +102,6 @@ namespace BagelCode
 
         public void TwoStepJump()
         {
-            //float y2 = jumpHeight * 0.4f + yValue;
-            //Vector3 targetPos = new Vector3(transform.localPosition.x, y2, transform.localPosition.z);
-            //AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.1f, TweenUtils.VectorTweenOutCubic, 0, () => {
-            //    targetPos = new Vector3(transform.localPosition.x, yValue, transform.localPosition.z);
-            //    AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.1f, TweenUtils.VectorTweenInCubic, 0, () =>
-            //    {
-            //        targetPos = new Vector3(transform.localPosition.x, y2, transform.localPosition.z);
-            //        AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.07f, TweenUtils.VectorTweenOutCubic, 0, () =>
-            //        {
-            //            targetPos = new Vector3(transform.localPosition.x, yValue, transform.localPosition.z);
-            //            AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.07f, TweenUtils.VectorTweenOutCubic, 0, CenterToJumpOver);
-            //        });
-            //    });
-            //});
             float y2 = jumpHeight * 0.4f + yValue;
             Vector3 targetPos = new Vector3(transform.localPosition.x, y2, transform.localPosition.z);
             AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.1f, TweenUtils.VectorTweenOutCubic, 0, () => {
@@ -156,6 +143,7 @@ namespace BagelCode
 
         public void Destroy()
         {
+            gameObject.SetActive(false);
             isCanDestroy = false;
             callBack = null;
             gameObject.transform.localPosition = new Vector3(10000, 10000, 0);

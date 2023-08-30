@@ -30,6 +30,7 @@ namespace BagelCode
             DelayBombType = 18,
             ThunderHammer = 19,
             GhostShip = 20,
+            LaternFish = 21,
         }
 
         public Dictionary<int, List<FishBombBaseFish>> BombFishTypeInsList;
@@ -132,6 +133,7 @@ namespace BagelCode
                 case (int)FishBombype.DelayBombType:
                 case (int)FishBombype.MultBombType:
                 case (int)FishBombype.ThunderHammer:
+                case (int)FishBombype.LaternFish:
                     bombIns = new FishNormalBombFishType();
                     break;
                 case (int)FishBombype.LaserGunType:

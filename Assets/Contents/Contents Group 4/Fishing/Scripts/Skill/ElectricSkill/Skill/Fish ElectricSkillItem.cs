@@ -239,7 +239,7 @@ namespace BagelCode
                     {
                         return;
                     }
-                    SendHitFishInfo(hitFish.FishVo.UID);
+                    SendHitFishInfo(hitFish.fishVo.UID);
                 }
             }
         }

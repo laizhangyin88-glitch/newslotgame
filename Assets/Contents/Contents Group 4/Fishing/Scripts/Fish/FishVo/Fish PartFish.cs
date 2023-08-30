@@ -87,11 +87,11 @@ namespace BagelCode
                     partCollders[1] = colliders[i];
             }
 
-            if (FishVo.FishKindGroup != null)
+            if (fishVo.FishKindGroup != null)
             {
-                if (FishVo.FishKindGroup.Count > 0)
+                if (fishVo.FishKindGroup.Count > 0)
                 {
-                    if (FishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 1)
+                    if (fishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 1)
                     {
                         curPartType = FishPartType.LeftLeg;
                         //partCollders[(int)FishPartType.LeftLeg - 1].enabled = true;
@@ -102,7 +102,7 @@ namespace BagelCode
                         //partCollders[(int)FishPartType.LeftLeg - 1].enabled = false;
                     }
 
-                    if (FishVo.FishKindGroup[(int)FishPartType.RightLeg - 1] == 1)
+                    if (fishVo.FishKindGroup[(int)FishPartType.RightLeg - 1] == 1)
                     {
                         curPartType = FishPartType.RightLeg;
                         //partCollders[(int)FishPartType.RightLeg - 1].enabled = true;
@@ -113,13 +113,13 @@ namespace BagelCode
                         partCollders[(int)FishPartType.RightLeg - 1].enabled = false;
                     }
 
-                    if (FishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 1 && FishVo.FishKindGroup[(int)FishPartType.RightLeg] == 1)
+                    if (fishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 1 && fishVo.FishKindGroup[(int)FishPartType.RightLeg] == 1)
                     {
                         curPartType = FishPartType.NormalLeg;
                         PartCount = 2;
                     }
 
-                    if (FishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 0 && FishVo.FishKindGroup[(int)FishPartType.RightLeg] == 0)
+                    if (fishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 0 && fishVo.FishKindGroup[(int)FishPartType.RightLeg] == 0)
                     {
                         curPartType = FishPartType.NoneLeg;
                         //partCollders[(int)FishPartType.LeftLeg - 1].enabled = false;
@@ -254,14 +254,14 @@ namespace BagelCode
 
         public void PlayBornAnim()
         {
-            string animName = FishVo.FishConfig.fishMoveAnimationName;
+            string animName = fishVo.FishConfig.fishMoveAnimationName;
             if (!string.IsNullOrEmpty(animName))
                 animator.Play(animName, 0, 0);
         }
 
         public override void PlayDieAnim(bool isLoop)
         {
-            string animName = FishVo.FishConfig.fishDieAnimationName;
+            string animName = fishVo.FishConfig.fishDieAnimationName;
             if (!string.IsNullOrEmpty(animName))
                 animator.Play(animName, 0, 0);
         }

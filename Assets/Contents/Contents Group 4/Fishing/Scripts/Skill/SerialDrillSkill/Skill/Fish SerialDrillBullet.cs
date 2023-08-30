@@ -87,7 +87,7 @@ namespace BagelCode
                     {
                         return;
                     }
-                    serialDrillSkillItem.SendHitFishInfo(hitFish.FishVo.UID, serialDrillBulletVo.serialDrillBulletID);
+                    serialDrillSkillItem.SendHitFishInfo(hitFish.fishVo.UID, serialDrillBulletVo.serialDrillBulletID);
                 }
             }
         }

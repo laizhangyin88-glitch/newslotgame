@@ -217,6 +217,7 @@ namespace BagelCode
             FishGhostShipSkillManager.Instance.ClearAllGhostShipSkill();
             FishBombSkillManager.Instance.ClearAllBombSkill();
             FishMultBombSkillManager.Instance.ClearAllMultBombSkill();
+            FishLaternSkillManager.Instance.ClearAllLaternFishSkill();
             FishThunderHammerSkillManager.Instance.ClearAllSkill();
             //isFocus = false;
         }

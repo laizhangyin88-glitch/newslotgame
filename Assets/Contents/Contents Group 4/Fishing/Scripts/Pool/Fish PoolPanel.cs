@@ -7,19 +7,13 @@ namespace BagelCode
 {
     public class FishPoolPanel
     {
-        private FishGameData gameData;
         private Transform mtrans;
         public List<GameObject> PoolList = new List<GameObject>();
         public FishShakeCamera ShakeCamera;
 
         public FishPoolPanel(GameObject gameObject)
         {
-            InitData();
             InitView(gameObject);
-        }
-        private void InitData()
-        {
-            gameData = FishGameManager.Instance.gameData;
         }
 
         private void InitView(GameObject gameObject)

@@ -33,7 +33,7 @@ namespace BagelCode
         public float hitTotalTime;
         float moveTime;
         bool isShowingTipsContent;
-        public FishVo FishVo;
+        public FishVo fishVo;
         Collider collider;
         public Collider[] colliders;
 
@@ -92,24 +92,24 @@ namespace BagelCode
 
         public void InitFishVo()
         {
-            FishVo = new FishVo();
+            fishVo = new FishVo();
         }
 
         public void UpdateFishVo(FishVo vo)
         {
-            FishVo = vo;
+            fishVo = vo;
         }
 
         public void UpdateDieEffectConfig(FishDieEffectConfig dieEffectConfig)
         {
-            FishVo.DieEffectConfig = dieEffectConfig;
+            fishVo.DieEffectConfig = dieEffectConfig;
         }
 
         public void BuildFishBase(FishVo vo, GameObject obj)
         {
             gameObject = obj;
             transform = obj.transform;
-            FishVo = vo;
+            fishVo = vo;
             gameObject.tag = _tag;
             gameObject.SetActive(true);
             animator = gameObject.GetComponent<Animator>();
@@ -178,8 +178,8 @@ namespace BagelCode
                 fishWidth = size.x * 0.5f + 8;
                 fishHeight = size.y * 0.5f + 8;
             }
-            int curPointIndex = FishVo.StartPointIndex + FishVo.OffsetIndex;
-            fishBehaviour.FishBeginMove(FishVo.TraceId, FishVo.OffsetPosX, FishVo.OffsetPosY, fishWidth, fishHeight, curPointIndex, FishVo.DelayBornTime);
+            int curPointIndex = fishVo.StartPointIndex + fishVo.OffsetIndex;
+            fishBehaviour.FishBeginMove(fishVo.TraceId, fishVo.OffsetPosX, fishVo.OffsetPosY, fishWidth, fishHeight, curPointIndex, fishVo.DelayBornTime);
             fishMoveStatus = fishBehaviour.curFishStatus;
         }
 
@@ -267,25 +267,25 @@ namespace BagelCode
 
         public void ShowCoinEffect()
         {
-            int coinEffectId = FishVo.DieEffectConfig.coinEffectId;
-            FishFishConfig fishConfigData = FishVo.FishConfig;
+            int coinEffectId = fishVo.DieEffectConfig.coinEffectId;
+            FishFishConfig fishConfigData = fishVo.FishConfig;
             if (coinEffectId != 0 && fishConfigData.coinEffectCount > 0)
             {
                 Vector3 endPos = playerIns.GetFlyCoinPos();
                 endPos = gameObject.transform.parent.InverseTransformPoint(endPos);
-                FishGoldEffectManager.Instance.SetCoinEffectShowMode(transform, playerIns.GetPlayerChairId(), FishVo.UID, coinEffectId,
-                    fishConfigData.coinEffectCount, endPos, FishVo.DieEffectConfig.fishDieBehavior);
+                FishGoldEffectManager.Instance.SetCoinEffectShowMode(transform, playerIns.GetPlayerChairId(), fishVo.UID, coinEffectId,
+                    fishConfigData.coinEffectCount, endPos, fishVo.DieEffectConfig.fishDieBehavior);
                 PlayCoinAudio();
             }
         }
 
         public void PlayCoinAudio()
         {
-            if (FishVo.DieEffectConfig.fishDieBehavior == 1 || playerIns.GetPlayerChairId() == gameData.playerChairId) 
+            if (fishVo.DieEffectConfig.fishDieBehavior == 1 || playerIns.GetPlayerChairId() == gameData.playerChairId) 
             {
-                if (FishVo.FishId <= 14)
+                if (fishVo.fishId <= 14)
                     FishAudioManager.Instance.PlayNormalAudio(35);
-                else if(FishVo.FishId > 14 && FishVo.FishId <= 25)
+                else if(fishVo.fishId > 14 && fishVo.fishId <= 25)
                     FishAudioManager.Instance.PlayNormalAudio(36);
                 else
                     FishAudioManager.Instance.PlayNormalAudio(37);
@@ -295,9 +295,9 @@ namespace BagelCode
         //文字分数
         public void ShowWinScoreEffect(Vector3 beginPos)
         {
-            if (FishVo.DieEffectConfig.winScoreID > 0)
+            if (fishVo.DieEffectConfig.winScoreID > 0)
             {
-                FishScoreEffectConfig tempConfig = FishScoreEffectManager.Instance.GetScoreEffectConfig(FishVo.DieEffectConfig.winScoreID);
+                FishScoreEffectConfig tempConfig = FishScoreEffectManager.Instance.GetScoreEffectConfig(fishVo.DieEffectConfig.winScoreID);
                 if (tempConfig != null)
                 {
                     int parentFishID = hitFishMsg.bombUID;
@@ -305,12 +305,12 @@ namespace BagelCode
                     if (parentFishID == 0)
                     {
                         if (scoreType == (int)FishScoreEffectManager.ScoreType.AllShow)
-                            FishScoreEffectManager.Instance.SetScoreEffectShowMode(beginPos, chairId, hitFishMsg.mainScore, FishVo.DieEffectConfig.winScoreID, FishVo.DieEffectConfig.fishDieBehavior);
+                            FishScoreEffectManager.Instance.SetScoreEffectShowMode(beginPos, chairId, hitFishMsg.mainScore, fishVo.DieEffectConfig.winScoreID, fishVo.DieEffectConfig.fishDieBehavior);
                         else if (scoreType == (int)FishScoreEffectManager.ScoreType.OnlyShow)
-                            FishScoreEffectManager.Instance.SetScoreEffectShowMode(beginPos, chairId, hitFishMsg.totalScore, FishVo.DieEffectConfig.winScoreID, FishVo.DieEffectConfig.fishDieBehavior);
+                            FishScoreEffectManager.Instance.SetScoreEffectShowMode(beginPos, chairId, hitFishMsg.totalScore, fishVo.DieEffectConfig.winScoreID, fishVo.DieEffectConfig.fishDieBehavior);
                     }
                     else if (scoreType == (int)FishScoreEffectManager.ScoreType.AllShow)
-                        FishScoreEffectManager.Instance.SetScoreEffectShowMode(beginPos, chairId, hitFishMsg.mainScore, FishVo.DieEffectConfig.winScoreID, FishVo.DieEffectConfig.fishDieBehavior);
+                        FishScoreEffectManager.Instance.SetScoreEffectShowMode(beginPos, chairId, hitFishMsg.mainScore, fishVo.DieEffectConfig.winScoreID, fishVo.DieEffectConfig.fishDieBehavior);
                 }
             }
         }
@@ -327,14 +327,14 @@ namespace BagelCode
 
         public void SetTipsContentInfo()
         {
-            int isTC = FishVo.FishConfig.isTipsContent;
+            int isTC = fishVo.FishConfig.isTipsContent;
             if (isTC == 1)
             {
                 if (!GetTipsContentState())
                 {
 
                     float probability = UnityEngine.Random.Range(1, 100) / 100;
-                    if (probability <= FishVo.FishConfig.TCProbability)
+                    if (probability <= fishVo.FishConfig.TCProbability)
                     {
                         FishTipsContentManager.Instance.SetShowTipsContent(this);
                     }
@@ -352,21 +352,21 @@ namespace BagelCode
 
 
             bool isLoop = false;
-            if (FishFishManager.Instance.GetFishClientBuildFishType(FishVo.FishId) == (int)FishGameConfig.FishType.Spine)
+            if (FishFishManager.Instance.GetFishClientBuildFishType(fishVo.fishId) == (int)FishGameConfig.FishType.Spine)
             {
                 isLoop = true;
             }
             PlayDieAnim(isLoop);
 
-            SetMainFishOrder(FishVo.FishConfig.fishDieLayer + UnityEngine.Random.Range(0, 10));
-            if (FishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
+            SetMainFishOrder(fishVo.FishConfig.fishDieLayer + UnityEngine.Random.Range(0, 10));
+            if (fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
                 FishAudioManager.Instance.PlayNormalAudio(64);
-            AsyncActionUtils.DelayedAction(fishBehaviour, FishVo.FishConfig.fishDieTime, () => SetDestroy(true));
+            AsyncActionUtils.DelayedAction(fishBehaviour, fishVo.FishConfig.fishDieTime, () => SetDestroy(true));
             float delayTime = 0;
-            if (FishVo.DieEffectConfig.fishDieOneShowTime != 0)
-                delayTime = FishVo.DieEffectConfig.fishDieOneShowTime;
+            if (fishVo.DieEffectConfig.fishDieOneShowTime != 0)
+                delayTime = fishVo.DieEffectConfig.fishDieOneShowTime;
 
-            switch (FishVo.DieEffectConfig.fishDieBehavior)
+            switch (fishVo.DieEffectConfig.fishDieBehavior)
             {
                 case 1:
                     SetFishMoveStatus(FishStatus.Stop);
@@ -411,7 +411,7 @@ namespace BagelCode
             int multiple = hitFishMsg.totalRatio;
 
             Vector3 beginPos = gameObject.transform.localPosition;
-            FishSpecialDeclareConfig specialDeclareConfig = FishSpecialDeclareEffectManager.Instance.GetSpecialDeclareEffectConfig(FishVo.DieEffectConfig.specialDeclareID);
+            FishSpecialDeclareConfig specialDeclareConfig = FishSpecialDeclareEffectManager.Instance.GetSpecialDeclareEffectConfig(fishVo.DieEffectConfig.specialDeclareID);
             int specialDeclareUID = FishSpecialDeclareEffectManager.Instance.SetSpecialDeclareEffectShowMode(playerIns.GetPlayerChairId(), beginPos, specialDeclareConfig, true);
             AsyncActionUtils.DelayedAction(FishBombManager.Instance, specialDeclareConfig.delayTime, () =>
             {
@@ -431,14 +431,14 @@ namespace BagelCode
 
         public void FishDieRotation()
         {
-            float time = FishVo.DieEffectConfig.fishDieThreeShowTime;
+            float time = fishVo.DieEffectConfig.fishDieThreeShowTime;
             playerIns.Panel.RemovePlayerCatchFishPos();
             if (time == 0)
             {
                 gameObject.transform.localPosition = new Vector3(10000, 10000, 0);
                 return;
             }
-            Vector3 angle = new Vector3(0, 0, FishVo.FishConfig.dieRotationAngle);
+            Vector3 angle = new Vector3(0, 0, fishVo.FishConfig.dieRotationAngle);
 
             AsyncActionUtils.ApplyRotation(fishBehaviour, gameObject.transform, gameObject.transform.rotation.eulerAngles, angle, time, TweenUtils.VectorTweenLinear, 0f);
             AsyncActionUtils.ApplyScaling(fishBehaviour, gameObject.transform, gameObject.transform.localScale, new Vector3(0, 0, 0), time, TweenUtils.VectorTweenInCubic, 0f, () => {
@@ -455,11 +455,11 @@ namespace BagelCode
             AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, duration, TweenUtils.VectorTweenOutCubic, 0, () =>
             {
                 ShowWinScoreEffect(gameObject.GetComponent<RectTransform>().anchoredPosition);
-                float temp = FishVo.DieEffectConfig.fishDieTwoShowTime == 2.5f ? temp = 540 : 900;
-                temp = FishVo.FishId == 26 || FishVo.FishId == 28 ? 45 : temp;
+                float temp = fishVo.DieEffectConfig.fishDieTwoShowTime == 2.5f ? temp = 540 : 900;
+                temp = fishVo.fishId == 26 || fishVo.fishId == 28 ? 45 : temp;
                 Vector3 angle = new Vector3(0, 0, temp);
-                AsyncActionUtils.ApplyRotation(fishBehaviour, gameObject.transform, gameObject.transform.rotation.eulerAngles, angle, FishVo.DieEffectConfig.fishDieTwoShowTime, TweenUtils.VectorTweenLinear, 0f);
-                AsyncActionUtils.DelayedAction(fishBehaviour, FishVo.DieEffectConfig.fishDieTwoShowTime, () =>
+                AsyncActionUtils.ApplyRotation(fishBehaviour, gameObject.transform, gameObject.transform.rotation.eulerAngles, angle, fishVo.DieEffectConfig.fishDieTwoShowTime, TweenUtils.VectorTweenLinear, 0f);
+                AsyncActionUtils.DelayedAction(fishBehaviour, fishVo.DieEffectConfig.fishDieTwoShowTime, () =>
                 {
                     gameObject.transform.rotation = Quaternion.Euler(0, 0, 180);
                     FishDieRotation();
@@ -516,8 +516,8 @@ namespace BagelCode
             {
                 moveTime = 0;
                 int temp = UnityEngine.Random.Range(0, 11);
-                int fishRuleType = FishFishManager.Instance.GetFishRuleType(FishVo.FishId);
-                if (temp > 5 && (FishVo.FishId == 20 || FishVo.FishId == 4) && fishRuleType != 2)
+                int fishRuleType = FishFishManager.Instance.GetFishRuleType(fishVo.fishId);
+                if (temp > 5 && (fishVo.fishId == 20 || fishVo.fishId == 4) && fishRuleType != 2)
                 {
                     animator.SetTrigger("doAction");
                 }
@@ -552,7 +552,7 @@ namespace BagelCode
 
     public class FishVo
     {
-        public int FishId = 0;
+        public int fishId = 0;
         public int UID = 0;
         public List<uint> FishKindGroup = new List<uint>();
         public int TraceId = 0;

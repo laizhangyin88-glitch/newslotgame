@@ -115,9 +115,12 @@ namespace BagelCode
         {
             if (m_contentType == null)
                 Log.Error("m_contentType==null");
-            string loadPath = m_fullPathInResources;
+#if UNITY_EDITOR
+            m_content = AssetDatabase.LoadAssetAtPath(m_fullPathInResources, m_contentType);
+#else
+            m_content = Resources.Load(m_fullPathInResources, m_contentType);
+#endif
 
-            m_content = AssetDatabase.LoadAssetAtPath(loadPath, m_contentType);
             m_state = enResourceState.Loaded;
             if (m_content != null && m_content.GetType() == typeof(TextAsset))
             {
@@ -125,10 +128,7 @@ namespace BagelCode
                 binaryObject.data = (m_content as TextAsset).bytes;
                 m_content = binaryObject;
             }
-            if (callback != null)
-            {
-                callback(this, 1);
-            }
+            callback?.Invoke(this, 1);
         }
 
 

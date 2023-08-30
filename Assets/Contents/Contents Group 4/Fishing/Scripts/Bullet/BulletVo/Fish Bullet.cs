@@ -35,11 +35,6 @@ namespace BagelCode
             behaviour.onTriggerCallBack = OnTriggerEnter;
         }
 
-        private void RemoveEventLisenner()
-        {
-
-        }
-
         public void DestoryBullet()
         {
             IsEnabledCollider(false);
@@ -49,9 +44,11 @@ namespace BagelCode
 
         public void SendPlayerHitFishMsg(int FishUID, bool isSendRobotChairId)
         {
-            HitfishReq mes = new HitfishReq();
-            mes.fishId = FishUID;
-            mes.bulletid = BulletVo.BulletUID;
+            HitfishReq mes = new HitfishReq
+            {
+                fishId = FishUID,
+                bulletid = BulletVo.BulletUID
+            };
             if (isSendRobotChairId)
             {
                 mes.usRobotChairId = BulletVo.chairId;
@@ -87,25 +84,24 @@ namespace BagelCode
         {
             if (other.gameObject.CompareTag(FishTag))
             {
-                FishFishBase HitFishBase = other.transform.parent.parent.GetComponent<FishBehaviour>().fishIns;
-                if (HitFishBase != null)
+                FishFishBase hitFishBase = other.transform.parent.parent.GetComponent<FishBehaviour>().fishIns;
+                if (hitFishBase != null)
                 {
-                    if (HitFishBase.GetIsDie())
+                    //if (hitFishBase.fishVo.fishId == 48)
+                    //    Debug.LogError("命中龙");
+                    if (hitFishBase.GetIsDie())
                         return;
-                    if (targetFish != null && HitFishBase != targetFish)
+                    if (targetFish != null && hitFishBase != targetFish)
                         return;
-                    if (targetFish != null && HitFishBase.FishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
+                    if (targetFish != null && hitFishBase.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
                     {
-                        FishPartFish HitPartFish = HitFishBase as FishPartFish;
-                        if (!other.gameObject.CompareTag(HitPartFish.GetColliderObj().gameObject.tag))
-                        {
-                            return;
-                        }
+                        FishPartFish HitPartFish = hitFishBase as FishPartFish;
+                        if (!other.gameObject.CompareTag(HitPartFish.GetColliderObj().gameObject.tag))return;
                     }
-                    HitFishBase.SetHitFlyDirection(behaviour.m_direction);
-                    HitFishBase.SetBeHitColor();
+                    hitFishBase.SetHitFlyDirection(behaviour.m_direction);
+                    hitFishBase.SetBeHitColor();
                     DestoryBullet();
-                    SendPlayerHitFishProcess(HitFishBase.FishVo.UID);
+                    SendPlayerHitFishProcess(hitFishBase.fishVo.UID);
                     CreateNet(gameObject.transform.localPosition);
                     if (gameData.playerChairId == GetBulletTargerPlayer().GetPlayerChairId())
                     {
@@ -122,7 +118,7 @@ namespace BagelCode
                         return;
                     if (targetFish != null && HitFishBase != targetFish)
                         return;
-                    if (targetFish != null && HitFishBase.FishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
+                    if (targetFish != null && HitFishBase.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
                     {
                         FishPartFish HitPartFish = HitFishBase as FishPartFish;
                         if (!other.gameObject.CompareTag(HitPartFish.GetColliderObj().gameObject.tag))
@@ -139,7 +135,7 @@ namespace BagelCode
                         partID = 1;
                     else if (other.gameObject.CompareTag(Right_Leg_Tag))
                         partID = 2;
-                    SendPlayerHitFishPart(HitFishBase.FishVo.UID, partID);
+                    SendPlayerHitFishPart(HitFishBase.fishVo.UID, partID);
                     CreateNet(gameObject.transform.localPosition);
                 }
             }
@@ -156,7 +152,7 @@ namespace BagelCode
         {
             if (targetFish != null)
             {
-                if (targetFish.FishVo.FishConfig.clientBuildFishType == (int)FishType.Part)
+                if (targetFish.fishVo.FishConfig.clientBuildFishType == (int)FishType.Part)
                 {
                     if (targetFish.GetIsDie() || targetFish.GetIsDestroy() || !targetFish.CheckBoundValid())
                     {
@@ -186,6 +182,7 @@ namespace BagelCode
         {
             behaviour.curFishStatus = FishBehaviour.FishStatus.Stop;
             isCanDestroy = false;
+            gameObject.SetActive(false);
             IsEnabledFishBehaviour(false);
             IsEnabledAnimator(false);
             SetBulletLockTargetFish(null);

@@ -159,7 +159,7 @@ namespace BagelCode
                     }
                     PlayHitAudio();
                     ShowHitEffect();
-                    drillSkillItem.SendHitFishInfo(hitFish.FishVo.UID);
+                    drillSkillItem.SendHitFishInfo(hitFish.fishVo.UID);
                 }
             }
         }

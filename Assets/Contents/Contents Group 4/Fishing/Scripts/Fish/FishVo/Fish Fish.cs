@@ -52,14 +52,14 @@ namespace BagelCode
 
         public override void PlayMoveAnim()
         {
-            string animName = FishVo.FishConfig.fishMoveAnimationName;
+            string animName = fishVo.FishConfig.fishMoveAnimationName;
             if ( animator != null && !string.IsNullOrEmpty(animName))
                 animator.Play(animName);
         }
 
         public override void PlayDieAnim(bool isLoop)
         {
-            string animName = FishVo.FishConfig.fishDieAnimationName;
+            string animName = fishVo.FishConfig.fishDieAnimationName;
             if (animator != null && !string.IsNullOrEmpty(animName))
                 animator.Play(animName);
         }
