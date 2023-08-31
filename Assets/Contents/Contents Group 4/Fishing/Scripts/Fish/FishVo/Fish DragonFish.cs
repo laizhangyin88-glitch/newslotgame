@@ -29,7 +29,7 @@ namespace BagelCode
 
         public override void BuildFish(FishVo vo, GameObject obj)
         {
-            InitBaseFish(vo, obj);
+            base.BuildFish(vo, obj);
             FindView();
             InitViewData();
             PlayBornAnim();
@@ -37,11 +37,11 @@ namespace BagelCode
 
         public override void ResetFishState(FishVo vo)
         {
-            ResetBaseFishStateData(vo);
+            base.ResetFishState(vo);
             IsEnableAnimator(true);
             effectPosList = new List<Vector3>();
             PlayBornAnim();
-            PlayMoveAnim(true);
+            PlayMoveAnim();
         }
 
         public void FindView()
@@ -55,7 +55,7 @@ namespace BagelCode
 
         public void InitViewData()
         {
-            PlayMoveAnim(true);
+            PlayMoveAnim();
         }
 
         public override List<Vector3> GetEffectPoint(int partId = 0)
@@ -74,15 +74,15 @@ namespace BagelCode
             return centerTrans;
         }
 
-        public override void PlayMoveAnim(bool isLoop)
+        public override void PlayMoveAnim()
         {
             if (SpineAnim == null) return;
             SpineAnim.timeScale = 1.0f;
             string animName = fishVo.FishConfig.fishMoveAnimationName;
             if (!string.IsNullOrEmpty(animName))
             {
-                SpineAnim.loop = isLoop;
-                SpineAnim.state.SetAnimation(0, animName, isLoop);
+                SpineAnim.loop = true;
+                SpineAnim.state.SetAnimation(0, animName, true);
             }
         }
 
@@ -106,7 +106,7 @@ namespace BagelCode
                 animator.Play("Fish_Born", 0, 0);
         }
 
-        public override void PlayDieAnim(bool isLoop)
+        public override void PlayDieAnim()
         {
             string animName = fishVo.FishConfig.fishDieAnimationName;
             if (!string.IsNullOrEmpty(animName) && animator != null)
@@ -118,20 +118,6 @@ namespace BagelCode
             if (SpineMeshRenderer != null)
             {
                 SpineMeshRenderer.sortingOrder = orderIndex;
-            }
-        }
-
-        public override void SetHitFlyDirection(Vector3 direction)
-        {
-            hitFlyDirection = direction;
-        }
-
-        public override void SetBeHitColor()
-        {
-            if (!isHit)
-            {
-                SetMainFishColor(beHitColor);
-                isHit = true;
             }
         }
 
@@ -149,11 +135,6 @@ namespace BagelCode
             SpineAnim.skeleton.G = color.g;
             SpineAnim.skeleton.B = color.b;
             SpineAnim.skeleton.A = color.a;
-        }
-
-        public override void PlayMoveAnim()
-        {
-            throw new System.NotImplementedException();
         }
 
         public override void Destroy()

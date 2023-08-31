@@ -78,15 +78,20 @@ namespace BagelCode
             isShowingTipsContent = false;
         }
 
-        public abstract void BuildFish(FishVo vo, GameObject obj);
+        public virtual void BuildFish(FishVo vo, GameObject obj)
+        {
+            BuildFishBase(vo, obj);
+            AddBehaviourScript();
+            SetFishChildTag();
+            IsEnableBoxcollider(true);
+            IsShowFishLight(false);
+        }
 
         public abstract void SetMainFishOrder(int orderIndex);
 
-        public abstract void PlayMoveAnim();
+        public virtual void PlayMoveAnim() { }
 
-        public abstract void PlayMoveAnim(bool isLoop);
-
-        public abstract void PlayDieAnim(bool isLoop);
+        public abstract void PlayDieAnim();
 
         public abstract void SetMainFishColor(Color color);
 
@@ -147,18 +152,7 @@ namespace BagelCode
             }
         }
 
-        public void InitBaseFish(FishVo vo, GameObject obj)
-        {
-            BuildFishBase(vo, obj);
-            AddBehaviourScript();
-            SetFishChildTag();
-            IsEnableBoxcollider(true);
-            IsShowFishLight(false);
-        }
-
-        public abstract void ResetFishState(FishVo vo);
-
-        public void ResetBaseFishStateData(FishVo vo)
+        public virtual void ResetFishState(FishVo vo)
         {
             UpdateFishVo(vo);
             IsEnableBoxcollider(true);
@@ -350,13 +344,7 @@ namespace BagelCode
             FishBaseDie();
             ResetNormalColor();
 
-
-            bool isLoop = false;
-            if (FishFishManager.Instance.GetFishClientBuildFishType(fishVo.fishId) == (int)FishGameConfig.FishType.Spine)
-            {
-                isLoop = true;
-            }
-            PlayDieAnim(isLoop);
+            PlayDieAnim();
 
             SetMainFishOrder(fishVo.FishConfig.fishDieLayer + UnityEngine.Random.Range(0, 10));
             if (fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
@@ -498,9 +486,19 @@ namespace BagelCode
             AsyncActionUtils.ApplyAnchoredMovement(fishBehaviour, transform, transform.GetComponent<RectTransform>().anchoredPosition, targetPos, 0.5f, TweenUtils.VectorTweenOutCubic, 0f, FishDieRotation);
         }
 
-        public abstract void SetHitFlyDirection(Vector3 direction);
+        public virtual void SetHitFlyDirection(Vector3 direction)
+        {
+            hitFlyDirection = direction;
+        }
 
-        public abstract void SetBeHitColor();
+        public virtual void SetBeHitColor()
+        {
+            if (!isHit)
+            {
+                SetMainFishColor(beHitColor);
+                isHit = true;
+            }
+        }
 
         public abstract void ResetNormalColor();
 

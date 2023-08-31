@@ -35,7 +35,7 @@ namespace BagelCode
 
         public override void BuildFish(FishVo vo, GameObject obj)
         {
-            InitBaseFish(vo, obj);
+            base.BuildFish(vo, obj);
             CaculateComboFishCount();
             FindView();
             BuildChildFish();
@@ -44,7 +44,7 @@ namespace BagelCode
 
         public override void ResetFishState(FishVo vo)
         {
-            ResetBaseFishStateData(vo);
+            base.ResetFishState(vo);
             BuildChildFish();
             SetAllChildFishPosition();
         }
@@ -191,7 +191,7 @@ namespace BagelCode
             {
                 for (int i = 0; i < ChildFishInsList.Count; i++)
                 {
-                    ChildFishInsList[i].PlayDieAnim(false);
+                    ChildFishInsList[i].PlayDieAnim();
                 }
             }
         }
@@ -200,11 +200,6 @@ namespace BagelCode
         {
             SetChildFishSpriteRenderOrder(orderIndex);
             SetBGSpriteRenderOrder(orderIndex);
-        }
-
-        public override void SetHitFlyDirection(Vector3 direction)
-        {
-            hitFlyDirection = direction;
         }
 
         public override void SetBeHitColor()
@@ -269,17 +264,7 @@ namespace BagelCode
             }
         }
 
-        public override void PlayMoveAnim()
-        {
-            
-        }
-
-        public override void PlayMoveAnim(bool isLoop)
-        {
-            
-        }
-
-        public override void PlayDieAnim(bool isLoop)
+        public override void PlayDieAnim()
         {
             PlayChildDieAnim();
         }

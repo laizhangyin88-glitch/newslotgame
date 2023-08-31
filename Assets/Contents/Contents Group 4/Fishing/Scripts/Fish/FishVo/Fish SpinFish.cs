@@ -35,7 +35,7 @@ namespace BagelCode
                 IsShowFishLight(false);
             }
             else
-                InitBaseFish(vo, obj);
+                base.BuildFish(vo, obj); 
             FindView();
             InitViewData();
         }
@@ -54,8 +54,8 @@ namespace BagelCode
             }
             else
             {
-                ResetBaseFishStateData(vo);
-                PlayMoveAnim(true);
+                base.ResetFishState(vo);
+                PlayMoveAnim();
             }
         }
 
@@ -71,17 +71,17 @@ namespace BagelCode
             if (fishVo.fishId == 47)
                 PlayBornAnim();
             else
-                PlayMoveAnim(true);
+                PlayMoveAnim();
         }
 
-        public override void PlayMoveAnim(bool isLoop)
+        public override void PlayMoveAnim()
         {
             if (spineAnim == null) return;
             string animName = fishVo.FishConfig.fishMoveAnimationName;
             if (!string.IsNullOrEmpty(animName))
             {
-                spineAnim.loop = isLoop;
-                spineAnim.state.SetAnimation(0, animName, isLoop);
+                spineAnim.loop = true;
+                spineAnim.state.SetAnimation(0, animName, true);
             }
         }
 
@@ -108,20 +108,6 @@ namespace BagelCode
             }
         }
 
-        public override void SetHitFlyDirection(Vector3 direction)
-        {
-            hitFlyDirection = direction;
-        }
-
-        public override void SetBeHitColor()
-        {
-            if (!isHit)
-            {
-                SetMainFishColor(beHitColor);
-                isHit = true;
-            }
-        }
-
         public override void ResetNormalColor()
         {
             SetMainFishColor(NormalColor);
@@ -138,20 +124,15 @@ namespace BagelCode
             spineAnim.skeleton.A = color.a;
         }
 
-        public override void PlayMoveAnim()
-        {
-            
-        }
-
-        public override void PlayDieAnim(bool isLoop)
+        public override void PlayDieAnim()
         {
             if (spineAnim == null)
                 return;
             var aniName = fishVo.FishConfig.fishDieAnimationName;
             if (aniName != "nil")
             {
-                spineAnim.loop = isLoop;
-                spineAnim.state.SetAnimation(0, aniName, isLoop);
+                spineAnim.loop = false;
+                spineAnim.state.SetAnimation(0, aniName, false);
             }
         }
 
