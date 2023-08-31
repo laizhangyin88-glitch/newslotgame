@@ -143,9 +143,5 @@ namespace BagelCode
             IsEnableAnimator(false);
             BaseDestroy();
         }
-
-        public override void RemoveFishPart(int id)
-        {
-        }
     }
 }

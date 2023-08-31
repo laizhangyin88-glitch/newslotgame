@@ -18,7 +18,7 @@ namespace BagelCode
             
         }
 
-        public override void RemoveFishPartProcess(FishFishBase fishIns, List<CrabPart> aryKilledParts)
+        public override void RemoveFishPartProcess(FishPartFish fishIns, List<CrabPart> aryKilledParts)
         {
             FishAudioManager.Instance.PlayNormalAudio(62);
             if (aryKilledParts.Count == 1)

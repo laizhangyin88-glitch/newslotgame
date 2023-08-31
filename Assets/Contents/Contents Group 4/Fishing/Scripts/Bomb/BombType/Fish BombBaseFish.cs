@@ -173,7 +173,7 @@ namespace BagelCode
         public abstract void SetFishDieProcess(KillFishRsp hitFishMsg, FishFishBase fishIns, FishPlayerInfo playerIns);
         public abstract void SubFishDieProcess(FishFishBase tempFish, FishPlayerInfo playerIns, KillFishRsp hitFishMsg);
         public abstract void FixedScreenProcess(FreezeFishesRsp fishMsg);
-        public abstract void RemoveFishPartProcess(FishFishBase fishIns, List<CrabPart> crabParts);
+        public abstract void RemoveFishPartProcess(FishPartFish fishIns, List<CrabPart> crabParts);
         public abstract void Destroy();
 
 
