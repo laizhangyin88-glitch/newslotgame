@@ -33,7 +33,7 @@ namespace BagelCode
 
         public override void BuildFish(FishVo vo, GameObject obj)
         {
-            InitBaseFish(vo, obj);
+            base.BuildFish(vo, obj);
             FindView();
             BuildPartFish();
             InitViewData();
@@ -41,7 +41,7 @@ namespace BagelCode
 
         public override void ResetFishState(FishVo vo)
         {
-            ResetBaseFishStateData(vo);
+            base.ResetFishState(vo);
             BuildPartFish();
             InitViewData();
         }
@@ -259,7 +259,7 @@ namespace BagelCode
                 animator.Play(animName, 0, 0);
         }
 
-        public override void PlayDieAnim(bool isLoop)
+        public override void PlayDieAnim()
         {
             string animName = fishVo.FishConfig.fishDieAnimationName;
             if (!string.IsNullOrEmpty(animName))
@@ -282,20 +282,6 @@ namespace BagelCode
                 SpineAnim.enabled = isEnabled;
         }
 
-        public override void SetHitFlyDirection(Vector3 direction)
-        {
-            hitFlyDirection = direction;
-        }
-
-        public override void SetBeHitColor()
-        {
-            if (!isHit)
-            {
-                SetMainFishColor(beHitColor);
-                isHit = true;
-            }
-        }
-
         public override void ResetNormalColor()
         {
             SetMainFishColor(NormalColor);
@@ -309,16 +295,6 @@ namespace BagelCode
             SpineAnim.skeleton.G = color.g;
             SpineAnim.skeleton.B = color.b;
             SpineAnim.skeleton.A = color.a;
-        }
-
-        public override void PlayMoveAnim()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void PlayMoveAnim(bool isLoop)
-        {
-            throw new NotImplementedException();
         }
 
         public override void Destroy()

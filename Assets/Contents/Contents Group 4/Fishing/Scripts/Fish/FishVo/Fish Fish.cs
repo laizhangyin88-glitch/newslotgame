@@ -12,14 +12,14 @@ namespace BagelCode
         private SpriteRenderer lightSpriteRender;
         public override void BuildFish(FishVo vo, GameObject obj)
         {
-            InitBaseFish(vo, obj);
+            base.BuildFish(vo, obj);
             FindView();
             InitViewData();
         }
 
         public override void ResetFishState(FishVo vo)
         {
-            ResetBaseFishStateData(vo);
+            base.ResetFishState(vo);
             IsEnableRenderer(true);
             IsEnableAnimator(true);
             PlayMoveAnim();
@@ -57,7 +57,7 @@ namespace BagelCode
                 animator.Play(animName);
         }
 
-        public override void PlayDieAnim(bool isLoop)
+        public override void PlayDieAnim()
         {
             string animName = fishVo.FishConfig.fishDieAnimationName;
             if (animator != null && !string.IsNullOrEmpty(animName))
@@ -74,25 +74,12 @@ namespace BagelCode
                 lightSpriteRender.sortingOrder = orderIndex + 1;
         }
 
-        public override void SetHitFlyDirection(Vector3 direction)
-        {
-            hitFlyDirection = direction;
-        }
-
         public void IsEnableAnimator(bool isEnable)
         {
             if (animator != null)
                 animator.enabled = isEnable;
         }
 
-        public override void SetBeHitColor()
-        {
-            if (!isHit)
-            {
-                SetMainFishColor(beHitColor);
-                isHit = true;
-            }
-        }
 
         public void IsEnableRenderer(bool isEnable)
         {
@@ -110,10 +97,6 @@ namespace BagelCode
         public override void SetMainFishColor(Color color)
         {
             mainFishSpriteRender.color = color;
-        }
-
-        public override void PlayMoveAnim(bool isLoop)
-        {
         }
 
         public override void Destroy()
