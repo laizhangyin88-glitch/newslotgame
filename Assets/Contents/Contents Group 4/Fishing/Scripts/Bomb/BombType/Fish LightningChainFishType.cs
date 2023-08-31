@@ -61,7 +61,7 @@ namespace BagelCode
             
         }
 
-        public override void RemoveFishPartProcess(FishFishBase fishIns, List<CrabPart> crabParts)
+        public override void RemoveFishPartProcess(FishPartFish fishIns, List<CrabPart> crabParts)
         {
 
         }

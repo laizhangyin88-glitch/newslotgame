@@ -148,10 +148,6 @@ namespace BagelCode
             return null;
         }
 
-        public override void RemoveFishPart(int id)
-        {
-        }
-
         public void Change2Normal()
         {
             spineAnim.state.SetEmptyAnimation(0, 0);

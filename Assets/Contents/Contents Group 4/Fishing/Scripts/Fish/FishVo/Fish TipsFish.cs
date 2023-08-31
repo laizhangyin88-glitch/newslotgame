@@ -96,8 +96,5 @@ namespace BagelCode
             return null;
         }
 
-        public override void RemoveFishPart(int id)
-        {
-        }
     }
 }

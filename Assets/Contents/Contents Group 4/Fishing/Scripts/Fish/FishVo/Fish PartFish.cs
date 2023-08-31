@@ -178,7 +178,7 @@ namespace BagelCode
             }
         }
 
-        public override void RemoveFishPart(int partID)
+        public void RemoveFishPart(int partID)
         {
             if (PartCount == 2)
             {

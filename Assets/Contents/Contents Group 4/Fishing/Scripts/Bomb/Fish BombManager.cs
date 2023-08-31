@@ -66,7 +66,7 @@ namespace BagelCode
 
         public void KillPartFishSection(HaiWangCrabKilledPartRsp hitPartMsg)
         {
-            FishFishBase hitFish = FishFishManager.Instance.GetUsingFishByFishUID(hitPartMsg.usHaiwangCrabId);
+            FishPartFish hitFish = FishFishManager.Instance.GetUsingFishByFishUID(hitPartMsg.usHaiwangCrabId) as FishPartFish;
             FishBombBaseFish bombIns = BuildBombInstance((int)FishBombype.kingCrabType);
             bombIns.RemoveFishPartProcess(hitFish, hitPartMsg.aryKilledParts);
         }

@@ -502,8 +502,6 @@ namespace BagelCode
 
         public abstract void ResetNormalColor();
 
-        public abstract void RemoveFishPart(int id);
-
         public abstract List<Vector3> GetEffectPoint(int partId = 0);
 
         public void Update()

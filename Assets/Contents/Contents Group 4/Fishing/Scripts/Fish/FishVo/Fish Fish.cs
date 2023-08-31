@@ -121,10 +121,6 @@ namespace BagelCode
             else
                 return null;
         }
-
-        public override void RemoveFishPart(int id)
-        {
-        }
     }
 
 }
