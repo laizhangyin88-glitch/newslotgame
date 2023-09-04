@@ -49,7 +49,7 @@ namespace BagelCode
         public void FindView()
         {
             Transform mTransform = gameObject.transform;
-            animator = gameObject.GetComponent<Animator> ();
+            animator = gameObject.GetComponent<Animator>();
             SpineAnim = mTransform.Find("Bone/Fish").GetComponent<SkeletonAnimation>();
             SpineMeshRenderer = mTransform.Find("Bone/Fish").GetComponent<MeshRenderer>();
             lockPointList = new List<Transform>();
@@ -113,13 +113,13 @@ namespace BagelCode
                         partCollders[(int)FishPartType.RightLeg - 1].enabled = false;
                     }
 
-                    if (fishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 1 && fishVo.FishKindGroup[(int)FishPartType.RightLeg] == 1)
+                    if (fishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 1 && fishVo.FishKindGroup[(int)FishPartType.RightLeg - 1] == 1)
                     {
                         curPartType = FishPartType.NormalLeg;
                         PartCount = 2;
                     }
 
-                    if (fishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 0 && fishVo.FishKindGroup[(int)FishPartType.RightLeg] == 0)
+                    if (fishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 0 && fishVo.FishKindGroup[(int)FishPartType.RightLeg - 1] == 0)
                     {
                         curPartType = FishPartType.NoneLeg;
                         //partCollders[(int)FishPartType.LeftLeg - 1].enabled = false;
@@ -128,8 +128,8 @@ namespace BagelCode
                     }
                 }
             }
-            partCollders[1].gameObject.tag = "Left_Leg";
-            partCollders[2].gameObject.tag = "Right_Leg";
+            partCollders[0].gameObject.tag = "Left_Leg";
+            partCollders[1].gameObject.tag = "Right_Leg";
         }
 
         private void InitViewData()
@@ -141,7 +141,7 @@ namespace BagelCode
 
         public override List<Vector3> GetEffectPoint(int partID)
         {
-            return new List<Vector3> {lockPointList[partID].position };
+            return new List<Vector3> { lockPointList[partID].position };
         }
 
         public Transform GetLockPartPoint()
@@ -208,7 +208,7 @@ namespace BagelCode
                     partCollders[(int)FishPartType.LeftLeg].enabled = false;
                     PlayHitPartAnim("HURT_R");
                 }
-                else if(partID == 2)
+                else if (partID == 2)
                 {
                     SpineAnim.skeleton.ScaleX = -1;
                     partCollders[(int)FishPartType.RightLeg].enabled = false;
