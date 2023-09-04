@@ -17,8 +17,6 @@ namespace BagelCode
         private Dictionary<int, List<FishFishBase>> AllUsedFishInsList;
         private Dictionary<int, FishFishBase> CurrentUseFishList;
         private Dictionary<int, int> FishSortingOrderList = new Dictionary<int, int>();
-        private int fishUID;
-        private float AddFishTimer;
         private void Awake()
         {
             Init();
@@ -50,7 +48,7 @@ namespace BagelCode
             FishFishConfig fishConfig = gameData.FishConfigList[fishID];
             FishVo vo = new FishVo
             {
-                FishId = fishID,
+                fishId = fishID,
                 FishConfig = fishConfig
             };
             return vo;
@@ -64,23 +62,19 @@ namespace BagelCode
 
         public void AddChildFishToAllUsedFishList(FishFishBase fish)
         {
-            if (!AllUsedFishInsList.ContainsKey(fish.FishVo.FishId) || AllUsedFishInsList[fish.FishVo.FishId] == null)
-                AllUsedFishInsList[fish.FishVo.FishId] = new List<FishFishBase>();
-            AllUsedFishInsList[fish.FishVo.FishId].Add(fish);
+            if (!AllUsedFishInsList.ContainsKey(fish.fishVo.fishId) || AllUsedFishInsList[fish.fishVo.fishId] == null)
+                AllUsedFishInsList[fish.fishVo.fishId] = new List<FishFishBase>();
+            AllUsedFishInsList[fish.fishVo.fishId].Add(fish);
         }
 
         public FishFishBase GetFish(FishVo vo, bool isAddCurrentUseFishList)
         {
-            if (vo.FishId == 4 && AllUsedFishInsList.ContainsKey(4))
-            {
-                Debug.LogError("Get => " + AllUsedFishInsList[4].Count);
-            }
             if (AllUsedFishInsList != null && AllUsedFishInsList.Count > 0
-                && AllUsedFishInsList.ContainsKey(vo.FishId) && AllUsedFishInsList[vo.FishId] != null && AllUsedFishInsList[vo.FishId].Count > 0)
+                && AllUsedFishInsList.ContainsKey(vo.fishId) && AllUsedFishInsList[vo.fishId] != null && AllUsedFishInsList[vo.fishId].Count > 0)
             {
 
-                FishFishBase fish = AllUsedFishInsList[vo.FishId][0];
-                AllUsedFishInsList[vo.FishId].RemoveAt(0);
+                FishFishBase fish = AllUsedFishInsList[vo.fishId][0];
+                AllUsedFishInsList[vo.fishId].RemoveAt(0);
                 if (fish != null)
                 {
                     if (isAddCurrentUseFishList)
@@ -88,7 +82,7 @@ namespace BagelCode
                         if (CurrentUseFishList.ContainsKey(vo.UID) && CurrentUseFishList[vo.UID] != null)
                         {
                             Debug.LogError("FishUID存在相同==>> " + vo.UID);
-                            AllUsedFishInsList[vo.FishId].Add(fish);
+                            AllUsedFishInsList[vo.fishId].Add(fish);
                             return null;
                         }
                     }
@@ -99,10 +93,10 @@ namespace BagelCode
             }
             else
             {
-                string fishName = string.Format("{0}{1:D2}", FishPrefixName, vo.FishId);
-                GameObject FishItem = FishGameObjectPoolManager.Instance.GetGameObject(fishName, PoolType.FishPool);
+                string fishName = string.Format("{0}{1:D2}", FishPrefixName, vo.fishId);
+                GameObject fishObj = FishGameObjectPoolManager.Instance.GetGameObject(fishName, PoolType.FishPool);
                 FishFishBase fish = null;
-                if (FishItem != null)
+                if (fishObj != null)
                 {
                     int rawFishType = vo.FishConfig.clientBuildFishType;
                     switch (rawFishType)
@@ -126,7 +120,7 @@ namespace BagelCode
                             fish = new FishDragonFish();
                             break;
                         default:
-                            Debug.LogError("rawFishType类型不存在==>" + vo.FishId);
+                            Debug.LogError("rawFishType类型不存在==>" + vo.fishId);
                             break;
                     }
                     if (fish != null)
@@ -135,18 +129,17 @@ namespace BagelCode
                         {
                             if (CurrentUseFishList.ContainsKey(vo.UID) && CurrentUseFishList[vo.UID] != null)
                             {
-                                Debug.LogError("FishUID存在相同==>> " + vo.UID);
-                                FishGameObjectPoolManager.Instance.ReCycleToGameObject(FishItem, PoolType.FishPool);
+                                FishGameObjectPoolManager.Instance.ReCycleToGameObject(fishObj, PoolType.FishPool);
                                 return null;
                             }
                             CurrentUseFishList[vo.UID] = fish;
                         }
-                        fish.BuildFish(vo, FishItem);
+                        fish.BuildFish(vo, fishObj);
                     }
                     else
                     {
-                        FishGameObjectPoolManager.Instance.ReCycleToGameObject(FishItem, PoolType.FishPool);
-                        Debug.LogError("Fish生成失败==> " + vo.FishId);
+                        FishGameObjectPoolManager.Instance.ReCycleToGameObject(fishObj, PoolType.FishPool);
+                        Debug.LogError("Fish生成失败==> " + vo.fishId);
                         return null;
                     }
                 }
@@ -161,18 +154,18 @@ namespace BagelCode
 
         public void RemoveFish(FishFishBase fish)
         {
-            FishFishBase tempFish = CurrentUseFishList[fish.FishVo.UID];
+            FishFishBase tempFish = CurrentUseFishList[fish.fishVo.UID];
             if (tempFish != null)
             {
-                if (!AllUsedFishInsList.ContainsKey(fish.FishVo.FishId) || AllUsedFishInsList[fish.FishVo.FishId] == null)
+                if (!AllUsedFishInsList.ContainsKey(fish.fishVo.fishId) || AllUsedFishInsList[fish.fishVo.fishId] == null)
                 {
-                    AllUsedFishInsList[fish.FishVo.FishId] = new List<FishFishBase>();
+                    AllUsedFishInsList[fish.fishVo.fishId] = new List<FishFishBase>();
                 }
-                AllUsedFishInsList[fish.FishVo.FishId].Add(tempFish);
-                CurrentUseFishList.Remove(fish.FishVo.UID);
+                AllUsedFishInsList[fish.fishVo.fishId].Add(tempFish);
+                CurrentUseFishList.Remove(fish.fishVo.UID);
             }
             else
-                Debug.LogError("移除的FishUID为null==> " + fish.FishVo.UID);
+                Debug.LogError("移除的FishUID为null==> " + fish.fishVo.UID);
         }
 
         public void ClearAllUsingFish()
@@ -200,9 +193,8 @@ namespace BagelCode
             {
                 for (int i = 0; i < CurrentUseFishList.Count; i++)
                 {
-                    if (CurrentUseFishList[i].GetIsDie() && CurrentUseFishList[i].chairId == chairID && CurrentUseFishList[i].FishVo.DieEffectConfig.fishDieBehavior == 3)
+                    if (CurrentUseFishList[i].GetIsDie() && CurrentUseFishList[i].chairId == chairID && CurrentUseFishList[i].fishVo.DieEffectConfig.fishDieBehavior == 3)
                     {
-                        // Destroy(CurrentUseFishList[i].gameObject);
                         CurrentUseFishList[i].Destroy();
                         RemoveFish(CurrentUseFishList[i]);
                     }
@@ -236,7 +228,7 @@ namespace BagelCode
         {
             foreach (var item in CurrentUseFishList.Values)
             {
-                if (item.FishVo.FishId == fishId)
+                if (item.fishVo.fishId == fishId)
                 {
                     if (!item.GetIsDie() && !item.GetIsDestroy() && item.CheckBoundValid())
                     {
@@ -258,28 +250,29 @@ namespace BagelCode
             return null;
         }
 
-        //todo
         public FishVo ParseFishConfig(FishInfo msg)
         {
             FishFishConfig localConfig = gameData.FishConfigList[(int)msg.usFishKind];
             FishDieEffectConfig localDieEffectConfig = gameData.DieEffectConfigList[localConfig.dieEffectId];
-            FishVo vo = new FishVo();
-            vo.FishId = (int)msg.usFishKind;
-            vo.UID = (int)msg.usFishID;
-            vo.FishConfig = localConfig;
-            vo.DieEffectConfig = localDieEffectConfig;
-            vo.FishKindGroup = msg.subFishKinds;
-            vo.TraceId = (int)msg.usTraceId;
-            vo.StartPointIndex = (int)msg.usStartIndex;
-            vo.OffsetIndex = (int)msg.usOffsetIndex;
-            vo.OffsetPosX = msg.usOffsetPosX;
-            vo.OffsetPosY = msg.usOffsetPoxY;
-            vo.DelayBornTime = msg.usBirthDelay;
-            vo.IsRedFish = (int)msg.usIsRedFish;
-            vo.usGroupId = (int)msg.usGroupId;
+            FishVo vo = new FishVo
+            {
+                fishId = (int)msg.usFishKind,
+                UID = (int)msg.usFishID,
+                FishConfig = localConfig,
+                DieEffectConfig = localDieEffectConfig,
+                FishKindGroup = msg.subFishKinds,
+                TraceId = (int)msg.usTraceId,
+                StartPointIndex = (int)msg.usStartIndex,
+                OffsetIndex = (int)msg.usOffsetIndex,
+                OffsetPosX = msg.usOffsetPosX,
+                OffsetPosY = msg.usOffsetPoxY,
+                DelayBornTime = msg.usBirthDelay,
+                IsRedFish = (int)msg.usIsRedFish,
+                usGroupId = (int)msg.usGroupId
+            };
             if (vo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Combo && vo.FishKindGroup == null)
             {
-                Debug.LogError("组合鱼异常==> " + vo.FishId);
+                Debug.LogError("组合鱼异常==> " + vo.fishId);
                 return null;
             }
             return vo;
@@ -298,7 +291,10 @@ namespace BagelCode
                         if (fish != null)
                         {
                             SetFishSortingOrder(fish);
-                            fish.BeginMove();
+                            if (vo.fishId < 47)
+                                fish.BeginMove();
+                            else if (vo.fishId == 48)
+                                fish.transform.localPosition = new Vector3(0, 0, 0);
                         }
                     }
                 }
@@ -342,9 +338,9 @@ namespace BagelCode
 
         public int GetFishSortingOrderIndex(FishFishBase fish)
         {
-            int fishId = fish.FishVo.FishId;
-            int layerMin = fish.FishVo.FishConfig.layerMin;
-            int layerMax = fish.FishVo.FishConfig.layerMax;
+            int fishId = fish.fishVo.fishId;
+            int layerMin = fish.fishVo.FishConfig.layerMin;
+            int layerMax = fish.fishVo.FishConfig.layerMax;
 
             if (!FishSortingOrderList.ContainsKey(fishId))
             {
@@ -388,7 +384,6 @@ namespace BagelCode
             }
         }
 
-        //todo
         public FishFishBase GetCheckLockSaveFish(KillFishRsp hitFishMsg, out FishPlayerInfo playerIns)
         {
             if (hitFishMsg.usErrorCode == 0)
@@ -399,8 +394,8 @@ namespace BagelCode
                     FishFishBase hitFish = GetUsingFishByFishUID(hitFishMsg.mainFishUID);
                     if (hitFish != null)
                         return hitFish;
-                    else
-                        Debug.LogError("获取本地KillFish为null-KillFish的UID==> " + hitFishMsg.mainFishUID);
+                    //else
+                    //    Debug.LogError("获取本地KillFish为null-KillFish的UID==> " + hitFishMsg.mainFishUID);
                 }
                 else
                     Debug.LogError("ResponesPlayerHitFishMsg获取玩家为null");
@@ -410,7 +405,7 @@ namespace BagelCode
             playerIns = null;
             return null;
         }
-        //todo
+
         public void AddEventListener()
         {
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_SC_MSG_FishListRsp.ToString(), ReceiveFishTraceInfo);
@@ -425,9 +420,11 @@ namespace BagelCode
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATESOMEZUANTOU_RSP.ToString(), ResponesCreateSerialZuanTouMsg);
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATEFIRESTORM_RSP.ToString(), ResponesCreateFireStormMsg);
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATEMADCOW_RSP.ToString(), ResponesCreateBisonMsg);
+            WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATEGHOSTSHIP_RSP.ToString(), ResponesCreateGhostShipMsg);
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATEDELAYBOMB_RSP.ToString(), ResponesCreateBombMsg);
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATESERIALBOMBCRAB_RSP.ToString(), ResponesCreateMultBombMsg);
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATETHUNDERHAMMER_RSP.ToString(), ResponesCreateThunderHammerMsg);
+            WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATEANGLERFISH_RSP.ToString(), ResponesCreateAnglerFishMsg);
 
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_HAIWANGCRAB_KILLEDPART_RSP.ToString(), ResponesKillFishPartMsg);
             WebSocketTool.RegisterReceiveHandler(Proto_Fish_CMD.NF_FISH_CMD_HAIWANGCRABKILLEDDEAD_RSP.ToString(), ResponesKillFishDeadMsg);
@@ -450,6 +447,7 @@ namespace BagelCode
             WebSocketTool.UnRegisterHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATEDELAYBOMB_RSP.ToString(), ResponesCreateBombMsg);
             WebSocketTool.UnRegisterHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATESERIALBOMBCRAB_RSP.ToString(), ResponesCreateMultBombMsg);
             WebSocketTool.UnRegisterHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATETHUNDERHAMMER_RSP.ToString(), ResponesCreateThunderHammerMsg);
+            WebSocketTool.UnRegisterHandler(Proto_Fish_CMD.NF_FISH_CMD_CREATEANGLERFISH_RSP.ToString(), ResponesCreateAnglerFishMsg);
 
             WebSocketTool.UnRegisterHandler(Proto_Fish_CMD.NF_FISH_CMD_HAIWANGCRAB_KILLEDPART_RSP.ToString(), ResponesKillFishPartMsg);
             WebSocketTool.UnRegisterHandler(Proto_Fish_CMD.NF_FISH_CMD_HAIWANGCRABKILLEDDEAD_RSP.ToString(), ResponesKillFishDeadMsg);
@@ -585,6 +583,24 @@ namespace BagelCode
             FishBisonSkillManager.Instance.EnterBisonSkillMode(data);
         }
 
+        public void ResponesCreateGhostShipMsg(byte[] bytes)
+        {
+            CreateGhostShipRsp data = WebSocketTool.Deserialize<CreateGhostShipRsp>(bytes);
+            if (data.usDieType == 1)
+                FishGhostShipSkillManager.Instance.EnterGhostShipSkillMode(data);
+            else
+            {
+                var fishIns = GetUsingFishByFishUID(data.usKilledFishId);
+                StartCoroutine(ShowBossDeclareEffect(fishIns));
+            }
+        }
+
+        IEnumerator ShowBossDeclareEffect(FishFishBase fishIns)
+        {
+            yield return new WaitUntil(fishIns.IsGetHitFishMsg);
+            fishIns.ShowBossDeclareEffect();
+        }
+
         public void ResponesCreateBombMsg(byte[] bytes)
         {
             CreateDelayBombRsp data = WebSocketTool.Deserialize<CreateDelayBombRsp>(bytes);
@@ -603,6 +619,19 @@ namespace BagelCode
             FishThunderHammerSkillManager.Instance.EnterSkillMode(data);
         }
 
+        public void ResponesCreateAnglerFishMsg(byte[] bytes)
+        {
+            CreateAnglerFishRsp data = WebSocketTool.Deserialize<CreateAnglerFishRsp>(bytes);
+            if (data.usDieType == 1)
+                FishLaternSkillManager.Instance.EnterLaternFishSkillMode(data);
+            else
+            {
+                var fishIns = GetUsingFishByFishUID(data.usKilledFishId);
+                if (fishIns != null)
+                    StartCoroutine(ShowBossDeclareEffect(fishIns));
+            }
+        }
+
         public void ResponesKillFishPartMsg(byte[] bytes)
         {
             HaiWangCrabKilledPartRsp data = WebSocketTool.Deserialize<HaiWangCrabKilledPartRsp>(bytes);
@@ -616,7 +645,10 @@ namespace BagelCode
             FishSpiderCrabEffectManager.Instance.CreateSpiderCrabBoardScore(data.usChairId, data.usPartMul, data.usSelfScore, data.usTotalScore, data.usTotalMul, playerIns.specialDeclarePanel.position);
         }
 
+        public void ResponesKillGhostShipMsg(byte[] bytes)
+        {
 
+        }
 
         public int GetFishRuleType(int fishId)
         {

@@ -31,8 +31,6 @@ namespace BagelCode
         public int CurrentGunLevel = 0;
         private string currentNetAnimName = "";
         private string currentBulletAnimName = "";
-        public int currentUseRealGunLevel = 0;
-        private bool IsDoubleScoreStatus = false;
         private bool IsFreeStatus = false;
         private bool isOnLine = false;
         private int LimitBulletCount = 0;
@@ -44,7 +42,6 @@ namespace BagelCode
         private Vector3 bulletCreatePos;
         private Transform gunLockPointTrans;
         private List<GameObject> lockPointList;
-        private GameObject lockTips;
         private Button addBetBtn;
         private Button ReduceBetBtn;
         private Text BetScoreLabel;
@@ -86,8 +83,6 @@ namespace BagelCode
             CurrentGunLevel = 0;        // current cannon level
             currentNetAnimName = "Net_01_net01";     // current Net level animation
             currentBulletAnimName = "Bullet_01";     // current bullet level animation
-            currentUseRealGunLevel = 0;               // current client real use of the turret resource level
-            IsDoubleScoreStatus = false;    // whether it is in double score status
             IsFreeStatus = false;           // whether it is in free status
             isOnLine = false;
             LimitBulletCount = 999999;
@@ -121,7 +116,6 @@ namespace BagelCode
             bulletCreatePos = new Vector3(Panel.BulletPos.position.x, Panel.BulletPos.position.y, Panel.BulletPos.position.z);
             gunLockPointTrans = Panel.GunLockPoint.transform;
             lockPointList = Panel.LockPointList;
-            lockTips = Panel.LockTips;
             addBetBtn = Panel.AddBetBtn;
             ReduceBetBtn = Panel.ReduceBetBtn;
             BetScoreLabel = Panel.BetScoreLabel;
@@ -133,7 +127,7 @@ namespace BagelCode
             SwrilPanel = Panel.SwrilPanel;
         }
 
-        public void SetPlayerChairID(int chairId)
+        public void SetPlayerChairId(int chairId)
         {
             ChairID = chairId;
         }
@@ -185,7 +179,8 @@ namespace BagelCode
 
         public void ResetBulletRate()
         {
-            CurrentShootBulletRateIndex = 0;
+            SetShootBulletRateLevel(0);
+            FishGameManager.Instance.speedBtnEffect.gameObject.SetActive(false);
         }
 
         public void IsShowPlayerPanel(bool isDisplay)
@@ -206,9 +201,10 @@ namespace BagelCode
 
         public void PlayerEnterState(UserInfo userInfo)
         {
-            SetPlayerChairID((int)userInfo.chair_id);
+            SetPlayerChairId((int)userInfo.chair_id);
             SetPlayerName(userInfo.user_name);
             SetPlayerMoneyScore(userInfo.user_money);
+            Panel.isSpeed = false;
             SetGunLevelValue((int)userInfo.cannon_id);
             IsShowBetPanel();
             IsShowPlayerPanel(true);
@@ -217,13 +213,20 @@ namespace BagelCode
             SetOnlineState(true);
             SetCanShootBullet(true);
             Panel.IsShowLockFishPanel(true);
-            IsDoubleScoreStatus = false;
             IsFreeStatus = false;
         }
 
         public void PlayerLeaveState()
         {
-            //TODO
+            SetPlayerChairId(0);
+            ResetBulletRate();
+            SetAutoSendShootBullet(false);
+            SetAutoLockFish(false);
+            LockTargetFish = null;
+            IsShowPlayerPanel(false);
+            Panel.SetShowPanel(false);
+            ClearBulletCache();
+            SetOnlineState(false);
         }
 
         public void EnterFreeScoreState()
@@ -288,7 +291,7 @@ namespace BagelCode
         {
             CurrentGunLevel = level;
             SetBetScore(gameData.GunLevelConfig[level].cannon_value);
-            SetShowGun(gameData.GunConfigList[(int)gameData.GunLevelConfig[level].cannon_value_gun_id - 1].freeGunRes);
+            SetShowGun(true);
             SetNetAnimName(gameData.GunConfigList[level].freeNetRes);
             SetBulletAnimName(gameData.GunConfigList[level].freeBulletRes);
         }
@@ -297,7 +300,7 @@ namespace BagelCode
         {
             CurrentGunLevel = level;
             SetBetScore(gameData.GunLevelConfig[level].cannon_value);
-            SetShowGun(gameData.GunConfigList[(int)gameData.GunLevelConfig[level].cannon_value_gun_id - 1].doubleGunRes);
+            SetShowGun(false);
             SetNetAnimName(gameData.GunConfigList[level].doubleNetRes);
             SetBulletAnimName(gameData.GunConfigList[level].doubleBulletRes);
         }
@@ -306,7 +309,7 @@ namespace BagelCode
         {
             CurrentGunLevel = level;
             SetBetScore(gameData.GunLevelConfig[level].cannon_value);
-            SetShowGun(gameData.GunConfigList[(int)gameData.GunLevelConfig[level].cannon_value_gun_id - 1].normalGunRes);
+            SetShowGun(false);
             SetNetAnimName(gameData.GunConfigList[level].normalNetRes);
             SetBulletAnimName(gameData.GunConfigList[level].normalBulletRes);
         }
@@ -316,10 +319,9 @@ namespace BagelCode
             Panel.IsShowGunParticleEffect();
         }
 
-        public void SetShowGun(string index)
+        public void SetShowGun(bool isFireStorm)
         {
-            currentUseRealGunLevel = int.Parse(index) - 1;
-            Panel.SetShowGunPanel(currentUseRealGunLevel, true);
+            Panel.SetShowGunPanel(isFireStorm);
         }
 
         public int GetGunLevel()
@@ -345,6 +347,14 @@ namespace BagelCode
         public void SetBetScore(float score)
         {
             BetScoreLabel.text = FormatBaseProportionalScore(score).ToString();
+            float offset = 0.7f - BetScoreLabel.text.Length * 0.1f;
+            //1 0.6 10 0.5 100 0.4, 1000 0.3
+            Vector3 targetScale = Vector3.one * offset;
+            AsyncActionUtils.ApplyScaling(FishPlayerManager.Instance, BetScoreLabel.transform, Vector3.one, targetScale, 0.5f, TweenUtils.VectorTweenInSine);
+            AsyncActionUtils.ApplyTextColor(FishPlayerManager.Instance, BetScoreLabel, Color.white, new Color(1,1,1,0), 0.5f, TweenUtils.ColorTweenInSine, 0, () =>
+            {
+                BetScoreLabel.color = Color.white;
+            });
         }
 
         public void SetPlayerMoneyScore(ulong score)
@@ -360,7 +370,7 @@ namespace BagelCode
 
         public Vector3 GetFlyCoinPos()
         {
-            return FlyCoinPos.position;
+            return Panel.FlyCoinPos.TransformPoint(FlyCoinPos.position);
         }
 
         public void IsShowBetPanel()
@@ -398,8 +408,8 @@ namespace BagelCode
             {
                 int tempUID = 0;
                 if (LockTargetFish != null)
-                    tempUID = LockTargetFish.FishVo.UID;
-                if (tempUID != fish.FishVo.UID)
+                    tempUID = LockTargetFish.fishVo.UID;
+                if (tempUID != fish.fishVo.UID)
                 {
                     UpLoadLockFish(fish);
                     Panel.PlayLockTipsAnim();
@@ -438,7 +448,7 @@ namespace BagelCode
 
         public void UpLoadLockFish(FishFishBase lockFish)
         {
-            int lockFishUID = lockFish.FishVo.UID;
+            int lockFishUID = lockFish.fishVo.UID;
             if (lockFishUID != 0)
             {
                 IsShowLockFishStatePanel(true);
@@ -506,12 +516,12 @@ namespace BagelCode
         public void CaculateLockFishDistance(FishFishBase targetFish, Transform currentTrans)
         {
             Vector3 lockFishPos;
-            if (targetFish.FishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
+            if (targetFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
             {
                 FishPartFish partFish = targetFish as FishPartFish;
                 lockFishPos = currentTrans.InverseTransformPoint(partFish.GetLockPartPoint().position);
             }
-            else if (targetFish.FishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
+            else if (targetFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
             {
                 FishDragonFish dragonFish = targetFish as FishDragonFish;
                 lockFishPos = currentTrans.InverseTransformPoint(dragonFish.GetLockPartPoint().position);
@@ -548,12 +558,12 @@ namespace BagelCode
 
         public void SetTargetLockFishTips(FishFishBase targetFish)
         {
-            if (targetFish.FishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
+            if (targetFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
             {
                 FishPartFish partFish = targetFish as FishPartFish;
                 Panel.SetLockTipsPos(partFish.GetLockPartPoint().position);
             }
-            else if (targetFish.FishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
+            else if (targetFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
             {
                 FishDragonFish dragonFish = targetFish as FishDragonFish;
                 Panel.SetLockTipsPos(dragonFish.GetLockPartPoint().position);
@@ -586,19 +596,25 @@ namespace BagelCode
             FishBulletManager.Instance.RequestAutoShootBulletSwitchMsg(mes);
         }
 
-        public int SetShootBulletRateLevel()
+        public int SetShootBulletRateLevel(int level = -1)
         {
-            CurrentShootBulletRateIndex++;
-            if (CurrentShootBulletRateIndex >= ShootBulletRate.Length)
+            if (CurrentShootBulletRateIndex == 0 && level != CurrentShootBulletRateIndex)
+                Panel.ChangeGunModeAnim(true);
+            CurrentShootBulletRateIndex = level > -1 ? level : CurrentShootBulletRateIndex + 1;
+            if ((CurrentShootBulletRateIndex >= ShootBulletRate.Length  || (level == 0)) && Panel.isSpeed)
             {
                 CurrentShootBulletRateIndex = 0;
+                Panel.ChangeGunModeAnim(false);
             }
             return CurrentShootBulletRateIndex;
         }
 
         public void UploadShootBulletRateLevel(int index)
         {
-            //todo
+            BulletSpeedReq mes = new BulletSpeedReq();
+            mes.usSpeedIndex = 100;
+            mes.usIntervalIndex = index;
+            FishBulletManager.Instance.RequestBulletSpeedNetMsg(mes);
         }
 
         public void OnClickSetLockFish(bool isPress, FishFishBase fish)
@@ -663,7 +679,7 @@ namespace BagelCode
                 FishBulletManager.Instance.LocalCreatBullet(ChairID, BulletUID, 1, 1, 1);
                 if (!IsFreeStatus)
                 {
-                    FishAudioManager.Instance.PlayNormalAudio(gameData.GunConfigList[(int)gameData.GunLevelConfig[CurrentGunLevel].cannon_value_gun_id].shootAudio);
+                    FishAudioManager.Instance.PlayNormalAudio(gameData.GunConfigList[(int)gameData.GunLevelConfig[CurrentGunLevel].cannon_value_gun_id - 1].shootAudio);
                 }
                 else
                 {
@@ -722,12 +738,10 @@ namespace BagelCode
         public void ShootBullet(FishBullet bulletIns)
         {
             if ((bulletIns.BulletVo.chairId != gameData.playerChairId && !IsLockFish) || (IsLockFish && LockTargetFish == null && bulletIns.BulletVo.chairId != gameData.playerChairId))
-            {
                 SetMuzzleEulerAngles(bulletIns.BulletVo.BulletAngle / PrecisionValue);
-            }
             if (IsLockFish && LockTargetFish != null)
                 bulletIns.SetBulletLockTargetFish(LockTargetFish);
-            Panel.PlayGunShotAnim(currentUseRealGunLevel);
+            Panel.PlayGunShotAnim();
             bulletIns.SetBulletKindAnim(currentBulletAnimName);
             bulletIns.gameObject.transform.position = bulletPosTrans.position;
             if (bulletIns.gameObject.transform.localPosition.z < 0)

@@ -9,7 +9,6 @@ namespace BagelCode
     {
         GameObject gameObject;
         Transform transform;
-        FishGameUIManager gameUIManager;
         FishGoldEffectManager goldEffectManager;
         Animator Anim;
         GameObject GoldImageObj;
@@ -18,12 +17,9 @@ namespace BagelCode
         string MyAnimName;
         string OtherAnimName;
         public bool isCanDestroy;
-        bool isPlayingAnim;
         Vector3 endPos;
         float jumpHeight;
         float yValue;
-        float speed;
-        float initScale;
 
         public FishSingleGoldEffect(GameObject gameObj)
         {
@@ -35,17 +31,14 @@ namespace BagelCode
 
         private void InitData()
         {
-            gameUIManager = FishGameUIManager.Instance;
             goldEffectManager = FishGoldEffectManager.Instance;
             MyAnimName = "Gold01";
             OtherAnimName = "Gold02";
 
             isCanDestroy = false;
             endPos = Vector3.zero;
-            jumpHeight = 200;
+            jumpHeight = 100;
             yValue = 0;
-            speed = 1000;
-            initScale = 0.8f;
         }
 
         private void InitView()
@@ -71,13 +64,13 @@ namespace BagelCode
         {
             EffectVo = vo;
             isCanDestroy = false;
-            isPlayingAnim = false;
         }
 
         public void ResetState(Vector3 beginPos, Vector3 endPos, float delayTime, Action callBack)
         {
             this.endPos = endPos;
             this.callBack = callBack;
+            gameObject.SetActive(true);
             Anim.enabled = true;
             transform.position = beginPos;
             transform.localScale = Vector3.one;
@@ -113,15 +106,7 @@ namespace BagelCode
             Vector3 targetPos = new Vector3(transform.localPosition.x, y2, transform.localPosition.z);
             AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.1f, TweenUtils.VectorTweenOutCubic, 0, () => {
                 targetPos = new Vector3(transform.localPosition.x, yValue, transform.localPosition.z);
-                AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.1f, TweenUtils.VectorTweenInCubic, 0, () =>
-                {
-                    targetPos = new Vector3(transform.localPosition.x, y2, transform.localPosition.z);
-                    AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.07f, TweenUtils.VectorTweenOutCubic, 0, () =>
-                    {
-                        targetPos = new Vector3(transform.localPosition.x, yValue, transform.localPosition.z);
-                        AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.07f, TweenUtils.VectorTweenOutCubic, 0, CenterToJumpOver);
-                    });
-                });
+                AsyncActionUtils.ApplyLocalMovement(FishGoldEffectManager.Instance, transform, transform.localPosition, targetPos, 0.1f, TweenUtils.VectorTweenInCubic, 0, CenterToJumpOver);
             });
         }
 
@@ -133,10 +118,13 @@ namespace BagelCode
         public void MoveToEndPoint(float delay)
         {
             float duration = EffectVo.DurationTime;
-            _ = duration < 0.3f ? 0.3f : duration;
-            _ = duration > 0.5f ? 0.5f : duration;
-            AsyncActionUtils.DelayedAction(FishGoldEffectManager.Instance, delay, () => {
-                AsyncActionUtils.ApplyMovement(FishGoldEffectManager.Instance, transform, transform.position, endPos, duration, TweenUtils.VectorTweenInSine, 0);
+            duration = duration < 0.8f ? 0.8f : duration;
+            duration = duration > 1.5f ? 1.5f : duration;
+            AsyncActionUtils.DelayedAction(FishGoldEffectManager.Instance, delay, () =>
+            {
+                Vector3 beginPos = transform.TransformPoint(transform.position);
+                Vector2 temp = transform.GetComponent<RectTransform>().anchoredPosition;
+                AsyncActionUtils.ApplyAnchoredMovement(FishGoldEffectManager.Instance, transform, temp, new Vector2(endPos.x, endPos.y), duration, TweenUtils.VectorTweenInSine);
                 AsyncActionUtils.ApplyScaling(FishGoldEffectManager.Instance, transform, transform.localScale, new Vector3(0.6f, 0.6f, 1), duration, TweenUtils.VectorTweenInSine, 0, GoldMoveEnd);
             });
         }
@@ -155,10 +143,10 @@ namespace BagelCode
 
         public void Destroy()
         {
-            isPlayingAnim = false;
+            gameObject.SetActive(false);
             isCanDestroy = false;
             callBack = null;
-            //gameObject.transform.localPosition = new Vector3(10000, 10000, 0);
+            gameObject.transform.localPosition = new Vector3(10000, 10000, 0);
         }
     }
 }

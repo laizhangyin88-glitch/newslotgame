@@ -39,7 +39,7 @@ namespace BagelCode
 
             if (parentFishId == 0)
             {
-                FishSpecialDeclareConfig specialDeclareConfig = FishSpecialDeclareEffectManager.Instance.GetSpecialDeclareEffectConfig(fishIns.FishVo.DieEffectConfig.specialDeclareID);
+                FishSpecialDeclareConfig specialDeclareConfig = FishSpecialDeclareEffectManager.Instance.GetSpecialDeclareEffectConfig(fishIns.fishVo.DieEffectConfig.specialDeclareID);
                 specialDeclareUID = FishSpecialDeclareEffectManager.Instance.SetSpecialDeclareEffectShowMode(playerIns.GetPlayerChairId(), playerIns.specialDeclarePanel.position, specialDeclareConfig);
                 AsyncActionUtils.DelayedAction(FishBombManager.Instance, specialDeclareConfig.delayTime, ShowSpecialDeclareScore);
             }
@@ -61,7 +61,7 @@ namespace BagelCode
             
         }
 
-        public override void RemoveFishPartProcess(FishFishBase fishIns, List<CrabPart> crabParts)
+        public override void RemoveFishPartProcess(FishPartFish fishIns, List<CrabPart> crabParts)
         {
 
         }

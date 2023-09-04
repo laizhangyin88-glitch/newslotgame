@@ -27,14 +27,14 @@ namespace BagelCode
 
         public override void BuildFish(FishVo vo, GameObject obj)
         {
-            InitBaseFish(vo, obj);
+            base.BuildFish(vo, obj); 
             FindView();
             InitViewData();
         }
 
         public override void ResetFishState(FishVo vo)
         {
-            ResetBaseFishStateData(vo);
+            base.ResetFishState(vo);
             PlayAnim(1, false);
         }
 
@@ -71,22 +71,7 @@ namespace BagelCode
             }
         }
 
-        public override void SetHitFlyDirection(Vector3 direction)
-        {
-             
-        }
-
-        public override void PlayMoveAnim()
-        {
-             
-        }
-
-        public override void PlayMoveAnim(bool isLoop)
-        {
-             
-        }
-
-        public override void PlayDieAnim(bool isLoop)
+        public override void PlayDieAnim()
         {
             
         }
@@ -101,11 +86,6 @@ namespace BagelCode
             BaseDestroy();
         }
 
-        public override void SetBeHitColor()
-        {
-             
-        }
-
         public override void ResetNormalColor()
         {
              
@@ -116,8 +96,5 @@ namespace BagelCode
             return null;
         }
 
-        public override void RemoveFishPart(int id)
-        {
-        }
     }
 }

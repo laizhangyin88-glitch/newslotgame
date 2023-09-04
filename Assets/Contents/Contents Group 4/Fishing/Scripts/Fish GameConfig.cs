@@ -94,24 +94,24 @@ namespace BagelCode
 
             FishConfigByte = new ConfigFile[]
             {
-            //new ConfigFile {name = "FishConfigList", path = "/FishConfig/FishConfigData.bytes", data = "FishConfig_2004.FishConfigData"},
-            //new ConfigFile {name = "CoinEffectConfigList", path = "/FishConfig/CoinEffectConfigData.bytes", data = "CoinEffectConfig_2004.CoinEffectConfigData"},
-            //new ConfigFile {name = "DieEffectConfigList", path = "/FishConfig/DieEffectConfigData.bytes", data = "DieEffectConfig_2004.DieEffectConfigData"},
-            //new ConfigFile {name = "GunConfigList", path = "/FishConfig/GunConfigData.bytes", data = "GunConfig_2004.GunConfigData"},
-            //new ConfigFile {name = "RoomConfigList", path = "/FishConfig/RoomConfigData.bytes", data = "RoomConfig_2004.RoomConfigData"},
-            //new ConfigFile {name = "ScoreEffectConfigList", path = "/FishConfig/ScoreEffectConfigData.bytes", data = "ScoreEffectConfig_2004.ScoreEffectConfigData"},
-            //new ConfigFile {name = "SoundConfigList", path = "/FishConfig/SoundConfigData.bytes", data = "SoundConfig_2004.SoundConfigData"},
-            //new ConfigFile {name = "PlusTipsEffectConfigList", path = "/FishConfig/PlusTipsEffectConfigData.bytes", data = "PlusTipsEffectConfig_2004.PlusTipsEffectConfigData"},
-            //new ConfigFile {name = "SpecialDeclareConfigList", path = "/FishConfig/SpecialDeclareConfigData.bytes", data = "SpecialDeclareConfig_2004.SpecialDeclareConfigData"},
-            new ConfigFile {name = "FishConfigList", path = "/FishConfig/FishConfigData.json"},
-            new ConfigFile {name = "CoinEffectConfigList", path = "/FishConfig/CoinEffectConfigData.json"},
-            new ConfigFile {name = "DieEffectConfigList", path = "/FishConfig/DieEffectConfigData.json"},
-            new ConfigFile {name = "GunConfigList", path = "/FishConfig/GunConfigData.json"},
-            new ConfigFile {name = "RoomConfigList", path = "/FishConfig/RoomConfigData.json"},
-            new ConfigFile {name = "ScoreEffectConfigList", path = "/FishConfig/ScoreEffectConfigData.json"},
-            new ConfigFile {name = "SoundConfigList", path = "/FishConfig/SoundConfigData.json"},
-            new ConfigFile {name = "PlusTipsEffectConfigList", path = "/FishConfig/PlusTipsEffectConfigData.json"},
-            new ConfigFile {name = "SpecialDeclareConfigList", path = "/FishConfig/SpecialDeclareConfigData.json"},
+                //new ConfigFile {name = "FishConfigList", path = "/FishConfig/FishConfigData.bytes", data = "FishConfig_2004.FishConfigData"},
+                //new ConfigFile {name = "CoinEffectConfigList", path = "/FishConfig/CoinEffectConfigData.bytes", data = "CoinEffectConfig_2004.CoinEffectConfigData"},
+                //new ConfigFile {name = "DieEffectConfigList", path = "/FishConfig/DieEffectConfigData.bytes", data = "DieEffectConfig_2004.DieEffectConfigData"},
+                //new ConfigFile {name = "GunConfigList", path = "/FishConfig/GunConfigData.bytes", data = "GunConfig_2004.GunConfigData"},
+                //new ConfigFile {name = "RoomConfigList", path = "/FishConfig/RoomConfigData.bytes", data = "RoomConfig_2004.RoomConfigData"},
+                //new ConfigFile {name = "ScoreEffectConfigList", path = "/FishConfig/ScoreEffectConfigData.bytes", data = "ScoreEffectConfig_2004.ScoreEffectConfigData"},
+                //new ConfigFile {name = "SoundConfigList", path = "/FishConfig/SoundConfigData.bytes", data = "SoundConfig_2004.SoundConfigData"},
+                //new ConfigFile {name = "PlusTipsEffectConfigList", path = "/FishConfig/PlusTipsEffectConfigData.bytes", data = "PlusTipsEffectConfig_2004.PlusTipsEffectConfigData"},
+                //new ConfigFile {name = "SpecialDeclareConfigList", path = "/FishConfig/SpecialDeclareConfigData.bytes", data = "SpecialDeclareConfig_2004.SpecialDeclareConfigData"},
+                new ConfigFile {name = "FishConfigList", path = "/FishConfig/FishConfigData.json"},
+                new ConfigFile {name = "CoinEffectConfigList", path = "/FishConfig/CoinEffectConfigData.json"},
+                new ConfigFile {name = "DieEffectConfigList", path = "/FishConfig/DieEffectConfigData.json"},
+                new ConfigFile {name = "GunConfigList", path = "/FishConfig/GunConfigData.json"},
+                new ConfigFile {name = "RoomConfigList", path = "/FishConfig/RoomConfigData.json"},
+                new ConfigFile {name = "ScoreEffectConfigList", path = "/FishConfig/ScoreEffectConfigData.json"},
+                new ConfigFile {name = "SoundConfigList", path = "/FishConfig/SoundConfigData.json"},
+                new ConfigFile {name = "PlusTipsEffectConfigList", path = "/FishConfig/PlusTipsEffectConfigData.json"},
+                new ConfigFile {name = "SpecialDeclareConfigList", path = "/FishConfig/SpecialDeclareConfigData.json"},
             };
         }
 
@@ -173,6 +173,10 @@ namespace BagelCode
                 new Fish {name = "Fish_42", ParentName = "Fish_Pack_06", amout = 15, count = 1},
                 new Fish {name = "Fish_43", ParentName = "Fish_Pack_06", amout = 15, count = 1},
                 new Fish {name = "Fish_44", ParentName = "Fish_Pack_06", amout = 15, count = 1},
+                new Fish {name = "Fish_45", ParentName = "Fish_Pack_06", amout = 15, count = 1},
+                new Fish {name = "Fish_46", ParentName = "Fish_Pack_06", amout = 15, count = 1},
+                new Fish {name = "Fish_47", ParentName = "Fish_Pack_06", amout = 15, count = 1},
+                new Fish {name = "Fish_48", ParentName = "Fish_Pack_06", amout = 15, count = 1},
             };
         }
         private void InitBulletConfig()
@@ -239,21 +243,26 @@ namespace BagelCode
         {
             SpecialDeclareRes = new SpecialDeclare[]
             {
-            new SpecialDeclare {name = "SpecialDeclare_Bomb", path = "Prefabs/SpecialDeclare/SpecialDeclare_Bomb.prefab", amout = 1, count = 1},
-            new SpecialDeclare {name = "SpecialDeclare_Drill", path = "Prefabs/SpecialDeclare/SpecialDeclare_Drill.prefab", amout = 1, count = 1},
-            new SpecialDeclare {name = "SpecialDeclare_Electric", path = "Prefabs/SpecialDeclare/SpecialDeclare_Electric.prefab", amout = 1, count = 1},
-            new SpecialDeclare {name = "SpecialDeclare_Flash", path = "Prefabs/SpecialDeclare/SpecialDeclare_Flash.prefab", amout = 1, count = 1},
-            new SpecialDeclare {name = "SpecialDeclare_MultBomb", path = "Prefabs/SpecialDeclare/SpecialDeclare_MultBomb.prefab", amout = 1, count = 1},
-            new SpecialDeclare {name = "SpecialDeclare_Vortex", path = "Prefabs/SpecialDeclare/SpecialDeclare_Vortex.prefab", amout = 1, count = 1},
-            new SpecialDeclare {name = "SpecialDeclare_FireStorm", path = "Prefabs/SpecialDeclare/SpecialDeclare_FireStorm.prefab", amout = 1, count = 1},
-            new SpecialDeclare {name = "FireStormYouWin", path = "Prefabs/SpecialDeclare/FireStormYouWin.prefab", amout = 1, count = 1},
-            new SpecialDeclare {name = "Bison_CutIn", path = "Prefabs/SpecialDeclare/Bison_CutIn.prefab", amout = 1, count = 1},
-            new SpecialDeclare {name = "SpecialDeclare_Bison", path = "Prefabs/SpecialDeclare/SpecialDeclare_Bison.prefab", amout = 1, count = 1},
-            new SpecialDeclare {name = "SpecialDeclare_BisonsOther", path = "Prefabs/SpecialDeclare/SpecialDeclare_BisonsOther.prefab", amout = 1, count = 1},
-            new SpecialDeclare {name = "SpiderCrabBossHurt", path = "Prefabs/SpecialDeclare/SpiderCrabBossHurt.prefab", amout = 1, count = 1},
-            new SpecialDeclare {name = "SpiderCrabKillInfo", path = "Prefabs/SpecialDeclare/SpiderCrabKillInfo.prefab", amout = 1, count = 1},
-            new SpecialDeclare {name = "SpiderCrabBoardScore", path = "Prefabs/SpecialDeclare/SpiderCrabBoardScore.prefab", amout = 1, count = 1},
-            new SpecialDeclare {name = "SpecialDeclare_Dragon", path = "Prefabs/SpecialDeclare/SpecialDeclare_Dragon.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "SpecialDeclare_Bomb", path = "Prefabs/SpecialDeclare/SpecialDeclare_Bomb.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "SpecialDeclare_Drill", path = "Prefabs/SpecialDeclare/SpecialDeclare_Drill.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "SpecialDeclare_Electric", path = "Prefabs/SpecialDeclare/SpecialDeclare_Electric.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "SpecialDeclare_Flash", path = "Prefabs/SpecialDeclare/SpecialDeclare_Flash.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "SpecialDeclare_MultBomb", path = "Prefabs/SpecialDeclare/SpecialDeclare_MultBomb.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "SpecialDeclare_Vortex", path = "Prefabs/SpecialDeclare/SpecialDeclare_Vortex.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "SpecialDeclare_FireStorm", path = "Prefabs/SpecialDeclare/SpecialDeclare_FireStorm.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "FireStormYouWin", path = "Prefabs/SpecialDeclare/FireStormYouWin.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "Bison_CutIn", path = "Prefabs/SpecialDeclare/Bison_CutIn.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "SpecialDeclare_Bison", path = "Prefabs/SpecialDeclare/SpecialDeclare_Bison.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "SpecialDeclare_BisonsOther", path = "Prefabs/SpecialDeclare/SpecialDeclare_BisonsOther.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "SpiderCrabBossHurt", path = "Prefabs/SpecialDeclare/SpiderCrabBossHurt.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "SpiderCrabKillInfo", path = "Prefabs/SpecialDeclare/SpiderCrabKillInfo.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "SpiderCrabBoardScore", path = "Prefabs/SpecialDeclare/SpiderCrabBoardScore.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "SpecialDeclare_Dragon", path = "Prefabs/SpecialDeclare/SpecialDeclare_Dragon.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "SpecialDeclare_Hammer", path = "Prefabs/SpecialDeclare/SpecialDeclare_Hammer.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "DeclareLight", path = "Prefabs/SpecialDeclare/Boss/DeclareLight.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "GhostShipDeclare", path = "Prefabs/SpecialDeclare/Boss/GhostShipDeclare.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "LanternFishDeclare", path = "Prefabs/SpecialDeclare/Boss/LanternFishDeclare.prefab", amout = 1, count = 1},
+                new SpecialDeclare {name = "DragonDeclare", path = "Prefabs/SpecialDeclare/Boss/DragonDeclare.prefab", amout = 1, count = 1},
             };
         }
 
@@ -269,16 +278,17 @@ namespace BagelCode
         {
             EffectRes = new Effect[]
             {
-            new Effect {name = "Effect_Swirl", path = "Prefabs/Effect/Effect_Swirl.prefab", amout = 1, count = 1},
-            new Effect {name = "Effect_Flash", path = "Prefabs/Effect/Effect_Flash.prefab", amout = 1, count = 1},
-            new Effect {name = "Effect_FlashBall", path = "Prefabs/Effect/Effect_FlashBall.prefab", amout = 1, count = 1},
-            new Effect {name = "burst_coin_small", path = "Prefabs/Effect/burst_coin_small.prefab", amout = 30, count = 1},
-            new Effect {name = "Effect_Bomb", path = "Prefabs/Effect/Effect_Bomb.prefab", amout = 1, count = 1},
-            new Effect {name = "burst_coin_bison", path = "Prefabs/Effect/burst_coin_bison.prefab", amout = 30, count = 1},
-            new Effect {name = "burst_coin_large_luckyCat", path = "Prefabs/Effect/burst_coin_large_luckyCat.prefab", amout = 1, count = 1},
-            new Effect {name = "KingCrabcoinPrefab", path = "Prefabs/Effect/KingCrabcoinPrefab.prefab", amout = 1, count = 1},
-            new Effect {name = "burst_coin_long", path = "Prefabs/Effect/burst_coin_long.prefab", amout = 1, count = 5},
-            new Effect {name = "Effect_Warning", path = "Prefabs/Effect/Effect_Warning.prefab", amout = 1, count = 5},
+                new Effect {name = "Effect_Swirl", path = "Prefabs/Effect/Effect_Swirl.prefab", amout = 1, count = 1},
+                new Effect {name = "Effect_Flash", path = "Prefabs/Effect/Effect_Flash.prefab", amout = 1, count = 1},
+                new Effect {name = "Effect_FlashBall", path = "Prefabs/Effect/Effect_FlashBall.prefab", amout = 1, count = 1},
+                new Effect {name = "burst_coin_small", path = "Prefabs/Effect/burst_coin_small.prefab", amout = 30, count = 1},
+                new Effect {name = "Effect_Bomb", path = "Prefabs/Effect/Effect_Bomb.prefab", amout = 1, count = 1},
+                new Effect {name = "burst_coin_bison", path = "Prefabs/Effect/burst_coin_bison.prefab", amout = 30, count = 1},
+                new Effect {name = "burst_coin_large_luckyCat", path = "Prefabs/Effect/burst_coin_large_luckyCat.prefab", amout = 1, count = 1},
+                new Effect {name = "KingCrabcoinPrefab", path = "Prefabs/Effect/KingCrabcoinPrefab.prefab", amout = 1, count = 1},
+                new Effect {name = "burst_coin_long", path = "Prefabs/Effect/burst_coin_long.prefab", amout = 1, count = 5},
+                new Effect {name = "burst_coin_long1", path = "Prefabs/Effect/burst_coin_long1.prefab", amout = 1, count = 5},
+                new Effect {name = "Effect_Warning", path = "Prefabs/Effect/Effect_Warning.prefab", amout = 1, count = 5},
             };
         }
 
@@ -286,19 +296,23 @@ namespace BagelCode
         {
             SkillRes = new Skill[]
             {
-            new Skill {name = "Skill_Electric", path = "Prefabs/Skill/Skill_Electric.prefab", amout = 1, count = 1},
-            new Skill {name = "Gun_Electric", path = "Prefabs/Skill/Gun_Electric.prefab", amout = 1, count = 1},
-            new Skill {name = "Skill_FireStorm", path = "Prefabs/Skill/Skill_FireStorm.prefab", amout = 1, count = 1},
-            new Skill {name = "Skill_Drill", path = "Prefabs/Skill/Skill_Drill.prefab", amout = 1, count = 1},
-            new Skill {name = "Gun_Drill", path = "Prefabs/Skill/Gun_Drill.prefab", amout = 1, count = 1},
-            new Skill {name = "Bullet_Drill", path = "Prefabs/Skill/Bullet_Drill.prefab", amout = 1, count = 1},
-            new Skill {name = "Gun_SerialDrill", path = "Prefabs/Skill/Gun_SerialDrill.prefab", amout = 1, count = 1},
-            new Skill {name = "Bullet_SerialDrill", path = "Prefabs/Skill/Bullet_SerialDrill.prefab", amout = 1, count = 1},
-            new Skill {name = "Skill_Bison", path = "Prefabs/Skill/Skill_Bison.prefab", amout = 1, count = 1},
-            new Skill {name = "Skill_CountdownTimer", path = "Prefabs/Skill/Skill_CountdownTimer.prefab", amout = 1, count = 1},
-            new Skill {name = "Skill_Bomb", path = "Prefabs/Skill/Skill_Bomb.prefab", amout = 1, count = 1},
-            new Skill {name = "Skill_MultiBomb", path = "Prefabs/Skill/Skill_MultiBomb.prefab", amout = 1, count = 1},
-            new Skill {name = "ThunderHammer", path = "Prefabs/Skill/ThunderHammer.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_Electric", path = "Prefabs/Skill/Skill_Electric.prefab", amout = 1, count = 1},
+                new Skill {name = "Gun_Electric", path = "Prefabs/Skill/Gun_Electric.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_FireStorm", path = "Prefabs/Skill/Skill_FireStorm.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_Drill", path = "Prefabs/Skill/Skill_Drill.prefab", amout = 1, count = 1},
+                new Skill {name = "Gun_Drill", path = "Prefabs/Skill/Gun_Drill.prefab", amout = 1, count = 1},
+                new Skill {name = "Bullet_Drill", path = "Prefabs/Skill/Bullet_Drill.prefab", amout = 1, count = 1},
+                new Skill {name = "Gun_SerialDrill", path = "Prefabs/Skill/Gun_SerialDrill.prefab", amout = 1, count = 1},
+                new Skill {name = "Bullet_SerialDrill", path = "Prefabs/Skill/Bullet_SerialDrill.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_Bison", path = "Prefabs/Skill/Skill_Bison.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_CountdownTimer", path = "Prefabs/Skill/Skill_CountdownTimer.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_Bomb", path = "Prefabs/Skill/Skill_Bomb.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_MultiBomb", path = "Prefabs/Skill/Skill_MultiBomb.prefab", amout = 1, count = 1},
+                new Skill {name = "ThunderHammer", path = "Prefabs/Skill/ThunderHammer.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_GhostShip", path = "Prefabs/Skill/Skill_GhostShip.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_LaternFish", path = "Prefabs/Skill/Skill_LaternFish.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_DragonTurtle", path = "Prefabs/Skill/Skill_DragonTurtle.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_ThunderDragon", path = "Prefabs/Skill/Skill_ThunderDragon.prefab", amout = 1, count = 1},
             };
         }
         public void InitAudioConfig()
@@ -360,16 +374,16 @@ namespace BagelCode
         {
             FishOutTipsRes = new FishOutTips[]
             {
-            new FishOutTips {name = "YuChao_Coming", path = "Prefabs/FishOutTips/YuChao_Coming.prefab", amout = 1, count = 1},
-            new FishOutTips {name = "Bisons_Coming", path = "Prefabs/FishOutTips/Bisons_Coming.prefab", amout = 1, count = 1},
-            new FishOutTips {name = "SpiderCrabBoss_Coming", path = "Prefabs/FishOutTips/SpiderCrabBoss_Coming.prefab", amout = 1, count = 1},
-            new FishOutTips {name = "Fish_Coming_dianciyu", path = "Prefabs/FishOutTips/Fish_Coming_dianciyu.prefab", amout = 1, count = 1},
-            new FishOutTips {name = "Fish_Coming_dianguangshuimu", path = "Prefabs/FishOutTips/Fish_Coming_dianguangshuimu.prefab", amout = 1, count = 1},
-            new FishOutTips {name = "Fish_Coming_lianhuanzhadan", path = "Prefabs/FishOutTips/Fish_Coming_lianhuanzhadan.prefab", amout = 1, count = 1},
-            new FishOutTips {name = "Fish_Coming_xuanfengyu", path = "Prefabs/FishOutTips/Fish_Coming_xuanfengyu.prefab", amout = 1, count = 1},
-            new FishOutTips {name = "Fish_Coming_zhadanyu", path = "Prefabs/FishOutTips/Fish_Coming_zhadanyu.prefab", amout = 1, count = 1},
-            new FishOutTips {name = "Fish_Coming_zuantouxie", path = "Prefabs/FishOutTips/Fish_Coming_zuantouxie.prefab", amout = 1, count = 1},
-            new FishOutTips {name = "ComingUp_FireStorm", path = "Prefabs/FishOutTips/ComingUp_FireStorm.prefab", amout = 1, count = 1},
+                new FishOutTips {name = "YuChao_Coming", path = "Prefabs/FishOutTips/YuChao_Coming.prefab", amout = 1, count = 1},
+                new FishOutTips {name = "Bisons_Coming", path = "Prefabs/FishOutTips/Bisons_Coming.prefab", amout = 1, count = 1},
+                new FishOutTips {name = "SpiderCrabBoss_Coming", path = "Prefabs/FishOutTips/SpiderCrabBoss_Coming.prefab", amout = 1, count = 1},
+                new FishOutTips {name = "Fish_Coming_dianciyu", path = "Prefabs/FishOutTips/Fish_Coming_dianciyu.prefab", amout = 1, count = 1},
+                new FishOutTips {name = "Fish_Coming_dianguangshuimu", path = "Prefabs/FishOutTips/Fish_Coming_dianguangshuimu.prefab", amout = 1, count = 1},
+                new FishOutTips {name = "Fish_Coming_lianhuanzhadan", path = "Prefabs/FishOutTips/Fish_Coming_lianhuanzhadan.prefab", amout = 1, count = 1},
+                new FishOutTips {name = "Fish_Coming_xuanfengyu", path = "Prefabs/FishOutTips/Fish_Coming_xuanfengyu.prefab", amout = 1, count = 1},
+                new FishOutTips {name = "Fish_Coming_zhadanyu", path = "Prefabs/FishOutTips/Fish_Coming_zhadanyu.prefab", amout = 1, count = 1},
+                new FishOutTips {name = "Fish_Coming_zuantouxie", path = "Prefabs/FishOutTips/Fish_Coming_zuantouxie.prefab", amout = 1, count = 1},
+                new FishOutTips {name = "ComingUp_FireStorm", path = "Prefabs/FishOutTips/ComingUp_FireStorm.prefab", amout = 1, count = 1},
             };
         }
 

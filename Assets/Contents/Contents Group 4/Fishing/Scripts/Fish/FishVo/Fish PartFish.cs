@@ -33,7 +33,7 @@ namespace BagelCode
 
         public override void BuildFish(FishVo vo, GameObject obj)
         {
-            InitBaseFish(vo, obj);
+            base.BuildFish(vo, obj);
             FindView();
             BuildPartFish();
             InitViewData();
@@ -41,7 +41,7 @@ namespace BagelCode
 
         public override void ResetFishState(FishVo vo)
         {
-            ResetBaseFishStateData(vo);
+            base.ResetFishState(vo);
             BuildPartFish();
             InitViewData();
         }
@@ -49,7 +49,7 @@ namespace BagelCode
         public void FindView()
         {
             Transform mTransform = gameObject.transform;
-            animator = gameObject.GetComponent<Animator> ();
+            animator = gameObject.GetComponent<Animator>();
             SpineAnim = mTransform.Find("Bone/Fish").GetComponent<SkeletonAnimation>();
             SpineMeshRenderer = mTransform.Find("Bone/Fish").GetComponent<MeshRenderer>();
             lockPointList = new List<Transform>();
@@ -87,11 +87,11 @@ namespace BagelCode
                     partCollders[1] = colliders[i];
             }
 
-            if (FishVo.FishKindGroup != null)
+            if (fishVo.FishKindGroup != null)
             {
-                if (FishVo.FishKindGroup.Count > 0)
+                if (fishVo.FishKindGroup.Count > 0)
                 {
-                    if (FishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 1)
+                    if (fishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 1)
                     {
                         curPartType = FishPartType.LeftLeg;
                         //partCollders[(int)FishPartType.LeftLeg - 1].enabled = true;
@@ -102,7 +102,7 @@ namespace BagelCode
                         //partCollders[(int)FishPartType.LeftLeg - 1].enabled = false;
                     }
 
-                    if (FishVo.FishKindGroup[(int)FishPartType.RightLeg - 1] == 1)
+                    if (fishVo.FishKindGroup[(int)FishPartType.RightLeg - 1] == 1)
                     {
                         curPartType = FishPartType.RightLeg;
                         //partCollders[(int)FishPartType.RightLeg - 1].enabled = true;
@@ -113,13 +113,13 @@ namespace BagelCode
                         partCollders[(int)FishPartType.RightLeg - 1].enabled = false;
                     }
 
-                    if (FishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 1 && FishVo.FishKindGroup[(int)FishPartType.RightLeg] == 1)
+                    if (fishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 1 && fishVo.FishKindGroup[(int)FishPartType.RightLeg - 1] == 1)
                     {
                         curPartType = FishPartType.NormalLeg;
                         PartCount = 2;
                     }
 
-                    if (FishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 0 && FishVo.FishKindGroup[(int)FishPartType.RightLeg] == 0)
+                    if (fishVo.FishKindGroup[(int)FishPartType.LeftLeg - 1] == 0 && fishVo.FishKindGroup[(int)FishPartType.RightLeg - 1] == 0)
                     {
                         curPartType = FishPartType.NoneLeg;
                         //partCollders[(int)FishPartType.LeftLeg - 1].enabled = false;
@@ -128,8 +128,8 @@ namespace BagelCode
                     }
                 }
             }
-            partCollders[1].gameObject.tag = "Left_Leg";
-            partCollders[2].gameObject.tag = "Right_Leg";
+            partCollders[0].gameObject.tag = "Left_Leg";
+            partCollders[1].gameObject.tag = "Right_Leg";
         }
 
         private void InitViewData()
@@ -141,7 +141,7 @@ namespace BagelCode
 
         public override List<Vector3> GetEffectPoint(int partID)
         {
-            return new List<Vector3> {lockPointList[partID].position };
+            return new List<Vector3> { lockPointList[partID].position };
         }
 
         public Transform GetLockPartPoint()
@@ -178,7 +178,7 @@ namespace BagelCode
             }
         }
 
-        public override void RemoveFishPart(int partID)
+        public void RemoveFishPart(int partID)
         {
             if (PartCount == 2)
             {
@@ -208,7 +208,7 @@ namespace BagelCode
                     partCollders[(int)FishPartType.LeftLeg].enabled = false;
                     PlayHitPartAnim("HURT_R");
                 }
-                else if(partID == 2)
+                else if (partID == 2)
                 {
                     SpineAnim.skeleton.ScaleX = -1;
                     partCollders[(int)FishPartType.RightLeg].enabled = false;
@@ -254,14 +254,14 @@ namespace BagelCode
 
         public void PlayBornAnim()
         {
-            string animName = FishVo.FishConfig.fishMoveAnimationName;
+            string animName = fishVo.FishConfig.fishMoveAnimationName;
             if (!string.IsNullOrEmpty(animName))
                 animator.Play(animName, 0, 0);
         }
 
-        public override void PlayDieAnim(bool isLoop)
+        public override void PlayDieAnim()
         {
-            string animName = FishVo.FishConfig.fishDieAnimationName;
+            string animName = fishVo.FishConfig.fishDieAnimationName;
             if (!string.IsNullOrEmpty(animName))
                 animator.Play(animName, 0, 0);
         }
@@ -282,20 +282,6 @@ namespace BagelCode
                 SpineAnim.enabled = isEnabled;
         }
 
-        public override void SetHitFlyDirection(Vector3 direction)
-        {
-            hitFlyDirection = direction;
-        }
-
-        public override void SetBeHitColor()
-        {
-            if (!isHit)
-            {
-                SetMainFishColor(beHitColor);
-                isHit = true;
-            }
-        }
-
         public override void ResetNormalColor()
         {
             SetMainFishColor(NormalColor);
@@ -309,16 +295,6 @@ namespace BagelCode
             SpineAnim.skeleton.G = color.g;
             SpineAnim.skeleton.B = color.b;
             SpineAnim.skeleton.A = color.a;
-        }
-
-        public override void PlayMoveAnim()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void PlayMoveAnim(bool isLoop)
-        {
-            throw new NotImplementedException();
         }
 
         public override void Destroy()

@@ -64,6 +64,7 @@ namespace BagelCode
 
         public void BaseInitViewData()
         {
+            gameObject.SetActive(true);
             IsEnabledCollider(true);
             IsEnabledAnimator(true);
             IsEnabledFishBehaviour(true);
@@ -133,24 +134,9 @@ namespace BagelCode
             animator.Play(bulletName);
         }
 
-        public void SetEulerAngles(UnityEngine.Vector3 euler)
-        {
-            behaviour.SetEulerAngles(euler.x, euler.y, euler.z);
-        }
-
-        public void SetPosition(float x, float y, float z)
-        {
-            behaviour.SetPosition(x, y, z);
-        }
-
         public void SetLocalPosition(float x, float y, float z)
         {
             gameObject.transform.localPosition = new UnityEngine.Vector3(x, y, z);
-        }
-
-        public void SetLocalScale(float x, float y, float z)
-        {
-            behaviour.SetLocalScale(x, y, z);
         }
 
         public void BulletBeginMove(float speed)
@@ -178,17 +164,15 @@ namespace BagelCode
             SetTargetFish(lockFish);
             if (lockFish != null)
             {
-                if (lockFish.FishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
+                if (lockFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
                 {
-                    Debug.LogError("Lock Part => " + BulletVo.BulletUID);
                     FishPartFish partFish = lockFish as FishPartFish;
                     Transform lockFishTrans = partFish.GetLockPartPoint();
                     if (lockFishTrans != null)
                         SetTargetFishTransform(lockFishTrans);
                 }
-                else if (lockFish.FishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
+                else if (lockFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
                 {
-                    Debug.LogError("Lock Dragon => " + BulletVo.BulletUID);
                     FishDragonFish dargonFish = lockFish as FishDragonFish;
                     Transform lockFishTrans = dargonFish.GetLockPartPoint();
                     if (lockFishTrans != null)

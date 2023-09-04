@@ -187,56 +187,6 @@ namespace BagelCode
                     default:
                         break;
                 }
-
-                //UnityEngine.Object obj = FishGameManager.Instance.LoadGameResuorceText(path);
-                //byte[] bytes = (obj as BinaryObject).data;
-                //switch (i)
-                //{
-                //    case 0:
-                //        var tempList0 = FishFishConfigList.Deserialize(bytes);
-                //        var configList0 = tempList0.list;
-                //        gameData.FishConfigList = AlignGameConfig(configList0);
-                //        break;
-                //    case 1:
-                //        var tempList1 = FishCoinEffectConfigList.Deserialize(bytes);
-                //        var configList1 = tempList1.list;
-                //        gameData.CoinEffectConfigList = AlignGameConfig(configList1);
-                //        break;
-                //    case 2:
-                //        var tempList2 = FishDieEffectConfigList.Deserialize(bytes);
-                //        var configList2 = tempList2.list;
-                //        gameData.DieEffectConfigList = AlignGameConfig(configList2);
-                //        break;
-                //    case 3:
-                //        var tempList3 = FishGunConfigList.Deserialize(bytes);
-                //        gameData.GunConfigList = tempList3.list;
-                //        break;
-                //    case 4:
-                //        var tempList4 = FishRoomConfigList.Deserialize(bytes);
-                //        gameData.RommConfigList = tempList4.list;
-                //        break;
-                //    case 5:
-                //        var tempList5 = FishScoreEffectConfigList.Deserialize(bytes);
-                //        var configList5 = tempList5.list;
-                //        gameData.ScoreEffectConfigList = AlignGameConfig(configList5);
-                //        break;
-                //    case 6:
-                //        var tempList6 = FishSoundConfigList.Deserialize(bytes);
-                //        gameData.SoundConfigList = tempList6.list;
-                //        break;
-                //    case 7:
-                //        var tempList7 = FishPlusTipsEffectConfigList.Deserialize(bytes);
-                //        var configList7 = tempList7.list;
-                //        gameData.PlusTipsEffectConfigList = AlignGameConfig(configList7);
-                //        break;
-                //    case 8:
-                //        var tempList8 = FishSpecialDeclareConfigList.Deserialize(bytes);
-                //        var configList8 = tempList8.list;
-                //        gameData.SpecialDeclareConfigList = AlignGameConfig(configList8);
-                //        break;
-                //    default:
-                //        break;
-                //}
                 LoadProgressBarEvent();
             }
             ExcuteLoadResourcesQueue();

@@ -62,7 +62,7 @@ namespace BagelCode
             int bornPosCount = bornPosList.Count;
             GoldCountMap[fishUID] = effectCount;
             
-            float durationTime = moveToTargetTime * Vector3.Distance(new Vector3(fishIns.position.x, fishIns.position.y, 86.4f), endPos) / (Vector3.Distance(fishIns.parent.TransformPoint(Vector3.zero), endPos));
+            float durationTime = moveToTargetTime * Vector3.Distance(new Vector3(fishIns.localPosition.x, fishIns.localPosition.y, 86.4f), endPos) / (Vector3.Distance(fishIns.parent.TransformPoint(Vector3.zero), endPos));
             for (int i = 0; i < effectCount; i++)
             {
                 Vector3 beginPos;
@@ -75,12 +75,12 @@ namespace BagelCode
                 else
                     beginPos = bornPosList[i];
                 beginPos = fishIns.parent.TransformPoint(beginPos);
-                ShowGoldEffect(goldEffectID, fishUID, chairID, beginPos, endPos, delayTime, durationTime, behaviourType, () => { });
-                delayTime += UnityEngine.Random.Range(0.1f, 0.15f);
+                ShowGoldEffect(goldEffectID, fishUID, chairID, beginPos, endPos, delayTime, durationTime, behaviourType);
+                delayTime += UnityEngine.Random.Range(0.02f, 0.04f);
             }
         }
 
-        public void ShowGoldEffect(int goldEffectID, int fishUID, int chairID, Vector3 beginPos, Vector3 endPos, float delayTime, float durationTime, int behaviourType, Action callBack)
+        public void ShowGoldEffect(int goldEffectID, int fishUID, int chairID, Vector3 beginPos, Vector3 endPos, float delayTime, float durationTime, int behaviourType, Action callBack = null)
         {
             EffectVo vo = GetGoldEffectVo(goldEffectID, fishUID, chairID, durationTime, behaviourType);
             FishSingleGoldEffect tempEffectIns = GetGoldEffect(vo);
@@ -184,7 +184,7 @@ namespace BagelCode
                         JumpGoldMap[fishUID][index + i].MoveToEndPoint(delay);
                     index += rand;
                 }
-                delay += 0.15f;
+                delay += 0.04f;
             }
             JumpGoldMap[fishUID].Clear();
         }

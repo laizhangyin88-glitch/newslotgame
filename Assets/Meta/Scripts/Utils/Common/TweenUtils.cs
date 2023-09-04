@@ -42,6 +42,11 @@ namespace BagelCode
             return Vector3.Lerp(from, to, TweenInQuint(t));
         }
 
+        public static Color ColorTweenInSine(Color from, Color to, float t)
+        {
+            return Color.Lerp(from, to, TweenInSine(t));
+        }
+
         public static Color ColorTweenInQuad(Color from, Color to, float t)
         {
             return Color.Lerp(from, to, TweenInQuad(t));

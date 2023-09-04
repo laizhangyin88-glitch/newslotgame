@@ -29,6 +29,8 @@ namespace BagelCode
             LightningChainRandType = 17,
             DelayBombType = 18,
             ThunderHammer = 19,
+            GhostShip = 20,
+            LaternFish = 21,
         }
 
         public Dictionary<int, List<FishBombBaseFish>> BombFishTypeInsList;
@@ -46,6 +48,13 @@ namespace BagelCode
                 SetFishDieProcess(hitFishMsg, tempFish, playerIns);
             else
             {
+                if (hitFishMsg.mainFishType == 0)
+                {
+                    Debug.LogError("hitFishMsg.bombUID => " + hitFishMsg.bombUID);
+                    Debug.LogError("hitFishMsg.mainFishUID => " + hitFishMsg.mainFishUID);
+                    Debug.LogError("hitFishMsg.mainFishId => " + hitFishMsg.mainFishId);
+                    Debug.LogError("hitFishMsg.mainFishType => " + hitFishMsg.mainFishType);
+                }
                 FishBombBaseFish bombIns = BuildBombInstance(hitFishMsg.mainFishType);
                 if (bombIns != null)
                 {
@@ -57,7 +66,7 @@ namespace BagelCode
 
         public void KillPartFishSection(HaiWangCrabKilledPartRsp hitPartMsg)
         {
-            FishFishBase hitFish = FishFishManager.Instance.GetUsingFishByFishUID(hitPartMsg.usHaiwangCrabId);
+            FishPartFish hitFish = FishFishManager.Instance.GetUsingFishByFishUID(hitPartMsg.usHaiwangCrabId) as FishPartFish;
             FishBombBaseFish bombIns = BuildBombInstance((int)FishBombype.kingCrabType);
             bombIns.RemoveFishPartProcess(hitFish, hitPartMsg.aryKilledParts);
         }
@@ -124,6 +133,7 @@ namespace BagelCode
                 case (int)FishBombype.DelayBombType:
                 case (int)FishBombype.MultBombType:
                 case (int)FishBombype.ThunderHammer:
+                case (int)FishBombype.LaternFish:
                     bombIns = new FishNormalBombFishType();
                     break;
                 case (int)FishBombype.LaserGunType:
@@ -139,6 +149,7 @@ namespace BagelCode
                     bombIns = new FishSerialDrillGunFishType();
                     break;
                 case (int)FishBombype.BisonType:
+                case (int)FishBombype.GhostShip:
                     bombIns = new FishBisonFishType();
                     break;
                 case (int)FishBombype.kingCrabType:

@@ -129,13 +129,13 @@ namespace BagelCode
 
         public void SysncGameSceneBG(int sceneId)
         {
-            SetGameBG(sceneId, GameBG, false);
+            SetGameBG(sceneId, false);
             FishTideOver(sceneId);
         }
 
-        public void SetGameBG(int index, RawImage bgImage, bool isFadeAnimation)
+        public void SetGameBG(int index, bool isFadeAnimation)
         {
-            Debug.LogError("SetGameBG index => " + index);
+            isFadeAnimation = true;
             if (!AllGameBG.ContainsKey(index) || AllGameBG[index] == null)
             {
                 Action<FishResourceBase, float> LoadBGCallBack;
@@ -144,7 +144,7 @@ namespace BagelCode
                     if (gameObj != null && gameObj.content != null)
                     {
                         AllGameBG[index] = (Texture)gameObj.content;
-                        bgImage.texture = AllGameBG[index];
+                        GameBG.texture = AllGameBG[index];
                         ChangeSceneBGImage(index, isFadeAnimation);
                     }
                     else
@@ -156,14 +156,14 @@ namespace BagelCode
             }
             else
             {
-                bgImage.texture = AllGameBG[index];
+                GameBG.texture = AllGameBG[index];
                 ChangeSceneBGImage(index, isFadeAnimation);
             }
         }
 
         public void SceneFishOutTips(int tipsType, int fishId)
         {
-            //tipsType == LuaProtoBufManager.Enum("Fish_Msg.ePromptInfoType","eInfoType_YuChao_Come")
+
             if (tipsType == 0)
             {
                 string tipsResource = "YuChao_Coming";
@@ -206,11 +206,11 @@ namespace BagelCode
                 case (int)eChangeSceneType.eInfoType_FishOutScne:
                     ChangeSceneClearFish(time);
                     SetBG2Image();
-                    SetGameBG(sceneId, GameBG, true);
+                    SetGameBG(sceneId, true);
                     break;
                 case (int)eChangeSceneType.eInfoType_ChangeSceneBG:
                     SetBG2Image();
-                    SetGameBG(sceneId, GameBG, true);
+                    SetGameBG(sceneId, true);
                     break;
                 default:
                     break;
@@ -243,20 +243,11 @@ namespace BagelCode
         {
             if (isFadeAnimation)
             {
-                Color tempColor = Color.white;
-                AsyncActionUtils.ApplyImageColor(this, BG2, BG2.color, tempColor, 0.5f, TweenUtils.ColorTweenInQuad);
-                AsyncActionUtils.ApplyImageColor(this, HaiWang_Bg, HaiWang_Bg.color, tempColor, 0.5f, TweenUtils.ColorTweenInQuad, 0, () =>
+                AsyncActionUtils.ApplyImageColor(this, BG2, BG2.color, new Color(1, 1, 1, 0), 0.5f, TweenUtils.ColorTweenInQuad);
+                AsyncActionUtils.ApplyImageColor(this, GameBG, new Color(1, 1, 1, 0), Color.white, 0.5f, TweenUtils.ColorTweenInQuad, 0, () =>
                 {
                     BG2.gameObject.SetActive(false);
-                    if (sceneId == 5)
-                    {
-                        HaiWang_Bg.color = Color.white;
-                        HaiWang_Bg.gameObject.SetActive(true);  
-                    }
-                    else
-                    {
-                        HaiWang_Bg.gameObject.SetActive(false);
-                    }
+                    HaiWang_Bg.gameObject.SetActive(sceneId == 5);
                 });
             }
         }
@@ -267,7 +258,7 @@ namespace BagelCode
             FishAudioManager.Instance.PlayNormalAudio(68);
             tideGroupRectTrans.gameObject.SetActive(true);
             AsyncActionUtils.DelayedAction(this, 1, () => { tideGroupRectTrans.gameObject.SetActive(true); });
-            AsyncActionUtils.DelayedAction(this, 2, () => { SetGameBG(sceneId, GameBG, true); });
+            AsyncActionUtils.DelayedAction(this, 2, () => { FishTideOver(sceneId); });
            
         }
 

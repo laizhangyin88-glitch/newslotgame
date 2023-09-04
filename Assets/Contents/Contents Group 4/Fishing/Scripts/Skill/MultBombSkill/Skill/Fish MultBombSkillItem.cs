@@ -1,8 +1,6 @@
 using ParadoxNotion;
 using SlotMaker;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,20 +19,11 @@ namespace BagelCode
         string[] AnimParams = { "MultBombDrab_Catch", "MultBombDrab_Catching" };
 
         public bool isCanDestory = false;
-        bool isPlayingAnim = false;
 
         Vector3 beginPos;
-        Vector3 targetPos;
-
-        float currentTime = 0;
-        float MoveTotalTime = 1f;
-        float IdleTotalTime = 2f;
 
         int score = 0;
         int multiple = 0;
-
-        Transform SkillGunParent;
-        Transform SkillPanelParent;
 
         GameObject Skill_MultBomb;
 
@@ -50,16 +39,12 @@ namespace BagelCode
         {
             SkillVo = vo;
             isCanDestory = false;
-            isPlayingAnim = false;
         }
 
         public void ResetSkillState(Vector3 beginPos, int skillStatus, float skillTime, Action callBack = null)
         {
             isCanDestory = false;
-            SkillGunParent = SkillVo.PlayerIns.Panel.SkillGun;
-            SkillPanelParent = SkillVo.PlayerIns.Panel.SKillPanel;
             this.beginPos = beginPos;
-            targetPos = SkillGunParent.position;
             this.callBack = callBack;
 
             score = 0;
@@ -67,7 +52,6 @@ namespace BagelCode
 
             GetCurrentMultBombStep(skillTime);
             ShowMultBombSkill();
-            isPlayingAnim = true;
         }
 
         public void GetCurrentMultBombStep(float skillTime)
@@ -80,7 +64,6 @@ namespace BagelCode
             {
                 curSkillStats = MultBombSkillStats.Idle;
             }
-            currentTime = skillTime * 0.001f;
         }
 
         public void ShowMultBombSkill()
@@ -169,7 +152,6 @@ namespace BagelCode
             float lifeTime = 1.5f;
             string effectAudio = null;
             FishFishEffectManager.Instance.ShowFishEffect(beginPos, type, name, delayTime, lifeTime, effectAudio,() => {
-                //Debug.LogError("Dispatch multbomb => " + SkillVo.killFishUID);
                 MessageDispatcher.Dispatch("FishBombEnd", new EventData<int>("MainFishUID", SkillVo.killFishUID));
             });
         }
@@ -193,7 +175,6 @@ namespace BagelCode
             Skill_MultBomb = null;
 
             isCanDestory = false;
-            isPlayingAnim = false;
             callBack = null;
         }
     }
