@@ -81,8 +81,8 @@ namespace BagelCode
                 usChairId = chairId,
                 usDianCiCannonId = UID,
                 usRobotChairId = robotChairID,
+                SubFishes = new int[] { fishUID }
             };
-            mes.SubFishes.Add(fishUID);
             WebSocketManager.Instance.SendGameMessage(Proto_Fish_CMD.NF_FISH_CMD_DIANCICANNONHITFISH_REQ, WebSocketTool.Serialize(mes));
         }
 

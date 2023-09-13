@@ -4,6 +4,7 @@ using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
@@ -260,7 +261,7 @@ namespace BagelCode
                 UID = (int)msg.usFishID,
                 FishConfig = localConfig,
                 DieEffectConfig = localDieEffectConfig,
-                FishKindGroup = msg.subFishKinds,
+                FishKindGroup = msg.subFishKinds.ToList<uint>(),
                 TraceId = (int)msg.usTraceId,
                 StartPointIndex = (int)msg.usStartIndex,
                 OffsetIndex = (int)msg.usOffsetIndex,
