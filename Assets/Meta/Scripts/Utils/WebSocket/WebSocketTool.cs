@@ -10,12 +10,13 @@ namespace BagelCode
     public class WebSocketTool
     {
         private static Dictionary<string, DelegateProcess> processDic = new Dictionary<string, DelegateProcess>();
+        private static ProjectModel projectModel = new ProjectModel();
 
         public static byte[] Serialize<T>(T t)
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                ProtoBuf.Serializer.Serialize<T>(ms, t);
+                projectModel.Serialize<T>(ms, t);
                 byte[] result = ms.ToArray();
                 return result;
             }
@@ -25,7 +26,7 @@ namespace BagelCode
         {
             using (MemoryStream ms = new MemoryStream(data))
             {
-                return ProtoBuf.Serializer.Deserialize<T>(ms);
+                return projectModel.Deserialize<T>(ms);
             }
         }
 

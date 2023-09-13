@@ -86,9 +86,10 @@ namespace BagelCode
                 usZuanTouId = UID,
                 usRobotChairId = robotChairId,
             };
+            mes.SubFishes = new int[hitFishTable.Count];
             for (int i = 0; i < hitFishTable.Count; i++)
             {
-                mes.SubFishes.Add(hitFishTable[i]);
+                mes.SubFishes[i] = hitFishTable[i];
             }
             WebSocketManager.Instance.SendGameMessage(Proto_Fish_CMD.NF_FISH_CMD_ZUANTOUHITFISH_REQ, WebSocketTool.Serialize(mes));
         }
