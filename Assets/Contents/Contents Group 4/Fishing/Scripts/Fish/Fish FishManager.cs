@@ -255,13 +255,16 @@ namespace BagelCode
         {
             FishFishConfig localConfig = gameData.FishConfigList[(int)msg.usFishKind];
             FishDieEffectConfig localDieEffectConfig = gameData.DieEffectConfigList[localConfig.dieEffectId];
+            List<uint> fishKindGroup = null;
+            if (msg.subFishKinds != null)
+                fishKindGroup = msg.subFishKinds.ToList();
             FishVo vo = new FishVo
             {
                 fishId = (int)msg.usFishKind,
                 UID = (int)msg.usFishID,
                 FishConfig = localConfig,
                 DieEffectConfig = localDieEffectConfig,
-                FishKindGroup = msg.subFishKinds.ToList<uint>(),
+                FishKindGroup = fishKindGroup,
                 TraceId = (int)msg.usTraceId,
                 StartPointIndex = (int)msg.usStartIndex,
                 OffsetIndex = (int)msg.usOffsetIndex,

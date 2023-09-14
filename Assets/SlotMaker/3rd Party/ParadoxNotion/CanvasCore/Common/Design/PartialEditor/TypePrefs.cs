@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +45,8 @@ namespace ParadoxNotion.Design
             typeof(Quaternion),
             typeof(Color),
             typeof(LayerMask),
+            typeof(TrailRenderer),
+            typeof(Animation),
             typeof(AnimationCurve),
             typeof(RaycastHit),
             typeof(RaycastHit2D),

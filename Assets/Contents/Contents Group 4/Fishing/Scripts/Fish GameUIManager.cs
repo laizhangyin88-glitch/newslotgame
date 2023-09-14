@@ -138,21 +138,15 @@ namespace BagelCode
             isFadeAnimation = true;
             if (!AllGameBG.ContainsKey(index) || AllGameBG[index] == null)
             {
-                Action<FishResourceBase, float> LoadBGCallBack;
-                LoadBGCallBack = (gameObj, time) =>
+                Texture texture = AssetBundleManager.LoadAsset<Texture>("fishing", gameData.GameConfig.BGRes[index].name);
+                if (texture != null)
                 {
-                    if (gameObj != null && gameObj.content != null)
-                    {
-                        AllGameBG[index] = (Texture)gameObj.content;
-                        GameBG.texture = AllGameBG[index];
-                        ChangeSceneBGImage(index, isFadeAnimation);
-                    }
-                    else
-                    {
-                        Debug.LogError("Failed to load background image: " + gameData.GameConfig.BGRes[index].path);
-                    }
-                };
-                FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.BGRes[index].path, typeof(Texture), LoadBGCallBack);
+                    AllGameBG[index] = texture;
+                    GameBG.texture = AllGameBG[index];
+                    ChangeSceneBGImage(index, isFadeAnimation);
+                }
+                else
+                    Debug.LogError("资源加载失败==> " + gameData.GameConfig.BGRes[index].name);
             }
             else
             {

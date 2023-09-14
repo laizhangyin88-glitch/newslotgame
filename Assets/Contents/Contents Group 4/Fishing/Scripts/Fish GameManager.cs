@@ -2,6 +2,8 @@ using fishMsg;
 using hall;
 using SlotMaker;
 using System;
+using System.Text;
+using UnityEditor;
 using UnityEngine;
 
 namespace BagelCode
@@ -344,7 +346,7 @@ namespace BagelCode
 
         private UnityEngine.Object LoadResource(string assetPath, Type assetType)
         {
-            string basePath = "Assets/Contents/Contents Group 4/Fishing/";
+            string basePath = SplicingBasePath();
             string fullPath = basePath + assetPath;
             FishResourceBase prefabBase = FishCsharpResourceManager.Instance.GetResource(fullPath, assetType);
             if (prefabBase != null && prefabBase.content != null)
@@ -358,9 +360,19 @@ namespace BagelCode
 
         public void AsyncLoadResource(string assetPath, Type assetType, Action<FishResourceBase, float> completeCallBack)
         {
-            string basePath = "Assets/Contents/Contents Group 4/Fishing/";
+            string basePath = SplicingBasePath();
             string fullPath = basePath + assetPath;
             FishCsharpResourceManager.Instance.AsyncGetResource(fullPath, assetType, completeCallBack);
+        }
+
+        private string SplicingBasePath()
+        {
+#if UNITY_EDITOR
+            string basePath = "Assets/Contents/Contents Group 4/Fishing/";
+#else
+            string basePath = Application.dataPath + "/Contents/Contents Group 4/Fishing/";
+#endif
+            return basePath;
         }
 
         public void ResponesExitGame(byte[] bytes)
