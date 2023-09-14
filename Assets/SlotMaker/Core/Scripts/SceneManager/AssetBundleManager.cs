@@ -218,7 +218,10 @@ namespace SlotMaker
                 #endif
             else
             {
-                operation = new AssetBundleLoadWWWBundle(bundleName);
+                if (bundleName == "fishing")
+                    operation = new AssetBundleLoadFileBundle(bundleName);
+                else
+                    operation = new AssetBundleLoadWWWBundle(bundleName);
             }
 #else
             operation = new AssetBundleLoadBundleSimulation();

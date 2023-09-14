@@ -17,7 +17,7 @@ namespace BagelCode
             Dragon = 6,
         }
         public string[] FishConfig;
-        public ConfigFile[] FishConfigByte;
+        public ConfigFile[] FishConfigJson;
         public FishPack[] FishPackRes;
         public Fish[] FishRes;
         public Bullet[] BulletRes;
@@ -92,17 +92,8 @@ namespace BagelCode
             };
 
 
-            FishConfigByte = new ConfigFile[]
+            FishConfigJson = new ConfigFile[]
             {
-                //new ConfigFile {name = "FishConfigList", path = "/FishConfig/FishConfigData.bytes", data = "FishConfig_2004.FishConfigData"},
-                //new ConfigFile {name = "CoinEffectConfigList", path = "/FishConfig/CoinEffectConfigData.bytes", data = "CoinEffectConfig_2004.CoinEffectConfigData"},
-                //new ConfigFile {name = "DieEffectConfigList", path = "/FishConfig/DieEffectConfigData.bytes", data = "DieEffectConfig_2004.DieEffectConfigData"},
-                //new ConfigFile {name = "GunConfigList", path = "/FishConfig/GunConfigData.bytes", data = "GunConfig_2004.GunConfigData"},
-                //new ConfigFile {name = "RoomConfigList", path = "/FishConfig/RoomConfigData.bytes", data = "RoomConfig_2004.RoomConfigData"},
-                //new ConfigFile {name = "ScoreEffectConfigList", path = "/FishConfig/ScoreEffectConfigData.bytes", data = "ScoreEffectConfig_2004.ScoreEffectConfigData"},
-                //new ConfigFile {name = "SoundConfigList", path = "/FishConfig/SoundConfigData.bytes", data = "SoundConfig_2004.SoundConfigData"},
-                //new ConfigFile {name = "PlusTipsEffectConfigList", path = "/FishConfig/PlusTipsEffectConfigData.bytes", data = "PlusTipsEffectConfig_2004.PlusTipsEffectConfigData"},
-                //new ConfigFile {name = "SpecialDeclareConfigList", path = "/FishConfig/SpecialDeclareConfigData.bytes", data = "SpecialDeclareConfig_2004.SpecialDeclareConfigData"},
                 new ConfigFile {name = "FishConfigList", path = "/FishConfig/FishConfigData.json"},
                 new ConfigFile {name = "CoinEffectConfigList", path = "/FishConfig/CoinEffectConfigData.json"},
                 new ConfigFile {name = "DieEffectConfigList", path = "/FishConfig/DieEffectConfigData.json"},
@@ -312,14 +303,14 @@ namespace BagelCode
                 new Skill {name = "Skill_GhostShip", path = "Prefabs/Skill/Skill_GhostShip.prefab", amout = 1, count = 1},
                 new Skill {name = "Skill_LaternFish", path = "Prefabs/Skill/Skill_LaternFish.prefab", amout = 1, count = 1},
                 new Skill {name = "Skill_DragonTurtle", path = "Prefabs/Skill/Skill_DragonTurtle.prefab", amout = 1, count = 1},
-                new Skill {name = "Skill_ThunderDragon", path = "Prefabs/Skill/Skill_ThunderDragon.prefab", amout = 1, count = 1},
+                //new Skill {name = "Skill_ThunderDragon", path = "Prefabs/Skill/Skill_ThunderDragon.prefab", amout = 1, count = 1},
             };
         }
         public void InitAudioConfig()
         {
             AudioRes = new Audio[]
             {
-                new Audio {name = "Audio", path = "Prefabs/Audio/AudioPanel.prefab", amout = 1, count = 1},
+                new Audio {name = "AudioPanel", path = "Prefabs/Audio/AudioPanel.prefab", amout = 1, count = 1},
             };
         }
 

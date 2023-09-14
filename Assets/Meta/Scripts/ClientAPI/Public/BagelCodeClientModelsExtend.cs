@@ -79047,7 +79047,7 @@ public partial class LobbyResponseV6 : IProtoSerializable
                 break;
 
             case 89:
-                        obj.wsHost = ProtobufReader.ReadString(reader);
+                obj.wsHost = ProtobufReader.ReadString(reader);
                 //obj.seasonPassEnterInfoV2 = ProtobufReader.ToLengthDelimited<SeasonPassEnterInfoV2>(SeasonPassEnterInfoV2.Deserialize)(reader);
                 break;
 

@@ -128,8 +128,8 @@ namespace BagelCode
                     }
                 }
             }
-            partCollders[0].gameObject.tag = "Left_Leg";
-            partCollders[1].gameObject.tag = "Right_Leg";
+            //partCollders[0].gameObject.tag = "Left_Leg";
+            //partCollders[1].gameObject.tag = "Right_Leg";
         }
 
         private void InitViewData()

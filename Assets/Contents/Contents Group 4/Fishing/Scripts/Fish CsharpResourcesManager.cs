@@ -80,16 +80,13 @@ namespace BagelCode
                 string fileName = Path.GetFileNameWithoutExtension(filePath).ToLower();
                 byte[] tempD = System.Text.UTF8Encoding.UTF8.GetBytes(fileName);
                 AssetBundle bundle = AssetBundle.LoadFromFile(filePath, 0, (ulong)(tempD.Length + 1000));
-                //AssetBundle bundle = AssetBundle.LoadFromFile(filePath);
-                //byte[] data = File.ReadAllBytes(filePath);
-                //AssetBundle bundle = FileManager.LoadABRs(data);
                 AssetBundleManifest mainfest = bundle.LoadAsset("AssetBundleManifest") as AssetBundleManifest;
                 m_resourcePackerInfoSet.AnalysisManifest(key, mainfest);
                 bundle.Unload(false);
                 bundle = null;
             }
             else
-                Log.Error("Manifest不存在==>" + filePath);
+                Debug.LogError("Manifest不存在==>" + filePath);
         }
 
         /// <summary>
@@ -182,8 +179,6 @@ namespace BagelCode
             }
         }
 
-
-
         /// <summary>
         /// 异步加载资源,优先保证从AB包里面(Resources文件夹外部)加载,
         /// ,如果不存在AB包就通过Resources加载((Resources文件夹内存)).
@@ -224,7 +219,6 @@ namespace BagelCode
                 m_cachedResourceMap.Add(resourceBase.key, resourceBase);
             }
         }
-
 
         public FishResourcePackerInfo GetResourceBelongedPackerInfo(string fullPathInResources)
         {
