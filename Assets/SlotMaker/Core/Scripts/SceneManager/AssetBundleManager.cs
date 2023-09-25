@@ -9,12 +9,12 @@ namespace SlotMaker
 {
     public class LoadedAssetBundle
     {
-    	public AssetBundle assetBundle;
+        public AssetBundle assetBundle;
 
         public LoadedAssetBundle(AssetBundle assetBundle) : base()
-    	{
-    		this.assetBundle = assetBundle;
-    	}
+        {
+            this.assetBundle = assetBundle;
+        }
     }
 
     public class LoadedAsset
@@ -36,35 +36,35 @@ namespace SlotMaker
 
     public class AssetBundleManager : MonoBehaviour
     {
-    	private static AssetBundleManifest manifest = null;
-    	private static string baseFilePath = "";
-    	private static string baseUrl = "";
+        private static AssetBundleManifest manifest = null;
+        private static string baseFilePath = "";
+        private static string baseUrl = "";
 
-    	private static HashSet<string> DLCs = new HashSet<string>();
-    	private static Dictionary<string, LoadedAssetBundle> loadedAssetBundles = new Dictionary<string, LoadedAssetBundle>();
+        private static HashSet<string> DLCs = new HashSet<string>();
+        private static Dictionary<string, LoadedAssetBundle> loadedAssetBundles = new Dictionary<string, LoadedAssetBundle>();
         private static Dictionary<string, Dictionary<string, LoadedAsset>> loadedAssets = new Dictionary<string, Dictionary<string, LoadedAsset>>();
         private static Dictionary<string, AssetBundleLoadOperation> inProgressBundleOperations = new Dictionary<string, AssetBundleLoadOperation>();
-    	private static List<AssetBundleLoadAssetOperation> inProgressAssetOperations = new List<AssetBundleLoadAssetOperation>();
+        private static List<AssetBundleLoadAssetOperation> inProgressAssetOperations = new List<AssetBundleLoadAssetOperation>();
         private static Dictionary<string, AssetBundleLoadAssetOperation> inProgressAssetOperationReferences = new Dictionary<string, AssetBundleLoadAssetOperation>();
-    	private static Dictionary<string, string[]> dependencies = new Dictionary<string, string[]>();
+        private static Dictionary<string, string[]> dependencies = new Dictionary<string, string[]>();
 
-    	public static AssetBundleManifest Manifest
-    	{
-    		get { return manifest; }
-    		set { manifest = value; }
-    	}
+        public static AssetBundleManifest Manifest
+        {
+            get { return manifest; }
+            set { manifest = value; }
+        }
 
-    	public static string BaseFilePath
-    	{
-    		get { return baseFilePath; }
-    		set { baseFilePath = value; }
-    	}
+        public static string BaseFilePath
+        {
+            get { return baseFilePath; }
+            set { baseFilePath = value; }
+        }
 
-    	public static string BaseUrl
-    	{
-    		get { return baseUrl; }
-    		set { baseUrl = value; }
-    	}
+        public static string BaseUrl
+        {
+            get { return baseUrl; }
+            set { baseUrl = value; }
+        }
 
         public static AssetBundleLoadManifest Initialize()
         {
@@ -81,9 +81,9 @@ namespace SlotMaker
             return false;
         }
 
-    	public static LoadedAssetBundle GetLoadedAssetBundle(string bundleName)
-    	{
-    		LoadedAssetBundle bundle = null;
+        public static LoadedAssetBundle GetLoadedAssetBundle(string bundleName)
+        {
+            LoadedAssetBundle bundle = null;
             loadedAssetBundles.TryGetValue(bundleName, out bundle);
             if (bundle == null)
                 return null;
@@ -101,7 +101,7 @@ namespace SlotMaker
             }
 
             return bundle;
-    	}
+        }
 
         public static void SetLoadedAssetBundle(string bundleName, LoadedAssetBundle bundle)
         {
@@ -116,42 +116,42 @@ namespace SlotMaker
 
         public static LoadedAsset GetLoadedAsset(string bundleName, string assetName)
         {
-    		Dictionary<string, LoadedAsset> loaded;
-    		if (loadedAssets.TryGetValue(bundleName, out loaded))
-    		{
-    			LoadedAsset asset;
-    			if (loaded.TryGetValue(assetName, out asset))
-    				return asset;
-    		}
+            Dictionary<string, LoadedAsset> loaded;
+            if (loadedAssets.TryGetValue(bundleName, out loaded))
+            {
+                LoadedAsset asset;
+                if (loaded.TryGetValue(assetName, out asset))
+                    return asset;
+            }
 
-    		return null;
+            return null;
         }
 
         public static void SetLoadedAsset(string bundleName, string assetName, LoadedAsset asset)
         {
-    		Dictionary<string, LoadedAsset> loaded;
-    		if (loadedAssets.ContainsKey(bundleName))
-    		{
-    			loaded = loadedAssets[bundleName];
-    		}
-    		else
-    		{
-    			loaded = new Dictionary<string, LoadedAsset>();
-    			loadedAssets.Add(bundleName, loaded);
-    		}
+            Dictionary<string, LoadedAsset> loaded;
+            if (loadedAssets.ContainsKey(bundleName))
+            {
+                loaded = loadedAssets[bundleName];
+            }
+            else
+            {
+                loaded = new Dictionary<string, LoadedAsset>();
+                loadedAssets.Add(bundleName, loaded);
+            }
 
-    		if (loaded.ContainsKey(assetName))
-    		{
-    			Debug.LogWarning("[AssetBundleManager] Already loaded Asset: " + assetName + " in " + bundleName);
-    			return;
-    		}
+            if (loaded.ContainsKey(assetName))
+            {
+                Debug.LogWarning("[AssetBundleManager] Already loaded Asset: " + assetName + " in " + bundleName);
+                return;
+            }
 
-    		loaded.Add(assetName, asset);
+            loaded.Add(assetName, asset);
         }
 
-    	public static void RemoveLoadedAssets(string bundleName)
+        public static void RemoveLoadedAssets(string bundleName)
         {
-    		loadedAssets.Remove(bundleName);
+            loadedAssets.Remove(bundleName);
 
 #if USE_ASSETBUNDLE
             string[] deps = Manifest.GetAllDependencies(bundleName);
@@ -164,7 +164,7 @@ namespace SlotMaker
             if (deps.Length == 0)
                 return;
 
-            foreach(var dep in deps)
+            foreach (var dep in deps)
             {
                 loadedAssets.Remove(dep);
             }
@@ -211,14 +211,31 @@ namespace SlotMaker
 
 #if USE_ASSETBUNDLE
             if (!DLCs.Contains(bundleName))
-                #if UNITY_WEBGL || USE_ASSETBUNDLE_FILECACHE
+#if UNITY_WEBGL || USE_ASSETBUNDLE_FILECACHE
                     operation = new AssetBundleLoadWWWBundle(bundleName, false);
-                #else
-                    operation = new AssetBundleLoadFileBundle(bundleName);
-                #endif
+#else
+                operation = new AssetBundleLoadFileBundle(bundleName);
+#endif
             else
             {
-                if (bundleName == "fishing")
+                if (bundleName == "fishing"
+                    || bundleName == "fishingaudio"
+                    || bundleName == "fishingpanel"
+                    || bundleName == "fishingeffect"
+                    || bundleName == "fishinggold"
+                    || bundleName == "fishinglighteffect"
+                    || bundleName == "fishingnet"
+                    || bundleName == "fishingouttips"
+                    || bundleName == "fishingscore"
+                    || bundleName == "fishingskill"
+                    || bundleName == "fishingspecialdeclare"
+                    || bundleName == "fishingtips"
+                    || bundleName == "fishingplustips"
+                    || bundleName == "fish_boss_01"
+                    || bundleName == "fish_boss_02"
+                    || bundleName == "fish_boss_03"
+                    || bundleName == "fish_boss_04"
+                    || bundleName == "fishingbg")
                     operation = new AssetBundleLoadFileBundle(bundleName);
                 else
                     operation = new AssetBundleLoadWWWBundle(bundleName);
@@ -248,7 +265,7 @@ namespace SlotMaker
             for (int i = 0; i < deps.Length; ++i)
             {
                 if (isDLC) AddDLC(deps[i]);
-                depOps.Add( LoadAssetBundleInternal(deps[i]) );
+                depOps.Add(LoadAssetBundleInternal(deps[i]));
             }
 #endif
             return depOps;
@@ -268,7 +285,7 @@ namespace SlotMaker
             if (!dependencies.TryGetValue(bundleName, out deps))
                 return;
 
-            foreach(var dep in deps)
+            foreach (var dep in deps)
             {
                 UnloadAssetBundleInternal(dep, unloadAllLoadedObjects);
             }
@@ -333,7 +350,7 @@ namespace SlotMaker
                 return asset.asset;
 
 #if USE_ASSETBUNDLE
-            if( bundleName == "Android")
+            if (bundleName == "Android")
                 Debug.Log("[AssetBundleManager] There is no asset with name \"" + assetName + "\" in " + bundleName);
             LoadedAssetBundle bundle = AssetBundleManager.GetLoadedAssetBundle(bundleName);
             if (bundle != null)
@@ -371,10 +388,10 @@ namespace SlotMaker
 
         public static void UnloadAsset(string bundleName, string assetName)
         {
-    		if (!loadedAssets.ContainsKey(bundleName))
-    			return;
+            if (!loadedAssets.ContainsKey(bundleName))
+                return;
 
-    		loadedAssets[bundleName].Remove(assetName);
+            loadedAssets[bundleName].Remove(assetName);
 
             if (ApplicationSettings.LogBundle())
                 Debug.Log("[AssetBundleManager] " + assetName + " in " + bundleName + " has been unloaded");
