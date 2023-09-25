@@ -52,12 +52,17 @@ namespace BagelCode
 
             for (int i = 0; i < number; i++)
             {
-                GameObject tempObj = GameObject.Instantiate(gameObj);
+                GameObject tempObj = Object.Instantiate(gameObj);
                 tempObj.name = keyName;
                 tempObj.SetActive(false);
                 SetPoolParent(tempObj, poolType);
                 ObjectPoolList[keyName].Add(tempObj);
             }
+        }
+
+        public void RemoveKeyAtObjectPool(string keyName)
+        {
+            ObjectPoolList.Remove(keyName);
         }
 
         public void SetPoolParent(GameObject gameObj, PoolType poolType)

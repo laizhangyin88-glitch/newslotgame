@@ -64,6 +64,11 @@ namespace BagelCode
             ObjectPool.AddObjectPool(gameObj, number, keyName, poolType);
         }
 
+        public void RemoveKeyAtObjectPool(string keyName)
+        {
+            ObjectPool.RemoveKeyAtObjectPool(keyName);
+        }
+
         public void SetPoolParent(GameObject gameObj, PoolType poolType)
         {
             ObjectPool.SetPoolParent(gameObj, poolType);

@@ -59,7 +59,6 @@ namespace SlotMaker
         {
             if (request == null)
             {
-                Debug.LogError("Loading => " + bundleName);
                 string bundlePath = Path.Combine(AssetBundleManager.BaseFilePath, bundleName);
 #if UNITY_ANDROID
                 bundlePath += ".assetbundle";
@@ -71,7 +70,6 @@ namespace SlotMaker
 
             if (request.isDone)
             {
-                Debug.LogError("Load Done => " + bundleName);
                 var bundle = new LoadedAssetBundle(request.assetBundle);
                 AssetBundleManager.SetLoadedAssetBundle(bundleName, bundle);
                 isDone = true;
@@ -134,7 +132,6 @@ namespace SlotMaker
             {
                 if (checkHash)
                 {
-                    Debug.LogError("Downloading => " + bundleName);
                     request = UnityWebRequestAssetBundle.GetAssetBundle(
                        Path.Combine(AssetBundleManager.BaseUrl, bundleName),
                        AssetBundleManager.Manifest.GetAssetBundleHash(bundleName));
@@ -174,7 +171,6 @@ namespace SlotMaker
 
             if (request.isDone)
             {
-                Debug.LogError("Download Done => " + bundleName);
                 var bundle = new LoadedAssetBundle(DownloadHandlerAssetBundle.GetContent(request));
                 AssetBundleManager.SetLoadedAssetBundle(bundleName, bundle);
 
