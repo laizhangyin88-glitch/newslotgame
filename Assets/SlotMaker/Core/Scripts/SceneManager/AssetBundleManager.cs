@@ -227,14 +227,9 @@ namespace SlotMaker
                     || bundleName == "fishingnet"
                     || bundleName == "fishingouttips"
                     || bundleName == "fishingscore"
-                    || bundleName == "fishingskill"
                     || bundleName == "fishingspecialdeclare"
                     || bundleName == "fishingtips"
                     || bundleName == "fishingplustips"
-                    || bundleName == "fish_boss_01"
-                    || bundleName == "fish_boss_02"
-                    || bundleName == "fish_boss_03"
-                    || bundleName == "fish_boss_04"
                     || bundleName == "fishingbg")
                     operation = new AssetBundleLoadFileBundle(bundleName);
                 else

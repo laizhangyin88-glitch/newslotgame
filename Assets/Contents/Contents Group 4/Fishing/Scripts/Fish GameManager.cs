@@ -384,8 +384,39 @@ namespace BagelCode
                 returnBtn.GetComponent<SendEvent>().DispatchContentEvent("LeaveGame");
                 WebSocketManager.Instance.CloseConnect();
                 ClearFishManager();
+                UnLoadBundle();
                 GSManager.Instance.MusicVolume = 1.0f;
             }
+        }
+
+        private void UnLoadBundle()
+        {
+            AssetBundleManager.RemoveLoadedAssets("fishingaudio");
+            AssetBundleManager.UnloadLoadedAssets("fishingaudio", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingeffect");
+            AssetBundleManager.UnloadLoadedAssets("fishingeffect", true);
+            AssetBundleManager.RemoveLoadedAssets("fishinggold");
+            AssetBundleManager.UnloadLoadedAssets("fishinggold", true);
+            AssetBundleManager.RemoveLoadedAssets("fishinglighteffect");
+            AssetBundleManager.UnloadLoadedAssets("fishinglighteffect", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingouttips");
+            AssetBundleManager.UnloadLoadedAssets("fishingouttips", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingscore");
+            AssetBundleManager.UnloadLoadedAssets("fishingscore", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingskill");
+            AssetBundleManager.UnloadLoadedAssets("fishingskill", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingspecialdeclare");
+            AssetBundleManager.UnloadLoadedAssets("fishingspecialdeclare", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingtips");
+            AssetBundleManager.UnloadLoadedAssets("fishingtips", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingbg");
+            AssetBundleManager.UnloadLoadedAssets("fishingbg", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingpanel");
+            AssetBundleManager.UnloadLoadedAssets("fishingpanel", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingplustips");
+            AssetBundleManager.UnloadLoadedAssets("fishingplustips", true);
+            AssetBundleManager.RemoveLoadedAssets(gameData.GameConfig.FishBossPackRes[FishResourcesManager.Instance.curBossPackIndex].name);
+            AssetBundleManager.UnloadLoadedAssets(gameData.GameConfig.FishBossPackRes[FishResourcesManager.Instance.curBossPackIndex].name, true);
         }
 
         public void ClearFishManager()
