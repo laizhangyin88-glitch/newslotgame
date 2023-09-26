@@ -83,7 +83,7 @@ namespace BagelCode
                 return;
             if (!AllAudioClips.ContainsKey(audioInfo.soundName) || AllAudioClips[audioInfo.soundName] == null)
             {
-                AudioClip gameObj = AssetBundleManager.LoadAsset<AudioClip>("fishing", audioInfo.soundName);
+                AudioClip gameObj = AssetBundleManager.LoadAsset<AudioClip>("fishingaudio", audioInfo.soundName);
                 if (gameObj != null)
                 {
                     AudioClip obj = Instantiate(gameObj);
@@ -106,7 +106,7 @@ namespace BagelCode
             if (audioInfo == null) return;
             if (!AllAudioClips.ContainsKey(audioInfo.soundName) || AllAudioClips[audioInfo.soundName] == null)
             {
-                AudioClip gameObj = AssetBundleManager.LoadAsset<AudioClip>("fishing", audioInfo.soundName);
+                AudioClip gameObj = AssetBundleManager.LoadAsset<AudioClip>("fishingaudio", audioInfo.soundName);
                 if (gameObj != null)
                 {
                     AudioClip obj = Instantiate(gameObj);

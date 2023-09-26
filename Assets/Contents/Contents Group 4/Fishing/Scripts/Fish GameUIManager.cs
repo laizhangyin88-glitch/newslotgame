@@ -13,9 +13,8 @@ namespace BagelCode
 {
     public class FishGameUIManager : MonoSingleton<FishGameUIManager>
     {
-        private float tideTime;
         public FishGameData gameData;
-        private Dictionary<int ,Texture> AllGameBG;
+        private Dictionary<int, Texture> AllGameBG;
         private bool GameIsPress;
         private CanvasScaler canvasScaler;
         public GameObject GamePanelRoot;
@@ -26,7 +25,6 @@ namespace BagelCode
         private RectTransform tideGroupRectTrans;
         public Camera UICamera;
         private FishBehaviour BGFishLuaBehaviour;
-        private GameObject GameEffectRoot;
         private Timer changeSceneClearTimer;
         public GameObject conetnGameObject;
 
@@ -36,18 +34,17 @@ namespace BagelCode
             InitData();
             InitView();
             FindView();
-            AddListennerEvent();
+            AddEventListener();
         }
 
         private void InitData()
         {
-            tideTime = 2.5f;
             gameData = FishGameManager.Instance.gameData;
             AllGameBG = new Dictionary<int, Texture>();
             GameIsPress = true;
         }
 
-        private void InitView ()
+        private void InitView()
         {
             InitInstance();
             InitUIViewData();
@@ -94,7 +91,6 @@ namespace BagelCode
             tideGroupRectTrans.gameObject.SetActive(false);
             UICamera = conetnGameObject.transform.Find("Cameras/Camera_UI").GetComponent<Camera>();
             BGFishLuaBehaviour = Bg.AddComponent<FishBehaviour>();
-            GameEffectRoot = conetnGameObject.transform.Find("GamePanel/GameEffectPanel/Group").gameObject;
             //TODO
             //TideSequence = null;
             //ChangeBGSequence = null;
@@ -105,7 +101,7 @@ namespace BagelCode
             tideGroupRectTrans.gameObject.SetActive(true);
         }
 
-        public void AddListennerEvent()
+        public void AddEventListener()
         {
             BGFishLuaBehaviour.onPressCallBack = (isPress) => {
                 BGOnPress(isPress);
@@ -138,7 +134,7 @@ namespace BagelCode
             isFadeAnimation = true;
             if (!AllGameBG.ContainsKey(index) || AllGameBG[index] == null)
             {
-                Texture texture = AssetBundleManager.LoadAsset<Texture>("fishing", gameData.GameConfig.BGRes[index].name);
+                Texture texture = AssetBundleManager.LoadAsset<Texture>("fishingbg", gameData.GameConfig.BGRes[index].name);
                 if (texture != null)
                 {
                     AllGameBG[index] = texture;
@@ -241,7 +237,7 @@ namespace BagelCode
                 AsyncActionUtils.ApplyImageColor(this, GameBG, new Color(1, 1, 1, 0), Color.white, 0.5f, TweenUtils.ColorTweenInQuad, 0, () =>
                 {
                     BG2.gameObject.SetActive(false);
-                    HaiWang_Bg.gameObject.SetActive(sceneId == 5);
+                    HaiWang_Bg.gameObject.SetActive(sceneId == 2);
                 });
             }
         }
@@ -253,7 +249,7 @@ namespace BagelCode
             tideGroupRectTrans.gameObject.SetActive(true);
             AsyncActionUtils.DelayedAction(this, 1, () => { tideGroupRectTrans.gameObject.SetActive(true); });
             AsyncActionUtils.DelayedAction(this, 2, () => { FishTideOver(sceneId); });
-           
+
         }
 
         public void FishTideOver(int sceneId)

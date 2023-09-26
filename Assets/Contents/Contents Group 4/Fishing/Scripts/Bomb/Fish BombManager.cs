@@ -156,7 +156,7 @@ namespace BagelCode
                     bombIns = new FishKingCrabFishType();
                     break;
                 default:
-                    Debug.LogError("未定义类型fishType==>" + mainFishType);
+                    //Debug.LogError("未定义类型fishType==>" + mainFishType);
                     return null;
             }
             if (bombIns != null)

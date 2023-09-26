@@ -19,7 +19,9 @@ namespace BagelCode
         public string[] FishConfig;
         public ConfigFile[] FishConfigJson;
         public FishPack[] FishPackRes;
+        public FishPack[] FishBossPackRes;
         public Fish[] FishRes;
+        public Fish[] FishBossRes;
         public Bullet[] BulletRes;
         public Net[] NetRes;
         public Player[] PlayerRes;
@@ -34,7 +36,6 @@ namespace BagelCode
         public Audio[] AudioRes;
         public Dictionary<string, string> GameSetRes;
         public BGTexture[] BGRes;
-        public FishOutTips[] FishOutTipsRes;
         public int[] LockFishList = {
             43,42,41,40,39,
             38,37,36,35,34,
@@ -69,10 +70,10 @@ namespace BagelCode
             InitEffectConfig();
             InitAudioConfig();
             InitGameBGConfig();
-            InitFishOutTipsConfig();
             InitLightningConfig();
             InitSkillConfig();
             InitTipsContentConfig();
+            InitFishBossConfig();
         }
 
 
@@ -113,9 +114,6 @@ namespace BagelCode
                 new FishPack {name = "Fish_Pack_01", path = "Prefabs/FishPack/Fish_Pack_01.prefab"},
                 new FishPack {name = "Fish_Pack_02", path = "Prefabs/FishPack/Fish_Pack_02.prefab"},
                 new FishPack {name = "Fish_Pack_03", path = "Prefabs/FishPack/Fish_Pack_03.prefab"},
-                new FishPack {name = "Fish_Pack_04", path = "Prefabs/FishPack/Fish_Pack_04.prefab"},
-                new FishPack {name = "Fish_Pack_05", path = "Prefabs/FishPack/Fish_Pack_05.prefab"},
-                new FishPack {name = "Fish_Pack_06", path = "Prefabs/FishPack/Fish_Pack_06.prefab"},
             };
 
             FishRes = new Fish[]
@@ -135,41 +133,44 @@ namespace BagelCode
                 new Fish {name = "Fish_13", ParentName = "Fish_Pack_02", amout = 15, count = 1},
                 new Fish {name = "Fish_14", ParentName = "Fish_Pack_02", amout = 15, count = 1},
                 new Fish {name = "Fish_15", ParentName = "Fish_Pack_02", amout = 15, count = 1},
-                new Fish {name = "Fish_16", ParentName = "Fish_Pack_02", amout = 15, count = 1},
-                new Fish {name = "Fish_17", ParentName = "Fish_Pack_03", amout = 15, count = 1},
-                new Fish {name = "Fish_18", ParentName = "Fish_Pack_03", amout = 15, count = 1},
-                new Fish {name = "Fish_19", ParentName = "Fish_Pack_03", amout = 15, count = 1},
-                new Fish {name = "Fish_20", ParentName = "Fish_Pack_03", amout = 15, count = 1},
-                new Fish {name = "Fish_21", ParentName = "Fish_Pack_03", amout = 15, count = 1},
-                new Fish {name = "Fish_22", ParentName = "Fish_Pack_03", amout = 15, count = 1},
-                new Fish {name = "Fish_23", ParentName = "Fish_Pack_03", amout = 15, count = 1},
-                new Fish {name = "Fish_24", ParentName = "Fish_Pack_03", amout = 15, count = 1},
-                new Fish {name = "Fish_25", ParentName = "Fish_Pack_04", amout = 15, count = 1},
-                new Fish {name = "Fish_26", ParentName = "Fish_Pack_04", amout = 15, count = 1},
-                new Fish {name = "Fish_27", ParentName = "Fish_Pack_04", amout = 15, count = 1},
-                new Fish {name = "Fish_28", ParentName = "Fish_Pack_04", amout = 15, count = 1},
-                new Fish {name = "Fish_29", ParentName = "Fish_Pack_04", amout = 15, count = 1},
-                new Fish {name = "Fish_30", ParentName = "Fish_Pack_04", amout = 15, count = 1},
-                new Fish {name = "Fish_31", ParentName = "Fish_Pack_04", amout = 15, count = 1},
-                new Fish {name = "Fish_32", ParentName = "Fish_Pack_04", amout = 15, count = 1},
-                new Fish {name = "Fish_33", ParentName = "Fish_Pack_05", amout = 15, count = 1},
-                new Fish {name = "Fish_34", ParentName = "Fish_Pack_05", amout = 15, count = 1},
-                new Fish {name = "Fish_35", ParentName = "Fish_Pack_05", amout = 15, count = 1},
-                new Fish {name = "Fish_36", ParentName = "Fish_Pack_05", amout = 15, count = 1},
-                new Fish {name = "Fish_37", ParentName = "Fish_Pack_05", amout = 15, count = 1},
-                new Fish {name = "Fish_38", ParentName = "Fish_Pack_05", amout = 15, count = 1},
-                new Fish {name = "Fish_39", ParentName = "Fish_Pack_05", amout = 15, count = 1},
-                new Fish {name = "Fish_40", ParentName = "Fish_Pack_05", amout = 15, count = 1},
-                new Fish {name = "Fish_41", ParentName = "Fish_Pack_06", amout = 15, count = 1},
-                new Fish {name = "Fish_42", ParentName = "Fish_Pack_06", amout = 15, count = 1},
-                new Fish {name = "Fish_43", ParentName = "Fish_Pack_06", amout = 15, count = 1},
-                new Fish {name = "Fish_44", ParentName = "Fish_Pack_06", amout = 15, count = 1},
-                new Fish {name = "Fish_45", ParentName = "Fish_Pack_06", amout = 15, count = 1},
-                new Fish {name = "Fish_46", ParentName = "Fish_Pack_06", amout = 15, count = 1},
-                new Fish {name = "Fish_47", ParentName = "Fish_Pack_06", amout = 15, count = 1},
-                new Fish {name = "Fish_48", ParentName = "Fish_Pack_06", amout = 15, count = 1},
+                new Fish {name = "Fish_17", ParentName = "Fish_Pack_02", amout = 15, count = 1},
+                new Fish {name = "Fish_31", ParentName = "Fish_Pack_03", amout = 15, count = 1},
+                new Fish {name = "Fish_34", ParentName = "Fish_Pack_03", amout = 15, count = 1},
+                new Fish {name = "Fish_37", ParentName = "Fish_Pack_03", amout = 15, count = 1},
+                new Fish {name = "Fish_38", ParentName = "Fish_Pack_03", amout = 15, count = 1},
+                new Fish {name = "Fish_44", ParentName = "Fish_Pack_03", amout = 15, count = 1},
             };
         }
+
+
+        private void InitFishBossConfig()
+        {
+            FishBossPackRes = new FishPack[]
+            {
+                new FishPack {name = "Fish_Pack_11", path = "Prefabs/FishPack/Fish_Pack_11.prefab"},
+                new FishPack {name = "Fish_Pack_12", path = "Prefabs/FishPack/Fish_Pack_12.prefab"},
+                new FishPack {name = "Fish_Pack_13", path = "Prefabs/FishPack/Fish_Pack_13.prefab"},
+            };
+
+            FishBossRes = new Fish[]
+            {
+                new Fish {name = "Fish_25", ParentName = "Fish_Pack_11", amout = 15, count = 1},
+                new Fish {name = "Fish_26", ParentName = "Fish_Pack_11", amout = 15, count = 1},
+                new Fish {name = "Fish_28", ParentName = "Fish_Pack_11", amout = 15, count = 1},
+                new Fish {name = "Fish_32", ParentName = "Fish_Pack_11", amout = 15, count = 1},
+                new Fish {name = "Fish_18", ParentName = "Fish_Pack_12", amout = 15, count = 1},
+                new Fish {name = "Fish_19", ParentName = "Fish_Pack_12", amout = 15, count = 1},
+                new Fish {name = "Fish_40", ParentName = "Fish_Pack_12", amout = 15, count = 1},
+                new Fish {name = "Fish_20", ParentName = "Fish_Pack_13", amout = 15, count = 1},
+                new Fish {name = "Fish_21", ParentName = "Fish_Pack_13", amout = 15, count = 1},
+                new Fish {name = "Fish_45", ParentName = "Fish_Pack_13", amout = 15, count = 1},
+                new Fish {name = "Fish_22", ParentName = "Fish_Pack_14", amout = 15, count = 1},
+                new Fish {name = "Fish_23", ParentName = "Fish_Pack_14", amout = 15, count = 1},
+                new Fish {name = "Fish_24", ParentName = "Fish_Pack_14", amout = 15, count = 1},
+                new Fish {name = "Fish_46", ParentName = "Fish_Pack_14", amout = 15, count = 1},
+            };
+        }
+
         private void InitBulletConfig()
         {
             BulletRes = new Bullet[]
@@ -245,15 +246,12 @@ namespace BagelCode
                 new SpecialDeclare {name = "Bison_CutIn", path = "Prefabs/SpecialDeclare/Bison_CutIn.prefab", amout = 1, count = 1},
                 new SpecialDeclare {name = "SpecialDeclare_Bison", path = "Prefabs/SpecialDeclare/SpecialDeclare_Bison.prefab", amout = 1, count = 1},
                 new SpecialDeclare {name = "SpecialDeclare_BisonsOther", path = "Prefabs/SpecialDeclare/SpecialDeclare_BisonsOther.prefab", amout = 1, count = 1},
-                new SpecialDeclare {name = "SpiderCrabBossHurt", path = "Prefabs/SpecialDeclare/SpiderCrabBossHurt.prefab", amout = 1, count = 1},
-                new SpecialDeclare {name = "SpiderCrabKillInfo", path = "Prefabs/SpecialDeclare/SpiderCrabKillInfo.prefab", amout = 1, count = 1},
-                new SpecialDeclare {name = "SpiderCrabBoardScore", path = "Prefabs/SpecialDeclare/SpiderCrabBoardScore.prefab", amout = 1, count = 1},
-                new SpecialDeclare {name = "SpecialDeclare_Dragon", path = "Prefabs/SpecialDeclare/SpecialDeclare_Dragon.prefab", amout = 1, count = 1},
                 new SpecialDeclare {name = "SpecialDeclare_Hammer", path = "Prefabs/SpecialDeclare/SpecialDeclare_Hammer.prefab", amout = 1, count = 1},
                 new SpecialDeclare {name = "DeclareLight", path = "Prefabs/SpecialDeclare/Boss/DeclareLight.prefab", amout = 1, count = 1},
                 new SpecialDeclare {name = "GhostShipDeclare", path = "Prefabs/SpecialDeclare/Boss/GhostShipDeclare.prefab", amout = 1, count = 1},
                 new SpecialDeclare {name = "LanternFishDeclare", path = "Prefabs/SpecialDeclare/Boss/LanternFishDeclare.prefab", amout = 1, count = 1},
-                new SpecialDeclare {name = "DragonDeclare", path = "Prefabs/SpecialDeclare/Boss/DragonDeclare.prefab", amout = 1, count = 1},
+                //new SpecialDeclare {name = "DragonDeclare", path = "Prefabs/SpecialDeclare/Boss/DragonDeclare.prefab", amout = 1, count = 1},
+
             };
         }
 
@@ -276,7 +274,6 @@ namespace BagelCode
                 new Effect {name = "Effect_Bomb", path = "Prefabs/Effect/Effect_Bomb.prefab", amout = 1, count = 1},
                 new Effect {name = "burst_coin_bison", path = "Prefabs/Effect/burst_coin_bison.prefab", amout = 30, count = 1},
                 new Effect {name = "burst_coin_large_luckyCat", path = "Prefabs/Effect/burst_coin_large_luckyCat.prefab", amout = 1, count = 1},
-                new Effect {name = "KingCrabcoinPrefab", path = "Prefabs/Effect/KingCrabcoinPrefab.prefab", amout = 1, count = 1},
                 new Effect {name = "burst_coin_long", path = "Prefabs/Effect/burst_coin_long.prefab", amout = 1, count = 5},
                 new Effect {name = "burst_coin_long1", path = "Prefabs/Effect/burst_coin_long1.prefab", amout = 1, count = 5},
                 new Effect {name = "Effect_Warning", path = "Prefabs/Effect/Effect_Warning.prefab", amout = 1, count = 5},
@@ -293,19 +290,18 @@ namespace BagelCode
                 new Skill {name = "Skill_Drill", path = "Prefabs/Skill/Skill_Drill.prefab", amout = 1, count = 1},
                 new Skill {name = "Gun_Drill", path = "Prefabs/Skill/Gun_Drill.prefab", amout = 1, count = 1},
                 new Skill {name = "Bullet_Drill", path = "Prefabs/Skill/Bullet_Drill.prefab", amout = 1, count = 1},
-                new Skill {name = "Gun_SerialDrill", path = "Prefabs/Skill/Gun_SerialDrill.prefab", amout = 1, count = 1},
-                new Skill {name = "Bullet_SerialDrill", path = "Prefabs/Skill/Bullet_SerialDrill.prefab", amout = 1, count = 1},
-                new Skill {name = "Skill_Bison", path = "Prefabs/Skill/Skill_Bison.prefab", amout = 1, count = 1},
                 new Skill {name = "Skill_CountdownTimer", path = "Prefabs/Skill/Skill_CountdownTimer.prefab", amout = 1, count = 1},
                 new Skill {name = "Skill_Bomb", path = "Prefabs/Skill/Skill_Bomb.prefab", amout = 1, count = 1},
                 new Skill {name = "Skill_MultiBomb", path = "Prefabs/Skill/Skill_MultiBomb.prefab", amout = 1, count = 1},
+                new Skill {name = "Skill_Bison", path = "Prefabs/Skill/Skill_Bison.prefab", amout = 1, count = 1},
                 new Skill {name = "ThunderHammer", path = "Prefabs/Skill/ThunderHammer.prefab", amout = 1, count = 1},
                 new Skill {name = "Skill_GhostShip", path = "Prefabs/Skill/Skill_GhostShip.prefab", amout = 1, count = 1},
                 new Skill {name = "Skill_LaternFish", path = "Prefabs/Skill/Skill_LaternFish.prefab", amout = 1, count = 1},
-                new Skill {name = "Skill_DragonTurtle", path = "Prefabs/Skill/Skill_DragonTurtle.prefab", amout = 1, count = 1},
+                //new Skill {name = "Skill_DragonTurtle", path = "Prefabs/Skill/Skill_DragonTurtle.prefab", amout = 1, count = 1},
                 //new Skill {name = "Skill_ThunderDragon", path = "Prefabs/Skill/Skill_ThunderDragon.prefab", amout = 1, count = 1},
             };
         }
+
         public void InitAudioConfig()
         {
             AudioRes = new Audio[]
@@ -345,36 +341,8 @@ namespace BagelCode
                 new BGTexture {name = "t_bg_1", path = "Texture/BG/t_bg_1.png", amout = 1, count = 1},
                 new BGTexture {name = "t_bg_2", path = "Texture/BG/t_bg_2.png", amout = 1, count = 1},
                 new BGTexture {name = "t_bg_3", path = "Texture/BG/t_bg_3.png", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_4", path = "Texture/BG/t_bg_4.png", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_5", path = "Texture/BG/t_bg_5.png", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_6", path = "Texture/BG/t_bg_6.png", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_7", path = "Texture/BG/t_bg_7.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_8", path = "Texture/BG/t_bg_8.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_9", path = "Texture/BG/t_bg_9.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_10", path = "Texture/BG/t_bg_10.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_11", path = "Texture/BG/t_bg_11.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_12", path = "Texture/BG/t_bg_12.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_13", path = "Texture/BG/t_bg_13.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_14", path = "Texture/BG/t_bg_14.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_15", path = "Texture/BG/t_bg_15.jpg", amout = 1, count = 1},
-                new BGTexture {name = "t_bg_16", path = "Texture/BG/t_bg_16.jpg", amout = 1, count = 1},
-            };
-        }
-
-        public void InitFishOutTipsConfig()
-        {
-            FishOutTipsRes = new FishOutTips[]
-            {
-                new FishOutTips {name = "YuChao_Coming", path = "Prefabs/FishOutTips/YuChao_Coming.prefab", amout = 1, count = 1},
-                new FishOutTips {name = "Bisons_Coming", path = "Prefabs/FishOutTips/Bisons_Coming.prefab", amout = 1, count = 1},
-                new FishOutTips {name = "SpiderCrabBoss_Coming", path = "Prefabs/FishOutTips/SpiderCrabBoss_Coming.prefab", amout = 1, count = 1},
-                new FishOutTips {name = "Fish_Coming_dianciyu", path = "Prefabs/FishOutTips/Fish_Coming_dianciyu.prefab", amout = 1, count = 1},
-                new FishOutTips {name = "Fish_Coming_dianguangshuimu", path = "Prefabs/FishOutTips/Fish_Coming_dianguangshuimu.prefab", amout = 1, count = 1},
-                new FishOutTips {name = "Fish_Coming_lianhuanzhadan", path = "Prefabs/FishOutTips/Fish_Coming_lianhuanzhadan.prefab", amout = 1, count = 1},
-                new FishOutTips {name = "Fish_Coming_xuanfengyu", path = "Prefabs/FishOutTips/Fish_Coming_xuanfengyu.prefab", amout = 1, count = 1},
-                new FishOutTips {name = "Fish_Coming_zhadanyu", path = "Prefabs/FishOutTips/Fish_Coming_zhadanyu.prefab", amout = 1, count = 1},
-                new FishOutTips {name = "Fish_Coming_zuantouxie", path = "Prefabs/FishOutTips/Fish_Coming_zuantouxie.prefab", amout = 1, count = 1},
-                new FishOutTips {name = "ComingUp_FireStorm", path = "Prefabs/FishOutTips/ComingUp_FireStorm.prefab", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_4", path = "Texture/BG/t_bg_4.jpg", amout = 1, count = 1},
+                new BGTexture {name = "t_bg_5", path = "Texture/BG/t_bg_5.jpg", amout = 1, count = 1},
             };
         }
 
@@ -418,7 +386,7 @@ namespace BagelCode
 
     public enum BombFishType
     {
-        
+
     }
 
     public class FishOutTips
