@@ -126,7 +126,6 @@ namespace BagelCode
                 }
                 else
                 {
-                    Debug.LogError("Trace读取成功: " + fileList[i]);
                     byte[] bytes = request.downloadHandler.data;
                     Stream stream = new MemoryStream(bytes);
                     ParseBinaryTraceFile(stream);

@@ -75,7 +75,6 @@ namespace BagelCode
         {
             CurrentLoadedResourcesTotalCount++;
             isLoaded = true;
-            Debug.LogError("CurrentLoadedResourcesTotalCount => " + CurrentLoadedResourcesTotalCount);
             string slider = string.Format("%.3f", CurrentLoadedResourcesTotalCount / ResourcesTotalCount);
             if (CurrentLoadedResourcesTotalCount == ResourcesTotalCount)
                 LoadResCompleteCallBack();
@@ -151,7 +150,6 @@ namespace BagelCode
             }
             else
             {
-                Debug.LogError("json读取成功: " + path);
                 json = request.downloadHandler.text;
             }
 #else
@@ -409,7 +407,6 @@ namespace BagelCode
 
         public IEnumerator CreatePlayerPrefab()
         {
-            Debug.LogError("Call CreatePlayerPrefab");
             int totalCount = gameData.GameConfig.PlayerRes.Length;
             int count = totalCount;
             if (totalCount > 0)
@@ -441,7 +438,6 @@ namespace BagelCode
 
         public IEnumerator CreateNetPool()
         {
-            Debug.LogError("Call CreateNetPool");
             int totalCount = gameData.GameConfig.NetRes.Length;
             int count = totalCount;
             if (totalCount > 0)
@@ -471,7 +467,6 @@ namespace BagelCode
 
         public IEnumerator CreateGoldPool()
         {
-            Debug.LogError("Call CreateGoldPool");
             int totalCount = gameData.GameConfig.GoldRes.Length;
             int count = totalCount;
             if (totalCount > 0)
@@ -501,7 +496,6 @@ namespace BagelCode
 
         public IEnumerator CreateScorePool()
         {
-            Debug.LogError("Call CreateScorePool");
             int totalCount = gameData.GameConfig.ScoreRes.Length;
             int count = totalCount;
             if (totalCount > 0)
@@ -531,7 +525,6 @@ namespace BagelCode
 
         public IEnumerator CreatePlusTipsPool()
         {
-            Debug.LogError("Call CreatePlusTipsPool");
             int totalCount = gameData.GameConfig.PlusTipsRes.Length;
             int count = totalCount;
             if (totalCount > 0)
@@ -561,7 +554,6 @@ namespace BagelCode
 
         public IEnumerator CreateAudio()
         {
-            Debug.LogError("Call CreateAudio");
             int totalCount = gameData.GameConfig.AudioRes.Length;
             int count = totalCount;
             if (totalCount > 0)
@@ -588,7 +580,6 @@ namespace BagelCode
 
         public IEnumerator CreateLightningPool()
         {
-            Debug.LogError("Call CreateLightningPool");
             int totalCount = gameData.GameConfig.LightningRes.Length;
             int count = totalCount;
             if (totalCount > 0)
@@ -618,7 +609,6 @@ namespace BagelCode
 
         public IEnumerator CreateEffectPool()
         {
-            Debug.LogError("Call CreateEffectPool");
             int totalCount = gameData.GameConfig.EffectRes.Length;
             int count = totalCount;
             if (totalCount > 0)
@@ -648,7 +638,6 @@ namespace BagelCode
 
         public IEnumerator CreateSkillPool()
         {
-            Debug.LogError("Call CreateSkillPool");
             int totalCount = gameData.GameConfig.SkillRes.Length;
             int count = totalCount;
             if (totalCount > 0)
@@ -678,7 +667,6 @@ namespace BagelCode
 
         public IEnumerator CreateSpecialDeclarePool()
         {
-            Debug.LogError("Call CreateSpecialDeclarePool");
             int totalCount = gameData.GameConfig.SpecialDeclareRes.Length;
             int count = totalCount;
             if (totalCount > 0)
@@ -709,7 +697,6 @@ namespace BagelCode
 
         public IEnumerator CreateTipsContentPool()
         {
-            Debug.LogError("Call CreateTipsContentPool");
             int totalCount = gameData.GameConfig.TipsContentRes.Length;
             int count = totalCount;
             if (totalCount > 0)

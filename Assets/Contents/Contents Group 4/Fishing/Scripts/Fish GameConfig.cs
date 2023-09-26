@@ -290,8 +290,6 @@ namespace BagelCode
                 new Skill {name = "Skill_Drill", path = "Prefabs/Skill/Skill_Drill.prefab", amout = 1, count = 1},
                 new Skill {name = "Gun_Drill", path = "Prefabs/Skill/Gun_Drill.prefab", amout = 1, count = 1},
                 new Skill {name = "Bullet_Drill", path = "Prefabs/Skill/Bullet_Drill.prefab", amout = 1, count = 1},
-                new Skill {name = "Gun_SerialDrill", path = "Prefabs/Skill/Gun_SerialDrill.prefab", amout = 1, count = 1},
-                new Skill {name = "Bullet_SerialDrill", path = "Prefabs/Skill/Bullet_SerialDrill.prefab", amout = 1, count = 1},
                 new Skill {name = "Skill_CountdownTimer", path = "Prefabs/Skill/Skill_CountdownTimer.prefab", amout = 1, count = 1},
                 new Skill {name = "Skill_Bomb", path = "Prefabs/Skill/Skill_Bomb.prefab", amout = 1, count = 1},
                 new Skill {name = "Skill_MultiBomb", path = "Prefabs/Skill/Skill_MultiBomb.prefab", amout = 1, count = 1},
