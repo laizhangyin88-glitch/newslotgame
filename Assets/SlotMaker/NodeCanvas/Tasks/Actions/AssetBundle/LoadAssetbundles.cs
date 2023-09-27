@@ -29,7 +29,6 @@ namespace SlotMaker.Tasks.Actions
                 bundleList.value.Add("fishinggold");
                 bundleList.value.Add("fishinglighteffect");
                 bundleList.value.Add("fishingnet");
-                bundleList.value.Add("fishingouttips");
                 bundleList.value.Add("fishingscore");
                 bundleList.value.Add("fishingskill");
                 bundleList.value.Add("fishingspecialdeclare");

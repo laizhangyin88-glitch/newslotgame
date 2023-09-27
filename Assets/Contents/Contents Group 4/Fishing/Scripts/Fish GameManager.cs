@@ -296,7 +296,7 @@ namespace BagelCode
         public void SyncGameScene(int sceneId)
         {
             FishGameUIManager.Instance.SysncGameSceneBG(sceneId);
-            if (sceneId == 5)
+            if (sceneId == 4)
                 FishAudioManager.Instance.PlayBGAudio(UnityEngine.Random.Range(66, 68), 0.4f);
             else
                 FishAudioManager.Instance.PlayBGAudio(22 + UnityEngine.Random.Range(0, 3), 0.4f);
@@ -392,31 +392,29 @@ namespace BagelCode
         private void UnLoadBundle()
         {
             AssetBundleManager.RemoveLoadedAssets("fishingaudio");
-            AssetBundleManager.UnloadLoadedAssets("fishingaudio", true);
+            AssetBundleManager.UnloadAssetBundle("fishingaudio", true);
             AssetBundleManager.RemoveLoadedAssets("fishingeffect");
-            AssetBundleManager.UnloadLoadedAssets("fishingeffect", true);
+            AssetBundleManager.UnloadAssetBundle("fishingeffect", true);
             AssetBundleManager.RemoveLoadedAssets("fishinggold");
-            AssetBundleManager.UnloadLoadedAssets("fishinggold", true);
+            AssetBundleManager.UnloadAssetBundle("fishinggold", true);
             AssetBundleManager.RemoveLoadedAssets("fishinglighteffect");
-            AssetBundleManager.UnloadLoadedAssets("fishinglighteffect", true);
-            AssetBundleManager.RemoveLoadedAssets("fishingouttips");
-            AssetBundleManager.UnloadLoadedAssets("fishingouttips", true);
+            AssetBundleManager.UnloadAssetBundle("fishinglighteffect", true);
             AssetBundleManager.RemoveLoadedAssets("fishingscore");
-            AssetBundleManager.UnloadLoadedAssets("fishingscore", true);
+            AssetBundleManager.UnloadAssetBundle("fishingscore", true);
             AssetBundleManager.RemoveLoadedAssets("fishingskill");
-            AssetBundleManager.UnloadLoadedAssets("fishingskill", true);
+            AssetBundleManager.UnloadAssetBundle("fishingskill", true);
             AssetBundleManager.RemoveLoadedAssets("fishingspecialdeclare");
-            AssetBundleManager.UnloadLoadedAssets("fishingspecialdeclare", true);
+            AssetBundleManager.UnloadAssetBundle("fishingspecialdeclare", true);
             AssetBundleManager.RemoveLoadedAssets("fishingtips");
-            AssetBundleManager.UnloadLoadedAssets("fishingtips", true);
+            AssetBundleManager.UnloadAssetBundle("fishingtips", true);
             AssetBundleManager.RemoveLoadedAssets("fishingbg");
-            AssetBundleManager.UnloadLoadedAssets("fishingbg", true);
+            AssetBundleManager.UnloadAssetBundle("fishingbg", true);
             AssetBundleManager.RemoveLoadedAssets("fishingpanel");
-            AssetBundleManager.UnloadLoadedAssets("fishingpanel", true);
+            AssetBundleManager.UnloadAssetBundle("fishingpanel", true);
             AssetBundleManager.RemoveLoadedAssets("fishingplustips");
-            AssetBundleManager.UnloadLoadedAssets("fishingplustips", true);
-            AssetBundleManager.RemoveLoadedAssets(gameData.GameConfig.FishBossPackRes[FishResourcesManager.Instance.curBossPackIndex].name);
-            AssetBundleManager.UnloadLoadedAssets(gameData.GameConfig.FishBossPackRes[FishResourcesManager.Instance.curBossPackIndex].name, true);
+            AssetBundleManager.UnloadAssetBundle("fishingplustips", true);
+            AssetBundleManager.RemoveLoadedAssets(gameData.GameConfig.FishBossPackRes[FishResourcesManager.Instance.cursceneId].name);
+            AssetBundleManager.UnloadAssetBundle(gameData.GameConfig.FishBossPackRes[FishResourcesManager.Instance.cursceneId].name, true);
         }
 
         public void ClearFishManager()

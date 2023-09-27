@@ -147,27 +147,28 @@ namespace BagelCode
         {
             FishBossPackRes = new FishPack[]
             {
-                new FishPack {name = "Fish_Pack_11", path = "Prefabs/FishPack/Fish_Pack_11.prefab"},
-                new FishPack {name = "Fish_Pack_12", path = "Prefabs/FishPack/Fish_Pack_12.prefab"},
-                new FishPack {name = "Fish_Pack_13", path = "Prefabs/FishPack/Fish_Pack_13.prefab"},
+                new FishPack {name = "fish_boss_01", path = "Prefabs/FishPack/Fish_Pack_11.prefab"},
+                new FishPack {name = "fish_boss_02", path = "Prefabs/FishPack/Fish_Pack_12.prefab"},
+                new FishPack {name = "fish_boss_03", path = "Prefabs/FishPack/Fish_Pack_13.prefab"},
+                new FishPack {name = "fish_boss_04", path = "Prefabs/FishPack/Fish_Pack_14.prefab"},
             };
 
             FishBossRes = new Fish[]
             {
-                new Fish {name = "Fish_25", ParentName = "Fish_Pack_11", amout = 15, count = 1},
-                new Fish {name = "Fish_26", ParentName = "Fish_Pack_11", amout = 15, count = 1},
-                new Fish {name = "Fish_28", ParentName = "Fish_Pack_11", amout = 15, count = 1},
-                new Fish {name = "Fish_32", ParentName = "Fish_Pack_11", amout = 15, count = 1},
-                new Fish {name = "Fish_18", ParentName = "Fish_Pack_12", amout = 15, count = 1},
-                new Fish {name = "Fish_19", ParentName = "Fish_Pack_12", amout = 15, count = 1},
-                new Fish {name = "Fish_40", ParentName = "Fish_Pack_12", amout = 15, count = 1},
-                new Fish {name = "Fish_20", ParentName = "Fish_Pack_13", amout = 15, count = 1},
-                new Fish {name = "Fish_21", ParentName = "Fish_Pack_13", amout = 15, count = 1},
-                new Fish {name = "Fish_45", ParentName = "Fish_Pack_13", amout = 15, count = 1},
-                new Fish {name = "Fish_22", ParentName = "Fish_Pack_14", amout = 15, count = 1},
-                new Fish {name = "Fish_23", ParentName = "Fish_Pack_14", amout = 15, count = 1},
-                new Fish {name = "Fish_24", ParentName = "Fish_Pack_14", amout = 15, count = 1},
-                new Fish {name = "Fish_46", ParentName = "Fish_Pack_14", amout = 15, count = 1},
+                new Fish {name = "Fish_25", ParentName = "fish_boss_01", amout = 15, count = 1},
+                new Fish {name = "Fish_26", ParentName = "fish_boss_01", amout = 15, count = 1},
+                new Fish {name = "Fish_28", ParentName = "fish_boss_01", amout = 15, count = 1},
+                new Fish {name = "Fish_32", ParentName = "fish_boss_01", amout = 15, count = 1},
+                new Fish {name = "Fish_18", ParentName = "fish_boss_02", amout = 15, count = 1},
+                new Fish {name = "Fish_19", ParentName = "fish_boss_02", amout = 15, count = 1},
+                new Fish {name = "Fish_40", ParentName = "fish_boss_02", amout = 15, count = 1},
+                new Fish {name = "Fish_20", ParentName = "fish_boss_03", amout = 15, count = 1},
+                new Fish {name = "Fish_21", ParentName = "fish_boss_03", amout = 15, count = 1},
+                new Fish {name = "Fish_45", ParentName = "fish_boss_03", amout = 15, count = 1},
+                new Fish {name = "Fish_22", ParentName = "fish_boss_04", amout = 15, count = 1},
+                new Fish {name = "Fish_23", ParentName = "fish_boss_04", amout = 15, count = 1},
+                new Fish {name = "Fish_24", ParentName = "fish_boss_04", amout = 15, count = 1},
+                new Fish {name = "Fish_46", ParentName = "fish_boss_04", amout = 15, count = 1},
             };
         }
 
