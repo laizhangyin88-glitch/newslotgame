@@ -214,28 +214,28 @@ namespace SlotMaker
 #if UNITY_WEBGL || USE_ASSETBUNDLE_FILECACHE
                     operation = new AssetBundleLoadWWWBundle(bundleName, false);
 #else
-                operation = new AssetBundleLoadFileBundle(bundleName);
-#endif
-            else
-            {
-                if (bundleName == "fishing"
+                if (bundleName == "fish_boss_01"
+                    || bundleName == "fish_boss_02"
+                    || bundleName == "fish_boss_03"
+                    || bundleName == "fish_boss_04"
                     || bundleName == "fishingaudio"
-                    || bundleName == "fishingpanel"
                     || bundleName == "fishingeffect"
                     || bundleName == "fishinggold"
                     || bundleName == "fishinglighteffect"
                     || bundleName == "fishingnet"
-                    || bundleName == "fishingouttips"
                     || bundleName == "fishingscore"
-                    || bundleName == "fishingskill"
                     || bundleName == "fishingspecialdeclare"
                     || bundleName == "fishingtips"
                     || bundleName == "fishingplustips"
-                    || bundleName == "fish_boss_01"
-                    || bundleName == "fish_boss_02"
-                    || bundleName == "fish_boss_03"
-                    || bundleName == "fish_boss_04"
                     || bundleName == "fishingbg")
+                    operation = new AssetBundleLoadWWWBundle(bundleName);
+                else
+                    operation = new AssetBundleLoadFileBundle(bundleName);
+#endif
+            else
+            {
+                if (bundleName == "fishingpanel"
+                    ||bundleName == "fishing")
                     operation = new AssetBundleLoadFileBundle(bundleName);
                 else
                     operation = new AssetBundleLoadWWWBundle(bundleName);

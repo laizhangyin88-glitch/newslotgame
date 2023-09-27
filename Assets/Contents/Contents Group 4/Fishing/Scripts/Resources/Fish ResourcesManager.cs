@@ -13,7 +13,7 @@ namespace BagelCode
         private FishGameData gameData;
         private bool isLoaded;
         private bool hasLoadedBossFish;
-        public int curBossPackIndex;
+        public int cursceneId;
         private int ResourcesTotalCount = 0;
         private int CurrentLoadedResourcesTotalCount = 0;
         private Dictionary<string, GameObject> FishPackResList = new Dictionary<string, GameObject>();
@@ -213,6 +213,7 @@ namespace BagelCode
             }
             return tempList;
         }
+
         private Dictionary<int, FishCoinEffectConfig> AlignGameConfig(List<FishCoinEffectConfig> gameConfig)
         {
             Dictionary<int, FishCoinEffectConfig> tempList = new Dictionary<int, FishCoinEffectConfig>();
@@ -223,6 +224,7 @@ namespace BagelCode
             }
             return tempList;
         }
+
         private Dictionary<int, FishDieEffectConfig> AlignGameConfig(List<FishDieEffectConfig> gameConfig)
         {
             Dictionary<int, FishDieEffectConfig> tempList = new Dictionary<int, FishDieEffectConfig>();
@@ -233,6 +235,7 @@ namespace BagelCode
             }
             return tempList;
         }
+
         private Dictionary<int, FishScoreEffectConfig> AlignGameConfig(List<FishScoreEffectConfig> gameConfig)
         {
             Dictionary<int, FishScoreEffectConfig> tempList = new Dictionary<int, FishScoreEffectConfig>();
@@ -303,27 +306,27 @@ namespace BagelCode
             }
         }
 
-        public void OnChangeScene()
+        public void OnChangeScene(int sceneIndex)
         {
             if (hasLoadedBossFish)
             {
                 RemoveLoadedBossFish();
-                curBossPackIndex++;
+                cursceneId = sceneIndex;
             }
             LoadFishBossResource();
         }
 
         private void RemoveLoadedBossFish()
         {
-            AssetBundleManager.RemoveLoadedAssets(gameData.GameConfig.FishBossPackRes[curBossPackIndex].name);
-            AssetBundleManager.UnloadLoadedAssets(gameData.GameConfig.FishBossPackRes[curBossPackIndex].name, true);
-            FishGameObjectPoolManager.Instance.RemoveKeyAtObjectPool(gameData.GameConfig.FishBossPackRes[curBossPackIndex].name);
+            AssetBundleManager.RemoveLoadedAssets(gameData.GameConfig.FishBossPackRes[cursceneId].name);
+            AssetBundleManager.UnloadLoadedAssets(gameData.GameConfig.FishBossPackRes[cursceneId].name, true);
+            FishGameObjectPoolManager.Instance.RemoveKeyAtObjectPool(gameData.GameConfig.FishBossPackRes[cursceneId].name);
         }
 
         public void LoadFishBossResource()
         {
 
-            var fishBossPack = gameData.GameConfig.FishBossPackRes[curBossPackIndex];
+            var fishBossPack = gameData.GameConfig.FishBossPackRes[cursceneId];
             fishBossBundleName = fishBossPack.name;
             AssetBundleManager.LoadDependencies(fishBossBundleName);
             assetBundleLoadOperation = AssetBundleManager.LoadAssetBundle(fishBossBundleName);
@@ -334,6 +337,7 @@ namespace BagelCode
             if (assetBundleLoadOperation != null
                 && assetBundleLoadOperation.IsDone())
             {
+                hasLoadedBossFish = true;
                 StartCoroutine(InitFishBossResources());
                 assetBundleLoadOperation = null;
             }

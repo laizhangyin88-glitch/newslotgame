@@ -127,6 +127,7 @@ namespace BagelCode
         {
             SetGameBG(sceneId, false);
             FishTideOver(sceneId);
+            FishResourcesManager.Instance.OnChangeScene(sceneId);
         }
 
         public void SetGameBG(int index, bool isFadeAnimation)
@@ -185,6 +186,7 @@ namespace BagelCode
         public void ChangeGameScene(ChangeSceneRsp data)
         {
             int sceneId = (int)data.scene_id;
+            FishResourcesManager.Instance.OnChangeScene(sceneId);
             int changeType = (int)data.scene_change_type;
             float time = data.time_seconds;
             switch (changeType)
