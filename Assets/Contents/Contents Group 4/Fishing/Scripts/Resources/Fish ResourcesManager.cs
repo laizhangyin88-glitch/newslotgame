@@ -318,6 +318,8 @@ namespace BagelCode
 
         private void RemoveLoadedBossFish()
         {
+            if (cursceneId >= gameData.GameConfig.FishBossPackRes.Length)
+                return;
             AssetBundleManager.RemoveLoadedAssets(gameData.GameConfig.FishBossPackRes[cursceneId].name);
             AssetBundleManager.UnloadLoadedAssets(gameData.GameConfig.FishBossPackRes[cursceneId].name, true);
             FishGameObjectPoolManager.Instance.RemoveKeyAtObjectPool(gameData.GameConfig.FishBossPackRes[cursceneId].name);
@@ -325,7 +327,8 @@ namespace BagelCode
 
         public void LoadFishBossResource()
         {
-
+            if (cursceneId >= gameData.GameConfig.FishBossPackRes.Length)
+                return;
             var fishBossPack = gameData.GameConfig.FishBossPackRes[cursceneId];
             fishBossBundleName = fishBossPack.name;
             AssetBundleManager.LoadDependencies(fishBossBundleName);
