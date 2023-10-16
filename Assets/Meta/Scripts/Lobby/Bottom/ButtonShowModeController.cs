@@ -8,7 +8,7 @@ namespace BagelCode
 {
     public class ButtonShowModeController : MonoBehaviour
     {
-        public GameType gameType;
+        public GameFilter gameType;
         private ContextButton contextButton => GetComponent<ContextButton>();
         void Start()
         {
