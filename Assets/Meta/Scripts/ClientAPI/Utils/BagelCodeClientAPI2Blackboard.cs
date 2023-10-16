@@ -6526,6 +6526,7 @@ public static partial class ClientAPI2Blackboard
         BlackboardUtils.SetOrCreateValue(bb, "shortImageUrl", gameInfo.shortImageUrl);
         BlackboardUtils.SetOrCreateValue(bb, "longImageUrl", gameInfo.longImageUrl);
         BlackboardUtils.SetOrCreateValue(bb, "minClientVersion", gameInfo.minClientVersion);
+        BlackboardUtils.SetOrCreateValue(bb, "gameFilter", gameInfo.gameFilter);
     }
 
     public static void Serialize(IBlackboard bb, GamePlayRestriction gamePlayRestriction)

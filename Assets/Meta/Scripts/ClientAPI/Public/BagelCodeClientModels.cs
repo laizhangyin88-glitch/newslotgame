@@ -794,7 +794,17 @@ public enum GameType
     FISH = 4,
 }
 
-public enum GameUnlockStatus
+public enum GameFilter
+{
+    UNKNOWN = -666,
+    SLOT_MACHINE = 1,
+    VIDEO_POKER = 2,
+    KENO = 3,
+    FISH = 4,
+    BINGO = 5,
+}
+
+    public enum GameUnlockStatus
 {
     UNKNOWN = -666,
     LOCKED = 0,
@@ -5916,6 +5926,7 @@ public partial class GameInfo
     public string shortImageUrl = "";
     public string longImageUrl = "";
     public int minClientVersion = 0;
+    public int gameFilter = 0;
 }
 
 [System.Serializable]

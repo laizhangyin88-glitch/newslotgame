@@ -24,7 +24,7 @@ namespace BagelCode.OSA_Scroll
 
         private Variable<bool> isShowLobbyBackButton;
 
-        private GameType curShowGameType = GameType.UNKNOWN;
+        private GameFilter curShowGameType = GameFilter.UNKNOWN;
 
         public void Refresh()
         {
@@ -36,7 +36,7 @@ namespace BagelCode.OSA_Scroll
         public void OnChangeGameListShowMode()
         {
             GetCurShowGameType();
-            if (curShowGameType == GameType.UNKNOWN)
+            if (curShowGameType == GameFilter.UNKNOWN)
                 Refresh();
             else
             {
@@ -401,13 +401,13 @@ namespace BagelCode.OSA_Scroll
             int count = gameInfoList.Count;
             for (int i = 0; i < count; ++i)
             {
-                if (curShowGameType == GameType.UNKNOWN)
+                if (curShowGameType == GameFilter.UNKNOWN)
                 {
                     if (!result.ContainsKey(gameInfoList[i].GetValue<int>("gameId")))
                         result[gameInfoList[i].GetValue<int>("gameId")] = gameInfoList[i];
                 }
                 else
-                    if (!result.ContainsKey(gameInfoList[i].GetValue<int>("gameId")) && gameInfoList[i].GetValue<GameType>("gameType") == curShowGameType)
+                    if (!result.ContainsKey(gameInfoList[i].GetValue<int>("gameId")) && gameInfoList[i].GetValue<GameFilter>("gameFilter") == curShowGameType)
                         result[gameInfoList[i].GetValue<int>("gameId")] = gameInfoList[i];
             }
             return result;
@@ -415,7 +415,7 @@ namespace BagelCode.OSA_Scroll
 
         void GetCurShowGameType()
         {
-            curShowGameType = MainBlackboard.Get().GetValue<GameType>("curShowGameType");
+            curShowGameType = MainBlackboard.Get().GetValue<GameFilter>("curShowGameType");
         }
 
 //        Dictionary<int, Blackboard> GetBuyABonusIAMDict()

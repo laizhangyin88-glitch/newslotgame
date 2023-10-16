@@ -49998,8 +49998,13 @@ public partial class GameInfo : IProtoSerializable
                 break;
 
             case 19:
+                obj.gameFilter = ProtobufReader.ReadInt32(reader);
+                break;
+
+            case 20:
                 obj.minClientVersion = ProtobufReader.ReadInt32(reader);
                 break;
+
 
             default:
                 reader.Skip(__key.WireType);
