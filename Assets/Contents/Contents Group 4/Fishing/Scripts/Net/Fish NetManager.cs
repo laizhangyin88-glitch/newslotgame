@@ -77,6 +77,11 @@ namespace BagelCode
             netIns.Destroy();
             AllNetInsList.Add(netIns);
         }
+
+        protected override void OnDestroy()
+        {
+
+        }
     }
 }
 

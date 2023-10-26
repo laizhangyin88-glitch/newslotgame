@@ -184,6 +184,10 @@ namespace SlotMaker
         {
             if (ApplicationSettings.LogBundle())
                 Debug.Log("[AssetBundleManager] Loading AssetBundle: " + bundleName);
+            //if (bundleName.StartsWith("fish_boss_0"))
+            //{
+            //    Debug.LogError(bundleName);
+            //}
 
 #if USE_ASSETBUNDLE
             if (Manifest == null)

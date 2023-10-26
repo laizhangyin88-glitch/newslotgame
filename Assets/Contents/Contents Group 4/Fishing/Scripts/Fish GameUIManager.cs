@@ -57,8 +57,11 @@ namespace BagelCode
 
         private void InitUIViewData()
         {
-            FishCsharpManager.Init(gameData.ResolutionWidth, gameData.ResolutionHeight);
-            SetScreenResoulution();
+            if (gameData != null)
+            {
+                FishCsharpManager.Init(gameData.ResolutionWidth, gameData.ResolutionHeight);
+                SetScreenResoulution();
+            }
         }
 
         private void SetScreenResoulution()
@@ -133,6 +136,7 @@ namespace BagelCode
         public void SetGameBG(int index, bool isFadeAnimation)
         {
             isFadeAnimation = true;
+            index = index > 4 ? 4 : index;
             if (!AllGameBG.ContainsKey(index) || AllGameBG[index] == null)
             {
                 Texture texture = AssetBundleManager.LoadAsset<Texture>("fishingbg", gameData.GameConfig.BGRes[index].name);

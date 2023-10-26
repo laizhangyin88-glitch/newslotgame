@@ -100,8 +100,11 @@ namespace BagelCode
         public void Destroy()
         {
             IsPlayAnim = false;
-            _gameObject.SetActive(false);
-            _gameObject.transform.localPosition = new Vector3(10000, 10000);
+            if (_gameObject != null)
+            {
+                _gameObject.SetActive(false);
+                _gameObject.transform.localPosition = new Vector3(10000, 10000);
+            }
         }
     }
 }

@@ -132,7 +132,7 @@ namespace BagelCode
 
         protected void OnTriggerEnter(Collider other)
         {
-            if (onTriggerCallBack != null)
+            if (onTriggerCallBack != null && FishGameManager.Instance.IsInGame())
             {
                 onTriggerCallBack(other);
             }

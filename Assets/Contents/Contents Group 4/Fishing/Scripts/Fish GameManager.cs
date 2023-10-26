@@ -413,8 +413,11 @@ namespace BagelCode
             AssetBundleManager.UnloadAssetBundle("fishingpanel", true);
             AssetBundleManager.RemoveLoadedAssets("fishingplustips");
             AssetBundleManager.UnloadAssetBundle("fishingplustips", true);
-            AssetBundleManager.RemoveLoadedAssets(gameData.GameConfig.FishBossPackRes[FishResourcesManager.Instance.cursceneId].name);
-            AssetBundleManager.UnloadAssetBundle(gameData.GameConfig.FishBossPackRes[FishResourcesManager.Instance.cursceneId].name, true);
+            if (FishResourcesManager.Instance.cursceneId < gameData.GameConfig.FishBossPackRes.Length)
+            {
+                AssetBundleManager.RemoveLoadedAssets(gameData.GameConfig.FishBossPackRes[FishResourcesManager.Instance.cursceneId].name);
+                AssetBundleManager.UnloadAssetBundle(gameData.GameConfig.FishBossPackRes[FishResourcesManager.Instance.cursceneId].name, true);
+            }
         }
 
         public void ClearFishManager()
@@ -444,6 +447,8 @@ namespace BagelCode
             Destroy(FishAudioManager.Instance.gameObject);
             Destroy(FishMultBombSkillManager.Instance.gameObject);
             Destroy(FishThunderHammerSkillManager.Instance.gameObject);
+            Destroy(FishNetManager.Instance.gameObject);
+            Destroy(FishLaternSkillManager.Instance.gameObject);
             Destroy(WebSocketManager.Instance.gameObject);
             Destroy(gameObject);
         }
