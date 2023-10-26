@@ -327,6 +327,7 @@ namespace BagelCode
 
         public void LoadFishBossResource()
         {
+            hasLoadedBossFish = false;
             if (cursceneId >= gameData.GameConfig.FishBossPackRes.Length)
                 return;
             var fishBossPack = gameData.GameConfig.FishBossPackRes[cursceneId];

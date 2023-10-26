@@ -55,7 +55,6 @@ namespace BagelCode
             audioSource.Play();
         }
 
-
         public AudioSource GetAudioClip()
         {
             foreach (var item in AllAudioSource.Values)
