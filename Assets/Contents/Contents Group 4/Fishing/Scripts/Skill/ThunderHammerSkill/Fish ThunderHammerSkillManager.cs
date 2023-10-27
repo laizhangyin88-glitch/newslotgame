@@ -30,6 +30,7 @@ namespace BagelCode
 
         private void ResponesThunderHammerBombMsg(byte[] bytes)
         {
+            FishAudioManager.Instance.PlayNormalAudio(72);
             ThunderHammer_Bomb_Rsp data = WebSocketTool.Deserialize<ThunderHammer_Bomb_Rsp>(bytes);
             bool isGet = curUseSkillInsList.TryGetValue(data.usThunderHammerId, out FishThunderHammerSkillItem skillItem);
             if (isGet)
@@ -40,6 +41,7 @@ namespace BagelCode
 
         public void EnterSkillMode(CreateThunderHammerRsp data)
         {
+            FishAudioManager.Instance.PlayNormalAudio(71);
             var playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(data.usChairId);
             int UID = data.usThunderHammerId;
             int skillTime = data.usStatusTime;

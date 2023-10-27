@@ -480,6 +480,7 @@ namespace BagelCode
         {
             if (!isSpeed)
                 isSpeed = true;
+            //FishAudioManager.Instance.PlayNormalAudio(73);
             var playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(gameData.playerChairId);
             int level = playerIns.SetShootBulletRateLevel();
             speedBtnEffect.gameObject.SetActive(level > 0);
