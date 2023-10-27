@@ -129,7 +129,6 @@ namespace BagelCode
                     FishFishBase tempFish = FishFishManager.Instance.GetUsingFishByFishUID((int)syncData.lockfish_uid);
                     if (tempFish != null)
                     {
-                        Debug.LogError("SyncPlayerStateLock => " + syncData.lockfish_uid);
                         playerIns.SetLockFish(tempFish);
                     }
                 }
