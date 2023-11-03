@@ -133,8 +133,8 @@ namespace SlotMaker
                 if (checkHash)
                 {
                     request = UnityWebRequestAssetBundle.GetAssetBundle(
-                        Path.Combine(AssetBundleManager.BaseUrl, bundleName),
-                        AssetBundleManager.Manifest.GetAssetBundleHash(bundleName));
+                       Path.Combine(AssetBundleManager.BaseUrl, bundleName),
+                       AssetBundleManager.Manifest.GetAssetBundleHash(bundleName));
                 }
                 else
                 {

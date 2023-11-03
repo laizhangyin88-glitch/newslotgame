@@ -269,7 +269,7 @@ namespace BagelCode
 
         public void OnclickAddBet()
         {
-            FishAudioManager.Instance.PlayNormalAudio(25);
+            FishAudioManager.Instance.PlayNormalAudio(70);
             FishAudioManager.Instance.PlayNormalAudio(gameData.GunConfigList[(int)gameData.GunLevelConfig[CurrentGunLevel].cannon_value_gun_id - 1].makeUpAudio);
             int tempGunLevel = CurrentGunLevel + 1;
             if (tempGunLevel >= gameData.GunLevelConfig.Count)

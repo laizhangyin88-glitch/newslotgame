@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace BagelCode
 {
@@ -102,23 +103,45 @@ namespace BagelCode
             return ((fileList.Count / 10) + ((fileList.Count % 10) > 0 ? 1 : 0));
         }
 
+        public static void SetTraceFileList()
+        {
+            fileList.Clear();
+            string path = Application.streamingAssetsPath + "/fishConfig/";
+            path += "traces.pack";
+            fileList.Add(path);
+        }
+
         public static IEnumerator LoadBinaryTraceFile()
         {
             int number = 0;
             for (int i = 0; i < fileList.Count; ++i)
             {
+#if UNITY_ANDROID && !UNITY_EDITOR
+                UnityWebRequest request = UnityWebRequest.Get(fileList[i]);
+                yield return request.SendWebRequest();
+                if (request.isNetworkError || request.isHttpError)
+                {
+                    Debug.LogError("文件不存在: " + fileList[i]);
+                    Debug.LogError(request.error);
+                }
+                else
+                {
+                    byte[] bytes = request.downloadHandler.data;
+                    Stream stream = new MemoryStream(bytes);
+                    ParseBinaryTraceFile(stream);
+                }
+#else
                 try
                 {
-                    FileStream fs = File.Open(fileList[i], FileMode.Open);
+                    Stream fs = File.Open(fileList[i], FileMode.Open);
                     ParseBinaryTraceFile(fs);
-
                     fs.Close();
-
                 }
                 catch (Exception ex)
                 {
                     Log.Error("File is Error :" + fileList[i] + "  " + ex.ToString());
                 }
+#endif
                 number++;
                 if (number % 10 == 0 || (i == fileList.Count - 1))
                 {
@@ -134,7 +157,7 @@ namespace BagelCode
             }
         }
 
-        public static void ParseBinaryTraceFile(FileStream strem)
+        public static void ParseBinaryTraceFile(Stream strem)
         {
             using (BinaryReader br = new BinaryReader(strem))
             {
@@ -203,11 +226,81 @@ namespace BagelCode
             }
         }
 
+        //public static void ParseBinaryTraceFile(FileStream strem)
+        //{
+        //    using (BinaryReader br = new BinaryReader(strem))
+        //    {
+        //        while (br.BaseStream.Position < br.BaseStream.Length)
+        //        {
+
+        //            TraceHeader traceHeader = new TraceHeader();
+        //            traceHeader.pointCount = br.ReadUInt16();
+        //            traceHeader.timeInterval = ((float)br.ReadUInt16()) * 0.001f;
+        //            traceHeader.type = br.ReadByte();
+        //            int centerX = br.ReadInt32();
+        //            int centerY = br.ReadInt32();
+        //            traceHeader.traceId = br.ReadInt32();
+
+        //            traceHeader.byReserved = br.ReadBytes(15);
+
+        //            if (headerMap.ContainsKey(traceHeader.traceId))
+        //            {
+        //                headerMap[traceHeader.traceId] = traceHeader;
+        //            }
+        //            else
+        //            {
+        //                headerMap.Add(traceHeader.traceId, traceHeader);
+        //            }
+
+        //            List<TracePoint> tracePointList = new List<TracePoint>();
+
+        //            for (int i = 0; i < traceHeader.pointCount; ++i)
+        //            {
+        //                float xPoint = ((float)br.ReadInt32()) * 0.0001f;
+        //                float yPoint = ((float)br.ReadInt32()) * 0.0001f;
+
+        //                Vector3 Vector3Pos = ScreenPointToRealPoint((float)xPoint, (float)yPoint);
+
+        //                Vector3 Vector3Ori = new Vector3(999990000, 999990000, 0);
+
+        //                if (traceHeader.type == 1)
+        //                {
+        //                    float xOri = ((float)br.ReadInt32()) * 0.0001f;
+        //                    float yOri = ((float)br.ReadInt32()) * 0.0001f;
+        //                    if (xOri == 99999.0 && yOri == 99999.0)
+        //                    {
+        //                        Vector3Ori = new Vector3(999990000, 999990000, 0);
+        //                    }
+        //                    else
+        //                    {
+        //                        Vector3Ori = ScreenPointToRealPoint(xOri, yOri);
+        //                    }
+        //                }
+
+        //                TracePoint tp = new TracePoint(Vector3Pos, Vector3Ori);
+
+        //                tracePointList.Add(tp);
+        //            }
+
+        //            if (tracePointMap.ContainsKey(traceHeader.traceId))
+        //            {
+        //                tracePointMap[traceHeader.traceId] = tracePointList;
+        //            }
+        //            else
+        //            {
+        //                tracePointMap.Add(traceHeader.traceId, tracePointList);
+        //            }
+        //        }
+        //        br.Close();
+        //    }
+        //}
+
         public static void AccordingDeskLoadBinaryTraceFile(string gameName, bool isRotationPoint, Action callBack, bool isFish3D = false)
         {
             if (fileList.Count == 0 || fileList == null)
             {
-                GetTraceFileCount(gameName);
+                //GetTraceFileCount(gameName);
+                SetTraceFileList();
             }
             m_rotationPoint = isRotationPoint;
 

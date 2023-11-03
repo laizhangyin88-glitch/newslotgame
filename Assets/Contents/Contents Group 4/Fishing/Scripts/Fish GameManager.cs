@@ -2,6 +2,8 @@ using fishMsg;
 using hall;
 using SlotMaker;
 using System;
+using System.Text;
+using UnityEditor;
 using UnityEngine;
 
 namespace BagelCode
@@ -294,7 +296,7 @@ namespace BagelCode
         public void SyncGameScene(int sceneId)
         {
             FishGameUIManager.Instance.SysncGameSceneBG(sceneId);
-            if (sceneId == 5)
+            if (sceneId == 4)
                 FishAudioManager.Instance.PlayBGAudio(UnityEngine.Random.Range(66, 68), 0.4f);
             else
                 FishAudioManager.Instance.PlayBGAudio(22 + UnityEngine.Random.Range(0, 3), 0.4f);
@@ -344,7 +346,7 @@ namespace BagelCode
 
         private UnityEngine.Object LoadResource(string assetPath, Type assetType)
         {
-            string basePath = "Assets/Contents/Contents Group 4/Fishing/";
+            string basePath = SplicingBasePath();
             string fullPath = basePath + assetPath;
             FishResourceBase prefabBase = FishCsharpResourceManager.Instance.GetResource(fullPath, assetType);
             if (prefabBase != null && prefabBase.content != null)
@@ -358,9 +360,19 @@ namespace BagelCode
 
         public void AsyncLoadResource(string assetPath, Type assetType, Action<FishResourceBase, float> completeCallBack)
         {
-            string basePath = "Assets/Contents/Contents Group 4/Fishing/";
+            string basePath = SplicingBasePath();
             string fullPath = basePath + assetPath;
             FishCsharpResourceManager.Instance.AsyncGetResource(fullPath, assetType, completeCallBack);
+        }
+
+        private string SplicingBasePath()
+        {
+#if UNITY_EDITOR
+            string basePath = "Assets/Contents/Contents Group 4/Fishing/";
+#else
+            string basePath = Application.dataPath + "/Contents/Contents Group 4/Fishing/";
+#endif
+            return basePath;
         }
 
         public void ResponesExitGame(byte[] bytes)
@@ -372,7 +384,39 @@ namespace BagelCode
                 returnBtn.GetComponent<SendEvent>().DispatchContentEvent("LeaveGame");
                 WebSocketManager.Instance.CloseConnect();
                 ClearFishManager();
+                UnLoadBundle();
                 GSManager.Instance.MusicVolume = 1.0f;
+            }
+        }
+
+        private void UnLoadBundle()
+        {
+            AssetBundleManager.RemoveLoadedAssets("fishingaudio");
+            AssetBundleManager.UnloadAssetBundle("fishingaudio", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingeffect");
+            AssetBundleManager.UnloadAssetBundle("fishingeffect", true);
+            AssetBundleManager.RemoveLoadedAssets("fishinggold");
+            AssetBundleManager.UnloadAssetBundle("fishinggold", true);
+            AssetBundleManager.RemoveLoadedAssets("fishinglighteffect");
+            AssetBundleManager.UnloadAssetBundle("fishinglighteffect", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingscore");
+            AssetBundleManager.UnloadAssetBundle("fishingscore", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingskill");
+            AssetBundleManager.UnloadAssetBundle("fishingskill", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingspecialdeclare");
+            AssetBundleManager.UnloadAssetBundle("fishingspecialdeclare", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingtips");
+            AssetBundleManager.UnloadAssetBundle("fishingtips", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingbg");
+            AssetBundleManager.UnloadAssetBundle("fishingbg", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingpanel");
+            AssetBundleManager.UnloadAssetBundle("fishingpanel", true);
+            AssetBundleManager.RemoveLoadedAssets("fishingplustips");
+            AssetBundleManager.UnloadAssetBundle("fishingplustips", true);
+            if (FishResourcesManager.Instance.cursceneId < gameData.GameConfig.FishBossPackRes.Length)
+            {
+                AssetBundleManager.RemoveLoadedAssets(gameData.GameConfig.FishBossPackRes[FishResourcesManager.Instance.cursceneId].name);
+                AssetBundleManager.UnloadAssetBundle(gameData.GameConfig.FishBossPackRes[FishResourcesManager.Instance.cursceneId].name, true);
             }
         }
 
@@ -403,6 +447,8 @@ namespace BagelCode
             Destroy(FishAudioManager.Instance.gameObject);
             Destroy(FishMultBombSkillManager.Instance.gameObject);
             Destroy(FishThunderHammerSkillManager.Instance.gameObject);
+            Destroy(FishNetManager.Instance.gameObject);
+            Destroy(FishLaternSkillManager.Instance.gameObject);
             Destroy(WebSocketManager.Instance.gameObject);
             Destroy(gameObject);
         }
@@ -434,6 +480,7 @@ namespace BagelCode
         {
             if (!isSpeed)
                 isSpeed = true;
+            //FishAudioManager.Instance.PlayNormalAudio(73);
             var playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(gameData.playerChairId);
             int level = playerIns.SetShootBulletRateLevel();
             speedBtnEffect.gameObject.SetActive(level > 0);

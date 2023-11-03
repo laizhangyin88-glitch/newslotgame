@@ -49998,8 +49998,13 @@ public partial class GameInfo : IProtoSerializable
                 break;
 
             case 19:
+                obj.gameFilter = ProtobufReader.ReadInt32(reader);
+                break;
+
+            case 20:
                 obj.minClientVersion = ProtobufReader.ReadInt32(reader);
                 break;
+
 
             default:
                 reader.Skip(__key.WireType);
@@ -79047,7 +79052,7 @@ public partial class LobbyResponseV6 : IProtoSerializable
                 break;
 
             case 89:
-                        obj.wsHost = ProtobufReader.ReadString(reader);
+                obj.wsHost = ProtobufReader.ReadString(reader);
                 //obj.seasonPassEnterInfoV2 = ProtobufReader.ToLengthDelimited<SeasonPassEnterInfoV2>(SeasonPassEnterInfoV2.Deserialize)(reader);
                 break;
 

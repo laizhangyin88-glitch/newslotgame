@@ -55,7 +55,6 @@ namespace BagelCode
             audioSource.Play();
         }
 
-
         public AudioSource GetAudioClip()
         {
             foreach (var item in AllAudioSource.Values)
@@ -83,14 +82,15 @@ namespace BagelCode
                 return;
             if (!AllAudioClips.ContainsKey(audioInfo.soundName) || AllAudioClips[audioInfo.soundName] == null)
             {
-                FishGameManager.Instance.AsyncLoadResource(audioInfo.soundPath, typeof(AudioClip), (gameObj, time) => {
-                    if (gameObj != null && gameObj.content != null)
-                    {
-                        AudioClip obj = (AudioClip)Instantiate(gameObj.content);
-                        AllAudioClips[audioInfo.soundName] = obj;
-                        PlayAssignAudio(AudioBG, volume, AllAudioClips[audioInfo.soundName], true);
-                    }
-                });
+                AudioClip gameObj = AssetBundleManager.LoadAsset<AudioClip>("fishingaudio", audioInfo.soundName);
+                if (gameObj != null)
+                {
+                    AudioClip obj = Instantiate(gameObj);
+                    AllAudioClips[audioInfo.soundName] = obj;
+                    PlayAssignAudio(AudioBG, volume, AllAudioClips[audioInfo.soundName], true);
+                }
+                else
+                    Debug.LogError("资源加载失败==> " + audioInfo.soundName);
             }
             else
             {
@@ -105,17 +105,17 @@ namespace BagelCode
             if (audioInfo == null) return;
             if (!AllAudioClips.ContainsKey(audioInfo.soundName) || AllAudioClips[audioInfo.soundName] == null)
             {
-                FishGameManager.Instance.AsyncLoadResource(audioInfo.soundPath, typeof(AudioClip), (gameObj, time) =>
+                AudioClip gameObj = AssetBundleManager.LoadAsset<AudioClip>("fishingaudio", audioInfo.soundName);
+                if (gameObj != null)
                 {
-                    if (gameObj != null && gameObj.content != null)
-                    {
-                        AudioClip obj = (AudioClip)Instantiate(gameObj.content);
-                        AllAudioClips[audioInfo.soundName] = obj;
-                        var selectAudio = GetAudioClip();
-                        if (selectAudio == null) return;
-                        PlayAssignAudio(selectAudio, volume, AllAudioClips[audioInfo.soundName], isLoop);
-                    }
-                });
+                    AudioClip obj = Instantiate(gameObj);
+                    AllAudioClips[audioInfo.soundName] = obj;
+                    var selectAudio = GetAudioClip();
+                    if (selectAudio == null) return;
+                    PlayAssignAudio(selectAudio, volume, AllAudioClips[audioInfo.soundName], isLoop);
+                }
+                else
+                    Debug.LogError("资源加载失败==> " + audioInfo.soundName);
             }
             else
             {

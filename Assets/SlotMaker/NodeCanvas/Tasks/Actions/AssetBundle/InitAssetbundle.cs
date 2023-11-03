@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using ParadoxNotion.Design;
 using NodeCanvas.Framework;
@@ -16,7 +16,7 @@ public class InitAssetBundle : ActionTask
     protected override void OnExecute()
     {
 #if USE_ASSETBUNDLE
-        AssetBundleManager.BaseUrl = downloadUrl.value;
+        AssetBundleManager.BaseUrl = ApplicationSettings.GetAssetBundlesPath();// "http://8.134.90.175:22000";//downloadUrl.value;
         manifestOperation = AssetBundleManager.Initialize();
 #else
         EndAction();

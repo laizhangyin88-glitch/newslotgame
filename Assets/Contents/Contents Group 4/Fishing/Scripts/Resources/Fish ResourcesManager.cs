@@ -4,17 +4,22 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace BagelCode
 {
     public class FishResourcesManager : MonoSingleton<FishResourcesManager>
     {
         private FishGameData gameData;
+        private bool isLoaded;
+        private bool hasLoadedBossFish;
+        public int cursceneId;
         private int ResourcesTotalCount = 0;
         private int CurrentLoadedResourcesTotalCount = 0;
-        private Dictionary<string,GameObject> FishPackResList = new Dictionary<string, GameObject>();
-        Queue<IEnumerator> enumerators = new Queue<IEnumerator>();
-
+        private Dictionary<string, GameObject> FishPackResList = new Dictionary<string, GameObject>();
+        private Queue<IEnumerator> enumerators = new Queue<IEnumerator>();
+        private AssetBundleLoadOperation assetBundleLoadOperation;
+        private string fishBossBundleName;
 
         /// <summary>
         /// 资源的设置信息
@@ -47,7 +52,7 @@ namespace BagelCode
             var gameConfig = gameData.GameConfig;
             totalCount += 1;
             totalCount += gameConfig.FishConfig.Length;
-            totalCount += gameConfig.FishConfigByte.Length;
+            totalCount += gameConfig.FishConfigJson.Length;
             totalCount += gameConfig.FishPackRes.Length;
             totalCount += gameConfig.FishRes.Length;
             totalCount += gameConfig.BulletRes.Length;
@@ -60,11 +65,8 @@ namespace BagelCode
             totalCount += gameConfig.LightningRes.Length;
             totalCount += gameConfig.EffectRes.Length;
             totalCount += gameConfig.SkillRes.Length;
-            totalCount += gameConfig.FishOutTipsRes.Length;
             totalCount += gameConfig.AudioRes.Length;
             totalCount += gameConfig.TipsContentRes.Length;
-            //totalCount += gameConfig.GameSetRes.Count;
-            //atlasCount += gameConfig.GameSetRes.Count;
 
             ResourcesTotalCount = totalCount;
         }
@@ -72,11 +74,10 @@ namespace BagelCode
         public void LoadProgressBarEvent()
         {
             CurrentLoadedResourcesTotalCount++;
+            isLoaded = true;
             string slider = string.Format("%.3f", CurrentLoadedResourcesTotalCount / ResourcesTotalCount);
             if (CurrentLoadedResourcesTotalCount == ResourcesTotalCount)
-            {
                 LoadResCompleteCallBack();
-            }
         }
 
         private void LoadResCompleteCallBack()
@@ -97,12 +98,10 @@ namespace BagelCode
             enumerators.Enqueue(CreateGoldPool());
             enumerators.Enqueue(CreateScorePool());
             enumerators.Enqueue(CreatePlusTipsPool());
-            //enumerators.Enqueue(CreateGameSetPanel());
             enumerators.Enqueue(CreateAudio());
             enumerators.Enqueue(CreateLightningPool());
             enumerators.Enqueue(CreateEffectPool());
             enumerators.Enqueue(CreateSkillPool());
-            enumerators.Enqueue(CreateFishOutTipsPool());
             enumerators.Enqueue(CreateSpecialDeclarePool());
             enumerators.Enqueue(CreateTipsContentPool());
 
@@ -133,18 +132,30 @@ namespace BagelCode
         private IEnumerator InitGameConfig()
         {
             yield return 0;
-            ConfigFile[] fishConfig = gameData.GameConfig.FishConfigByte;
+            ConfigFile[] fishConfig = gameData.GameConfig.FishConfigJson;
 
             for (int i = 0; i < fishConfig.Length; i++)
             {
-                string path = "Assets/Contents/Contents Group 4/Fishing/Config" + fishConfig[i].path;
-                if (!File.Exists(path))
-                {
-                    Debug.LogError("文件不存在: " + path);
-                    continue;
-                }
+                string path = Application.streamingAssetsPath + "/fishConfig" + fishConfig[i].path;
 
-                string json = File.ReadAllText(path);
+                string json = null;
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+            UnityWebRequest request = UnityWebRequest.Get(path);
+            yield return request.SendWebRequest();
+            if (request.isNetworkError || request.isHttpError)
+            {
+                Debug.LogError("文件不存在: " + path);
+                Debug.LogError(request.error);
+            }
+            else
+            {
+                json = request.downloadHandler.text;
+            }
+#else
+                json = File.ReadAllText(path);
+#endif
+
                 json = json.Replace("\n", "");
                 switch (i)
                 {
@@ -202,6 +213,7 @@ namespace BagelCode
             }
             return tempList;
         }
+
         private Dictionary<int, FishCoinEffectConfig> AlignGameConfig(List<FishCoinEffectConfig> gameConfig)
         {
             Dictionary<int, FishCoinEffectConfig> tempList = new Dictionary<int, FishCoinEffectConfig>();
@@ -212,6 +224,7 @@ namespace BagelCode
             }
             return tempList;
         }
+
         private Dictionary<int, FishDieEffectConfig> AlignGameConfig(List<FishDieEffectConfig> gameConfig)
         {
             Dictionary<int, FishDieEffectConfig> tempList = new Dictionary<int, FishDieEffectConfig>();
@@ -222,6 +235,7 @@ namespace BagelCode
             }
             return tempList;
         }
+
         private Dictionary<int, FishScoreEffectConfig> AlignGameConfig(List<FishScoreEffectConfig> gameConfig)
         {
             Dictionary<int, FishScoreEffectConfig> tempList = new Dictionary<int, FishScoreEffectConfig>();
@@ -265,27 +279,90 @@ namespace BagelCode
 
         private IEnumerator InitFishResources()
         {
+
             int totalCount = gameData.GameConfig.FishPackRes.Length;
             int count = 0;
             if (totalCount > 0)
             {
                 for (int i = 0; i < gameData.GameConfig.FishPackRes.Length; i++)
                 {
-                    Action<FishResourceBase, float> CreateFishCallBack = (FishResourceBase gameObj, float time) =>
+                    yield return new WaitUntil(IsLoaded);
+                    isLoaded = false;
+                    GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>("fishing", gameData.GameConfig.FishPackRes[i].name);
+                    if (gameObject != null)
                     {
-                        if (gameObj != null && gameObj.content != null)
+                        if (gameObject != null)
                         {
-                            FishPackResList[gameData.GameConfig.FishPackRes[i].name] = (GameObject)Instantiate(gameObj.content);
+                            FishPackResList[gameData.GameConfig.FishPackRes[i].name] = Instantiate(gameObject);
                             count++;
                             LoadProgressBarEvent();
                             if (count == totalCount)
                                 ExcuteLoadResourcesQueue();
                         }
                         else
-                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.FishPackRes[i].path);
-                    };
-                    yield return 0;
-                    FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.FishPackRes[i].path, typeof(GameObject), CreateFishCallBack);
+                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.FishPackRes[i].name);
+                    }
+                }
+            }
+        }
+
+        public void OnChangeScene(int sceneIndex)
+        {
+            if (hasLoadedBossFish)
+            {
+                RemoveLoadedBossFish();
+                cursceneId = sceneIndex;
+            }
+            LoadFishBossResource();
+        }
+
+        private void RemoveLoadedBossFish()
+        {
+            if (cursceneId >= gameData.GameConfig.FishBossPackRes.Length)
+                return;
+            AssetBundleManager.RemoveLoadedAssets(gameData.GameConfig.FishBossPackRes[cursceneId].name);
+            AssetBundleManager.UnloadLoadedAssets(gameData.GameConfig.FishBossPackRes[cursceneId].name, true);
+            FishGameObjectPoolManager.Instance.RemoveKeyAtObjectPool(gameData.GameConfig.FishBossPackRes[cursceneId].name);
+        }
+
+        public void LoadFishBossResource()
+        {
+            hasLoadedBossFish = false;
+            if (cursceneId >= gameData.GameConfig.FishBossPackRes.Length)
+                return;
+            var fishBossPack = gameData.GameConfig.FishBossPackRes[cursceneId];
+            fishBossBundleName = fishBossPack.name;
+            AssetBundleManager.LoadDependencies(fishBossBundleName);
+            assetBundleLoadOperation = AssetBundleManager.LoadAssetBundle(fishBossBundleName);
+        }
+
+        private void Update()
+        {
+            if (assetBundleLoadOperation != null
+                && assetBundleLoadOperation.IsDone())
+            {
+                hasLoadedBossFish = true;
+                StartCoroutine(InitFishBossResources());
+                assetBundleLoadOperation = null;
+            }
+        }
+
+        private IEnumerator InitFishBossResources()
+        {
+            for (int i = 0; i < gameData.GameConfig.FishBossRes.Length; i++)
+            {
+                if (gameData.GameConfig.FishBossRes[i].ParentName == fishBossBundleName)
+                {
+                    GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>(fishBossBundleName, gameData.GameConfig.FishBossRes[i].name);
+                    if (gameObject != null)
+                    {
+                        yield return new WaitUntil(IsLoaded);
+                        isLoaded = false;
+                        if (gameObject != null)
+                            FishGameObjectPoolManager.Instance.AddGameObjectPool(gameObject, gameData.GameConfig.FishBossRes[i].amout, gameData.GameConfig.FishBossRes[i].name, PoolType.FishPool);
+                        else
+                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.FishPackRes[i].name);
+                    }
                 }
             }
         }
@@ -297,8 +374,8 @@ namespace BagelCode
             {
                 for (int i = 0; i < gameData.GameConfig.FishRes.Length; i++)
                 {
-                    yield return 0;
-
+                    yield return new WaitUntil(IsLoaded);
+                    isLoaded = false;
                     Fish v = gameData.GameConfig.FishRes[i];
                     GameObject parentPrefab = FishPackResList[v.ParentName];
                     GameObject prefab = parentPrefab.transform.Find(v.name).gameObject;
@@ -311,12 +388,14 @@ namespace BagelCode
 
         private IEnumerator CreateBulletPool()
         {
+
             int totalCount = gameData.GameConfig.BulletRes.Length;
             if (totalCount > 0)
             {
                 foreach (var v in gameData.GameConfig.BulletRes)
                 {
-                    yield return null;
+                    yield return new WaitUntil(IsLoaded);
+                    isLoaded = false;
                     var parentPrefab = FishPackResList[v.ParentName];
                     var prefab = parentPrefab.transform.Find(v.name).gameObject;
                     FishGameObjectPoolManager.Instance.AddGameObjectPool(prefab, v.amout, v.name, PoolType.BulletPool);
@@ -342,28 +421,25 @@ namespace BagelCode
             {
                 for (int i = 0; i < totalCount; i++)
                 {
-                    Action<FishResourceBase, float> CreatePlayerPrefabCallBackFunc = (gameObj, time) =>
+                    yield return new WaitUntil(IsLoaded);
+                    isLoaded = false;
+                    GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>("fishingpanel", gameData.GameConfig.PlayerRes[i].name);
+                    if (gameObject != null)
                     {
-                        if (gameObj != null && gameObj.content != null)
+                        if (gameObject != null)
                         {
                             LoadProgressBarEvent();
-                            GameObject tempPlayer = (GameObject)Instantiate(gameObj.content);
+                            GameObject tempPlayer = Instantiate(gameObject);
                             tempPlayer.transform.localPosition = Vector3.zero;
                             tempPlayer.transform.localScale = Vector3.one;
                             FishPlayerManager.Instance.InitPlayerInfo(i, tempPlayer);
                             count--;
                             if (count <= 0)
-                            {
                                 ExcuteLoadResourcesQueue();
-                            }
                         }
                         else
-                        {
-                            Debug.LogError("资源加载失败==>" + gameData.GameConfig.PlayerRes[i].path);
-                        }
-                    };
-                    yield return 0;
-                    FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.PlayerRes[i].path, typeof(GameObject), CreatePlayerPrefabCallBackFunc);
+                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.PlayerRes[i].name);
+                    }
                 }
             }
         }
@@ -376,25 +452,23 @@ namespace BagelCode
             {
                 for (int i = 0; i < totalCount; i++)
                 {
-                    Action<FishResourceBase, float> CreateNetPoolCallBack = (gameObj, time) =>
+                    yield return new WaitUntil(IsLoaded);
+                    isLoaded = false;
+                    GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>("fishingnet", gameData.GameConfig.NetRes[i].name);
+                    if (gameObject != null)
                     {
-                        if (gameObj != null && gameObj.content)
-                        {
-                            GameObject tempNet = (GameObject)Instantiate(gameObj.content);
-                            tempNet.transform.localPosition = Vector3.zero;
-                            tempNet.transform.localScale = Vector3.one;
-                            FishGameObjectPoolManager.Instance.AddGameObjectPool(tempNet, gameData.GameConfig.NetRes[i].amout, gameData.GameConfig.NetRes[i].name, PoolType.NetPool);
-                            Destroy(tempNet);
-                            LoadProgressBarEvent();
-                            count--;
-                            if (count <= 0)
-                                ExcuteLoadResourcesQueue();
-                        }
-                        else
-                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.NetRes[i].path);
-                    };
-                    yield return 0;
-                    FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.NetRes[i].path, typeof(GameObject), CreateNetPoolCallBack);
+                        GameObject tempNet = Instantiate(gameObject);
+                        tempNet.transform.localPosition = Vector3.zero;
+                        tempNet.transform.localScale = Vector3.one;
+                        FishGameObjectPoolManager.Instance.AddGameObjectPool(tempNet, gameData.GameConfig.NetRes[i].amout, gameData.GameConfig.NetRes[i].name, PoolType.NetPool);
+                        Destroy(tempNet);
+                        LoadProgressBarEvent();
+                        count--;
+                        if (count <= 0)
+                            ExcuteLoadResourcesQueue();
+                    }
+                    else
+                        Debug.LogError("资源加载失败==> " + gameData.GameConfig.NetRes[i].path);
                 }
             }
         }
@@ -407,29 +481,27 @@ namespace BagelCode
             {
                 for (int i = 0; i < totalCount; i++)
                 {
-                    Action<FishResourceBase, float> CreateGoldPoolCallBackFunc = (gameObj, time) =>
+                    yield return new WaitUntil(IsLoaded);
+                    isLoaded = false;
+                    GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>("fishinggold", gameData.GameConfig.GoldRes[i].name);
+                    if (gameObject != null)
                     {
-                        if (gameObj != null && gameObj.content != null)
-                        {
-                            GameObject tempGold = (GameObject)Instantiate(gameObj.content);
-                            tempGold.transform.localPosition = Vector3.zero;
-                            tempGold.transform.localScale = Vector3.one;
-                            FishGameObjectPoolManager.Instance.AddGameObjectPool(tempGold, gameData.GameConfig.GoldRes[i].amout, gameData.GameConfig.GoldRes[i].name, PoolType.GoldPool);
-                            Destroy(tempGold);
-                            LoadProgressBarEvent();
-                            count--;
-                            if (count <= 0)
-                                ExcuteLoadResourcesQueue();
-                        }
-                        else
-                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.GoldRes[i].path);
-                    };
-                    yield return 0;
-                    FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.GoldRes[i].path, typeof(GameObject), CreateGoldPoolCallBackFunc);
+                        GameObject tempGold = Instantiate(gameObject);
+                        tempGold.transform.localPosition = Vector3.zero;
+                        tempGold.transform.localScale = Vector3.one;
+                        FishGameObjectPoolManager.Instance.AddGameObjectPool(tempGold, gameData.GameConfig.GoldRes[i].amout, gameData.GameConfig.GoldRes[i].name, PoolType.GoldPool);
+                        Destroy(tempGold);
+                        LoadProgressBarEvent();
+                        count--;
+                        if (count <= 0)
+                            ExcuteLoadResourcesQueue();
+                    }
+                    else
+                        Debug.LogError("资源加载失败==> " + gameData.GameConfig.GoldRes[i].name);
                 }
             }
         }
-        
+
         public IEnumerator CreateScorePool()
         {
             int totalCount = gameData.GameConfig.ScoreRes.Length;
@@ -438,29 +510,27 @@ namespace BagelCode
             {
                 for (int i = 0; i < totalCount; i++)
                 {
-                    Action<FishResourceBase, float> CreateScorePoolCallBackFunc = (gameObj, time) =>
+                    yield return new WaitUntil(IsLoaded);
+                    isLoaded = false;
+                    GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>("fishingscore", gameData.GameConfig.ScoreRes[i].name);
+                    if (gameObject != null)
                     {
-                        if (gameObj != null && gameObj.content != null)
-                        {
-                            GameObject tempScore = (GameObject)Instantiate(gameObj.content);
-                            tempScore.transform.localPosition = Vector3.zero;
-                            tempScore.transform.localScale = Vector3.one;
-                            FishGameObjectPoolManager.Instance.AddGameObjectPool(tempScore, gameData.GameConfig.ScoreRes[i].amout, gameData.GameConfig.ScoreRes[i].name, PoolType.ScorePool);
-                            Destroy(tempScore);
-                            LoadProgressBarEvent();
-                            count--;
-                            if (count <= 0)
-                                ExcuteLoadResourcesQueue();
-                        }
-                        else
-                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.ScoreRes[i].path);
-                    };
-                    yield return 0;
-                    FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.ScoreRes[i].path, typeof(GameObject), CreateScorePoolCallBackFunc);
+                        GameObject tempScore = Instantiate(gameObject);
+                        tempScore.transform.localPosition = Vector3.zero;
+                        tempScore.transform.localScale = Vector3.one;
+                        FishGameObjectPoolManager.Instance.AddGameObjectPool(tempScore, gameData.GameConfig.ScoreRes[i].amout, gameData.GameConfig.ScoreRes[i].name, PoolType.ScorePool);
+                        Destroy(tempScore);
+                        LoadProgressBarEvent();
+                        count--;
+                        if (count <= 0)
+                            ExcuteLoadResourcesQueue();
+                    }
+                    else
+                        Debug.LogError("资源加载失败==> " + gameData.GameConfig.ScoreRes[i].name);
                 }
             }
         }
-        
+
         public IEnumerator CreatePlusTipsPool()
         {
             int totalCount = gameData.GameConfig.PlusTipsRes.Length;
@@ -469,36 +539,27 @@ namespace BagelCode
             {
                 for (int i = 0; i < totalCount; i++)
                 {
-                    Action<FishResourceBase, float> CreatePlusTipsPoolCallBackFunc = (gameObj, time) =>
+                    yield return new WaitUntil(IsLoaded);
+                    isLoaded = false;
+                    GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>("fishingplustips", gameData.GameConfig.PlusTipsRes[i].name);
+                    if (gameObject != null)
                     {
-                        if (gameObj != null && gameObj.content != null)
-                        {
-                            GameObject tempScore = (GameObject)Instantiate(gameObj.content);
-                            tempScore.transform.localPosition = Vector3.zero;
-                            tempScore.transform.localScale = Vector3.one;
-                            FishGameObjectPoolManager.Instance.AddGameObjectPool(tempScore, gameData.GameConfig.PlusTipsRes[i].amout, gameData.GameConfig.PlusTipsRes[i].name, PoolType.ScorePool);
-                            Destroy(tempScore);
-                            LoadProgressBarEvent();
-                            count--;
-                            if (count <= 0)
-                                ExcuteLoadResourcesQueue();
-                            
-                        }
-                        else
-                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.PlusTipsRes[i].path);
-                    };
-                    yield return 0;
-                    FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.PlusTipsRes[i].path, typeof(GameObject), CreatePlusTipsPoolCallBackFunc);
+                        GameObject tempScore = Instantiate(gameObject);
+                        tempScore.transform.localPosition = Vector3.zero;
+                        tempScore.transform.localScale = Vector3.one;
+                        FishGameObjectPoolManager.Instance.AddGameObjectPool(tempScore, gameData.GameConfig.PlusTipsRes[i].amout, gameData.GameConfig.PlusTipsRes[i].name, PoolType.ScorePool);
+                        Destroy(tempScore);
+                        LoadProgressBarEvent();
+                        count--;
+                        if (count <= 0)
+                            ExcuteLoadResourcesQueue();
+                    }
+                    else
+                        Debug.LogError("资源加载失败==> " + gameData.GameConfig.PlusTipsRes[i].name);
                 }
             }
         }
 
-        //public IEnumerator CreateGameSetPanel()
-        //{
-        //    yield return 0;
-        //}
-
-        //todo
         public IEnumerator CreateAudio()
         {
             int totalCount = gameData.GameConfig.AudioRes.Length;
@@ -507,22 +568,20 @@ namespace BagelCode
             {
                 for (int i = 0; i < totalCount; i++)
                 {
-                    Action<FishResourceBase, float> CreateAudioCallBackFunc = (gameObj, time) =>
+                    yield return new WaitUntil(IsLoaded);
+                    isLoaded = false;
+                    GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>("fishingaudio", gameData.GameConfig.AudioRes[i].name);
+                    if (gameObject != null)
                     {
-                        if (gameObj != null && gameObj.content != null)
-                        {
-                            GameObject prefab = (GameObject)Instantiate(gameObj.content);
-                            FishAudioManager.Instance.Init(prefab);
-                            LoadProgressBarEvent();
-                            count--;
-                            if (count <= 1)
-                                ExcuteLoadResourcesQueue();
-                        }
-                        else
-                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.AudioRes[i].path);
-                    };
-                    yield return 0;
-                    FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.AudioRes[i].path, typeof(GameObject), CreateAudioCallBackFunc);
+                        GameObject prefab = Instantiate(gameObject);
+                        FishAudioManager.Instance.Init(prefab);
+                        LoadProgressBarEvent();
+                        count--;
+                        if (count <= 1)
+                            ExcuteLoadResourcesQueue();
+                    }
+                    else
+                        Debug.LogError("资源加载失败==> " + gameData.GameConfig.AudioRes[i].name);
                 }
             }
         }
@@ -535,25 +594,23 @@ namespace BagelCode
             {
                 for (int i = 0; i < totalCount; i++)
                 {
-                    Action<FishResourceBase, float> CreateEffectPoolCallBackFunc = (gameObj, time) =>
+                    yield return new WaitUntil(IsLoaded);
+                    isLoaded = false;
+                    GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>("fishinglighteffect", gameData.GameConfig.LightningRes[i].name);
+                    if (gameObject != null)
                     {
-                        if (gameObj != null && gameObj.content != null)
-                        {
-                            GameObject tempLightning = (GameObject)Instantiate(gameObj.content);
-                            tempLightning.transform.localPosition = Vector3.zero;
-                            tempLightning.transform.localScale = Vector3.one;
-                            FishGameObjectPoolManager.Instance.AddGameObjectPool(tempLightning, gameData.GameConfig.LightningRes[i].amout, gameData.GameConfig.LightningRes[i].name, PoolType.LightningPool);
-                            Destroy(tempLightning);
-                            LoadProgressBarEvent();
-                            count--;
-                            if (count <= 0)
-                                ExcuteLoadResourcesQueue();
-                        }
-                        else
-                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.LightningRes[i].path);
-                    };
-                    yield return 0;
-                    FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.LightningRes[i].path, typeof(GameObject), CreateEffectPoolCallBackFunc);
+                        GameObject tempLightning = Instantiate(gameObject);
+                        tempLightning.transform.localPosition = Vector3.zero;
+                        tempLightning.transform.localScale = Vector3.one;
+                        FishGameObjectPoolManager.Instance.AddGameObjectPool(tempLightning, gameData.GameConfig.LightningRes[i].amout, gameData.GameConfig.LightningRes[i].name, PoolType.LightningPool);
+                        Destroy(tempLightning);
+                        LoadProgressBarEvent();
+                        count--;
+                        if (count <= 0)
+                            ExcuteLoadResourcesQueue();
+                    }
+                    else
+                        Debug.LogError("资源加载失败==> " + gameData.GameConfig.LightningRes[i].name);
                 }
             }
         }
@@ -566,25 +623,23 @@ namespace BagelCode
             {
                 for (int i = 0; i < totalCount; i++)
                 {
-                    Action<FishResourceBase, float> CreateEffectPoolCallBackFunc = (gameObj, time) =>
+                    yield return new WaitUntil(IsLoaded);
+                    isLoaded = false;
+                    GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>("fishingeffect", gameData.GameConfig.EffectRes[i].name);
+                    if (gameObject != null)
                     {
-                        if (gameObj != null && gameObj.content != null)
-                        {
-                            GameObject tempEffect = (GameObject)Instantiate(gameObj.content);
-                            tempEffect.transform.localPosition = Vector3.zero;
-                            tempEffect.transform.localScale = Vector3.one;
-                            FishGameObjectPoolManager.Instance.AddGameObjectPool(tempEffect, gameData.GameConfig.EffectRes[i].amout, gameData.GameConfig.EffectRes[i].name, PoolType.EffectPool);
-                            Destroy(tempEffect);
-                            LoadProgressBarEvent();
-                            count--;
-                            if (count <= 0)
-                                ExcuteLoadResourcesQueue();
-                        }
-                        else
-                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.EffectRes[i].path);
-                    };
-                    yield return 0;
-                    FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.EffectRes[i].path, typeof(GameObject), CreateEffectPoolCallBackFunc);
+                        GameObject tempEffect = Instantiate(gameObject);
+                        tempEffect.transform.localPosition = Vector3.zero;
+                        tempEffect.transform.localScale = Vector3.one;
+                        FishGameObjectPoolManager.Instance.AddGameObjectPool(tempEffect, gameData.GameConfig.EffectRes[i].amout, gameData.GameConfig.EffectRes[i].name, PoolType.EffectPool);
+                        Destroy(tempEffect);
+                        LoadProgressBarEvent();
+                        count--;
+                        if (count <= 0)
+                            ExcuteLoadResourcesQueue();
+                    }
+                    else
+                        Debug.LogError("资源加载失败==> " + gameData.GameConfig.EffectRes[i].name);
                 }
             }
         }
@@ -597,56 +652,23 @@ namespace BagelCode
             {
                 for (int i = 0; i < totalCount; i++)
                 {
-                    Action<FishResourceBase, float> CreateSkillPoolCallBackFunc = (gameObj, time) =>
+                    yield return new WaitUntil(IsLoaded);
+                    isLoaded = false;
+                    GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>("fishingskill", gameData.GameConfig.SkillRes[i].name);
+                    if (gameObject != null)
                     {
-                        if (gameObj != null && gameObj.content != null)
-                        {
-                            GameObject tempSkill = (GameObject)Instantiate(gameObj.content);
-                            tempSkill.transform.localPosition = Vector3.zero;
-                            tempSkill.transform.localScale = Vector3.one;
-                            FishGameObjectPoolManager.Instance.AddGameObjectPool(tempSkill, gameData.GameConfig.SkillRes[i].amout, gameData.GameConfig.SkillRes[i].name, PoolType.EffectPool);
-                            Destroy(tempSkill);
-                            LoadProgressBarEvent();
-                            count--;
-                            if (count <= 0)
-                                ExcuteLoadResourcesQueue();
-                        }
-                        else
-                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.SkillRes[i].path);
-                    };
-                    yield return 0;
-                    FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.SkillRes[i].path, typeof(GameObject), CreateSkillPoolCallBackFunc);
-                }
-            }
-        }
-
-        public IEnumerator CreateFishOutTipsPool()
-        {
-            int totalCount = gameData.GameConfig.FishOutTipsRes.Length;
-            int count = totalCount;
-            if (totalCount > 0)
-            {
-                for (int i = 0; i < totalCount; i++)
-                {
-                    Action<FishResourceBase, float> CreateFishOutTipsPoolCallBackFunc = (gameObj, time) =>
-                    {
-                        if (gameObj != null && gameObj.content != null)
-                        {
-                            GameObject tempFishOutTips = (GameObject)Instantiate(gameObj.content);
-                            tempFishOutTips.transform.localPosition = Vector3.zero;
-                            tempFishOutTips.transform.localScale = Vector3.one;
-                            FishGameObjectPoolManager.Instance.AddGameObjectPool(tempFishOutTips, gameData.GameConfig.FishOutTipsRes[i].amout, gameData.GameConfig.FishOutTipsRes[i].name, PoolType.FishOutTipsPool);
-                            Destroy(tempFishOutTips);
-                            LoadProgressBarEvent();
-                            count--;
-                            if (count <= 0)
-                                ExcuteLoadResourcesQueue();
-                        }
-                        else
-                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.FishOutTipsRes[i].path);
-                    };
-                    yield return 0;
-                    FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.FishOutTipsRes[i].path, typeof(GameObject), CreateFishOutTipsPoolCallBackFunc);
+                        GameObject tempSkill = Instantiate(gameObject);
+                        tempSkill.transform.localPosition = Vector3.zero;
+                        tempSkill.transform.localScale = Vector3.one;
+                        FishGameObjectPoolManager.Instance.AddGameObjectPool(tempSkill, gameData.GameConfig.SkillRes[i].amout, gameData.GameConfig.SkillRes[i].name, PoolType.EffectPool);
+                        Destroy(tempSkill);
+                        LoadProgressBarEvent();
+                        count--;
+                        if (count <= 0)
+                            ExcuteLoadResourcesQueue();
+                    }
+                    else
+                        Debug.LogError("资源加载失败==> " + gameData.GameConfig.SkillRes[i].name);
                 }
             }
         }
@@ -659,25 +681,24 @@ namespace BagelCode
             {
                 for (int i = 0; i < totalCount; i++)
                 {
-                    Action<FishResourceBase, float> CreateSpecialDeclarePoolCallBackFunc = (gameObj, time) =>
+                    yield return new WaitUntil(IsLoaded);
+                    Debug.Log("name => " + gameData.GameConfig.SpecialDeclareRes[i].name);
+                    isLoaded = false;
+                    GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>("fishingspecialdeclare", gameData.GameConfig.SpecialDeclareRes[i].name);
+                    if (gameObject != null)
                     {
-                        if (gameObj != null && gameObj.content != null)
-                        {
-                            GameObject tempBigAwardTips = (GameObject)Instantiate(gameObj.content);
-                            tempBigAwardTips.transform.localPosition = Vector3.zero;
-                            tempBigAwardTips.transform.localScale = Vector3.one;
-                            FishGameObjectPoolManager.Instance.AddGameObjectPool(tempBigAwardTips, gameData.GameConfig.SpecialDeclareRes[i].amout, gameData.GameConfig.SpecialDeclareRes[i].name, PoolType.FishOutTipsPool);
-                            Destroy(tempBigAwardTips);
-                            LoadProgressBarEvent();
-                            count--;
-                            if (count <= 0)
-                                ExcuteLoadResourcesQueue();
-                        }
-                        else
-                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.SpecialDeclareRes[i].path);
-                    };
-                    yield return 0;
-                    FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.SpecialDeclareRes[i].path, typeof(GameObject), CreateSpecialDeclarePoolCallBackFunc);
+                        GameObject tempBigAwardTips = Instantiate(gameObject);
+                        tempBigAwardTips.transform.localPosition = Vector3.zero;
+                        tempBigAwardTips.transform.localScale = Vector3.one;
+                        FishGameObjectPoolManager.Instance.AddGameObjectPool(tempBigAwardTips, gameData.GameConfig.SpecialDeclareRes[i].amout, gameData.GameConfig.SpecialDeclareRes[i].name, PoolType.FishOutTipsPool);
+                        Destroy(tempBigAwardTips);
+                        LoadProgressBarEvent();
+                        count--;
+                        if (count <= 0)
+                            ExcuteLoadResourcesQueue();
+                    }
+                    else
+                        Debug.LogError("资源加载失败==> " + gameData.GameConfig.SpecialDeclareRes[i].name);
                 }
             }
         }
@@ -690,25 +711,23 @@ namespace BagelCode
             {
                 for (int i = 0; i < totalCount; i++)
                 {
-                    Action<FishResourceBase, float> CreateTipsContentPoolCallBackFunc = (gameObj, time) =>
+                    yield return new WaitUntil(IsLoaded);
+                    isLoaded = false;
+                    GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>("fishingtips", gameData.GameConfig.TipsContentRes[i].name);
+                    if (gameObject != null)
                     {
-                        if (gameObj != null && gameObj.content != null)
-                        {
-                            GameObject tempLightning = (GameObject)Instantiate(gameObj.content);
-                            tempLightning.transform.localPosition = Vector3.zero;
-                            tempLightning.transform.localScale = Vector3.one;
-                            FishGameObjectPoolManager.Instance.AddGameObjectPool(tempLightning, gameData.GameConfig.TipsContentRes[i].amout, gameData.GameConfig.TipsContentRes[i].name, PoolType.TipsContent);
-                            Destroy(tempLightning);
-                            LoadProgressBarEvent();
-                            count--;
-                            if (count <= 0)
-                                ExcuteLoadResourcesQueue();
-                        }
-                        else
-                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.TipsContentRes[i].path);
-                    };
-                    yield return 0;
-                    FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.TipsContentRes[i].path, typeof(GameObject), CreateTipsContentPoolCallBackFunc);
+                        GameObject tempLightning = Instantiate(gameObject);
+                        tempLightning.transform.localPosition = Vector3.zero;
+                        tempLightning.transform.localScale = Vector3.one;
+                        FishGameObjectPoolManager.Instance.AddGameObjectPool(tempLightning, gameData.GameConfig.TipsContentRes[i].amout, gameData.GameConfig.TipsContentRes[i].name, PoolType.TipsContent);
+                        Destroy(tempLightning);
+                        LoadProgressBarEvent();
+                        count--;
+                        if (count <= 0)
+                            ExcuteLoadResourcesQueue();
+                    }
+                    else
+                        Debug.LogError("资源加载失败==> " + gameData.GameConfig.TipsContentRes[i].name);
                 }
             }
         }
@@ -718,9 +737,13 @@ namespace BagelCode
             return FishPackResList;
         }
 
+        private bool IsLoaded()
+        {
+            return isLoaded;
+        }
         protected override void OnDestroy()
         {
-            
+
         }
     }
 }

@@ -59,7 +59,8 @@ namespace BagelCode
             drillHitFishs.usChairId = chairID;
             drillHitFishs.usSomeZuanTouId = serialDrillUID;
             drillHitFishs.usZuanTouId = bulletUID;
-            drillHitFishs.SubFishes.AddRange(hitFishTable);
+            drillHitFishs.SubFishes = new int[hitFishTable.Count];
+            hitFishTable.CopyTo(drillHitFishs.SubFishes);
             WebSocketManager.Instance.SendGameMessage(Proto_Fish_CMD.NF_FISH_CMD_SOMEZUANTOUHITFISH_REQ, WebSocketTool.Serialize(drillHitFishs));
         }
 

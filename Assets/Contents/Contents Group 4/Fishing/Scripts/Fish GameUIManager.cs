@@ -13,9 +13,8 @@ namespace BagelCode
 {
     public class FishGameUIManager : MonoSingleton<FishGameUIManager>
     {
-        private float tideTime;
         public FishGameData gameData;
-        private Dictionary<int ,Texture> AllGameBG;
+        private Dictionary<int, Texture> AllGameBG;
         private bool GameIsPress;
         private CanvasScaler canvasScaler;
         public GameObject GamePanelRoot;
@@ -26,7 +25,6 @@ namespace BagelCode
         private RectTransform tideGroupRectTrans;
         public Camera UICamera;
         private FishBehaviour BGFishLuaBehaviour;
-        private GameObject GameEffectRoot;
         private Timer changeSceneClearTimer;
         public GameObject conetnGameObject;
 
@@ -36,18 +34,17 @@ namespace BagelCode
             InitData();
             InitView();
             FindView();
-            AddListennerEvent();
+            AddEventListener();
         }
 
         private void InitData()
         {
-            tideTime = 2.5f;
             gameData = FishGameManager.Instance.gameData;
             AllGameBG = new Dictionary<int, Texture>();
             GameIsPress = true;
         }
 
-        private void InitView ()
+        private void InitView()
         {
             InitInstance();
             InitUIViewData();
@@ -60,8 +57,11 @@ namespace BagelCode
 
         private void InitUIViewData()
         {
-            FishCsharpManager.Init(gameData.ResolutionWidth, gameData.ResolutionHeight);
-            SetScreenResoulution();
+            if (gameData != null)
+            {
+                FishCsharpManager.Init(gameData.ResolutionWidth, gameData.ResolutionHeight);
+                SetScreenResoulution();
+            }
         }
 
         private void SetScreenResoulution()
@@ -94,7 +94,6 @@ namespace BagelCode
             tideGroupRectTrans.gameObject.SetActive(false);
             UICamera = conetnGameObject.transform.Find("Cameras/Camera_UI").GetComponent<Camera>();
             BGFishLuaBehaviour = Bg.AddComponent<FishBehaviour>();
-            GameEffectRoot = conetnGameObject.transform.Find("GamePanel/GameEffectPanel/Group").gameObject;
             //TODO
             //TideSequence = null;
             //ChangeBGSequence = null;
@@ -105,7 +104,7 @@ namespace BagelCode
             tideGroupRectTrans.gameObject.SetActive(true);
         }
 
-        public void AddListennerEvent()
+        public void AddEventListener()
         {
             BGFishLuaBehaviour.onPressCallBack = (isPress) => {
                 BGOnPress(isPress);
@@ -131,28 +130,24 @@ namespace BagelCode
         {
             SetGameBG(sceneId, false);
             FishTideOver(sceneId);
+            FishResourcesManager.Instance.OnChangeScene(sceneId);
         }
 
         public void SetGameBG(int index, bool isFadeAnimation)
         {
             isFadeAnimation = true;
+            index = index > 4 ? 4 : index;
             if (!AllGameBG.ContainsKey(index) || AllGameBG[index] == null)
             {
-                Action<FishResourceBase, float> LoadBGCallBack;
-                LoadBGCallBack = (gameObj, time) =>
+                Texture texture = AssetBundleManager.LoadAsset<Texture>("fishingbg", gameData.GameConfig.BGRes[index].name);
+                if (texture != null)
                 {
-                    if (gameObj != null && gameObj.content != null)
-                    {
-                        AllGameBG[index] = (Texture)gameObj.content;
-                        GameBG.texture = AllGameBG[index];
-                        ChangeSceneBGImage(index, isFadeAnimation);
-                    }
-                    else
-                    {
-                        Debug.LogError("Failed to load background image: " + gameData.GameConfig.BGRes[index].path);
-                    }
-                };
-                FishGameManager.Instance.AsyncLoadResource(gameData.GameConfig.BGRes[index].path, typeof(Texture), LoadBGCallBack);
+                    AllGameBG[index] = texture;
+                    GameBG.texture = AllGameBG[index];
+                    ChangeSceneBGImage(index, isFadeAnimation);
+                }
+                else
+                    Debug.LogError("资源加载失败==> " + gameData.GameConfig.BGRes[index].name);
             }
             else
             {
@@ -195,6 +190,7 @@ namespace BagelCode
         public void ChangeGameScene(ChangeSceneRsp data)
         {
             int sceneId = (int)data.scene_id;
+            FishResourcesManager.Instance.OnChangeScene(sceneId);
             int changeType = (int)data.scene_change_type;
             float time = data.time_seconds;
             switch (changeType)
@@ -247,7 +243,7 @@ namespace BagelCode
                 AsyncActionUtils.ApplyImageColor(this, GameBG, new Color(1, 1, 1, 0), Color.white, 0.5f, TweenUtils.ColorTweenInQuad, 0, () =>
                 {
                     BG2.gameObject.SetActive(false);
-                    HaiWang_Bg.gameObject.SetActive(sceneId == 5);
+                    HaiWang_Bg.gameObject.SetActive(sceneId == 2);
                 });
             }
         }
@@ -259,7 +255,7 @@ namespace BagelCode
             tideGroupRectTrans.gameObject.SetActive(true);
             AsyncActionUtils.DelayedAction(this, 1, () => { tideGroupRectTrans.gameObject.SetActive(true); });
             AsyncActionUtils.DelayedAction(this, 2, () => { FishTideOver(sceneId); });
-           
+
         }
 
         public void FishTideOver(int sceneId)
