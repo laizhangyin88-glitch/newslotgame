@@ -328,9 +328,11 @@ namespace BagelCode
         public void LoadFishBossResource()
         {
             hasLoadedBossFish = false;
+            FishPack fishBossPack;
             if (cursceneId >= gameData.GameConfig.FishBossPackRes.Length)
-                return;
-            var fishBossPack = gameData.GameConfig.FishBossPackRes[cursceneId];
+                fishBossPack = gameData.GameConfig.FishBossPackRes[cursceneId % gameData.GameConfig.FishBossPackRes.Length];
+            else
+                fishBossPack = gameData.GameConfig.FishBossPackRes[cursceneId];
             fishBossBundleName = fishBossPack.name;
             AssetBundleManager.LoadDependencies(fishBossBundleName);
             assetBundleLoadOperation = AssetBundleManager.LoadAssetBundle(fishBossBundleName);

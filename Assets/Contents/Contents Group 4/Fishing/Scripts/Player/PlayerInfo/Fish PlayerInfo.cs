@@ -812,6 +812,9 @@ namespace BagelCode
 
         public float FormatBaseProportionalScore(float score)
         {
+            return score;
+            //以下是有疑问的数据转换
+            //暂不使用
             float baseRatio = 1;
             float currentIntPart, currentDecimalPart;
             currentIntPart = (int)score;
