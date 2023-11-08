@@ -298,7 +298,7 @@ namespace BagelCode
             UserMoneyRsp data = WebSocketTool.Deserialize<UserMoneyRsp>(bytes);
             FishPlayerInfo playerIns = GetPlayerInsByChairId((int)data.chair_id);
             if (playerIns != null)
-                playerIns.SetPlayerMoney(data.user_money);
+                playerIns.SetPlayerMoneyScore(data.user_money);
         }
 
         public void ResponesPlayerEnterGameMsg(byte[] bytes)

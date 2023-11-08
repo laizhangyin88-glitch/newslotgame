@@ -65,8 +65,7 @@ namespace BagelCode
         public void ResponesDianCiCannonShootMsg(byte[] bytes)
         {
             DianCiCannonShootRsp data = WebSocketTool.Deserialize<DianCiCannonShootRsp>(bytes);
-            var electricSkillItem = CurrentUseSkillInsList[data.usDianCiCannonId];
-            if (electricSkillItem != null)
+            if (CurrentUseSkillInsList.TryGetValue(data.usDianCiCannonId,out FishElectricSkillItem electricSkillItem))
             {
                 FishGameUIManager.Instance.IsGamePress(false);
                 electricSkillItem.skillVo.usProcUserChairId = data.usProcUserChairId;
