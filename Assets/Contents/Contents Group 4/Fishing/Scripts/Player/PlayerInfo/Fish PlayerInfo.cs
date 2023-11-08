@@ -85,7 +85,7 @@ namespace BagelCode
             currentBulletAnimName = "Bullet_01";     // current bullet level animation
             IsFreeStatus = false;           // whether it is in free status
             isOnLine = false;
-            LimitBulletCount = 999999;
+            LimitBulletCount = 40;
             IsCanShootBullet = true;        // whether bullets can be fired
             currentPlayMoney = 0;
         }
