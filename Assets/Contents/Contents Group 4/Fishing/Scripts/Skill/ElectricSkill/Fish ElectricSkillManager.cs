@@ -88,8 +88,7 @@ namespace BagelCode
         public void ResponesDianCiCannonDestroyMsg(byte[] bytes)
         {
             DianCiCannonDestroyRsp data = WebSocketTool.Deserialize<DianCiCannonDestroyRsp>(bytes);
-            int specialDeclareUID = SpecialDeclareList[data.usDianCiCannonId];
-            if (specialDeclareUID > 0)
+            if (SpecialDeclareList.TryGetValue(data.usDianCiCannonId, out int specialDeclareUID))
             {
                 ShowSpecialDeclareScore(specialDeclareUID, data.usTotalScore, data.usTotalMul);
                 SpecialDeclareList[data.usDianCiCannonId] = -1;

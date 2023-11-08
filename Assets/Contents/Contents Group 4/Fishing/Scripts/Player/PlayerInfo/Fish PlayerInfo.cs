@@ -344,9 +344,9 @@ namespace BagelCode
             currentBulletAnimName = bulletName;
         }
 
-        public void SetBetScore(float score)
+        public void SetBetScore(uint score)
         {
-            BetScoreLabel.text = FormatBaseProportionalScore(score).ToString();
+            BetScoreLabel.text = score.ToString();
             float offset = 0.7f - BetScoreLabel.text.Length * 0.1f;
             //1 0.6 10 0.5 100 0.4, 1000 0.3
             Vector3 targetScale = Vector3.one * offset;
@@ -359,7 +359,7 @@ namespace BagelCode
 
         public void SetPlayerMoneyScore(ulong score)
         {
-            playerMoneyLabel.text = FormatBaseProportionalScore(score).ToString();
+            playerMoneyLabel.text = score.ToString();
             SetPlayerMoney(score);
         }
 
@@ -812,7 +812,6 @@ namespace BagelCode
 
         public float FormatBaseProportionalScore(float score)
         {
-            return score;
             //以下是有疑问的数据转换
             //暂不使用
             float baseRatio = 1;
@@ -823,6 +822,7 @@ namespace BagelCode
             if (currentDecimalPart > 0)
             {
                 int count = Mathf.FloorToInt(Mathf.Log10(currentDecimalPart));
+                count = Mathf.Abs(count);
                 if (baseRatio < 100 && baseRatio > 0)
                 {
                     if (count > 7)
