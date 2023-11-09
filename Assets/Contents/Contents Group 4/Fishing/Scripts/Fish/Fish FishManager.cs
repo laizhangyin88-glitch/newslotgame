@@ -70,6 +70,29 @@ namespace BagelCode
 
         public FishFishBase GetFish(FishVo vo, bool isAddCurrentUseFishList)
         {
+            //if ((vo.fishId > 17 && vo.fishId < 33) || (vo.fishId > 38))
+            //    Debug.LogError("大鱼id => " + vo.fishId);
+            if (vo.fishId == 25
+                || vo.fishId == 26
+                || vo.fishId == 28
+                || vo.fishId == 32)
+                Debug.LogError("大鱼id => " + vo.fishId + "  归属 => " + "fish_boss_01");
+            if (vo.fishId == 18
+                || vo.fishId == 19
+                || vo.fishId == 40)
+                Debug.LogError("大鱼id => " + vo.fishId + "  归属 => " + "fish_boss_02");
+            if (vo.fishId == 16
+                || vo.fishId == 20
+                || vo.fishId == 21
+                || vo.fishId == 45)
+                Debug.LogError("大鱼id => " + vo.fishId + "  归属 => " + "fish_boss_03");
+            if (vo.fishId == 22
+                || vo.fishId == 23
+                || vo.fishId == 24
+                || vo.fishId == 46)
+                Debug.LogError("大鱼id => " + vo.fishId + "  归属 => " + "fish_boss_04");
+
+
             if (AllUsedFishInsList != null && AllUsedFishInsList.Count > 0
                 && AllUsedFishInsList.ContainsKey(vo.fishId) && AllUsedFishInsList[vo.fishId] != null && AllUsedFishInsList[vo.fishId].Count > 0)
             {

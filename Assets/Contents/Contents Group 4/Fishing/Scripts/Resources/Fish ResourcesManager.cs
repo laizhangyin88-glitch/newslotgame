@@ -279,7 +279,6 @@ namespace BagelCode
 
         private IEnumerator InitFishResources()
         {
-
             int totalCount = gameData.GameConfig.FishPackRes.Length;
             int count = 0;
             if (totalCount > 0)
@@ -291,17 +290,14 @@ namespace BagelCode
                     GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>("fishing", gameData.GameConfig.FishPackRes[i].name);
                     if (gameObject != null)
                     {
-                        if (gameObject != null)
-                        {
-                            FishPackResList[gameData.GameConfig.FishPackRes[i].name] = Instantiate(gameObject);
-                            count++;
-                            LoadProgressBarEvent();
-                            if (count == totalCount)
-                                ExcuteLoadResourcesQueue();
-                        }
-                        else
-                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.FishPackRes[i].name);
+                        FishPackResList[gameData.GameConfig.FishPackRes[i].name] = Instantiate(gameObject);
+                        count++;
+                        LoadProgressBarEvent();
+                        if (count == totalCount)
+                            ExcuteLoadResourcesQueue();
                     }
+                    else
+                        Debug.LogError("资源加载失败==> " + gameData.GameConfig.FishPackRes[i].name);
                 }
             }
         }
@@ -309,10 +305,9 @@ namespace BagelCode
         public void OnChangeScene(int sceneIndex)
         {
             if (hasLoadedBossFish)
-            {
                 RemoveLoadedBossFish();
-                cursceneId = sceneIndex;
-            }
+            Debug.LogError("当前地图id => " + sceneIndex);
+            cursceneId = sceneIndex;
             LoadFishBossResource();
         }
 
@@ -334,6 +329,7 @@ namespace BagelCode
             else
                 fishBossPack = gameData.GameConfig.FishBossPackRes[cursceneId];
             fishBossBundleName = fishBossPack.name;
+            Debug.LogError("fishBossBundleName => " + fishBossBundleName);
             AssetBundleManager.LoadDependencies(fishBossBundleName);
             assetBundleLoadOperation = AssetBundleManager.LoadAssetBundle(fishBossBundleName);
         }
@@ -344,29 +340,40 @@ namespace BagelCode
                 && assetBundleLoadOperation.IsDone())
             {
                 hasLoadedBossFish = true;
-                StartCoroutine(InitFishBossResources());
+                InitFishBossResources();
                 assetBundleLoadOperation = null;
             }
         }
 
-        private IEnumerator InitFishBossResources()
+        private void InitFishBossResources()
         {
-            for (int i = 0; i < gameData.GameConfig.FishBossRes.Length; i++)
+            FishPackResList = new Dictionary<string, GameObject>();
+            GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>(fishBossBundleName, fishBossBundleName);
+            if (gameObject != null)
+                FishPackResList[fishBossBundleName] = Instantiate(gameObject);
+            else
+                Debug.LogError("资源加载失败==> " + fishBossBundleName);
+            CreateBossFishPool();
+        }
+
+        private void CreateBossFishPool()
+        {
+            int totalCount = gameData.GameConfig.FishBossRes.Length;
+            if (totalCount > 0)
             {
-                if (gameData.GameConfig.FishBossRes[i].ParentName == fishBossBundleName)
+                for (int i = 0; i < gameData.GameConfig.FishBossRes.Length; i++)
                 {
-                    GameObject gameObject = AssetBundleManager.LoadAsset<GameObject>(fishBossBundleName, gameData.GameConfig.FishBossRes[i].name);
-                    if (gameObject != null)
+                    Fish v = gameData.GameConfig.FishBossRes[i];
+                    if (FishPackResList.ContainsKey(v.ParentName))
                     {
-                        yield return new WaitUntil(IsLoaded);
-                        isLoaded = false;
-                        if (gameObject != null)
-                            FishGameObjectPoolManager.Instance.AddGameObjectPool(gameObject, gameData.GameConfig.FishBossRes[i].amout, gameData.GameConfig.FishBossRes[i].name, PoolType.FishPool);
-                        else
-                            Debug.LogError("资源加载失败==> " + gameData.GameConfig.FishPackRes[i].name);
+                        GameObject parentPrefab = FishPackResList[v.ParentName];
+                        GameObject prefab = parentPrefab.transform.Find(v.name).gameObject;
+                        FishGameObjectPoolManager.Instance.AddGameObjectPool(prefab, v.amout, v.name, PoolType.FishPool);
                     }
+                   
                 }
             }
+            DeleteAllFishPackResources();
         }
 
         private IEnumerator CreateFishPool()

@@ -147,10 +147,10 @@ namespace BagelCode
         {
             FishBossPackRes = new FishPack[]
             {
-                new FishPack {name = "fish_boss_01", path = "Prefabs/FishPack/Fish_Pack_11.prefab"},
-                new FishPack {name = "fish_boss_02", path = "Prefabs/FishPack/Fish_Pack_12.prefab"},
-                new FishPack {name = "fish_boss_03", path = "Prefabs/FishPack/Fish_Pack_13.prefab"},
-                new FishPack {name = "fish_boss_04", path = "Prefabs/FishPack/Fish_Pack_14.prefab"},
+                new FishPack {name = "fish_boss_01", path = "Prefabs/FishPack/fish_boss_01.prefab"},
+                new FishPack {name = "fish_boss_02", path = "Prefabs/FishPack/fish_boss_02.prefab"},
+                new FishPack {name = "fish_boss_03", path = "Prefabs/FishPack/fish_boss_03.prefab"},
+                new FishPack {name = "fish_boss_04", path = "Prefabs/FishPack/fish_boss_04.prefab"},
             };
 
             FishBossRes = new Fish[]
