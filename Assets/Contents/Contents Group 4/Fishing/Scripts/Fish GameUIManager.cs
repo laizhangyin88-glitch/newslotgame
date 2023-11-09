@@ -135,6 +135,7 @@ namespace BagelCode
 
         public void SetGameBG(int index, bool isFadeAnimation)
         {
+            isFadeAnimation = true;
             index = index > 4 ? 4 : index;
             FishResourcesManager.Instance.OnChangeScene(index);
             if (!AllGameBG.ContainsKey(index) || AllGameBG[index] == null)
