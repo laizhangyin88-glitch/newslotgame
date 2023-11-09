@@ -2,6 +2,7 @@ using fishMsg;
 using hall;
 using SlotMaker;
 using System;
+using System.Reflection;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
@@ -289,8 +290,11 @@ namespace BagelCode
                 ShowUITips("初始化玩家信息失败", 3);
             }
 
-            if (gameStatusRsp.background_index > 0)
+            if (gameStatusRsp.background_index == 0)
+                FishResourcesManager.Instance.OnChangeScene(0);
+            else
                 SyncGameScene((int)gameStatusRsp.background_index);
+
         }
 
         public void SyncGameScene(int sceneId)
