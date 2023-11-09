@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Timers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace BagelCode
@@ -130,13 +131,12 @@ namespace BagelCode
         {
             SetGameBG(sceneId, false);
             FishTideOver(sceneId);
-            FishResourcesManager.Instance.OnChangeScene(sceneId);
         }
 
         public void SetGameBG(int index, bool isFadeAnimation)
         {
-            isFadeAnimation = true;
             index = index > 4 ? 4 : index;
+            FishResourcesManager.Instance.OnChangeScene(index);
             if (!AllGameBG.ContainsKey(index) || AllGameBG[index] == null)
             {
                 Texture texture = AssetBundleManager.LoadAsset<Texture>("fishingbg", gameData.GameConfig.BGRes[index].name);
