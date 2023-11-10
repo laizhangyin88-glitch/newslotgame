@@ -108,6 +108,12 @@ namespace BagelCode
                     ChangeScore();
                 else if (curScore != effectVo.score)
                     ChangeScoreEnd();
+                else if (curScore == 0 && effectVo.score == 0)
+                {
+                    isChangeScore = false;
+                    callBack?.Invoke();
+                    isCanDestroy = true;
+                }
             }
         }
 
