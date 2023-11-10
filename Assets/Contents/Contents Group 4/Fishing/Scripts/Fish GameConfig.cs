@@ -162,6 +162,7 @@ namespace BagelCode
                 new Fish {name = "Fish_18", ParentName = "fish_boss_02", amout = 15, count = 1},
                 new Fish {name = "Fish_19", ParentName = "fish_boss_02", amout = 15, count = 1},
                 new Fish {name = "Fish_40", ParentName = "fish_boss_02", amout = 15, count = 1},
+                new Fish {name = "Fish_16", ParentName = "fish_boss_03", amout = 15, count = 1},
                 new Fish {name = "Fish_20", ParentName = "fish_boss_03", amout = 15, count = 1},
                 new Fish {name = "Fish_21", ParentName = "fish_boss_03", amout = 15, count = 1},
                 new Fish {name = "Fish_45", ParentName = "fish_boss_03", amout = 15, count = 1},

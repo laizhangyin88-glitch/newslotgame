@@ -191,7 +191,6 @@ namespace BagelCode
         public void ChangeGameScene(ChangeSceneRsp data)
         {
             int sceneId = (int)data.scene_id;
-            FishResourcesManager.Instance.OnChangeScene(sceneId);
             int changeType = (int)data.scene_change_type;
             float time = data.time_seconds;
             switch (changeType)

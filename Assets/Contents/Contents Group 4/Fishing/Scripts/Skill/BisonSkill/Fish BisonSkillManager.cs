@@ -34,8 +34,7 @@ namespace BagelCode
         private void ResponesBisonShootMsg(byte[] bytes)
         {
             MadCowStatusRsp data = WebSocketTool.Deserialize<MadCowStatusRsp>(bytes);
-            var bisonSkillItem = CurrentUseSkillInsList[data.usMadCowIdId];
-            if (bisonSkillItem != null && data.usStatus == 2)
+            if (CurrentUseSkillInsList.TryGetValue(data.usMadCowIdId, out FishBisonSkillItem bisonSkillItem) && data.usStatus == 2)
             {
                 bisonSkillItem.BeginBisonShoot(0);
             }
@@ -44,8 +43,7 @@ namespace BagelCode
         private void ResponesBisonScoreMsg(byte[] bytes)
         {
             MadCowScoreRsp data = WebSocketTool.Deserialize<MadCowScoreRsp>(bytes);
-            var bisonSkillItem = CurrentUseSkillInsList[data.usMadCowIdId];
-            if (bisonSkillItem != null)
+            if (CurrentUseSkillInsList.TryGetValue(data.usMadCowIdId, out FishBisonSkillItem bisonSkillItem))
             {
                 bisonSkillItem.RefreshBisonInfo(data.usTotalScore, data.usTotalMul);
             }
