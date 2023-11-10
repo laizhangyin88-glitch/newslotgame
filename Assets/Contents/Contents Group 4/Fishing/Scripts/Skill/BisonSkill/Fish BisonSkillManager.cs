@@ -52,7 +52,7 @@ namespace BagelCode
         private void ResponesBisonDestroyMsg(byte[] bytes)
         {
             DestoryMadCowRsp data = WebSocketTool.Deserialize<DestoryMadCowRsp>(bytes);
-            var bisonSkillItem = CurrentUseSkillInsList[data.usMadCowId];
+            if(CurrentUseSkillInsList.TryGetValue(data.usMadCowId, out FishBisonSkillItem bisonSkillItem))
             if (bisonSkillItem != null)
             {
                 bisonSkillItem.EndBisonSkill(data.usTotalScore, data.usTotalMul);
