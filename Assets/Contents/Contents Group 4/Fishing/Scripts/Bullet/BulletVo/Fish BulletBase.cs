@@ -164,14 +164,14 @@ namespace BagelCode
             SetTargetFish(lockFish);
             if (lockFish != null)
             {
-                if (lockFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
+                if (lockFish.fishVo.fishCfg.clientBuildFishType == (int)FishGameConfig.FishType.Part)
                 {
                     FishPartFish partFish = lockFish as FishPartFish;
                     Transform lockFishTrans = partFish.GetLockPartPoint();
                     if (lockFishTrans != null)
                         SetTargetFishTransform(lockFishTrans);
                 }
-                else if (lockFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
+                else if (lockFish.fishVo.fishCfg.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
                 {
                     FishDragonFish dargonFish = lockFish as FishDragonFish;
                     Transform lockFishTrans = dargonFish.GetLockPartPoint();

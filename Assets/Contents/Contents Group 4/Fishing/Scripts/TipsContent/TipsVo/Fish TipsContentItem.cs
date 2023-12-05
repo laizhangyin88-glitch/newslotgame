@@ -38,11 +38,11 @@ namespace BagelCode
         public void ResetState(FishFishBase tempIns, int uID)
         {
             targetObjIns = tempIns;
-            showTime = tempIns.fishVo.FishConfig.tCShowTime;
+            showTime = tempIns.fishVo.fishCfg.tCShowTime;
             SetUID(uID);
             isShowTips = true;
             SetCurrentPos();
-            SetShowText(tempIns.fishVo.FishConfig.TipsContentInfo);
+            SetShowText(tempIns.fishVo.fishCfg.TipsContentInfo);
             IsShowText(true);
             currentTime = 0;
             isCanDestroy = false;

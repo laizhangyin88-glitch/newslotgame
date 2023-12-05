@@ -38,10 +38,10 @@ namespace BagelCode
                 return;
             if (gameData.playerChairId == hitFishMsg.chairId)
             {
-                if (fishIns.fishVo.FishConfig.IsShakeScreen == 1)
+                if (fishIns.fishVo.fishCfg.IsShakeScreen == 1)
                 {
                     bool isVibrate = false;
-                    if (fishIns.fishVo.FishConfig.IsPhoneVibrate == 1)
+                    if (fishIns.fishVo.fishCfg.IsPhoneVibrate == 1)
                     {
                         isVibrate = true;
                     }
@@ -57,7 +57,7 @@ namespace BagelCode
                 FishFishBase parentFish = FishFishManager.Instance.GetCacheFishById(hitFishMsg.bombUID);
                 FishDieEffectConfig subFishDieEffectConfig;
                 if (parentFish != null)
-                    subFishDieEffectConfig = gameData.DieEffectConfigList[parentFish.fishVo.FishConfig.fishDamageSmallFishDieEffectID];
+                    subFishDieEffectConfig = gameData.DieEffectConfigList[parentFish.fishVo.fishCfg.fishDamageSmallFishDieEffectID];
                 else
                 {
                     FishFishConfig fishConfig = gameData.FishConfigList[hitFishMsg.bombFishId];
@@ -91,7 +91,7 @@ namespace BagelCode
 
         public void BaseShowPlusTipsEffect(FishFishBase fishIns, FishPlayerInfo playerIns, KillFishRsp hitFishMsg)
         {
-            FishDieEffectConfig dieEffectConfig = FishFishEffectManager.Instance.GetFishEffectConfig(fishIns.fishVo.FishConfig.dieEffectId);
+            FishDieEffectConfig dieEffectConfig = FishFishEffectManager.Instance.GetFishEffectConfig(fishIns.fishVo.fishCfg.dieEffectId);
             if (dieEffectConfig != null)
             {
                 if (dieEffectConfig.plusTipsID != 0)
@@ -109,7 +109,7 @@ namespace BagelCode
 
         public void BaseShowFishSpecialEffect(FishFishBase fishIns)
         {
-            FishDieEffectConfig dieEffectConfig = FishFishEffectManager.Instance.GetFishEffectConfig(fishIns.fishVo.FishConfig.dieEffectId);
+            FishDieEffectConfig dieEffectConfig = FishFishEffectManager.Instance.GetFishEffectConfig(fishIns.fishVo.fishCfg.dieEffectId);
             if (dieEffectConfig != null)
             {
                 for (int i = 0; i < dieEffectConfig.dieEffectName.Count; i++)
@@ -145,7 +145,7 @@ namespace BagelCode
 
         public void BaseShowLightningEffect(FishFishBase fishIns, FishPlayerInfo playerIns, KillFishRsp hitFishMsg)
         {
-            var tempConfig = FishLightningEffectManager.Instance.GetFishEffectConfig(fishIns.fishVo.FishConfig.dieEffectId);
+            var tempConfig = FishLightningEffectManager.Instance.GetFishEffectConfig(fishIns.fishVo.fishCfg.dieEffectId);
             if (tempConfig != null)
             {
                 int parentFishId = hitFishMsg.bombFishId;

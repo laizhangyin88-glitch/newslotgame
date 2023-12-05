@@ -159,19 +159,22 @@ namespace BagelCode
                 }
                 else if (curFishStatus == FishStatus.Move)
                 {
-                    if (m_fishPointIndex >= m_fishTracePoints.Count - 1)
+                    //龙的skeleton动画自带位移，不需要移动
+                    if (fishIns.fishVo.fishCfg.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
                     {
-                        if (fishIns != null)
-                            fishIns.isCanDestroy = true;
-                        return;
+
                     }
-                    //if (FishCsharpManager.m_Fish3D)
-                    //    Fish3DMoving(Time.deltaTime);
-                    //else
-                    //    FishMoving(Time.deltaTime);
+                    else
+                    {
+                        if (m_fishPointIndex >= m_fishTracePoints.Count - 1)
+                        {
+                            if (fishIns != null)
+                                fishIns.isCanDestroy = true;
+                            return;
+                        }
 
-                    FishMoving();
-
+                        FishMoving();
+                    }
 
                     if (m_isFishSeen != CheckBoundValid())
                     {
@@ -421,60 +424,55 @@ namespace BagelCode
             }
         }
 
-        //public void Fish3DMoving(float deltaTime)
-        //{
-        //    Vector3 tempV = Vector3.zero;
-        //    if (m_fishTimeElapse >= deltaTime)
-        //    {
-        //        m_fishTimeElapse -= deltaTime;
+        public void Fish3DMoving(float deltaTime)
+        {
+            Vector3 tempV = Vector3.zero;
+            if (m_fishTimeElapse >= deltaTime)
+            {
+                m_fishTimeElapse -= deltaTime;
 
-        //        //if (currentFishPointIndex <= m_fishTracePoints.Count - 1)
+                if (currentFishPointIndex <= m_fishTracePoints.Count - 1)
+                {
+                    tempV = (m_fishTracePoints[currentFishPointIndex].pos + offsetFishZValue - CachedTrans.localPosition).normalized;
+                    CachedTrans.forward = new Vector3(tempV.x, tempV.y, 0);
+                }
+                else
+                {
+                    tempV = (m_fishTracePoints[m_fishPointIndex].pos + offsetFishZValue - CachedTrans.localPosition).normalized;
+                    CachedTrans.forward = new Vector3(tempV.x, tempV.y, 0);
+                }
 
-        //        //    CachedTrans.forward = (m_fishTracePoints[currentFishPointIndex].pos + offsetFishZValue - CachedTrans.localPosition).normalized;
-        //        //else
-        //        //    CachedTrans.forward = (m_fishTracePoints[m_fishPointIndex].pos + offsetFishZValue - CachedTrans.localPosition).normalized;
-        //        if (currentFishPointIndex <= m_fishTracePoints.Count - 1)
-        //        {
-        //            tempV = (m_fishTracePoints[currentFishPointIndex].pos + offsetFishZValue - CachedTrans.localPosition).normalized;
-        //            CachedTrans.forward = new Vector3(tempV.x, tempV.y, 0);
-        //        }
-        //        else
-        //        {
-        //            tempV = (m_fishTracePoints[m_fishPointIndex].pos + offsetFishZValue - CachedTrans.localPosition).normalized;
-        //            CachedTrans.forward = new Vector3(tempV.x, tempV.y, 0);
-        //        }
-
-        //        CachedTrans.localPosition += m_direction * Time.deltaTime * m_moveSpeed;
-        //    }
-        //    else
-        //    {
-        //        if (currentFishPointIndex <= m_fishTracePoints.Count - 1)
-        //        {
-        //            tempV = (m_fishTracePoints[currentFishPointIndex].pos + offsetFishZValue - CachedTrans.localPosition).normalized;
-        //            CachedTrans.forward = new Vector3(tempV.x, tempV.y, 0);
-        //        }
-        //        else
-        //        {
-        //            tempV = (m_fishTracePoints[m_fishPointIndex].pos + offsetFishZValue - CachedTrans.localPosition).normalized;
-        //            CachedTrans.forward = new Vector3(tempV.x, tempV.y, 0);
-        //        }
+                CachedTrans.localPosition += m_direction * Time.deltaTime * m_moveSpeed;
+            }
+            else
+            {
+                if (currentFishPointIndex <= m_fishTracePoints.Count - 1)
+                {
+                    tempV = (m_fishTracePoints[currentFishPointIndex].pos + offsetFishZValue - CachedTrans.localPosition).normalized;
+                    CachedTrans.forward = new Vector3(tempV.x, tempV.y, 0);
+                }
+                else
+                {
+                    tempV = (m_fishTracePoints[m_fishPointIndex].pos + offsetFishZValue - CachedTrans.localPosition).normalized;
+                    CachedTrans.forward = new Vector3(tempV.x, tempV.y, 0);
+                }
 
 
-        //        float timeTemp = m_fishTimeElapse;
+                float timeTemp = m_fishTimeElapse;
 
-        //        CachedTrans.localPosition += m_direction * Time.deltaTime * m_moveSpeed * timeTemp / deltaTime;
+                CachedTrans.localPosition += m_direction * Time.deltaTime * m_moveSpeed * timeTemp / deltaTime;
 
-        //        SetFishMoveData();
+                SetFishMoveData();
 
-        //        CachedTrans.localPosition += m_direction * Time.deltaTime * m_moveSpeed * (deltaTime - timeTemp) / deltaTime;
+                CachedTrans.localPosition += m_direction * Time.deltaTime * m_moveSpeed * (deltaTime - timeTemp) / deltaTime;
 
-        //        m_fishTimeElapse -= Math.Abs(deltaTime - timeTemp);
+                m_fishTimeElapse -= Math.Abs(deltaTime - timeTemp);
 
-        //        Set3DFishRotation();
+                Set3DFishRotation();
 
-        //        return;
-        //    }
-        //}
+                return;
+            }
+        }
 
         void Set3DFishRotation()
         {

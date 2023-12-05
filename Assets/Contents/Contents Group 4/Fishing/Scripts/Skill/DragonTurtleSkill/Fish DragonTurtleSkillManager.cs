@@ -64,7 +64,7 @@ namespace BagelCode
                 {
                     Vector3 beginPos = FishGameObjectPoolManager.Instance.GetPoolParent(PoolType.EffectPool).transform.TransformPoint(FishCsharpManager.ScreenPointToRealPoint(data.usBombPosX, data.usBombPosY));
                     Vector3 nextPos = FishGameObjectPoolManager.Instance.GetPoolParent(PoolType.EffectPool).transform.TransformPoint(FishCsharpManager.ScreenPointToRealPoint(data.usNextBombPosX, data.usNextBombPosy));
-                    var skillIns = CreateSkill(UID, beginPos, nextPos, bombCount, playerIns, skillStatus, skillTime, killFishUID, 47);
+                    var skillIns = GetSkill(UID, beginPos, nextPos, bombCount, playerIns, skillStatus, skillTime, killFishUID, 47);
                     if (skillIns != null)
                     {
                         skillIns.objResName = "Skill_DragonTurtle";

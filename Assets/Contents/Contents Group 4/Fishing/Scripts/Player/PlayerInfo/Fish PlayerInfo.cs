@@ -516,12 +516,12 @@ namespace BagelCode
         public void CaculateLockFishDistance(FishFishBase targetFish, Transform currentTrans)
         {
             Vector3 lockFishPos;
-            if (targetFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
+            if (targetFish.fishVo.fishCfg.clientBuildFishType == (int)FishGameConfig.FishType.Part)
             {
                 FishPartFish partFish = targetFish as FishPartFish;
                 lockFishPos = currentTrans.InverseTransformPoint(partFish.GetLockPartPoint().position);
             }
-            else if (targetFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
+            else if (targetFish.fishVo.fishCfg.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
             {
                 FishDragonFish dragonFish = targetFish as FishDragonFish;
                 lockFishPos = currentTrans.InverseTransformPoint(dragonFish.GetLockPartPoint().position);
@@ -558,12 +558,12 @@ namespace BagelCode
 
         public void SetTargetLockFishTips(FishFishBase targetFish)
         {
-            if (targetFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
+            if (targetFish.fishVo.fishCfg.clientBuildFishType == (int)FishGameConfig.FishType.Part)
             {
                 FishPartFish partFish = targetFish as FishPartFish;
                 Panel.SetLockTipsPos(partFish.GetLockPartPoint().position);
             }
-            else if (targetFish.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
+            else if (targetFish.fishVo.fishCfg.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
             {
                 FishDragonFish dragonFish = targetFish as FishDragonFish;
                 Panel.SetLockTipsPos(dragonFish.GetLockPartPoint().position);
