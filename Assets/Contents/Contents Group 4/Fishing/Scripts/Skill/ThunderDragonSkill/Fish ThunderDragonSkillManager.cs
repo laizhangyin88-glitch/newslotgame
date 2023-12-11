@@ -48,6 +48,32 @@ namespace BagelCode
         }
 
         ///测试用
+        public void EnterSkillMode(CreateGhostShipRsp data)
+        {
+            Debug.LogError("EnterTestSkill");
+            var playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(data.usChairId);
+            int uid = data.usGhostShipId;
+            int skillStatus = data.usStatus;
+            int skillTime = data.usStatusTime;
+            int fishId = 48;
+            int killFishUid = data.usKilledFishId;
+            if (!curUseSkillInsList.ContainsKey(uid) || curUseSkillInsList[uid] == null)
+            {
+                Vector3 beginPos = Vector3.zero;
+                Vector3 nextPos = Vector3.zero;
+                var skillIns = GetSkill(uid, beginPos, nextPos, 3, playerIns, skillStatus, skillTime, killFishUid, fishId);
+                if (skillIns != null)
+                {
+                    skillIns.objResName = "Skill_ThunderDragon";
+                    var skillTemp = skillIns as FishThunderDragonSkillItem;
+                    skillTemp.ResetSkillState(beginPos, skillTime);
+                    skillTemp.ShowSkill();
+                }
+            }
+            else
+                Debug.LogError("ThunderDragonSkill is currently in the exploding state");
+        }
+
         public void EnterSkillMode(CreateThunderHammerRsp data)
         {
             Debug.LogError("EnterTestSkill");
@@ -55,7 +81,7 @@ namespace BagelCode
             int uid = data.usThunderHammerId;
             int skillStatus = data.usStatus;
             int skillTime = data.usStatusTime;
-            int fishId = data.bombFishId;
+            int fishId = 48;
             int killFishUid = data.usKilledFishId;
             if (!curUseSkillInsList.ContainsKey(uid) || curUseSkillInsList[uid] == null)
             {
@@ -82,7 +108,7 @@ namespace BagelCode
             int skillStatus = data.usStatus;
             int skillTime = data.usStatusTime;
             int bombCount = data.usBombCount;
-            int fishId = data.bombFishId;
+            int fishId = 48;
             int killFishUid = data.usKilledFishId;
             if (!curUseSkillInsList.ContainsKey(uid) || curUseSkillInsList[uid] == null)
             {
@@ -114,7 +140,7 @@ namespace BagelCode
             int skillStatus = data.usStatus;
             int skillTime = data.usStatusTime;
             int bombCount = data.usBombCount;
-            int fishId = data.bombFishId;
+            int fishId = 48;
             int killFishUid = data.usKilledFishId;
             if (!curUseSkillInsList.ContainsKey(uid) || curUseSkillInsList[uid] == null)
             {

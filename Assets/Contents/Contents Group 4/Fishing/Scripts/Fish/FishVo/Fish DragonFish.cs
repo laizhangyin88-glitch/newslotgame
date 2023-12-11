@@ -80,14 +80,14 @@ namespace BagelCode
             string animName = fishVo.fishCfg.fishMoveAnimationName;
             if (!string.IsNullOrEmpty(animName))
             {
-                skeletonAni.state.SetAnimation(0, animName, false);
+                //再次播放会倒序播放, 直接用循环返回第0帧
+                skeletonAni.state.SetAnimation(0, animName, true);
                 skeletonAni.state.Complete += StateComplete;
             }
         }
 
         private void StateComplete(Spine.TrackEntry trackEntry)
         {
-            skeletonAni.state.SetEmptyAnimation(0, 0);
             skeletonAni.timeScale = 0;
             isCanDestroy = true;
         }

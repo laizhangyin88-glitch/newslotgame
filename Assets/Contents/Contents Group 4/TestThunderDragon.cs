@@ -1,5 +1,7 @@
+using BagelCode.ClientModels;
 using Spine;
 using Spine.Unity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,36 +9,44 @@ using UnityEngine.UI;
 
 public class TestThunderDragon : MonoBehaviour
 {
-    public Button testButton;
-    public Button testButton1;
+    public Button dragonBtn;
+    public Button fishBtn;
     public SkeletonAnimation thunderDragon;
+    public SkeletonAnimation ship;
 
     // Start is called before the first frame update
     void Start()
     {
-        thunderDragon.state.SetAnimation(0, "SWIM", false);
+        thunderDragon.state.SetAnimation(0, "SWIM", true);
         thunderDragon.state.Complete += StateComplete;
-        testButton.onClick.AddListener(OnClick);
-        testButton1.onClick.AddListener(OnClick1);
+        dragonBtn.onClick.AddListener(OnDragonClick);
+
+        
+        ship.state.SetAnimation(0, "PariteShip_ani", false);
+        ship.state.Complete += State_Complete;
+        fishBtn.onClick.AddListener(OnFishClick);
+    }
+
+    private void State_Complete(TrackEntry trackEntry)
+    {
+        ship.timeScale = 0;
     }
 
     private void StateComplete(Spine.TrackEntry trackEntry)
     {
-        //thunderDragon.state.SetEmptyAnimation(0, 0);
         thunderDragon.timeScale = 0;
-        gameObject.SetActive(false);
     }
 
-    void OnClick()
+    void OnDragonClick()
     {
-        gameObject.SetActive(true);
-    }
-
-    void OnClick1()
-    {
-        thunderDragon.skeleton.SetToSetupPose();
         thunderDragon.timeScale = 0.3f;
-        thunderDragon.state.SetAnimation(0, "SWIM", false);
+        thunderDragon.state.SetAnimation(0, "SWIM", true);
+    }
+
+    void OnFishClick()
+    {
+        ship.timeScale = 1f;
+        ship.state.SetAnimation(0, "PariteShip_ani", false);
     }
 
 }

@@ -308,13 +308,10 @@ namespace BagelCode
             {
                 foreach (FishInfo fishInfo in gameData.fishRawDataList)
                 {
-                    if (fishInfo.usFishKind > 33 && fishInfo.usFishKind < 39 || fishInfo.usFishKind == 44)
+                    //if (fishInfo.usFishKind > 33 && fishInfo.usFishKind < 39 || fishInfo.usFishKind == 44)
+                    //    fishInfo.usFishKind = 48;
+                    if (fishInfo.usFishKind == 35 || fishInfo.usFishKind == 44 || fishInfo.usFishKind == 46)
                         fishInfo.usFishKind = 48;
-
-                    if (fishInfo.usFishKind == 48)
-                    {
-                        Debug.LogError("TEST");
-                    }
                     FishVo vo = ParseFishConfig(fishInfo);
                     if (vo != null)
                     {
@@ -322,11 +319,7 @@ namespace BagelCode
                         if (fish != null)
                         {
                             SetFishSortingOrder(fish);
-                            //fish.BeginMove();
-                            if (vo.fishId < 47)
-                                fish.BeginMove();
-                            else if (vo.fishId == 48)
-                                fish.transform.localPosition = new Vector3(0, 0, 0);
+                            fish.BeginMove();
                         }
                     }
                 }
@@ -619,7 +612,12 @@ namespace BagelCode
         {
             CreateGhostShipRsp data = WebSocketTool.Deserialize<CreateGhostShipRsp>(bytes);
             if (data.usDieType == 1)
+            {
                 FishGhostShipSkillManager.Instance.EnterGhostShipSkillMode(data);
+                //FishLaternSkillManager.Instance.EnterLaternFishSkillMode(data);
+                FishThunderDragonSkillManager.Instance.EnterSkillMode(data);
+                Debug.LogError("Point my Test");
+            }
             else
             {
                 var fishIns = GetUsingFishByFishUID(data.usKilledFishId);
@@ -643,6 +641,7 @@ namespace BagelCode
         {
             CreateSerialBombCrabRsp data = WebSocketTool.Deserialize<CreateSerialBombCrabRsp>(bytes);
             //FishMultBombSkillManager.Instance.EnterMultBombSkillMode(data);
+            Debug.LogError("Point my Test");
             FishThunderDragonSkillManager.Instance.EnterSkillMode(data);
         }
 
@@ -650,15 +649,20 @@ namespace BagelCode
         {
             CreateThunderHammerRsp data = WebSocketTool.Deserialize<CreateThunderHammerRsp>(bytes);
             //FishThunderHammerSkillManager.Instance.EnterSkillMode(data);
+            Debug.LogError("Point my Test");
             FishThunderDragonSkillManager.Instance.EnterSkillMode(data);
+            
         }
 
         public void ResponesCreateAnglerFishMsg(byte[] bytes)
         {
             CreateAnglerFishRsp data = WebSocketTool.Deserialize<CreateAnglerFishRsp>(bytes);
             if (data.usDieType == 1)
+            {
                 //FishLaternSkillManager.Instance.EnterLaternFishSkillMode(data);
                 FishThunderDragonSkillManager.Instance.EnterSkillMode(data);
+                Debug.LogError("Point my Test");
+            }
             else
             {
                 var fishIns = GetUsingFishByFishUID(data.usKilledFishId);
