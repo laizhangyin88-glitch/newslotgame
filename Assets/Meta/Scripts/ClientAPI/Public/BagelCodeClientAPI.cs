@@ -7,6 +7,7 @@ using SlotMaker;
 using SlotMaker.Contents;
 using BagelCode.ClientModels;
 using BagelCode.Task.Actions;
+using BagelCode.Protobuf;
 
 namespace BagelCode
 {
@@ -21,6 +22,10 @@ namespace BagelCode
                 deviceID = NativeHelper.Instance.GetDeviceID();
 #endif
             var info = BlackboardUtils.FindVariable<NodeCanvas.Framework.Blackboard>(MainBlackboard.Get(), "/pushInfo");
+            var bb = BlackboardUtils.GetOrCreateBlackboard(MainBlackboard.Get(), "userLoginInfo");
+            string strContent = "";
+            if (BlackboardUtils.FindVariable<string>(bb, "loginInfo") != null)
+                strContent = BlackboardUtils.FindVariable<string>(bb, "loginInfo").value;
             LoginRequest request = new LoginRequest
             {
                 blockseq = BagelCodeHTTP.FetchBlockSeq(),
@@ -39,7 +44,7 @@ namespace BagelCode
                 language = ApplicationSettings.GetDeviceLanguage(),
                 isServerMaintenanceIgnore = false,
                 clickPn = (info != null && info.value != null) ? "click_pn" : "",
-                devicePushSetting = BlackboardQueryUtils.GetDevicePushSetting()
+                devicePushSetting = strContent
             };
 
             BagelCodeHTTP.MakeApiCall("/v0/main/login", null, request,
