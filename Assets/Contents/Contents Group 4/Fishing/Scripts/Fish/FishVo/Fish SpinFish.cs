@@ -77,7 +77,7 @@ namespace BagelCode
         public override void PlayMoveAnim()
         {
             if (spineAnim == null) return;
-            string animName = fishVo.FishConfig.fishMoveAnimationName;
+            string animName = fishVo.fishCfg.fishMoveAnimationName;
             if (!string.IsNullOrEmpty(animName))
             {
                 spineAnim.loop = true;
@@ -128,7 +128,7 @@ namespace BagelCode
         {
             if (spineAnim == null)
                 return;
-            var aniName = fishVo.FishConfig.fishDieAnimationName;
+            var aniName = fishVo.fishCfg.fishDieAnimationName;
             if (aniName != "nil")
             {
                 spineAnim.loop = false;

@@ -93,7 +93,7 @@ namespace BagelCode
                         return;
                     if (targetFish != null && hitFishBase != targetFish)
                         return;
-                    if (targetFish != null && hitFishBase.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
+                    if (targetFish != null && hitFishBase.fishVo.fishCfg.clientBuildFishType == (int)FishGameConfig.FishType.Part)
                     {
                         FishPartFish HitPartFish = hitFishBase as FishPartFish;
                         if (!other.gameObject.CompareTag(HitPartFish.GetColliderObj().gameObject.tag))return;
@@ -118,7 +118,7 @@ namespace BagelCode
                         return;
                     if (targetFish != null && HitFishBase != targetFish)
                         return;
-                    if (targetFish != null && HitFishBase.fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Part)
+                    if (targetFish != null && HitFishBase.fishVo.fishCfg.clientBuildFishType == (int)FishGameConfig.FishType.Part)
                     {
                         FishPartFish HitPartFish = HitFishBase as FishPartFish;
                         if (!other.gameObject.CompareTag(HitPartFish.GetColliderObj().gameObject.tag))
@@ -152,7 +152,7 @@ namespace BagelCode
         {
             if (targetFish != null)
             {
-                if (targetFish.fishVo.FishConfig.clientBuildFishType == (int)FishType.Part)
+                if (targetFish.fishVo.fishCfg.clientBuildFishType == (int)FishType.Part)
                 {
                     if (targetFish.GetIsDie() || targetFish.GetIsDestroy() || !targetFish.CheckBoundValid())
                     {

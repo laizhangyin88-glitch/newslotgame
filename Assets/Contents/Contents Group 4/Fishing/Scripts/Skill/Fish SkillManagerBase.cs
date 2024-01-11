@@ -21,7 +21,20 @@ namespace BagelCode
 
         protected abstract void RemoveEventListener();
 
-        protected FishSkillItemBase CreateSkill(int uid, Vector3 beginPos, Vector3 nextPos, int bombCount, FishPlayerInfo playerIns, int skillStatus, float skillTime, int killFishUid, int fishId)
+        /// <summary>
+        /// 新写的通用技能
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="beginPos"></param>
+        /// <param name="nextPos"></param>
+        /// <param name="bombCount"></param>
+        /// <param name="playerIns"></param>
+        /// <param name="skillStatus"></param>
+        /// <param name="skillTime"></param>
+        /// <param name="killFishUid"></param>
+        /// <param name="fishId"></param>
+        /// <returns></returns>
+        protected FishSkillItemBase GetSkill(int uid, Vector3 beginPos, Vector3 nextPos, int bombCount, FishPlayerInfo playerIns, int skillStatus, float skillTime, int killFishUid, int fishId)
         {
             SkillVo skillVo = GetSkillVo(uid, nextPos, bombCount, playerIns, killFishUid);
             var skillIns = GetSkill(skillVo, fishId);
@@ -63,6 +76,9 @@ namespace BagelCode
                 {
                     case 47:
                         skillIns = new FishDragonTurtleSkillItem();
+                        break;
+                    case 48:
+                        skillIns = new FishThunderDragonSkillItem();
                         break;
                 }
                 if (skillIns != null)

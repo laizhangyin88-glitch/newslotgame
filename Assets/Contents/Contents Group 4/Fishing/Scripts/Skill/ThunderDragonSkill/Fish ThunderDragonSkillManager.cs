@@ -47,15 +47,70 @@ namespace BagelCode
             skillItem?.DelaySkillDestroy();
         }
 
-        public void EnterThunderDragonSkillMode(CreateSerialBombCrabRsp data)
+        ///测试用
+        public void EnterSkillMode(CreateGhostShipRsp data)
         {
+            Debug.LogError("EnterTestSkill");
+            var playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(data.usChairId);
+            int uid = data.usGhostShipId;
+            int skillStatus = data.usStatus;
+            int skillTime = data.usStatusTime;
+            int fishId = 48;
+            int killFishUid = data.usKilledFishId;
+            if (!curUseSkillInsList.ContainsKey(uid) || curUseSkillInsList[uid] == null)
+            {
+                Vector3 beginPos = Vector3.zero;
+                Vector3 nextPos = Vector3.zero;
+                var skillIns = GetSkill(uid, beginPos, nextPos, 3, playerIns, skillStatus, skillTime, killFishUid, fishId);
+                if (skillIns != null)
+                {
+                    skillIns.objResName = "Skill_ThunderDragon";
+                    var skillTemp = skillIns as FishThunderDragonSkillItem;
+                    skillTemp.ResetSkillState(beginPos, skillTime);
+                    skillTemp.ShowSkill();
+                }
+            }
+            else
+                Debug.LogError("ThunderDragonSkill is currently in the exploding state");
+        }
+
+        public void EnterSkillMode(CreateThunderHammerRsp data)
+        {
+            Debug.LogError("EnterTestSkill");
+            var playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(data.usChairId);
+            int uid = data.usThunderHammerId;
+            int skillStatus = data.usStatus;
+            int skillTime = data.usStatusTime;
+            int fishId = 48;
+            int killFishUid = data.usKilledFishId;
+            if (!curUseSkillInsList.ContainsKey(uid) || curUseSkillInsList[uid] == null)
+            {
+                Vector3 beginPos = Vector3.zero;
+                Vector3 nextPos = Vector3.zero;
+                var skillIns = GetSkill(uid, beginPos, nextPos, 3, playerIns, skillStatus, skillTime, killFishUid, fishId);
+                if (skillIns != null)
+                {
+                    skillIns.objResName = "Skill_ThunderDragon";
+                    var skillTemp = skillIns as FishThunderDragonSkillItem;
+                    skillTemp.ResetSkillState(beginPos, skillTime);
+                    skillTemp.ShowSkill();
+                }
+            }
+            else
+                Debug.LogError("ThunderDragonSkill is currently in the exploding state");
+        }
+
+        public void EnterSkillMode(CreateSerialBombCrabRsp data)
+        {
+            Debug.LogError("EnterTestSkill");
             FishPlayerInfo playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(data.usChairId);
-            int UID = data.usSerialBombCrabId;
+            int uid = data.usSerialBombCrabId;
             int skillStatus = data.usStatus;
             int skillTime = data.usStatusTime;
             int bombCount = data.usBombCount;
-            int killFishUID = data.usKilledFishId;
-            if (!curUseSkillInsList.ContainsKey(data.usSerialBombCrabId) || curUseSkillInsList[data.usSerialBombCrabId] == null)
+            int fishId = 48;
+            int killFishUid = data.usKilledFishId;
+            if (!curUseSkillInsList.ContainsKey(uid) || curUseSkillInsList[uid] == null)
             {
                 if (data.usNextBombPosX == 0 && data.usNextBombPosy == 0)
                     return;
@@ -63,7 +118,39 @@ namespace BagelCode
                 {
                     Vector3 beginPos = FishGameObjectPoolManager.Instance.GetPoolParent(PoolType.EffectPool).transform.TransformPoint(FishCsharpManager.ScreenPointToRealPoint(data.usBombPosX, data.usBombPosY));
                     Vector3 nextPos = FishGameObjectPoolManager.Instance.GetPoolParent(PoolType.EffectPool).transform.TransformPoint(FishCsharpManager.ScreenPointToRealPoint(data.usNextBombPosX, data.usNextBombPosy));
-                    var skillIns = CreateSkill(UID, beginPos, nextPos, bombCount, playerIns, skillStatus, skillTime, killFishUID, 47);
+                    var skillIns = GetSkill(uid, beginPos, nextPos, bombCount, playerIns, skillStatus, skillTime, killFishUid, fishId);
+                    if (skillIns != null)
+                    {
+                        skillIns.objResName = "Skill_ThunderDragon";
+                        var skillTemp = skillIns as FishThunderDragonSkillItem;
+                        skillTemp.ResetSkillState(beginPos, skillTime);
+                        skillTemp.ShowSkill();
+                    }
+                }
+            }
+            else
+                Debug.LogError("ThunderDragonSkill is currently in the exploding state");
+        }
+
+        public void EnterSkillMode(CreateAnglerFishRsp data)
+        {
+            Debug.LogError("EnterTestSkill");
+            FishPlayerInfo playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(data.usChairId);
+            int uid = data.usAnglerFishId;
+            int skillStatus = data.usStatus;
+            int skillTime = data.usStatusTime;
+            int bombCount = data.usBombCount;
+            int fishId = 48;
+            int killFishUid = data.usKilledFishId;
+            if (!curUseSkillInsList.ContainsKey(uid) || curUseSkillInsList[uid] == null)
+            {
+                if (data.usNextBombPosX == 0 && data.usNextBombPosy == 0)
+                    return;
+                else
+                {
+                    Vector3 beginPos = FishGameObjectPoolManager.Instance.GetPoolParent(PoolType.EffectPool).transform.TransformPoint(FishCsharpManager.ScreenPointToRealPoint(data.usBombPosX, data.usBombPosY));
+                    Vector3 nextPos = FishGameObjectPoolManager.Instance.GetPoolParent(PoolType.EffectPool).transform.TransformPoint(FishCsharpManager.ScreenPointToRealPoint(data.usNextBombPosX, data.usNextBombPosy));
+                    var skillIns = GetSkill(uid, beginPos, nextPos, bombCount, playerIns, skillStatus, skillTime, killFishUid, fishId);
                     if (skillIns != null)
                     {
                         skillIns.objResName = "Skill_ThunderDragon";

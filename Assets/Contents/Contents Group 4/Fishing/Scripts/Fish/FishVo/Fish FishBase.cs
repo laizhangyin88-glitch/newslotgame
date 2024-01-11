@@ -262,7 +262,7 @@ namespace BagelCode
         public void ShowCoinEffect()
         {
             int coinEffectId = fishVo.DieEffectConfig.coinEffectId;
-            FishFishConfig fishConfigData = fishVo.FishConfig;
+            FishFishConfig fishConfigData = fishVo.fishCfg;
             if (coinEffectId != 0 && fishConfigData.coinEffectCount > 0)
             {
                 Vector3 endPos = playerIns.GetFlyCoinPos();
@@ -321,14 +321,14 @@ namespace BagelCode
 
         public void SetTipsContentInfo()
         {
-            int isTC = fishVo.FishConfig.isTipsContent;
+            int isTC = fishVo.fishCfg.isTipsContent;
             if (isTC == 1)
             {
                 if (!GetTipsContentState())
                 {
 
                     float probability = UnityEngine.Random.Range(1, 100) / 100;
-                    if (probability <= fishVo.FishConfig.TCProbability)
+                    if (probability <= fishVo.fishCfg.TCProbability)
                     {
                         FishTipsContentManager.Instance.SetShowTipsContent(this);
                     }
@@ -346,10 +346,10 @@ namespace BagelCode
 
             PlayDieAnim();
 
-            SetMainFishOrder(fishVo.FishConfig.fishDieLayer + UnityEngine.Random.Range(0, 10));
-            if (fishVo.FishConfig.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
+            SetMainFishOrder(fishVo.fishCfg.fishDieLayer + UnityEngine.Random.Range(0, 10));
+            if (fishVo.fishCfg.clientBuildFishType == (int)FishGameConfig.FishType.Dragon)
                 FishAudioManager.Instance.PlayNormalAudio(64);
-            AsyncActionUtils.DelayedAction(fishBehaviour, fishVo.FishConfig.fishDieTime, () => SetDestroy(true));
+            AsyncActionUtils.DelayedAction(fishBehaviour, fishVo.fishCfg.fishDieTime, () => SetDestroy(true));
             float delayTime = 0;
             if (fishVo.DieEffectConfig.fishDieOneShowTime != 0)
                 delayTime = fishVo.DieEffectConfig.fishDieOneShowTime;
@@ -426,7 +426,7 @@ namespace BagelCode
                 gameObject.transform.localPosition = new Vector3(10000, 10000, 0);
                 return;
             }
-            Vector3 angle = new Vector3(0, 0, fishVo.FishConfig.dieRotationAngle);
+            Vector3 angle = new Vector3(0, 0, fishVo.fishCfg.dieRotationAngle);
 
             AsyncActionUtils.ApplyRotation(fishBehaviour, gameObject.transform, gameObject.transform.rotation.eulerAngles, angle, time, TweenUtils.VectorTweenLinear, 0f);
             AsyncActionUtils.ApplyScaling(fishBehaviour, gameObject.transform, gameObject.transform.localScale, new Vector3(0, 0, 0), time, TweenUtils.VectorTweenInCubic, 0f, () => {
@@ -555,7 +555,7 @@ namespace BagelCode
         public int StartPointIndex = 0;
         public int OffsetIndex = 0;
         public int byChairId = 0;
-        public FishFishConfig FishConfig;
+        public FishFishConfig fishCfg;
         public float DelayBornTime;
         public FishDieEffectConfig DieEffectConfig;
         public float OffsetPosX;

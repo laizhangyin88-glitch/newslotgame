@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
 using SlotMaker;
@@ -23,7 +23,7 @@ namespace BagelCode.Tasks.Actions
             string devURL = PlayerPrefs.GetString("Dev_URL", "");
             bool isEnablePopup = PlayerPrefs.GetInt("Is_Enable_Change_URL_Popup", 0) == 0;
 
-            if(!string.IsNullOrEmpty(devURL))
+            if (!string.IsNullOrEmpty(devURL))
             {
                 if (isEnablePopup)
                 {

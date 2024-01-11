@@ -31,6 +31,7 @@ namespace SlotMaker
         public string bundleVersion;
 
     	public string apiUrl;
+        public string loginUrl;
         public string chattingApiUrl;
     	public string bundlePath;
     	public string bundleUrl;
@@ -45,6 +46,8 @@ namespace SlotMaker
     	public int asyncLoadWebImageLimit;
 
     	public string defineFlags;
+
+        public bool accountLogin;
 
         public List<string> streamingAssets = new List<string>();
         public List<string> staticStreamingAssets = new List<string>();

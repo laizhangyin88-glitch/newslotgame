@@ -306,7 +306,6 @@ namespace BagelCode
         {
             if (hasLoadedBossFish)
                 RemoveLoadedBossFish();
-            Debug.LogError("当前地图id => " + sceneIndex);
             cursceneId = sceneIndex;
             LoadFishBossResource();
         }
@@ -329,7 +328,6 @@ namespace BagelCode
             else
                 fishBossPack = gameData.GameConfig.FishBossPackRes[cursceneId];
             fishBossBundleName = fishBossPack.name;
-            Debug.LogError("fishBossBundleName => " + fishBossBundleName);
             AssetBundleManager.LoadDependencies(fishBossBundleName);
             assetBundleLoadOperation = AssetBundleManager.LoadAssetBundle(fishBossBundleName);
         }

@@ -50,6 +50,8 @@ namespace BagelCode
             SetScoreText("0");
             var playerIns = FishPlayerManager.Instance.GetPlayerInsByChairId(effectVo.chairId);
             Vector3 targetPos = playerIns.Panel.GetPlayerCatchFishPos(1);
+            currentTime = 0;
+            curScore = 0;
 
             AsyncActionUtils.DelayedAction(FishSpecialDeclareEffectManager.Instance, 0.5f, () =>
             {
@@ -70,7 +72,9 @@ namespace BagelCode
 
         private void ChangeScore()
         {
-            if (currentTime < animTime - 0.2f && curScore < effectVo.score)
+            if (effectVo.score == 0)
+            { Debug.LogError("testPoint"); }
+            if (currentTime < animTime - 0.2f && curScore <= effectVo.score)
             {
                 currentTime += Time.deltaTime;
                 curScore = Mathf.CeilToInt(effectVo.score * (currentTime / animTime));

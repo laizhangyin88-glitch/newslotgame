@@ -14,8 +14,8 @@ namespace BagelCode
         private Transform centerTrans;
         private List<Vector3> effectPosList;
         private Animator animator;
-        private SkeletonAnimation SpineAnim;
-        private MeshRenderer SpineMeshRenderer;
+        private SkeletonAnimation skeletonAni;
+        private MeshRenderer meshRender;
 
         public new bool CheckBoundValid()
         {
@@ -41,16 +41,15 @@ namespace BagelCode
             IsEnableAnimator(true);
             effectPosList = new List<Vector3>();
             PlayBornAnim();
-            PlayMoveAnim();
+            //PlayMoveAnim();
         }
 
         public void FindView()
         {
-            Transform mTransform = gameObject.transform;
             animator = gameObject.GetComponent<Animator>();
-            SpineAnim = mTransform.Find("Bone/Fish").GetComponent<SkeletonAnimation>();
-            centerTrans = mTransform.Find("Collider/BoxCollider_02");
-            SpineMeshRenderer = mTransform.Find("Bone/Fish").GetComponent<MeshRenderer>();
+            skeletonAni = transform.Find("Bone/Fish").GetComponent<SkeletonAnimation>();
+            centerTrans = transform.Find("Collider/BoxCollider_02");
+            meshRender = transform.Find("Bone/Fish").GetComponent<MeshRenderer>();
         }
 
         public void InitViewData()
@@ -76,28 +75,35 @@ namespace BagelCode
 
         public override void PlayMoveAnim()
         {
-            if (SpineAnim == null) return;
-            SpineAnim.timeScale = 1.0f;
-            string animName = fishVo.FishConfig.fishMoveAnimationName;
+            if (skeletonAni == null) return;
+            skeletonAni.timeScale = 0.3f;
+            string animName = fishVo.fishCfg.fishMoveAnimationName;
             if (!string.IsNullOrEmpty(animName))
             {
-                SpineAnim.loop = true;
-                SpineAnim.state.SetAnimation(0, animName, true);
+                //再次播放会倒序播放, 直接用循环返回第0帧
+                skeletonAni.state.SetAnimation(0, animName, true);
+                skeletonAni.state.Complete += StateComplete;
             }
+        }
+
+        private void StateComplete(Spine.TrackEntry trackEntry)
+        {
+            skeletonAni.timeScale = 0;
+            isCanDestroy = true;
         }
 
         public void PauseSpineAnimation()
         {
-            if (SpineAnim == null) return;
-            SpineAnim.timeScale = 0;
+            if (skeletonAni == null) return;
+            skeletonAni.timeScale = 0;
         }
 
         public void IsEnableAnimator(bool isEnabled)
         {
             if (animator != null)
                 animator.enabled = isEnabled;
-            if (SpineAnim != null)
-                SpineAnim.enabled = isEnabled;
+            if (skeletonAni != null)
+                skeletonAni.enabled = isEnabled;
         }
 
         public void PlayBornAnim()
@@ -108,16 +114,16 @@ namespace BagelCode
 
         public override void PlayDieAnim()
         {
-            string animName = fishVo.FishConfig.fishDieAnimationName;
+            string animName = fishVo.fishCfg.fishDieAnimationName;
             if (!string.IsNullOrEmpty(animName) && animator != null)
                 animator.Play(animName, 0, 0);
         }
 
         public override void SetMainFishOrder(int orderIndex)
         {
-            if (SpineMeshRenderer != null)
+            if (meshRender != null)
             {
-                SpineMeshRenderer.sortingOrder = orderIndex;
+                meshRender.sortingOrder = orderIndex;
             }
         }
 
@@ -130,11 +136,11 @@ namespace BagelCode
 
         public override void SetMainFishColor(Color color)
         {
-            if (SpineAnim == null) return;
-            SpineAnim.skeleton.R = color.r;
-            SpineAnim.skeleton.G = color.g;
-            SpineAnim.skeleton.B = color.b;
-            SpineAnim.skeleton.A = color.a;
+            if (skeletonAni == null) return;
+            skeletonAni.skeleton.R = color.r;
+            skeletonAni.skeleton.G = color.g;
+            skeletonAni.skeleton.B = color.b;
+            skeletonAni.skeleton.A = color.a;
         }
 
         public override void Destroy()

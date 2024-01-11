@@ -32,7 +32,6 @@ namespace BagelCode
 
         private void ResponesAnglerFishBombMsg(byte[] bytes)
         {
-            Debug.LogError("call ResponesAnglerFishBombMsg");
             AnglerFishBombRsp data = WebSocketTool.Deserialize<AnglerFishBombRsp>(bytes);
             curUseSkillInsList.TryGetValue(data.usAnglerFishId,out var laternFishSkillItem);
             if (laternFishSkillItem != null)
