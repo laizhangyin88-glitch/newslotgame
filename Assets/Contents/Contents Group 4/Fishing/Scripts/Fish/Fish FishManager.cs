@@ -308,10 +308,9 @@ namespace BagelCode
             {
                 foreach (FishInfo fishInfo in gameData.fishRawDataList)
                 {
-                    //if (fishInfo.usFishKind > 33 && fishInfo.usFishKind < 39 || fishInfo.usFishKind == 44)
+                    //测试龙使用
+                    //if (fishInfo.usFishKind == 35 || fishInfo.usFishKind == 44 || fishInfo.usFishKind == 46)
                     //    fishInfo.usFishKind = 48;
-                    if (fishInfo.usFishKind == 35 || fishInfo.usFishKind == 44 || fishInfo.usFishKind == 46)
-                        fishInfo.usFishKind = 48;
                     FishVo vo = ParseFishConfig(fishInfo);
                     if (vo != null)
                     {
@@ -614,8 +613,6 @@ namespace BagelCode
             if (data.usDieType == 1)
             {
                 FishGhostShipSkillManager.Instance.EnterGhostShipSkillMode(data);
-                //FishLaternSkillManager.Instance.EnterLaternFishSkillMode(data);
-                FishThunderDragonSkillManager.Instance.EnterSkillMode(data);
                 Debug.LogError("Point my Test");
             }
             else
@@ -640,18 +637,13 @@ namespace BagelCode
         public void ResponesCreateMultBombMsg(byte[] bytes)
         {
             CreateSerialBombCrabRsp data = WebSocketTool.Deserialize<CreateSerialBombCrabRsp>(bytes);
-            //FishMultBombSkillManager.Instance.EnterMultBombSkillMode(data);
-            Debug.LogError("Point my Test");
-            FishThunderDragonSkillManager.Instance.EnterSkillMode(data);
+            FishMultBombSkillManager.Instance.EnterMultBombSkillMode(data);
         }
 
         public void ResponesCreateThunderHammerMsg(byte[] bytes)
         {
             CreateThunderHammerRsp data = WebSocketTool.Deserialize<CreateThunderHammerRsp>(bytes);
-            //FishThunderHammerSkillManager.Instance.EnterSkillMode(data);
-            Debug.LogError("Point my Test");
-            FishThunderDragonSkillManager.Instance.EnterSkillMode(data);
-            
+            FishThunderHammerSkillManager.Instance.EnterSkillMode(data);
         }
 
         public void ResponesCreateAnglerFishMsg(byte[] bytes)
@@ -659,9 +651,7 @@ namespace BagelCode
             CreateAnglerFishRsp data = WebSocketTool.Deserialize<CreateAnglerFishRsp>(bytes);
             if (data.usDieType == 1)
             {
-                //FishLaternSkillManager.Instance.EnterLaternFishSkillMode(data);
-                FishThunderDragonSkillManager.Instance.EnterSkillMode(data);
-                Debug.LogError("Point my Test");
+                FishLaternSkillManager.Instance.EnterLaternFishSkillMode(data);
             }
             else
             {
