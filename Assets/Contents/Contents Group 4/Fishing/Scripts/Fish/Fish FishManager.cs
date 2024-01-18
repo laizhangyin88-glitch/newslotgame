@@ -613,7 +613,6 @@ namespace BagelCode
             if (data.usDieType == 1)
             {
                 FishGhostShipSkillManager.Instance.EnterGhostShipSkillMode(data);
-                Debug.LogError("Point my Test");
             }
             else
             {
