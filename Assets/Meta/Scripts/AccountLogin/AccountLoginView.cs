@@ -11,10 +11,15 @@ public class AccountLoginView : MonoBehaviour
 {
     InputField accountInput;
     InputField passwordInput;
+    Toggle remember;
     InputField registAccountInput;
-    InputField registPasswordtInput;
+    InputField[] registPasswordtInput = new InputField[2];
+    InputField registCodeInput;
     GameObject loginPage;
     GameObject registPage;
+    bool isRememberAccount = false;
+    string account = "";
+    string password = "";
 
     private void Awake()
     {
@@ -22,14 +27,26 @@ public class AccountLoginView : MonoBehaviour
         registPage = transform.Find("Regist").gameObject;
         accountInput = transform.Find("Login/Account").GetComponent<InputField>();
         passwordInput = transform.Find("Login/Password").GetComponent<InputField>();
+        remember = transform.Find("Login/RememToggle").GetComponent<Toggle>();
+        remember.onValueChanged.AddListener((bool value) =>
+        {
+            isRememberAccount = value;
+        });
+
         registAccountInput = transform.Find("Regist/Account").GetComponent<InputField>();
-        registPasswordtInput = transform.Find("Regist/Password").GetComponent<InputField>();
+        registPasswordtInput[0] = transform.Find("Regist/Password0").GetComponent<InputField>();
+        registPasswordtInput[1] = transform.Find("Regist/Password1").GetComponent<InputField>();
+        registCodeInput = transform.Find("Regist/Code").GetComponent<InputField>();
     }
 
     private void OnEnable()
     {
         loginPage.SetActive(true);
         registPage.SetActive(false);
+        isRememberAccount = PlayerPrefs.GetInt("isRemember", 0) == 1;
+        remember.isOn = isRememberAccount;
+        accountInput.text = PlayerPrefs.GetString("account", "");
+        passwordInput.text = PlayerPrefs.GetString("password", "");
     }
 
     public void OnLoginClick()
@@ -41,7 +58,9 @@ public class AccountLoginView : MonoBehaviour
         }
         Dictionary<string, string> loginDict = new Dictionary<string, string>();
         loginDict["user_name"] = accountInput.text;
+        account = accountInput.text;
         loginDict["user_pwd"] = passwordInput.text;
+        password = passwordInput.text;
         StartCoroutine(HttpPost(ApplicationSettings.Instance.loginUrl, "/passwd_login", loginDict, HandleLoginUserResponse));
     }
 
@@ -53,6 +72,18 @@ public class AccountLoginView : MonoBehaviour
         if (accountLoginRespone.err == 1)
         {
             //succeed
+            if (isRememberAccount)
+            {
+                PlayerPrefs.SetInt("isRemember", 1);
+                PlayerPrefs.SetString("account", account);
+                PlayerPrefs.SetString("password", password);
+            }
+            else
+            {
+                PlayerPrefs.SetInt("isRemember", 0);
+                PlayerPrefs.SetString("account", "");
+                PlayerPrefs.SetString("password", "");
+            }
             Debug.LogError("AccountLoginSucceed");
             var bb = BlackboardUtils.GetOrCreateBlackboard(MainBlackboard.Get(), "userLoginInfo");
             LoginExtraData loginExtraData = new LoginExtraData()
@@ -66,6 +97,8 @@ public class AccountLoginView : MonoBehaviour
         }
         else
         {
+            password = "";
+            passwordInput.text = password;
             //error
             Debug.LogError("AccountLoginFail");
         }
@@ -79,9 +112,28 @@ public class AccountLoginView : MonoBehaviour
 
     public void OnRegistClick()
     {
+        if (string.IsNullOrEmpty(registAccountInput.text))
+        {
+            Debug.LogError("Account can not be empty!");
+            return;
+        }
+        else if (string.IsNullOrEmpty(registPasswordtInput[0].text) || string.IsNullOrEmpty(registPasswordtInput[1].text))
+        {
+            Debug.LogError("Password can not be empty!");
+            return;
+        }
+        else if (registPasswordtInput[0].text != registPasswordtInput[1].text)
+        {
+            Debug.LogError("Password is not same!");
+            return;
+        }
+
         Dictionary<string, string> registerDict = new Dictionary<string, string>();
         registerDict["user_name"] = registAccountInput.text;
-        registerDict["user_pwd"] = registPasswordtInput.text;
+        registerDict["user_pwd"] = registPasswordtInput[0].text;
+        registerDict["user_code"] = registCodeInput.text;
+        account = registAccountInput.text;
+        password = registPasswordtInput[0].text;
         StartCoroutine(HttpPost(ApplicationSettings.Instance.loginUrl, "/register_user", registerDict, HandleRegisterUserResponse));
     }
 
@@ -99,11 +151,17 @@ public class AccountLoginView : MonoBehaviour
         if (accountLoginRespone.err == 1)
         {
             //succeed
+            accountInput.text = account;
+            loginPage.SetActive(true);
+            registPage.SetActive(false);
             Debug.LogError("AccountRegistSucceed");
         }
         else
         {
             //error
+            password = "";
+            registPasswordtInput[0].text = password;
+            registPasswordtInput[1].text = password;
             Debug.LogError("AccountRegistFail");
         }
     }
