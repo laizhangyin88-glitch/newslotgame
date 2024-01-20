@@ -11,11 +11,12 @@ namespace SlotMaker.TestSuite.Tasks.Actions
 	{
 		protected override void OnExecute()
 		{
-	#if DEV
-			TestSuiteManager.Instance.OpenEnterGameApp(EndAction);
-	#else
+#if DEV
+            //TestSuiteManager.Instance.OpenEnterGameApp(EndAction);
+            EndAction();
+#else
 			EndAction();
-	#endif
-		}
+#endif
+        }
 	}
 }
