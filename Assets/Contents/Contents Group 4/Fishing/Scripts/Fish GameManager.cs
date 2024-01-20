@@ -323,6 +323,7 @@ namespace BagelCode
 
         public void ResponesChangeSceneMsg(byte[] bytes)
         {
+            Debug.LogError("ResponesChangeSceneMsg");
             FishGameUIManager.Instance.ChangeGameScene(WebSocketTool.Deserialize<ChangeSceneRsp>(bytes));
         }
 

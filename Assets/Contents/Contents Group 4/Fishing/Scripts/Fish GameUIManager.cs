@@ -28,6 +28,7 @@ namespace BagelCode
         private FishBehaviour BGFishLuaBehaviour;
         private Timer changeSceneClearTimer;
         public GameObject conetnGameObject;
+        int testSceneId = 1;
 
         private void Awake()
         {
@@ -36,6 +37,23 @@ namespace BagelCode
             InitView();
             FindView();
             AddEventListener();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.F1))
+            {
+                testSceneId++;
+                testSceneId = testSceneId > 5 ? 1 : testSceneId;
+                SetGameBG(testSceneId, true);
+            }
+
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                testSceneId++;
+                testSceneId = testSceneId > 5 ? 1 : testSceneId;
+                SetGameBG(testSceneId, false);
+            }
         }
 
         private void InitData()
@@ -135,6 +153,7 @@ namespace BagelCode
 
         public void SetGameBG(int index, bool isFadeAnimation)
         {
+            Debug.LogError("SetGameBG index => " + index);
             isFadeAnimation = true;
             index = index > 4 ? 4 : index;
             FishResourcesManager.Instance.OnChangeScene(index);
@@ -205,6 +224,7 @@ namespace BagelCode
                     SetGameBG(sceneId, true);
                     break;
                 case (int)eChangeSceneType.eInfoType_ChangeSceneBG:
+                    Debug.LogError("ChangeGameScene");
                     SetBG2Image();
                     SetGameBG(sceneId, true);
                     break;
@@ -230,6 +250,7 @@ namespace BagelCode
 
         public void SetBG2Image()
         {
+            Debug.LogError("SetBG2Image");
             BG2.texture = GameBG.texture;
             BG2.color = Color.white;
             BG2.gameObject.SetActive(true);
@@ -237,6 +258,7 @@ namespace BagelCode
 
         public void ChangeSceneBGImage(int sceneId, bool isFadeAnimation)
         {
+            Debug.LogError("ChangeSceneBGImage sceneId => " + sceneId);
             if (isFadeAnimation)
             {
                 AsyncActionUtils.ApplyImageColor(this, BG2, BG2.color, new Color(1, 1, 1, 0), 0.5f, TweenUtils.ColorTweenInQuad);

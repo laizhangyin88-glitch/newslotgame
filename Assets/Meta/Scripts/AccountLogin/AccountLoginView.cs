@@ -17,9 +17,12 @@ public class AccountLoginView : MonoBehaviour
     InputField registCodeInput;
     GameObject loginPage;
     GameObject registPage;
+    GameObject tips;
+    Text tipsText;
     bool isRememberAccount = false;
     string account = "";
     string password = "";
+    float timers = 0;
 
     private void Awake()
     {
@@ -37,6 +40,9 @@ public class AccountLoginView : MonoBehaviour
         registPasswordtInput[0] = transform.Find("Regist/Password0").GetComponent<InputField>();
         registPasswordtInput[1] = transform.Find("Regist/Password1").GetComponent<InputField>();
         registCodeInput = transform.Find("Regist/Code").GetComponent<InputField>();
+
+        tips = transform.Find("Tips").gameObject;
+        tipsText = transform.Find("Tips/Text").GetComponent<Text>();
     }
 
     private void OnEnable()
@@ -51,9 +57,14 @@ public class AccountLoginView : MonoBehaviour
 
     public void OnLoginClick()
     {
-        if (string.IsNullOrEmpty(accountInput.text) || string.IsNullOrEmpty(passwordInput.text))
+        if (string.IsNullOrEmpty(accountInput.text))//|| string.IsNullOrEmpty(passwordInput.text))
         {
-            Debug.LogError("empty string is unlegal");
+            StartCoroutine(ShowTips("Account can not be empty!"));
+            return;
+        }
+        if (string.IsNullOrEmpty(passwordInput.text))
+        {
+            StartCoroutine(ShowTips("Password can not be empty!"));
             return;
         }
         Dictionary<string, string> loginDict = new Dictionary<string, string>();
@@ -114,17 +125,17 @@ public class AccountLoginView : MonoBehaviour
     {
         if (string.IsNullOrEmpty(registAccountInput.text))
         {
-            Debug.LogError("Account can not be empty!");
+            StartCoroutine(ShowTips("Account can not be empty!"));
             return;
         }
         else if (string.IsNullOrEmpty(registPasswordtInput[0].text) || string.IsNullOrEmpty(registPasswordtInput[1].text))
         {
-            Debug.LogError("Password can not be empty!");
+            StartCoroutine(ShowTips("Password can not be empty!"));
             return;
         }
         else if (registPasswordtInput[0].text != registPasswordtInput[1].text)
         {
-            Debug.LogError("Password is not same!");
+            StartCoroutine(ShowTips("Password not the same!"));
             return;
         }
 
@@ -164,6 +175,20 @@ public class AccountLoginView : MonoBehaviour
             registPasswordtInput[1].text = password;
             Debug.LogError("AccountRegistFail");
         }
+    }
+
+    IEnumerator ShowTips(string str)
+    {
+        timers = 3;
+        tipsText.text = str;
+        tips.gameObject.SetActive(true);
+        while (timers > 0)
+        {
+            timers -= 1;
+            yield return new WaitForSeconds(1);
+        }
+        tips.gameObject.SetActive(false);
+        tipsText.text = "";
     }
 
 

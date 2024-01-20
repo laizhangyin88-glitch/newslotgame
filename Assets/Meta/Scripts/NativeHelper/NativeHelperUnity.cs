@@ -26,11 +26,11 @@ namespace BagelCode
 
         public string GetDeviceID()
         {
-    #if UNITY_EDITOR && DEV
-        if (!string.IsNullOrEmpty(SlotMaker.TestSuite.TestSuiteManager.Instance.id))
-            return SystemInfo.deviceUniqueIdentifier + SlotMaker.TestSuite.TestSuiteManager.Instance.id;
-        else
-    #endif
+    //#if UNITY_EDITOR && DEV
+    //    if (!string.IsNullOrEmpty(SlotMaker.TestSuite.TestSuiteManager.Instance.id))
+    //        return SystemInfo.deviceUniqueIdentifier + SlotMaker.TestSuite.TestSuiteManager.Instance.id;
+    //    else
+    //#endif
             return SystemInfo.deviceUniqueIdentifier;
         }
 
