@@ -29,7 +29,7 @@ namespace SlotMaker.TestSuite
                 LogFilter mask = (LogFilter)(1 << i);
                 logFilters[i].GetComponent<Image>().color = ((logFilter & mask) == mask) ? TestSuiteManager.BUTTON2_COLOR : TestSuiteManager.BUTTON1_COLOR;
             }
-#if DEV
+#if DEV && !NEW_NET
             testCase = TestSuiteServer.GetUserData("testCase");
             forceGuestMode = TestSuiteServer.GetUserData("forceGuestMode");
             quit = TestSuiteServer.GetUserData("quit");
@@ -100,16 +100,16 @@ namespace SlotMaker.TestSuite
                 return;
             }
 
-            TestSuiteServer.UpdateUserData(
-                new Dictionary<string, string>{ 
-                    { "testCase", testCase }, 
-                    { "forceGuestMode", forceGuestMode },
-                    { "quit", quit },
-                    { "logFilter", ((int)ApplicationSettings.Instance.logFilter).ToString() }
-                },
-                () => { GameObject.Destroy(gameObject); },
-                () => { Debug.LogError("[TestSuite] UpdateUserData failed"); }
-            );
+            //TestSuiteServer.UpdateUserData(
+            //    new Dictionary<string, string>{ 
+            //        { "testCase", testCase }, 
+            //        { "forceGuestMode", forceGuestMode },
+            //        { "quit", quit },
+            //        { "logFilter", ((int)ApplicationSettings.Instance.logFilter).ToString() }
+            //    },
+            //    () => { GameObject.Destroy(gameObject); },
+            //    () => { Debug.LogError("[TestSuite] UpdateUserData failed"); }
+            //);
 #endif
         }
     }

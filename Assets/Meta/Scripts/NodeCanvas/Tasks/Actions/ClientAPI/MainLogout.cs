@@ -15,8 +15,11 @@ public class MainLogout : ActionTask
 
     protected override void OnExecute()
     {
-
-        BagelCodeClientAPI.Logout(
+#if NEW_NET
+    EndAction(true);
+    return;
+#endif
+            BagelCodeClientAPI.Logout(
         (response) =>
         {
             if(PlayerPrefs.HasKey("VALIDATE_EMAIL"))

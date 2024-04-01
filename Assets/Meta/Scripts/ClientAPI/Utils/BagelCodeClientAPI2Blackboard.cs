@@ -10419,6 +10419,7 @@ public static partial class ClientAPI2Blackboard
         }
         else
         {
+            Debug.LogError("@ loginResponse.me  is null");
             BlackboardUtils.DestroyBlackboard(bb, "me");
         }
         if (loginResponse.dailyBonusResult != null)

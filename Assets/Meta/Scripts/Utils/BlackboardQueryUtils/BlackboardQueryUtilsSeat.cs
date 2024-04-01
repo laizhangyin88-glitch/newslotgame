@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +6,7 @@ using NodeCanvas.Framework;
 using ParadoxNotion.Design;
 using SlotMaker;
 using BagelCode.ClientModels;
+using SlotMaker.Json;
 
 namespace BagelCode
 {
@@ -39,7 +40,14 @@ public static partial class BlackboardQueryUtils
 
         string meID = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
 
-        if(room.players != null)
+
+        //string oldJson = JsonUtility.ToJson(room);
+        //string buffer = SlotSimpleJson.SerializeObject(newseatIdList);
+        //string buffer1 = SlotSimpleJson.SerializeObject(seatIdList);
+        //Debug.Log($"@A SlotSpinResponseV3 = {oldJson}");
+
+
+        if (room.players != null)
         {
             for(int i=0; i<room.players.Count; ++i)
             {

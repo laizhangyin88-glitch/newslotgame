@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -276,6 +276,10 @@ namespace BagelCode.Chat
 
         private IEnumerator CoTryConnect(float delay, System.Action successAct)
         {
+#if NEW_NET0
+            Debug.Log("【remove rpc】: /v0/chat/subscribe");
+            yield return null;
+#else
             status = ChannelStatus.ONGOING;
             yield return new WaitForSeconds(delay);
             BagelCodeClientAPI.RequestSubscribeChat(channelID,
@@ -297,10 +301,17 @@ namespace BagelCode.Chat
                     tryConnectEnumrator = ChatMessenger.Instance.StartCoroutine(CoTryConnect(reconnectDelay, successAct));
                 }
             );
+
+#endif
         }
 
         public void RequestRecent(long receiveID,System.Action<string,List<ChatPoll>> successAct)
         {
+
+#if NEW_NET
+            Debug.Log("【remove rpc】：/v0/chat/recent");
+            return;
+#endif
             if (isRequestRecent) return;
             StopAllManualCoroutines();
             tryGetRecentDisConnectEnumrator = ChatMessenger.Instance.StartCoroutine(CoRequestRecent(receiveID, 0f, successAct));
@@ -316,6 +327,10 @@ namespace BagelCode.Chat
             BagelCodeClientAPI.GetRecentChatMessages(channelID, receiveID == -1 ? 0 : receiveID,
             (response) =>
             {
+
+                string oldJson = JsonUtility.ToJson(response);
+                Debug.Log($"@A ChatPollResponse = {oldJson}");
+
                 //Success
                 isRequestRecent = false;
                 status = ChannelStatus.CONNECTED;

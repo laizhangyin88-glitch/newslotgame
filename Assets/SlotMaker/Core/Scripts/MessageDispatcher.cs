@@ -36,7 +36,14 @@ namespace SlotMaker
 
 		public static void Dispatch(string eventName, EventData eventData)
 		{
-			EventDelegate del;
+            if (eventName == "OnContentUIEvent" && eventData.name == "UpdateSpinCount" )
+            {
+                Debug.LogError("i am OnContentUIEvent UpdateSpinCount");
+            }
+#if UNITY_EDITOR
+            Debug.Log($"【 MessageDispatcher 发送消息】：eventName = {eventName} ， name = {eventData.name}");
+#endif
+            EventDelegate del;
 			if (Instance.delegates.TryGetValue(eventName, out del))
 				del.Invoke(eventData);
 		}

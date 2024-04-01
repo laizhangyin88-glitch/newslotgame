@@ -361,7 +361,136 @@ public partial class AccountRemovalWithdrawRequest : IProtoSerializable
     }
 }
 
-public partial class Action : IProtoSerializable
+    public partial class PurchaseCreaditResponse : IProtoSerializable
+    {
+        public static PurchaseCreaditResponse Deserialize(BagelCode.Protobuf.ByteReader reader)
+        {
+            var obj = new PurchaseCreaditResponse();
+
+            while (reader.CanRead)
+            {
+                var __key = reader.ReadKey();
+                switch (__key.Field)
+                {
+                    case 1:
+                        obj.error = ProtobufReader.ReadEnum(reader, Error.UNKNOWN);
+                        break;
+                    case 2:
+                        obj.common = ProtobufReader.ToLengthDelimited<CommonResponse>(CommonResponse.Deserialize)(reader);
+                        break;
+                    case 3:
+                        obj.serverTime = ProtobufReader.ReadInt64(reader);
+                        break;
+                    case 4:
+                        obj.operateType = ProtobufReader.ReadUInt32(reader);
+                        break;
+                    case 5:
+                        obj.success = ProtobufReader.ReadBool(reader);
+                        break;
+                    case 6:
+                        obj.userSyncInfo = ProtobufReader.ToLengthDelimited<UserSyncInfo>(UserSyncInfo.Deserialize)(reader);
+                        break;
+                    default:
+                        reader.Skip(__key.WireType);
+                        break;
+                }
+            }
+            return obj;
+        }
+
+        public static int GetByteCount(PurchaseCreaditResponse obj)
+        {
+            int length = 0;
+            int len = 0;
+
+            if (obj.error != Error.UNKNOWN)
+            {
+                len = LengthOf.LengthOfInt32((int)obj.error);
+                length += 1 + len;
+            }
+            if (obj.common != null)
+            {
+                len = CommonResponse.GetByteCount(obj.common);
+                length += LengthOf.LengthOfInt32(len);
+                length += 1 + len;
+            }
+            if (obj.serverTime != 0)
+            {
+                len = LengthOf.LengthOfInt64(obj.serverTime);
+                length += 1 + len;
+            }
+            if (obj.operateType != 0)
+            {
+                len = LengthOf.LengthOfUInt32(obj.operateType);
+                length += 1 + len;
+            }
+            if (obj.success != false)
+            {
+                len = LengthOf.LengthOfBool(obj.success);
+                length += 1 + len;
+            }
+            if (obj.userSyncInfo != null)
+            {
+                len = UserSyncInfo.GetByteCount(obj.userSyncInfo);
+                length += LengthOf.LengthOfInt32(len);
+                length += 1 + len;
+            }
+            return length;
+        }
+
+        public static int Serialize(PurchaseCreaditResponse obj, byte[] buf, int offset)
+        {
+            var oldOffset = offset;
+
+            if (obj.error != Error.UNKNOWN)
+            {
+                buf[offset++] = 8;
+                offset += BagelCode.Protobuf.ByteWriter.WriteInt32((int)obj.error, buf, offset);
+            }
+            if (obj.common != null)
+            {
+                buf[offset++] = 18;
+                offset += BagelCode.Protobuf.ByteWriter.WriteInt32(CommonResponse.GetByteCount(obj.common), buf, offset);
+                offset += CommonResponse.Serialize(obj.common, buf, offset);
+            }
+            if (obj.serverTime != 0)
+            {
+                buf[offset++] = 26;
+                offset += BagelCode.Protobuf.ByteWriter.WriteInt64(obj.serverTime, buf, offset);
+            }
+            if (obj.operateType != 0)
+            {
+                buf[offset++] = 32;
+                offset += BagelCode.Protobuf.ByteWriter.WriteUInt32(obj.operateType, buf, offset);
+            }
+            if (obj.success != false)
+            {
+                buf[offset++] = 40;
+                offset += BagelCode.Protobuf.ByteWriter.Write(obj.success, buf, offset);
+            }
+            if (obj.userSyncInfo != null)
+            {
+                buf[offset++] = 44;
+                offset += BagelCode.Protobuf.ByteWriter.WriteInt32(UserSyncInfo.GetByteCount(obj.userSyncInfo), buf, offset);
+                offset += UserSyncInfo.Serialize(obj.userSyncInfo, buf, offset);
+            }
+            return offset - oldOffset;
+        }
+
+        public byte[] Serialize()
+        {
+            byte[] result = new byte[GetByteCount(this)];
+            Serialize(this, result, 0);
+            return result;
+        }
+
+        public static PurchaseCreaditResponse Deserialize(byte[] data)
+        {
+            return Deserialize(new BagelCode.Protobuf.ByteReader(data));
+        }
+    }
+
+    public partial class Action : IProtoSerializable
 {
     public static Action Deserialize(BagelCode.Protobuf.ByteReader reader)
     {

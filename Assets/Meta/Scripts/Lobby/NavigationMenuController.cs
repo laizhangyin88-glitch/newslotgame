@@ -80,6 +80,18 @@ namespace BagelCode
                 MetaContextElementUtils.SetActive(statusMatchButtonElement, false);
             }
 
+
+#if NEW_NET
+
+            Debug.Log("【close】:关闭大厅抬头右侧按钮列表");
+            MetaContextElementUtils.SetActive(onLineButtonElement, false);
+            MetaContextElementUtils.SetActive(rankingButtonElement, false);
+            MetaContextElementUtils.SetActive(wallofEpicButtonElement, false);
+            MetaContextElementUtils.SetActive(couponButtonElement, false);
+            MetaContextElementUtils.SetActive(customerSupportButtonElement, false);
+            MetaContextElementUtils.SetActive(statusMatchButtonElement, false);
+#endif
+
             RegisterHandleEventType(MetaEventDefine.ON_META_UI_EVENT);
         }
     }

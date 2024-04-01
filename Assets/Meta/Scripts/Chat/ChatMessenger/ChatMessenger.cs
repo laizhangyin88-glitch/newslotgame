@@ -329,6 +329,7 @@ namespace BagelCode.Chat
 
         public void ConnectChannel(string channelID)
         {
+
             var chatChannel = channelList.Find(x => x.channelID == channelID);
             if (chatChannel == null)
             {
@@ -355,6 +356,10 @@ namespace BagelCode.Chat
 
         public void Subscribe(string channelID, IChatMessengerSubscriber subscriber)
         {
+#if NEW_NET0
+            Debug.Log("【remove rpc】: /v0/chat/subscribe");
+            return;
+#endif
             ConnectChannel(channelID);
             var chatChannel = channelList.Find(x => x.channelID == channelID);
             chatChannel.AddSubscriber(subscriber);
@@ -563,6 +568,9 @@ namespace BagelCode.Chat
 
         private void RequestChatPollRecursive()
         {
+#if NEW_NET
+            return;
+#endif
             var isAlive = BlackboardUtils.FindVariable<bool>(MainBlackboard.Get(), "sessionAlive");
             if (isAlive.value)
             {

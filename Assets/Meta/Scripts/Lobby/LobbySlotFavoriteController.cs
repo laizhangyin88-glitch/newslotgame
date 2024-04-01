@@ -14,13 +14,16 @@ namespace BagelCode
     {
         public Transform anchor;
         public Transform thumbnailArea;
+        public Transform topArea;
 
         public bool isLong;
 
         // To do. convert private
         public GameObject thumbObject;
+        public GameObject selected;
 
         private bool isInit = false;
+        private bool isSelect = false;
 
         public int gameID;
         public string gameTitle;
@@ -111,6 +114,22 @@ namespace BagelCode
 
             slotThumbDict[assetName] = thumbObject;
             return true;
+        }
+
+        public void Select(bool isSelect)
+        {
+            this.isSelect = isSelect;
+            selected.SetActive(isSelect);
+        }
+
+        public void EnterGame()
+        {
+            if (isSelect)
+            {
+                gameObject.GetComponent<GameSoundPlayer>().PlayGameSound("UI_Button_Normal");
+                enterGameInfo.SetEnterGameInfo();
+                gameObject.GetComponent<SendEvent>().SendNow("ClickedSlot");
+            }
         }
     }
 }

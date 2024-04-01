@@ -3,12 +3,14 @@ using System.Collections;
 using UnityEngine;
 using SlotMaker;
 using NodeCanvas.Framework;
+using SboxSpace;
+using System;
 
 namespace BagelCode
 {
     public class MainController : EventMonoSingleton<MainController>
     {
-
+        private bool loadMachine;
         private const StringTable.StringTableType GLOBAL = StringTable.StringTableType.Global;
 
 #if DEV
@@ -28,6 +30,17 @@ namespace BagelCode
             Register(MetaEventDefine.ON_CONTENT_UI_EVENT, "HideUI", HideUI);
             Register(MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_META_GAME, OnEnterMetaGame);
             Register(MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_LEAVE_META_GAME, OnLeaveMetaGame);
+            IOEventCenter.AddListener(IOCenterEvent.EVENT_HardCheckOK, OnHardCheck);
+        }
+
+        private void OnHardCheck(object[] args)
+        {
+            loadMachine = true;
+        }
+
+        private bool IsMachineLoadComplete()
+        {
+            return loadMachine;
         }
 
         private void HideUI()
@@ -48,6 +61,11 @@ namespace BagelCode
         private void OnLeaveMetaGame()
         {
             BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isInMetaGame", false);
+        }
+
+        public IEnumerator PreloadMachine()
+        {
+            yield return new WaitUntil(() => IsMachineLoadComplete());
         }
 
         public IEnumerator MetaGameCompensation()

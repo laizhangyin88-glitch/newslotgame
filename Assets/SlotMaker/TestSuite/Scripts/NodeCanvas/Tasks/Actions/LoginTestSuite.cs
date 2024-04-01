@@ -11,7 +11,7 @@ namespace SlotMaker.TestSuite.Tasks.Actions
     {
     	protected override void OnExecute()
     	{
-#if DEV
+#if DEV && !NEW_NET
             TestSuiteServer.Login(EndAction, EndAction);
 #else
             EndAction();

@@ -137,6 +137,12 @@ namespace BagelCode
                 //     info.text = StringTableUtils.GetString(StringTable.StringTableType.Global, "ERROR_CANT_ADD_MYSELF_FRIEND", out stringError);
                 //     info.buttonText1 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_OKAY", out stringError);
                 //     break;
+                case Error.REPEAT_LOGIN_ANOTHER_DEVICE:
+                    info.type = ErrorPopupType.SystemReset;
+                    info.text = StringTableUtils.GetString(StringTable.StringTableType.Global, "ERROR_REPEATED_LOGIN", out stringError);
+                    info.buttonText1 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_OKAY", out stringError);
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "sessionAlive", false);
+                    break;
                 default:
                     info.type = ErrorPopupType.SystemReset;
                     info.text = StringTableUtils.GetString(StringTable.StringTableType.Global, "ERROR_UNEXPECTED", out stringError);

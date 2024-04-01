@@ -169,12 +169,12 @@ namespace SlotMaker.TestSuite
         private void OnBeginGame(EventData eventData)
         {
             var game = ((EventData<Blackboard>)eventData).value;
-            TestSuiteServer.UpdateUserData(new Dictionary<string, string>
-            {
-                { "lastGame", game.GetValue<string>("gameTitle") }
-            }, null, null);
+            //TestSuiteServer.UpdateUserData(new Dictionary<string, string>
+            //{
+            //    { "lastGame", game.GetValue<string>("gameTitle") }
+            //}, null, null);
 
-            TestSuiteManager.Instance.DebugParam = string.Empty;
+            //TestSuiteManager.Instance.DebugParam = string.Empty;
         }
 
         private void OnEndGame(EventData eventData)
@@ -184,9 +184,10 @@ namespace SlotMaker.TestSuite
 
         public void OpenConsole(EventData eventData)
         {
+#if !NEW_NET
             if (testCaseRunner != null)
                 testCaseRunner.Stop();
-
+#endif
             GameObject.Destroy(currentPopup);
             currentPopup = LoadGameObject("Console Popup");
             LoadGameObject("Custom Editor", currentPopup.transform);
@@ -199,12 +200,13 @@ namespace SlotMaker.TestSuite
 
         public void OpenDebugSpin(EventData eventData)
         {
+#if !NEW_NET
             if (testCaseRunner != null)
                 testCaseRunner.Stop();
 
             if (DebugSpinRunner != null)
                 DebugSpinRunner.Stop();
-
+#endif
             GameObject.Destroy(currentPopup);
             currentPopup = LoadGameObject("DebugSpin");
         }
@@ -247,16 +249,20 @@ namespace SlotMaker.TestSuite
 
         public void Run(List<DebugSequence> DebugSequenceList)
         {
+#if !NEW_NET
             var go = LoadGameObject("DebugSpin Runner");
             DebugSpinRunner = go.GetComponent<TestSuiteDebugSpinRunner>();
             DebugSpinRunner.Run(DebugSequenceList);
+#endif
         }
 
         public void Run(string caseId)
         {
+#if !NEW_NET
             var go = LoadGameObject("TestCase Runner");
             testCaseRunner = go.GetComponent<TestCaseRunner>();
             testCaseRunner.Run(GetTestCase(caseId));
+#endif
         }
 
         public TestCase GetTestCase(string caseId)
@@ -281,10 +287,12 @@ namespace SlotMaker.TestSuite
 
         public void Report(Dictionary<string, object> report)
         {
+#if !NEW_NET
             if (testCaseRunner != null)
                 testCaseRunner.Stop();
 
             StartCoroutine(ReportCo(report));
+#endif
         }
 
         private IEnumerator LoadDebugSpinParamList(int gameId)
@@ -379,6 +387,7 @@ namespace SlotMaker.TestSuite
 
         public void UpdateReportHeader(Dictionary<string, object> report)
         {
+#if !NEW_NET
             report["workspace"] = WORKSPACE;
             if (!report.ContainsKey("projects"))
                 report["projects"] =  string.IsNullOrEmpty(GetStage()) ? PROJECTS_BUG_REPORT_QA : PROJECTS_BUG_REPORT_DEV; // qa, dev
@@ -398,6 +407,7 @@ namespace SlotMaker.TestSuite
 
             Dictionary<string, object> reportDetails = (Dictionary<string, object>)report["details"];
             reportDetails["errorLogs"] = logs;
+#endif
         }
 
         public void RefreshContentReport(bool fullReport = true)
@@ -519,7 +529,7 @@ namespace SlotMaker.TestSuite
             }
         }
 #endif
-        public void ClosePopup()
+            public void ClosePopup()
         {
 #if DEV
             GameObject.Destroy(currentPopup);

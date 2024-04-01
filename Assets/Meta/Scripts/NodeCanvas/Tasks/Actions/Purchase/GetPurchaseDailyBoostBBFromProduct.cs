@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+//#define NEW_NET0
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using NodeCanvas.Framework;
@@ -43,7 +44,16 @@ public class GetPurchaseDailyBoostBBFromProduct : ActionTask<Blackboard>
 
     protected override void OnExecute()
     {
-        var productBB = BlackboardUtils.FindVariable<Blackboard>(agent, valueA.value);
+
+#if NEW_NET
+
+        Debug.LogWarning("@【这里要插入假数据】 baseGem 对象暴空");
+        EndAction();
+        return;
+#endif
+
+
+            var productBB = BlackboardUtils.FindVariable<Blackboard>(agent, valueA.value);
         var price = BlackboardUtils.FindVariable<double>(productBB.value, "price");
         origPrice.value = System.Convert.ToSingle(BlackboardUtils.FindVariable<double>(productBB.value, "originalPrice").value);
 

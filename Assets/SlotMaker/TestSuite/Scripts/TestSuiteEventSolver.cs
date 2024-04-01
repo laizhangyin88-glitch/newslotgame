@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace SlotMaker.TestSuite
 {
+
     public class TestSuiteEventSolver : MonoWeakSingleton<TestSuiteEventSolver>
     {
         public class WeightedSolvers

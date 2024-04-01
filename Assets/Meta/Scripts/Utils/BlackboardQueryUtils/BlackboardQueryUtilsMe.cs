@@ -339,6 +339,12 @@ namespace BagelCode
             if (meClubID != null) meClubID.value = clubId;
         }
 
+        public static void SetMyCredit(long credit)
+        {
+            var meCredit = BlackboardUtils.FindVariable<long>("/me/credit");
+            if (meCredit != null) meCredit.value = credit;
+        }
+
         public static UserProfile GetMyProfile() {
             var myProfile = new UserProfile();
             var meBB = MainBlackboard.Get().GetValue<Blackboard>("me");

@@ -60,6 +60,7 @@ namespace BagelCode
 
         public void CheckSlotImages()
         {
+#if !NEW_NET
             var gameInfoList = BlackboardUtils.FindVariable<List<Blackboard>>(null, "/gameInfoList");
             if(gameInfoList != null && gameInfoList.value.Count > 0)
             {
@@ -70,6 +71,8 @@ namespace BagelCode
             {
                 Debug.LogError("Retry. from lobby.");
             }
+#endif
+
         }
 
         public void ToggleSafeArea()
@@ -87,26 +90,34 @@ namespace BagelCode
 
         public void OpenDevPopup()
         {
+#if !NEW_NET
             var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>("testsuite", "Popup Dev Editor Scene").GetSceneInfo();
             GameObject go = SceneManager.LoadScene(PopupManager.Instance.transform, sceneInfo);
             go.name = "Popup Dev Editor";
 
             PopupManager.Instance.Open(go);
             TestSuiteManager.Instance.ClosePopup();
+#endif
+
         }
 
         public void OpenScratcherSymbolListPopup()
         {
+#if !NEW_NET
             var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>("testsuite", "Popup Dev Scratcher Scene").GetSceneInfo();
             GameObject go = SceneManager.LoadScene(PopupManager.Instance.transform, sceneInfo);
             go.name = "Popup Dev Scratcher";
 
             PopupManager.Instance.Open(go);
             TestSuiteManager.Instance.ClosePopup();
+#endif
         }
 
         public void OpenMetaDebugSpin()
         {
+#if NEW_NET
+            return;
+#endif
             var prefab = AssetBundleManager.LoadAsset<GameObject>("testsuite", "Meta DebugSpin");
             var go = GameObject.Instantiate(prefab) as GameObject;
             go.name = "Meta DebugSpin";
@@ -117,6 +128,9 @@ namespace BagelCode
 
         public void OpenGemJackpotDebug()
         {
+#if NEW_NET
+            return;
+#endif
             var prefab = AssetBundleManager.LoadAsset<GameObject>("testsuite", "GemJackpot Debug");
             var go = GameObject.Instantiate(prefab) as GameObject;
             go.name = "GemJackpot Debug";
@@ -127,6 +141,9 @@ namespace BagelCode
 
         public void OpenHiddenObjectDebug()
         {
+#if NEW_NET
+            return;
+#endif
             var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>("testsuite", "Popup Dev Editor Hidden Objects Scene").GetSceneInfo();
             GameObject go = SceneManager.LoadScene(PopupManager.Instance.transform, sceneInfo);
             go.name = "Popup Dev Editor Hidden Objects";
@@ -137,6 +154,9 @@ namespace BagelCode
 
         public void OpenOtherMetaGame()
         {
+#if NEW_NET
+            return;
+#endif
             var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>("testsuite", "Popup Dev Editor Other Meta Game Scene").GetSceneInfo();
             GameObject go = SceneManager.LoadScene(PopupManager.Instance.transform, sceneInfo);
             go.name = "Popup Dev Editor Other Meta Game";
@@ -147,12 +167,14 @@ namespace BagelCode
 
         public void OpenBossRaidersDealDebug()
         {
+#if !NEW_NET
             var prefab = AssetBundleManager.LoadAsset<GameObject>("testsuite", "BossRaiders Deal DebugSpin");
             var go = GameObject.Instantiate(prefab) as GameObject;
             go.name = "BossRaiders Deal DebugSpin";
             go.transform.SetParent(PopupManager.Instance.transform, false);
 
             TestSuiteManager.Instance.ClosePopup();
+#endif
         }
     }
 }

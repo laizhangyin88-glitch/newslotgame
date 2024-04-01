@@ -80,6 +80,8 @@ namespace BagelCode.Internal
             where TRequest : IProtoSerializable
             where TResult : IProtoSerializable
         {
+
+
             var reqContainer = new CallRequestContainer
             {
                 sequence = reliabilitySystem.Sequence,
@@ -122,6 +124,14 @@ namespace BagelCode.Internal
             HTTPErrorCallback errorCallback)
             where TResult : IProtoSerializable
         {
+/*
+            string jsonString = JsonUtility.ToJson(reqContainer.apiRequest);
+#if NEW_NET
+            UnityEngine.Debug.LogWarning($"@@seaweed  上行：{reqContainer.apiEndpoint} ； 上行数据 == {jsonString}");
+#else
+            UnityEngine.Debug.Log($"@@seaweed  上行：{reqContainer.apiEndpoint} ； 上行数据 == {jsonString}");
+#endif
+*/
             reqContainer.callback = (unityWebRequest) =>
             {
                 try
@@ -157,7 +167,10 @@ namespace BagelCode.Internal
                             reqContainer.apiResult = deserializeResult(reqContainer.response);
 
                             if (ApplicationSettings.LogNetwork())
-                                Debug.Log(SlotSimpleJson.SerializeObject(reqContainer.apiResult));        
+                                Debug.Log(SlotSimpleJson.SerializeObject(reqContainer.apiResult));
+
+                            string jsonString1 = JsonUtility.ToJson((TResult)reqContainer.apiResult);
+                            UnityEngine.Debug.Log($"@@seaweed  下行：{reqContainer.apiEndpoint} ； 下行数据 response == {jsonString1}");
 
                             if (successCallback != null)
                                 successCallback((TResult)reqContainer.apiResult);
@@ -252,6 +265,14 @@ namespace BagelCode.Internal
                 Debug.Log("[BagelCodeHTTP] Request: " + reqContainer.fullUrl);
                 Debug.Log(SlotSimpleJson.SerializeObject(reqContainer.apiRequest));
             }
+
+            string jsonString = JsonUtility.ToJson(reqContainer.apiRequest);
+#if NEW_NET
+            UnityEngine.Debug.LogWarning($"@@seaweed  上行：{reqContainer.apiEndpoint} ； 上行数据 == {jsonString}");
+#else
+            UnityEngine.Debug.Log($"@@seaweed  上行：{reqContainer.apiEndpoint} ； 上行数据 == {jsonString}");
+#endif
+
 
             WWWForm form = new WWWForm();
             form.AddField("", "");

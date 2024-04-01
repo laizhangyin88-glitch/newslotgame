@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +12,7 @@ namespace SlotMaker.TestSuite
 
 		public void OnClickApp(int buttonId)
 		{
-#if DEV
+#if DEV && !NEW_NET
 			var button = apps[buttonId];
 			
 			if (TestSuiteServer.HasApplication(button.gameObject.name))
@@ -20,10 +20,10 @@ namespace SlotMaker.TestSuite
 			else
 				InstallApp(button);
 #endif
-		}
+        }
 
-#if DEV
-		private void Awake()
+#if DEV && !NEW_NET
+        private void Awake()
 		{
 			TestSuiteServer.GetApplicationList(Activates, null);
 		}
@@ -62,7 +62,7 @@ namespace SlotMaker.TestSuite
 		}
 #endif
 
-		public void Close()
+        public void Close()
 		{
 			GameObject.Destroy(gameObject);
 		}

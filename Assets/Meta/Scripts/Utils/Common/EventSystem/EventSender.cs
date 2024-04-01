@@ -222,6 +222,10 @@ namespace BagelCode
             if (ApplicationSettings.LogTest())
                 Debug.Log("EventSender.SendGlobalEvent: " + eventType + "." + eventData.name);
 
+#if UNITY_EDITOR
+            Debug.Log($"【 EventSender 发送消息】：eventName = {eventType} ， name = {eventData.name}");
+#endif
+
             bool isCustomEvent = eventType == ON_CUSTOM_EVENT;
             if (isCustomEvent)
             {
@@ -259,7 +263,7 @@ namespace BagelCode
             SendGlobalEvent(ON_CUSTOM_EVENT, new EventData(eventName));
         }
 
-        #endregion
+#endregion
 
         private static IEnumerator SendEventSkipFrameCoroutine(GameObject receiver, string eventType, EventData eventData, int skipFrame)
         {

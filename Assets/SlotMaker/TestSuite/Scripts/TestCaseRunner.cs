@@ -8,7 +8,7 @@ namespace SlotMaker.TestSuite
 
 public class TestCaseRunner : MonoBehaviour
 {
-#if DEV
+#if DEV && !NEW_NET
 	public TestCase testCase { get; set; }
 
 	private int suiteIndex;
@@ -80,6 +80,6 @@ public class TestCaseRunner : MonoBehaviour
 		}
 	}
 #endif
-}
+    }
 
 }

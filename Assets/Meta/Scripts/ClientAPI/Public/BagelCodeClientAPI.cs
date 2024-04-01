@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using System;
 using System.Collections;
@@ -46,6 +47,11 @@ namespace BagelCode
                 clickPn = (info != null && info.value != null) ? "click_pn" : "",
                 devicePushSetting = strContent
             };
+
+
+            UnityEngine.Debug.LogWarning("seaweed ：request 01 = " + request.deviceId);
+            request.deviceId = "9fbcc5f44323feba849b9b20ed00ede40edb8123";
+            UnityEngine.Debug.Log("seaweed ：request 02 = " + request.deviceId);
 
             BagelCodeHTTP.MakeApiCall("/v0/main/login", null, request,
                 LoginResponse.Deserialize, responseCallback, errorCallback);
@@ -719,6 +725,10 @@ namespace BagelCode
                 isHighRollerBet = isHighRollerBet,
                 seasonPassEventId = seasonPassEventID,
             };
+
+            string buffer = SlotMaker.Json.SlotSimpleJson.SerializeObject(request);
+            Debug.Log($"@ = {buffer}");
+
 #if DEV
             BagelCodeHTTP.MakeApiCall("/vd3/slot/debug/spin", null,
 #else
@@ -868,6 +878,7 @@ namespace BagelCode
         public static void KenoPlay(long betPerTicket, long extraBetPerTicket, int ticketCount, bool isAutoPick, List<List<int>> pickInfoList, bool isGamePlay, bool isBonusPlay, int metaGameEventID, int gameID, int collectingGameChestDropRateMultiplyEventId, List<int> expEventIdList, bool isHighRollerBet, object customData, int seasonPassEventID,
             Action<KenoPlayResponseV1> responseCallback, HTTPErrorCallback errorCallback)
         {
+
             KenoPlayRequest request = new KenoPlayRequest
             {
                 blockseq = BagelCodeHTTP.FetchBlockSeq(),
@@ -884,11 +895,11 @@ namespace BagelCode
                 seasonPassEventId = seasonPassEventID
             };
 
-    #if DEV
+#if DEV
             BagelCodeHTTP.MakeApiCall("/vd1/keno/play", null,
-    #else
+#else
             BagelCodeHTTP.MakeApiCall("/v1/keno/play", null,
-    #endif
+#endif
                 request, KenoPlayResponseV1.Deserialize, responseCallback, errorCallback);
         }
 
@@ -964,6 +975,8 @@ namespace BagelCode
                     SimpleResponse.Deserialize, responseCallback, errorCallback, false);
         }
 
+
+        // @seaweed 这个要后期删掉
         public static void Ping(Action<SimpleResponse> responseCallback, HTTPErrorCallback errorCallback)
         {
             SimpleRequest request = new SimpleRequest
@@ -1165,6 +1178,8 @@ namespace BagelCode
                 lastReceivedId = lastID,
             };
 
+
+            Debug.LogWarning("@@seaweed 调用就协议 /v1/system/poll ");
             BagelCodeHTTP.LongPoll("/v1/system/poll", request,
                     PollResponseV1.Deserialize, responseCallback, errorCallback);
         }
@@ -2504,6 +2519,7 @@ namespace BagelCode
 
         public static void GetRecentChatMessages(string channelID, long lastReceiveID, Action<ChatPollResponse> responseCallback, HTTPErrorCallback errorCallback)
         {
+
             ChatRecentRequest request = new ChatRecentRequest
             {
                 channelId = channelID,
@@ -3446,6 +3462,20 @@ namespace BagelCode
             };
 
             BagelCodeHTTP.MakeApiCall("/vd/boss_raiders_deal/debug/spin", null, request, BossRaidersDealSpinResponse.Deserialize, responseCallback, errorCallback);
+        }
+
+        
+        public static void PurchaseCreditRequest(UInt32 operateType, long purchase, Action<PurchaseCreaditResponse> responseCallback, HTTPErrorCallback errorCallback)
+        {
+            PurchaseCreditRequest request = new PurchaseCreditRequest
+            {
+                blockseq = BagelCodeHTTP.FetchBlockSeq(),
+                ackMask = BagelCodeHTTP.GenerateAckBits(),
+                operateType = operateType,
+                purchase = purchase
+            };
+            string handle = operateType == 1 ? "/v0/purchase/add_credit" : "/v0/purchase/sub_credit";
+            //BagelCodeHTTP.MakeApiCall(handle, null, request, PurchaseCreaditResponse.Deserialize, responseCallback, errorCallback);
         }
 
         #region Delete Account

@@ -47,7 +47,7 @@ namespace SlotMaker.TestSuite
 
         public void StopAutoTest()
         {
-#if DEV
+#if DEV && !NEW_NET
             if (autoTest != null)
             {
                 StopCoroutine(autoTest);
@@ -65,7 +65,7 @@ namespace SlotMaker.TestSuite
 #endif
         }
 
-#if DEV
+#if DEV && !NEW_NET
         private void Awake()
         {
             string testCase = TestSuiteServer.GetUserData("testCase");

@@ -32,6 +32,8 @@ namespace SlotMaker
 
     	public string apiUrl;
         public string loginUrl;
+        public string newLoginUrlApp;
+        public string newLoginUrlMechine;
         public string chattingApiUrl;
     	public string bundlePath;
     	public string bundleUrl;
@@ -48,9 +50,13 @@ namespace SlotMaker
     	public string defineFlags;
 
         public bool accountLogin;
+        //public bool isNewNetwork;
+
+        public bool isMachine;
 
         public List<string> streamingAssets = new List<string>();
         public List<string> staticStreamingAssets = new List<string>();
+
 
         public LogFilter logFilter { get; set; }
 

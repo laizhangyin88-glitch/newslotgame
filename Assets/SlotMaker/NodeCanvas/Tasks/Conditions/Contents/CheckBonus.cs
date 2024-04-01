@@ -1,9 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using NodeCanvas.Framework;
 using ParadoxNotion;
 using ParadoxNotion.Design;
 using SlotMaker;
+using Debug = UnityEngine.Debug;
 
 namespace BagelCode.Tasks.Conditions.Contents
 {
@@ -20,9 +22,12 @@ public class CheckBonus : ConditionTask
 
     protected override bool OnCheck()
     {
+
         IBlackboard bb = ContentBlackboard.Get();
         var spin       = bb.GetVariable<Blackboard>("spin").value;
         var response   = ContentBlackboardUtils.GetBonusResponse(spin, bonusId.value);
+
+        Debug.Log($"【bounsId】 {response}");
 
         return response != null;
     }

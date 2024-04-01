@@ -58,6 +58,12 @@ namespace BagelCode
 
         private IEnumerator RetryCoroutine()
         {
+
+#if NEW_NET
+
+            Debug.LogWarning("@【待解决】 触发旧协议！！");
+            yield return null;
+#else
             var openRetryTrigger = new EventTrigger(gameObject, "OnOpenRetryPopup");
             var retryTrigger = new EventTrigger(gameObject, "OnRetry");
             var closeTrigger = new EventTrigger(gameObject, "OnClose");
@@ -77,7 +83,10 @@ namespace BagelCode
 
                 if (retryTrigger.IsTrigger) OnRetry();
             }
-        }
+#endif
+
+            }
+
 
         private void MakeCommonOKPopup()
         {

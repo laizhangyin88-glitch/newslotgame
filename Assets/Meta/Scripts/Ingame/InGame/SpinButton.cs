@@ -7,6 +7,8 @@ using ParadoxNotion;
 using NodeCanvas.Framework;
 using SlotMaker;
 using TMPro;
+using System;
+using SboxSpace;
 
 namespace BagelCode
 {
@@ -91,6 +93,11 @@ namespace BagelCode
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            PointerDown();
+        }
+
+        private void PointerDown()
+        {
             if (!button.IsActive() || !button.IsInteractable())
                 return;
 
@@ -102,6 +109,12 @@ namespace BagelCode
         }
 
         public void OnPointerUp(PointerEventData eventData)
+        {
+            PointerUp();
+            //IOEventCenter.SendEvent(IOCenterEvent.EVENT_KeyStatus, new object[2] { 10, 0 });
+        }
+
+        private void PointerUp()
         {
             if (autoSpinProgress == AutoSpinProgress.Trying)
                 StopCoroutine("WaitForAutoSpinDelay");
@@ -148,7 +161,7 @@ namespace BagelCode
             }
             else
             {
-                if(SpinType == SpinType.GameSpin || SpinType == SpinType.BonusSpin)
+                if (SpinType == SpinType.GameSpin || SpinType == SpinType.BonusSpin)
                 {
                     luckySpinElement.gameObject.SetActive(SpinType == SpinType.GameSpin);
                     bonusSpinElement.gameObject.SetActive(SpinType == SpinType.BonusSpin);
@@ -181,8 +194,8 @@ namespace BagelCode
             root = GetComponent<ContextElement>();
             root.UpdateContext(true);
 
-            luckySpinElement  = ContextUtils.FindElement(root, "Text Lucky Spin", ContextSearchingType.ChildrenSearch);
-            bonusSpinElement  = ContextUtils.FindElement(root, "Text Bonus Spin", ContextSearchingType.ChildrenSearch);
+            luckySpinElement = ContextUtils.FindElement(root, "Text Lucky Spin", ContextSearchingType.ChildrenSearch);
+            bonusSpinElement = ContextUtils.FindElement(root, "Text Bonus Spin", ContextSearchingType.ChildrenSearch);
 
             defaultStopElementList.Add(ContextUtils.FindElement(root, "Stop Text/Text Stop", ContextSearchingType.FullNameSearch));
             defaultStopElementList.Add(ContextUtils.FindElement(root, "Auto Spin Text/Text Stop", ContextSearchingType.FullNameSearch));
@@ -203,14 +216,26 @@ namespace BagelCode
             MetaContextElementUtils.SetActive(spinDescElement, !isKeno);
             MetaContextElementUtils.SetActive(playElement, isKeno);
             MetaContextElementUtils.SetActive(playDescElement, isKeno);
+
+
+            RegisterHandleEventType(MetaEventDefine.ON_META_UI_EVENT);
+            Register(MetaEventDefine.ON_META_UI_EVENT, MachineEventDefine.ON_KEY_START, OnMachinePoint);
+        }
+
+        private void OnMachinePoint(EventData data)
+        {
+            if ((int)data.value == 1)
+                PointerDown();
+            else
+                PointerUp();
         }
 
         private void SetState(bool isDefault)
         {
-            foreach(var obj in defaultStopElementList)
+            foreach (var obj in defaultStopElementList)
                 obj.gameObject.SetActive(isDefault);
 
-            foreach(var obj in gameSpinStopElementList)
+            foreach (var obj in gameSpinStopElementList)
                 obj.gameObject.SetActive(!isDefault);
 
             animator.SetBool(ANI_IS_GAME_SPIN, !isDefault);

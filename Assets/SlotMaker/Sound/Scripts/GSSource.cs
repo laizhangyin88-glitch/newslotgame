@@ -8,76 +8,77 @@ namespace SlotMaker
     [RequireComponent(typeof(PooledObject))]
     public class GSSource : MonoBehaviour
     {
-    	private AudioSource _source;
-    	private AudioSource source
-    	{
-    		get 
-    		{
-    			if (_source == null)
-    				_source = GetComponent<AudioSource>();
+        private AudioSource _source;
+        private AudioSource source
+        {
+            get
+            {
+                if (_source == null)
+                    _source = GetComponent<AudioSource>();
 
-    			return _source;
-    		}
-    	}
+                return _source;
+            }
+        }
 
-    	public GSHandler Handler { get; set; }
+        public GSHandler Handler { get; set; }
 
-    	private float maxVolume;
+        private float maxVolume;
 
-    	public bool IsPlaying
-    	{
-    		get 
-    		{
-    			return source.isPlaying;
-    		}
-    	}
+        public long startUseTime = 0;
+        public bool IsPlaying
+        {
+            get
+            {
+                return source.isPlaying;
+            }
+        }
 
-    	public bool IsFading
-    	{
-    		get
-    		{
-    			return coroutine != null;
-    		}
-    	}
+        public bool IsFading
+        {
+            get
+            {
+                return coroutine != null;
+            }
+        }
 
-    	public float Volume
-    	{
-    		get 
-    		{
-    			return source.volume / maxVolume;
-    		}
+        public float Volume
+        {
+            get
+            {
+                return source.volume / maxVolume;
+            }
 
-    		set 
-    		{
-    			source.volume = value * maxVolume;
-    		}
-    	}
+            set
+            {
+                source.volume = value * maxVolume;
+            }
+        }
 
-    	public bool Mute
-    	{
-    		get 
-    		{
-    			return source.mute;
-    		}
+        public bool Mute
+        {
+            get
+            {
+                return source.mute;
+            }
 
-    		set 
-    		{
-    			source.mute = value;
-    		}
-    	}
+            set
+            {
+                source.mute = value;
+            }
+        }
 
-    	public float Time
-    	{
-    		get 
-    		{
-    			return source.time;
-    		}
+        public float Time
+        {
+            get
+            {
+                return source.time;
+            }
 
-    		set 
-    		{
-    			source.time = value;
-    		}
-    	}
+            set
+            {
+                source.time = value;
+            }
+        }
 
         private IEnumerator coroutine;
 
@@ -85,31 +86,34 @@ namespace SlotMaker
         {
             Handler = handler;
 
-            source.clip                  = Handler.clip.Load();
-            source.loop                  = Handler.loop;
-            source.volume                = Handler.volume;
-            maxVolume                    = Handler.volume;
-            source.mute                  = Handler.Mute;
+
+            //source属性赋值
+            source.clip = Handler.clip.Load(); //资源包里加载clip
+            source.loop = Handler.loop;
+            source.volume = Handler.volume;
+            maxVolume = Handler.volume;
+            source.mute = Handler.Mute;
             source.outputAudioMixerGroup = Handler.outputAudioMixerGroup;
-            
+
+            //方法绑定
             Handler.onVolumeChanged += OnVolumeChanged;
-            Handler.onMute          += OnMute;
-            Handler.onStop          += Stop;
-            Handler.onPause         += Pause;
-            Handler.onUnPause       += UnPause;
-            Handler.onClear         += Clear;
+            Handler.onMute += OnMute;
+            Handler.onStop += Stop;
+            Handler.onPause += Pause;
+            Handler.onUnPause += UnPause;
+            Handler.onClear += Clear;
         }
 
-    	public void Play()
-    	{
-    		Play(Handler.delay);
-    	}
+        public void Play()
+        {
+            Play(Handler.delay);
+        }
 
-    	public void Play(float delay)
-    	{
-    		if (delay > 0f)
+        public void Play(float delay)
+        {
+            if (delay > 0f)
                 source.PlayDelayed(delay);
-            else 
+            else
                 source.Play();
 
             if (coroutine != null)
@@ -123,25 +127,25 @@ namespace SlotMaker
                 coroutine = FadeInCo();
                 StartCoroutine(coroutine);
             }
-			else
-			{
-				Volume = 1.0f;
-			}
-    	}
+            else
+            {
+                Volume = 1.0f;
+            }
+        }
 
-    	private void OnVolumeChanged(float vol)
-    	{
-    		Volume = vol;
-    	}
+        private void OnVolumeChanged(float vol)
+        {
+            Volume = vol;
+        }
 
-    	private void OnMute(bool mute)
-    	{
-    		Mute = mute;
-    	}
+        private void OnMute(bool mute)
+        {
+            Mute = mute;
+        }
 
-    	public void Stop()
-    	{
-            if (coroutine != null) 
+        public void Stop()
+        {
+            if (coroutine != null)
             {
                 StopCoroutine(coroutine);
                 coroutine = null;
@@ -152,59 +156,70 @@ namespace SlotMaker
                 coroutine = FadeOutCo();
                 StartCoroutine(coroutine);
             }
-            else 
+            else
             {
                 source.Stop();
             }
-    	}
+        }
 
-    	public void Pause()
-    	{
-    		source.Pause();
-    	}
+        public void Pause()
+        {
+            source.Pause();
+        }
 
-    	public void UnPause()
-    	{
-    		source.UnPause();
-    	}
+        public void UnPause()
+        {
+            source.UnPause();
+        }
 
+        /// <summary>停止播放，解除和GSHandler的绑定，丢回预设池</summary>
         public void Clear()
         {
             ReturnToPool();
         }
 
-    	private void ReturnToPool()
-    	{
-    		Handler.onVolumeChanged -= OnVolumeChanged;
-    		Handler.onMute          -= OnMute;
-    		Handler.onStop          -= Stop;
-    		Handler.onPause         -= Pause;
-    		Handler.onUnPause       -= UnPause;
-            Handler.onClear         -= Clear;
+        private void ReturnToPool()
+        {
+            if (source != null && source.isPlaying == true) { }
+                source.Stop();
 
-    		Handler.clip.UnLoad();
-    		Handler.OnDestroySource(this);
-    		Handler = null;
-    		source.clip = null;
+            if (coroutine != null)
+                StopCoroutine(coroutine);
+
+            Handler.onVolumeChanged -= OnVolumeChanged;
+            Handler.onMute -= OnMute;
+            Handler.onStop -= Stop;
+            Handler.onPause -= Pause;
+            Handler.onUnPause -= UnPause;
+            Handler.onClear -= Clear;
+
+            Handler.clip.UnLoad();
+            Handler.OnDestroySource(this);
+            Handler = null;
+
+            if (source != null )
+                 source.clip = null;
+
             coroutine = null;
 
-    		GetComponent<PooledObject>().ReturnToPool();
-    	}
+            GetComponent<PooledObject>().ReturnToPool();
+        }
 
-    	private void LateUpdate()
-    	{
-    		if ((Handler == null) || 
+
+        private void LateUpdate()
+        {
+            if ((Handler == null) ||
                 ((Handler.autoRelease) && !source.isPlaying))
-    		{
-    			ReturnToPool();
-    		}
-    	}
+            {
+                ReturnToPool();
+            }
+        }
 
         private IEnumerator FadeInCo()
         {
             var curve = GSManager.Instance.GetEaseCurve(Handler.fadeIn.easeType);
             float startVolume = Volume;
-            float volumeRange = 1f - startVolume; 
+            float volumeRange = 1f - startVolume;
             var startTime = UnityEngine.Time.time;
             var animationTime = Handler.fadeIn.time;
 
@@ -214,10 +229,10 @@ namespace SlotMaker
                 Volume = curve.Evaluate(deltaTime / animationTime) * volumeRange + startVolume;
                 if (deltaTime >= animationTime)
                     break;
-                
+
                 yield return null;
             }
-			coroutine = null;
+            coroutine = null;
         }
 
         private IEnumerator FadeOutCo()
@@ -239,7 +254,7 @@ namespace SlotMaker
             }
 
             source.Stop();
-			coroutine = null;
+            coroutine = null;
         }
     }
 }

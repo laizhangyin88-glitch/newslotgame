@@ -23,7 +23,7 @@ namespace SlotMaker.TestSuite
 
         public void Submit()
         {
-#if DEV
+#if DEV && !NEW_NET
             var report = new Dictionary<string, object>();
             report["projects"] = PROJECTS_CUSTOM_REPORT;
             report["name"] = inputfieldTitle.text;

@@ -22,11 +22,18 @@ public class MetaJackpotInfo : ActionTask <Blackboard>
 
     protected override void OnExecute()
     {
-        if(jackpotType != MetaJackpotType.UNKNOWN)
+#if NEW_NET
+    EndAction(true);
+    return; 
+#endif
+            if (jackpotType != MetaJackpotType.UNKNOWN)
         {
             BagelCodeClientAPI.MetaJackpotInfo(jackpotType,
             (response) =>
             {
+                string oldJson = JsonUtility.ToJson(response);
+                //Debug.Log($"@A MetaJackpotResponseV1 = {oldJson}");
+
                 BlackboardQueryUtils.UpdateMetaJackpotInfo(jackpotType, response.jackpotList, response.serverTime);
                 EndAction(true);
             },

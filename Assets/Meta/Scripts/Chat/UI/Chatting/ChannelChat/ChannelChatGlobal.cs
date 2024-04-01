@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using BagelCode.ClientModels;
@@ -25,6 +26,12 @@ namespace BagelCode.Chat
 
         protected override void Start()
         {
+
+
+#if NEW_NET
+            Debug.Log("【remove rpc】: /v0/chat/subscribe");
+            return;
+#endif
             base.Start();
             InitLanguageButton();
             InitClubPrButton();

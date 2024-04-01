@@ -1,4 +1,4 @@
-﻿#if DEV
+#if DEV && !NEW_NET
 using System;
 using System.Collections;
 using System.Collections.Generic;

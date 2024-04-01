@@ -121,6 +121,31 @@ namespace BagelCode
             Register("OnSettingPIP", OnTogglePip);
 
             isInit = true;
+
+
+
+
+#if NEW_NET
+            // 关掉设置界面的部分按钮
+            var cellElement01 = ContextUtils.FindElement(root, "Settings Cell Join", CHILDREN);
+            MetaContextElementUtils.SetActive(cellElement01, false);
+            cellElement01 = ContextUtils.FindElement(root, "Settings Cell FPS", CHILDREN);
+            MetaContextElementUtils.SetActive(cellElement01, false);
+            cellElement01 = ContextUtils.FindElement(root, "Settings Cell PUSH", CHILDREN);
+            MetaContextElementUtils.SetActive(cellElement01, false);
+            cellElement01 = ContextUtils.FindElement(root, "Settings Cell KUDO", CHILDREN);
+            MetaContextElementUtils.SetActive(cellElement01, false);
+            cellElement01 = ContextUtils.FindElement(root, "Settings Cell WOE", CHILDREN);
+            MetaContextElementUtils.SetActive(cellElement01, false);
+            cellElement01 = ContextUtils.FindElement(root, "Settings Cell Logout", CHILDREN);
+            MetaContextElementUtils.SetActive(cellElement01, false);
+            cellElement01 = ContextUtils.FindElement(root, "Settings Cell Delete Account", CHILDREN);
+            MetaContextElementUtils.SetActive(cellElement01, false);
+            cellElement01 = ContextUtils.FindElement(root, "Settings Cell PIP", CHILDREN);
+            MetaContextElementUtils.SetActive(cellElement01, false);
+#endif
+
+
         }
 
         private bool GetState(string playerPrefsKey, int defaultValue = 1)

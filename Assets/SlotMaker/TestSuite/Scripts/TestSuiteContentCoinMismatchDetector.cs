@@ -10,7 +10,7 @@ namespace SlotMaker.TestSuite
     {
         public string message;
 
-#if DEV
+#if DEV && !NEW_NET
         enum ClaimType
         {
             UNKNOWN = -666,

@@ -18,7 +18,19 @@ namespace SlotMaker
 			CreatePool();
 		}
 
-		[Button]
+        [Button]
+        public virtual void ResetPool()
+        {
+            ClearPool();
+            while (this.transform.childCount > 0)
+            {
+                GameObject.DestroyImmediate(this.transform.GetChild(0).gameObject);
+            }
+            CreatePool();
+        }
+
+
+        [Button]
 		public virtual void CreatePool()
 		{
 			if (prefab == null)

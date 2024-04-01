@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using ParadoxNotion;
@@ -9,7 +9,7 @@ namespace SlotMaker.TestSuite
 
 public class TestSuiteDebugSpinRunner : MonoBehaviour
 {
-#if DEV
+#if DEV && !NEW_NET
     public List<DebugSequence> debugSequenceList { get; set; }
 
     private ContentTestInfo testInfo;
@@ -128,18 +128,27 @@ public class TestSuiteDebugSpinRunner : MonoBehaviour
         {
             yield return new WaitForSeconds(EVENT_SOLVING_INTERVAL);
 
+#if NEW_NET
+                yield return null;
+#else
             if (TestSuiteEventSolver.HasSolver("Meta"))
                 TestSuiteEventSolver.Solve("Meta");
             else if (TestSuiteEventSolver.HasSolver("Contents"))
                 TestSuiteEventSolver.Solve("Contents");
+#endif
+            }
         }
-    }
 
     private void ShowLog()
     {
-        TestSuiteManager.Instance.tsDescription.text = string.Format("{0}/{1}", (spinIndex + 1), spinCount);
+#if NEW_NET
+            return;
+#else
+            TestSuiteManager.Instance.tsDescription.text = string.Format("{0}/{1}", (spinIndex + 1), spinCount);
+#endif
+
     }
 #endif
-}
+    }
 
 }

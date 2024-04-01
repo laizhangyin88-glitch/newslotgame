@@ -20,7 +20,14 @@ public class Polling : ActionTask<Blackboard>
     
     protected override void OnExecute()
     {
-        BagelCodeClientAPI.Poll(lastReceiveID.value,
+
+
+#if NEW_NET
+            isError.value = false;
+            EndAction(true);
+            return;
+#endif
+            BagelCodeClientAPI.Poll(lastReceiveID.value,
         (response) =>
         {
             ClientAPI2Blackboard.Serialize(agent, response);

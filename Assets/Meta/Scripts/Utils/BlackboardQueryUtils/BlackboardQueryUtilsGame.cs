@@ -29,7 +29,7 @@ namespace BagelCode
             // from lobby
             // Update GameInfos
             var gameInfoList = BlackboardUtils.FindVariable<List<Blackboard>>(MainBlackboard.Get(), "gameInfoList").value;
-            if(gameInfoList == null) return;
+            if (gameInfoList == null) return;
 
             for (int i = 0; i < gameInfoList.Count; ++i)
             {
@@ -41,6 +41,12 @@ namespace BagelCode
                 string smallImageAssetName = StringTableUtils.GetString(StringTable.StringTableType.Global, MetaIconUtils.SLOT_THUMBNAIL_SMALL, gameTitle);
                 slotWebImageURL[smallImageAssetName] = gameInfoList[i].GetValue<string>("shortImageUrl");
             }
+        }
+
+        public static void UpdateGameAndSlotInfoFromLobby01(Dictionary<string, string> _slotWebImageURL)
+        {
+            //BlackboardQueryUtils.ClearGameAndSlotInfos();
+            slotWebImageURL = _slotWebImageURL;
         }
 
         public static string GetGameWebImageURL(string assetName)

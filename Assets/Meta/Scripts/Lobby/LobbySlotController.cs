@@ -31,6 +31,7 @@ namespace BagelCode
         public GameObject slotTagObject;
         public GameObject slotTagEventObject;
         public GameObject backgroundObject;
+        public GameObject selected;
 
         // Set Inspector Values
         public List<string> tagString;
@@ -42,6 +43,7 @@ namespace BagelCode
         private EnterGameInfoBehaviour enterGameInfo;
 
         private bool isInit = false;
+        private bool isSelect = false;
 
         public int gameID;
         public string gameTitle;
@@ -548,6 +550,22 @@ namespace BagelCode
             }
 
             return false;
+        }
+
+        public void Select(bool isSelect)
+        {
+            this.isSelect = isSelect;
+            selected.SetActive(isSelect);
+        }
+
+        public void EnterGame()
+        {
+            if (isSelect)
+            {
+                gameObject.GetComponent<GameSoundPlayer>().PlayGameSound("UI_Button_Normal");
+                enterGameInfo.SetEnterGameInfo();
+                gameObject.GetComponent<SendEvent>().SendNow("ClickedSlot");
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ using ParadoxNotion.Design;
 using SlotMaker;
 using SlotMaker.Json;
 using BagelCode.ClientModels;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace BagelCode.Tasks.Actions.ClientAPI
 {
@@ -28,6 +29,13 @@ public class RedeemProduct : ActionTask <Blackboard>
     
     protected override void OnExecute()
     {
+#if NEW_NET
+           // isSuccess.value = true;
+            EndAction(true);
+            return;
+#endif
+
+
         var productId = BlackboardUtils.FindVariable<int>(agent, string.Format("{0}/id", valueA.value) );
 
         if (productId != null)

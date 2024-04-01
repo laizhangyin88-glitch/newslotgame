@@ -208,11 +208,16 @@ public class BiEventSender : MonoWeakSingleton<BiEventSender>
             reportDetails["dump"] = recordData;
             report["details"] = reportDetails;
 
+#if !NEW_NET
             TestSuiteManager.Instance.UpdateReportHeader(report);
             TestSuiteManager.Instance.Report(report);
-
             Debug.LogError(recordData);
-        }
+#endif
+
+            }
+
+
+
 #endif
 
         StringBuilder sb = new StringBuilder();

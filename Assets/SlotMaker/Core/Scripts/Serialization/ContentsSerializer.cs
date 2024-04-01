@@ -1,3 +1,4 @@
+//#define NEW_NET0
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,6 +6,7 @@ using System.Text;
 using UnityEngine;
 using NodeCanvas.Framework;
 using SlotMaker.Json;
+using BagelCode.Protobuf;
 #if DEV
 using SlotMaker.TestSuite;
 #endif
@@ -70,7 +72,20 @@ namespace SlotMaker.Contents
             int requestType = bb.GetValue<int>("requestType");
             string contents = bb.GetValue<string>("contents");
 
+#if NEW_NET
+            string decryptedContents = (withDecryption == false|| contents.StartsWith("{")) ? contents : XOR(contents);
+#else
             string decryptedContents = withDecryption ? XOR(contents) : contents;
+#endif
+
+            //object testObj = SlotSimpleJson.DeserializeObject(decryptedContents);
+            //string testStr = JsonUtility.ToJson(testObj);
+            //Debug.Log($"@A testObj = {testObj}  - {testStr}");
+
+#if UNITY_EDITOR
+            Debug.Log($"@A contents = {decryptedContents}");
+#endif
+
             deserializer[requestType](bb, decryptedContents);
         }
 
@@ -91,7 +106,7 @@ namespace SlotMaker.Contents
                 extraBet = extraBetCredit,
                 customData = (customData is int) ? new { extraInt = (int)customData } : customData,
                 contentsVersion = ContentsVersionManager.Instance.GetContentsVersion(),
-#if DEV
+#if DEV && !NEW_NET
                 debugParam = TestSuiteManager.Instance.DebugParam
 #endif
             });
@@ -114,7 +129,7 @@ namespace SlotMaker.Contents
                 handCount = handCount,
                 customData = customData,
                 contentsVersion = ContentsVersionManager.Instance.GetContentsVersion(),
-#if DEV
+#if DEV && !NEW_NET
                 debugParam = TestSuiteManager.Instance.DebugParam
 #endif
             });
@@ -140,7 +155,7 @@ namespace SlotMaker.Contents
                 pickInfoList = pickInfoList,
                 customData = customData,
                 contentsVersion = ContentsVersionManager.Instance.GetContentsVersion(),
-#if DEV
+#if DEV && !NEW_NET
                 debugParam = TestSuiteManager.Instance.DebugParam
 #endif
             });
@@ -196,7 +211,7 @@ namespace SlotMaker.Contents
 
         static void DeserializeSlotSpin(IBlackboard bb, string contents)
         {
-#if DEV
+#if DEV && !NEW_NET
             TestSuiteManager.Instance.DebugParam = string.Empty;
 #endif
             BlackboardJson.DeserializeObject(
@@ -220,7 +235,7 @@ namespace SlotMaker.Contents
 
         static void DeserializeVideoPokerDeal(IBlackboard bb, string contents)
         {
-#if DEV
+#if DEV && !NEW_NET
             TestSuiteManager.Instance.DebugParam = string.Empty;
 #endif
             BlackboardJson.DeserializeObject(
@@ -246,7 +261,7 @@ namespace SlotMaker.Contents
 
         static void DeserializeKenoPlay(IBlackboard bb, string contents)
         {
-#if DEV
+#if DEV && !NEW_NET
             TestSuiteManager.Instance.DebugParam = string.Empty;
 #endif
             BlackboardJson.DeserializeObject(

@@ -41,7 +41,7 @@ namespace SlotMaker.TestSuite
         private int debugSpinType = 0;
         private string HOME_DEBUG_TYPE = "Home";
 
-#if DEV
+#if DEV && !NEW_NET
         private List<DebugSpin> debugSpinList;
         private List<DebugSpin> currentDebugSpinList = new List<DebugSpin>();
         private List<GameObject> customDebugList = new List<GameObject>();

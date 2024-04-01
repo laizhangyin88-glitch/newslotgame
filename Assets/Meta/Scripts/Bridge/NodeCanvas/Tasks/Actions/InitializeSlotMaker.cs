@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NodeCanvas.Framework;
@@ -29,11 +29,11 @@ namespace BagelCode.Tasks.Actions
 
             BlackboardJson.LoadSchema(AssetBundleManager.LoadAsset<TextAsset>("models", "ContentsModels").text);
 
-#if DEV
+#if DEV && !NEW_NET
 			TestSuiteServer.InitializeServer(new TestSuitePlayFabServer());
-#endif	        
+#endif
 
-	        EndAction();
+            EndAction();
 	    }
 	}
 }

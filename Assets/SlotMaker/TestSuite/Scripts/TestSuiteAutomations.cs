@@ -12,8 +12,9 @@ namespace SlotMaker.TestSuite
     	public GameObject buttonPrefab;
         public GameObject keyValuePairPrefab;
 
-#if DEV
-    	private void Awake()
+#if DEV && !NEW_NET
+
+        private void Awake()
     	{
     		foreach (var pair in TestSuiteManager.Instance.testCases)
     		{
@@ -65,7 +66,7 @@ namespace SlotMaker.TestSuite
         }
 #endif
 
-    	public void Close()
+        public void Close()
     	{
     		GameObject.Destroy(gameObject);
     	}

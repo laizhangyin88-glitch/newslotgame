@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +12,7 @@ namespace SlotMaker.TestSuite
 
         private void Awake()
         {
-#if DEV
+#if DEV && !NEW_NET
             TestSuiteManager.Instance.ClosePopup();
 #endif
         }

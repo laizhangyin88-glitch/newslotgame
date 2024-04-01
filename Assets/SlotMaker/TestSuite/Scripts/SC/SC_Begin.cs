@@ -6,7 +6,7 @@ namespace SlotMaker.TestSuite
 {
     public class SC_Begin : TestSuiteRunner 
     {
-#if DEV
+#if DEV && !NEW_NET
         public override void Run(TestCaseRunner testCaseRunner, SlotMaker.TestSuite.TestSuite testSuite)
         {
             base.Run(testCaseRunner, testSuite);

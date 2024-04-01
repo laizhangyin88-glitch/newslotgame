@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,6 +30,7 @@ namespace SlotMaker
                         Debug.Log("Import : " + path);
                         stringTableObj.OnImport();
                         stringTableObj.SetDirty();
+                        //EditorUtility.SetDirty(stringTableObj);
                     }
                 }
             }
@@ -56,6 +57,7 @@ namespace SlotMaker
                             Debug.Log("Import : " + filePath);
                             stringTableObj.OnImport();
                             stringTableObj.SetDirty();
+                            //EditorUtility.SetDirty(stringTableObj);
                         }
                     }
                 }

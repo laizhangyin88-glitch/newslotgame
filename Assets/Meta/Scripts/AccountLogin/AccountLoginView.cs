@@ -57,6 +57,10 @@ public class AccountLoginView : MonoBehaviour
 
     public void OnLoginClick()
     {
+        //if (ApplicationSettings.Instance.isNewNetwork)
+        //{
+        //    return;
+        //}
         if (string.IsNullOrEmpty(accountInput.text))//|| string.IsNullOrEmpty(passwordInput.text))
         {
             StartCoroutine(ShowTips("Account can not be empty!"));
@@ -72,7 +76,9 @@ public class AccountLoginView : MonoBehaviour
         account = accountInput.text;
         loginDict["user_pwd"] = passwordInput.text;
         password = passwordInput.text;
+        Debug.LogWarning($"@ connect : {ApplicationSettings.Instance.loginUrl}");
         StartCoroutine(HttpPost(ApplicationSettings.Instance.loginUrl, "/passwd_login", loginDict, HandleLoginUserResponse));
+        
     }
 
     void HandleLoginUserResponse(string response)
@@ -123,6 +129,10 @@ public class AccountLoginView : MonoBehaviour
 
     public void OnRegistClick()
     {
+        //if (ApplicationSettings.Instance.isNewNetwork)
+        //{
+        //    return;
+        //}
         if (string.IsNullOrEmpty(registAccountInput.text))
         {
             StartCoroutine(ShowTips("Account can not be empty!"));

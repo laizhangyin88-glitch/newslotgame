@@ -16,11 +16,18 @@ namespace SlotMaker.Task.Conditions.TestSuite
 #if DEV
         protected override void OnEnable()
         {
+#if NEW_NET
+            return;
+#endif
             TestSuiteEventSolver.Register("Contents", Solve, weight);
+
         }
 
         protected override void OnDisable()
         {
+#if NEW_NET
+            return;
+#endif
             TestSuiteEventSolver.UnRegister("Contents", Solve);
         }
 

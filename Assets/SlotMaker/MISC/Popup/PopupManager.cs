@@ -45,7 +45,7 @@ namespace SlotMaker
     		return stack[stack.Count-1];
     	}
 
-    	private bool Exist()
+    	public bool Exist()
     	{
     		return stack.Count > 0;
     	}

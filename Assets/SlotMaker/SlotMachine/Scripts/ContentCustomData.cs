@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using ParadoxNotion;
@@ -39,7 +39,11 @@ namespace SlotMaker
             var variables = gsHandler.variables;
             foreach (var pair in variables)
             {
-                ((GSHandler)pair.Value.value).Clear();
+                //((GSHandler)pair.Value.value).Clear();
+                if (pair.Value != null)
+                {
+                    ((GSHandler)pair.Value.value)?.Clear();
+                }
             }
 
             base.OnDestroy();

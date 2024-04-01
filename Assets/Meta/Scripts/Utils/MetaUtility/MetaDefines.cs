@@ -134,7 +134,7 @@ namespace BagelCode
         {
             get
             {
-                if(string.IsNullOrEmpty(lobbyBundleName))
+                if (string.IsNullOrEmpty(lobbyBundleName))
                 {
                     lobbyBundleName = SlotMaker.ApplicationSettings.MakeApplicationBundleName("lobby");
                 }
@@ -265,6 +265,9 @@ namespace BagelCode
 
         // Common
         public const string ON_CANCEL = "OnCancel";
+
+        //Machine
+        public const string ON_MACHINE = "OnMachine";
     }
 
     public static class SystemEventDefine
@@ -272,5 +275,17 @@ namespace BagelCode
         public const string ON_SYSTEM_EVENT = "OnSystemEvent";
         public const string ON_SYSTEM_RESET_EVENT = "SystemReset";
         public const string ON_FINISHED_LOGIN_EVENT = "FinishedLogin";
+    }
+
+    public static class MachineEventDefine
+    {
+        public const string ON_KEY_UP = "OnKeyUp";
+        public const string ON_KEY_DOWN = "OnKeyDown";
+        public const string ON_KEY_RIGHT = "OnKeyRight";
+        public const string ON_KEY_LEFT = "OnKeyLeft";
+        public const string ON_KEY_START = "OnKeyStart";
+        public const string ON_KEY_BET5 = "OnKeyTab";
+        public const string ON_KEY_MAX_BET = "OnKeyMaxBet";
+        public const string ON_LIGHT_CHANGE = "OnLightChange";
     }
 }

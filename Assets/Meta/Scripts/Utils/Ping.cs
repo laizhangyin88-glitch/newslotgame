@@ -15,7 +15,12 @@ namespace BagelCode
             if (mainPingObj == null)
                 mainPingObj = gameObject;
 
+
+#if NEW_NET
+            return;
+#else
             StopPing();
+#endif
         }
 
         private void OnEnable()

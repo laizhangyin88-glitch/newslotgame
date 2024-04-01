@@ -9,7 +9,7 @@ namespace SlotMaker.TestSuite
 {
     public class SC_Finder : TestSuiteRunner
     {
-#if DEV
+#if DEV && !NEW_NET
         private MessageDelegates delegates;
         private class ContentSortingInfo
         {

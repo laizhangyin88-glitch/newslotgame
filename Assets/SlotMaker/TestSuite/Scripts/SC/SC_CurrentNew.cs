@@ -10,7 +10,7 @@ namespace BagelCode
 {
     public class SC_CurrentNew : TestSuiteRunner 
     {
-#if DEV
+#if DEV && !NEW_NET
         public override void Run(TestCaseRunner testCaseRunner, SlotMaker.TestSuite.TestSuite testSuite)
         {
             base.Run(testCaseRunner, testSuite);

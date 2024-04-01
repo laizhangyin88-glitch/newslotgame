@@ -669,6 +669,28 @@ namespace BagelCode
             TournamentStatus currentStatus = tournamentBB.GetValue<TournamentStatus>("status");
             if(currentStatus == TournamentStatus.PLAYING || currentStatus == TournamentStatus.BREAKING)
             {
+#if NEW_NET
+
+            NetManager.Instance.Post(RPCName.metaInfo, null,
+                (res) =>
+                {
+                    string resStr = res.ToString();
+
+                    /* var roomBB =  BlackboardUtils.FindVariable<Blackboard>(ContentBlackboard.Get(), "room");
+
+                     if(roomBB != null && roomBB.value != null)
+                     {
+                         BlackboardQueryUtils.UpdateTournament(response.tournamentInfo);
+                     }*/
+                },
+                (error) =>
+                {
+                }
+            );
+            return;
+#endif
+
+
                 // Request Meta
                 var roomID = BlackboardUtils.FindVariable<string>(ContentBlackboard.Get(), "room/roomId");
 
@@ -687,6 +709,9 @@ namespace BagelCode
                     (error) =>
                     {
                     });
+
+
+
                 }
             }
         }

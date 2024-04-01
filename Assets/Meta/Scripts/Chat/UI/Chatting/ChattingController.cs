@@ -273,6 +273,11 @@ namespace BagelCode.Chat
 
         public void RequestRecentAsync()
         {
+#if NEW_NET
+            Debug.Log("【remove rpc】：/v0/chat/recent");
+            return;
+#endif
+
             int count = ChatDataList.Count;
             string captureChannelID = CurrentChannelID;
             SetLoadingSpinner(true);

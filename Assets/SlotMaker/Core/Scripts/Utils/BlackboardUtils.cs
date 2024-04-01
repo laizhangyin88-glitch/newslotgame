@@ -416,6 +416,7 @@ namespace SlotMaker
             var variable = FindVariable(bb, name);
             if (variable == null)
             {
+                //Debug.LogWarning("Blackboard库(库名：" + bb.name + ") 的字段： " + name +" 为 null");
                 Debug.LogError("[Blackboard](" + bb.name + ") Null variable founded in " + name);
                 return null;
             }

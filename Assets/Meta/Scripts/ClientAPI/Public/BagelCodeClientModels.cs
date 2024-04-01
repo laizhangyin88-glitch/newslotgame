@@ -693,8 +693,10 @@ public enum Error
     LOUNGE_JACKPOT_NOT_AVAILABLE_ERROR = 163,
     INVALID_SIMULATOR_COMPONENT_ID = 164,
     COUPON_COUNT_EXCEEDED_ERROR = 165,
-    RATE_LIMIT_EXCEEDED_ERROR = 166
-}
+    RATE_LIMIT_EXCEEDED_ERROR = 166,
+    //==============
+    REPEAT_LOGIN_ANOTHER_DEVICE = 167,
+    }
 
 public enum EventInfoType
 {
@@ -1796,7 +1798,27 @@ public partial class AccountRemovalWithdrawRequest
     public string actionType = "";
 }
 
-[System.Serializable]
+    [System.Serializable]
+    public partial class PurchaseCreditRequest
+    {
+        public uint blockseq = 0;
+        public int ackMask = 0;
+        public uint operateType = 0;
+        public long purchase = 0;
+    }
+
+    [System.Serializable]
+    public partial class PurchaseCreaditResponse
+    {
+        public Error error { get; set; }
+        public CommonResponse common { get; set; }
+        public long serverTime = 0;
+        public uint operateType = 0;
+        public bool success = false;
+        public UserSyncInfo userSyncInfo = null;
+    }
+
+    [System.Serializable]
 public partial class Action
 {
     public ActionType type = ActionType.UNKNOWN;

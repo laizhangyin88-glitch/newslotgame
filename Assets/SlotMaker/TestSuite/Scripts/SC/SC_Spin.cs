@@ -9,7 +9,7 @@ namespace SlotMaker.TestSuite
 {
     public class SC_Spin : TestSuiteRunner
     {
-#if DEV
+#if DEV && !NEW_NET
         private ContentTestInfo testInfo;
         private int turnIndex;
         private int turnCount;
@@ -142,6 +142,9 @@ namespace SlotMaker.TestSuite
             {
                 yield return new WaitForSeconds(EVENT_SOLVING_INTERVAL);
 
+#if NEW_NET
+
+#else
                 if (TestSuiteEventSolver.HasSolver("Meta"))
                 {
                     TestSuiteEventSolver.Solve("Meta");
@@ -152,6 +155,7 @@ namespace SlotMaker.TestSuite
                     TestSuiteEventSolver.Solve("Contents");
                     waitingTime = 0;
                 }
+#endif
             }
         }
 

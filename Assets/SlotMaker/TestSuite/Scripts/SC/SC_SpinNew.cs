@@ -12,7 +12,7 @@ namespace BagelCode
 {
     public class SC_SpinNew : TestSuiteRunner
     {
-#if DEV
+#if DEV && !NEW_NET
         public DebugSpin currentDebug { get; set; }
 
         private ContentTestInfo testInfo;
@@ -201,6 +201,9 @@ namespace BagelCode
             {
                 yield return new WaitForSeconds(EVENT_SOLVING_INTERVAL);
 
+#if NEW_NET
+                yield return null;
+#else
                 if (TestSuiteEventSolver.HasSolver("Meta"))
                 {
                     TestSuiteEventSolver.Solve("Meta");
@@ -211,6 +214,7 @@ namespace BagelCode
                     TestSuiteEventSolver.Solve("Contents");
                     waitingTime = 0;
                 }
+#endif
             }
         }
 

@@ -190,6 +190,12 @@ namespace BagelCode.Chat
 
         public void ChangeGlobalChannel(int globalIndex)
         {
+
+#if NEW_NET
+            Debug.Log("TOP【remove rpc】: /v0/chat/subscribe");
+            return;
+#endif
+
             string preGlobalChannelID = GetConnectedChannelID(ChannelType.Global);
             ChatMessenger.Instance.DisconnectChannel(preGlobalChannelID);
             ChatMessenger.Instance.Unsubscribe(preGlobalChannelID, this);
@@ -230,6 +236,11 @@ namespace BagelCode.Chat
 
         private void OnFinishedLogin(EventData eventData)
         {
+
+#if NEW_NET
+            Debug.Log("TOP【remove rpc】: /v0/chat/subscribe");
+            return;
+#endif
             if (ApplicationSettings.LogTest())
                 Debug.Log("ChatMetaManager Init");
 

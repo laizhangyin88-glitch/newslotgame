@@ -1,4 +1,4 @@
-﻿#if DEV
+#if DEV && !NEW_NET
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -63,11 +63,11 @@ namespace BagelCode
             PlayFabClientAPI.LoginWithCustomID(
                 new LoginWithCustomIDRequest
                 {
-    #if UNITY_WSA && !UNITY_EDITOR
+#if UNITY_WSA && !UNITY_EDITOR
                     CustomId = NativeHelper.Instance.GetDeviceID(),
-    #else
+#else
                     CustomId = SystemInfo.deviceUniqueIdentifier,
-    #endif
+#endif
 #endif
                     CreateAccount = true,
                     InfoRequestParameters = infoRequestParameters
@@ -76,7 +76,10 @@ namespace BagelCode
                 {
                 	loginResult = result;
 
+
+#if !NEW_NET
                     TestSuiteManager.Instance.LoginResult();
+#endif
 
                     if (ApplicationSettings.LogTestSuite())
                         Debug.Log(string.Format("[TestSuite] Login successed: {0}", SlotSimpleJson.SerializeObject(result)));
