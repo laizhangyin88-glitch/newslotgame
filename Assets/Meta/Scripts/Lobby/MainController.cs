@@ -29,7 +29,8 @@ namespace BagelCode
             Register(MetaEventDefine.ON_CONTENT_UI_EVENT, "HideUI", HideUI);
             Register(MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_META_GAME, OnEnterMetaGame);
             Register(MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_LEAVE_META_GAME, OnLeaveMetaGame);
-            SBoxInit.Instance.Init("192.168.2.49", OnHardCheck);
+            if (ApplicationSettings.Instance.isMachine)
+                SBoxInit.Instance.Init("192.168.2.49", OnHardCheck);
         }
 
         private void OnHardCheck()

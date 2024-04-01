@@ -74,6 +74,19 @@ namespace BagelCode
                 if (PopupManager.Instance.popupCount == 0)
                     MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 0));
             }
+
+
+
+            if (Input.GetKeyUp(KeyCode.H))
+            {
+                /*
+                 BlackboardQueryUtils.IsIngame()
+                BlackboardQueryUtils.IsSpin()
+                BlackboardQueryUtils.IsAutoSpin();
+                //BlackboardUtils.GetOrCreateVariable<bool>(MainBlackboard.Get(), "isSpin").value
+            */
+                Debug.Log($" @ 游戏状态  == IsSpin :{BlackboardQueryUtils.IsSpin()}   IsAutoSpin : {BlackboardQueryUtils.IsAutoSpin()}   IsIngame : {BlackboardQueryUtils.IsIngame()}" );
+            }
         }
     }
 }
