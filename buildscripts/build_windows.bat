@@ -1,1 +1,0 @@
-"c:\Program Files\Unity\Editor\Unity.exe" -quit -batchmode -buildTarget wsaplayer -logFile d:\unity.log -executeMethod BagelCode.Builder.BuildApplication -projectPath d:\repo\v3\client\ -buildPath:d:\workspace -pkgName:com.bagelcode.v3test -target:DEV -platform:Windows -assetBundlePath:d:\asset
