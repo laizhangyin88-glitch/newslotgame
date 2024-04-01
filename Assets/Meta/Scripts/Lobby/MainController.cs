@@ -23,18 +23,18 @@ namespace BagelCode
 
         private void Start()
         {
-           
             RegisterHandleEventType(MetaEventDefine.ON_CONTENT_UI_EVENT);
             RegisterHandleEventType(MetaEventDefine.ON_META_UI_EVENT);
             Register(MetaEventDefine.ON_CONTENT_UI_EVENT, "ShowUI", ShowUI);
             Register(MetaEventDefine.ON_CONTENT_UI_EVENT, "HideUI", HideUI);
             Register(MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_META_GAME, OnEnterMetaGame);
             Register(MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_LEAVE_META_GAME, OnLeaveMetaGame);
-            IOEventCenter.AddListener(IOCenterEvent.EVENT_HardCheckOK, OnHardCheck);
+            SBoxInit.Instance.Init("192.168.2.49", OnHardCheck);
         }
 
-        private void OnHardCheck(object[] args)
+        private void OnHardCheck()
         {
+            SBoxSanboxController.Instance.ToString();
             loadMachine = true;
         }
 

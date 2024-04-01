@@ -16,18 +16,7 @@ namespace SlotMaker.Tasks.Condition
 
         protected override bool OnCheck()
         {
-
-            //Scene scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
-
-            GameObject.Find("IO System").SetActive(ApplicationSettings.Instance.isMachine);
-            if (ApplicationSettings.Instance.isMachine)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return ApplicationSettings.Instance.isMachine;
         }
     }
 
