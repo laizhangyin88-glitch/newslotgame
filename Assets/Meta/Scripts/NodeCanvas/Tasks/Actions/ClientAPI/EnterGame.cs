@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using SimpleJSON;
+using Boo.Lang;
+
 
 namespace BagelCode.Tasks.Actions.ClientAPI
 {
@@ -54,24 +56,27 @@ public class EnterGame : ActionTask <Blackboard>
                     TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/room_enter_response_v3");
                     ClientModels.RoomEnterResponseV3 response = JsonUtility.FromJson<ClientModels.RoomEnterResponseV3>(jsn8.text);
 
-                    List<long> betList = res["bet_list"].AsStringList.Select(s => long.Parse(s)).ToList();
+                    System.Collections.Generic.List<long> betList = res["bet_list"].AsStringList.Select(s => long.Parse(s)).ToList();
                     response.betList = betList;
                     response.contents = res["contents"].ToString();
 
 
-                    if (false && res.HasKey("last_session_content"))
+                    if (res.HasKey("last_session_content"))
                     {
 
                         JSONNode _cnt;
 
+                        string boundIdStr = "{\"bonus_id\":2102,\"type\":2,\"result\":{\"type\":0,\"bet_credit\":8000,\"added_spin_count\":20},\"earn_credit\":0,\"claim_type\":3,\"uid\":\"171119377516341340\"}";
+
+                        JSONNode _bound = JSONNode.Parse(boundIdStr);
+
                         if (res.HasKey("last_session_content"))
                         {
-                            _cnt  = res["last_session_content"];
+                            _cnt = res["last_session_content"];
                         }
                         else
                         {
                             TextAsset jsn9 = Resources.Load<TextAsset>("tempdata/free_spin_content_777");
-                            BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "lastFreeSpinContent", jsn9.text);
                             _cnt = JSONNode.Parse(jsn9.text);
                         }
 
@@ -80,30 +85,29 @@ public class EnterGame : ActionTask <Blackboard>
                         if (_cnt.HasKey("free_spin_info"))
                         {
                             bet = _cnt["free_spin_info"]["bet"];
-                            addedSpinCount = _cnt["free_spin_info"]["count"];
+                            addedSpinCount = _cnt["free_spin_info"]["count"]  - 1;  //剩余局数
                         }
                         else
-                        { 
+                        {
                             Debug.LogError("没有 free_spin_info 节点");
                         }
 
-                        //if (!_cnt.HasKey("bonus_result") || _cnt["bouns_result"].AsArray.Count == 0)
-                        if (_cnt["bouns_result"].AsArray.Count == 0)
-                        {
-                            string dataStr = "[{\"bonus_id\":2102,\"type\":2,\"result\":{\"type\":0,\"bet_credit\":@bet,\"added_spin_count\":@addedSpinCount},\"earn_credit\":0,\"claim_type\":3,\"uid\":\"171119377516341340\"}]";
-                            dataStr = dataStr.Replace("@bet", $"{bet}");//`${bet}`
-                            dataStr = dataStr.Replace("@addedSpinCount", $"{addedSpinCount}");//`${bet}`
-                            JSONNode lst = JSONNode.Parse(dataStr);
+                        _bound["result"]["bet_credit"] = bet;
+                        _bound["result"]["added_spin_count"] = addedSpinCount;
 
-                            _cnt["bouns_result"] = lst;
-                            //_cnt.Add("bonus_result", lst);
+                        if (addedSpinCount >0 ) //剩余局数大于0
+                        {
+                            _cnt["bonus_result"].Add(_bound);
                         }
 
                         //TextAsset jsn9 = Resources.Load<TextAsset>("tempdata/free_spin_content_777");
-                        //BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "lastFreeSpinContent", jsn9.text);
+                        //_cnt = JSONNode.Parse(jsn9.text);
+
 
                         string strRes01 = _cnt.ToString();
                         BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "lastFreeSpinContent", strRes01);
+
+                        Debug.Log($"last_session_content = {strRes01}");//last_session_content
 
                         BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "islastFreeSpin", true);
                         /* */

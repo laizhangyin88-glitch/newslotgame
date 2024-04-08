@@ -113,10 +113,6 @@ namespace SlotMaker
 
         private void OnTotalWin(List<SymbolWin> winList)
         {
-            string str = JsonUtility.ToJson(winList);
-            Debug.Log($"@结算音效播放 1= {str}");
-            string str2 = JsonUtility.ToJson(new Serialization<SymbolWin>(winList));
-            Debug.Log($"@结算音效播放 2= {str2}");
             var playerInfo = GetCurrentSoundSet();
             var betCredit  = BlackboardUtils.FindValue<long>(null, "./turn/totalBetCredit");
             var earnCredit = GetTotalEarnCredit(winList);
