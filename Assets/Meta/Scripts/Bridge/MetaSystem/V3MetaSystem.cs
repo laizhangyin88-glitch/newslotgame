@@ -77,6 +77,24 @@ namespace BagelCode
 #if NEW_NET
 
 
+            //免费游戏
+            if (BlackboardUtils.GetOrCreateVariable<bool>(ContentBlackboard.Get(), "islastFreeSpin").value)
+            {
+                BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "islastFreeSpin", false);
+
+                TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
+                ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
+                response.contents = BlackboardUtils.GetOrCreateVariable<string>(ContentBlackboard.Get(), "lastFreeSpinContent").value;
+
+                SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
+
+                if (successCallback != null)
+                    successCallback();
+
+                return;
+            }
+
+
             string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
 
             Dictionary<string, object> req = new Dictionary<string, object>
@@ -97,8 +115,8 @@ namespace BagelCode
             NetManager.Instance.Post(RPCName.slotSpin, req,
             (res) =>
             {
-                string resStr = res.ToString();
 
+                string resStr = res.ToString();
                 TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
                 ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
                 response.contents = res["contents"].ToString();
