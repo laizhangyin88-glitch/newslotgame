@@ -510,6 +510,7 @@ public class AccountLoginViewNew : MonoBehaviour
             {
                 // 请求成功，处理返回的数据
                 string jsonResponse = www.downloadHandler.text;
+                // Debug.LogError($"MyJson:{jsonResponse}");
                 jsonResponse = AesManager.Instance.TryLocalDecrypt(jsonResponse);//使用local的key和iv解包
                 Debug.Log("Response: " + jsonResponse);
                 callback?.Invoke(jsonResponse); // 调用回调函数，传递响应数据
