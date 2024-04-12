@@ -140,7 +140,7 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
                 break;
             case SBOX_SWITCH.SWITCH_PAYOUT:
                 break;
-            case SBOX_SWITCH.SWITCH_ENTER:
+            case SBOX_SWITCH.SWITCH_ENTER: 
                 if (PopupManager.Instance.popupCount > 0)
                 {
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Return"));

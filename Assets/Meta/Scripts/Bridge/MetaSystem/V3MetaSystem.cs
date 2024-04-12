@@ -107,7 +107,7 @@ namespace BagelCode
                 // { "debug_param", "{\"is_free_spin\":0}"}
                 { "debug_param", debug_param}
             };
-            globalStore.test_is_free_spin = 0;
+            //globalStore.test_is_free_spin = 0;
 
 
             Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
