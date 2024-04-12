@@ -1,28 +1,44 @@
 using ParadoxNotion;
 using SlotMaker;
+using SlotMaker.Tasks.Actions;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Contexts;
 using UnityEngine;
 
 namespace BagelCode
 {
     public class MachineTest : MonoBehaviour
     {
+
         void Update()
         {
             if (Input.GetKeyUp(KeyCode.RightArrow))
             {
-                MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData(MachineEventDefine.ON_KEY_RIGHT));
+
+                if (MachineSelectManager.Instance.isFreeGameTimeSelectPop())
+                {
+                    MachineSelectManager.Instance.NextSelectItem();
+                }
+                else
+                    MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData(MachineEventDefine.ON_KEY_RIGHT));
             }
 
             if (Input.GetKeyUp(KeyCode.LeftArrow))
             {
-                MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData(MachineEventDefine.ON_KEY_LEFT));
+
+
+                if (MachineSelectManager.Instance.isFreeGameTimeSelectPop())
+                {
+                    MachineSelectManager.Instance.PreviousSelectItem();
+                }
+                else
+                    MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData(MachineEventDefine.ON_KEY_LEFT));
             }
 
             if (Input.GetKeyUp(KeyCode.UpArrow))
             {
-                if(ApplicationSettings.Instance.isMachine)
+                if (ApplicationSettings.Instance.isMachine)
                     StartCoroutine(IOController.Instance.PurchaseCreditRequest(1, 100));
             }
 
@@ -36,8 +52,14 @@ namespace BagelCode
             if (Input.GetKeyDown(KeyCode.F1))
             {
 
-                if (PopupManager.Instance.popupCount > 0 || PopupManager.Instance.Exist())
+                if (MachineSelectManager.Instance.isFreeGameTimeSelectPop())
                 {
+                    MachineSelectManager.Instance.ConfirmFreeGameSelectItem();
+                }
+                else if (PopupManager.Instance.popupCount > 0 || PopupManager.Instance.Exist())
+                {
+                    Debug.Log($"【machine】: Popup");
+
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Return"));
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClose"));
@@ -45,10 +67,49 @@ namespace BagelCode
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnCollect"));
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnPointerClick"));
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
+
+
+                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin")); // 所有游戏免费游戏的开始提示弹窗
+
+                    /* ID:39
+                     * Big Win Text Event Mega Win
+                     * Big Win Text Event Super Mega Win
+                     * Big Win Text Event Big Win
+                     */
+                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
+
+
+                    //ID:39
+                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartBigWheel"));//Big Wheel Trigger Popup
+                                                                                                   //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));//Big Wheel Result Popup
+
+
+                    //ID:21
+                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("collectEvent")); //
+
+
+                    //ID:93
+                    //【待做】免费游戏次数选择
+                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Clicked")); //Free Game Select Popup（免费游戏结算确认界面）
+
+
+                    //ID:40
+                    //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));//Free Game Trigger Popup
+                    //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));//Free Game Result Popup
+
+
+                    //ID:37
+                    //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect")); //Free Game Result Popup（免费游戏结算确认界面）
+
+
+                }
+                else if (MachineSelectManager.Instance.isMinGamePop())
+                {
+                    Debug.Log($"【machine】: spin click send  MachineSpinClick");
+                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
                 }
                 else
                     MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 1));
-
 
             }
 
@@ -85,7 +146,7 @@ namespace BagelCode
                 BlackboardQueryUtils.IsAutoSpin();
                 //BlackboardUtils.GetOrCreateVariable<bool>(MainBlackboard.Get(), "isSpin").value
             */
-                Debug.Log($" @ 游戏状态  == IsSpin :{BlackboardQueryUtils.IsSpin()}   IsAutoSpin : {BlackboardQueryUtils.IsAutoSpin()}   IsIngame : {BlackboardQueryUtils.IsIngame()}" );
+                Debug.Log($" @ 游戏状态  == IsSpin :{BlackboardQueryUtils.IsSpin()}   IsAutoSpin : {BlackboardQueryUtils.IsAutoSpin()}   IsIngame : {BlackboardQueryUtils.IsIngame()}");
             }
         }
     }
