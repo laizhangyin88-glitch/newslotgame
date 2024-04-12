@@ -15,7 +15,7 @@ public class MachineSelectBorder : MonoBehaviour
     void Start()
     {
         if(selectBorder == null)
-            selectBorder = transform.FindChild("Selected")?.gameObject;
+            selectBorder = transform.Find("Selected")?.gameObject;
 
         if (index == 0)
         {
