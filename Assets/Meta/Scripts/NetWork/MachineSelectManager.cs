@@ -1,6 +1,7 @@
 
 
 using BagelCode;
+using SlotMaker;
 using UnityEngine;
 
 public class MachineSelectManager
@@ -21,6 +22,24 @@ public class MachineSelectManager
 
 
     int _freeGameSelectNumb = 0;
+
+
+
+
+
+    public bool isGameConfigSelectPop()
+    {
+        if (globalStore.nowGameID == 142) //GOLDEN_PICTURES
+        {
+            GameObject Pick = GameObject.Find("Popup Manager/Contents/Denomination Popup FIJ");
+
+            if (Pick != null && Pick.active)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     public bool isFreeGameTimeSelectPop()
@@ -52,10 +71,77 @@ public class MachineSelectManager
                 return true;
             }
         }
+
+        if (globalStore.nowGameID == 116) //魔术师 - 选牌
+        {
+            GameObject Pick = GameObject.Find("Popup Manager/Contents/Bonus Trigger Popup");
+            if (Pick != null && Pick.active)
+            {
+                return true;
+            }
+        }
+
+        if (globalStore.nowGameID == 149) //白虎 - 选免费游戏
+        {
+            GameObject Pick = GameObject.Find("Popup Manager/Contents/Free Game Select Popup");
+            if (Pick != null && Pick.active)
+            {
+                return true;
+            }
+        }
         return false;
     }
 
-    public bool isMinGamePop()
+
+    public bool isMiniGameSelectPop()
+    {
+        if (globalStore.nowGameID == 92) //小猪
+        {
+
+            //检测有没弹窗：Popup Manager/Contents/Coin Pick Result Popup  或  Popup Manager/Contents/Jackpot Coin Total Win Popup
+            /*
+            GameObject Pop = GameObject.Find("Popup Manager/Contents/Coin Pick Result Popup");
+            if (Pop != null)
+                return false;
+            Pop = GameObject.Find("Popup Manager/Contents/Jackpot Coin Total Win Popup");
+            if (Pop != null)
+                return false;*/
+
+            if (PopupManager.Instance.popupCount > 0 || PopupManager.Instance.Exist())
+                return false;
+
+            GameObject Base = GameObject.Find("Game Contents/Animator/Anchor/Midground/Pick Bonus");
+
+            if (Base != null && Base.active)
+            {
+                return true;
+            }
+        }
+
+
+        if (globalStore.nowGameID == 116) //魔术师 - 魔术帽
+        {
+
+            //if (PopupManager.Instance.popupCount > 0 || PopupManager.Instance.Exist())
+            //    return false;
+
+            GameObject Base = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Bonus Game");
+
+            if (Base != null && Base.active)
+            {
+                return true;
+            }
+        }
+
+
+        return false;
+    }
+
+
+
+
+
+    public bool isMiniGamePop()
     {
 
 
@@ -91,18 +177,15 @@ public class MachineSelectManager
             }
         }
 
-        if (globalStore.nowGameID == 93)
+        if (globalStore.nowGameID == 183) //辣椒 - 滚轮滑动界面
         {
-            return false;
+            GameObject Base = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Slot Frame/Wheel Bonus");
+
+            if (Base != null && Base.active)
+            {
+                return true;
+            }
         }
-
-
-        if (globalStore.nowGameID == 28)
-        {
-            return false;
-        }
-
-
 
 
 
@@ -309,8 +392,91 @@ public class MachineSelectManager
             _freeGameSelectNumb = 0;
         }
 
-        Debug.Log($"【machine】: free game select {name}");
+
+        if (globalStore.nowGameID == 116) //魔术师 - 选牌
+        {
+            EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>("MachineSelectEvent", _freeGameSelectNumb));
+            _freeGameSelectNumb = 0;
+        }
+
+        if (globalStore.nowGameID == 149) //白虎 
+        {
+            name = $"OnSelection{_freeGameSelectNumb}";
+            EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData(name));
+            _freeGameSelectNumb = 0;
+        }
+
+        Debug.Log($"【machine】: free game select {name}    {_freeGameSelectNumb}");
+
+    }
+    public void ConfirmMiniGameSelectItem()
+    {
+        string name = "";
+        if (globalStore.nowGameID == 92) // 小猪选金币（多选）
+        {
+            name = "MachineSelectEvent";
+            EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>(name, _freeGameSelectNumb));
+        }
+
+
+        if (globalStore.nowGameID == 116) //魔术师 - 魔术帽（多选）
+        {
+            name = "MachineSelectEvent";
+            EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>(name, _freeGameSelectNumb));
+        }
+
+
+
+        if (globalStore.nowGameID == 183) //辣椒 - 滚轮滑动界面
+        {
+            name = "OnBigWheelClick";
+            EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>(name, _freeGameSelectNumb));
+        }
+
+
+
+        Debug.Log($"【machine】: min game select {name}");
 
     }
 
+
+
+    public void ConfirmMiniGame()
+    {
+
+        string name = "";
+        if (globalStore.nowGameID == 183) //辣椒 - 滚轮滑动界面
+        {
+            name = "OnBigWheelClick";
+            EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>(name, _freeGameSelectNumb));
+        }
+        else
+        {
+            name = "MachineSpinClick";
+            EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData("MachineSpinClick"));
+        }
+        Debug.Log($"【machine】: spin click send  {name}  {_freeGameSelectNumb}");
+    }
+
+
+
+
+    public void ConfirmGameConfigSelectPop()
+    {
+        if (globalStore.nowGameID == 142) //GOLDEN_PICTURES
+        {
+            //GameObject Pick = GameObject.Find("Popup Manager/Contents/Denomination Popup FIJ");
+
+            GameObject choosePannel = GameObject.Find($"Denomination Popup FIJ/Animator/Anchor/Popup Base/Choose pannel {_freeGameSelectNumb + 1}");
+
+
+            if (choosePannel != null)
+            {
+                choosePannel?.GetComponent<SlotMaker.Extentions.ActionListPlayer>().Play();
+            }
+        }
+
+        Debug.Log($"【machine】: game config {_freeGameSelectNumb}");
+
+    }
 }

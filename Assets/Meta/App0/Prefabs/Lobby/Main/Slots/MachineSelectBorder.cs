@@ -14,7 +14,7 @@ public class MachineSelectBorder : MonoBehaviour
     public GameObject selectBorder;
     void Start()
     {
-        if(selectBorder == null)
+        if (selectBorder == null)
             selectBorder = transform.FindChild("Selected")?.gameObject;
 
         if (index == 0)
@@ -25,37 +25,15 @@ public class MachineSelectBorder : MonoBehaviour
         {
             selectBorder.SetActive(false);
         }
-       // MessageDispatcher.Register("OnMachineSelectEvent", OnMachineCustomEvent);
-       // MessageDispatcher.Register("OnMachineSelectIndexEvent", OnMachineCustomEvent);
     }
 
     private void OnDestroy()
     {
-       // MessageDispatcher.UnRegister("OnMachineSelectEvent", OnMachineCustomEvent);
-       // MessageDispatcher.Register("OnMachineSelectIndexEvent", OnMachineCustomEvent);
     }
 
-   /* void OnMachineCustomEvent(ParadoxNotion.EventData eventData)
-    {
-        selectBorder.SetActive(false);
-        if (eventData.name == "SelectItem" && (int)eventData.value == index) { 
-                selectBorder.SetActive(true);
-        }
-    }
-    void OnMachineSelectIndexEvent(ParadoxNotion.EventData eventData)
-    {
-        if (eventData.name == "GetSelectIndex" && index != -1)
-        {
-            MessageDispatcher.Dispatch("OnMachineSelectIndexEvent", new EventData<int>("ReturnSelectIndex", index));
-        }
-    }
-   */
 
-
-
-    // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

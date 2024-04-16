@@ -16,7 +16,9 @@ namespace BagelCode
             if (Input.GetKeyUp(KeyCode.RightArrow))
             {
 
-                if (MachineSelectManager.Instance.isFreeGameTimeSelectPop())
+                if (MachineSelectManager.Instance.isFreeGameTimeSelectPop()
+                    || MachineSelectManager.Instance.isMiniGameSelectPop()
+                    || MachineSelectManager.Instance.isGameConfigSelectPop())
                 {
                     MachineSelectManager.Instance.NextSelectItem();
                 }
@@ -28,7 +30,9 @@ namespace BagelCode
             {
 
 
-                if (MachineSelectManager.Instance.isFreeGameTimeSelectPop())
+                if (MachineSelectManager.Instance.isFreeGameTimeSelectPop()
+                    || MachineSelectManager.Instance.isMiniGameSelectPop()
+                    || MachineSelectManager.Instance.isGameConfigSelectPop())
                 {
                     MachineSelectManager.Instance.PreviousSelectItem();
                 }
@@ -56,6 +60,10 @@ namespace BagelCode
                 {
                     MachineSelectManager.Instance.ConfirmFreeGameSelectItem();
                 }
+                else if (MachineSelectManager.Instance.isGameConfigSelectPop())
+                {
+                    MachineSelectManager.Instance.ConfirmGameConfigSelectPop();
+                }
                 else if (PopupManager.Instance.popupCount > 0 || PopupManager.Instance.Exist())
                 {
                     Debug.Log($"【machine】: Popup");
@@ -66,10 +74,10 @@ namespace BagelCode
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Finalize"));
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnCollect"));
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnPointerClick"));
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
+                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin")); // 多数游戏免费游戏的开始提示弹窗
 
 
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin")); // 所有游戏免费游戏的开始提示弹窗
+                    //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
 
                     /* ID:39
                      * Big Win Text Event Mega Win
@@ -89,7 +97,6 @@ namespace BagelCode
 
 
                     //ID:93
-                    //【待做】免费游戏次数选择
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Clicked")); //Free Game Select Popup（免费游戏结算确认界面）
 
 
@@ -101,12 +108,25 @@ namespace BagelCode
                     //ID:37
                     //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect")); //Free Game Result Popup（免费游戏结算确认界面）
 
+                    //ID:142
+                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnFinishBonus")); //Double Jackpot Major Popup FIJ（免费游戏结算确认界面）
+
+
+                    //ID:149 - 白虎
+                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnButtonClicked")); //Double Jackpot Major Popup FIJ（免费游戏开始界面）
+
+
+                    //ID:144 - 狮子
+                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickButton")); //免费游戏开始界面、免费游戏结算界面
 
                 }
-                else if (MachineSelectManager.Instance.isMinGamePop())
+                else if (MachineSelectManager.Instance.isMiniGameSelectPop())
                 {
-                    Debug.Log($"【machine】: spin click send  MachineSpinClick");
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
+                    MachineSelectManager.Instance.ConfirmMiniGameSelectItem();
+                }
+                else if (MachineSelectManager.Instance.isMiniGamePop())
+                {
+                    MachineSelectManager.Instance.ConfirmMiniGame();
                 }
                 else
                     MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 1));
