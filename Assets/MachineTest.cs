@@ -1,8 +1,10 @@
 using ParadoxNotion;
 using SlotMaker;
+using SlotMaker.Keno.Events;
 using SlotMaker.Tasks.Actions;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.Remoting.Contexts;
 using UnityEngine;
 
@@ -15,139 +17,99 @@ namespace BagelCode
         {
             if (Input.GetKeyUp(KeyCode.RightArrow))
             {
-
-                if (MachineSelectManager.Instance.isFreeGameTimeSelectPop())
-                {
-                    MachineSelectManager.Instance.NextSelectItem();
-                }
-                else
-                    MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData(MachineEventDefine.ON_KEY_RIGHT));
+                MachineSelectManager.Instance.BtnNext();
             }
 
             if (Input.GetKeyUp(KeyCode.LeftArrow))
             {
-
-
-                if (MachineSelectManager.Instance.isFreeGameTimeSelectPop())
-                {
-                    MachineSelectManager.Instance.PreviousSelectItem();
-                }
-                else
-                    MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData(MachineEventDefine.ON_KEY_LEFT));
+                MachineSelectManager.Instance.BtnPre();
             }
+
+
 
             if (Input.GetKeyUp(KeyCode.UpArrow))
             {
-                if (ApplicationSettings.Instance.isMachine)
-                    StartCoroutine(IOController.Instance.PurchaseCreditRequest(1, 100));
+                /* if (!MachineSelectManager.Instance.isMenuOpen()
+                     && !MachineSelectManager.Instance.isPopCommon()
+                        //&& !MachineSelectManager.Instance.isPopSysSettingSelect()
+                        && MachineSelectManager.Instance.isChangeButtonRegion()) { 
+
+                         MachineSelectManager.Instance.ChangeButtonRegionUp();
+                 }*/
+                MachineSelectManager.Instance.BtnBetUp();
             }
 
             if (Input.GetKeyUp(KeyCode.DownArrow))
             {
-                if (ApplicationSettings.Instance.isMachine)
-                    StartCoroutine(IOController.Instance.PurchaseCreditRequest(2, 100));
+                /* if (!MachineSelectManager.Instance.isMenuOpen()
+                     && !MachineSelectManager.Instance.isPopCommon()
+                        //&& !MachineSelectManager.Instance.isPopSysSettingSelect()
+                        && MachineSelectManager.Instance.isChangeButtonRegion())
+                 {
+                     MachineSelectManager.Instance.ChangeButtonRegionDown();
+                 }
+                */
+                MachineSelectManager.Instance.BtnBetDown();
+            }
+            if (Input.GetKeyUp(KeyCode.X))
+            {
+                MachineSelectManager.Instance.BtnBetMax();
+
             }
 
 
-            if (Input.GetKeyDown(KeyCode.F1))
+
+            if (Input.GetKeyUp(KeyCode.KeypadPlus))
             {
-
-                if (MachineSelectManager.Instance.isFreeGameTimeSelectPop())
-                {
-                    MachineSelectManager.Instance.ConfirmFreeGameSelectItem();
-                }
-                else if (PopupManager.Instance.popupCount > 0 || PopupManager.Instance.Exist())
-                {
-                    Debug.Log($"【machine】: Popup");
-
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Return"));
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClose"));
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Finalize"));
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnCollect"));
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnPointerClick"));
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
-
-
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin")); // 所有游戏免费游戏的开始提示弹窗
-
-                    /* ID:39
-                     * Big Win Text Event Mega Win
-                     * Big Win Text Event Super Mega Win
-                     * Big Win Text Event Big Win
-                     */
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
-
-
-                    //ID:39
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartBigWheel"));//Big Wheel Trigger Popup
-                                                                                                   //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));//Big Wheel Result Popup
-
-
-                    //ID:21
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("collectEvent")); //
-
-
-                    //ID:93
-                    //【待做】免费游戏次数选择
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Clicked")); //Free Game Select Popup（免费游戏结算确认界面）
-
-
-                    //ID:40
-                    //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));//Free Game Trigger Popup
-                    //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));//Free Game Result Popup
-
-
-                    //ID:37
-                    //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect")); //Free Game Result Popup（免费游戏结算确认界面）
-
-
-                }
-                else if (MachineSelectManager.Instance.isMinGamePop())
-                {
-                    Debug.Log($"【machine】: spin click send  MachineSpinClick");
-                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
-                }
-                else
-                    MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 1));
-
+                MachineSelectManager.Instance.BtnAddCoin();
             }
 
-            if ((Input.GetKeyDown(KeyCode.E)))
+            if (Input.GetKeyUp(KeyCode.KeypadMinus))
             {
-                globalStore.test_is_free_spin = 1;
+                MachineSelectManager.Instance.BtnMinusCoin();
             }
 
 
-            if ((Input.GetKeyDown(KeyCode.D)))
+
+
+            if (Input.GetKeyUp(KeyCode.H)) //帮助
             {
-                globalStore.test_is_free_spin = 0;
+                MachineSelectManager.Instance.BtnHelp();
+            }
+
+
+
+            if (Input.GetKeyUp(KeyCode.M)) //菜单
+            {
+                MachineSelectManager.Instance.BtnMenu();
             }
 
             if ((Input.GetKeyDown(KeyCode.R)))
             {
-                //
-                EventSender.SendGlobalEvent("OnLobby");  //测试：退出问题
-            }
+                MachineSelectManager.Instance.BtnReturn();
 
+            }
+            // Spin
+            if (Input.GetKeyDown(KeyCode.F1))
+            {
+                MachineSelectManager.Instance.BtnSpinDown();
+            }
+            // Spin
             if (Input.GetKeyUp(KeyCode.F1))
             {
-                if (PopupManager.Instance.popupCount == 0)
-                    MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 0));
+                MachineSelectManager.Instance.BtnSpinUp();
             }
 
 
-
-            if (Input.GetKeyUp(KeyCode.H))
+            // K2
+            if ((Input.GetKeyDown(KeyCode.F3)))
             {
-                /*
-                 BlackboardQueryUtils.IsIngame()
-                BlackboardQueryUtils.IsSpin()
-                BlackboardQueryUtils.IsAutoSpin();
-                //BlackboardUtils.GetOrCreateVariable<bool>(MainBlackboard.Get(), "isSpin").value
-            */
-                Debug.Log($" @ 游戏状态  == IsSpin :{BlackboardQueryUtils.IsSpin()}   IsAutoSpin : {BlackboardQueryUtils.IsAutoSpin()}   IsIngame : {BlackboardQueryUtils.IsIngame()}");
+                MachineSelectManager.Instance.BtnSwitch();
+
             }
+
+
+
         }
     }
 }
