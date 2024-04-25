@@ -48,7 +48,10 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
             //    //提高押注
             //    MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetUp"));
             //});
-            SBoxSandboxListener.Instance.AddButtonDown(SBOX_SWITCH.SWITCH_ENTER, () => {
+
+
+
+           /* SBoxSandboxListener.Instance.AddButtonDown(SBOX_SWITCH.SWITCH_ENTER, () => {
                 if (PopupManager.Instance.popupCount > 0)
                     {
                         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Return"));
@@ -103,9 +106,58 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
             SBoxSandboxListener.Instance.AddButtonUp(SBOX_SWITCH.SWITCH_ENTER, () => {
                 MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 0));
             });
+            */
+
+            foreach (SBOX_SWITCH value in Enum.GetValues(typeof(SBOX_SWITCH)))
+            {
+                SBoxSandboxListener.Instance.AddButtonDown(value, () => {
+                    OnKeyDown(value);
+                });
+                SBoxSandboxListener.Instance.AddButtonUp(value, () => {
+                    OnKeyUp(value);
+                });
+            }
+           //SBoxSandboxListener.Instance.AddButtonUp(SBOX_SWITCH.SWITCH_ENTER, () => {
+           //     OnKeyUp(SBOX_SWITCH.SWITCH_ENTER);
+           //});
+
         }
 #endif
     }
+
+
+    /*
+
+    【上面一排（从左到右）】：
+    1: KeyDown SWITCH_RED
+    2: KeyDown SWITCH_GREEN
+    3: KeyDown SWITCH_YELLOW
+    4: KeyDown SWITCH_BET4
+
+
+    【下面一排（从左到右）】：
+    1: KeyDown SWITCH_AUTO
+    2: KeyDown SWITCH_ESC
+    3: KeyDown SWITCH_SWITCH
+    4: KeyDown SWITCH_BET5
+
+    【右边大按钮】：
+    KeyDown SWITCH_ENTER；
+
+    【左边大按钮】：
+    没有接
+
+    【斜坡按钮】：
+    没有接
+
+    【上分/下分】：
+    没有接
+
+    【退票】：
+    没有接
+
+    */
+
 
     private void OnKeyDown(SBOX_SWITCH sBOX_SWITCH)
     {
@@ -115,22 +167,22 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
         switch (sBOX_SWITCH)
         {
             case SBOX_SWITCH.SWITCH_UP:
-                EventSender.SendGlobalEvent(MetaEventDefine.ON_MACHINE, new EventData<int>(MachineEventDefine.ON_KEY_UP, 0));
+                //EventSender.SendGlobalEvent(MetaEventDefine.ON_MACHINE, new EventData<int>(MachineEventDefine.ON_KEY_UP, 0));
                 break;
             case SBOX_SWITCH.SWITCH_DOWN:
-                EventSender.SendGlobalEvent(MetaEventDefine.ON_MACHINE, new EventData<int>(MachineEventDefine.ON_KEY_DOWN, 0));
+                //EventSender.SendGlobalEvent(MetaEventDefine.ON_MACHINE, new EventData<int>(MachineEventDefine.ON_KEY_DOWN, 0));
                 break;
             case SBOX_SWITCH.SWITCH_LEFT:
                 //选择框左移
-                MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData(MachineEventDefine.ON_KEY_LEFT));
+                //MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData(MachineEventDefine.ON_KEY_LEFT));
                 //降低押注
-                MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetDown"));
+                //MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetDown"));
                 break;
             case SBOX_SWITCH.SWITCH_RIGHT:
                 //选择框右移
-                MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData(MachineEventDefine.ON_KEY_RIGHT));
+                //MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData(MachineEventDefine.ON_KEY_RIGHT));
                 //提高押注
-                MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetUp"));
+                //MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetUp"));
                 break;
             case SBOX_SWITCH.SWITCH_ROOT_SET:
                 break;
@@ -140,8 +192,8 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
                 break;
             case SBOX_SWITCH.SWITCH_PAYOUT:
                 break;
-            case SBOX_SWITCH.SWITCH_ENTER: 
-                if (PopupManager.Instance.popupCount > 0)
+            case SBOX_SWITCH.SWITCH_ENTER: //Spin
+                /*if (PopupManager.Instance.popupCount > 0)
                 {
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Return"));
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));
@@ -152,41 +204,56 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
                 }
                 else
                     MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 1));
+               */
+
+                MachineSelectManager.Instance.BtnSpinDown();
                 break;
             case SBOX_SWITCH.SWITCH_ESC:
-                if (PopupManager.Instance.popupCount == 0)
+                /*if (PopupManager.Instance.popupCount == 0)
                     EventSender.SendGlobalEvent("OpenPaytable");
+                */
+                MachineSelectManager.Instance.BtnMenu();
                 break;
             case SBOX_SWITCH.SWITCH_SWITCH:
-                //最大下注
+                /*//最大下注
                 MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetMax"));
                 //炮升级
                 //EventSender.SendGlobalEvent(MetaEventDefine.ON_MACHINE, new EventData<int>(MachineEventDefine.ON_KEY_MAX_BET, data));
+                */
+                MachineSelectManager.Instance.BtnReturn();
                 break;
             case SBOX_SWITCH.SWITCH_SCORE_UP:
+                MachineSelectManager.Instance.BtnAddCoin();
                 break;
             case SBOX_SWITCH.SWITCH_SCORE_DOWN:
+                MachineSelectManager.Instance.BtnBetDown();
                 break;
             case SBOX_SWITCH.SWITCH_RED:
-                StartCoroutine(PurchaseCreditRequest(1, 100));
+                //StartCoroutine(PurchaseCreditRequest(1, 100));
+                MachineSelectManager.Instance.BtnBetDown();
                 break;
             case SBOX_SWITCH.SWITCH_GREEN:
-                StartCoroutine(PurchaseCreditRequest(2, 100));
+                //StartCoroutine(PurchaseCreditRequest(2, 100));
+                MachineSelectManager.Instance.BtnBetUp();
                 break;
             case SBOX_SWITCH.SWITCH_YELLOW:
-                //选择框左移
+                /*//选择框左移
                 MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData(MachineEventDefine.ON_KEY_LEFT));
                 //降低押注
                 MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetDown"));
+                */
+                MachineSelectManager.Instance.BtnPre();
                 break;
             case SBOX_SWITCH.SWITCH_BET4:
-                //选择框右移
+                /*//选择框右移
                 MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData(MachineEventDefine.ON_KEY_RIGHT));
                 //提高押注
                 MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetUp"));
+                */
+                MachineSelectManager.Instance.BtnNext();
                 break;
             case SBOX_SWITCH.SWITCH_BET5:
-                if (BlackboardQueryUtils.IsSpin()
+                /*if (BlackboardQueryUtils.IsSpin()
                     || BlackboardQueryUtils.IsAutoSpin())
                     return;
                 //退出
@@ -195,8 +262,11 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
                 MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData(MachineEventDefine.ON_KEY_BET5));
                 //鱼机 退出
                 MessageDispatcher.Dispatch(MetaEventDefine.ON_MACHINE, new EventData(MachineEventDefine.ON_KEY_BET5));
+                */
+                MachineSelectManager.Instance.BtnSwitch();
                 break;
             case SBOX_SWITCH.SWITCH_AUTO:
+                MachineSelectManager.Instance.BtnBetMax();
                 break;
             default:
                 break;
@@ -205,7 +275,9 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 
     private void OnKeyUp(SBOX_SWITCH sBOX_SWITCH)
     {
+#if UNITY_EDITOR
         Debug.LogError("KeyUp " + sBOX_SWITCH);
+#endif
         switch (sBOX_SWITCH)
         {
             case SBOX_SWITCH.SWITCH_UP:
@@ -225,7 +297,8 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
             case SBOX_SWITCH.SWITCH_PAYOUT:
                 break;
             case SBOX_SWITCH.SWITCH_ENTER:
-                MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 0));
+                MachineSelectManager.Instance.BtnSpinUp();
+                //MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 0));
                 break;
             case SBOX_SWITCH.SWITCH_ESC:
                 break;
