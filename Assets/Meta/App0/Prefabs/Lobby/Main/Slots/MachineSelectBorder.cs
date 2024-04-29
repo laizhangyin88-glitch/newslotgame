@@ -218,7 +218,7 @@ public class MachineSelectBorder : MonoBehaviour
 
 
     public delegate bool IsExchange<T>(T x, T y);
-    List<T1> DoBubbling<T1>(List<T1> lst, IsExchange<T1> isExchange)
+    public static List<T1> DoBubbling<T1>(List<T1> lst, IsExchange<T1> isExchange)
     {
         int n = lst.Count;
         for (int i = 0; i < n - 1; i++)
@@ -594,6 +594,12 @@ public class MachineSelectBorder : MonoBehaviour
         {
             isSelected = index == 0;
             //selectBorder.SetActive(index == 0); // 默认 index = 0 时显示
+        }
+
+        if (mark == "SPIN"
+            && MachineSelectManager.Instance.isCloseSpinBorder())
+        {
+            gameObject.SetActive(false);
         }
     }
 
