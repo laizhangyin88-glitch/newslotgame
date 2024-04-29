@@ -1,8 +1,6 @@
 using BagelCode;
 using BlizzEvent;
 using ParadoxNotion;
-using SBoxApi;
-using SboxSpace;
 using SlotMaker;
 using System;
 using System.Collections;
@@ -20,11 +18,256 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
         ON = 1,
     }
 
+    /*[Button]
+    void test_showBtns()
+    {
+        string temp = "";
+        sceneBtns.ForEach(item =>
+        {
+            temp += $"#{item}";
+        });
+        Debug.Log($" @btns = {temp};");
+    }*/
+
     void Start()
     {
+        if (!ApplicationSettings.Instance.isMachine)
+            return;
+
         AddButtonEvent();
         AddEventListener();
+
+        MessageDispatcher.Register("MachineBtnEvent", OnMachineBtnEvent);  //"ShowLightSelectTip"
+                                                                           //LightOnAll();
+                                                                           //StartCoroutine(OnSpin());
+                                                                           // setSceneLightOn();
     }
+
+    protected override void OnDestroy()
+    {
+        MessageDispatcher.UnRegister("MachineBtnEvent", OnMachineBtnEvent);  //"ShowLightSelectTip"
+    }
+
+    private void OnMachineBtnEvent(ParadoxNotion.EventData eventData)
+    {
+
+        if (eventData.name == "LightBtnSelectShowTipOn")//"LightBtnSelectShowTip"  "LightBtnSelect"
+        {
+            StartCoroutine(OnLightBtnSelectShowTip((int)eventData.value));
+        }
+
+        if (eventData.name == "LightBtnSelectShowTipOff")
+        {
+            CloseLightTip();
+        }
+        /*
+        if (eventData.name == "LightBtnOn")
+        {
+            LightOn((SBOX_SWITCH)eventData.value);
+        }
+        if (eventData.name == "LightBtnOff")
+        {
+            LightOff((SBOX_SWITCH)eventData.value);
+        }
+        */
+        if (eventData.name == "LightBtnOpenSpin")
+        {
+            LightOn(SBOX_SWITCH.SWITCH_ENTER);
+        }
+
+        if (eventData.name == "LightBtnCloseSpin")
+        {
+            LightOff(SBOX_SWITCH.SWITCH_ENTER);
+        }
+
+        if (eventData.name == "ChangeSceneBtnLight")
+        {
+            string[] map = (string[])eventData.value;
+
+            List<SBOX_SWITCH> include = new List<SBOX_SWITCH>();
+            for (int i = 0; i < map.Length; i++)
+            {
+                if (!include.Contains(keyMap[map[i]]))
+                {
+                    include.Add(keyMap[map[i]]);
+                }
+            }
+
+            sceneBtns = include;
+            setSceneLightOn();
+        }
+
+    }
+
+    readonly Dictionary<string, SBOX_SWITCH> keyMap = new Dictionary<string, SBOX_SWITCH>()
+    {
+        { "BtnSpin", SBOX_SWITCH.SWITCH_ENTER },
+        { "BtnPre", SBOX_SWITCH.SWITCH_YELLOW },
+        { "BtnNext", SBOX_SWITCH.SWITCH_BET4 },
+        { "BtnExit", SBOX_SWITCH.SWITCH_SWITCH },
+        { "BtnSwitch", SBOX_SWITCH.SWITCH_BET5 },
+        { "BtnBetUp", SBOX_SWITCH.SWITCH_RED },
+        { "BtnBetDown", SBOX_SWITCH.SWITCH_GREEN },
+        { "BtnBetMax", SBOX_SWITCH.SWITCH_AUTO},
+        { "BtnHelp", SBOX_SWITCH.SWITCH_ESC},
+    };
+
+
+
+
+    bool isLightBtnSelectShowTip = false;
+
+    public List<SBOX_SWITCH> lightBtn = new List<SBOX_SWITCH>() {
+        //上一排（从左到右）
+        SBOX_SWITCH.SWITCH_RED,
+        SBOX_SWITCH.SWITCH_GREEN,
+        SBOX_SWITCH.SWITCH_YELLOW,
+        SBOX_SWITCH.SWITCH_BET4,
+        //下一排（从左到右）
+        SBOX_SWITCH.SWITCH_AUTO,
+        SBOX_SWITCH.SWITCH_ESC,
+        SBOX_SWITCH.SWITCH_SWITCH,
+        SBOX_SWITCH.SWITCH_BET5,
+        //大健
+        SBOX_SWITCH.SWITCH_ENTER,
+    };
+
+
+    /*
+    public List<SBOX_SWITCH> AllHallCommonBtn = new List<SBOX_SWITCH>() {
+        //上一排（从左到右）
+        //SBOX_SWITCH.SWITCH_RED,    
+        //SBOX_SWITCH.SWITCH_GREEN, 
+         SBOX_SWITCH.SWITCH_YELLOW,//左
+         SBOX_SWITCH.SWITCH_BET4,//右
+        //下一排（从左到右）
+        //SBOX_SWITCH.SWITCH_AUTO,  //最大注
+        //SBOX_SWITCH.SWITCH_ESC,  //帮助
+        SBOX_SWITCH.SWITCH_SWITCH, //返回
+       // SBOX_SWITCH.SWITCH_BET5, //切换
+    };
+    public List<SBOX_SWITCH> AllGameCommonBtn = new List<SBOX_SWITCH>() {
+        //上一排（从左到右）
+        SBOX_SWITCH.SWITCH_RED,   //加注
+        SBOX_SWITCH.SWITCH_GREEN, //减注
+        //SBOX_SWITCH.SWITCH_YELLOW,//左
+        //SBOX_SWITCH.SWITCH_BET4,//右
+        //下一排（从左到右）
+        SBOX_SWITCH.SWITCH_AUTO,  //最大注
+        SBOX_SWITCH.SWITCH_ESC,  //帮助
+        SBOX_SWITCH.SWITCH_SWITCH, //返回
+       //SBOX_SWITCH.SWITCH_BET5, //切换
+    };*/
+
+    /* public List<SBOX_SWITCH> getSceneAllLight(List<SBOX_SWITCH> include = null)
+     {
+         List<SBOX_SWITCH> temp;
+         if (globalStore.nowGameID == -1)
+         {
+             temp = new List<SBOX_SWITCH>(AllHallCommonBtn);
+         }
+         else
+         {
+             temp = new List<SBOX_SWITCH>(AllGameCommonBtn);
+         }
+         if (include != null)
+             temp.AddRange(include);
+         return temp;
+     }*/
+
+
+
+
+    List<SBOX_SWITCH> sceneBtns = new List<SBOX_SWITCH>();
+
+    public void setSceneLightOn()
+    {
+        for (int i = 0; i < lightBtn.Count; i++)
+        {
+            if (sceneBtns.Contains(lightBtn[i]))
+            {
+                LightOn(lightBtn[i]);
+            }
+            else
+            {
+                LightOff(lightBtn[i]);
+            }
+        }
+    }
+
+    public IEnumerator OnLightBtnSelectShowTip(int num)
+    {
+
+        for (int i = 0; i < lightBtn.Count; i++)
+        {
+            LightOff(lightBtn[i]);
+        }
+
+        isLightBtnSelectShowTip = true;
+        while (isLightBtnSelectShowTip)
+        {
+            for (int i = 0; i < num; i++)
+            {
+                LightOn(lightBtn[i]);
+            }
+            yield return new WaitForSeconds(1);
+
+            for (int i = 0; i < num; i++)
+            {
+                LightOff(lightBtn[i]);
+            }
+            yield return new WaitForSeconds(0.8f);
+        }
+        setSceneLightOn();
+        yield return null;
+    }
+
+
+    public IEnumerator OnSpin()
+    {
+        isLightBtnSelectShowTip = true;
+        while (isLightBtnSelectShowTip)
+        {
+
+            LightOn(SBOX_SWITCH.SWITCH_ENTER);
+
+            yield return new WaitForSeconds(1);
+
+
+            LightOff(SBOX_SWITCH.SWITCH_ENTER);
+
+            yield return new WaitForSeconds(0.8f);
+        }
+
+        yield return null;
+    }
+
+    /*
+    void LightOnAll()
+    {
+        setSceneLightOn();
+
+        LightOn(SBOX_SWITCH.SWITCH_ENTER); //Spin
+    }*/
+
+    void LightOn(SBOX_SWITCH key)
+    {
+#if UNITY_EDITOR
+        MatchDebugManager.Instance.SendUdpMessage(EventHandle.SBOX_SADNBOX_SWITCH_ON, ((ulong)key).ToString());
+#else
+        SwitchOutStateOn((ulong)key);
+#endif
+    }
+    void LightOff(SBOX_SWITCH key)
+    {
+#if UNITY_EDITOR
+        MatchDebugManager.Instance.SendUdpMessage(EventHandle.SBOX_SADNBOX_SWITCH_OFF, ((ulong)key).ToString());
+#else
+        SwitchOutStateOff((ulong)key);
+#endif
+    }
+
+
 
     private void AddButtonEvent()
     {
@@ -158,12 +401,39 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 
     */
 
+    private void CloseLightTip()
+    {
+        if (isLightBtnSelectShowTip)
+        {
+            isLightBtnSelectShowTip = false;
+            StopAllCoroutines();
+            setSceneLightOn();
+        }
+        return;
+    }
 
     private void OnKeyDown(SBOX_SWITCH sBOX_SWITCH)
     {
+
+
 #if UNITY_EDITOR
         Debug.LogError("KeyDown " + sBOX_SWITCH);
 #endif
+
+
+        if (isLightBtnSelectShowTip && !lightBtn.Contains(sBOX_SWITCH))
+        {
+            return;
+        }
+
+        if (isLightBtnSelectShowTip && lightBtn.Contains(sBOX_SWITCH))
+        {
+            CloseLightTip();
+            MessageDispatcher.Dispatch("MachineBtnEvent", new EventData<int>("LightBtnSelect", lightBtn.IndexOf(sBOX_SWITCH)));
+            return;
+        }
+
+
         switch (sBOX_SWITCH)
         {
             case SBOX_SWITCH.SWITCH_UP:
@@ -212,7 +482,7 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
                 /*if (PopupManager.Instance.popupCount == 0)
                     EventSender.SendGlobalEvent("OpenPaytable");
                 */
-                MachineSelectManager.Instance.BtnMenu();
+                MachineSelectManager.Instance.BtnHelp();
                 break;
             case SBOX_SWITCH.SWITCH_SWITCH:
                 /*//最大下注
@@ -229,12 +499,10 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
                 MachineSelectManager.Instance.BtnBetDown();
                 break;
             case SBOX_SWITCH.SWITCH_RED:
-                //StartCoroutine(PurchaseCreditRequest(1, 100));
-                MachineSelectManager.Instance.BtnBetDown();
+                MachineSelectManager.Instance.BtnBetUp();
                 break;
             case SBOX_SWITCH.SWITCH_GREEN:
-                //StartCoroutine(PurchaseCreditRequest(2, 100));
-                MachineSelectManager.Instance.BtnBetUp();
+                MachineSelectManager.Instance.BtnBetDown();
                 break;
             case SBOX_SWITCH.SWITCH_YELLOW:
                 /*//选择框左移
@@ -278,6 +546,14 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 #if UNITY_EDITOR
         Debug.LogError("KeyUp " + sBOX_SWITCH);
 #endif
+
+
+        if (isLightBtnSelectShowTip && !lightBtn.Contains(sBOX_SWITCH))
+        {
+            return;
+        }
+
+
         switch (sBOX_SWITCH)
         {
             case SBOX_SWITCH.SWITCH_UP:
@@ -412,7 +688,7 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 
     private void OnLightChange(EventData data)
     {
-        switch (data.value)
+        /*switch (data.value)
         {
             case "lobby":
                 //开灯
@@ -431,7 +707,7 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
                 break;
             default:
                 break;
-        }
+        }*/
     }
 
 }

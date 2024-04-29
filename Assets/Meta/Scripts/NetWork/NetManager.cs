@@ -547,6 +547,12 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             }
 
 
+            if (evt.Contains("Sparkling"))
+            {
+                Debug.Log($"@【find Sparkling】：{evt}");
+            }
+
+
             this.OnWebSocketMessage((string)dataDict["protocol_key"], dataDict["data"]);
 
         }
