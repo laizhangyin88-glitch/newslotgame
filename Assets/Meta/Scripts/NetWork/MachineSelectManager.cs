@@ -240,8 +240,6 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
         }
     }
 
-
-    /// <summary>心跳定时器</summary>
     protected System.Timers.Timer _taskTimer = null;
 
 
@@ -1994,7 +1992,7 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
     }
 
 
-    public void PurchaseCreditRequest(int operateType, long purchase)
+    public void PurchaseCreditRequest(int operateType, long purchase, Action onsuccess = null)
     {
         string rpcName = operateType == 1 ? RPCName.agentRechargeToDeviceUser : RPCName.decreaseDeviceCredit;
         Dictionary<string, object> req = new Dictionary<string, object>
@@ -2008,6 +2006,9 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
             globalStore.newCredit = res["balance"].AsLong;
             BlackboardQueryUtils.SetMyCredit(globalStore.newCredit);
             MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
+
+            if (onsuccess != null)
+                onsuccess();
         },
         (error) =>
         {

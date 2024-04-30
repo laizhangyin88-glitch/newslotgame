@@ -1,3 +1,4 @@
+using BlizzEvent;
 using Newtonsoft.Json;
 using SBoxApi;
 using SlotMaker;
@@ -56,41 +57,97 @@ public class MatchDebugManager : MonoSingleton<MatchDebugManager>
 
     private void DealWithMsg(MatchDebugMsg msg)
     {
+        List<string> strList;
         switch (msg.handle)
         {
             case EventHandle.CHECK_SBOX_READY:
-                BlizzEvent.EventCenter.Instance.EventTrigger(EventHandle.SBOX_READY, int.Parse(msg.data));
+                EventCenter.Instance.EventTrigger(EventHandle.CHECK_SBOX_READY, int.Parse(msg.data));
                 break;
             case SBoxEventHandle.SBOX_SADNBOX_RESET:
-                BlizzEvent.EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_RESET, int.Parse(msg.data));
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_RESET, int.Parse(msg.data));
                 break;
             case SBoxSanboxEventHandle.COIN_IN:
-                BlizzEvent.EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_IN, int.Parse(msg.data));
+                EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_IN, int.Parse(msg.data));
                 break;
             case SBoxSanboxEventHandle.COIN_OUT:
-                BlizzEvent.EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_OUT, int.Parse(msg.data));
+                EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_OUT, int.Parse(msg.data));
                 break;
             case SBoxEventHandle.SBOX_SADNBOX_COIN_OUT_START:
-                BlizzEvent.EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_COIN_OUT_START, int.Parse(msg.data));
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_COIN_OUT_START, int.Parse(msg.data));
                 break;
             case SBoxEventHandle.SBOX_SADNBOX_COIN_OUT_STOP:
-                BlizzEvent.EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_COIN_OUT_STOP, int.Parse(msg.data));
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_COIN_OUT_STOP, int.Parse(msg.data));
                 break;
             case SBoxSanboxEventHandle.COIN_OUT_TIMEOUT:
-                BlizzEvent.EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_OUT_TIMEOUT, int.Parse(msg.data));
+                EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_OUT_TIMEOUT, int.Parse(msg.data));
                 break;
             case EventHandle.HARDWARE_KEY_DOWN:
-                BlizzEvent.EventCenter.Instance.EventTrigger(EventHandle.HARDWARE_KEY_DOWN, (SBOX_SWITCH)((ulong.Parse(msg.data))));
+                EventCenter.Instance.EventTrigger(EventHandle.HARDWARE_KEY_DOWN, (SBOX_SWITCH)((ulong.Parse(msg.data))));
                 break;
             case EventHandle.HARDWARE_KEY_UP:
-                BlizzEvent.EventCenter.Instance.EventTrigger(EventHandle.HARDWARE_KEY_UP, (SBOX_SWITCH)((ulong.Parse(msg.data))));
+                EventCenter.Instance.EventTrigger(EventHandle.HARDWARE_KEY_UP, (SBOX_SWITCH)((ulong.Parse(msg.data))));
                 break;
             case EventHandle.HARDWARE_KEY_CLICK:
-                BlizzEvent.EventCenter.Instance.EventTrigger(EventHandle.HARDWARE_KEY_CLICK, (SBOX_SWITCH)((ulong.Parse(msg.data))));
+                EventCenter.Instance.EventTrigger(EventHandle.HARDWARE_KEY_CLICK, (SBOX_SWITCH)((ulong.Parse(msg.data))));
                 break;
             case EventHandle.HARDWARE_KEY_LONG_PRESS:
-                BlizzEvent.EventCenter.Instance.EventTrigger(EventHandle.HARDWARE_KEY_LONG_PRESS, (SBOX_SWITCH)((ulong.Parse(msg.data))));
+                EventCenter.Instance.EventTrigger(EventHandle.HARDWARE_KEY_LONG_PRESS, (SBOX_SWITCH)((ulong.Parse(msg.data))));
                 break;
+            case SBoxEventHandle.SBOX_SADNBOX_MOTOR_TOUCH:
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_MOTOR_TOUCH, int.Parse(msg.data));
+                break;
+            case EventHandle.SBOX_SADNBOX_IS_MOTOR_BUSY:
+                EventCenter.Instance.EventTrigger(EventHandle.SBOX_SADNBOX_IS_MOTOR_BUSY, bool.Parse(msg.data));
+                break;
+            case SBoxEventHandle.SBOX_SADNBOX_BILL_LIST_GET:
+                strList = JsonConvert.DeserializeObject<List<string>>(msg.data);
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_BILL_LIST_GET, strList);
+                break;
+            case SBoxEventHandle.SBOX_SADNBOX_BILL_SELECT:
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_BILL_SELECT, int.Parse(msg.data));
+                break;
+            case SBoxEventHandle.SBOX_SADNBOX_BILL_APPROVE:
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_BILL_APPROVE, int.Parse(msg.data));
+                break;
+            case SBoxEventHandle.SBOX_SADNBOX_BILL_REJECT:
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_BILL_REJECT, int.Parse(msg.data));
+                break;
+            case SBoxSanboxEventHandle.BILL_STACKED:
+                EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.BILL_STACKED);
+                break;
+            case SBoxSanboxEventHandle.BILL_IN:
+                EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.BILL_IN, int.Parse(msg.data));
+                break;
+            case EventHandle.SBOX_SADNBOX_BILL_STATE:
+                EventCenter.Instance.EventTrigger(EventHandle.SBOX_SADNBOX_BILL_STATE, int.Parse(msg.data));
+                break;
+            case SBoxEventHandle.SBOX_SADNBOX_PRINTER_LIST_GET:
+                strList = JsonConvert.DeserializeObject<List<string>>(msg.data);
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_PRINTER_LIST_GET, strList);
+                break;
+            case SBoxEventHandle.SBOX_SADNBOX_PRINTER_SELECT:
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_PRINTER_SELECT, int.Parse(msg.data));
+                break;
+            case SBoxEventHandle.SBOX_SADNBOX_PRINTER_RESET:
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_PRINTER_RESET, int.Parse(msg.data));
+                break;
+            case SBoxEventHandle.SBOX_SADNBOX_PRINTER_FONTSIZE:
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_PRINTER_FONTSIZE, int.Parse(msg.data));
+                break;
+            case SBoxEventHandle.SBOX_SADNBOX_PRINTER_MESSAGE:
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_PRINTER_MESSAGE, int.Parse(msg.data));
+                break;
+            case SBoxEventHandle.SBOX_SADNBOX_PRINTER_DATESET:
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_PRINTER_DATESET, int.Parse(msg.data));
+                break;
+            case SBoxEventHandle.SBOX_SADNBOX_PRINTER_DATEGET:
+                SBoxDate sBoxDate = JsonConvert.DeserializeObject<SBoxDate>(msg.data);
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_PRINTER_DATEGET, sBoxDate);
+                break;
+            case SBoxEventHandle.SBOX_SADNBOX_PRINTER_PAPERCUT:
+                EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_PRINTER_PAPERCUT, int.Parse(msg.data));
+                break;
+
         }
     }
 

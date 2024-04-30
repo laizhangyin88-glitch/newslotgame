@@ -1,3 +1,4 @@
+using BlizzEvent;
 using SlotMaker;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class SBoxSanboxEventHandle
     public const string COIN_IN = "COIN_IN";
     public const string COIN_OUT = "COIN_OUT";
     public const string COIN_OUT_TIMEOUT = "COIN_OUT_TIMEOUT";
+    public const string BILL_IN = "BILL_IN";
+    public const string BILL_STACKED = "BILL_STACKED";
 }
 public class SwitchClass
 {
@@ -34,6 +37,7 @@ public class SBoxSandboxListener : MonoSingleton<SBoxSandboxListener>
     {
         if (isInit)
             return;
+        Debug.LogError("SBoxSandboxListener Init");
         switchClassDic.Add(SBOX_SWITCH.SWITCH_UP, new SwitchClass());
         switchClassDic.Add(SBOX_SWITCH.SWITCH_DOWN, new SwitchClass());
         switchClassDic.Add(SBOX_SWITCH.SWITCH_LEFT, new SwitchClass());
@@ -62,17 +66,33 @@ public class SBoxSandboxListener : MonoSingleton<SBoxSandboxListener>
         CheckNumberOfCointIn();
         CheckNumberOfCoinOut();
         CheckCoinOutTimeOut();
+        CheckBillIn();
+        CheckBillStacked();
         CheckButtonState();
     }
 
     private void CheckNumberOfCointIn()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 4; i++)
         {
             int data = NumberOfCoinIn(i);
             if (data > 0)
-                BlizzEvent.EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_IN, data);
+                EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_IN, data);
         }
+    }
+
+    private void CheckBillIn()
+    {
+        int data = BillCredit();
+        if (data > 0)
+            EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.BILL_IN, data);
+    }
+
+    private void CheckBillStacked()
+    {
+        bool data = IsBillStacked();
+        if (data)
+            EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.BILL_STACKED);
     }
 
     private void CheckNumberOfCoinOut()
@@ -81,7 +101,7 @@ public class SBoxSandboxListener : MonoSingleton<SBoxSandboxListener>
         {
             int data = NumberOfCoinOut(i);
             if (data > 0)
-                BlizzEvent.EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_OUT, data);
+                EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_OUT, data);
         }
     }
 
@@ -89,7 +109,7 @@ public class SBoxSandboxListener : MonoSingleton<SBoxSandboxListener>
     {
         for (int i = 0; i < 2; i++)
             if (IsCoinOutTimeout(i))
-                BlizzEvent.EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_OUT_TIMEOUT, i);
+                EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_OUT_TIMEOUT, i);
     }
 
     private void CheckButtonState()
@@ -116,7 +136,7 @@ public class SBoxSandboxListener : MonoSingleton<SBoxSandboxListener>
                 switchClassDic[switchKey]?.onPointerUp.Invoke();
                 switchClassDic[switchKey].triggerPointerDown = false;
                 MatchDebugManager.Instance.SendUdpMessage(EventHandle.HARDWARE_KEY_UP, ((ulong)switchKey).ToString());
-                CheckClick();
+                CheckClick(switchKey);
             }
         }
         CheckIsLongPress();
@@ -139,21 +159,20 @@ public class SBoxSandboxListener : MonoSingleton<SBoxSandboxListener>
         }
     }
 
-    private void CheckClick()
+    private void CheckClick(SBOX_SWITCH switchKey)
     {
-        foreach (SBOX_SWITCH switchKey in switchClassDic.Keys)
+        if (!switchClassDic[switchKey].longPressTrigger
+            && Time.time <= switchClassDic[switchKey].curPointDownTime + longPressTime)
         {
-            if (!switchClassDic[switchKey].longPressTrigger)
-            {
-                switchClassDic[switchKey].onClick?.Invoke();
-                MatchDebugManager.Instance.SendUdpMessage(EventHandle.HARDWARE_KEY_CLICK, ((ulong)switchKey).ToString());
-            }
+            switchClassDic[switchKey].onClick?.Invoke();
+            MatchDebugManager.Instance.SendUdpMessage(EventHandle.HARDWARE_KEY_CLICK, ((ulong)switchKey).ToString());
         }
     }
 
     public void AddButtonDown(SBOX_SWITCH sboxSwtich, UnityAction unityAction)
     {
         switchClassDic[sboxSwtich].onPointerDown.AddListener(unityAction);
+
     }
 
     public void AddButtonUp(SBOX_SWITCH sboxSwtich, UnityAction unityAction)
