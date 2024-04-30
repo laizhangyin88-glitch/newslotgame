@@ -61,12 +61,18 @@ namespace BagelCode
 
             if (Input.GetKeyUp(KeyCode.KeypadPlus))
             {
-                MachineSelectManager.Instance.BtnAddCoin();
+                //MachineSelectManager.Instance.BtnAddCoin();
+                MachineSelectManager.Instance.PurchaseCreditRequest(1, 10000);//加分
             }
 
             if (Input.GetKeyUp(KeyCode.KeypadMinus))
             {
-                MachineSelectManager.Instance.BtnMinusCoin();
+                // MachineSelectManager.Instance.BtnMinusCoin();
+                Debug.Log($"【printer】: All dollar = {BlackboardUtils.FindVariable<long>(null, "/me/credit").value / 1000}");
+                int credit = (int)(BlackboardUtils.FindVariable<long>(null, "/me/credit").value / 1000) * 1000;
+                MachineSelectManager.Instance.PurchaseCreditRequest(2, credit, () =>
+                {
+                });//减分
             }
 
 

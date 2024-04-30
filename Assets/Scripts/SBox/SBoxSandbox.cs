@@ -23,9 +23,14 @@
 
 using BlizzEvent;
 using Hal;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
+using BlizzUtils;
 
 namespace SBoxApi
 {
@@ -276,7 +281,9 @@ namespace SBoxApi
                 sBoxInfo.IsMotorBusy = true;
             }
             else
+            {
                 sBoxInfo.IsMotorBusy = false;
+            }
 
             // 设备ID
             sBoxInfo.DeviceId = sBoxPacket.data[4];
@@ -540,7 +547,6 @@ namespace SBoxApi
           */
         public static bool IsMotorBusy()
         {
-            Debug.LogError($"CheckMotorBusy {sBoxInfo.IsMotorBusy}");
             return sBoxInfo.IsMotorBusy;
         }
 
@@ -555,6 +561,19 @@ namespace SBoxApi
             bool bIsBillStacked = sBoxInfo.IsBillStacked;
             sBoxInfo.IsBillStacked = false;
             return bIsBillStacked;
+        }
+
+        /**
+          *  @brief          纸币面额
+          *  @param          无
+          *  @return         纸币面额，非0面额只返回一次
+          *  @details        
+          */
+        public static int BillCredit()
+        {
+            int credit = sBoxInfo.credit;
+            sBoxInfo.credit = 0;
+            return credit;
         }
 
         /**
@@ -1029,7 +1048,6 @@ namespace SBoxApi
         }
         private static void MotorTouchR(SBoxPacket sBoxPacket)
         {
-            Debug.LogError("MotorTouchR");
             EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_MOTOR_TOUCH, sBoxPacket.data[0]);
         }
 
@@ -1055,7 +1073,24 @@ namespace SBoxApi
         }
         private static void BillListGetR(SBoxPacket sBoxPacket)
         {
-            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_BILL_LIST_GET, sBoxPacket.data);
+            if (sBoxPacket.data[0] != 0)
+            {
+                Debug.LogError($"读取所支持的纸钞机型号列表错误:{sBoxPacket.data[0]}");
+                return;
+            }
+            string str = "";
+            for (int i = 1; i < sBoxPacket.data.Length; i++)
+            {
+                int temp = sBoxPacket.data[i];
+                byte[] bytes = BitConverter.GetBytes(temp);
+                string tempStr = Encoding.Default.GetString(bytes, 0, 4);
+                if (string.IsNullOrEmpty(tempStr) || tempStr == "\0")
+                    continue;
+                str += tempStr;
+            }
+            List<string> billList = str.Split('.').ToList();
+            billList.RemoveAt(billList.Count - 1);
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_BILL_LIST_GET, billList);
         }
 
 
@@ -1149,7 +1184,24 @@ namespace SBoxApi
         }
         private static void PrinterListGetR(SBoxPacket sBoxPacket)
         {
-            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_PRINTER_LIST_GET, sBoxPacket.data);
+            if (sBoxPacket.data[0] != 0)
+            {
+                Debug.LogError($"读取所支持的打印机型号列表错误:{sBoxPacket.data[0]}");
+                return;
+            }
+            string str = "";
+            for (int i = 1; i < sBoxPacket.data.Length; i++)
+            {
+                int temp = sBoxPacket.data[i];
+                byte[] bytes = BitConverter.GetBytes(temp);
+                string tempStr = Encoding.Default.GetString(bytes, 0, 4);
+                if (string.IsNullOrEmpty(tempStr) || tempStr == "\0")
+                    continue;
+                str += tempStr;
+            }
+            List<string> printerList = str.Split('.').ToList();
+            printerList.RemoveAt(printerList.Count - 1);
+            EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_PRINTER_LIST_GET, printerList);
         }
 
         /**
@@ -1251,13 +1303,31 @@ namespace SBoxApi
 		 */
         public static void PrinterMessage(string message)
         {
-            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 40155, source: 1, target: 4, size: ((message.Length + 3) / 4) * 4 + 1);
+            SBoxPacket sBoxPacket = new SBoxPacket(cmd: 40155, source: 1, target: 4, size: ((message.Length + 3) / 4) + 1);
 
             sBoxPacket.data[0] = message.Length;
 
-            for (int i = 0; i < sBoxPacket.data.Length - 1; i++)
-            {
+            List<string> strList = Utils.SplitLength(message, 4);
+            string endStr = strList[strList.Count - 1];
+            endStr = endStr.PadRight(4, '\0');
+            strList[strList.Count - 1] = endStr;
 
+            List<int> data = new List<int>();
+            for (int i = 0; i < strList.Count; i++)
+            {
+                byte[] bytes = Encoding.Default.GetBytes(strList[i]);
+                data.Add(BitConverter.ToInt32(bytes, 0));
+            }
+            int index = 0;
+            for (int i = 1; i < sBoxPacket.data.Length - 1; i++)
+            {
+                if (index < data.Count)
+                {
+                    sBoxPacket.data[i] = data[index];
+                    index++;
+                }
+                else
+                    sBoxPacket.data[i] = 0;
             }
 
             SBoxIOEvent.AddListener(sBoxPacket.cmd, PrinterMessageR);

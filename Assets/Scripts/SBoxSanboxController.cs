@@ -1,10 +1,14 @@
 using BagelCode;
 using BlizzEvent;
+using Newtonsoft.Json;
 using ParadoxNotion;
+using SBoxApi;
+using Sirenix.OdinInspector;
 using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
 using UnityEngine;
 using static SBoxApi.SBoxSandbox;
 
@@ -12,11 +16,11 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 {
     private int coinOutNum;
 
-    private enum LightStatus
+    /*private enum LightStatus
     {
         OFF = 0,
         ON = 1,
-    }
+    }*/
 
     /*[Button]
     void test_showBtns()
@@ -37,16 +41,77 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
         AddButtonEvent();
         AddEventListener();
 
-        MessageDispatcher.Register("MachineBtnEvent", OnMachineBtnEvent);  //"ShowLightSelectTip"
-                                                                           //LightOnAll();
-                                                                           //StartCoroutine(OnSpin());
-                                                                           // setSceneLightOn();
+        MessageDispatcher.Register("MachineBtnEvent", OnMachineBtnEvent);
+
+
+        this._taskTimer = new System.Timers.Timer(3000);
+        this._taskTimer.AutoReset = true; // 是否重复执行
+        this._taskTimer.Elapsed += (object sender, ElapsedEventArgs e) =>
+        {
+            task = () =>  //延时，避免   OSA_LobbySlots.ResetCurSelect() 影响
+            {
+                Debug.Log("【BillLst】get bill list ...");
+                GetBillLst();
+                GetPrintList();
+            };
+        };
+        //this._keepAliveTimer.Enabled = true; //开始执行
+        this._taskTimer.Start();
+    }
+
+
+    System.Action task;
+    bool isRuning = false;
+    public void Update()
+    {
+        if (!isRuning)
+        {
+            isRuning = true;
+            if (task != null)
+            {
+                task();
+                task = null;
+            }
+            isRuning = false;
+        }
     }
 
     protected override void OnDestroy()
     {
         MessageDispatcher.UnRegister("MachineBtnEvent", OnMachineBtnEvent);  //"ShowLightSelectTip"
+
+        if (this._taskTimer != null)
+        {
+            this._taskTimer.Stop();
+            this._taskTimer.Dispose();
+            this._taskTimer = null;
+        }
     }
+
+    protected System.Timers.Timer _taskTimer = null;
+
+    /*
+    System.Action task;
+
+    protected System.Timers.Timer _taskTimer = null;
+
+    bool isRuning = false;
+
+    private void Update()
+    {
+        if (!isRuning)
+        {
+            isRuning = true;
+            if (task != null)
+            {
+                task();
+                task = null;
+            }
+            isRuning = false;
+        }
+    }
+    */
+
 
     private void OnMachineBtnEvent(ParadoxNotion.EventData eventData)
     {
@@ -113,8 +178,6 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
     };
 
 
-
-
     bool isLightBtnSelectShowTip = false;
 
     public List<SBOX_SWITCH> lightBtn = new List<SBOX_SWITCH>() {
@@ -131,51 +194,6 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
         //大健
         SBOX_SWITCH.SWITCH_ENTER,
     };
-
-
-    /*
-    public List<SBOX_SWITCH> AllHallCommonBtn = new List<SBOX_SWITCH>() {
-        //上一排（从左到右）
-        //SBOX_SWITCH.SWITCH_RED,    
-        //SBOX_SWITCH.SWITCH_GREEN, 
-         SBOX_SWITCH.SWITCH_YELLOW,//左
-         SBOX_SWITCH.SWITCH_BET4,//右
-        //下一排（从左到右）
-        //SBOX_SWITCH.SWITCH_AUTO,  //最大注
-        //SBOX_SWITCH.SWITCH_ESC,  //帮助
-        SBOX_SWITCH.SWITCH_SWITCH, //返回
-       // SBOX_SWITCH.SWITCH_BET5, //切换
-    };
-    public List<SBOX_SWITCH> AllGameCommonBtn = new List<SBOX_SWITCH>() {
-        //上一排（从左到右）
-        SBOX_SWITCH.SWITCH_RED,   //加注
-        SBOX_SWITCH.SWITCH_GREEN, //减注
-        //SBOX_SWITCH.SWITCH_YELLOW,//左
-        //SBOX_SWITCH.SWITCH_BET4,//右
-        //下一排（从左到右）
-        SBOX_SWITCH.SWITCH_AUTO,  //最大注
-        SBOX_SWITCH.SWITCH_ESC,  //帮助
-        SBOX_SWITCH.SWITCH_SWITCH, //返回
-       //SBOX_SWITCH.SWITCH_BET5, //切换
-    };*/
-
-    /* public List<SBOX_SWITCH> getSceneAllLight(List<SBOX_SWITCH> include = null)
-     {
-         List<SBOX_SWITCH> temp;
-         if (globalStore.nowGameID == -1)
-         {
-             temp = new List<SBOX_SWITCH>(AllHallCommonBtn);
-         }
-         else
-         {
-             temp = new List<SBOX_SWITCH>(AllGameCommonBtn);
-         }
-         if (include != null)
-             temp.AddRange(include);
-         return temp;
-     }*/
-
-
 
 
     List<SBOX_SWITCH> sceneBtns = new List<SBOX_SWITCH>();
@@ -477,6 +495,11 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
                */
 
                 MachineSelectManager.Instance.BtnSpinDown();
+
+                /*if (this._taskTimer != null && sandBoxBillList == null)
+                {
+                    this._taskTimer.Start();
+                }*/
                 break;
             case SBOX_SWITCH.SWITCH_ESC:
                 /*if (PopupManager.Instance.popupCount == 0)
@@ -493,10 +516,20 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
                 MachineSelectManager.Instance.BtnReturn();
                 break;
             case SBOX_SWITCH.SWITCH_SCORE_UP:
-                MachineSelectManager.Instance.BtnAddCoin();
+                //MachineSelectManager.Instance.BtnAddCoin();
+                MachineSelectManager.Instance.PurchaseCreditRequest(1, 10000);//加分
                 break;
             case SBOX_SWITCH.SWITCH_SCORE_DOWN:
-                MachineSelectManager.Instance.BtnBetDown();
+                int credit = (int)(BlackboardUtils.FindVariable<long>(null, "/me/credit").value / 1000) * 1000;
+                Debug.Log($"【printer】: All dollar = {BlackboardUtils.FindVariable<long>(null, "/me/credit").value / 1000}, credit = {credit} ");
+                if(credit > 0)
+                {
+                    MachineSelectManager.Instance.PurchaseCreditRequest(2, credit, () =>
+                    {
+                        test_PrinterMessage(credit);
+                    });//减分
+                }
+
                 break;
             case SBOX_SWITCH.SWITCH_RED:
                 MachineSelectManager.Instance.BtnBetUp();
@@ -603,9 +636,30 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 
     private void AddEventListener()
     {
+
+        Debug.Log("【BillLst】AddEventListener");
         BlizzEvent.EventCenter.Instance.AddEventListener<int>(SBoxSanboxEventHandle.COIN_IN, OnCoinIn);
         BlizzEvent.EventCenter.Instance.AddEventListener<int>(SBoxSanboxEventHandle.COIN_OUT, OnCoinOut);
+        BlizzEvent.EventCenter.Instance.AddEventListener<int>(SBoxSanboxEventHandle.BILL_IN, OnBillIn);
+        BlizzEvent.EventCenter.Instance.AddEventListener(SBoxSanboxEventHandle.BILL_STACKED, OnBillStacked);
+
         Register(MachineEventDefine.ON_LIGHT_CHANGE, OnLightChange);
+
+        //纸钞机
+        BlizzEvent.EventCenter.Instance.AddEventListener<List<string>>(SBoxEventHandle.SBOX_SADNBOX_BILL_LIST_GET, OnSboxSandBoxBillListGet);
+        BlizzEvent.EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_BILL_SELECT, OnSboxSandBoxBillSelect);
+        //打印机
+        EventCenter.Instance.AddEventListener<List<string>>(SBoxEventHandle.SBOX_SADNBOX_PRINTER_LIST_GET, OnPrinterListGet);
+        EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_PRINTER_SELECT, OnPrinterSelect);
+        EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_PRINTER_RESET, OnPrinterReset);
+        EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_PRINTER_FONTSIZE, OnPrinterFontsize);
+        EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_PRINTER_MESSAGE, OnPrinterMessage);
+        EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_PRINTER_DATESET, OnPrinterDateSet);
+        EventCenter.Instance.AddEventListener<SBoxDate>(SBoxEventHandle.SBOX_SADNBOX_PRINTER_DATEGET, OnPrinterDateGet);
+        EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_PRINTER_PAPERCUT, OnPrinterCutPaper);
+
+
+
     }
 
     private void OnCoinIn(int coinCount)
@@ -709,5 +763,284 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
                 break;
         }*/
     }
+
+
+
+    /// <summary>
+    /// 纸钞机
+    /// </summary>
+
+    public void GetBillLst()
+    {
+#if UNITY_EDITOR
+        MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_BILL_LIST_GET);
+#else
+        SBoxSandbox.BillListGet();
+#endif
+    }
+
+
+    public List<string> sandBoxBillList;
+    private void OnSboxSandBoxBillListGet(List<string> sandBoxBillList)
+    {
+        this.sandBoxBillList = sandBoxBillList;
+
+        int i = 0;
+        foreach (var item in sandBoxBillList)
+        {
+            Debug.Log($"【BillLst】sandBoxBillList: idx = {i}  val = {item}");
+            i++;
+        }
+
+        if (this._taskTimer != null)
+        {
+            this._taskTimer.Stop();
+            this._taskTimer.Dispose();
+            this._taskTimer = null;
+        }
+
+        test_SetBillSelect();
+    }
+
+    [Button]
+    public void test_SetBillSelect()
+    {
+        // 本地读取
+        int data = 3; //存本地
+#if UNITY_EDITOR
+        MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_BILL_SELECT, data.ToString());
+#else
+        SBoxSandbox.BillSelect(data);
+#endif
+    }
+
+    private void OnSboxSandBoxBillSelect(int res)
+    {
+        if (res == 0) //定时
+        {
+            //存本地
+        }
+
+        Debug.Log($"【BillLst】OnSboxSandBoxBillSelect  res = {res}");
+    }
+
+
+
+    int credit = 0;
+    private void OnBillIn(int credit)
+    {
+        this.credit = credit;
+
+        Debug.Log($"【BillLst】OnBillIn  credit = {credit}");
+
+        // 发服务器确定接不接收
+        if (true)
+        {
+#if UNITY_EDITOR
+            MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_BILL_APPROVE);
+#else
+            SBoxSandbox.BillApprove();
+#endif
+        }
+        else
+        {
+#if UNITY_EDITOR
+            credit = 0;
+            MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_BILL_REJECT);
+#else
+            SBoxSandbox.BillReject();
+#endif
+
+        }
+    }
+
+
+    private void OnBillStacked()
+    {
+
+        // 发订单号
+        if (credit != 0)
+        {
+            Debug.Log($"【BillLst】OnBillStacked  credit = {credit}  x 1000");
+            MachineSelectManager.Instance.PurchaseCreditRequest(1, credit * 1000);
+            credit = 0;
+        }
+    }
+
+
+
+
+
+    /// <summary>
+    /// 打印机
+    /// </summary>
+
+    public void GetPrintList()
+    {
+#if UNITY_EDITOR
+        MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_LIST_GET);
+#else
+        SBoxSandbox.PrinterListGet();
+#endif
+    }
+
+    void OnPrinterListGet(List<string> strList)
+    {
+        if (this._taskTimer != null)
+        {
+            this._taskTimer.Stop();
+            this._taskTimer.Dispose();
+            this._taskTimer = null;
+        }
+
+        strList.ForEach(str => Debug.Log(str));
+        int data = 0;
+#if UNITY_EDITOR
+        MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_SELECT, data.ToString());
+#else
+        SBoxSandbox.PrinterSelect(data);
+#endif
+    }
+
+    void OnPrinterSelect(int result)
+    {
+        if (result == 0)
+        {
+            Debug.Log("【printer】: : select succeed");
+
+#if UNITY_EDITOR
+            MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_RESET);
+#else
+        SBoxSandbox.PrinterReset();
+#endif
+
+        }
+        else
+        {
+            Debug.LogWarning($"【printer】: : 打印机选择失败  index = 0 ");
+        }
+    }
+
+    void OnPrinterReset(int result)
+    {
+        if (result == 0)
+        {
+            Debug.Log("【printer】: : reset succeed");
+            int fontSize = 5;
+#if UNITY_EDITOR
+            MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_FONTSIZE, fontSize.ToString());
+#else
+            SBoxSandbox.PrinterFontSize(fontSize);
+#endif
+        }
+        else
+        {
+            Debug.LogWarning("【printer】: : 打印机复位失败");
+        }
+    }
+
+    void OnPrinterFontsize(int result)
+    {
+        if (result == 0)
+        {
+            Debug.Log("【printer】: setFontSize succeed");
+            SBoxDate sBoxDate = new SBoxDate()
+            {
+                result = 0,
+                month = DateTime.Now.Month,
+                day = DateTime.Now.Day,
+                hours = DateTime.Now.Hour,
+                minutes = DateTime.Now.Minute,
+                seconds = DateTime.Now.Second
+            };
+
+#if UNITY_EDITOR
+
+            MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_DATESET, JsonConvert.SerializeObject(sBoxDate));
+#else
+            SBoxSandbox.PrinterDateSet(sBoxDate);
+#endif
+        }
+        else
+        {
+            Debug.LogWarning("【printer】: 打印机字体设置失败");
+        }
+    }
+    void OnPrinterDateSet(int result)
+    {
+        if (result == 0)
+        {
+            Debug.Log("【printer】: set Date succeed");
+        }
+    }
+
+
+
+    [Button]
+    public void test_PrinterCutPaper(int result)
+    {
+#if UNITY_EDITOR
+        MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_PAPERCUT);
+#else
+        SBoxSandbox.PrinterPaperCut();
+#endif
+    }
+
+    void OnPrinterCutPaper(int result)
+    {
+        
+        if (result == 0)
+        {
+            Debug.Log("【printer】: cut paper succeed");
+        }
+    }
+
+    [Button]
+    public void test_PrinterDateGet(SBoxDate sBoxDate)
+    {
+#if UNITY_EDITOR
+        MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_DATEGET);
+#else
+        SBoxSandbox.PrinterDateGet();
+#endif
+    }
+
+
+    void OnPrinterDateGet(SBoxDate sBoxDate)
+    {
+        if (sBoxDate.result == 0)
+        {
+        }
+    }
+
+
+
+    [Button]
+    public void test_PrinterMessage(int credit = 10000)
+    {
+        //Debug.Log($"【printer】: All dollar = {BlackboardUtils.FindVariable<long>(null, "/me/credit").value / 1000}");
+        int dollar = credit/1000;
+        string testMsg = "K3K\r\n" +
+            $"${dollar}\r\n" +
+            $"Order number: {123456}\r\n" +
+            $"Distributor: {"aa"}\r\n" +
+            $"Business: {"bb"}\r\n";
+#if UNITY_EDITOR
+
+        MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_MESSAGE, testMsg);
+#else
+        SBoxSandbox.PrinterMessage(testMsg);
+#endif
+
+    }
+    void OnPrinterMessage(int result)
+    {
+        if (result == 0)
+        {
+            Debug.Log("【printer】:print succeed");  
+        }
+    }
+
+
 
 }

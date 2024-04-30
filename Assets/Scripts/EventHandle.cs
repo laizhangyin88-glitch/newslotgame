@@ -26,7 +26,6 @@ public class EventHandle
 
     public const string INIT_SBOX = "INIT_SBOX";
     public const string CHECK_SBOX_READY = "CHECK_SBOX_READY";
-    public const string SBOX_READY = "SBOX_READY";
     public const string INIT_VIEW_FINISH = "INIT_VIEW_FINISH";
     public const string BROADCAST_GAME_STAR = "BROADCAST_GAME_STAR";
     public const string ROLLING = "ROLLING";
@@ -35,7 +34,6 @@ public class EventHandle
     public const string ROLE_PLAY_REWARD = "ROLE_PLAY_REWARD";
     public const string SHOW_JACKPOT_ANI = "SHOW_JACKPOT_ANI";
     public const string SHOW_DRAGON = "SHOW_DRAGON";
-
 
     public const string CHANGE_JACKPOT = "CHANGE_JACKPOT";
     public const string CONFIRM_PASSWORD = "CONFIRM_PASSWORD";
@@ -55,4 +53,6 @@ public class EventHandle
 
     public const string SBOX_SADNBOX_SWITCH_ON = "SBOX_SADNBOX_SWITCH_ON";
     public const string SBOX_SADNBOX_SWITCH_OFF = "SBOX_SADNBOX_SWITCH_OFF";
+    public const string SBOX_SADNBOX_IS_MOTOR_BUSY = "SBOX_SADNBOX_IS_MOTOR_BUSY";
+    public const string SBOX_SADNBOX_BILL_STATE = "SBOX_SADNBOX_BILL_STATE";
 }
