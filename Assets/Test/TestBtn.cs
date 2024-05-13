@@ -59,4 +59,17 @@ public class TestBtn : MonoBehaviour
         }
         
     }
+
+    public void SpeedX10()
+    {
+        Time.timeScale = 10;
+    }
+    public void SpeedX2()
+    {
+        Time.timeScale = 2;
+    }
+    public void SpeedX1()
+    {
+        Time.timeScale = 1;
+    }
 }
