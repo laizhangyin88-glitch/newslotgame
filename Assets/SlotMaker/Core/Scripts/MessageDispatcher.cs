@@ -38,7 +38,7 @@ namespace SlotMaker
 		{
             if (eventName == "OnContentUIEvent" && eventData.name == "UpdateSpinCount" )
             {
-                Debug.LogError("【Test】: i am OnContentUIEvent UpdateSpinCount");
+               //Debug.LogError("【Test】: i am OnContentUIEvent UpdateSpinCount");
             }
 #if UNITY_EDITOR
             Debug.Log($"【 MessageDispatcher 发送消息】：eventName = {eventName} ， name = {eventData.name}");
