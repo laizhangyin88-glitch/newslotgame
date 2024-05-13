@@ -9,12 +9,13 @@ public class TestBtn : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject inputObject;
+
+    public GameObject inputList;
     void Start()
     {
         
     }
 
-    static int numb = 0;
 
     // Update is called once per frame
     void Update()
@@ -22,47 +23,35 @@ public class TestBtn : MonoBehaviour
         
     }
 
-    /*public void onInputEndEdit(string str)
+    public void InputClearClick()
     {
-        try
-        {
-            //string str1 =transform.gameObject.GetComponent<InputField>
-            //TestBtn.numb = int.Parse(str1);
-        }
-        catch (Exception e)
-        {
-            Debug.LogWarning(e, this);
-        }
-    }*/
-    public void SetDebugParam1()
-    {
-        globalStore.test_is_free_spin = 1;
-    }
-
-    public void SetDebugParam2()
-    {
-        globalStore.test_is_free_spin = 2;
-    }
-
-
-    public void SetDebugParam0()
-    {
+        inputObject.GetComponent<InputField>().text = "";
+        inputList.GetComponent<InputField>().text ="";
         globalStore.test_is_free_spin = 0;
+        globalStore.test_spin_tab =  new int[] { };
     }
-
-    public void SetDebugParam3()
-    {
-        globalStore.test_is_free_spin = 3;
-    }
-
     public void InputOkClick()
     {
         try
         {
-            //string str1 =transform.gameObject.GetComponent<InputField>
-            //TestBtn.numb = int.Parse(str1);
 
-            globalStore.test_is_free_spin = int.Parse(inputObject.GetComponent<InputField>().text);
+            string inputTxt = inputObject.GetComponent<InputField>().text == "" || inputObject.GetComponent<InputField>().text == null ?
+                "0" : inputObject.GetComponent<InputField>().text;
+            globalStore.test_is_free_spin = int.Parse(inputTxt);
+                //int.Parse(inputObject.GetComponent<InputField>().text);
+            string lstStr = inputList.GetComponent<InputField>().text ?? "";
+            string[] lstStrs = lstStr.Replace(" ", "").Split(',') ?? new string[] { };
+
+            List<int> temp = new List<int>();
+            for (int i = 0; i < lstStrs.Length; i++)
+            {
+                if (lstStrs[i] != "" && lstStrs[i]!= null)
+                {
+                    temp.Add(int.Parse(lstStrs[i]));
+                } 
+            }
+            globalStore.test_spin_tab = temp.ToArray();
+
         }
         catch (Exception e)
         {

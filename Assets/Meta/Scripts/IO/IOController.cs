@@ -134,7 +134,7 @@ namespace BagelCode
 
 #if NEW_NET
 
-            string rpcName = operateType == 1 ? RPCName.agentRechargeToDeviceUser : RPCName.decreaseDeviceCredit;
+            string rpcName = operateType == 1 ? RPCName.addCredit : RPCName.decreaseCredit;
             //operateType == 1 ? "/v0/purchase/add_credit" : "/v0/purchase/sub_credit";
 
             Dictionary<string, object> req = new Dictionary<string, object>

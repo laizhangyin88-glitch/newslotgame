@@ -1,10 +1,12 @@
 using ParadoxNotion;
+using SBoxApi;
 using SlotMaker;
 using SlotMaker.Keno.Events;
 using SlotMaker.Tasks.Actions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Runtime.Remoting.Contexts;
 using UnityEngine;
 
@@ -114,8 +116,108 @@ namespace BagelCode
 
             }
 
+            /*退币
+            if ((Input.GetKeyDown(KeyCode.O)))
+            {
+
+                SBoxSanboxController[] comps = GameObject.FindObjectsOfType<SBoxSanboxController>();
+
+                if (comps.Length > 0)
+                {
+                    comps[0].StartCoinOut();
+                }
+                else
+                {
+                    Debug.LogError(" 没找到组件 SBoxSanboxController");
+                }
+
+            }*/
 
 
+            /* 测试退币
+            if ((Input.GetKeyDown(KeyCode.O)))
+            {
+                Dictionary<string, object> req = new Dictionary<string, object>{};
+                Debug.Log("请求退币");
+                NetManager.Instance.Post(RPCName.checkReturnCoin, req,
+                (res) =>
+                {
+                    Debug.Log($" res = {res.ToString()}");
+                    Debug.Log($" 退币个数 = {res["money"]}");
+                },
+                (error) =>
+                {
+                    Debug.LogError(" 查询退币个数失败");
+                });
+            }
+            if ((Input.GetKeyDown(KeyCode.P)))
+            {
+                Dictionary<string, object> req = new Dictionary<string, object>
+                {
+                   {"money",1}, //退币个数
+                };
+                Debug.Log("开始退币");
+                NetManager.Instance.Post(RPCName.returnCoin, req,
+                (res) =>
+                {
+                    Debug.Log($" 退币成功");
+                },
+                (error) =>
+                {
+                    Debug.LogError(" 退币失败");
+                });
+            }*/
+
+            /* if ((Input.GetKeyDown(KeyCode.O)))
+             {
+                 Dictionary<string, object> req = new Dictionary<string, object>
+                 {
+                    {"money",5}, //退币个数
+                 };
+                 Debug.Log("请求充值");
+                 NetManager.Instance.Post(RPCName.checkAddDollor, req,
+                 (res) =>
+                 {
+                     if (res["is_success"] == 1)
+                     {
+
+                     }
+                     Debug.Log($" 请求充值 res = {res.ToString()}");
+                 },
+                 (error) =>
+                 {
+                     Debug.LogError(" 请求充值失败");
+                 });
+             }
+             if ((Input.GetKeyDown(KeyCode.P)))
+             {
+                 Dictionary<string, object> req = new Dictionary<string, object>
+                 {
+                    {"money",5}, //退币个数
+                 };
+                 Debug.Log("开始充值");
+                 NetManager.Instance.Post(RPCName.agentRechargeToDeviceUser, req,
+                 (res) =>
+                 {
+                     Debug.Log($" 充值成功");
+                 },
+                 (error) =>
+                 {
+                     Debug.LogError(" 充值失败");
+                 });;
+             }*/
+
+            /*if ((Input.GetKeyDown(KeyCode.O)))
+            {
+                MachineSelectManager.Instance.BtnMinusCoin();
+            }*/
+
+
+            if ((Input.GetKeyDown(KeyCode.O)))
+            {
+                SBoxSanboxController.Instance.StartCoinOut();
+            }
         }
+
     }
 }
