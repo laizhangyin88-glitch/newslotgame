@@ -203,6 +203,8 @@ public class AccountLoginViewNew : MonoBehaviour
         bool getTargetUrl = false;
         //拼接好最后的url 
         string finalStr = "http://8.138.117.128:9981/get_config?key=myApplication.new_login_url";
+        //string finalStr = "http://8.138.117.128:9981/get_config?key=myApplication.xigua_login_url";
+
         Debug.LogWarning(finalStr);
         WWW www = new WWW(finalStr);
         yield return www;
@@ -227,6 +229,34 @@ public class AccountLoginViewNew : MonoBehaviour
         if (cb != null) cb(addr,err);
 
     }
+
+  
+    public IEnumerator WWW_Get02(Action<string, string> cb)
+    {
+        string finalStr = "http://8.138.117.128:9981/get_config?key=myApplication.new_login_url";
+        //string finalStr = "http://8.138.117.128:9981/get_config?key=myApplication.xigua_login_url";
+        Debug.LogWarning(finalStr);
+        using (UnityWebRequest www = UnityWebRequest.Get(finalStr))
+        {
+            //yield return www.Send();
+            yield return www.SendWebRequest();
+            string err = null;
+            string addr = null;
+            if (www.isNetworkError || www.isHttpError)
+            {
+                StartCoroutine(ShowTips($"{www.error}"));
+                Debug.LogError("Error: " + www.error);
+                err = www.error;
+            }
+            else
+            {
+                addr = "http://" + www.downloadHandler.text;
+            }
+            if (cb != null) cb(addr, err);
+        }
+    }
+
+
 
     public void OnLoginClick()
     {
@@ -277,7 +307,7 @@ public class AccountLoginViewNew : MonoBehaviour
         }
         else if (_isAutoSever || string.IsNullOrEmpty(_serverAddress)) //自动获取地址
         {
-            StartCoroutine(WWW_Get(
+            StartCoroutine(WWW_Get02(
                 (addr1,err) =>
                 {
                     if (addr1 == null)
@@ -465,10 +495,10 @@ public class AccountLoginViewNew : MonoBehaviour
         tipsText.text = "";
     }
 
-
     IEnumerator HttpPost(string url, string method, Dictionary<string, string> post_param, System.Action<string> callback)
     {
-
+        url = url.Trim();
+        
         // 创建一个表单
         JSONNode jsonNode = JSONNode.Parse("{}");
 

@@ -1,5 +1,4 @@
-﻿/**
- * SourceTree Test
+/**
  * @file    
  * @author  Huang Wen <Email:ww1383@163.com, QQ:214890094, WeChat:w18926268887>
  * @version 1.0
@@ -47,6 +46,25 @@ namespace SBoxApi
         public const string SBOX_SADNBOX_COIN_OUT_START = "SBOX_SADNBOX_COIN_OUT_START";
         public const string SBOX_SADNBOX_COIN_OUT_STOP = "SBOX_SADNBOX_COIN_OUT_STOP";
         public const string SBOX_SADNBOX_METER_SET = "SBOX_SADNBOX_METER_SET";
+        public const string SBOX_SADNBOX_MOTOR_TOUCH = "SBOX_SADNBOX_MOTOR_TOUCH";
+
+        // bill
+        public const string SBOX_SADNBOX_BILL_LIST_GET = "SBOX_SADNBOX_BILL_LIST_GET";
+        public const string SBOX_SADNBOX_BILL_SELECT = "SBOX_SADNBOX_BILL_SELECT";
+        public const string SBOX_SADNBOX_BILL_APPROVE = "SBOX_SADNBOX_BILL_APPROVE";
+        public const string SBOX_SADNBOX_BILL_REJECT = "SBOX_SADNBOX_BILL_REJECT";
+
+        // printer
+        public const string SBOX_SADNBOX_PRINTER_LIST_GET = "SBOX_SADNBOX_PRINTER_LIST_GET";
+        public const string SBOX_SADNBOX_PRINTER_SELECT = "SBOX_SADNBOX_PRINTER_SELECT";
+        public const string SBOX_SADNBOX_PRINTER_RESET = "SBOX_SADNBOX_PRINTER_RESET";
+        public const string SBOX_SADNBOX_PRINTER_FONTSIZE = "SBOX_SADNBOX_PRINTER_FONTSIZE";
+        public const string SBOX_SADNBOX_PRINTER_PAPERCUT = "SBOX_SADNBOX_PRINTER_PAPERCUT";
+        public const string SBOX_SADNBOX_PRINTER_MESSAGE = "SBOX_SADNBOX_PRINTER_MESSAGE";
+        public const string SBOX_SADNBOX_PRINTER_DATESET = "SBOX_SADNBOX_PRINTER_DATESET";
+        public const string SBOX_SADNBOX_PRINTER_DATEGET = "SBOX_SADNBOX_PRINTER_DATEGET";
+
+
 
     }
 
@@ -66,7 +84,6 @@ namespace SBoxApi
 
         public static void Init()
         {
-            Debug.LogError("Call Init");
             bInit = SBoxIOStream.Init();
             if (bInit)
             {
@@ -96,7 +113,7 @@ namespace SBoxApi
           */
         private void Update()
         {
-            if(bInit == true)
+            if (bInit == true)
             {
                 int counter = 0;
                 int millisecond = (int)(Time.deltaTime * 1000);

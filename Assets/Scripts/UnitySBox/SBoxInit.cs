@@ -25,7 +25,7 @@ public class SBoxInit : MonoSingleton<SBoxInit>
 
     private void AddEventListener()
     {
-        BlizzEvent.EventCenter.Instance.AddEventListener<int>(EventHandle.SBOX_READY, OnSBoxReady);
+        BlizzEvent.EventCenter.Instance.AddEventListener<int>(EventHandle.CHECK_SBOX_READY, OnSBoxReady);
         BlizzEvent.EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_RESET, OnSBoxSandboxReset);
     }
 

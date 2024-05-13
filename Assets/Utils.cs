@@ -83,6 +83,27 @@ namespace BlizzUtils
             }
             return result;
         }
+
+
+        /// <summary>
+        /// 按长度分割字符串，汉字按一个字符算
+        /// </summary>
+        /// <param name="SourceString"></param>
+        /// <param name="Length"></param>
+        /// <returns></returns>
+        public static List<string> SplitLength(string SourceString, int Length)
+        {
+            List<string> list = new List<string>();
+            for (int i = 0; i < SourceString.Trim().Length; i += Length)
+            {
+                if ((SourceString.Trim().Length - i) >= Length)
+                    list.Add(SourceString.Trim().Substring(i, Length));
+                else
+                    list.Add(SourceString.Trim().Substring(i, SourceString.Trim().Length - i));
+            }
+            return list;
+        }
+
     }
 
 }

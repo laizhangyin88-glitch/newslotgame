@@ -94,8 +94,29 @@ namespace BagelCode
                 return;
             }
 
+            //string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
 
-            string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
+
+
+
+            string debug_param = "";
+
+            if (globalStore.test_spin_tab.Length > 0)
+            {
+                string lstStr = "[";
+                for (int i =0;i<globalStore.test_spin_tab.Length;i++)
+                {
+                    lstStr += $"{globalStore.test_spin_tab[i]},";
+                }
+                lstStr += "]";
+                lstStr = lstStr.Replace(",]","]");
+                debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + ",\"reel_output_list\":"+ lstStr + "}";
+            }
+            else
+            {
+                debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
+            }
+
 
             Dictionary<string, object> req = new Dictionary<string, object>
             { 
@@ -186,10 +207,77 @@ namespace BagelCode
         {
 
 #if NEW_NET
+
+            int gameId = BlackboardUtils.GetOrCreateVariable<int>(null, "./game/gameId").value;
+            SpinType spinType = BlackboardUtils.GetOrCreateVariable<SpinType>(ContentBlackboard.Get(), "spinType").value;
+            int metaGameEventID = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "metaGameEventID").value;
+            bool isGameSpin = (spinType == SpinType.GameSpin);
+            bool isBonusSpin = (spinType == SpinType.BonusSpin);
+            int seasonPassEventId = EpicPassUtilsV2.SeasonPassEventId;
+
+            /* string selected_index = "{\"selected_index\":" + (int)customData + "}";
+             Dictionary<string, object> req = new Dictionary<string, object>
+             {
+                 {"decision_info",selected_index},
+             };*/
+
+            //string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";  
+            //string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + ",\"reel_table\":[5,23,15]}";
+
+            //Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
+
+
+            JSONNode data = JSONNode.Parse("{}");
+            data.Add("selected_index", (int)customData);
+
+            //data.Add("debug_param", debug_param);
+            JSONNode req = JSONNode.Parse("{}");
+            req.Add("decision_info", data);
+            req.Add("uid", claimId);
+            req.Add("isGameSpin", isGameSpin);
+            req.Add("isBonusSpin", isBonusSpin);
+            req.Add("metaGameEventId", metaGameEventID);
+            req.Add("seasonPassEventId", seasonPassEventId);
+
+            NetManager.Instance.Post(RPCName.claimBonus, req,
+            (res) =>
+            {
+                 string resStr = res.ToString();
+
+                //string oldJson = JsonUtility.ToJson(response);
+                //Debug.Log($"@A KenoPlayResponseV1 = {oldJson}");
+
+                TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_claim_bonus_response_v3");
+                ClientModels.SlotClaimBonusResponseV3 response = JsonUtility.FromJson<ClientModels.SlotClaimBonusResponseV3>(jsn8.text);
+
+                response.contents = res["contents"].ToString();
+
+                var bb = BlackboardUtils.GetOrCreateBlackboard(ContentBlackboard.Get().GetValue<Blackboard>("turn"), "claims");
+                bb = BlackboardUtils.GetOrCreateBlackboard(bb, claimId);
+                ClientAPI2Blackboard.Serialize(bb, response);
+                BlackboardUtils.SetOrCreateValue<int>(bb, "requestType", (int)ContentsRequestType.SlotClaimBonus);
+
+                ContentsSerializer.Deserialize(bb);
+
+                // BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
+
             if (successCallback != null)
+                    successCallback();
+            },
+            (error) =>
+            {
+                CommonError(error);
+
+                if (errorCallback != null)
+                    errorCallback();
+            });
+            return;/**/
+
+
+            /*if (successCallback != null)
                 successCallback();
-            return;
-#endif
+            return;*/
+#else
 
             int gameId = BlackboardUtils.GetOrCreateVariable<int>(null, "./game/gameId").value;
 
@@ -221,6 +309,9 @@ namespace BagelCode
                 if (errorCallback != null)
                     errorCallback();
             });
+
+#endif
+
         }
 
         public void BoastBigWin(long betCredit, long earnCredit, Action successCallback, Action errorCallback)
