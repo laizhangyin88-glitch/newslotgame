@@ -8,30 +8,15 @@ using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Timers;
 using UnityEngine;
+using static Com.TheFallenGames.OSA.Util.IO.SimpleImageDownloader;
 using static SBoxApi.SBoxSandbox;
 
-public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
+public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 {
-    private int coinOutNum;
 
-    /*private enum LightStatus
-    {
-        OFF = 0,
-        ON = 1,
-    }*/
-
-    /*[Button]
-    void test_showBtns()
-    {
-        string temp = "";
-        sceneBtns.ForEach(item =>
-        {
-            temp += $"#{item}";
-        });
-        Debug.Log($" @btns = {temp};");
-    }*/
 
     void Start()
     {
@@ -89,29 +74,6 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
     }
 
     protected System.Timers.Timer _taskTimer = null;
-
-    /*
-    System.Action task;
-
-    protected System.Timers.Timer _taskTimer = null;
-
-    bool isRuning = false;
-
-    private void Update()
-    {
-        if (!isRuning)
-        {
-            isRuning = true;
-            if (task != null)
-            {
-                task();
-                task = null;
-            }
-            isRuning = false;
-        }
-    }
-    */
-
 
     private void OnMachineBtnEvent(ParadoxNotion.EventData eventData)
     {
@@ -478,7 +440,8 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
                 break;
             case SBOX_SWITCH.SWITCH_DOOR_SWITCH:
                 break;
-            case SBOX_SWITCH.SWITCH_PAYOUT:
+            case SBOX_SWITCH.SWITCH_PAYOUT: //退票
+                StartCoinOut();
                 break;
             case SBOX_SWITCH.SWITCH_ENTER: //Spin
                 /*if (PopupManager.Instance.popupCount > 0)
@@ -520,15 +483,17 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
                 MachineSelectManager.Instance.PurchaseCreditRequest(1, 10000);//加分
                 break;
             case SBOX_SWITCH.SWITCH_SCORE_DOWN:
-                int credit = (int)(BlackboardUtils.FindVariable<long>(null, "/me/credit").value / 1000) * 1000;
-                Debug.Log($"【printer】: All dollar = {BlackboardUtils.FindVariable<long>(null, "/me/credit").value / 1000}, credit = {credit} ");
+                /*int credit = (int)(BlackboardUtils.FindVariable<long>(null, "/me/credit").value / RATE) * RATE;
+                Debug.Log($"【printer】: All dollar = {BlackboardUtils.FindVariable<long>(null, "/me/credit").value / RATE}, credit = {credit} ");
                 if(credit > 0)
                 {
                     MachineSelectManager.Instance.PurchaseCreditRequest(2, credit, () =>
                     {
                         test_PrinterMessage(credit);
                     });//减分
-                }
+                }*/
+
+                PrintMoneyOrder();
 
                 break;
             case SBOX_SWITCH.SWITCH_RED:
@@ -675,7 +640,7 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 
 #if NEW_NET
 
-        string rpcName = operateType == 1 ? RPCName.agentRechargeToDeviceUser : RPCName.decreaseDeviceCredit;
+        string rpcName = operateType == 1 ? RPCName.addCredit : RPCName.decreaseCredit;
         //operateType == 1 ? "/v0/purchase/add_credit" : "/v0/purchase/sub_credit";
 
         Dictionary<string, object> req = new Dictionary<string, object>
@@ -730,6 +695,7 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
         yield return new WaitUntil(() => requestSuccess || requestFail);
     }
 
+    /*
     private void OnCoinOut(int coinCount)
     {
         if (coinOutNum - coinCount < 0)
@@ -738,7 +704,7 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
         StartCoroutine(PurchaseCreditRequest(2, coinCount * 100));
         if (coinOutNum == 0)
             CoinOutStop(0);
-    }
+    }*/
 
     private void OnLightChange(EventData data)
     {
@@ -764,12 +730,13 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
         }*/
     }
 
+}
 
-
-    /// <summary>
-    /// 纸钞机
-    /// </summary>
-
+/// <summary>
+/// 纸钞机
+/// </summary>
+public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
+{
     public void GetBillLst()
     {
 #if UNITY_EDITOR
@@ -824,11 +791,48 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
         Debug.Log($"【BillLst】OnSboxSandBoxBillSelect  res = {res}");
     }
 
-
-
     int credit = 0;
     private void OnBillIn(int credit)
     {
+
+        this.credit = credit;
+
+        Debug.Log($"【BillLst】OnBillIn  credit = {credit}");
+
+        Dictionary<string, object> req = new Dictionary<string, object>
+        {
+            {"money",credit}, //要充值的美金
+        };
+        Debug.Log("请求充值");
+        NetManager.Instance.Post(RPCName.checkAddMoney, req,
+        (res) =>
+        {
+            if (res["is_success"] == 1)
+            {
+#if UNITY_EDITOR
+                MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_BILL_APPROVE);
+#else
+            SBoxSandbox.BillApprove();
+#endif
+            }
+            else
+            {
+#if UNITY_EDITOR
+                credit = 0;
+                MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_BILL_REJECT);
+#else
+            SBoxSandbox.BillReject();
+#endif
+            }
+        },
+        (error) =>
+        {
+            Debug.LogError(" 请求充值失败");
+            credit = 0;
+            MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_BILL_REJECT);
+        });
+
+        /*
         this.credit = credit;
 
         Debug.Log($"【BillLst】OnBillIn  credit = {credit}");
@@ -852,8 +856,10 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 #endif
 
         }
-    }
 
+        */
+
+    }
 
     private void OnBillStacked()
     {
@@ -861,20 +867,43 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
         // 发订单号
         if (credit != 0)
         {
-            Debug.Log($"【BillLst】OnBillStacked  credit = {credit}  x 1000");
-            MachineSelectManager.Instance.PurchaseCreditRequest(1, credit * 1000);
+            Dictionary<string, object> req = new Dictionary<string, object>
+                {
+                   {"money",credit}, //充入的美到
+                };
+            Debug.Log("开始充值");
+            NetManager.Instance.Post(RPCName.addMoney, req,
+            (res) =>
+            {
+                Debug.Log($" 充值成功");
+            },
+            (error) =>
+            {
+                Debug.LogError(" 充值失败");
+            });
             credit = 0;
         }
+        /*
+        // 发订单号
+        if (credit != 0)
+        {
+            Debug.Log($"【BillLst】OnBillStacked  credit = {credit}  x {RATE}");
+            MachineSelectManager.Instance.PurchaseCreditRequest(1, credit * RATE);
+            credit = 0;
+        }
+        */
     }
 
+}
+
+/// <summary>
+/// 打印机
+/// </summary>
+public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
+{
 
 
-
-
-    /// <summary>
-    /// 打印机
-    /// </summary>
-
+    bool isPrinterInit = false;
     public void GetPrintList()
     {
 #if UNITY_EDITOR
@@ -925,13 +954,7 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
     {
         if (result == 0)
         {
-            Debug.Log("【printer】: : reset succeed");
-            int fontSize = 5;
-#if UNITY_EDITOR
-            MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_FONTSIZE, fontSize.ToString());
-#else
-            SBoxSandbox.PrinterFontSize(fontSize);
-#endif
+            isPrinterInit = true;
         }
         else
         {
@@ -939,33 +962,33 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
         }
     }
 
-    void OnPrinterFontsize(int result)
+
+    /// <summary>
+    /// 剪纸
+    /// </summary>
+    /// <param name="result"></param>
+    [Button]
+    public void test_PrinterDateSet(int result)
     {
-        if (result == 0)
+        Debug.Log("【printer】: setFontSize succeed");
+        SBoxDate sBoxDate = new SBoxDate()
         {
-            Debug.Log("【printer】: setFontSize succeed");
-            SBoxDate sBoxDate = new SBoxDate()
-            {
-                result = 0,
-                month = DateTime.Now.Month,
-                day = DateTime.Now.Day,
-                hours = DateTime.Now.Hour,
-                minutes = DateTime.Now.Minute,
-                seconds = DateTime.Now.Second
-            };
+            result = 0,
+            month = DateTime.Now.Month,
+            day = DateTime.Now.Day,
+            hours = DateTime.Now.Hour,
+            minutes = DateTime.Now.Minute,
+            seconds = DateTime.Now.Second
+        };
 
 #if UNITY_EDITOR
 
-            MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_DATESET, JsonConvert.SerializeObject(sBoxDate));
+        MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_DATESET, JsonConvert.SerializeObject(sBoxDate));
 #else
             SBoxSandbox.PrinterDateSet(sBoxDate);
 #endif
-        }
-        else
-        {
-            Debug.LogWarning("【printer】: 打印机字体设置失败");
-        }
     }
+
     void OnPrinterDateSet(int result)
     {
         if (result == 0)
@@ -984,6 +1007,7 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 #else
         SBoxSandbox.PrinterPaperCut();
 #endif
+
     }
 
     void OnPrinterCutPaper(int result)
@@ -994,6 +1018,7 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
             Debug.Log("【printer】: cut paper succeed");
         }
     }
+
 
     [Button]
     public void test_PrinterDateGet(SBoxDate sBoxDate)
@@ -1014,13 +1039,12 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
     }
 
 
-
     [Button]
     public void test_PrinterMessage(int credit = 10000)
     {
         //Debug.Log($"【printer】: All dollar = {BlackboardUtils.FindVariable<long>(null, "/me/credit").value / 1000}");
-        int dollar = credit/1000;
-        string testMsg = "K3K\r\n" +
+        int dollar = credit/ RATE;
+        string testMsg = "        K3K\r\n" +
             $"${dollar}\r\n" +
             $"Order number: {123456}\r\n" +
             $"Distributor: {"aa"}\r\n" +
@@ -1033,14 +1057,560 @@ public class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 #endif
 
     }
-    void OnPrinterMessage(int result)
+
+
+
+    string printOrderId;
+    int printMoney;
+
+
+    Action printFunc = null;
+
+    [Button]
+    public void PrintMoneyOrder()
     {
-        if (result == 0)
+        printFunc = CreatPrint();
+        printFunc();
+    }
+
+    /*
+    [Button]
+    void testFunc01()
+    {
+        string fontsize = step == 0 ? "6" : "5";
+        Debug.Log($"@【printer】fontsize = {fontsize}");
+        MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_FONTSIZE, fontsize);        
+    }
+    [Button]
+    void testFunc02()
+    {
+
+        
+        string testMsg = step == 0 ? ".      K3K\r\n" : $"Order number: \r\n" +
+            $"{123}\r\n" +
+            $"Distributor: {555}\r\n" +
+            $"Business: {"--"}\r\n";
+
+
+        Debug.Log($"@【printer】testMsg = {testMsg}");
+#if UNITY_EDITOR
+        MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_MESSAGE, testMsg);
+
+#else
+        SBoxSandbox.PrinterMessage(testMsg);
+#endif
+     }*/
+
+
+    Action CreatPrint()
+    {
+        int next = 0;
+        Action FUNC = null;
+
+        string agent_name = "";
+
+        FUNC  = () =>{
+
+            if (!isPrinterInit)
+            {
+                Debug.LogError(" 打印机初始化失败");
+                return;
+            }
+            int fontSize = 5;
+            string testMsg = "";
+
+            Dictionary<string, object> req;
+
+            switch (next)
+            {
+                case 0:
+
+                    req = new Dictionary<string, object> { };
+                    Debug.Log("@【printer】请求退美元");
+                    NetManager.Instance.Post(RPCName.createPrintOrder, req,
+                    (res) =>
+                    {
+                        printMoney = res["money"];
+                        printOrderId = res["order_id"];
+
+                        agent_name = res["agent_name"];
+
+                        FUNC();
+                    },
+                    (error) =>
+                    {
+                        Debug.LogError(" 请求退美元失败");
+                    });
+
+                    break;
+                case 1:
+                    fontSize = 5;
+#if UNITY_EDITOR
+                    MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_FONTSIZE, fontSize.ToString());
+#else
+                    SBoxSandbox.PrinterFontSize(fontSize);
+#endif
+
+                    Debug.Log($"@【printer】fonSize = {fontSize}");
+                    break;
+
+                case 2:
+
+                    testMsg = "\t\tK3K\r\n" +
+                        $"${printMoney}\r\n" +
+                        $"Order number: \r\n" +
+                        $"{printOrderId}\r\n" +
+                        $"Distributor: {agent_name}\r\n" +
+                        $"Business: {"--"}\r\n";
+#if UNITY_EDITOR
+
+                    MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_MESSAGE, testMsg);
+#else
+                    SBoxSandbox.PrinterMessage(testMsg);
+#endif
+                    Debug.Log($"@【printer】testMsg = {testMsg}");
+                    break;
+                case 3:
+
+                    req = new Dictionary<string, object>
+                    {
+                        { "order_id",printOrderId},
+                        { "money",printMoney}
+                    };
+                    Debug.Log("@【printer】确认退美元");
+                    NetManager.Instance.Post(RPCName.confirmPrintOrder, req,
+                    (res) =>
+                    {
+                    },
+                    (error) =>
+                    {
+                        Debug.LogError(" 确认退美元失败");
+                    });
+
+                    printMoney = 0;
+                    printOrderId = "";
+
+                    break;
+
+                default:
+                    printMoney = 0;
+                    printOrderId = "";
+                    break;
+
+            }
+
+
+
+            /*
+            switch (next)
+            {
+                case 0:
+
+                    req = new Dictionary<string, object> { };
+                    Debug.Log("@【printer】请求退美元");
+                    NetManager.Instance.Post(RPCName.createPrintOrder, req,
+                    (res) =>
+                    {
+                        printMoney = res["money"];
+                        printOrderId = res["order_id"];
+
+                        agent_name = res["agent_name"];
+
+                        FUNC();
+                    },
+                    (error) =>
+                    {
+                        Debug.LogError(" 请求退美元失败");
+                    });
+
+                    break;
+                case 1:
+                    fontSize = 15;
+#if UNITY_EDITOR
+                    MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_FONTSIZE, fontSize.ToString());
+#else
+                    SBoxSandbox.PrinterFontSize(fontSize);
+#endif
+
+                    Debug.Log($"@【printer】fonSize = {fontSize}");
+                    break;
+                case 2:
+                    testMsg = ".       K3K\r\n";
+#if UNITY_EDITOR
+
+                    MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_MESSAGE, testMsg);
+#else
+                    SBoxSandbox.PrinterMessage(testMsg);
+#endif
+                    Debug.Log($"@【printer】testMsg = {testMsg}");
+                    break;
+                case 3:
+
+                    fontSize = 30;
+#if UNITY_EDITOR
+                    MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_FONTSIZE, fontSize.ToString());
+#else
+                    SBoxSandbox.PrinterFontSize(fontSize);
+#endif
+                    Debug.Log($"@【printer】fonSize = {fontSize}");
+                    break;
+
+                case 4:
+                    testMsg = $".    ${printMoney}\r\n";
+#if UNITY_EDITOR
+
+                    MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_MESSAGE, testMsg);
+#else
+                    SBoxSandbox.PrinterMessage(testMsg);
+#endif
+                    Debug.Log($"@【printer】testMsg = {testMsg}");
+                    break;
+                case 5:
+
+                    fontSize = 5;
+#if UNITY_EDITOR
+                    MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_FONTSIZE, fontSize.ToString());
+#else
+                    SBoxSandbox.PrinterFontSize(fontSize);
+#endif
+                    Debug.Log($"@【printer】fonSize = {fontSize}");
+                    break;
+                case 6:
+
+                    testMsg = $"Order number: \r\n" +
+                    $"{printOrderId}\r\n" +
+                    $"Distributor: {agent_name}\r\n" +
+                    $"Business: {"--"}\r\n";
+ #if UNITY_EDITOR
+                MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_MESSAGE, testMsg);
+
+#else
+                SBoxSandbox.PrinterMessage(testMsg);
+#endif
+                    Debug.Log($"@【printer】testMsg = {testMsg}");
+                    break;
+
+                case 7:
+
+                    req = new Dictionary<string, object>
+                    {
+                        { "order_id",printOrderId},
+                        { "money",printMoney}
+                    };
+                    Debug.Log("@【printer】确认退美元");
+                    NetManager.Instance.Post(RPCName.confirmPrintOrder, req,
+                    (res) =>
+                    {
+                    },
+                    (error) =>
+                    {
+                        Debug.LogError(" 确认退美元失败");
+                    });
+                    
+                    printMoney = 0;
+                    printOrderId = "";
+
+                    break;
+
+                default:
+                    printMoney = 0;
+                    printOrderId = "";
+                    break;
+
+            }*/
+
+            next++;
+        };
+
+        return FUNC;
+    }
+
+    private int step = 0;
+
+    void OnPrinterFontsize(int result)
+    {
+
+        /*if (result == 0)
         {
-            Debug.Log("【printer】:print succeed");  
+            testFunc02();
+        }
+        return;*/
+
+        if (result == 0 )
+        {
+            if(printFunc != null)
+                printFunc();
+        }
+        else
+        {
+            Debug.LogWarning("【printer】: 打印机字体设置失败");
+            printFunc = null;
         }
     }
 
 
+    void OnPrinterMessage(int result)
+    {
+       /* if (result == 0)
+        {
+            step++;
+            if (step < 2)
+            {
+                testFunc01();
+            }
+        }
+        return;*/
+        if (result == 0)
+        {
+            if (printFunc != null)
+                printFunc();
+        }
+        else
+        {
+            Debug.LogWarning("【printer】: 打印机打印失败");
+            printFunc = null;
+        }
+    }
+}
+
+
+
+/// <summary>
+/// 退票机
+/// </summary>
+public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
+{
+
+    /// <summary>
+    /// 1美刀 / 1票  = 多少游戏分
+    /// </summary>
+    int RATE = 1000;
+
+ 
+
+    Coroutine _task = null;
+
+    public void DoTask(Action cb, int ms = 0)
+    {
+        ClearTask();
+        _task = StartCoroutine(doTask(cb, ms));
+    }
+    public void ClearTask()
+    {
+        //StopCoroutine("doTask");
+        if (_task != null) { 
+            StopCoroutine(_task);
+            _task = null;
+        }
+    }
+    IEnumerator doTask(Action cb, int ms = 0)
+    {
+        yield return new WaitForSeconds(ms / 1000f);
+        if (cb != null)
+            cb();
+    }
+
+    int coinOutNum = 0;
+    string coinOutOrder = "";
+    public void StartCoinOut()
+    {
+
+        if (BlackboardQueryUtils.IsIngame() && BlackboardQueryUtils.IsSpin())
+        {
+            ErrorPopupInfo info = new ErrorPopupInfo();
+            info.text = "<size=32>No refund is allowed while the game is in progress.</size>";
+            info.type = ErrorPopupType.OK;
+            info.buttonText1 = "OK"; 
+            info.callback1 = delegate
+            {
+                //Debug.Log("i am here1");
+            };
+            ErrorPopupHandler.Instance.OpenError(info);
+            return;
+        }
+
+
+
+
+
+        Dictionary<string, object> req = new Dictionary<string, object> { };
+        //Debug.Log("请求退币");
+        NetManager.Instance.Post(RPCName.createCoinOutOrder, req,
+        (res) =>
+        {
+            Debug.Log($" res = {res.ToString()}");
+            Debug.Log($" 退票个数 = {res["money"]}");
+
+            this.finishCoinOutNum = 0;
+            this.coinOutNum = 0;
+            this.coinOutOrder = "";
+
+            int num = res["money"];
+            if (num > 0)
+            {
+                this.coinOutNum = num;
+                this.coinOutOrder = res["order_id"];
+
+#if UNITY_EDITOR
+                CointOutData cointOutData = new CointOutData()
+                {
+                    id = 0,
+                    count = this.coinOutNum,
+                    type = 0
+                };
+                MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_COIN_OUT_START, JsonConvert.SerializeObject(cointOutData));
+
+#else
+        CoinOutStart(0, this.coinOutNum, 0);
+#endif
+                DoTask(
+                    () =>
+                    {
+                        Debug.Log("退票超时!");
+                        StopCoinOut();
+                        //弹窗，通知退币失败，
+                        //--还欠多少个币
+                    }, 5000);
+            }
+            else
+            {
+                Debug.Log("退票积分不足");
+            }
+        },
+        (error) =>
+        {
+            Debug.LogError(" 查询退币个数失败");
+        });
+
+        /*
+        //玩家游戏分/1000
+        this.coinOutNum = (int)(BlackboardUtils.FindVariable<long>(null, "/me/credit").value / RATE);
+        //this.coinOutNum =  Mathf.FloorToInt(BlackboardUtils.FindVariable<long>(null, "/me/credit").value / RATE);
+        Debug.Log($"退票个数 = {this.coinOutNum}");
+        if (this.coinOutNum < 1)
+        {
+            this.coinOutNum = 0;
+            Debug.Log("退票积分不足");
+            return;
+        }
+
+#if UNITY_EDITOR
+
+        CointOutData cointOutData = new CointOutData()
+        {
+            id = 0,
+            count = this.coinOutNum,
+            type = 0
+        };
+        MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_COIN_OUT_START, JsonConvert.SerializeObject(cointOutData));
+        
+#else
+        CoinOutStart(0, this.coinOutNum, 0);
+#endif
+
+        DoTask(
+            () =>
+            {
+                Debug.Log("退票超时!");
+                StopCoinOut();
+                //弹窗，通知退币失败，
+                //--还欠多少个币
+            },5000);
+        */
+    }
+
+    public void FinishCoinOut()
+    {
+        if (finishCoinOutNum > 0)
+        {
+            Dictionary<string, object> req = new Dictionary<string, object>
+                {
+                    {"money",finishCoinOutNum}, //退币个数
+                    { "order_id",coinOutOrder}
+                };
+            Debug.Log($"开始退币 {finishCoinOutNum}");
+            NetManager.Instance.Post(RPCName.confirmCoinOutOrder, req,
+            (res) =>
+            {
+                Debug.Log($"退币成功");
+            },
+            (error) =>
+            {
+                Debug.LogError(" 退币失败");
+            });
+
+            coinOutOrder = "";
+            finishCoinOutNum = 0;
+            coinOutNum = 0;
+        }
+    }
+
+
+    int finishCoinOutNum = 0;
+    private void OnCoinOut(int coinOutNum01)
+    {
+
+        //存入算法卡
+        if (coinOutNum01 > 0)
+        {
+            finishCoinOutNum += coinOutNum01;
+        }
+
+        Debug.LogWarning($"OnCoinOut 被调用 coinOutNum = {coinOutNum01} 累计数量 = {this.finishCoinOutNum}");
+
+        if (this.coinOutNum == finishCoinOutNum)
+        {
+            Debug.Log("成功!");
+            StopCoinOut();
+            ClearTask();
+            FinishCoinOut();
+        }
+        else
+        {
+            DoTask(
+                () =>
+                {
+                    Debug.Log("退票超时!");
+                    StopCoinOut();
+                    FinishCoinOut();
+                }, 5000);
+            // 通知服务器，退多少币
+        }
+
+/*
+        this.coinOutNum -= coinOutNum01;
+        Debug.LogWarning($"OnCoinOut 被调用 coinOutNum = {coinOutNum01} 剩余数量 = {this.coinOutNum}");
+        if (coinOutNum01 > 0)
+        {
+            MachineSelectManager.Instance.PurchaseCreditRequest(2, coinOutNum01 * RATE);
+            Debug.LogWarning($"退币 扣除游戏分 = {coinOutNum01 * RATE}");
+        }
+        if (this.coinOutNum == 0)
+        {
+            Debug.Log("成功!");
+            ClearTask();
+        }
+        else
+        {
+            DoTask(
+                () =>
+                {
+                    Debug.Log("退票超时!");
+                    StopCoinOut();
+                }, 5000);
+            // 通知服务器，退多少币
+        }
+*/
+    }
+
+
+    private void StopCoinOut()
+    {
+#if UNITY_EDITOR
+            MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_COIN_OUT_STOP, "0");
+#else
+        CoinOutStop(0);
+#endif
+    }
 
 }

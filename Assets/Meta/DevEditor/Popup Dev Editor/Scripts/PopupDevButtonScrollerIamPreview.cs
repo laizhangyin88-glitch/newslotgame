@@ -260,6 +260,8 @@ namespace BagelCode
             var controller = bannerObj.GetComponent<LobbyBannerGrorupBase>();
             controller.UpdateBannerInfo(bannerInfo);
 
+            
+
             return bannerObj;
         }
     }

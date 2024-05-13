@@ -495,10 +495,10 @@ public class AccountLoginViewNew : MonoBehaviour
         tipsText.text = "";
     }
 
-
     IEnumerator HttpPost(string url, string method, Dictionary<string, string> post_param, System.Action<string> callback)
     {
-
+        url = url.Trim();
+        
         // 创建一个表单
         JSONNode jsonNode = JSONNode.Parse("{}");
 

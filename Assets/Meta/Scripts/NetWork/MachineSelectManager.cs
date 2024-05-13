@@ -1994,7 +1994,7 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
     public void PurchaseCreditRequest(int operateType, long purchase, Action onsuccess = null)
     {
-        string rpcName = operateType == 1 ? RPCName.agentRechargeToDeviceUser : RPCName.decreaseDeviceCredit;
+        string rpcName = operateType == 1 ? RPCName.addCredit : RPCName.decreaseCredit;
         Dictionary<string, object> req = new Dictionary<string, object>
         {
             {"balance",purchase},
@@ -2712,3 +2712,9 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
         PlaySound();
     }
 }
+
+/*Test(bol: true);
+private void Test(int data = 0, string str = "", bool bol = false)
+{
+
+}*/
