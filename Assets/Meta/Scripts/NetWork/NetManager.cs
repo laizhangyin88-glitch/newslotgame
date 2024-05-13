@@ -144,8 +144,23 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         }
     }
 
+    [Button]
+    void test_timeEq10()
+    {
+        Time.timeScale = 10;
+    }
 
+    [Button]
+    void test_timeEq5()
+    {
+        Time.timeScale = 5;
+    }
 
+    [Button]
+    void test_timeEq1()
+    {
+        Time.timeScale = 1;
+    }
 
     public void Init(ISocket socket)
     {
