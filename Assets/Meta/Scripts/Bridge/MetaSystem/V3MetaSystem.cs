@@ -227,7 +227,6 @@ namespace BagelCode
             //Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
 
 
-
             JSONNode data = JSONNode.Parse("{}");
             data.Add("selected_index", (int)customData);
 
