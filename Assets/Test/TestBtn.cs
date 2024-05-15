@@ -25,13 +25,16 @@ public class TestBtn : MonoBehaviour
 
     public void InputClearClick()
     {
+        /*
         inputObject.GetComponent<InputField>().text = "";
         inputList.GetComponent<InputField>().text ="";
         globalStore.test_is_free_spin = 0;
         globalStore.test_spin_tab =  new int[] { };
+        */
     }
     public void InputOkClick()
     {
+        /*
         try
         {
 
@@ -57,6 +60,7 @@ public class TestBtn : MonoBehaviour
         {
             Debug.LogWarning(e, this);
         }
+        */
         
     }
 

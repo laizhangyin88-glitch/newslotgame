@@ -251,7 +251,7 @@ namespace SlotMaker
         [Button]
         public void tmp_ClearUnuseGSSource()
         {
-            Debug.Log("@Clear Unuse GSS");
+            //Debug.Log("@Clear Unuse GSS");
             long nowTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             //List<GSSource> gsss= new List<GSSource>();
 
