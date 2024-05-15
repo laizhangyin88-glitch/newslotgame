@@ -202,8 +202,9 @@ public class AccountLoginViewNew : MonoBehaviour
     {
         bool getTargetUrl = false;
         //拼接好最后的url 
-        string finalStr = "http://8.138.117.128:9981/get_config?key=myApplication.new_login_url";
+        //string finalStr = "http://8.138.117.128:9981/get_config?key=myApplication.new_login_url";
         //string finalStr = "http://8.138.117.128:9981/get_config?key=myApplication.xigua_login_url";
+        string finalStr = ApplicationSettings.Instance.autoUrl;
 
         Debug.LogWarning(finalStr);
         WWW www = new WWW(finalStr);
