@@ -61,7 +61,7 @@ public class EnterGame : ActionTask <Blackboard>
                     response.contents = res["contents"].ToString();
 
 
-                    if (res.HasKey("last_session_content"))
+                    /*if (res.HasKey("last_session_content"))
                     {
 
                         JSONNode _cnt;
@@ -109,13 +109,13 @@ public class EnterGame : ActionTask <Blackboard>
 
                         Debug.Log($"last_session_content = {strRes01}");//last_session_content
 
-                        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "islastFreeSpin", true);
-                        /* */
+                        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "isLastFreeSpin", true);
+        
                     }
                     else
                     {
-                        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "islastFreeSpin", false);
-                    }
+                        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "isLastFreeSpin", false);
+                    }*/
 
 
                     //Debug.Log($" @contents =  {response.contents}");

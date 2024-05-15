@@ -77,30 +77,49 @@ namespace BagelCode
 #if NEW_NET
 
 
-            //免费游戏
-            if (BlackboardUtils.GetOrCreateVariable<bool>(ContentBlackboard.Get(), "islastFreeSpin").value)
+            string testRes = TestManager.Instance.getSpin();
+            if (testRes != "")
             {
-                BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "islastFreeSpin", false);
+                SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(testRes as string);
+                SimpleJSON.JSONNode res = dataDict["data"];
+             
+                    string resStr = res.ToString();
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
+                    ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
+                    response.contents = res["contents"].ToString();
 
-                TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
-                ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
-                response.contents = BlackboardUtils.GetOrCreateVariable<string>(ContentBlackboard.Get(), "lastFreeSpinContent").value;
+                    SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
 
-                SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
-
-                if (successCallback != null)
-                    successCallback();
-
+                    if (successCallback != null)
+                        successCallback();
+  
                 return;
             }
 
-            //string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
 
 
+            if (LastFreeSpinManager.Instance.isLastFreeSpin)
+            {
+                LastFreeSpinManager.Instance.getResponseData(
+                (res) =>
+                {
+
+                    string resStr = res.ToString();
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
+                    ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
+                    response.contents = res["contents"].ToString();
+
+                    SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
+
+                    if (successCallback != null)
+                        successCallback();
+
+                });
+                return;
+            }
 
 
-            string debug_param = "";
-
+            /*string debug_param = "";
             if (globalStore.test_spin_tab.Length > 0)
             {
                 string lstStr = "[";
@@ -115,8 +134,27 @@ namespace BagelCode
             else
             {
                 debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
-            }
+            }*/
 
+
+            string debug_param = "";
+            int code = TestManager.Instance.getCode();
+            int[] lst = TestManager.Instance.getList();
+            if (lst.Length > 0)
+            {
+                string lstStr = "[";
+                for (int i = 0; i < lst.Length; i++)
+                {
+                    lstStr += $"{lst[i]},";
+                }
+                lstStr += "]";
+                lstStr = lstStr.Replace(",]", "]");
+                debug_param = "{\"is_free_spin\":" + code + ",\"reel_output_list\":" + lstStr + "}";
+            }
+            else
+            {
+                debug_param = "{\"is_free_spin\":" + code + "}";
+            }
 
             Dictionary<string, object> req = new Dictionary<string, object>
             { 
@@ -208,6 +246,47 @@ namespace BagelCode
 
 #if NEW_NET
 
+            if (globalStore.nowGameID == 33) //雷神
+            {
+                if (successCallback != null)
+                    successCallback();
+                return;
+            }
+
+
+            if (LastFreeSpinManager.Instance.isLastFreeSpin)
+            {
+                LastFreeSpinManager.Instance.getResponseData(
+                (res) =>
+                {
+
+                    string resStr = res.ToString();
+
+                    //string oldJson = JsonUtility.ToJson(response);
+                    //Debug.Log($"@A KenoPlayResponseV1 = {oldJson}");
+
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_claim_bonus_response_v3");
+                    ClientModels.SlotClaimBonusResponseV3 response = JsonUtility.FromJson<ClientModels.SlotClaimBonusResponseV3>(jsn8.text);
+
+                    response.contents = res["contents"].ToString();
+
+                    var bb = BlackboardUtils.GetOrCreateBlackboard(ContentBlackboard.Get().GetValue<Blackboard>("turn"), "claims");
+                    bb = BlackboardUtils.GetOrCreateBlackboard(bb, claimId);
+                    ClientAPI2Blackboard.Serialize(bb, response);
+                    BlackboardUtils.SetOrCreateValue<int>(bb, "requestType", (int)ContentsRequestType.SlotClaimBonus);
+
+                    ContentsSerializer.Deserialize(bb);
+
+                    // BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
+                    if (successCallback != null)
+                        successCallback();
+
+                });
+                return;
+            }
+
+
+
             int gameId = BlackboardUtils.GetOrCreateVariable<int>(null, "./game/gameId").value;
             SpinType spinType = BlackboardUtils.GetOrCreateVariable<SpinType>(ContentBlackboard.Get(), "spinType").value;
             int metaGameEventID = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "metaGameEventID").value;
@@ -223,7 +302,6 @@ namespace BagelCode
 
             //string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";  
             //string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + ",\"reel_table\":[5,23,15]}";
-
             //Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
 
 
@@ -238,6 +316,7 @@ namespace BagelCode
             req.Add("isBonusSpin", isBonusSpin);
             req.Add("metaGameEventId", metaGameEventID);
             req.Add("seasonPassEventId", seasonPassEventId);
+
 
             NetManager.Instance.Post(RPCName.claimBonus, req,
             (res) =>
@@ -261,8 +340,8 @@ namespace BagelCode
 
                 // BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
 
-            if (successCallback != null)
-                    successCallback();
+                if (successCallback != null)
+                        successCallback();
             },
             (error) =>
             {
@@ -688,11 +767,17 @@ namespace BagelCode
             //        req = new RPCKenoClassic.ReqKenoSpin();
             //        break;
             //}
-            
-            
+
+
             //JSONNode data = JSONNode.Parse("{\"bet_per_ticket\":1000,\"pick_info_list\":[[25,41,52,55,56,63,68,71,77,80]]}");
 
-            string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
+
+
+
+
+
+           // string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
+            string debug_param = "{\"is_free_spin\":" + TestManager.Instance.getCode() + "}";
 
             Dictionary<string,object> req = new Dictionary<string, object>
             {
