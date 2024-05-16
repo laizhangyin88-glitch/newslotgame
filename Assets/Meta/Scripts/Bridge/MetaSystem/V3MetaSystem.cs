@@ -100,7 +100,7 @@ namespace BagelCode
 
             if (LastFreeSpinManager.Instance.isLastFreeSpin)
             {
-                LastFreeSpinManager.Instance.getResponseData(
+                LastFreeSpinManager.Instance.getResponseData(RPCName.slotSpin,
                 (res) =>
                 {
 
@@ -135,7 +135,6 @@ namespace BagelCode
             {
                 debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
             }*/
-
 
             string debug_param = "";
             int code = TestManager.Instance.getCode();
@@ -256,7 +255,7 @@ namespace BagelCode
 
             if (LastFreeSpinManager.Instance.isLastFreeSpin)
             {
-                LastFreeSpinManager.Instance.getResponseData(
+                LastFreeSpinManager.Instance.getResponseData(RPCName.claimBonus,
                 (res) =>
                 {
 

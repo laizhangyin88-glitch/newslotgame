@@ -35,6 +35,7 @@ public class TestManager : MonoSingleton<TestManager>
     {
 
         string lstStr = inputList.GetComponent<InputField>().text ?? "";
+        inputList.GetComponent<InputField>().text = "";
         string[] lstStrs = lstStr.Replace(" ", "").Split(',') ?? new string[] { };
 
         List<int> temp = new List<int>();
