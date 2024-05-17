@@ -86,7 +86,8 @@ namespace BagelCode
         private void OnCoinIn(object[] args)
         {
             int coinCount = (int)args[0];
-            StartCoroutine(PurchaseCreditRequest(1, coinCount));
+            //StartCoroutine(PurchaseCreditRequest(1, coinCount));
+            MachineSelectManager.Instance.PurchaseCreditRequest(1, coinCount);
         }
 
         private void OnCashIn(object[] args)
@@ -100,7 +101,8 @@ namespace BagelCode
             if (coinOutNum - coinCount < 0)
                 coinCount = coinOutNum;
             coinOutNum -= coinCount;
-            StartCoroutine(PurchaseCreditRequest(2, coinCount * 100));
+            //StartCoroutine(PurchaseCreditRequest(2, coinCount * 100));
+            MachineSelectManager.Instance.PurchaseCreditRequest(2, coinCount * 100);
             if (coinOutNum == 0)
                 IOEventCenter.SendEvent(IOCenterEvent.EVENT_StopCoinOut, args);
         }
@@ -109,8 +111,9 @@ namespace BagelCode
         //加钱
         private void OnAddCredit(int data)
         {
-            if (data == 0) { 
-                StartCoroutine(PurchaseCreditRequest(1, 100));
+            if (data == 0) {
+                //StartCoroutine(PurchaseCreditRequest(1, 100));
+                MachineSelectManager.Instance.PurchaseCreditRequest(1, 100);
             }
         }
 
@@ -119,7 +122,8 @@ namespace BagelCode
         {
             if (data == 0)
             {
-                StartCoroutine(PurchaseCreditRequest(2, 100));
+                //StartCoroutine(PurchaseCreditRequest(2, 100));
+                MachineSelectManager.Instance.PurchaseCreditRequest(2, 100);
             }
         }
 
@@ -130,7 +134,7 @@ namespace BagelCode
 
 #if NEW_NET
 
-            string rpcName = operateType == 1 ? RPCName.agentRechargeToDeviceUser : RPCName.decreaseDeviceCredit;
+            string rpcName = operateType == 1 ? RPCName.addCredit : RPCName.decreaseCredit;
             //operateType == 1 ? "/v0/purchase/add_credit" : "/v0/purchase/sub_credit";
 
             Dictionary<string, object> req = new Dictionary<string, object>
@@ -228,12 +232,14 @@ namespace BagelCode
                     break;
                 case global::bdKeyCode.Key_Bet3:
                     //OnKeyLeft((int)args[1]);
+                    OnKeySwitch((int)args[1]);
                     break;
                 case global::bdKeyCode.Key_Bet4:
-                    OnKeyRight((int)args[1]);
+                    //OnKeyRight((int)args[1]);
+                    OnKeyMenu((int)args[1]);
                     break;
                 case global::bdKeyCode.Key_Bet5:
-                    OnExit((int)args[1]);
+                    OnKeyExit((int)args[1]);
                     break;
                 case global::bdKeyCode.Key_Undefine:
                     //OnKeyCointOut((int)args[1]);
@@ -269,9 +275,9 @@ namespace BagelCode
             }
         }
 
-        private void OnExit(int data)
+        private void OnKeyExit(int data)
         {
-            if (data == 0)
+            /*if (data == 0)
             {
                 //退出
                 EventSender.SendGlobalEvent("OnLobby");
@@ -279,25 +285,47 @@ namespace BagelCode
                 MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData(MachineEventDefine.ON_KEY_BET5));
                 //鱼机 退出
                 MessageDispatcher.Dispatch(MetaEventDefine.ON_MACHINE, new EventData(MachineEventDefine.ON_KEY_BET5));
+            }*/
+
+            if (data == 0)
+            {
+                MachineSelectManager.Instance.BtnReturn();
             }
         }
+
+
+        private void OnKeyMenu(int data)
+        {
+            if (data == 0 && PopupManager.Instance.popupCount == 0)
+            {
+                MachineSelectManager.Instance.BtnMenu();
+            }
+        }
+
 
         private void OnKeyRule(int data)
         {
             if (data == 0 && PopupManager.Instance.popupCount == 0)
             {
-                EventSender.SendGlobalEvent("OpenPaytable");
+                //EventSender.SendGlobalEvent("OpenPaytable");
+                //MachineSelectManager.Instance.BtnMenu();
+                MachineSelectManager.Instance.BtnHelp();
             }
         }
 
         private void OnMaxBet(int data)
         {
+            /* if (data == 0)
+             {
+                 //最大下注
+                 MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetMax"));
+                 //炮升级
+                 EventSender.SendGlobalEvent(MetaEventDefine.ON_MACHINE, new EventData<int>(MachineEventDefine.ON_KEY_MAX_BET, data));
+             }*/
+
             if (data == 0)
             {
-                //最大下注
-                MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetMax"));
-                //炮升级
-                EventSender.SendGlobalEvent(MetaEventDefine.ON_MACHINE, new EventData<int>(MachineEventDefine.ON_KEY_MAX_BET, data));
+                MachineSelectManager.Instance.BtnBetMax();
             }
         }
 
@@ -312,6 +340,7 @@ namespace BagelCode
 
                 ////下分
                 //StartCoroutine(PurchaseCreditRequest(2, 100));
+                MachineSelectManager.Instance.PurchaseCreditRequest(2, 100);
             }
         }
 
@@ -320,7 +349,8 @@ namespace BagelCode
             if (data == 0)
             {
                 //上分
-                StartCoroutine(PurchaseCreditRequest(1, 100));
+                //StartCoroutine(PurchaseCreditRequest(1, 100));
+                MachineSelectManager.Instance.PurchaseCreditRequest(1, 100);
             }
         }
 
@@ -328,7 +358,8 @@ namespace BagelCode
         {
             if (data == 0)
             {
-                StartCoroutine(PurchaseCreditRequest(2, 100));
+                //StartCoroutine(PurchaseCreditRequest(2, 100));
+                MachineSelectManager.Instance.PurchaseCreditRequest(2, 100);
             }
         }
 
@@ -349,8 +380,21 @@ namespace BagelCode
             }
         }
 
+
+        private void OnKeySwitch(int data)
+        {
+            if (data == 0)
+            {
+                MachineSelectManager.Instance.BtnSwitch();
+            }
+
+        }
+
+
+
         private void OnKeyLeft(int data)
         {
+            /*
             if (data == 0)
             {
                 //选择框左移
@@ -360,10 +404,18 @@ namespace BagelCode
             }
             //炮左移
             EventSender.SendGlobalEvent(MetaEventDefine.ON_MACHINE, new EventData<int>(MachineEventDefine.ON_KEY_LEFT, data));
+            */
+
+            if (data == 0)
+            {
+                MachineSelectManager.Instance.BtnPre();
+            }
+
         }
 
         private void OnKeyRight(int data)
         {
+            /*
             if (data == 0)
             {
                 //选择框右移
@@ -373,10 +425,16 @@ namespace BagelCode
             }
             //炮右移
             EventSender.SendGlobalEvent(MetaEventDefine.ON_MACHINE, new EventData<int>(MachineEventDefine.ON_KEY_RIGHT, data));
+            */
+            if (data == 0)
+            {
+                MachineSelectManager.Instance.BtnNext();
+            }
         }
 
         private void OnKeyStart(int data)
         {
+            /*
             //Slot开始
             if (PopupManager.Instance.popupCount > 0 && data == 1)
             {
@@ -391,15 +449,31 @@ namespace BagelCode
                 MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, data));
             ////开炮
             //EventSender.SendGlobalEvent(MetaEventDefine.ON_MACHINE, new EventData<int>(MachineEventDefine.ON_KEY_START, data));
+            */
+
+
+
+            //(int)args[1] 0: 抬起
+            //(int)args[1] 1: 按下
+            if (data == 1)
+            {
+                MachineSelectManager.Instance.BtnSpinDown();
+            }
+            else
+            {
+                MachineSelectManager.Instance.BtnSpinUp();
+            }
+             
         }
 
         private void OnKeySet(int data)
         {
+
             if (data == 0)
             {
                 //提高押注
-                MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetUp"));
-                
+                //MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetUp"));
+                MachineSelectManager.Instance.BtnBetUp();
             }
         }
 
@@ -408,7 +482,8 @@ namespace BagelCode
             if (data == 0)
             {
                 //降低押注
-                MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetDown"));
+                //MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetDown"));
+                MachineSelectManager.Instance.BtnBetDown();
             }
         }
 

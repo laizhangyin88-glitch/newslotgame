@@ -14,6 +14,8 @@ using JSONNode = SimpleJSON.JSONNode;
 using System.Text.RegularExpressions;
 using BagelCode.ClientModels;
 using Action = System.Action;
+using System.Collections;
+using Sirenix.OdinInspector;
 
 public class RequestType {
 
@@ -103,6 +105,8 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         }
     }
 
+
+
     private const string ON_SYSTEM_EVENT = "OnSystemEvent";
     private void Start()
     {
@@ -140,8 +144,23 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         }
     }
 
+    [Button]
+    void test_timeEq10()
+    {
+        Time.timeScale = 10;
+    }
 
+    [Button]
+    void test_timeEq5()
+    {
+        Time.timeScale = 5;
+    }
 
+    [Button]
+    void test_timeEq1()
+    {
+        Time.timeScale = 1;
+    }
 
     public void Init(ISocket socket)
     {
@@ -547,6 +566,12 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             }
 
 
+            if (evt.Contains("Sparkling"))
+            {
+                Debug.Log($"@【find Sparkling】：{evt}");
+            }
+
+
             this.OnWebSocketMessage((string)dataDict["protocol_key"], dataDict["data"]);
 
         }
@@ -557,9 +582,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
     }
 
-
-
- 
     private void OnWebSocketMessage(string rpcName, JSONNode data)
     {
 
@@ -573,7 +595,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         {
             globalStore.newCredit = data["balance"].AsLong;
         }
-
 
         //添加检测code 和msg 的逻辑
         switch (rpcName)
@@ -729,6 +750,12 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             case RPCName.metaInfo:
                 break;
             case RPCName.ping:
+            case RPCName.confirmCoinOutOrder:
+            case RPCName.confirmPrintOrder:
+            case RPCName.addMoney:
+            case RPCName.addCredit:
+            case RPCName.decreaseCredit:
+
                 long oldCredit = (long)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value ?? 0);
                 //globalStore.newCredit = data["balance"].AsLong;
                 if (oldCredit != globalStore.newCredit)
@@ -751,6 +778,45 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
     }
 
+
+    [Button]
+    void test_openWin()
+    {
+
+        ErrorPopupInfo info = new ErrorPopupInfo();
+        bool stringError = false;
+        info.text = StringTableUtils.GetString(StringTable.StringTableType.Global, "ERROR_BANNED_USER_PERMANENT", out stringError);
+        //info.buttonAutoClose2 = false;
+        info.type = ErrorPopupType.YesNo;
+        info.buttonText1 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_CLOSE", out stringError);
+        info.buttonText2 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_CUSTOMER_SUPPORT", out stringError);
+
+        /*
+        info.text = "44";
+        info.type = ErrorPopupType.YesNo; //ErrorPopupType.YesNo;
+        info.buttonText1 = "55";
+        info.buttonText2 = "66";*/
+        info.callback1 = delegate
+        {
+            Debug.Log("i am here1");
+        };
+
+        info.callback2 = delegate
+        {
+            Debug.Log("i am here2");
+            //ErrorPopupHandler.Instance.CloseErrorPopup();  不能关闭弹窗
+            //Application.Quit();  不能关闭弹窗
+            //EventSender.SendGlobalEvent("OnClose"); //关闭弹窗
+        };
+
+        ErrorPopupHandler.Instance.OpenError(info);
+    }
+    [Button]
+    void test_closeWin()
+    {
+        EventSender.SendGlobalEvent("OnClose"); //关闭弹窗
+        //ErrorPopupHandler.Instance.CloseErrorPopup();  不能用
+    }
 
     private void OnError(object evt)
     {

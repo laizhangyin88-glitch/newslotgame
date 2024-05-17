@@ -9,9 +9,23 @@ using SlotMaker;
 using TMPro;
 using System;
 using SboxSpace;
+using Sirenix.OdinInspector;
+using BagelCode.ClientModels;
+using Spine.Unity;
+using NodeCanvas.BehaviourTrees;
+using BagelCode.Tasks.Actions.ClientAPI;
+using System.Timers;
 
 namespace BagelCode
 {
+    public enum NextSpinState
+    {
+        None,
+        ToPlay,
+        ToStop,
+        ToStopAuto
+    };
+
     public class SpinButton : InGameButton, IPointerDownHandler, IPointerUpHandler
     {
         public float autoSpinDelay;
@@ -35,6 +49,37 @@ namespace BagelCode
         {
             get { return spinType.value; }
         }
+
+        Transform elemSpinText;
+        Transform elemStopText;
+        Transform elemAutoSpinText;
+        [Button]
+        public NextSpinState GetSpinButtonState()
+        {
+            //var elemSpinText = ContextUtils.FindElement(root, "", ContextSearchingType.ChildrenSearch);
+            //var elemStopText = ContextUtils.FindElement(root, "Stop Text", ContextSearchingType.ChildrenSearch);
+            //var elemAutoSpinText = ContextUtils.FindElement(root, "Auto Spin Text", ContextSearchingType.ChildrenSearch);
+            //Debug.Log($"【SpinButtonState】elemStopText = {elemStopText.gameObject.active} elemAutoSpinText = {elemAutoSpinText.gameObject.active}");
+
+            if (elemSpinText != null && elemSpinText.gameObject.active)
+            {
+                //Debug.Log($"【SpinButtonState】 to play");
+                return NextSpinState.ToPlay;
+            }
+            else if (elemStopText != null && elemStopText.gameObject.active)
+            {
+                //Debug.Log($"【SpinButtonState】 to stop  ");
+                return NextSpinState.ToStop;
+            }
+            else if (elemAutoSpinText != null && elemAutoSpinText.gameObject.active)
+            {
+                //Debug.Log($"【SpinButtonState】 to stop auto ");
+                return NextSpinState.ToStopAuto;
+            }
+            return NextSpinState.None;
+        }
+
+
 
         private Variable<bool> autoSpin;
         public bool AutoSpin
@@ -153,6 +198,7 @@ namespace BagelCode
 
         private void UpdateSpinType(string name, object value)
         {
+
             if (SpinType == SpinType.None)
             {
                 SetState(true);
@@ -177,6 +223,7 @@ namespace BagelCode
 
         private void UpdateAutoSpin(string name, object value)
         {
+
             animator.SetBool(ANI_IS_AUTO, AutoSpin);
 
             PIPManager.Instance.SetPipState("AutoSpin", (bool)value);
@@ -217,9 +264,13 @@ namespace BagelCode
             MetaContextElementUtils.SetActive(playElement, isKeno);
             MetaContextElementUtils.SetActive(playDescElement, isKeno);
 
-
             RegisterHandleEventType(MetaEventDefine.ON_META_UI_EVENT);
             Register(MetaEventDefine.ON_META_UI_EVENT, MachineEventDefine.ON_KEY_START, OnMachinePoint);
+
+
+            elemSpinText = transform.Find("Anchor/Info/Spin Text");
+            elemStopText = transform.Find("Anchor/Info/Stop Text");
+            elemAutoSpinText = transform.Find("Anchor/Info/Auto Spin Text");
         }
 
         private void OnMachinePoint(EventData data)
@@ -239,6 +290,7 @@ namespace BagelCode
                 obj.gameObject.SetActive(!isDefault);
 
             animator.SetBool(ANI_IS_GAME_SPIN, !isDefault);
+
         }
 
         protected override void OnEnable()

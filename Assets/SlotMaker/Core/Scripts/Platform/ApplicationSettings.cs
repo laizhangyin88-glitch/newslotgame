@@ -56,7 +56,7 @@ namespace SlotMaker
 
         public List<string> streamingAssets = new List<string>();
         public List<string> staticStreamingAssets = new List<string>();
-
+        public List<string> staticMachineStreamingAssets = new List<string>();
 
         public LogFilter logFilter { get; set; }
 
@@ -201,6 +201,12 @@ namespace SlotMaker
     		 }
 
              returnValue.AddRange(Instance.staticStreamingAssets);
+
+
+            if (Instance.isMachine)
+            {
+                returnValue.AddRange(Instance.staticMachineStreamingAssets);
+            }
 
     		return returnValue;
     	}

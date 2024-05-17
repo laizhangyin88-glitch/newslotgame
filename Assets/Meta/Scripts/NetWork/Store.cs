@@ -18,5 +18,6 @@ public class globalStore
 
     public static int test_is_free_spin = 0;
 
+    public static int[] test_spin_tab = new int[] { };
     //public static string lastFreeSpinContents = "";
 }
