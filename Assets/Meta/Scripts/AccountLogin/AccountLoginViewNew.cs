@@ -201,9 +201,13 @@ public class AccountLoginViewNew : MonoBehaviour
     public IEnumerator WWW_Get(Action<string,string> cb)
     {
         bool getTargetUrl = false;
-        //拼接好最后的url 
-        string finalStr = "http://8.138.117.128:9981/get_config?key=myApplication.new_login_url";
+        //string finalStr = "http://8.138.117.128:9981/get_config?key=myApplication.new_login_url";
         //string finalStr = "http://8.138.117.128:9981/get_config?key=myApplication.xigua_login_url";
+
+        string finalStr = TestManager.Instance.getAutoUrl();
+        if (finalStr == "") {
+            finalStr = ApplicationSettings.Instance.autoUrl;
+        } 
 
         Debug.LogWarning(finalStr);
         WWW www = new WWW(finalStr);
@@ -233,8 +237,12 @@ public class AccountLoginViewNew : MonoBehaviour
   
     public IEnumerator WWW_Get02(Action<string, string> cb)
     {
-        string finalStr = "http://8.138.117.128:9981/get_config?key=myApplication.new_login_url";
-        //string finalStr = "http://8.138.117.128:9981/get_config?key=myApplication.xigua_login_url";
+        string finalStr = TestManager.Instance.getAutoUrl();
+        if (finalStr == "")
+        {
+            finalStr = ApplicationSettings.Instance.autoUrl;
+        }
+
         Debug.LogWarning(finalStr);
         using (UnityWebRequest www = UnityWebRequest.Get(finalStr))
         {

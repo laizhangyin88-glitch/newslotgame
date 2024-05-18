@@ -30,7 +30,8 @@ namespace SlotMaker
     	public string clientVersion;
         public string bundleVersion;
 
-    	public string apiUrl;
+        public string autoUrl;
+        public string apiUrl;
         public string loginUrl;
         public string newLoginUrlApp;
         public string newLoginUrlMechine;

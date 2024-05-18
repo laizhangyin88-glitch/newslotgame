@@ -161,7 +161,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
     {
         Time.timeScale = 1;
     }
-
     public void Init(ISocket socket)
     {
         // Debug.Log("【NetManager】i am init~~~~~");
@@ -520,7 +519,8 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
                 JSONNode data = JSONNode.Parse("{}");
                 //this.sendMsgForce("ping", data);
-                this.SendMsgForce("ping", data);
+                data.Add("cur_time", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
+                this.SendMsgForce(RPCName.ping, data);
             });
         };
         //this._keepAliveTimer.Enabled = true; //开始执行
@@ -769,6 +769,12 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                         //EventSender.SendGlobalEvent("OnCreditEvent", "UpdateNaviCredit");
                     }
                 }
+
+                if (rpcName == RPCName.ping && data.HasKey("cur_time"))
+                {
+                    MessageDispatcher.Dispatch("OnContentEvent01", new EventData<string>("ShowInfo", data.ToString()));
+                }
+
                 break;
             default:
                 break;
@@ -777,7 +783,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         this._Emit(rpcName, data as JSONNode);
 
     }
-
 
     [Button]
     void test_openWin()
