@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_QuickPick_Reset_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":399.0,"y":-112.0},"zoomFactor":0.9694494,"nodes":[{"_position":{"x":309.0,"y":176.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"eventName":{"_value":"WaitKeno"},"delay":{},"sendGlobal":true,"slotIndex":{},"$type":"BagelCode.Tasks.Actions.SendSlotEvent"},{"waitTime":{"_value":0.1},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":-167.0,"y":395.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"actions":[{"mediator":{"_name":"KenoMediator","_targetVariableID":"c2201e6f-c2cc-4b7c-8b4a-ea66d4a0d4f7"},"$type":"SlotMaker.Keno.Tasks.Actions.Keno_Erase"},{"mediator":{"_name":"KenoMediator","_targetVariableID":"c2201e6f-c2cc-4b7c-8b4a-ea66d4a0d4f7"},"$type":"SlotMaker.Keno.Tasks.Actions.Keno_SkipWin"},{"minValue":{},"maxValue":{"_value":79},"count":{"_value":10,"_name":"_pickCountForAutoQuickPick"},"exceptionList":{"_value":[],"_name":""},"saveAs":{"_name":"_pickIndices"},"$type":"NodeCanvas.Tasks.Actions.SetListRandom"},{"waitTime":{},"$type":"NodeCanvas.Tasks.Actions.WaitLeastOneFrame"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":155.0,"y":387.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"12"},{"targetList":{"_type":"System.Collections.Generic.List`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]","_name":"_pickIndices"},"current":{"_type":"System.Int32","_value":{"$content":0,"$type":"System.Int32"},"_name":"_pickIndex"},"storeIndex":{"_name":""},"maxIteration":{"_value":-1},"_position":{"x":384.0,"y":386.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"28"},{"_action":{"actions":[{"mediator":{"_name":"KenoMediator","_targetVariableID":"c2201e6f-c2cc-4b7c-8b4a-ea66d4a0d4f7"},"index":{"_name":"_pickIndex"},"$type":"SlotMaker.Keno.Tasks.Actions.Keno_Pick"},{"waitTime":{"_value":0.05},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":407.0,"y":507.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"33"},{"_action":{"eventName":{"_value":"ReadyKeno"},"delay":{},"sendGlobal":true,"slotIndex":{},"$type":"BagelCode.Tasks.Actions.SendSlotEvent"},"_position":{"x":619.0,"y":387.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"41"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"41"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"28"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0
