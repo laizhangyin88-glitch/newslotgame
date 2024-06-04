@@ -351,7 +351,8 @@ namespace BagelCode
 
         private static GameObject MakeSlotImageIcon(string assetName, string gameTitle, bool useBG, Transform root, string parentName)
         {
-            string builtInAssetName = ProductSettings.Instance.GetThumbnailName(assetName);
+          //  string builtInAssetName = ProductSettings.Instance.GetThumbnailName(assetName);
+            string builtInAssetName = null;
             GameObject go = null;
             if( string.IsNullOrEmpty(builtInAssetName) )
             {
