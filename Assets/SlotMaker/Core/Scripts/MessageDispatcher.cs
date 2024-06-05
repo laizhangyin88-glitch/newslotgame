@@ -37,7 +37,7 @@ namespace SlotMaker
 		public static void Dispatch(string eventName, EventData eventData)
 		{
 #if UNITY_EDITOR
-            Debug.Log($"【 MessageDispatcher 发送消息】：eventName = {eventName} ， name = {eventData.name}");
+            Debug.Log($"【 MessageDispatcher 发送消息】：eventName = {eventName} ， name = {eventData.name}  value = {eventData.value}");
 #endif
             EventDelegate del;
 			if (Instance.delegates.TryGetValue(eventName, out del))
