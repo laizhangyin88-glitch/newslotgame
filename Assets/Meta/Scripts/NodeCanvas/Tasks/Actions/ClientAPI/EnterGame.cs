@@ -109,12 +109,12 @@ public class EnterGame : ActionTask <Blackboard>
 
                         Debug.Log($"last_session_content = {strRes01}");//last_session_content
 
-                        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "isLastFreeSpin", true);
+                        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "isLastGameSpin", true);
         
                     }
                     else
                     {
-                        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "isLastFreeSpin", false);
+                        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "isLastGameSpin", false);
                     }*/
 
 
@@ -135,6 +135,18 @@ public class EnterGame : ActionTask <Blackboard>
                     IAMRouter.Instance.SortTrigger(BagelCode.ClientModels.InAppMessageTriggerType.ALL_IN, gameID.value);
 
                     enterSuccess.value = true;
+
+
+                    if (res.HasKey("last_regular_message")  && res["last_regular_message"] != null)
+                    {
+                        Debug.Log($"【last_regular_message】  = {res["last_regular_message"].ToString()} ");
+                        LastFreeGameManager.Instance.GetFreeSpinHistory(res["last_regular_message"].ToString());
+                    }
+                    else
+                    {
+                        Debug.Log("【last_regular_message】  is null");
+                    }
+
                     EndAction(true);
 
                 },
