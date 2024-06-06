@@ -26,6 +26,7 @@ public class EventHandle
 
     public const string INIT_SBOX = "INIT_SBOX";
     public const string CHECK_SBOX_READY = "CHECK_SBOX_READY";
+    public const string CHECK_SBOX_SANBOX_READY = "CHECK_SBOX_SANBOX_READY";
     public const string INIT_VIEW_FINISH = "INIT_VIEW_FINISH";
     public const string BROADCAST_GAME_STAR = "BROADCAST_GAME_STAR";
     public const string ROLLING = "ROLLING";

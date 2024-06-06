@@ -283,7 +283,7 @@ namespace SlotMaker
                         GSSource gss = kv.Value[i];
                         if (nowTime - gss.startUseTime > 8000)
                         {
-                            Debug.Log($"@clear: {kv.Key} {i} - {kv.Value[i].startUseTime}");
+                            //Debug.Log($"@clear: {kv.Key} {i} - {kv.Value[i].startUseTime}");
                             gss.Clear();
                         }
                     }
@@ -322,6 +322,7 @@ namespace SlotMaker
 
             set
             {
+                //Debug.LogError($"MusicVolume = {value}");
                 musicMixer.SetFloat("musicVol", (1f - value) * volumeOfMute);
                 if (metaMusicMixer != null)
                     metaMusicMixer.SetFloat("musicVol", (1f - value) * volumeOfMute);
@@ -339,6 +340,7 @@ namespace SlotMaker
 
             set
             {
+                //Debug.LogError($"sfxVol = {value}");
                 sfxMixer.SetFloat("sfxVol", (1f - value) * volumeOfMute);
             }
         }

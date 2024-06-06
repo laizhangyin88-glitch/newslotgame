@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using SlotMaker;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,8 +58,27 @@ public class MachineSelectBorder : MonoBehaviour
         }
         set
         {
-            selectBorder?.SetActive(value);
+
             _isSelected = value;
+#if !UNITY_EDITOR
+            // 非机台不显示边框
+            if (!ApplicationSettings.Instance.isMachine)
+            {
+                selectBorder?.SetActive(false);
+                return;
+            }    
+#endif
+            // 使用机台灯选择时，不显示边框
+            KeyValuePair<bool, string> kv = MachineSelectManager.Instance.GetIgonreBorderWhenUseLightBtnSelect();
+
+            if (kv.Key && kv.Value == mark)
+            {
+                selectBorder?.SetActive(false);
+            }
+            else
+            {
+                selectBorder?.SetActive(value);
+            }
         }
     }
 
@@ -634,7 +654,7 @@ public class MachineSelectBorder : MonoBehaviour
     {
 
 
-        Debug.Log("【show】: on enable");
+       // Debug.Log("【show】: on enable");
 
         //已经时初始化过了，隐藏按钮重新可见时，
         if ((MachineSelectManager.Instance.isInitGameBtnRegion && globalStore.nowGameID != -1)

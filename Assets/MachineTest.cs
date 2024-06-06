@@ -54,18 +54,21 @@ namespace BagelCode
 
             if (Input.GetKeyUp(KeyCode.KeypadPlus))
             {
-                //MachineSelectManager.Instance.BtnAddCoin();
-                MachineSelectManager.Instance.PurchaseCreditRequest(1, 10000);//加分
+                //MachineSelectManager.Instance.PurchaseCreditRequest(1, 10000);
+
+                SBoxSanboxController.Instance.AddCredit(1);//加分
             }
 
             if (Input.GetKeyUp(KeyCode.KeypadMinus))
             {
-                // MachineSelectManager.Instance.BtnMinusCoin();
+                /*
                 Debug.Log($"【printer】: All dollar = {BlackboardUtils.FindVariable<long>(null, "/me/credit").value / 1000}");
                 int credit = (int)(BlackboardUtils.FindVariable<long>(null, "/me/credit").value / 1000) * 1000;
-                MachineSelectManager.Instance.PurchaseCreditRequest(2, credit, () =>
+
+                SBoxSanboxController.Instance.DecreaseCredit(credit, () =>
                 {
-                });//减分
+                });*/
+                SBoxSanboxController.Instance.DecreaseCredit(1);//减分*/
             }
 
 
@@ -203,11 +206,27 @@ namespace BagelCode
                 MachineSelectManager.Instance.BtnMinusCoin();
             }*/
 
+            /*
 
             if ((Input.GetKeyDown(KeyCode.O)))
             {
                 SBoxSanboxController.Instance.StartCoinOut();
+            }*/
+
+
+
+            if ((Input.GetKeyDown(KeyCode.O)))
+            {
+                SBoxSanboxController.Instance.AddCredit(1);
             }
+
+            if ((Input.GetKeyDown(KeyCode.P)))
+            {
+                SBoxSanboxController.Instance.DecreaseCredit(1);
+            }
+
+
+
         }
 
     }

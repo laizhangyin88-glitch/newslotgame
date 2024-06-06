@@ -6,6 +6,7 @@ using ParadoxNotion;
 using NodeCanvas.Framework;
 using SlotMaker;
 using System.Linq;
+using Sirenix.OdinInspector;
 
 namespace BagelCode
 {
@@ -59,6 +60,15 @@ namespace BagelCode
             get { return betList.value; }
             set { betList.value = value; }
         }
+        [Button]
+        void test_ShowBetList()
+        {
+            for (int i = 0; i < BetList.Count; i++)
+            {
+                Debug.Log($"【BetList】{i} = {BetList[i]}");
+            }
+        }
+
 
         private Variable<bool> isExtended;
         public bool IsExtended

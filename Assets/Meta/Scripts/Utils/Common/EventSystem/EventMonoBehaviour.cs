@@ -265,5 +265,11 @@ namespace BagelCode
 
             return null;
         }
+
+
+        public bool isContainEvent(string eventName, string eventType = ON_CUSTOM_EVENT)
+        {
+            return ValidateKey(eventType, eventName) != null;
+        }
     }
 }

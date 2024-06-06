@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace com.adjust.sdk
+namespace com.adjust.sdk 
 {
     public class Adjust : MonoBehaviour
     {

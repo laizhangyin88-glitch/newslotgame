@@ -59,6 +59,12 @@ namespace SlotMaker
         public List<string> staticStreamingAssets = new List<string>();
         public List<string> staticMachineStreamingAssets = new List<string>();
 
+
+        public bool isMachineOrMachineApp()
+        {
+           return  isMachine || newLoginUrlApp.Contains(":7502");
+        }
+
         public LogFilter logFilter { get; set; }
 
     	public static int GetClientVersionNumber()
