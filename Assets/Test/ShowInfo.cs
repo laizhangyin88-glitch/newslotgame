@@ -1,14 +1,10 @@
-using Dreamteck.Splines.Primitives;
 using ParadoxNotion;
 using Sirenix.OdinInspector;
 using SlotMaker;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-using UnityEngine.TestTools;
 using UnityEngine.UI;
 
 public class ShowInfo : MonoBehaviour
@@ -33,7 +29,7 @@ public class ShowInfo : MonoBehaviour
 
     void Start()
     {
-        if (!isShow())
+        if (!isShow)
         {
             signalNode.SetActive(false);
             peopleNode.SetActive(false);
@@ -53,7 +49,7 @@ public class ShowInfo : MonoBehaviour
     int lastGameID = 0;
     void Update()
     {
-        if (!isShow())
+        if (!isShow)
         {
             return;
         }
@@ -71,16 +67,31 @@ public class ShowInfo : MonoBehaviour
         }
     }
 
-    bool isShow()
+    bool isShow
     {
-        return  string.IsNullOrEmpty(ApplicationSettings.Instance.newLoginUrlApp)
-            || !ApplicationSettings.Instance.newLoginUrlApp.Contains("8.138.117.128:7501");
+        get{
+            if (ApplicationSettings.Instance.isMachine)
+            {
+                return true;                 
+            }
+
+            //ApplicationSettings.Instance.newLoginUrlApp
+            if (!string.IsNullOrEmpty(ApplicationSettings.Instance.newLoginUrlApp)
+                && ApplicationSettings.Instance.newLoginUrlApp.Contains("8.138.117.128:7501"))
+            {
+                return false;
+            }
+#if UNITY_EDITOR
+            return true;
+#endif
+            return false;
+        }
     }
 
     [Button]
     void test_isShow()
     {
-        Debug.Log($" is 26 game model : {isShow()}");
+        Debug.Log($" is 26 game model : {isShow}");
     }
 
     [Button]
