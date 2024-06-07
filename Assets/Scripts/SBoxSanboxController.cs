@@ -686,14 +686,17 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
     string MachineGetString(string key, string defaultValue)
     {
-        return PlayerPrefs.GetString(key, defaultValue);
+
+        return SQLiteManager.Instance.GetString(key, defaultValue);
+        //return PlayerPrefs.GetString(key, defaultValue);
         //之后给为算法卡
     }
 
     void MachineSetString(string key, string value)
     {
-        PlayerPrefs.SetString(key, value);
-        PlayerPrefs.Save();
+        SQLiteManager.Instance.SetString(key, value);
+        //PlayerPrefs.SetString(key, value);
+        //PlayerPrefs.Save();
         //之后给为算法卡
     }
 }
@@ -816,7 +819,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         get {
             if(_remainAddMoneyOrders == null)
             {
-                string str = MachineGetString("Server__RemainAddMoneyOrders", "{}");
+                string str = MachineGetString("Server_RemainAddMoneyOrders", "{}");
                 _remainAddMoneyOrders = JSONNode.Parse(str);
             }
             return _remainAddMoneyOrders;
@@ -1336,7 +1339,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         {
             if (_remainPrinterOrders == null)
             {
-                string str = MachineGetString("Server__RemainPrinterOrders", "{}");
+                string str = MachineGetString("Server_RemainPrinterOrders", "{}");
                 _remainPrinterOrders = JSONNode.Parse(str);
             }
             return _remainPrinterOrders;
@@ -1497,7 +1500,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         {
             if (_remainCoinInNumLst == null)
             {     
-                string str = MachineGetString("Server__RemainCoinInNum", DEFINE_COIN_IN_NUM);
+                string str = MachineGetString("Server_RemainCoinInNum", DEFINE_COIN_IN_NUM);
                 _remainCoinInNumLst = JSONNode.Parse(str);
             }
             return _remainCoinInNumLst;
@@ -1513,7 +1516,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         {
             if (_remainCoinInOrders == null)
             {
-                string str = MachineGetString("Server__RemainCoinInOrders", "{}");
+                string str = MachineGetString("Server_RemainCoinInOrders", "{}");
                 _remainCoinInOrders = JSONNode.Parse(str);
             }
             return _remainCoinInOrders;
@@ -1796,7 +1799,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         {
             if (_remainCoinOutOrders == null)
             {
-                string str = MachineGetString("Server__RemainCoinOutOrders", "{}");
+                string str = MachineGetString("Server_RemainCoinOutOrders", "{}");
                 _remainCoinOutOrders = JSONNode.Parse(str);
             }
             return _remainCoinOutOrders;
@@ -1879,7 +1882,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             //remainCoinOutOrders.Remove($"{res["order_id"]}");  //会有问题
             remainCoinOutOrders.Remove((string)res["order_id"]);
             MachineSetString("Server_RemainCoinOutOrders", remainCoinOutOrders.ToString());
-            //Debug.Log($"【退票】检查 退票数据 = {MachineGetString("Server__RemainCoinOutOrders", "???")}    @@@ = {remainCoinOutOrders.ToString()}");
+            //Debug.Log($"【退票】检查 退票数据 = {MachineGetString("Server_RemainCoinOutOrders", "???")}    @@@ = {remainCoinOutOrders.ToString()}");
             CloseMask();
             ChangeCreditShow();
         }
@@ -1961,6 +1964,9 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         bool isFirst = true;  //重连网络或上电时，将缓存立马发给服务器同步。
 
         yield return new WaitUntil(() => globalStore.gameState == GameState.Hall || globalStore.gameState == GameState.Game);
+
+
+        yield return new WaitUntil(() =>SQLiteManager.Instance.isReady);
 
 #if !UNITY_EDITOR
         if (!ApplicationSettings.Instance.isMachine)
@@ -2320,15 +2326,15 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     void test_ShowRemain()
     {
         /* */
-        Debug.Log($"RemainPrinterOrders = {MachineGetString("Server__RemainPrinterOrders", "{}")}");
+        Debug.Log($"RemainPrinterOrders = {MachineGetString("Server_RemainPrinterOrders", "{}")}");
 
-        Debug.Log($"RemainAddMoneyOrders = {MachineGetString("Server__RemainAddMoneyOrders", "{}")}");
+        Debug.Log($"RemainAddMoneyOrders = {MachineGetString("Server_RemainAddMoneyOrders", "{}")}");
 
-        Debug.Log($"RemainCoinOutOrders = {MachineGetString("Server__RemainCoinOutOrders", "{}")}");
+        Debug.Log($"RemainCoinOutOrders = {MachineGetString("Server_RemainCoinOutOrders", "{}")}");
 
-        Debug.Log($"RemainCoinInOrders = {MachineGetString("Server__RemainCoinInOrders", "{}")}");
+        Debug.Log($"RemainCoinInOrders = {MachineGetString("Server_RemainCoinInOrders", "{}")}");
 
-        Debug.Log($"RemainCoinInNumLst = {MachineGetString("Server__RemainCoinInNum", DEFINE_COIN_IN_NUM)}");
+        Debug.Log($"RemainCoinInNumLst = {MachineGetString("Server_RemainCoinInNum", DEFINE_COIN_IN_NUM)}");
        
 
         /*
