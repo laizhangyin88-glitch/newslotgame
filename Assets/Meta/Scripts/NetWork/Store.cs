@@ -1,4 +1,5 @@
 using SimpleJSON;
+using System.Collections.Generic;
 
 public class globalStore
 {
@@ -16,8 +17,24 @@ public class globalStore
 
     public static long newCredit = 0;
 
+    readonly static List<int> newGameId = new List<int>() { 3000 };
+    public static bool IsNewGame(int gameId)
+    {
+        return newGameId.Contains(gameId);
+    }
+    readonly static Dictionary<int, string> gameTitle = new Dictionary<int, string>()
+    {
+        [3000] = "bst",
+    };
+    public static string GetGameTitle(int gameId)
+    {
+        if (gameTitle.TryGetValue(gameId, out var title))
+            return title;
+        return string.Empty;
+    }
+
     //public static int test_is_free_spin = 0;
 
-   // public static int[] test_spin_tab = new int[] { };
+    // public static int[] test_spin_tab = new int[] { };
     //public static string lastFreeSpinContents = "";
 }

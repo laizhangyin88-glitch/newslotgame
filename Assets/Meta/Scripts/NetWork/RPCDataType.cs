@@ -22,6 +22,8 @@ public class RPCName
     public const string lobby = "lobby";
     /// <summary>进入子游戏</summary>
     public const string enterGame = "enter_game";
+    /// <summary>新的进入子游戏</summary>
+    public const string newEnterGame = "new_enter_game";
     /// <summary>房间 玩家数据</summary>
     public const string metaInfo = "meta_info";
     /// <summary>keno 开玩</summary>
@@ -38,6 +40,8 @@ public class RPCName
     public const string jacksGambleTake = "gamble_take"; // /v2/gamble/take
     /// <summary>拉霸机 开玩</summary>
     public const string slotSpin = "slot_spin";
+    /// <summary>新拉霸机 开玩</summary>
+    public const string new_slot_spin = "new_slot_spin";
 
     /// <summary>HAPPY DOLLARS</summary>
     public const string claimBonus = "claim_bonus";
@@ -139,7 +143,6 @@ namespace RPCHall
         /// <summary>游戏id</summary>
         public int game_id;
     }
-
 }
 
 namespace RPCKenoClassic
