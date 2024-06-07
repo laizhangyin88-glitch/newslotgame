@@ -50,11 +50,11 @@ namespace BagelCode
             bb.AddVariable("bonusIamInfo", typeof(Blackboard));
         }
 
-		public void SlotSpin(long betCredit, long extraBetCredit, object customData, Action successCallback, Action errorCallback)
-		{
+        public void SlotSpin(long betCredit, long extraBetCredit, object customData, Action successCallback, Action errorCallback)
+        {
             int metaGameEventID = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "metaGameEventID").value;
             int collectingGameChestDropRateMultiplyEventId = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "collectingGameChestDropRateMultiplyEventId").value;
-		    // int collectingGameEventID = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "collectingGameEventID").value;
+            // int collectingGameEventID = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "collectingGameEventID").value;
             string roomID = BlackboardUtils.GetOrCreateVariable<string>(null, "./room/roomId").value;
 
             SpinType spinType = BlackboardUtils.GetOrCreateVariable<SpinType>(ContentBlackboard.Get(), "spinType").value;
@@ -172,8 +172,25 @@ namespace BagelCode
             //新游戏接口
             if (globalStore.IsNewGame(gameId))
             {
-                var test = "[[2,2,2,3,4],[5,1,8,5,3],[1,2,5,4,3]]";
-                var debug_param1 = "{\"shuffling_list\":" + test +"}";
+                //var test = "[[2,2,2,3,4],[5,1,8,5,3],[1,2,5,4,3]]";
+                //var debug_param1 = "[\"shuffling_list\":" + test + "]";
+
+
+
+                Dictionary<string, object> debug_param1 = new Dictionary<string, object> {
+                    {"shuffling_list",
+                    new List<List<int>>() {
+                        
+                        new List<int>(){2,2,2,3,4 },
+                        new List<int>(){ 5, 1, 8, 5, 3 },
+                        new List<int>(){ 1, 2, 5, 4, 3 }
+                    }
+                    }
+                };
+
+
+
+
                 Dictionary<string, object> req = new Dictionary<string, object>
             {
                 {"bet",betCredit},
