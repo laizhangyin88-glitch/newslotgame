@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
+
 using System.Reflection;
 
 public class BigRingItemController : MonoBehaviour
@@ -92,6 +92,6 @@ public class BigRingItemController : MonoBehaviour
     {
         SetSprite(FruitPartyMiniGameController1.Instance.sprites[FruitPartyMiniGameController1.Instance.SlotSpriteIndexArray[index]]);
         RectTransform rectTransform = GetComponent<RectTransform>();
-        transform.DOLocalMoveY(startPosition.y - rectTransform.rect.height, 0.2f);
+        //transform.DOLocalMoveY(startPosition.y - rectTransform.rect.height, 0.2f);
     }
 }

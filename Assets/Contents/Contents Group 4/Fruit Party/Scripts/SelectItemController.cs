@@ -1,4 +1,4 @@
-using DG.Tweening;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -91,10 +91,10 @@ public class SelectItemController : MonoBehaviour
         frameAnimator.gameObject.SetActive(false);
         icon.gameObject.SetActive(true);
         button.gameObject.SetActive(false);
-        transform.DOScale(Vector3.one * 1.5f, 0.5f).OnComplete(() =>
-        {
-            transform.DOScale(Vector3.one, 0.5f);
-        });
+        //transform.DOScale(Vector3.one * 1.5f, 0.5f).OnComplete(() =>
+        //{
+        //    transform.DOScale(Vector3.one, 0.5f);
+        //});
     }
 
     public void Reset() 
@@ -149,14 +149,14 @@ public class SelectItemController : MonoBehaviour
         }
         result[2] = startPosition;
         transform.localScale = Vector3.one * 0.5f;
-        transform.DOLocalPath(result, 2f).OnComplete(() =>
-        {
+        //transform.DOLocalPath(result, 2f).OnComplete(() =>
+        //{
             
-        });
-        transform.DOScale(Vector3.one * 1.2f, 2f).OnComplete(() =>
-        {
-            transform.localScale = Vector3.one;
-        });
+        //});
+        //transform.DOScale(Vector3.one * 1.2f, 2f).OnComplete(() =>
+        //{
+        //    transform.localScale = Vector3.one;
+        //});
     }
 
 }

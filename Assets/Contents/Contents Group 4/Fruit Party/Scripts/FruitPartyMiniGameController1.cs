@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
+
 using System;
 using System.Runtime.CompilerServices;
 
@@ -191,7 +191,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
         int endNum = laps * slotCount + SlotResultNumber;
         //endNum = ;
         endNumber = endNum;
-        DOTween.To(() => SelectIndex, x => SelectIndex = x, endNum, AnimationTime).SetEase(Ease.InOutQuad).OnComplete(() => FinishAnimation());
+        //DOTween.To(() => SelectIndex, x => SelectIndex = x, endNum, AnimationTime).SetEase(Ease.InOutQuad).OnComplete(() => FinishAnimation());
     }
     private void FinishAnimation()
     {

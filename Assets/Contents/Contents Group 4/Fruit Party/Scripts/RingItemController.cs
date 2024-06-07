@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
+
 
 public class RingItemController : MonoBehaviour
 {
@@ -48,10 +48,10 @@ public class RingItemController : MonoBehaviour
     public void SelectOn()
     {
         select.gameObject.SetActive(true);
-        transform.DOScale(1.5f * Vector3.one, 0.1f).onComplete = () => {
-            transform.localScale = Vector3.one;
-            select.gameObject.SetActive(false);
-        };
+        //transform.DOScale(1.5f * Vector3.one, 0.1f).onComplete = () => {
+        //    transform.localScale = Vector3.one;
+        //    select.gameObject.SetActive(false);
+        //};
     }
 
     public void PingPong()
