@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using NodeCanvas.Framework;
 using ParadoxNotion;
 using ParadoxNotion.Design;
@@ -30,6 +30,8 @@ namespace NodeCanvas.Tasks.Conditions
                 if ( NodeCanvas.Editor.Prefs.logEvents ) {
                     Logger.Log(string.Format("Event Received from ({0}): '{1}'", agent.gameObject.name, receivedEvent.name), "Event", this);
                 }
+
+               Debug.Log($"【?】OnCustomEvent-{receivedEvent.name} {receivedEvent.value}");
 #endif
 
                 YieldReturn(true);

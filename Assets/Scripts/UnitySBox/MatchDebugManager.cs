@@ -60,14 +60,15 @@ public class MatchDebugManager : MonoSingleton<MatchDebugManager>
         List<string> strList;
         switch (msg.handle)
         {
-            case EventHandle.CHECK_SBOX_READY:
-                EventCenter.Instance.EventTrigger(EventHandle.CHECK_SBOX_READY, int.Parse(msg.data));
+            case EventHandle.CHECK_SBOX_SANBOX_READY:
+                EventCenter.Instance.EventTrigger(EventHandle.CHECK_SBOX_SANBOX_READY, int.Parse(msg.data));
                 break;
             case SBoxEventHandle.SBOX_SADNBOX_RESET:
                 EventCenter.Instance.EventTrigger(SBoxEventHandle.SBOX_SADNBOX_RESET, int.Parse(msg.data));
                 break;
             case SBoxSanboxEventHandle.COIN_IN:
-                EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_IN, int.Parse(msg.data));
+                CoinInData condata = JsonConvert.DeserializeObject<CoinInData>(msg.data);
+                EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_IN, condata);
                 break;
             case SBoxSanboxEventHandle.COIN_OUT:
                 EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_OUT, int.Parse(msg.data));

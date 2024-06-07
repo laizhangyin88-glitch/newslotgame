@@ -20,9 +20,8 @@ namespace BagelCode.Tasks.Actions.ClientAPI
         protected override void OnExecute()
         {
 
-#if NEW_NET
-
-            NetManager.Instance.Post(RPCName.lobby, null,
+#if NEW_NET      
+            NetManager.Instance.Post(RPCName.lobby, new Dictionary<string, object>(),
             (res) =>
             {
                 string resStr = res.ToString();
@@ -82,7 +81,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                         response.bigwinRankList.Add(tmp01);
                     }*/
 
-                    for (int i = 0; i < res["bigwin_rank_list"].Count; i++)
+                    for (int i = 0; i < res["bigwin_rank_list"].Count; i++)  //排行榜
                     {
                         BigwinRankInfo br = new BigwinRankInfo();
                         br.rankList = new List<BigwinRankEntry>();
@@ -113,7 +112,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                 }
 
                 //globalStore.gameInfoList = res["game_info_list"]?? res["gameInfoList"]; 不可用，因为是JSONNode对象
-                globalStore.gameInfoList = res.HasKey("game_info_list")? res["game_info_list"]:res["gameInfoList"];
+                globalStore.gameInfoList = res.HasKey("game_info_list")? res["game_info_list"]:res["gameInfoList"];  //大厅图标
                 globalStore.gameInfoList = JSONNode.Parse(NetManager.ChangeJsonKeyToCameCase(globalStore.gameInfoList.ToString()));
 
                 string resStr2 = globalStore.gameInfoList.ToString();

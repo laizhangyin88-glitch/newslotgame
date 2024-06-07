@@ -77,7 +77,24 @@ namespace BagelCode
 #if NEW_NET
 
 
-            string testRes = TestManager.Instance.getSpin();
+            if (TestManager.Instance.isTestSpin)
+            {
+                TestManager.Instance.getSpinData((res) =>
+                {
+                    string resStr = res.ToString();
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
+                    ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
+                    response.contents = res["contents"].ToString();
+
+                    SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
+
+                    if (successCallback != null)
+                        successCallback();
+                });
+                return;
+            }
+
+            /*string testRes = TestManager.Instance.getSpin();
             if (testRes != "")
             {
                 SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(testRes as string);
@@ -92,15 +109,13 @@ namespace BagelCode
 
                     if (successCallback != null)
                         successCallback();
-  
                 return;
-            }
+            }*/
 
 
-
-            if (LastFreeSpinManager.Instance.isLastFreeSpin)
+            if (LastFreeGameManager.Instance.isLastGameSpin)
             {
-                LastFreeSpinManager.Instance.getResponseData(RPCName.slotSpin,
+                LastFreeGameManager.Instance.getResponseData(RPCName.slotSpin,
                 (res) =>
                 {
 
@@ -209,7 +224,6 @@ namespace BagelCode
                 //globalStore.test_is_free_spin = 0;
 
 
-                Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
 
                 NetManager.Instance.Post(RPCName.slotSpin, req,
                 (res) =>
@@ -310,9 +324,9 @@ namespace BagelCode
             }
 
 
-            if (LastFreeSpinManager.Instance.isLastFreeSpin)
+            if (LastFreeGameManager.Instance.isLastGameSpin)
             {
-                LastFreeSpinManager.Instance.getResponseData(RPCName.claimBonus,
+                LastFreeGameManager.Instance.getResponseData(RPCName.claimBonus,
                 (res) =>
                 {
 

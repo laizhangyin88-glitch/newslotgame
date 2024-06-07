@@ -1,10 +1,17 @@
 using BlizzEvent;
 using SlotMaker;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 using static SBoxApi.SBoxSandbox;
 using static SBoxSandboxListener;
+
+public class CoinInData
+{
+    public int id;
+    public int value;
+}
 
 public class SBoxSanboxEventHandle
 {
@@ -75,9 +82,16 @@ public class SBoxSandboxListener : MonoSingleton<SBoxSandboxListener>
     {
         for (int i = 0; i < 4; i++)
         {
-            int data = NumberOfCoinIn(i);
-            if (data > 0)
-                EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_IN, data);
+            int value = NumberOfCoinIn(i);
+            if (value > 0)
+            {
+                CoinInData coinInData = new CoinInData
+                {
+                    id = i,
+                    value = value,
+                };
+                EventCenter.Instance.EventTrigger(SBoxSanboxEventHandle.COIN_IN, coinInData);
+            }
         }
     }
 
