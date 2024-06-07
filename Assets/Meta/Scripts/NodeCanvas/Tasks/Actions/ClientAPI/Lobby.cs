@@ -158,7 +158,8 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     JSONNode temp = gameInfos[response.gameInfoList[i].gameId];
                     response.gameInfoList[i].longImageUrl = temp["longImageUrl"];
                     response.gameInfoList[i].shortImageUrl = temp["shortImageUrl"];
-                    response.gameInfoList[i].gameTitle = temp["gameTitle"];
+                    var gameTitle = globalStore.GetGameTitle(response.gameInfoList[i].gameId);
+                    response.gameInfoList[i].gameTitle = string.IsNullOrEmpty(gameTitle) ? (string)temp["gameTitle"] : gameTitle;
                     response.gameInfoList[i].gameFilter = temp["gameFilter"];
 
                     //int type = temp["gameType"] ? temp["gameType"].AsInt : (int)GameType.UNKNOWN;
@@ -205,6 +206,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
 
 
             string oldJson = JsonUtility.ToJson(response);
+
             Debug.Log($"@A LobbyResponseV6 = {oldJson}");
 
 

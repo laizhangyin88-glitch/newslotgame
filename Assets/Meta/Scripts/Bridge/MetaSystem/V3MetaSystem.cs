@@ -154,9 +154,50 @@ namespace BagelCode
             {
                 debug_param = "{\"is_free_spin\":" + code + "}";
             }
+            //新游戏接口
+            if (globalStore.IsNewGame(gameId))
+            {
+                var test = "[[2,2,2,3,4],[5,1,8,5,3],[1,2,5,4,3]]";
+                var debug_param1 = "{\"shuffling_list\":" + test +"}";
+                Dictionary<string, object> req = new Dictionary<string, object>
+            {
+                {"bet",betCredit},
+                {"extra_bet",extraBetCredit },
+                { "debug_param", debug_param1},
+            };
+                Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
 
-            Dictionary<string, object> req = new Dictionary<string, object>
-            { 
+                NetManager.Instance.Post(RPCName.new_slot_spin, req,
+                (res) =>
+                {
+                    var contentStr = "{\"game_id\":21,\"result\":{\"reel_output_list\":[47,19,36,21,38],\"paytable_index\":0,\"earn_credit\":0},\"bonus_result\":[],\"custom_data\":{},\"reel_set_index\":{\"current_index\":0,\"next_index\":0},\"free_spin_info\":{\"type\":0,\"bet\":0,\"count\":0,\"spun_count\":0,\"total_count\":0,\"initial_count\":0,\"multiplier\":0,\"sticky_wild\":[],\"extra_data\":{}},\"jackpot_info\":{\"type\":2,\"info\":{\"eligible_min_bet\":0,\"eligible_min_bet_per_jackpot\":[0,0,0,0,0],\"base_bet\":30,\"info_list\":[{\"current\":241.02,\"prev\":240.96},{\"current\":913.5,\"prev\":913.38},{\"current\":2375.85,\"prev\":2375.55},{\"current\":15100.68,\"prev\":15100.44},{\"current\":30050.34,\"prev\":30050.22}]}},\"contents_store\":{}}";
+                    var content = JSONNode.Parse(contentStr);
+                    content["game_id"] = gameId;
+                    content["result"]["earn_credit"] = res["game_result"]["earn_credit"];
+                    content["result"]["new_reel_output_list"] = res["game_result"]["shuffling_list"];
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
+                    ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
+                    response.contents = content.ToString();
+                    Debug.Log("###新的slotSpin：" + res.ToString());
+
+                    SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
+
+                    if (successCallback != null)
+                        successCallback();
+
+                },
+                (error) =>
+                {
+                    CommonError(error);
+
+                    if (errorCallback != null)
+                        errorCallback();
+                });
+            }
+            else
+            {
+                Dictionary<string, object> req = new Dictionary<string, object>
+            {
                 {"bet",betCredit},
                 {"extra_bet",extraBetCredit },
                 {"game_id",gameId },
@@ -165,33 +206,35 @@ namespace BagelCode
                 // { "debug_param", "{\"is_free_spin\":0}"}
                 { "debug_param", debug_param}
             };
-            //globalStore.test_is_free_spin = 0;
+                //globalStore.test_is_free_spin = 0;
 
 
-            Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
-      
-            NetManager.Instance.Post(RPCName.slotSpin, req,
-            (res) =>
-            {
+                Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
 
-                string resStr = res.ToString();
-                TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
-                ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
-                response.contents = res["contents"].ToString();
+                NetManager.Instance.Post(RPCName.slotSpin, req,
+                (res) =>
+                {
 
-                SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
+                    string resStr = res.ToString();
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
+                    ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
+                    response.contents = res["contents"].ToString();
+                    Debug.Log("###旧的slotSpin：" + res["contents"].ToString());
 
-                if (successCallback != null)
-                    successCallback();
+                    SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
 
-            },
-            (error) =>
-            {
-                CommonError(error);
+                    if (successCallback != null)
+                        successCallback();
 
-                if (errorCallback != null)
-                    errorCallback();
-            });
+                },
+                (error) =>
+                {
+                    CommonError(error);
+
+                    if (errorCallback != null)
+                        errorCallback();
+                });
+            }
             return;
 #endif
 
@@ -222,6 +265,19 @@ namespace BagelCode
             if(spinBB == null || spinBB.value == null) return;
 
             var bb = BlackboardUtils.GetOrCreateBlackboard(spinBB.value, "response");
+            var json = JSONNode.Parse(response.contents);
+            var newReelList = new List<List<int>>();
+            for (int i = 0; i < json["result"]["new_reel_output_list"].Count; i++)
+            {
+                var list = json["result"]["new_reel_output_list"][i];
+                var list1 = new List<int>();
+                for (int j = 0; j < list.Count; j++)
+                {
+                    list1.Add(list[j]);
+                }
+                newReelList.Add(list1);
+            }
+            BlackboardUtils.SetOrCreateValue(bb, "new_reel_output_list", newReelList);
             ClientAPI2Blackboard.Serialize(bb, response);
             BlackboardUtils.SetOrCreateValue<int>(bb, "requestType", (int)ContentsRequestType.SlotSpin);
             ContentsSerializer.Deserialize(bb);
@@ -231,6 +287,7 @@ namespace BagelCode
             BlackboardQueryUtils.UpdateUnlockFeature(response.featureUnlockList);
 		    BlackboardQueryUtils.UpdateMetaGameInfo(response.metaGameInfo, response.serverTime);
             BlackboardQueryUtils.UpdateBonusSpinCountPerBet(betCredit, response.gameSpinCount, "./gameSpinCountPerBet");
+
             BlackboardQueryUtils.UpdateBonusSpinCountPerBet(betCredit, response.bonusSpinCount, "./bonusSpinCountPerBet");
             BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
             BlackboardQueryUtils.UpdateHiddenUniverseFinder(response.earnFinder);
@@ -245,7 +302,7 @@ namespace BagelCode
 
 #if NEW_NET
 
-            if (globalStore.nowGameID == 33) //雷神
+            if (globalStore.nowGameID == 33 || globalStore.IsNewGame(globalStore.nowGameID)) //雷神
             {
                 if (successCallback != null)
                     successCallback();
