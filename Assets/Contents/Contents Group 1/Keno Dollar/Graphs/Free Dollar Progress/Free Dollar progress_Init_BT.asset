@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Free Dollar progress_Init_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-123.0,"y":-364.0},"nodes":[{"_position":{"x":970.0,"y":515.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"valueA":{"_value":"_collectedDollar"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_multiplier"},"valueB":{"_value":1},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"valueA":{"_value":"_multiplierIndex"},"valueB":{},"$type":"SlotMaker.Tasks.Actions.SetInt32"},{"targetList":{"_name":"hitList","_targetVariableID":"d463134e-bc79-4f8c-af0f-2f028d0bee45"},"newValue":{},"$type":"NodeCanvas.Tasks.Actions.SetListElements`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},{"valueA":{"_value":"sliderValue"},"valueB":{"_name":"_collectedDollar"},"$type":"SlotMaker.Tasks.Actions.SetFloat"},{"element":{"_name":"multiplierText","_targetVariableID":"8debba79-ac5e-40bc-8446-8d4088048af5"},"key":{"_value":"BONUS_MULTIPLIER_COUNT"},"tableType":"Content","arg1":{"_value":"_multiplier"},"$type":"SlotMaker.Tasks.Actions.SetContextText1"},{"parameter":{"_value":"Scale"},"parameterHashID":{},"setTo":{"_name":"_collectedDollar"},"overrideAgent":{"_name":"animator","_targetVariableID":"c27cf422-2843-446d-ade0-b5e54530088a"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetInt"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":501.0,"y":705.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"targetList":{"_type":"System.Collections.Generic.List`1[[UnityEngine.Animator,
+    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","_name":"barList","_targetVariableID":"c4410bf5-37cd-43f9-9015-0d63b46a1e8a"},"current":{"_type":"UnityEngine.Animator","_name":"_barAnimator"},"storeIndex":{"_name":"_index"},"maxIteration":{"_value":-1},"_position":{"x":1242.0,"y":727.0},"$type":"SlotMaker.BehaviourTrees.Iterator","$id":"30"},{"_position":{"x":1267.0,"y":843.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"35"},{"_condition":{"valueA":{"_value":"_multiplierIndex"},"valueB":{"_name":"_index"},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_position":{"x":1217.0,"y":942.0},"$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"36"},{"_action":{"parameter":{"_value":"On"},"parameterHashID":{},"overrideAgent":{"_name":"_barAnimator"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},"_position":{"x":1069.0,"y":1072.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"40"},{"_action":{"parameter":{"_value":"Off"},"parameterHashID":{},"overrideAgent":{"_name":"_barAnimator"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},"_position":{"x":1387.0,"y":1074.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"45"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"35"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"36"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"36"},"_targetNode":{"$ref":"45"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0
