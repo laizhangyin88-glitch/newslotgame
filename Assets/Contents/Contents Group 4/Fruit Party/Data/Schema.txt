@@ -1,0 +1,57 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Rhr
+{
+    public class BonusInfo3001
+    {
+        public List<long> hotRushScatterPay = new List<long>();
+        public RHRWheelBonus cashWheel = null;
+    }
+
+    // RHRCashWheelBonus
+    public class BonusResult300100
+    {
+        public List<int> collectList = new List<int>();
+        public int hotRushSymbol = 0;
+    }
+
+    // RHRHotRushBonus
+    public class BonusResult300101
+    {
+        public bool isJackpot = false;
+        public bool isCashWheel = false;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+
+    // RHRFreeSpinBonus
+    public class BonusResult300102
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // RHRFreeSpinRetriggerBonus
+    public class BonusResult300103
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    // RHRTicketedFreeSpinBonus
+    public class BonusResult300150
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+    }
+
+    public class RHRWheelBonus
+    {
+        public List<int> itemIndexList = new List<int>();
+        public List<int> itemValueList = new List<int>();
+    }
+}
