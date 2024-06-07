@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,9 +16,22 @@ namespace SlotMaker
             var slotMachine = GetComponent<BaseSlotMachine>();
 
             MessageDispatcher.Dispatch(ON_SLOT_DETAIL_EVENT, new EventData<int>(PREPARE_STOPPED_REEL_EVENT, slotMachine.slotIndex, reelIndex));
-            var spots = ContentCustomData.GetSlotData(slotMachine.slotIndex).expectation.expectationSpots[reelIndex];
+            //【seaweed】: test
+            //var spots = ContentCustomData.GetSlotData(slotMachine.slotIndex).expectation.expectationSpots[reelIndex];
+            Debug.Log($"【test】slotMachine.slotIndex = {slotMachine.slotIndex} ");
+
+            List<List<Cell>> temp = ContentCustomData.GetSlotData(slotMachine.slotIndex).expectation.expectationSpots;
+
+            if (temp == null)
+            {
+                Debug.Log($"【test】temp = null");
+            }
+            Debug.Log($"【test】temp = {temp.Count} reelIndex = {reelIndex} ");
+            List<Cell> spots = temp[reelIndex];
+
             foreach (var cell in spots)
             {
+                Debug.Log($"【test】i am here");
                 var symbol = slotMachine.GetReel(reelIndex).GetSymbol(cell.column, cell.row);
                 symbol.Play(STOP_EFFECT_ANIMATION_NAME);
 

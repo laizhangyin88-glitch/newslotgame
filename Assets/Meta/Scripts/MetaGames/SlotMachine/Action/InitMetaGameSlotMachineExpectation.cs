@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
@@ -24,7 +24,7 @@ namespace SlotMaker.Tasks.Actions
             }
 
             MetaSlotMachineContentCustomData.GetSlotData(slotIndex.value).expectation = newExpectation;
-
+            Debug.LogError("【InitExpectation】");
             EndAction();
         }
     }
