@@ -4,23 +4,23 @@ using ParadoxNotion.Serialization;
 using ParadoxNotion.Serialization.FullSerializer;
 using UnityEngine;
 
-
 namespace NodeCanvas.Framework
 {
-
 #if UNITY_EDITOR //handles missing types
+
     [fsObject(Processor = typeof(fsRecoveryProcessor<Connection, MissingConnection>))]
 #endif
 
     ///Base class for connections between nodes in a graph
     [ParadoxNotion.Design.SpoofAOT]
-    abstract public partial class Connection : IGraphElement
+    public abstract partial class Connection : IGraphElement
     {
-
         [SerializeField]
         private Node _sourceNode;
+
         [SerializeField]
         private Node _targetNode;
+
         [SerializeField]
         private bool _isDisabled;
 
@@ -28,23 +28,27 @@ namespace NodeCanvas.Framework
         private Status _status = Status.Resting;
 
         ///The source node of the connection
-        public Node sourceNode {
+        public Node sourceNode
+        {
             get { return _sourceNode; }
             protected set { _sourceNode = value; }
         }
 
         ///The target node of the connection
-        public Node targetNode {
+        public Node targetNode
+        {
             get { return _targetNode; }
             protected set { _targetNode = value; }
         }
 
         ///Is the connection active?
-        public bool isActive {
+        public bool isActive
+        {
             get { return !_isDisabled; }
             set
             {
-                if ( !_isDisabled && value == false ) {
+                if (!_isDisabled && value == false)
+                {
                     Reset();
                 }
                 _isDisabled = !value;
@@ -52,38 +56,43 @@ namespace NodeCanvas.Framework
         }
 
         ///The connection status
-        public Status status {
+        public Status status
+        {
             get { return _status; }
             set { _status = value; }
         }
 
         ///The graph this connection belongs to taken from the source node.
-        public Graph graph {
+        public Graph graph
+        {
             get { return sourceNode != null ? sourceNode.graph : null; }
         }
 
         ///----------------------------------------------------------------------------------------------
 
         //required
-        public Connection() { }
-
+        public Connection()
+        { }
 
         ///Create a new Connection. Use this for constructor
-        public static Connection Create(Node source, Node target, int sourceIndex = -1, int targetIndex = -1) {
-
-            if ( source == null || target == null ) {
+        public static Connection Create(Node source, Node target, int sourceIndex = -1, int targetIndex = -1)
+        {
+            if (source == null || target == null)
+            {
                 Debug.LogError("Can't Create a Connection without providing Source and Target Nodes");
                 return null;
             }
 
-            if ( source is MissingNode ) {
+            if (source is MissingNode)
+            {
                 Debug.LogError("Creating new Connections from a 'MissingNode' is not allowed. Please resolve the MissingNode node first");
                 return null;
             }
 
             var newConnection = (Connection)System.Activator.CreateInstance(source.outConnectionType);
 
-            if ( source.graph != null ) {
+            if (source.graph != null)
+            {
                 source.graph.RecordUndo("Create Connection");
             }
 
@@ -96,9 +105,10 @@ namespace NodeCanvas.Framework
         }
 
         ///Duplicate the connection providing a new source and target
-        public Connection Duplicate(Node newSource, Node newTarget) {
-
-            if ( newSource == null || newTarget == null ) {
+        public Connection Duplicate(Node newSource, Node newTarget)
+        {
+            if (newSource == null || newTarget == null)
+            {
                 Debug.LogError("Can't Duplicate a Connection without providing NewSource and NewTarget Nodes");
                 return null;
             }
@@ -106,7 +116,8 @@ namespace NodeCanvas.Framework
             //deep clone
             var newConnection = JSONSerializer.Clone<Connection>(this);
 
-            if ( newSource.graph != null ) {
+            if (newSource.graph != null)
+            {
                 newSource.graph.RecordUndo("Duplicate Connection");
             }
 
@@ -119,7 +130,8 @@ namespace NodeCanvas.Framework
             //     ( newConnection as ITaskAssignable ).task = assignable.task.Duplicate(newSource.graph);
             // }
 
-            foreach ( var task in Graph.GetTasksInElement(newConnection) ) {
+            foreach (var task in Graph.GetTasksInElement(newConnection))
+            {
                 task.Validate(newSource.graph);
             }
             //--
@@ -129,25 +141,33 @@ namespace NodeCanvas.Framework
         }
 
         ///Called once when the connection is created.
-        virtual public void OnCreate(int sourceIndex, int targetIndex) { }
+        public virtual void OnCreate(int sourceIndex, int targetIndex)
+        { }
+
         ///Called when the Connection is created, duplicated or otherwise needs validation.
-        virtual public void OnValidate(int sourceIndex, int targetIndex) { }
+        public virtual void OnValidate(int sourceIndex, int targetIndex)
+        { }
+
         ///Called when the connection is destroyed (always through graph.RemoveConnection or when a node is removed through graph.RemoveNode)
-        virtual public void OnDestroy() { }
+        public virtual void OnDestroy()
+        { }
 
         ///Sets the source node of the connection
-        public int SetSourceNode(Node newSource, int index = -1) {
-
-            if ( sourceNode == newSource ) {
+        public int SetSourceNode(Node newSource, int index = -1)
+        {
+            if (sourceNode == newSource)
+            {
                 return -1;
             }
 
-            if ( graph != null ) {
+            if (graph != null)
+            {
                 graph.RecordUndo("Set Source");
             }
 
             //relink
-            if ( sourceNode != null && sourceNode.outConnections.Contains(this) ) {
+            if (sourceNode != null && sourceNode.outConnections.Contains(this))
+            {
                 var i = sourceNode.outConnections.IndexOf(this);
                 sourceNode.OnChildDisconnected(i);
                 sourceNode.outConnections.Remove(this);
@@ -159,7 +179,8 @@ namespace NodeCanvas.Framework
             sourceNode = newSource;
 
 #if UNITY_EDITOR
-            if ( sourceNode != null && targetNode != null ) {
+            if (sourceNode != null && targetNode != null)
+            {
                 targetNode.TrySortConnectionsByPositionX();
             }
 #endif
@@ -168,18 +189,21 @@ namespace NodeCanvas.Framework
         }
 
         ///Sets the target node of the connection
-        public int SetTargetNode(Node newTarget, int index = -1) {
-
-            if ( targetNode == newTarget ) {
+        public int SetTargetNode(Node newTarget, int index = -1)
+        {
+            if (targetNode == newTarget)
+            {
                 return -1;
             }
 
-            if ( graph != null ) {
+            if (graph != null)
+            {
                 graph.RecordUndo("Set Target");
             }
 
             //relink
-            if ( targetNode != null && targetNode.inConnections.Contains(this) ) {
+            if (targetNode != null && targetNode.inConnections.Contains(this))
+            {
                 var i = targetNode.inConnections.IndexOf(this);
                 targetNode.OnParentDisconnected(i);
                 targetNode.inConnections.Remove(this);
@@ -191,7 +215,8 @@ namespace NodeCanvas.Framework
             targetNode = newTarget;
 
 #if UNITY_EDITOR
-            if ( sourceNode != null && targetNode != null ) {
+            if (sourceNode != null && targetNode != null)
+            {
                 targetNode.TrySortConnectionsByPositionX();
             }
 #endif
@@ -200,16 +225,18 @@ namespace NodeCanvas.Framework
         }
 
         //...
-        sealed public override string ToString() {
+        public override sealed string ToString()
+        {
             return this.GetType().FriendlyName();
         }
 
         ///----------------------------------------------------------------------------------------------
 
         ///Execute the conneciton for the specified agent and blackboard.
-        public Status Execute(Component agent, IBlackboard blackboard) {
-
-            if ( !isActive ) {
+        public Status Execute(Component agent, IBlackboard blackboard)
+        {
+            if (!isActive)
+            {
                 return Status.Optional;
             }
 
@@ -218,15 +245,17 @@ namespace NodeCanvas.Framework
         }
 
         ///Resets the connection and its targetNode, optionaly recursively
-        public void Reset(bool recursively = true) {
-
-            if ( status == Status.Resting ) {
+        public void Reset(bool recursively = true)
+        {
+            if (status == Status.Resting)
+            {
                 return;
             }
 
             status = Status.Resting;
 
-            if ( recursively ) {
+            if (recursively)
+            {
                 targetNode.Reset(recursively);
             }
         }

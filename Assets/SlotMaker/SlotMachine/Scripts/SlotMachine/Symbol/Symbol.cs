@@ -1,68 +1,76 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
-using System;
-using System.Collections;
 
 namespace SlotMaker
 {
-	[RequireComponent(typeof(PooledObject))]
-	public class Symbol : BaseSymbol
-	{
-		public RectTransform _anchor;
-		public override RectTransform anchor { get { return _anchor; } }
+    [RequireComponent(typeof(PooledObject))]
+    public class Symbol : BaseSymbol
+    {
+        public RectTransform _anchor;
 
-		[Serializable]
-		public class UnitySymbolEvent : UnityEvent<BaseSymbol> {}
-	    [Serializable]
-	    public class UnitySymbolAnimationEvent : UnityEvent<BaseSymbol, string> {}
-		[Serializable]
-		public class UnitySymbolRestoreEvent : UnityEvent<BaseSymbol, BaseSymbol> {}
+        public override RectTransform anchor
+        { get { return _anchor; } }
 
-		public UnitySymbolEvent onClear;
-		public UnitySymbolEvent onChange;
-		public UnitySymbolEvent onApply;
-		public UnitySymbolRestoreEvent onRestore;
-	    public UnitySymbolAnimationEvent onPlay;
-		public UnitySymbolEvent onSkip;
+        [Serializable]
+        public class UnitySymbolEvent : UnityEvent<BaseSymbol>
+        { }
 
-		private PooledObject _pooledObject;
-		protected PooledObject pooledObject { get { return _pooledObject ?? (_pooledObject = GetComponent<PooledObject>()); } }
+        [Serializable]
+        public class UnitySymbolAnimationEvent : UnityEvent<BaseSymbol, string>
+        { }
 
-		public override void Clear()
-		{
-			base.Clear();
+        [Serializable]
+        public class UnitySymbolRestoreEvent : UnityEvent<BaseSymbol, BaseSymbol>
+        { }
 
-			pooledObject.ReturnToPool();
-		}
+        public UnitySymbolEvent onClear;
+        public UnitySymbolEvent onChange;
+        public UnitySymbolEvent onApply;
+        public UnitySymbolRestoreEvent onRestore;
+        public UnitySymbolAnimationEvent onPlay;
+        public UnitySymbolEvent onSkip;
 
-		protected override void OnClear()
-		{
-			onClear.Invoke(this);
-		}
+        private PooledObject _pooledObject;
 
-		protected override void OnChange()
-		{
-			onChange.Invoke(this);
-		}
+        protected PooledObject pooledObject
+        { get { return _pooledObject ?? (_pooledObject = GetComponent<PooledObject>()); } }
 
-		protected override void OnApply()
-		{
-			onApply.Invoke(this);
-		}
+        public override void Clear()
+        {
+            base.Clear();
 
-		protected override void OnRestore(BaseSymbol src)
-		{
-			onRestore.Invoke(this, src);
-		}
+            pooledObject.ReturnToPool();
+        }
 
-	    protected override void OnPlay(string animationName)
-	    {
-	        onPlay.Invoke(this, animationName);
-	    }
+        protected override void OnClear()
+        {
+            onClear.Invoke(this);
+        }
 
-		protected override void OnSkip()
-		{
-			onSkip.Invoke(this);
-		}
-	}
+        protected override void OnChange()
+        {
+            onChange.Invoke(this);
+        }
+
+        protected override void OnApply()
+        {
+            onApply.Invoke(this);
+        }
+
+        protected override void OnRestore(BaseSymbol src)
+        {
+            onRestore.Invoke(this, src);
+        }
+
+        protected override void OnPlay(string animationName)
+        {
+            onPlay.Invoke(this, animationName);
+        }
+
+        protected override void OnSkip()
+        {
+            onSkip.Invoke(this);
+        }
+    }
 }

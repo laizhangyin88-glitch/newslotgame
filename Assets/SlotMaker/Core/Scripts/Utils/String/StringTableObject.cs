@@ -1,15 +1,13 @@
-using System;
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using SlotMaker.Json;
-using SlotMaker.IoC.Strategy;
 using Sirenix.OdinInspector;
+using SlotMaker.IoC.Strategy;
+using SlotMaker.Json;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace SlotMaker
 {
-    [CreateAssetMenu(fileName="New StringTable", menuName="SlotMaker/ScriptableObject/StringTableObject")]
+    [CreateAssetMenu(fileName = "New StringTable", menuName = "SlotMaker/ScriptableObject/StringTableObject")]
     public class StringTableObject : StringSources
     {
         [BoxGroup("GoogleSheet")]
@@ -41,9 +39,10 @@ namespace SlotMaker
         [BoxGroup("LocalSheet")]
         [PropertyOrder(10)]
         [TableList(IsReadOnly = false, ShowPaging = true)]
-    	public List<StringStringPairVariable> stringTable;
+        public List<StringStringPairVariable> stringTable;
 
-        public override List<StringStringPairVariable> Get() { return stringTable; }
+        public override List<StringStringPairVariable> Get()
+        { return stringTable; }
 
         public override string[] GetNames()
         {
@@ -59,7 +58,7 @@ namespace SlotMaker
         {
             if (string.IsNullOrEmpty(GetString(name)))
             {
-                stringTable.Add(new StringStringPairVariable{ key = name });
+                stringTable.Add(new StringStringPairVariable { key = name });
             }
         }
 
@@ -88,7 +87,7 @@ namespace SlotMaker
 
         public void OnImport()
         {
-            if(importTargetLanguage)
+            if (importTargetLanguage)
                 ImportTargetLanguageOnly();
             else
                 ImportGlobalLanguage();
@@ -119,7 +118,7 @@ namespace SlotMaker
 
         public void ImportGlobalLanguage()
         {
-            if(string.IsNullOrEmpty(googleSpreadSheetId))
+            if (string.IsNullOrEmpty(googleSpreadSheetId))
             {
                 Debug.Log(string.Format("{0} file. Insert Google Spread Sheet ID!!!", name));
                 return;
@@ -192,13 +191,13 @@ namespace SlotMaker
 
         private void ImportTargetLanguageOnly()
         {
-            if(string.IsNullOrEmpty(googleSpreadSheetId))
+            if (string.IsNullOrEmpty(googleSpreadSheetId))
             {
                 Debug.Log("Insert Google Spread Sheet ID!!!");
                 return;
             }
 
-            if(string.IsNullOrEmpty(language.Trim()))
+            if (string.IsNullOrEmpty(language.Trim()))
             {
                 Debug.Log(string.Format("{0} file. Empty language name!!!", name));
                 return;
@@ -221,9 +220,9 @@ namespace SlotMaker
             foreach (var json in jsonData)
             {
                 var dataList = SlotSimpleJson.DeserializeObject<List<Dictionary<string, string>>>(json);
-                foreach(var data in dataList)
+                foreach (var data in dataList)
                 {
-                    if(data.ContainsKey(language) && !string.IsNullOrEmpty(data[language].Trim()))
+                    if (data.ContainsKey(language) && !string.IsNullOrEmpty(data[language].Trim()))
                     {
                         var stringData = new StringStringPairVariable();
                         stringData.key = data["key"];
@@ -237,6 +236,7 @@ namespace SlotMaker
             Patch();
             CompleteImport();
         }
+
 #endif
     }
 }

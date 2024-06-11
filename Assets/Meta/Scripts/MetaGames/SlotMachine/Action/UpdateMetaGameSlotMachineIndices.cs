@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+using BagelCode;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
-using BagelCode;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace SlotMaker.Tasks.Actions
 {

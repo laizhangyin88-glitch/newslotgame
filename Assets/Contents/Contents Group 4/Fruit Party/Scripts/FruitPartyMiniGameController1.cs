@@ -1,11 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-using System;
-using System.Runtime.CompilerServices;
-
 
 public class FruitPartyMiniGameController1 : MonoBehaviour
 {
@@ -42,12 +36,13 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
 
     private int endNumber = 0;
 
-
     private int _selectIndex = 0;
+
     /// <summary>
     /// 当前的倍率
     /// </summary>
     public int CurrentBet = 60;
+
     /// <summary>
     /// 转圈的结果数字
     /// </summary>
@@ -59,6 +54,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
     public int[] SlotSpriteIndexArray;
 
     private int[] _results;
+
     public int[] Results
     {
         get
@@ -84,14 +80,15 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
     {
         get { return _selectIndex; }
 
-        set {
+        set
+        {
             ringItemControllers[_selectIndex].SelectOn();
             _selectIndex = value % (slotCount);
         }
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         TotalWinScore = 0;
         _selectIndex = 0;
@@ -124,7 +121,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
     private void InitRing()
     {
         int count = Ring.childCount;
-        if(ringItemControllers == null || ringItemControllers.Length == 0)
+        if (ringItemControllers == null || ringItemControllers.Length == 0)
         {
             ringItemControllers = new RingItemController[slotCount];
         }
@@ -184,15 +181,15 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
 
     public void PlayRingAnimation()
     {
-        
         //DOTween.To(() => SelIndex, x => SelIndex = x, endNum, animTime).SetEase(Ease.InOutQuad).OnComplete(() => FinishAnim());
         SlotResultNumber = UnityEngine.Random.Range(0, slotCount);
-       
+
         int endNum = laps * slotCount + SlotResultNumber;
         //endNum = ;
         endNumber = endNum;
         //DOTween.To(() => SelectIndex, x => SelectIndex = x, endNum, AnimationTime).SetEase(Ease.InOutQuad).OnComplete(() => FinishAnimation());
     }
+
     private void FinishAnimation()
     {
         _selectIndex = endNumber % (slotCount);
@@ -236,14 +233,12 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             PlayRingAnimation();
             fruitPartyMiniGameTigerMachine.PlaySlotAnimation();
         }
     }
-
-
 }

@@ -17,15 +17,19 @@ public class globalStore
 
     public static long newCredit = 0;
 
-    readonly static List<int> newGameId = new List<int>() { 3000 };
+    private static readonly List<int> newGameId = new List<int>() { 3000, 3001 };
+
     public static bool IsNewGame(int gameId)
     {
         return newGameId.Contains(gameId);
     }
-    readonly static Dictionary<int, string> gameTitle = new Dictionary<int, string>()
+
+    private static readonly Dictionary<int, string> gameTitle = new Dictionary<int, string>()
     {
         [3000] = "bst",
+        [3001] = "fruitparty",
     };
+
     public static string GetGameTitle(int gameId)
     {
         if (gameTitle.TryGetValue(gameId, out var title))
