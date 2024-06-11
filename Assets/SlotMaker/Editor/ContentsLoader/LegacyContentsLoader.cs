@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using NodeCanvas.Framework;
+
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -113,7 +114,7 @@ namespace SlotMaker
         private static void CreateContentLang(string bundleName)
         {
             var contentBB = StringTable.Get(StringTable.StringTableType.Content);
-		    contentBB.variables.Clear();
+            contentBB.variables.Clear();
             var stringTable = AssetBundleManager.LoadAsset<StringTableObject>(bundleName + "lang", "EN_Content").stringTable;
             foreach (var pair in stringTable)
             {

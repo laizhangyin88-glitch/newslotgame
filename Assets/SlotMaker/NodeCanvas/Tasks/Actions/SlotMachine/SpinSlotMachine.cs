@@ -1,26 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
+using UnityEngine;
 
 namespace SlotMaker.Tasks.Actions
 {
-
-[Category("★ SlotMaker/SlotMachine")]
-public class SpinSlotMachine : ActionTask<Transform>
-{
-    protected override void OnExecute()
+    [Category("★ SlotMaker/SlotMachine")]
+    public class SpinSlotMachine : ActionTask<Transform>
     {
-        var reels = agent.GetComponent<SlotMachine>().GetReels();
-        int reelCount = reels.Count;
-        for (int i = 0; i < reelCount; ++i)
+        protected override void OnExecute()
         {
-            reels[i].movement.Spin();
+            var reels = agent.GetComponent<SlotMachine>().GetReels();
+            int reelCount = reels.Count;
+            for (int i = 0; i < reelCount; ++i)
+            {
+                reels[i].movement.Spin();
+            }
+
+            EndAction();
         }
-
-        EndAction();
     }
-}
-
 }

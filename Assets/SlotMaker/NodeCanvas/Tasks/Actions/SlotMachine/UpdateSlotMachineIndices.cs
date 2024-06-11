@@ -1,28 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace SlotMaker.Tasks.Actions.Contents
 {
-
-[Category("★ SlotMaker/SlotMachine")]
-public class UpdateSlotMachineIndices : ActionTask
-{
-    public BBParameter<GameObject> slotMachine;
-    public BBParameter<List<int>> indices;
-    public BBParameter<int> offset;
-
-    protected override void OnExecute()
+    [Category("★ SlotMaker/SlotMachine")]
+    public class UpdateSlotMachineIndices : ActionTask
     {
-        var sm = slotMachine.value.GetComponent<BaseSlotMachine>();
-        int totalRow = ContentCustomData.GetSlotData(sm.slotIndex).row;
+        public BBParameter<GameObject> slotMachine;
+        public BBParameter<List<int>> indices;
+        public BBParameter<int> offset;
 
-        sm.SetStripIndices(indices.value, totalRow + offset.value);
+        protected override void OnExecute()
+        {
+            var sm = slotMachine.value.GetComponent<BaseSlotMachine>();
+            int totalRow = ContentCustomData.GetSlotData(sm.slotIndex).row;
 
-        EndAction();
+            sm.SetStripIndices(indices.value, totalRow + offset.value);
+
+            EndAction();
+        }
     }
-}
-
 }

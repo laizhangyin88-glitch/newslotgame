@@ -1,11 +1,11 @@
+using NodeCanvas.Framework;
 using System;
-using System.Text;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Globalization;
+using System.Reflection;
+using System.Text;
 using UnityEngine;
-using NodeCanvas.Framework;
 
 namespace SlotMaker.Json
 {
@@ -19,10 +19,10 @@ namespace SlotMaker.Json
 
     public static class BlackboardJson
     {
-        static Dictionary<string, SchemaProperty> commonSchema = new Dictionary<string, SchemaProperty>();
-        static Dictionary<string, SchemaProperty> volatilitySchema = new Dictionary<string, SchemaProperty>();
+        private static Dictionary<string, SchemaProperty> commonSchema = new Dictionary<string, SchemaProperty>();
+        private static Dictionary<string, SchemaProperty> volatilitySchema = new Dictionary<string, SchemaProperty>();
 
-        static Dictionary<string, Type> schemaTypes;
+        private static Dictionary<string, Type> schemaTypes;
 
         static BlackboardJson()
         {
@@ -47,7 +47,8 @@ namespace SlotMaker.Json
             };
         }
 
-        static INamingStrategy currentNamingStrategy;
+        private static INamingStrategy currentNamingStrategy;
+
         public static INamingStrategy CurrentNamingStrategy
         {
             get
@@ -60,7 +61,8 @@ namespace SlotMaker.Json
             }
         }
 
-        static IJsonSerializerStrategy currentJsonSerializerStrategy;
+        private static IJsonSerializerStrategy currentJsonSerializerStrategy;
+
         public static IJsonSerializerStrategy CurrentJsonSerializerStrategy
         {
             get
@@ -102,12 +104,12 @@ namespace SlotMaker.Json
             }
         }
 
-        static Dictionary<string, SchemaProperty> GetSchema(bool volatility)
+        private static Dictionary<string, SchemaProperty> GetSchema(bool volatility)
         {
             return volatility ? volatilitySchema : commonSchema;
         }
 
-        static SchemaProperty CreateSchemaProperty(IDictionary<string, object> objects)
+        private static SchemaProperty CreateSchemaProperty(IDictionary<string, object> objects)
         {
             SchemaProperty property = null;
             object jsonValue;
@@ -180,24 +182,43 @@ namespace SlotMaker.Json
     public abstract class SchemaProperty
     {
         public abstract Type GetSchemaType();
+
         public abstract void DeserializeObject(IBlackboard bb, string key, object value, INamingStrategy namingStrategy);
 
-        public virtual SchemaProperty Resolve(IDictionary<string, object> map = null, INamingStrategy namingStrategy = null) { return this; }
-        public virtual string GetTypeName() { return GetSchemaType().Name; }
-        public virtual bool IsPrimitive() { return false; }
-        public virtual bool IsArray() { return false; }
-        public virtual bool IsMap() { return false; }
-        public virtual bool IsObject() { return false; }
-        public virtual void DeserializeObject(IBlackboard bb, object value, INamingStrategy namingStrategy) {}
-        public virtual object DeserializeObject(object value) { return value; }
+        public virtual SchemaProperty Resolve(IDictionary<string, object> map = null, INamingStrategy namingStrategy = null)
+        { return this; }
+
+        public virtual string GetTypeName()
+        { return GetSchemaType().Name; }
+
+        public virtual bool IsPrimitive()
+        { return false; }
+
+        public virtual bool IsArray()
+        { return false; }
+
+        public virtual bool IsMap()
+        { return false; }
+
+        public virtual bool IsObject()
+        { return false; }
+
+        public virtual void DeserializeObject(IBlackboard bb, object value, INamingStrategy namingStrategy)
+        { }
+
+        public virtual object DeserializeObject(object value)
+        { return value; }
 
         protected const string WRAPPER_KEY = "value";
     }
 
     public class SchemaPrimitive<T> : SchemaProperty
     {
-        public override Type GetSchemaType() { return typeof(T); }
-        public override bool IsPrimitive() { return true; }
+        public override Type GetSchemaType()
+        { return typeof(T); }
+
+        public override bool IsPrimitive()
+        { return true; }
 
         public override void DeserializeObject(IBlackboard bb, string key, object value, INamingStrategy namingStrategy)
         {
@@ -236,18 +257,42 @@ namespace SlotMaker.Json
         }
     }
 
-    public class SchemaBool : SchemaPrimitive<bool> {}
-    public class SchemaByte : SchemaPrimitive<byte> {}
-    public class SchemaSByte : SchemaPrimitive<sbyte> {}
-    public class SchemaShort : SchemaPrimitive<short> {}
-    public class SchemaUShort : SchemaPrimitive<ushort> {}
-    public class SchemaInt : SchemaPrimitive<int> {}
-    public class SchemaUInt : SchemaPrimitive<uint> {}
-    public class SchemaLong : SchemaPrimitive<long> {}
-    public class SchemaULong : SchemaPrimitive<ulong> {}
-    public class SchemaFloat : SchemaPrimitive<float> {}
-    public class SchemaDouble : SchemaPrimitive<double> {}
-    public class SchemaDecimal : SchemaPrimitive<decimal> {}
+    public class SchemaBool : SchemaPrimitive<bool>
+    { }
+
+    public class SchemaByte : SchemaPrimitive<byte>
+    { }
+
+    public class SchemaSByte : SchemaPrimitive<sbyte>
+    { }
+
+    public class SchemaShort : SchemaPrimitive<short>
+    { }
+
+    public class SchemaUShort : SchemaPrimitive<ushort>
+    { }
+
+    public class SchemaInt : SchemaPrimitive<int>
+    { }
+
+    public class SchemaUInt : SchemaPrimitive<uint>
+    { }
+
+    public class SchemaLong : SchemaPrimitive<long>
+    { }
+
+    public class SchemaULong : SchemaPrimitive<ulong>
+    { }
+
+    public class SchemaFloat : SchemaPrimitive<float>
+    { }
+
+    public class SchemaDouble : SchemaPrimitive<double>
+    { }
+
+    public class SchemaDecimal : SchemaPrimitive<decimal>
+    { }
+
     public class SchemaString : SchemaPrimitive<string>
     {
         public override object DeserializeObject(object value)
@@ -260,8 +305,11 @@ namespace SlotMaker.Json
     {
         public SchemaProperty items;
 
-        public override Type GetSchemaType() { return typeof(List<>).MakeGenericType(items.GetSchemaType()); }
-        public override bool IsArray() { return true; }
+        public override Type GetSchemaType()
+        { return typeof(List<>).MakeGenericType(items.GetSchemaType()); }
+
+        public override bool IsArray()
+        { return true; }
 
         public override void DeserializeObject(IBlackboard bb, string key, object value, INamingStrategy namingStrategy)
         {
@@ -316,8 +364,11 @@ namespace SlotMaker.Json
         public SchemaProperty code;
         public SchemaProperty text;
 
-        public override Type GetSchemaType() { return typeof(Dictionary<,>).MakeGenericType(code.GetSchemaType(), text.GetSchemaType()); }
-        public override bool IsMap() { return true; }
+        public override Type GetSchemaType()
+        { return typeof(Dictionary<,>).MakeGenericType(code.GetSchemaType(), text.GetSchemaType()); }
+
+        public override bool IsMap()
+        { return true; }
 
         public override void DeserializeObject(IBlackboard bb, string key, object value, INamingStrategy namingStrategy)
         {
@@ -366,8 +417,11 @@ namespace SlotMaker.Json
     {
         public Dictionary<string, SchemaProperty> properties = new Dictionary<string, SchemaProperty>();
 
-        public override Type GetSchemaType() { return typeof(object); }
-        public override bool IsObject() { return true; }
+        public override Type GetSchemaType()
+        { return typeof(object); }
+
+        public override bool IsObject()
+        { return true; }
 
         public override void DeserializeObject(IBlackboard bb, string key, object value, INamingStrategy namingStrategy)
         {
@@ -407,8 +461,11 @@ namespace SlotMaker.Json
             proxy = property;
         }
 
-        public override Type GetSchemaType() { return proxy.GetSchemaType(); }
-        public override bool IsObject() { return true; }
+        public override Type GetSchemaType()
+        { return proxy.GetSchemaType(); }
+
+        public override bool IsObject()
+        { return true; }
 
         public override void DeserializeObject(IBlackboard bb, string key, object value, INamingStrategy namingStrategy)
         {
@@ -427,8 +484,11 @@ namespace SlotMaker.Json
         public string discriminator;
         public bool inherit;
 
-        public override Type GetSchemaType() { return typeof(object); }
-        public override bool IsObject() { return true; }
+        public override Type GetSchemaType()
+        { return typeof(object); }
+
+        public override bool IsObject()
+        { return true; }
 
         public override SchemaProperty Resolve(IDictionary<string, object> map = null, INamingStrategy namingStrategy = null)
         {
@@ -448,18 +508,21 @@ namespace SlotMaker.Json
             return ret;
         }
 
-        public override void DeserializeObject(IBlackboard bb, string key, object value, INamingStrategy namingStrategy) {}
-        public override void DeserializeObject(IBlackboard bb, object value, INamingStrategy namingStrategy) {}
+        public override void DeserializeObject(IBlackboard bb, string key, object value, INamingStrategy namingStrategy)
+        { }
+
+        public override void DeserializeObject(IBlackboard bb, object value, INamingStrategy namingStrategy)
+        { }
     }
 
     internal static class ConstructorStrategy
     {
-        static IDictionary<Type, ReflectionUtils.ConstructorDelegate> ConstructorCache = new ReflectionUtils.ThreadSafeDictionary<Type, ReflectionUtils.ConstructorDelegate>(ContructorDelegateFactory);
+        private static IDictionary<Type, ReflectionUtils.ConstructorDelegate> ConstructorCache = new ReflectionUtils.ThreadSafeDictionary<Type, ReflectionUtils.ConstructorDelegate>(ContructorDelegateFactory);
 
-        static readonly Type[] EmptyTypes = new Type[0];
-        static readonly Type[] ArrayConstructorParameterTypes = new Type[] { typeof(int) };
+        private static readonly Type[] EmptyTypes = new Type[0];
+        private static readonly Type[] ArrayConstructorParameterTypes = new Type[] { typeof(int) };
 
-        static ReflectionUtils.ConstructorDelegate ContructorDelegateFactory(Type key)
+        private static ReflectionUtils.ConstructorDelegate ContructorDelegateFactory(Type key)
         {
             return ReflectionUtils.GetContructor(key, key.IsArray ? ArrayConstructorParameterTypes : EmptyTypes);
         }
@@ -521,19 +584,23 @@ namespace SlotMaker.Json
     public interface INamingStrategy
     {
         string ToJsonPropertyName(string propertyName);
+
         string ToBlackboardPropertyName(string propertyName);
     }
 
     public class DefaultNamingStrategy : INamingStrategy
     {
-        public string ToJsonPropertyName(string propertyName) { return propertyName; }
-        public string ToBlackboardPropertyName(string propertyName) { return propertyName; }
+        public string ToJsonPropertyName(string propertyName)
+        { return propertyName; }
+
+        public string ToBlackboardPropertyName(string propertyName)
+        { return propertyName; }
     }
 
     public class SnakeToCamelCaseNamingStrategy : INamingStrategy
     {
-        StringBuilder cachedStringBuilder = new StringBuilder(256);
-        const char UNDER_SCORE = '_';
+        private StringBuilder cachedStringBuilder = new StringBuilder(256);
+        private const char UNDER_SCORE = '_';
 
         public string ToJsonPropertyName(string propertyName)
         {
@@ -568,7 +635,8 @@ namespace SlotMaker.Json
 
     public class BlackboardJsonSerializerStrategy : PocoJsonSerializerStrategy
     {
-        INamingStrategy namingStrategy;
+        private INamingStrategy namingStrategy;
+
         public INamingStrategy NamingStrategy
         {
             get

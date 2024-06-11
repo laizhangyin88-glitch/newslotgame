@@ -1,6 +1,3 @@
-using Sirenix.OdinInspector;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +10,7 @@ namespace SlotMaker
         public List<int> visibleCounts;
         public SymbolMask symbolMask;
         public List<MixedLineWinInfo> mixedLineWinInfos;
-        
+
         public Deck deck;
         public Expectation expectation;
         public MysterySymbolTable mysterySymbolTable;

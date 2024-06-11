@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
 using SlotMaker;
-using BagelCode;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace BagelCode.Tasks.Actions.ClientAPI
 {

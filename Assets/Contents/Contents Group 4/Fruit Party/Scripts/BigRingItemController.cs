@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-using System.Reflection;
 
 public class BigRingItemController : MonoBehaviour
 {
@@ -30,8 +26,9 @@ public class BigRingItemController : MonoBehaviour
     private float changeTime = 0.2f;
 
     public int ResultIndex = 0;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         stopTime = FruitPartyMiniGameController1.AnimationTime - 0.5f;
         icon = transform.Find("icon").GetComponent<Image>();
@@ -57,8 +54,8 @@ public class BigRingItemController : MonoBehaviour
                 isStart = true;
                 MyTimerManagers.Instance.AddTimer(stopTime + Index * 0.2f, 1, () =>
                 {
-                    isStart= false;
-                    isMove= false;
+                    isStart = false;
+                    isMove = false;
                     ResetPosition();
                     if (ResultIndex == 0)
                     {
@@ -71,11 +68,11 @@ public class BigRingItemController : MonoBehaviour
                 });
             }
             transform.localPosition += new Vector3(0, Speed * Time.deltaTime, 0);
-            if(transform.localPosition.y < bottomPositionY)
+            if (transform.localPosition.y < bottomPositionY)
             {
                 transform.localPosition = new Vector3(transform.localPosition.x, topPositionY, 0);
             }
-            if((changeTime -= Time.deltaTime) < 0)
+            if ((changeTime -= Time.deltaTime) < 0)
             {
                 changeTime = 0.2f;
                 SetSprite(FruitPartyMiniGameController1.Instance.sprites[Random.Range(0, FruitPartyMiniGameController1.Instance.sprites.Length)]);

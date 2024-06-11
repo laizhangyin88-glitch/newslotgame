@@ -1,7 +1,4 @@
-
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +12,7 @@ public class SelectItemController : MonoBehaviour
     public bool isSelected = false;
 
     private Vector3 startPosition;
+
     [NonSerialized]
     public int SelectIndex = 0;
 
@@ -23,7 +21,7 @@ public class SelectItemController : MonoBehaviour
     private Image frameImage;
 
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         button = transform.Find("Button").GetComponent<Button>();
         button.onClick.AddListener(OnClickButton);
@@ -73,7 +71,7 @@ public class SelectItemController : MonoBehaviour
         frameAnimator.gameObject.SetActive(true);
         frameAnimator.Reset();
         frameAnimator.Play();
-        FruitPartyMiniGameController2.Instance.ClickSelectItem(spriteIndex);        
+        FruitPartyMiniGameController2.Instance.ClickSelectItem(spriteIndex);
         FruitPartyMiniGameController2.Instance.IsFinishGame();
     }
 
@@ -85,7 +83,7 @@ public class SelectItemController : MonoBehaviour
         button.gameObject.SetActive(false);
     }
 
-    public void ShowAnimation() 
+    public void ShowAnimation()
     {
         frameAnimator.Stop();
         frameAnimator.gameObject.SetActive(false);
@@ -97,7 +95,7 @@ public class SelectItemController : MonoBehaviour
         //});
     }
 
-    public void Reset() 
+    public void Reset()
     {
         isSelected = false;
         transform.localPosition = Vector2.one * (SelectIndex < 5 ? -3000 : 3000);
@@ -107,7 +105,6 @@ public class SelectItemController : MonoBehaviour
         frameImage.color = Color.white;
         this.spriteIndex = UnityEngine.Random.Range(0, FruitPartyMiniGameController2.Instance.sprites.Length);
         SetSelectItemData(this.spriteIndex);
-        
     }
 
     private void OnDestroy()
@@ -151,12 +148,10 @@ public class SelectItemController : MonoBehaviour
         transform.localScale = Vector3.one * 0.5f;
         //transform.DOLocalPath(result, 2f).OnComplete(() =>
         //{
-            
         //});
         //transform.DOScale(Vector3.one * 1.2f, 2f).OnComplete(() =>
         //{
         //    transform.localScale = Vector3.one;
         //});
     }
-
 }

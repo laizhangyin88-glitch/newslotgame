@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
 using SlotMaker;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BagelCode.Tasks.Actions.Contents
 {
-
     [Category("★ BagelCode/Contents")]
     public class UpdateDeck : ActionTask
     {
@@ -50,12 +48,14 @@ namespace BagelCode.Tasks.Actions.Contents
                 {
                     var hitReel = new List<bool>();
                     var reel = new List<SymbolInfo>();
+                    string str = "";
                     for (int j = 0; j < new_indices.Count; j++)
                     {
                         var list = new_indices[j];
+
                         for (int k = 0; k < list.Count; k++)
                         {
-                            if (k==i)
+                            if (k == i)
                             {
                                 var symbolInfo = new SymbolInfo();
                                 symbolInfo.link = new SymbolLink()
@@ -66,12 +66,14 @@ namespace BagelCode.Tasks.Actions.Contents
                                     rowOffset = 0,
                                 };
                                 symbolInfo.symbol = list[k];
+                                str += " " + list[k];
                                 reel.Add(symbolInfo);
                                 hitReel.Add(false);
                                 break;
                             }
                         }
                     }
+                    Debug.LogError(str);
                     deck.deck.Add(reel);
                     deck.hitMap.Add(hitReel);
                 }
@@ -99,5 +101,4 @@ namespace BagelCode.Tasks.Actions.Contents
             }
         }
     }
-
 }

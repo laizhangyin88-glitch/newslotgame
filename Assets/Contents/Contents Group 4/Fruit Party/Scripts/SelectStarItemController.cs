@@ -1,7 +1,3 @@
-using BagelCode;
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,11 +20,10 @@ public class SelectStarItemController : MonoBehaviour
 
     private Vector3 startPosition;
 
-    void Awake()
+    private void Awake()
     {
         isExit = false;
         button = transform.Find("Button").GetComponent<Button>();
-        
 
         frameAnimator = transform.Find("animation").GetComponent<FrameAnimator>();
         frameImage = frameAnimator.gameObject.GetComponent<Image>();
@@ -55,7 +50,7 @@ public class SelectStarItemController : MonoBehaviour
 
     public void SetItemColor(Color color)
     {
-        if(!isClick)
+        if (!isClick)
         {
             icon.color = color;
             button.gameObject.GetComponent<Image>().color = color;
@@ -169,4 +164,3 @@ public class SelectStarItemController : MonoBehaviour
         });
     }
 }
-

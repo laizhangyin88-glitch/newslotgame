@@ -1,9 +1,7 @@
-using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using NodeCanvas.Framework;
-using ParadoxNotion.Design;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace SlotMaker
 {
@@ -92,26 +90,34 @@ namespace SlotMaker
 
         public delegate void SerializeToBBEntry<T>(IBlackboard b, string key, T value);
 
-        public static SerializeToBB<List<T>> WrapAnonymousList<T>(SerializeToBB<T> serialize) {
-            return delegate (IBlackboard bb, List<T> list) {
+        public static SerializeToBB<List<T>> WrapAnonymousList<T>(SerializeToBB<T> serialize)
+        {
+            return delegate (IBlackboard bb, List<T> list)
+            {
                 SetOrCreateList(bb, LIST_WRAPPER_KEY, list, serialize);
             };
         }
 
-        public static SerializeToBB<T> WrapAnonymousList2<T>(SerializeToBBEntry<T> serialize) {
-            return delegate (IBlackboard bb, T value) {
+        public static SerializeToBB<T> WrapAnonymousList2<T>(SerializeToBBEntry<T> serialize)
+        {
+            return delegate (IBlackboard bb, T value)
+            {
                 serialize(bb, LIST_WRAPPER_KEY, value);
             };
         }
 
-        public static SerializeToBB<Dictionary<TK, TV>> WrapDict<TK, TV>(SerializeToBB<TV> valueSerialize) {
-            return delegate (IBlackboard bb, Dictionary<TK, TV> value) {
+        public static SerializeToBB<Dictionary<TK, TV>> WrapDict<TK, TV>(SerializeToBB<TV> valueSerialize)
+        {
+            return delegate (IBlackboard bb, Dictionary<TK, TV> value)
+            {
                 SetOrCreateDict(bb, value, valueSerialize);
             };
         }
 
-        public static SerializeToBB<Dictionary<TK, TV>> WrapDict2<TK, TV>(SerializeToBBEntry<TV> valueSerialize) {
-            return delegate (IBlackboard bb, Dictionary<TK, TV> value) {
+        public static SerializeToBB<Dictionary<TK, TV>> WrapDict2<TK, TV>(SerializeToBBEntry<TV> valueSerialize)
+        {
+            return delegate (IBlackboard bb, Dictionary<TK, TV> value)
+            {
                 if (value == null) return;
                 foreach (var kvp in value)
                 {
@@ -147,7 +153,7 @@ namespace SlotMaker
             variable.value = blackboardList;
         }
 
-        public static void SetOrCreateDict<K,V>(IBlackboard bb, string key, Dictionary<K, V> dict, SerializeToBB<V> serialize)
+        public static void SetOrCreateDict<K, V>(IBlackboard bb, string key, Dictionary<K, V> dict, SerializeToBB<V> serialize)
         {
             if (dict == null) return;
 
@@ -159,9 +165,9 @@ namespace SlotMaker
             variable.value = dictBb;
         }
 
-        private static void SetOrCreateDict<K,V>(IBlackboard bb, Dictionary<K, V> dict, SerializeToBB<V> serialize)
+        private static void SetOrCreateDict<K, V>(IBlackboard bb, Dictionary<K, V> dict, SerializeToBB<V> serialize)
         {
-            foreach (KeyValuePair<K,V> kvp in dict)
+            foreach (KeyValuePair<K, V> kvp in dict)
             {
                 var go = new GameObject();
                 go.name = kvp.Key.ToString();
@@ -384,10 +390,10 @@ namespace SlotMaker
             return variable;
         }
 
-    	public static Variable<T> GetOrCreateVariable<T>(string name)
-    	{
-    		return GetOrCreateVariable<T>(null, name);
-    	}
+        public static Variable<T> GetOrCreateVariable<T>(string name)
+        {
+            return GetOrCreateVariable<T>(null, name);
+        }
 
         public static Variable FindOrCreateVariable(IBlackboard bb, string name, Type ofType)
         {

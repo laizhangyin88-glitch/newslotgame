@@ -1,41 +1,33 @@
-using UnityEngine;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
+using SimpleJSON;
 using SlotMaker;
-using SlotMaker.Json;
 using SlotMaker.Contents;
 using System.Collections.Generic;
-using System;
 using System.Linq;
-using SimpleJSON;
-using BagelCode.ClientModels;
-using SlotMaker.Slots;
-using System.Runtime.Remoting.Contexts;
-
-
+using UnityEngine;
 
 namespace BagelCode.Tasks.Actions.ClientAPI
 {
-
-[Category("★ BagelCode/ClientAPI")]
-public class EnterGame : ActionTask <Blackboard>
-{
-    public BBParameter<int> gameID;
-    public BBParameter<string> targetRoomID;
-    public BBParameter<bool> isEarlyAccess;
-    public BBParameter<bool> enterSuccess;
-
-    protected override string info
+    [Category("★ BagelCode/ClientAPI")]
+    public class EnterGame : ActionTask<Blackboard>
     {
-        get
+        public BBParameter<int> gameID;
+        public BBParameter<string> targetRoomID;
+        public BBParameter<bool> isEarlyAccess;
+        public BBParameter<bool> enterSuccess;
+
+        protected override string info
         {
-            return string.Format("Request Enter Game {0}", gameID);
+            get
+            {
+                return string.Format("Request Enter Game {0}", gameID);
+            }
         }
-    }
 
-    protected override void OnExecute()
-    {
-        var context_id = BlackboardUtils.FindVariable<string>(null, "/enterGameInfo/contextID");
+        protected override void OnExecute()
+        {
+            var context_id = BlackboardUtils.FindVariable<string>(null, "/enterGameInfo/contextID");
 
 #if NEW_NET
 
@@ -60,7 +52,6 @@ public class EnterGame : ActionTask <Blackboard>
                     contentJson["game_info"]["pay_lines"].Add(tempJson);
                     contentJson["game_info"]["base_wager"] = res["game_config"]["win_line"].Count;
 
-
                     //string resStr = res.ToString();
 
                     TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/room_enter_response_v3");
@@ -76,8 +67,6 @@ public class EnterGame : ActionTask <Blackboard>
 
                     var bb = ContentBlackboard.Get();
 
-
-
                     Serialize(bb, response);
 
                     BlackboardQueryUtils.UpdateSeat(response.room);
@@ -91,7 +80,6 @@ public class EnterGame : ActionTask <Blackboard>
 
                     enterSuccess.value = true;
                     EndAction(true);
-
                 },
                 (error) =>
                 {
@@ -128,11 +116,8 @@ public class EnterGame : ActionTask <Blackboard>
                     response.contents = res["contents"].ToString();
                     Debug.Log("!!!json旧:" + response.contents.ToString());
 
-
-
                     /*if (res.HasKey("last_session_content"))
                     {
-
                         JSONNode _cnt;
 
                         string boundIdStr = "{\"bonus_id\":2102,\"type\":2,\"result\":{\"type\":0,\"bet_credit\":8000,\"added_spin_count\":20},\"earn_credit\":0,\"claim_type\":3,\"uid\":\"171119377516341340\"}";
@@ -158,7 +143,6 @@ public class EnterGame : ActionTask <Blackboard>
                         }
                         else
                         {
-
                             Debug.LogError("没有 free_spin_info 节点");
                         }
 
@@ -173,23 +157,19 @@ public class EnterGame : ActionTask <Blackboard>
                         //TextAsset jsn9 = Resources.Load<TextAsset>("tempdata/free_spin_content_777");
                         //_cnt = JSONNode.Parse(jsn9.text);
 
-
                         string strRes01 = _cnt.ToString();
                         BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "lastFreeSpinContent", strRes01);
 
                         Debug.Log($"last_session_content = {strRes01}");//last_session_content
 
                         BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "isLastGameSpin", true);
-        
                     }
                     else
                     {
                         BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "isLastGameSpin", false);
                     }*/
 
-
                     //Debug.Log($" @contents =  {response.contents}");
-
 
                     var bb = ContentBlackboard.Get();
 
@@ -206,8 +186,7 @@ public class EnterGame : ActionTask <Blackboard>
 
                     enterSuccess.value = true;
 
-
-                    if (res.HasKey("last_regular_message")  && res["last_regular_message"] != null)
+                    if (res.HasKey("last_regular_message") && res["last_regular_message"] != null)
                     {
                         Debug.Log($"【last_regular_message】  = {res["last_regular_message"].ToString()} ");
                         LastFreeGameManager.Instance.GetFreeSpinHistory(res["last_regular_message"].ToString());
@@ -218,7 +197,6 @@ public class EnterGame : ActionTask <Blackboard>
                     }
 
                     EndAction(true);
-
                 },
                 (error) =>
                 {
@@ -231,105 +209,97 @@ public class EnterGame : ActionTask <Blackboard>
             return;
 #endif
 
-
-
-
-
             if (targetRoomID.value != null && !string.IsNullOrEmpty(targetRoomID.value))
-        {
-            BagelCodeClientAPI.GameEnterRoom(gameID.value, targetRoomID.value, isEarlyAccess.value, context_id.value,
-            (response) =>
             {
-                if(agent != null)
-                    EnterGameResponse(gameID.value, response);
-            },
-            (error) =>
-            {
-                ErrorHandle(error);
-            });
-        }
-        else if (gameID != null)
-        {
-            BagelCodeClientAPI.GameEnter(gameID.value, isEarlyAccess.value, context_id.value,
-            (response) =>
-            {
-
-                string oldJson = JsonUtility.ToJson(response);
-                Debug.Log($"@A SlotSpinResponseV3 = {oldJson}");
-
-
-                if (agent != null)
-                    EnterGameResponse(gameID.value, response);
-            },
-            (error) =>
-            {
-                ErrorHandle(error);
-            });
-        }
-        else
-        {
-            Debug.LogError("No Game ID found." + agent.gameObject.name);
-        }
-    }
-
-    private void EnterGameResponse(int gameID, BagelCode.ClientModels.RoomEnterResponseV3 response)
-    {
-
-        string oldJson = JsonUtility.ToJson(response);
-        Debug.Log($"@A RoomEnterResponseV3 = {oldJson}");
-
-
-        var bb = ContentBlackboard.Get();
-
-        Serialize(bb, response);
-
-        BlackboardQueryUtils.UpdateSeat(response.room);
-        BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
-        BlackboardQueryUtils.UpdateTournament(response.tournamentInfo);
-        BlackboardQueryUtils.UpdateMetaGameEnterInfo(response.metaGameEnterInfo);
-        BlackboardQueryUtils.UpdateSeasonPassEnterInfo(response.seasonPassEnterInfo);
-        BlackboardQueryUtils.ApplyUserSyncInfo();
-
-        IAMRouter.Instance.SortTrigger(BagelCode.ClientModels.InAppMessageTriggerType.ALL_IN, gameID);
-
-        enterSuccess.value = true;
-        EndAction(true);
-    }
-
-    void Serialize(IBlackboard bb, BagelCode.ClientModels.RoomEnterResponseV3 roomEnterResponse)
-    {
-        ClientAPI2Blackboard.Serialize(bb, roomEnterResponse);
-        BlackboardUtils.SetOrCreateValue<ContentsRequestType>(bb, "requestType", ContentsRequestType.Enter);
-        ContentsSerializer.Deserialize(bb);
-    }
-
-    private void ErrorHandle(BagelCodeHTTPError error)
-    {
-        switch(error.errorCode)
-        {
-            case ClientModels.Error.ROOM_FULL_ERROR:
+                BagelCodeClientAPI.GameEnterRoom(gameID.value, targetRoomID.value, isEarlyAccess.value, context_id.value,
+                (response) =>
                 {
-                    bool stringError = false;
-                    ErrorPopupInfo info = new ErrorPopupInfo();
+                    if (agent != null)
+                        EnterGameResponse(gameID.value, response);
+                },
+                (error) =>
+                {
+                    ErrorHandle(error);
+                });
+            }
+            else if (gameID != null)
+            {
+                BagelCodeClientAPI.GameEnter(gameID.value, isEarlyAccess.value, context_id.value,
+                (response) =>
+                {
+                    string oldJson = JsonUtility.ToJson(response);
+                    Debug.Log($"@A SlotSpinResponseV3 = {oldJson}");
 
-                    info.type = ErrorPopupType.OK;
-                    info.text = StringTableUtils.GetString(StringTable.StringTableType.Global, "ERROR_ROOM_FULL", out stringError);
-                    info.buttonText1 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_OKAY", out stringError);
+                    if (agent != null)
+                        EnterGameResponse(gameID.value, response);
+                },
+                (error) =>
+                {
+                    ErrorHandle(error);
+                });
+            }
+            else
+            {
+                Debug.LogError("No Game ID found." + agent.gameObject.name);
+            }
+        }
 
-                    info.callback1 = delegate
+        private void EnterGameResponse(int gameID, BagelCode.ClientModels.RoomEnterResponseV3 response)
+        {
+            string oldJson = JsonUtility.ToJson(response);
+            Debug.Log($"@A RoomEnterResponseV3 = {oldJson}");
+
+            var bb = ContentBlackboard.Get();
+
+            Serialize(bb, response);
+
+            BlackboardQueryUtils.UpdateSeat(response.room);
+            BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
+            BlackboardQueryUtils.UpdateTournament(response.tournamentInfo);
+            BlackboardQueryUtils.UpdateMetaGameEnterInfo(response.metaGameEnterInfo);
+            BlackboardQueryUtils.UpdateSeasonPassEnterInfo(response.seasonPassEnterInfo);
+            BlackboardQueryUtils.ApplyUserSyncInfo();
+
+            IAMRouter.Instance.SortTrigger(BagelCode.ClientModels.InAppMessageTriggerType.ALL_IN, gameID);
+
+            enterSuccess.value = true;
+            EndAction(true);
+        }
+
+        private void Serialize(IBlackboard bb, BagelCode.ClientModels.RoomEnterResponseV3 roomEnterResponse)
+        {
+            ClientAPI2Blackboard.Serialize(bb, roomEnterResponse);
+            BlackboardUtils.SetOrCreateValue<ContentsRequestType>(bb, "requestType", ContentsRequestType.Enter);
+            ContentsSerializer.Deserialize(bb);
+        }
+
+        private void ErrorHandle(BagelCodeHTTPError error)
+        {
+            switch (error.errorCode)
+            {
+                case ClientModels.Error.ROOM_FULL_ERROR:
                     {
-                        enterSuccess.value = false;
-                        EndAction();
-                    };
+                        bool stringError = false;
+                        ErrorPopupInfo info = new ErrorPopupInfo();
 
-                    ErrorPopupHandler.Instance.OpenError(info);
-                }
-                break;
-            default:
-                GlobalErrorHandler.GlobalError(error);
-                break;
+                        info.type = ErrorPopupType.OK;
+                        info.text = StringTableUtils.GetString(StringTable.StringTableType.Global, "ERROR_ROOM_FULL", out stringError);
+                        info.buttonText1 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_OKAY", out stringError);
+
+                        info.callback1 = delegate
+                        {
+                            enterSuccess.value = false;
+                            EndAction();
+                        };
+
+                        ErrorPopupHandler.Instance.OpenError(info);
+                    }
+                    break;
+
+                default:
+                    GlobalErrorHandler.GlobalError(error);
+                    break;
+            }
         }
     }
-}
-
 }
