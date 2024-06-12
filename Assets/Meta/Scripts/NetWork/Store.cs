@@ -1,4 +1,5 @@
 using SimpleJSON;
+using SlotMaker;
 using System.Collections.Generic;
 
 public class globalStore
@@ -22,6 +23,15 @@ public class globalStore
     public static bool IsNewGame(int gameId)
     {
         return newGameId.Contains(gameId);
+    }
+    /// <summary>
+    /// 当前的游戏是不是在新添加的游戏中
+    /// </summary>
+    /// <returns></returns>
+    public static bool IsInNewGame()
+    {
+        int gameId = BlackboardUtils.GetOrCreateVariable<int>(null, "./game/gameId").value;
+        return IsNewGame(gameId);
     }
 
     private static readonly Dictionary<int, string> gameTitle = new Dictionary<int, string>()

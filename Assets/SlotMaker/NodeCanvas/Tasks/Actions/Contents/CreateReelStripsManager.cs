@@ -16,7 +16,7 @@ namespace BagelCode.Tasks.Actions.Contents
         {
             var parent = ContentCustomData.Instance.transform;
             var go = new GameObject();
-            Debug.LogError("@@@@@@@@@@@@@@@@@@@@@@@@@");
+            
             go.name = "ReelStrips Manager";
             go.transform.SetParent(parent, false);
 
