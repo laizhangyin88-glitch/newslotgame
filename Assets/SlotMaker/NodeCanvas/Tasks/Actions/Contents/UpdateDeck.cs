@@ -31,54 +31,54 @@ namespace BagelCode.Tasks.Actions.Contents
 
         private void ProcessUpdateDeck(Deck deck)
         {
-            var spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-            if (spinBB == null || spinBB.value == null) return;
-            var responseBB = BlackboardUtils.GetOrCreateBlackboard(spinBB.value, "response");
-            var new_indices = responseBB.GetValue<List<List<int>>>("new_reel_output_list");
-            var gameBB = ContentBlackboard.Get().GetValue<Blackboard>("game");
-            var gameId = gameBB.GetValue<int>("gameId");
+            //var spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
+            //if (spinBB == null || spinBB.value == null) return;
+            //var responseBB = BlackboardUtils.GetOrCreateBlackboard(spinBB.value, "response");
+            //var new_indices = responseBB.GetValue<List<List<int>>>("new_reel_output_list");
+            //var gameBB = ContentBlackboard.Get().GetValue<Blackboard>("game");
+            //var gameId = gameBB.GetValue<int>("gameId");
 
             deck.deck = new List<List<SymbolInfo>>();
             deck.hitMap = new List<List<bool>>();
 
-            if (globalStore.IsNewGame(gameId))
-            {
-                var count = new_indices[0].Count;
-                for (int i = 0; i < count; i++)
-                {
-                    var hitReel = new List<bool>();
-                    var reel = new List<SymbolInfo>();
-                    string str = "";
-                    for (int j = 0; j < new_indices.Count; j++)
-                    {
-                        var list = new_indices[j];
+            //if (globalStore.IsNewGame(gameId))
+            //{
+            //    var count = new_indices[0].Count;
+            //    for (int i = 0; i < count; i++)
+            //    {
+            //        var hitReel = new List<bool>();
+            //        var reel = new List<SymbolInfo>();
+            //        string str = "";
+            //        for (int j = 0; j < new_indices.Count; j++)
+            //        {
+            //            var list = new_indices[j];
 
-                        for (int k = 0; k < list.Count; k++)
-                        {
-                            if (k == i)
-                            {
-                                var symbolInfo = new SymbolInfo();
-                                symbolInfo.link = new SymbolLink()
-                                {
-                                    columnCount = 1,
-                                    columnOffset = 0,
-                                    rowCount = 1,
-                                    rowOffset = 0,
-                                };
-                                symbolInfo.symbol = list[k];
-                                str += " " + list[k];
-                                reel.Add(symbolInfo);
-                                hitReel.Add(false);
-                                break;
-                            }
-                        }
-                    }
-                    Debug.LogError(str);
-                    deck.deck.Add(reel);
-                    deck.hitMap.Add(hitReel);
-                }
-            }
-            else
+            //            for (int k = 0; k < list.Count; k++)
+            //            {
+            //                if (k == i)
+            //                {
+            //                    var symbolInfo = new SymbolInfo();
+            //                    symbolInfo.link = new SymbolLink()
+            //                    {
+            //                        columnCount = 1,
+            //                        columnOffset = 0,
+            //                        rowCount = 1,
+            //                        rowOffset = 0,
+            //                    };
+            //                    symbolInfo.symbol = list[k];
+            //                    str += " " + list[k];
+            //                    reel.Add(symbolInfo);
+            //                    hitReel.Add(false);
+            //                    break;
+            //                }
+            //            }
+            //        }
+            //        Debug.LogError(str);
+            //        deck.deck.Add(reel);
+            //        deck.hitMap.Add(hitReel);
+            //    }
+            //}
+            //else
             {
                 var slotData = ContentCustomData.GetSlotData(slotIndex.value);
                 int totalColumn = slotData.column;

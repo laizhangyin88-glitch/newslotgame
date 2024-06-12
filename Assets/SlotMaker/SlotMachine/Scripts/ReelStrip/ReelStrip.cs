@@ -137,7 +137,6 @@ namespace SlotMaker
             else if (idx > (strip.Count - 1))
                 idx %= strip.Count;
 
-            Debug.LogError("最终的 index......." + idx);
             return idx;
         }
 

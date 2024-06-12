@@ -216,9 +216,9 @@ namespace SlotMaker
                             else if (reel.nextIndex >= 0)
                             {
                                 reel.nextIndex += dstPatchCount;
-                                Debug.LogError("停止了.............@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ " + dstPatchCount);
                                 dstPatchCount = 0;
                                 reel.SwapIndex();
+                                reel.isFinish = true;
                             }
                         }
 
