@@ -1,38 +1,34 @@
 #define NEW_NET
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using BagelCode.ClientModels;
-using UnityEngine;
-using SlotMaker;
-using SlotMaker.Json;
-using SlotMaker.TestSuite;
-using SlotMaker.Contents;
-using ParadoxNotion;
-using NodeCanvas.Framework;
-using Action = System.Action;
-using System.Linq;
-using SimpleJSON;
-using SlotMaker.Cards;
-using SlotMaker.Slots.Tasks.Actions.Game;
 using BagelCode.Internal;
-using BagelCode.Protobuf;
+using NodeCanvas.Framework;
+using ParadoxNotion;
+using SimpleJSON;
+using SlotMaker;
+using SlotMaker.Contents;
+using SlotMaker.Json;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using Action = System.Action;
+
 //using System.Runtime.Remoting.Contexts
 
 namespace BagelCode
 {
-	public class V3MetaSystem : IMetaSystem
-	{
-		public void SelectGame(int gameId)
-		{
-			var gameInfo = BlackboardQueryUtils.GetGameInfo(gameId);
-			BlackboardQueryUtils.SetEnterGameInfo(gameId, "EnterGame", "default");
-		}
+    public class V3MetaSystem : IMetaSystem
+    {
+        public void SelectGame(int gameId)
+        {
+            var gameInfo = BlackboardQueryUtils.GetGameInfo(gameId);
+            BlackboardQueryUtils.SetEnterGameInfo(gameId, "EnterGame", "default");
+        }
 
-		public void EnterGame()
-		{
+        public void EnterGame()
+        {
             EventSender.SendGlobalEvent("OnEnterGame");
-		}
+        }
 
         public void ClearContentData()
         {
@@ -71,11 +67,7 @@ namespace BagelCode
             bool isHighRollerBet = BlackboardUtils.FindVariable<bool>("/isExtendedBetIndex")?.value ?? false;
             int seasonPassEventId = EpicPassUtilsV2.SeasonPassEventId;
 
-
-
-
 #if NEW_NET
-
 
             if (TestManager.Instance.isTestSpin)
             {
@@ -99,7 +91,7 @@ namespace BagelCode
             {
                 SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(testRes as string);
                 SimpleJSON.JSONNode res = dataDict["data"];
-             
+
                     string resStr = res.ToString();
                     TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
@@ -112,13 +104,11 @@ namespace BagelCode
                 return;
             }*/
 
-
             if (LastFreeGameManager.Instance.isLastGameSpin)
             {
                 LastFreeGameManager.Instance.getResponseData(RPCName.slotSpin,
                 (res) =>
                 {
-
                     string resStr = res.ToString();
                     TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
@@ -128,11 +118,9 @@ namespace BagelCode
 
                     if (successCallback != null)
                         successCallback();
-
                 });
                 return;
             }
-
 
             /*string debug_param = "";
             if (globalStore.test_spin_tab.Length > 0)
@@ -175,39 +163,36 @@ namespace BagelCode
                 //var test = "[[2,2,2,3,4],[5,1,8,5,3],[1,2,5,4,3]]";
                 //var debug_param1 = "[\"shuffling_list\":" + test + "]";
 
-
-
                 Dictionary<string, object> debug_param1 = new Dictionary<string, object> {
                     {"shuffling_list",
                     new List<List<int>>() {
-                        
-                        new List<int>(){2,2,2,3,4 },
+                        new List<int>(){ 2, 2, 2, 3, 4 },
                         new List<int>(){ 5, 1, 8, 5, 3 },
                         new List<int>(){ 1, 2, 5, 4, 3 }
                     }
                     }
                 };
 
-
-
-
                 Dictionary<string, object> req = new Dictionary<string, object>
             {
                 {"bet",betCredit},
                 {"extra_bet",extraBetCredit },
-                { "debug_param", debug_param1},
+                //{ "debug_param", debug_param1},
             };
                 Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
 
                 NetManager.Instance.Post(RPCName.new_slot_spin, req,
                 (res) =>
                 {
+                    Debug.LogError("拉霸结果....... + " + res["game_result"]["first_index_list"].ToString());
                     var contentStr = "{\"game_id\":21,\"result\":{\"reel_output_list\":[47,19,36,21,38],\"paytable_index\":0,\"earn_credit\":0},\"bonus_result\":[],\"custom_data\":{},\"reel_set_index\":{\"current_index\":0,\"next_index\":0},\"free_spin_info\":{\"type\":0,\"bet\":0,\"count\":0,\"spun_count\":0,\"total_count\":0,\"initial_count\":0,\"multiplier\":0,\"sticky_wild\":[],\"extra_data\":{}},\"jackpot_info\":{\"type\":2,\"info\":{\"eligible_min_bet\":0,\"eligible_min_bet_per_jackpot\":[0,0,0,0,0],\"base_bet\":30,\"info_list\":[{\"current\":241.02,\"prev\":240.96},{\"current\":913.5,\"prev\":913.38},{\"current\":2375.85,\"prev\":2375.55},{\"current\":15100.68,\"prev\":15100.44},{\"current\":30050.34,\"prev\":30050.22}]}},\"contents_store\":{}}";
                     var content = JSONNode.Parse(contentStr);
                     content["game_id"] = gameId;
                     content["result"]["earn_credit"] = res["game_result"]["earn_credit"];
-                    content["result"]["new_reel_output_list"] = res["game_result"]["shuffling_list"];
+                    //content["result"]["new_reel_output_list"] = res["game_result"]["shuffling_list"];
+                    content["result"]["reel_output_list"] = res["game_result"]["first_index_list"];
                     TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
+
                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
                     response.contents = content.ToString();
                     Debug.Log("###新的slotSpin：" + res.ToString());
@@ -216,7 +201,6 @@ namespace BagelCode
 
                     if (successCallback != null)
                         successCallback();
-
                 },
                 (error) =>
                 {
@@ -240,12 +224,9 @@ namespace BagelCode
             };
                 //globalStore.test_is_free_spin = 0;
 
-
-
                 NetManager.Instance.Post(RPCName.slotSpin, req,
                 (res) =>
                 {
-
                     string resStr = res.ToString();
                     TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
@@ -256,7 +237,6 @@ namespace BagelCode
 
                     if (successCallback != null)
                         successCallback();
-
                 },
                 (error) =>
                 {
@@ -269,46 +249,45 @@ namespace BagelCode
             return;
 #endif
 
-
             BagelCodeClientAPI.SlotSpin(betCredit, extraBetCredit, roomID, isGameSpin, isBonusSpin, metaGameEventID, gameId, collectingGameChestDropRateMultiplyEventId, customData, isAutoSpin, expEventIdList, isHighRollerBet, seasonPassEventId,
             (response) =>
-        	{
+            {
                 string oldJson = JsonUtility.ToJson(response);
                 Debug.Log($"@A SlotSpinResponseV3 = {oldJson}");
 
                 SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
 
-        		if (successCallback != null)
-        			successCallback();
-    		},
-    		(error) =>
-    		{
-    			CommonError(error);
+                if (successCallback != null)
+                    successCallback();
+            },
+            (error) =>
+            {
+                CommonError(error);
 
-    			if (errorCallback != null)
-    				errorCallback();
-    		});
-		}
+                if (errorCallback != null)
+                    errorCallback();
+            });
+        }
 
-		public void SlotSpinSuccess(ClientModels.SlotSpinResponseV3 response, long betCredit, long extraBetCredit, SpinType spinType)
-		{
+        public void SlotSpinSuccess(ClientModels.SlotSpinResponseV3 response, long betCredit, long extraBetCredit, SpinType spinType)
+        {
             var spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-            if(spinBB == null || spinBB.value == null) return;
+            if (spinBB == null || spinBB.value == null) return;
 
             var bb = BlackboardUtils.GetOrCreateBlackboard(spinBB.value, "response");
-            var json = JSONNode.Parse(response.contents);
-            var newReelList = new List<List<int>>();
-            for (int i = 0; i < json["result"]["new_reel_output_list"].Count; i++)
-            {
-                var list = json["result"]["new_reel_output_list"][i];
-                var list1 = new List<int>();
-                for (int j = 0; j < list.Count; j++)
-                {
-                    list1.Add(list[j]);
-                }
-                newReelList.Add(list1);
-            }
-            BlackboardUtils.SetOrCreateValue(bb, "new_reel_output_list", newReelList);
+            //var json = JSONNode.Parse(response.contents);
+            //var newReelList = new List<List<int>>();
+            //for (int i = 0; i < json["result"]["new_reel_output_list"].Count; i++)
+            //{
+            //    var list = json["result"]["new_reel_output_list"][i];
+            //    var list1 = new List<int>();
+            //    for (int j = 0; j < list.Count; j++)
+            //    {
+            //        list1.Add(list[j]);
+            //    }
+            //    newReelList.Add(list1);
+            //}
+            //BlackboardUtils.SetOrCreateValue(bb, "new_reel_output_list", newReelList);
             ClientAPI2Blackboard.Serialize(bb, response);
             BlackboardUtils.SetOrCreateValue<int>(bb, "requestType", (int)ContentsRequestType.SlotSpin);
             ContentsSerializer.Deserialize(bb);
@@ -316,7 +295,7 @@ namespace BagelCode
             BlackboardQueryUtils.UpdateTournament(response.tournamentInfo);
             BlackboardQueryUtils.UpdatePotOfGold(response.userSyncInfo.piggyCredit);
             BlackboardQueryUtils.UpdateUnlockFeature(response.featureUnlockList);
-		    BlackboardQueryUtils.UpdateMetaGameInfo(response.metaGameInfo, response.serverTime);
+            BlackboardQueryUtils.UpdateMetaGameInfo(response.metaGameInfo, response.serverTime);
             BlackboardQueryUtils.UpdateBonusSpinCountPerBet(betCredit, response.gameSpinCount, "./gameSpinCountPerBet");
 
             BlackboardQueryUtils.UpdateBonusSpinCountPerBet(betCredit, response.bonusSpinCount, "./bonusSpinCountPerBet");
@@ -330,7 +309,6 @@ namespace BagelCode
 
         public void SlotClaimBonus(string claimId, object customData, Action successCallback, Action errorCallback)
         {
-
 #if NEW_NET
 
             if (globalStore.nowGameID == 33 || globalStore.IsNewGame(globalStore.nowGameID)) //雷神
@@ -340,13 +318,11 @@ namespace BagelCode
                 return;
             }
 
-
             if (LastFreeGameManager.Instance.isLastGameSpin)
             {
                 LastFreeGameManager.Instance.getResponseData(RPCName.claimBonus,
                 (res) =>
                 {
-
                     string resStr = res.ToString();
 
                     //string oldJson = JsonUtility.ToJson(response);
@@ -367,12 +343,9 @@ namespace BagelCode
                     // BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
                     if (successCallback != null)
                         successCallback();
-
                 });
                 return;
             }
-
-
 
             int gameId = BlackboardUtils.GetOrCreateVariable<int>(null, "./game/gameId").value;
             SpinType spinType = BlackboardUtils.GetOrCreateVariable<SpinType>(ContentBlackboard.Get(), "spinType").value;
@@ -387,10 +360,9 @@ namespace BagelCode
                  {"decision_info",selected_index},
              };*/
 
-            //string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";  
+            //string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
             //string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + ",\"reel_table\":[5,23,15]}";
             //Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
-
 
             JSONNode data = JSONNode.Parse("{}");
             data.Add("selected_index", (int)customData);
@@ -404,11 +376,10 @@ namespace BagelCode
             req.Add("metaGameEventId", metaGameEventID);
             req.Add("seasonPassEventId", seasonPassEventId);
 
-
             NetManager.Instance.Post(RPCName.claimBonus, req,
             (res) =>
             {
-                 string resStr = res.ToString();
+                string resStr = res.ToString();
 
                 //string oldJson = JsonUtility.ToJson(response);
                 //Debug.Log($"@A KenoPlayResponseV1 = {oldJson}");
@@ -428,7 +399,7 @@ namespace BagelCode
                 // BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
 
                 if (successCallback != null)
-                        successCallback();
+                    successCallback();
             },
             (error) =>
             {
@@ -438,7 +409,6 @@ namespace BagelCode
                     errorCallback();
             });
             return;/**/
-
 
             /*if (successCallback != null)
                 successCallback();
@@ -477,12 +447,10 @@ namespace BagelCode
             });
 
 #endif
-
         }
 
         public void BoastBigWin(long betCredit, long earnCredit, Action successCallback, Action errorCallback)
         {
-
 #if NEW_NET
             Debug.Log("【remove rpc】: /v0/room/boast/bigwin");
             if (successCallback != null)
@@ -511,7 +479,6 @@ namespace BagelCode
 
         public void SlotEndTurn(Action successCallback, Action errorCallback)
         {
-
 #if UNITY_EDITOR
             Debug.Log("@ /v3/report/turn_end");
 #endif
@@ -564,8 +531,6 @@ namespace BagelCode
 
             int seasonPassEventId = EpicPassUtilsV2.SeasonPassEventId;
 
-
-
 #if NEW_NET
             Dictionary<string, object> req = new Dictionary<string, object>
             {
@@ -586,7 +551,6 @@ namespace BagelCode
 
                 if (successCallback != null)
                     successCallback();
-
             },
             (error) =>
             {
@@ -598,14 +562,12 @@ namespace BagelCode
             return;
 #endif
 
-
             BagelCodeClientAPI.VideoPokerDeal(betCredit, handCount, isGameDeal, isBonusDeal, metaGameEventID, gameId, collectingGameChestDropRateMultiplyEventId, expEventIdList, isHighRollerBet, customData, seasonPassEventId,
             (response) =>
             {
                 // "/vd3/video_poker/deal"
                 string oldJson = JsonUtility.ToJson(response);
                 Debug.Log($"@A VideoPokerDealResponseV3 = {oldJson}");
-
 
                 VideoPokerDealSuccess(response, betCredit);
 
@@ -621,10 +583,10 @@ namespace BagelCode
             });
         }
 
-        void VideoPokerDealSuccess(ClientModels.VideoPokerDealResponseV3 response, long betCredit)
+        private void VideoPokerDealSuccess(ClientModels.VideoPokerDealResponseV3 response, long betCredit)
         {
             var spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-            if(spinBB == null || spinBB.value == null) return;
+            if (spinBB == null || spinBB.value == null) return;
 
             var bb = BlackboardUtils.GetOrCreateBlackboard(spinBB.value, "response");
             ClientAPI2Blackboard.Serialize(bb, response);
@@ -676,10 +638,6 @@ namespace BagelCode
             bool isBonusDeal = (spinType == SpinType.BonusSpin);
             int seasonPassEventId = EpicPassUtilsV2.SeasonPassEventId;
 
-
-
-
-
 #if NEW_NET
             Dictionary<string, object> req = new Dictionary<string, object>
             {
@@ -694,7 +652,6 @@ namespace BagelCode
                 TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/video_poker_draw_response_v2");
                 ClientModels.VideoPokerDrawResponseV2 response = JsonUtility.FromJson<ClientModels.VideoPokerDrawResponseV2>(jsn8.text);
                 response.contents = res["contents"].ToString();
-
 
                 var bb = BlackboardUtils.GetOrCreateBlackboard(ContentBlackboard.Get().GetValue<Blackboard>("spin"), "response");
                 ClientAPI2Blackboard.Serialize(bb, response);
@@ -716,12 +673,9 @@ namespace BagelCode
             return;
 #endif
 
-
-
             BagelCodeClientAPI.VideoPokerDraw(helds, gameId, isBonusDeal, isGameDeal, metaGameEventID, customData, seasonPassEventId,
             (response) =>
             {
-
                 string oldJson = JsonUtility.ToJson(response);
                 Debug.Log($"@A VideoPokerDrawResponseV2 = {oldJson}");
 
@@ -822,8 +776,6 @@ namespace BagelCode
 
             int seasonPassEventId = EpicPassUtilsV2.SeasonPassEventId;
 
-
-
             /*
             object a = new
             {
@@ -834,16 +786,12 @@ namespace BagelCode
                 pickInfoList = pickInfoList,
                 customData = customData,
                 contentsVersion = ContentsVersionManager.Instance.GetContentsVersion(),
-
             };
 
             string stra = JsonUtility.ToJson(a);//测试代码
 
-
             string contents = ContentsSerializer.SerializeKenoPlay(gameId, betPerTicket, extraBetPerTicket, ticketCount, pickInfoList, customData);
             Debug.Log($"@A ReqKenoSpin = {contents}"); //测试代码*/
-
-
 
 #if NEW_NET
 
@@ -855,18 +803,12 @@ namespace BagelCode
             //        break;
             //}
 
-
             //JSONNode data = JSONNode.Parse("{\"bet_per_ticket\":1000,\"pick_info_list\":[[25,41,52,55,56,63,68,71,77,80]]}");
 
-
-
-
-
-
-           // string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
+            // string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
             string debug_param = "{\"is_free_spin\":" + TestManager.Instance.getCode() + "}";
 
-            Dictionary<string,object> req = new Dictionary<string, object>
+            Dictionary<string, object> req = new Dictionary<string, object>
             {
                 {"bet_per_ticket",betPerTicket },
                 { "pick_info_list",pickInfoList},
@@ -890,7 +832,6 @@ namespace BagelCode
 
                 Debug.Log($" @contents =  {response.contents}");
 
-
                 var spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
                 if (spinBB == null || spinBB.value == null) return;
 
@@ -912,13 +853,8 @@ namespace BagelCode
                 BlackboardQueryUtils.UpdateMysteryGiftInfo(response.nextMysteryGiftLevel, response.mysteryGiftInfo, response.serverTime);
                 LevelUpDash.LevelUpDash.Utils.UpdateLevelUpDashInfo(response.levelUpDashInfo);
 
-
-
-
-
                 if (successCallback != null)
                     successCallback();
-
             },
             (error) =>
             {
@@ -931,8 +867,6 @@ namespace BagelCode
 
             return;
 #endif
-
-
 
             BagelCodeClientAPI.KenoPlay(betPerTicket, extraBetPerTicket, ticketCount, isAutoPick, pickInfoList, isGamePlay, isBonusPlay, metaGameEventID, gameId, collectingGameChestDropRateMultiplyEventId, expEventIdList, isHighRollerBet,
                 customData, seasonPassEventId,
@@ -950,22 +884,15 @@ namespace BagelCode
                 if (errorCallback != null)
                     errorCallback();
             });
-
-
         }
 
-
-
-        void KenoPlaySuccess(ClientModels.KenoPlayResponseV1 response, long betPerTicket)
+        private void KenoPlaySuccess(ClientModels.KenoPlayResponseV1 response, long betPerTicket)
         {
-
-
             string oldJson = JsonUtility.ToJson(response);
             Debug.Log($"@A KenoPlayResponseV1 = {oldJson}");
 
-
             var spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-            if(spinBB == null || spinBB.value == null) return;
+            if (spinBB == null || spinBB.value == null) return;
 
             var bb = BlackboardUtils.GetOrCreateBlackboard(spinBB.value, "response");
             ClientAPI2Blackboard.Serialize(bb, response);
@@ -988,7 +915,6 @@ namespace BagelCode
 
         public void KenoClaimBonus(string claimId, object customData, Action successCallback, Action errorCallback)
         {
-
 #if NEW_NET
             if (successCallback != null)
                 successCallback();
@@ -1027,7 +953,6 @@ namespace BagelCode
 
         public void GambleStart(string ticketId, Action successCallback, Action errorCallback)
         {
-
 #if NEW_NET
 
             Dictionary<string, object> req = new Dictionary<string, object>
@@ -1057,7 +982,6 @@ namespace BagelCode
 
                 if (successCallback != null)
                     successCallback();
-
             },
             (error) =>
             {
@@ -1069,18 +993,14 @@ namespace BagelCode
             return;
 #endif
 
-
-
             BagelCodeClientAPI.GambleStart(ticketId,
             (response) =>
             {
-
                 string oldJson = JsonUtility.ToJson(response);
                 Debug.Log($"@A GambleStartResponseV2 = {oldJson}");
 
-
                 var gamble = BlackboardUtils.FindVariable<Blackboard>("./turn/gamble");
-                if(gamble != null)
+                if (gamble != null)
                 {
                     var bb = BlackboardUtils.GetOrCreateBlackboard(gamble.value, "response");
                     ClientAPI2Blackboard.Serialize(bb, response);
@@ -1137,10 +1057,8 @@ namespace BagelCode
                     ContentsSerializer.Deserialize(bb);
                 }
 
-
                 if (successCallback != null)
                     successCallback();
-
             },
             (error) =>
             {
@@ -1152,7 +1070,6 @@ namespace BagelCode
             return;
 #endif
 
-
             BagelCodeClientAPI.GambleDeal(customData,
             (response) =>
             {
@@ -1160,7 +1077,7 @@ namespace BagelCode
                 Debug.Log($"@A GambleDealResponseV2 = {oldJson}");
 
                 var gamble = BlackboardUtils.FindVariable<Blackboard>("./turn/gamble");
-                if(gamble != null)
+                if (gamble != null)
                 {
                     var bb = BlackboardUtils.GetOrCreateBlackboard(gamble.value, "response");
                     ClientAPI2Blackboard.Serialize(bb, response);
@@ -1182,8 +1099,6 @@ namespace BagelCode
 
         public void GambleTake(Action successCallback, Action errorCallback)
         {
-
-
 #if NEW_NET
 
             Dictionary<string, object> req = new Dictionary<string, object>
@@ -1221,10 +1136,8 @@ namespace BagelCode
                 BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
                 BlackboardQueryUtils.UpdatePotOfGold(response.userSyncInfo.piggyCredit);
 
-
                 if (successCallback != null)
                     successCallback();
-
             },
             (error) =>
             {
@@ -1236,18 +1149,14 @@ namespace BagelCode
             return;
 #endif
 
-
-
-
             BagelCodeClientAPI.GambleTake(
             (response) =>
             {
-
                 string oldJson = JsonUtility.ToJson(response);
                 Debug.Log($"@A GambleTakeResponseV2 = {oldJson}");
 
                 var gamble = BlackboardUtils.FindVariable<Blackboard>("./turn/gamble");
-                if(gamble != null)
+                if (gamble != null)
                 {
                     var bb = BlackboardUtils.GetOrCreateBlackboard(gamble.value, "response");
                     ClientAPI2Blackboard.Serialize(bb, response);
@@ -1270,32 +1179,33 @@ namespace BagelCode
             });
         }
 
-        void CommonError(BagelCodeHTTPError error)
+        private void CommonError(BagelCodeHTTPError error)
         {
             Debug.LogWarning("V3MetaSystem.CommonError invoked!!");
             Debug.LogError(SlotSimpleJson.SerializeObject(error));
 
             switch (error.errorCode)
             {
-            case ClientModels.Error.NOT_IN_ROOM_ERROR:
-                {
-                    bool stringError = false;
-                    ErrorPopupInfo info = new ErrorPopupInfo();
-                    info.type = ErrorPopupType.OK;
-                    info.text = StringTableUtils.GetString(StringTable.StringTableType.Global, "ERROR_NOT_EXIST_ROOM", out stringError);
-                    info.buttonText1 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_OKAY", out stringError);
-
-                    info.callback1 = delegate
+                case ClientModels.Error.NOT_IN_ROOM_ERROR:
                     {
-                        MessageDispatcher.Dispatch("OnContentEvent", new EventData("LeaveGame"));
-                    };
+                        bool stringError = false;
+                        ErrorPopupInfo info = new ErrorPopupInfo();
+                        info.type = ErrorPopupType.OK;
+                        info.text = StringTableUtils.GetString(StringTable.StringTableType.Global, "ERROR_NOT_EXIST_ROOM", out stringError);
+                        info.buttonText1 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_OKAY", out stringError);
 
-                    ErrorPopupHandler.Instance.OpenError(info);
-                }
-                break;
-            default:
-                GlobalErrorHandler.GlobalError(error);
-                break;
+                        info.callback1 = delegate
+                        {
+                            MessageDispatcher.Dispatch("OnContentEvent", new EventData("LeaveGame"));
+                        };
+
+                        ErrorPopupHandler.Instance.OpenError(info);
+                    }
+                    break;
+
+                default:
+                    GlobalErrorHandler.GlobalError(error);
+                    break;
             }
         }
 
@@ -1321,15 +1231,15 @@ namespace BagelCode
             });
         }
 
-		public bool IsIgnoredUser(string userId, int reportCount)
-		{
-			return BlackboardQueryUtils.IsIgnoredUser(userId, reportCount);
-		}
+        public bool IsIgnoredUser(string userId, int reportCount)
+        {
+            return BlackboardQueryUtils.IsIgnoredUser(userId, reportCount);
+        }
 
-		public void SpentCredit(long spentCredit)
-		{
-			BlackboardQueryUtils.SpentCredit(spentCredit);
-		}
+        public void SpentCredit(long spentCredit)
+        {
+            BlackboardQueryUtils.SpentCredit(spentCredit);
+        }
 
         public void BackupUserSyncInfo()
         {
@@ -1341,10 +1251,10 @@ namespace BagelCode
             BlackboardQueryUtils.ApplyUserSyncInfo(isApply);
         }
 
-		public long GetTimeStamp()
-		{
-			return TimeUtils.GetTimeStamp();
-		}
+        public long GetTimeStamp()
+        {
+            return TimeUtils.GetTimeStamp();
+        }
 
         public long GetLocalTimeStamp()
         {
@@ -1378,14 +1288,14 @@ namespace BagelCode
 
         public void SubscribeBackButton(int id, Action callback)
         {
-            if(BackButtonManager.Instance != null)
+            if (BackButtonManager.Instance != null)
                 BackButtonManager.Instance.SubscribeBackButton(callback, id);
         }
 
         public void UnSubscribeBackButton(int id)
         {
-            if(BackButtonManager.Instance != null)
+            if (BackButtonManager.Instance != null)
                 BackButtonManager.Instance.UnSubscribeBackButton(id);
         }
-	}
+    }
 }

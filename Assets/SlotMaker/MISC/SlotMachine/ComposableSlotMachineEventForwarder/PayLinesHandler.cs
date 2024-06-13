@@ -1,10 +1,7 @@
+using ParadoxNotion;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NodeCanvas.Framework;
-using ParadoxNotion;
-using ParadoxNotion.Services;
 
 namespace SlotMaker
 {
@@ -20,7 +17,9 @@ namespace SlotMaker
         protected const string PAYLINE_BLINK_ANIMATION = "Blink";
 
         private BaseSlotMachine _slotMachine;
-        protected BaseSlotMachine slotMachine { get { return _slotMachine ?? (_slotMachine = GetComponent<BaseSlotMachine>()); } }
+
+        protected BaseSlotMachine slotMachine
+        { get { return _slotMachine ?? (_slotMachine = GetComponent<BaseSlotMachine>()); } }
 
         protected virtual void Awake()
         {
@@ -35,9 +34,9 @@ namespace SlotMaker
         protected void OnSlotDetailEvent(EventData receivedEvent)
         {
             if (receivedEvent.id != slotMachine.slotIndex) return;
-            
+
             if (receivedEvent.name.Equals(ON_CHANGE_PAYLINE, StringComparison.Ordinal))
-              OnChangePayLine((int)receivedEvent.value);
+                OnChangePayLine((int)receivedEvent.value);
         }
 
         protected void OnChangePayLine(int lineIndex)
@@ -60,7 +59,7 @@ namespace SlotMaker
         {
             int lineIndex = (win.lineIndex ?? default(int)) - 1;
             if (lineIndex >= 0)
-              payLinesList[payLineIndex].Play(lineIndex, PAYLINE_BLINK_ANIMATION);
+                payLinesList[payLineIndex].Play(lineIndex, PAYLINE_BLINK_ANIMATION);
         }
 
         public virtual void SkipWin()

@@ -1,5 +1,3 @@
-﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -105,12 +103,17 @@ namespace SlotMaker
     public class ReelStrip : BaseReelStrip
     {
         public int _stripIndex;
-        public override int stripIndex { get { return _stripIndex; } set { _stripIndex = value; } }
 
-        public override int stripCount { get { return strip.Count; } }
+        public override int stripIndex
+        { get { return _stripIndex; } set { _stripIndex = value; } }
+
+        public override int stripCount
+        { get { return strip.Count; } }
 
         protected int _stripSubSymbolOffset = 0;
-        public override int stripSubSymbolOffset { get { return _stripSubSymbolOffset; } set { _stripSubSymbolOffset = value; } }
+
+        public override int stripSubSymbolOffset
+        { get { return _stripSubSymbolOffset; } set { _stripSubSymbolOffset = value; } }
 
         public List<SymbolInfo> strip;
 
@@ -122,6 +125,11 @@ namespace SlotMaker
             return UnityEngine.Random.Range(0, strip.Count);
         }
 
+        /// <summary>
+        /// TODO：修改这里，返回具体的值，就可以显示正确的牌面值
+        /// </summary>
+        /// <param name="idx"></param>
+        /// <returns></returns>
         public override int CalcIndex(int idx)
         {
             if (idx < 0)

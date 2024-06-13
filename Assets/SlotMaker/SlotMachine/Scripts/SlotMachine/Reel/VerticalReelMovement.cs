@@ -1,10 +1,9 @@
+using NodeCanvas;
+using NodeCanvas.Framework;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using NodeCanvas;
-using NodeCanvas.Framework;
 
 namespace SlotMaker
 {
@@ -18,13 +17,17 @@ namespace SlotMaker
         public Vector3 acceleration;
         public Vector3 velocity;
         public Vector3 displacement;
-        public Vector3 position { get { return -displacement; } }
+
+        public Vector3 position
+        { get { return -displacement; } }
+
         public Vector3 forceStopVelocity = new Vector3(0f, -3500f, 0f);
         public bool lockedOutOfBound;
         public bool blankSolver;
 
         [Serializable]
-        public class ReelEvent : UnityEvent<BaseReel> { }
+        public class ReelEvent : UnityEvent<BaseReel>
+        { }
 
         public ReelEvent onPrepareStopped;
         public ReelEvent onTargetPosition;
@@ -34,7 +37,9 @@ namespace SlotMaker
         private float updateTime;
 
         private Reel _reel = null;
-        protected Reel reel { get { return _reel ?? (_reel = GetComponent<Reel>()); } }
+
+        protected Reel reel
+        { get { return _reel ?? (_reel = GetComponent<Reel>()); } }
 
         public override float GetVelocity()
         {

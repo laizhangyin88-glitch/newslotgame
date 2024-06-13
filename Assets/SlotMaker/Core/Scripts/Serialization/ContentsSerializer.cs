@@ -1,12 +1,11 @@
 //#define NEW_NET0
+using NodeCanvas.Framework;
+using SlotMaker.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using NodeCanvas.Framework;
-using SlotMaker.Json;
-using BagelCode.Protobuf;
+
 #if DEV
 using SlotMaker.TestSuite;
 #endif
@@ -33,8 +32,9 @@ namespace SlotMaker.Contents
 
     public static class ContentsSerializer
     {
-        delegate void DeserializeDelegate(IBlackboard bb, string contents);
-        static DeserializeDelegate[] deserializer = new DeserializeDelegate[]{
+        private delegate void DeserializeDelegate(IBlackboard bb, string contents);
+
+        private static DeserializeDelegate[] deserializer = new DeserializeDelegate[]{
             DeserializeEnter,
             DeserializeSlotSpin,
             DeserializeClaimBonus,
@@ -60,7 +60,7 @@ namespace SlotMaker.Contents
         {
             string decryptKey = "22fc2777c44d33fb9a0cc14a680e86c1";
             StringBuilder sb = new StringBuilder();
-            for (int i=0; i < input.Length; i++)
+            for (int i = 0; i < input.Length; i++)
                 sb.Append((char)(input[i] ^ decryptKey[(i % decryptKey.Length)]));
 
             String result = sb.ToString();
@@ -73,7 +73,7 @@ namespace SlotMaker.Contents
             string contents = bb.GetValue<string>("contents");
 
 #if NEW_NET
-            string decryptedContents = (withDecryption == false|| contents.StartsWith("{")) ? contents : XOR(contents);
+            string decryptedContents = (withDecryption == false || contents.StartsWith("{")) ? contents : XOR(contents);
 #else
             string decryptedContents = withDecryption ? XOR(contents) : contents;
 #endif
@@ -91,7 +91,8 @@ namespace SlotMaker.Contents
 
         public static string SerializeEnter(int gameId)
         {
-            return Serialize(new {
+            return Serialize(new
+            {
                 gameId = gameId,
                 gameVersion = ContentsVersionManager.Instance.GetCurrentGameVersion(),
                 contentsVersion = ContentsVersionManager.Instance.GetContentsVersion(),
@@ -100,7 +101,8 @@ namespace SlotMaker.Contents
 
         public static string SerializeSlotSpin(int gameId, long betCredit, long extraBetCredit, object customData)
         {
-            return Serialize(new {
+            return Serialize(new
+            {
                 gameId = gameId,
                 bet = betCredit,
                 extraBet = extraBetCredit,
@@ -114,7 +116,8 @@ namespace SlotMaker.Contents
 
         public static string SerializeClaimBonus(string claimId, object customData)
         {
-            return Serialize(new {
+            return Serialize(new
+            {
                 uid = claimId,
                 decisionInfo = new { selectedIndex = (int)customData },
                 contentsVersion = ContentsVersionManager.Instance.GetContentsVersion(),
@@ -123,7 +126,8 @@ namespace SlotMaker.Contents
 
         public static string SerializeVideoPokerDeal(int gameId, long betCredit, int handCount, object customData)
         {
-            return Serialize(new {
+            return Serialize(new
+            {
                 gameId = gameId,
                 betPerHand = betCredit,
                 handCount = handCount,
@@ -137,7 +141,8 @@ namespace SlotMaker.Contents
 
         public static string SerializeVideoPokerDraw(int gameId, List<bool> helds, object customData)
         {
-            return Serialize(new {
+            return Serialize(new
+            {
                 gameId = gameId,
                 helds = helds,
                 customData = customData,
@@ -147,7 +152,8 @@ namespace SlotMaker.Contents
 
         public static string SerializeKenoPlay(int gameId, long betPerTicket, long extraBetPerTicket, int ticketCount, List<List<int>> pickInfoList, object customData)
         {
-            return Serialize(new {
+            return Serialize(new
+            {
                 gameId = gameId,
                 betPerTicket = betPerTicket,
                 extraBetPerTicket = extraBetPerTicket,
@@ -163,7 +169,8 @@ namespace SlotMaker.Contents
 
         public static string SerializeGambleStart(string ticketId)
         {
-            return Serialize(new {
+            return Serialize(new
+            {
                 ticketId = ticketId,
                 contentsVersion = ContentsVersionManager.Instance.GetContentsVersion(),
             });
@@ -171,7 +178,8 @@ namespace SlotMaker.Contents
 
         public static string SerializeGambleDeal(object customData)
         {
-            return Serialize(new {
+            return Serialize(new
+            {
                 selectedIndex = (int)customData,
                 contentsVersion = ContentsVersionManager.Instance.GetContentsVersion(),
             });
@@ -179,14 +187,16 @@ namespace SlotMaker.Contents
 
         public static string SerializeGambleTake()
         {
-            return Serialize(new {
+            return Serialize(new
+            {
                 contentsVersion = ContentsVersionManager.Instance.GetContentsVersion(),
             });
         }
 
         public static string SerializeTicketedBonusStart(string ticketId)
         {
-            return Serialize(new {
+            return Serialize(new
+            {
                 ticketId = ticketId,
                 contentsVersion = ContentsVersionManager.Instance.GetContentsVersion(),
             });
@@ -194,13 +204,14 @@ namespace SlotMaker.Contents
 
         public static string SerializeTicketedBonusClaim(string ticketId)
         {
-            return Serialize(new {
+            return Serialize(new
+            {
                 ticketId = ticketId,
                 contentsVersion = ContentsVersionManager.Instance.GetContentsVersion(),
             });
         }
 
-        static void DeserializeEnter(IBlackboard bb, string contents)
+        private static void DeserializeEnter(IBlackboard bb, string contents)
         {
             BlackboardJson.DeserializeObject(
                 BlackboardUtils.GetOrCreateBlackboard(bb, "game"),
@@ -209,7 +220,7 @@ namespace SlotMaker.Contents
             );
         }
 
-        static void DeserializeSlotSpin(IBlackboard bb, string contents)
+        private static void DeserializeSlotSpin(IBlackboard bb, string contents)
         {
 #if DEV && !NEW_NET
             TestSuiteManager.Instance.DebugParam = string.Empty;
@@ -221,7 +232,7 @@ namespace SlotMaker.Contents
             );
         }
 
-        static void DeserializeClaimBonus(IBlackboard bb, string contents)
+        private static void DeserializeClaimBonus(IBlackboard bb, string contents)
         {
             BlackboardJson.DeserializeObject(
                 bb,
@@ -233,7 +244,7 @@ namespace SlotMaker.Contents
             UpdateGambleTicket(bb);
         }
 
-        static void DeserializeVideoPokerDeal(IBlackboard bb, string contents)
+        private static void DeserializeVideoPokerDeal(IBlackboard bb, string contents)
         {
 #if DEV && !NEW_NET
             TestSuiteManager.Instance.DebugParam = string.Empty;
@@ -247,7 +258,7 @@ namespace SlotMaker.Contents
             UpdateHandMetaInfoForBet(bb);
         }
 
-        static void DeserializeVideoPokerDraw(IBlackboard bb, string contents)
+        private static void DeserializeVideoPokerDraw(IBlackboard bb, string contents)
         {
             BlackboardJson.DeserializeObject(
                 bb,
@@ -259,7 +270,7 @@ namespace SlotMaker.Contents
             UpdateGambleTicket(bb);
         }
 
-        static void DeserializeKenoPlay(IBlackboard bb, string contents)
+        private static void DeserializeKenoPlay(IBlackboard bb, string contents)
         {
 #if DEV && !NEW_NET
             TestSuiteManager.Instance.DebugParam = string.Empty;
@@ -271,7 +282,7 @@ namespace SlotMaker.Contents
             );
         }
 
-        static void DeserializeGambleStart(IBlackboard bb, string contents)
+        private static void DeserializeGambleStart(IBlackboard bb, string contents)
         {
             BlackboardJson.DeserializeObject(
                 bb,
@@ -280,7 +291,7 @@ namespace SlotMaker.Contents
             );
         }
 
-        static void DeserializeGambleDeal(IBlackboard bb, string contents)
+        private static void DeserializeGambleDeal(IBlackboard bb, string contents)
         {
             BlackboardJson.DeserializeObject(
                 bb,
@@ -289,7 +300,7 @@ namespace SlotMaker.Contents
             );
         }
 
-        static void DeserializeGambleTake(IBlackboard bb, string contents)
+        private static void DeserializeGambleTake(IBlackboard bb, string contents)
         {
             BlackboardJson.DeserializeObject(
                 bb,
@@ -298,7 +309,7 @@ namespace SlotMaker.Contents
             );
         }
 
-        static void DeserializeTicketedBonusStart(IBlackboard bb, string contents)
+        private static void DeserializeTicketedBonusStart(IBlackboard bb, string contents)
         {
             BlackboardJson.DeserializeObject(
                 bb,
@@ -307,7 +318,7 @@ namespace SlotMaker.Contents
             );
         }
 
-        static void DeserializeTicketedBonusClaim(IBlackboard bb, string contents)
+        private static void DeserializeTicketedBonusClaim(IBlackboard bb, string contents)
         {
             BlackboardJson.DeserializeObject(
                 bb,
@@ -316,7 +327,7 @@ namespace SlotMaker.Contents
             );
         }
 
-        static void DeserializeContentsStore(IBlackboard bb, string contents)
+        private static void DeserializeContentsStore(IBlackboard bb, string contents)
         {
             BlackboardJson.DeserializeObject(
                 bb,
@@ -326,7 +337,8 @@ namespace SlotMaker.Contents
         }
 
         #region Post-Processing
-        static void UpdateBonusResult(IBlackboard bb)
+
+        private static void UpdateBonusResult(IBlackboard bb)
         {
             var newBonusResult = bb.GetVariable<List<Blackboard>>("bonusResult");
             if (newBonusResult != null && newBonusResult.value.Count > 0)
@@ -340,7 +352,7 @@ namespace SlotMaker.Contents
             }
         }
 
-        static void UpdateHandMetaInfoForBet(IBlackboard bb)
+        private static void UpdateHandMetaInfoForBet(IBlackboard bb)
         {
             var handMetaInfoPerBet = BlackboardUtils.FindValue<List<Blackboard>>("./game/handMetaInfoPerBet");
             var handMetaInfoForBet = bb.GetValue<Blackboard>("handMetaInfoForBet");
@@ -355,7 +367,7 @@ namespace SlotMaker.Contents
             }
         }
 
-        static void UpdateGambleTicket(IBlackboard bb)
+        private static void UpdateGambleTicket(IBlackboard bb)
         {
             var ticketBB = bb.GetVariable<Blackboard>("gambleTicket");
             if (ticketBB != null)
@@ -364,6 +376,7 @@ namespace SlotMaker.Contents
                 BlackboardUtils.SetOrCreateValue<Blackboard>(turn, "gambleTicket", ticketBB.value);
             }
         }
-        #endregion
+
+        #endregion Post-Processing
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NodeCanvas.Framework;
@@ -7,26 +7,24 @@ using SlotMaker;
 
 namespace BagelCode.Tasks.Actions.Contents
 {
-
-[Category("★ BagelCode/Contents")]
-public class EndSpin : ActionTask
-{
-    protected override void OnExecute()
+    [Category("★ BagelCode/Contents")]
+    public class EndSpin : ActionTask
     {
-        Blackboard cb = ContentBlackboard.Get();
-        var spin = cb.GetValue<Blackboard>("spin");
-        var parent = spin.GetValue<Blackboard>("parent");
-        long timestamp = MetaSystem.GetTimeStamp();
+        protected override void OnExecute()
+        {
+            Blackboard cb = ContentBlackboard.Get();
+            var spin = cb.GetValue<Blackboard>("spin");
+            var parent = spin.GetValue<Blackboard>("parent");
+            long timestamp = MetaSystem.GetTimeStamp();
 
-        BlackboardUtils.SetOrCreateValue<long>(spin, "endTime", timestamp);
+            BlackboardUtils.SetOrCreateValue<long>(spin, "endTime", timestamp);
 
-        ContentEvent.EndSpin(spin);
+            ContentEvent.EndSpin(spin);
 
-        cb.SetValue("current", parent);
-        cb.RemoveVariable("spin");
+            cb.SetValue("current", parent);
+            cb.RemoveVariable("spin");
 
-        EndAction();
+            EndAction();
+        }
     }
-}
-
 }

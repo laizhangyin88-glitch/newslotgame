@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 
 public class RingItemController : MonoBehaviour
 {
@@ -15,7 +12,7 @@ public class RingItemController : MonoBehaviour
     private bool isExit = false;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         icon = transform.Find("icon").GetComponent<Image>();
         select = transform.Find("select").gameObject;
@@ -64,11 +61,11 @@ public class RingItemController : MonoBehaviour
         {
             color.a = Mathf.PingPong(5 * Time.time, 1f);
             icon.color = color;
-            if((timer -= Time.deltaTime) < 0)
+            if ((timer -= Time.deltaTime) < 0)
             {
                 timer = 1f;
                 count++;
-                if(count >= 3)
+                if (count >= 3)
                 {
                     MyTimerManagers.Instance.RemoveTimerById(id);
                     icon.color = Color.white;

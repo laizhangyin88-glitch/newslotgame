@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-using System;
-
 
 public class FruitPartyMiniGameController2 : MonoBehaviour
 {
@@ -45,16 +40,15 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
         isGameOver = false;
     }
 
-
     private void Start()
     {
         TargetList = transform.Find("TargetList");
         SelectList = transform.Find("SelectList");
         BetTxt = transform.Find("Image/Bet").GetComponent<Text>();
-        TotalWinTxt = transform.Find("Image/TotalWin").GetComponent <Text>();
+        TotalWinTxt = transform.Find("Image/TotalWin").GetComponent<Text>();
         CountDownTxt = transform.Find("Image/CountDown").GetComponent<Text>();
         MaskButton = transform.Find("MaskButton").GetComponent<Button>();
-        
+
         MaskButton.gameObject.SetActive(false);
         InitTargetScore();
         InitSelectList();
@@ -65,8 +59,8 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
 
     public void UpdateTargetScore()
     {
-        int[] totalScore = new int[4] {1200, 800, 400, 100 };
-        int[] spriteIndex = new int[4] { 3,6,9,10 };
+        int[] totalScore = new int[4] { 1200, 800, 400, 100 };
+        int[] spriteIndex = new int[4] { 3, 6, 9, 10 };
         int index = 0;
         foreach (var item in targetScoreItemControllers)
         {
@@ -79,7 +73,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            if(TargetScoreItem != null)
+            if (TargetScoreItem != null)
             {
                 GameObject temp = Instantiate(TargetScoreItem);
                 temp.transform.parent = TargetList;
@@ -108,7 +102,6 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
         {
             SelectList.GetComponent<GridLayoutGroup>().enabled = false;
         });
-        
     }
 
     public void ClickSelectItem(int spriteIndex)
@@ -122,7 +115,6 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
 
     public void FinishGame()
     {
-
         Debug.LogError("游戏结束.........");
         isGameOver = true;
         MaskButton.gameObject.SetActive(true);
@@ -130,7 +122,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
 
     public void IsFinishGame()
     {
-        if(currentClickIndex >= 3 && !isGameOver)
+        if (currentClickIndex >= 3 && !isGameOver)
         {
             MaskButton.gameObject.SetActive(true);
             foreach (var item in selectItemControllers)
