@@ -89,7 +89,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     var tempList2 = TranslateReelSetList(res["game_config"]["free_game_reel"]);
                     Dictionary<string, List<List<int>>> tempArray2 = new Dictionary<string, List<List<int>>>();
                     tempArray2.Add("reel_sequence_list", tempList2);                    
-                    string tempStr3 = JsonConvert.SerializeObject(tempArray);
+                    string tempStr3 = JsonConvert.SerializeObject(tempArray2);
                     JSONNode node2 = JSONNode.Parse(tempStr3);
 
                     contentJson["game_info"]["reel_set_list"].Clear();

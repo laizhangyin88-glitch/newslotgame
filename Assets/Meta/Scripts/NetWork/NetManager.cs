@@ -168,11 +168,13 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
     void ReturnToLoginPage(string msg = "")
     {
+
         if (msg.Length >= 2 && msg[0] == '"' && msg[msg.Length - 1] == '"')
         {
             msg = msg.Substring(1, msg.Length - 2);
             msg = msg ?? "";
         }
+
 
 
         BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "sessionAlive", false);
@@ -457,32 +459,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
         if (this._onceEventHandlerLst.ContainsKey(rpcName))
         {
-
-            EventHandlerInfo[] ehs = null;
-
-            if (data.HasKey("seq_id"))
-            {
-                if (data["seq_id"] == -1)
-                {
-                    if ()
-                    {
-
-                    }
-
-                }
-                else
-                {
-
-
-                }
-            }
-            else
-            {
-                //List<EventHandlerInfo> ehs = new List<EventHandlerInfo>(this._EventHandlerLst[rpcName]);
-                ehs = this._onceEventHandlerLst[rpcName].ToArray();
-                this._onceEventHandlerLst[rpcName].Clear();
-            }
-
+            //List<EventHandlerInfo> ehs = new List<EventHandlerInfo>(this._EventHandlerLst[rpcName]);
+            EventHandlerInfo[] ehs = this._onceEventHandlerLst[rpcName].ToArray();
+            this._onceEventHandlerLst[rpcName].Clear();
 
             if (data["err"] == 0) //Convert.ToInt32(dat["err"])
             {
@@ -645,7 +624,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         {
             taskQueue.Enqueue(() =>
             {
+
                 JSONNode data = JSONNode.Parse("{}");
+                //this.sendMsgForce("ping", data);
                 data.Add("cur_time", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
                 this.SendMsgForce(RPCName.ping, data);
             });
@@ -671,7 +652,8 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
     private void OnMessage(object aesEvt)
     {
-        string evt = "";
+        //{"protocol_key":"login","data":{"err":11,"msg":"login token is over time"}}
+        string evt = ""; //= AesManager.Instance.TryDecrypt(aesEvt as string);
         SimpleJSON.JSONNode dataDict = null;
         try
         {
