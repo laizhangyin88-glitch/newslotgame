@@ -164,6 +164,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     paytablesItem.Add(JSONNode.Parse("[0, 0, 125, 600, 1500]"));
                     paytablesItem.Add(JSONNode.Parse("[0, 0, 0, 0, 0]"));
                     paytablesItem.Add(JSONNode.Parse("[0, 0, 0, 0, 0]"));
+                    contentJson["game_info"]["paytables"].Clear();
                     contentJson["game_info"]["paytables"].Add(paytablesItem);
 
 

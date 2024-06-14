@@ -195,26 +195,13 @@ namespace BagelCode
                     content["game_id"] = gameId;
                     content["result"]["earn_credit"] = res["game_result"]["earn_credit"];
 
-
                     content["result"]["reel_output_list"] = res["game_result"]["first_index_list"]; //获取索引
 
 
-
-                    /*
-                "game_result": {
-                    "win_line_reward_list": [],
-			"shuffling_list": [
-
-                [3, 11, 1, 7, 5],
-				[8, 5, 8, 6, 2],
-				[5, 2, 3, 4, 11]
-			],
-                    */
+#if UNITY_EDITOR
                     string testStr0 = "";
-
                     for (int i = 0; i < res["game_result"]["shuffling_list"].Count; i++)
                     {
-
                         for (int j = 0; j < res["game_result"]["shuffling_list"][i].Count; j++)
                         {
                             testStr0 += $"{(int)res["game_result"]["shuffling_list"][i][j]},";
@@ -246,7 +233,9 @@ namespace BagelCode
                     Debug.Log($"==@ regular_game_reel\n{testStr1}");
                     Debug.Log($"==@ free_game_reel\n{testStr2}");
 
-        
+#endif
+
+
                     TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
                     response.contents = content.ToString();
