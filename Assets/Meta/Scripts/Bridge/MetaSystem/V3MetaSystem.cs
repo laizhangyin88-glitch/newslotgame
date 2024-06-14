@@ -164,21 +164,24 @@ namespace BagelCode
                 //var test = "[[2,2,2,3,4],[5,1,8,5,3],[1,2,5,4,3]]";
                 //var debug_param1 = "[\"shuffling_list\":" + test + "]";
 
+                ///测试用的数据
+                List<int> debug_param2 = new List<int>() { 139, 167, 126, 84, 16 };
+
                 Dictionary<string, object> debug_param1 = new Dictionary<string, object> {
-                    {"shuffling_list",
-                    new List<List<int>>() {
-                        new List<int>(){ 2, 2, 2, 3, 4 },
-                        new List<int>(){ 5, 1, 8, 5, 3 },
-                        new List<int>(){ 1, 2, 5, 4, 3 }
-                    }
+                    {"first_index_list",
+                        debug_param2
+                    },
+                    {
+                        "is_free",
+                        0
                     }
                 };
-
                 Dictionary<string, object> req = new Dictionary<string, object>
             {
                 {"bet",betCredit},
                 {"extra_bet",extraBetCredit },
                 //{ "debug_param", debug_param1},
+                
             };
                 Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
 
@@ -252,6 +255,10 @@ namespace BagelCode
                     TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
                     //保存连线的结果
                     content["result"]["total_line_result"] = res["game_result"]["total_result"];
+                    //保存奖励数据
+                    content["result"]["win_line_reward_list"] = res["game_result"]["win_line_reward_list"];
+
+                    content["result"]["spin_once_earn_credit"] = res["game_result"]["earn_credit"];
 
                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
                     response.contents = content.ToString();
@@ -338,6 +345,7 @@ namespace BagelCode
             var bb = BlackboardUtils.GetOrCreateBlackboard(spinBB.value, "response");
             var json = JSONNode.Parse(response.contents);
             var totalList = new List<List<int>>();
+            //保存划线的数据
             for (int i = 0; i < json["result"]["total_line_result"].Count; i++)
             {
                 var list = json["result"]["total_line_result"][i];
@@ -350,8 +358,28 @@ namespace BagelCode
                     }
                     totalList.Add(list1);
                 }
-            }
+            } 
             BlackboardUtils.SetOrCreateValue(bb, "total_line_result", totalList);
+            //保存中奖的数据
+            List<Dictionary<string, object>> dict = new List<Dictionary<string, object>>();
+            for (int i = 0; i < json["result"]["win_line_reward_list"].Count; i++)
+            {
+                var list = json["result"]["win_line_reward_list"][i];
+                Dictionary<string, object> temp = new Dictionary<string, object>();
+                if (list["index"] != null)
+                {
+                    temp.Add("index", list["index"]);
+                }
+                if (list["credit"]!= null)
+                {
+                    temp.Add("credit", list["credit"]);
+                }
+                dict.Add(temp);
+            }
+            BlackboardUtils.SetOrCreateValue(bb, "win_line_reward_list", dict);
+
+            long spin_once_earn = json["result"]["spin_once_earn_credit"];
+            BlackboardUtils.SetOrCreateValue(bb, "spin_once_earn_credit", spin_once_earn);
             ClientAPI2Blackboard.Serialize(bb, response);
             BlackboardUtils.SetOrCreateValue<int>(bb, "requestType", (int)ContentsRequestType.SlotSpin);
             ContentsSerializer.Deserialize(bb);
