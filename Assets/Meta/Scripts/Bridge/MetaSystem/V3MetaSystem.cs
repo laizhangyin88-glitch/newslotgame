@@ -184,7 +184,18 @@ namespace BagelCode
                 NetManager.Instance.Post(RPCName.new_slot_spin, req,
                 (res) =>
                 {
+                    Debug.LogError("拉霸下发数据......." + res.ToString());
                     Debug.LogError("拉霸结果....... + " + res["game_result"]["first_index_list"].ToString());
+                    var result = res["game_result"]["total_result"];
+                    for (int i = 0; i < result.Count; i++)
+                    {
+                        var temp = result[i];
+                        if (temp["win_line"] != null)
+                        { 
+                            Debug.LogError("win line ...... + " + temp["win_line"].ToString()); 
+                        }
+                    }
+                    
                     var contentStr = "{\"game_id\":21,\"result\":{\"reel_output_list\":[47,19,36,21,38],\"paytable_index\":0,\"earn_credit\":0},\"bonus_result\":[],\"custom_data\":{},\"reel_set_index\":{\"current_index\":0,\"next_index\":0},\"free_spin_info\":{\"type\":0,\"bet\":0,\"count\":0,\"spun_count\":0,\"total_count\":0,\"initial_count\":0,\"multiplier\":0,\"sticky_wild\":[],\"extra_data\":{}},\"jackpot_info\":{\"type\":2,\"info\":{\"eligible_min_bet\":0,\"eligible_min_bet_per_jackpot\":[0,0,0,0,0],\"base_bet\":30,\"info_list\":[{\"current\":241.02,\"prev\":240.96},{\"current\":913.5,\"prev\":913.38},{\"current\":2375.85,\"prev\":2375.55},{\"current\":15100.68,\"prev\":15100.44},{\"current\":30050.34,\"prev\":30050.22}]}},\"contents_store\":{}}";
                     var content = JSONNode.Parse(contentStr);
                     content["game_id"] = gameId;
@@ -192,6 +203,8 @@ namespace BagelCode
                     //content["result"]["new_reel_output_list"] = res["game_result"]["shuffling_list"];
                     content["result"]["reel_output_list"] = res["game_result"]["first_index_list"];
                     TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
+                    //保存连线的结果
+                    content["result"]["total_line_result"] = res["game_result"]["total_result"];
 
                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
                     response.contents = content.ToString();
@@ -275,19 +288,22 @@ namespace BagelCode
             if (spinBB == null || spinBB.value == null) return;
 
             var bb = BlackboardUtils.GetOrCreateBlackboard(spinBB.value, "response");
-            //var json = JSONNode.Parse(response.contents);
-            //var newReelList = new List<List<int>>();
-            //for (int i = 0; i < json["result"]["new_reel_output_list"].Count; i++)
-            //{
-            //    var list = json["result"]["new_reel_output_list"][i];
-            //    var list1 = new List<int>();
-            //    for (int j = 0; j < list.Count; j++)
-            //    {
-            //        list1.Add(list[j]);
-            //    }
-            //    newReelList.Add(list1);
-            //}
-            //BlackboardUtils.SetOrCreateValue(bb, "new_reel_output_list", newReelList);
+            var json = JSONNode.Parse(response.contents);
+            var totalList = new List<List<int>>();
+            for (int i = 0; i < json["result"]["total_line_result"].Count; i++)
+            {
+                var list = json["result"]["total_line_result"][i];
+                if (list["win_line"] != null)
+                {   ///保存连线的结果
+                    var list1 = new List<int>();
+                    for (int j = 0; j < list["win_line"].Count; j++)
+                    {
+                        list1.Add(list["win_line"][j]);
+                    }
+                    totalList.Add(list1);
+                }
+            }
+            BlackboardUtils.SetOrCreateValue(bb, "total_line_result", totalList);
             ClientAPI2Blackboard.Serialize(bb, response);
             BlackboardUtils.SetOrCreateValue<int>(bb, "requestType", (int)ContentsRequestType.SlotSpin);
             ContentsSerializer.Deserialize(bb);
