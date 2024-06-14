@@ -218,7 +218,6 @@ namespace SlotMaker
                                 reel.nextIndex += dstPatchCount;
                                 dstPatchCount = 0;
                                 reel.SwapIndex();
-                                reel.isFinish = true;
                             }
                         }
 

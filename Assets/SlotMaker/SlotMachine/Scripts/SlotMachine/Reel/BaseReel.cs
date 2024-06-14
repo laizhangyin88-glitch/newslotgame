@@ -205,7 +205,6 @@ namespace SlotMaker
 
         public virtual void Initialize(BaseSlotMachine slotMachine, int reelIndex, int beginColumn, int beginRow, int endColumn, int endRow, int expandTopCount)
         {
-            Debug.LogError("初始化..............");
             this.slotMachine = slotMachine;
             this.beginColumn = beginColumn;
             this.beginRow = beginRow;
