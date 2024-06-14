@@ -103,7 +103,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     //转换码表
                     Dictionary<int, int> changeCode = new Dictionary<int, int>()
                     {
-                        { (int)res["game_config"]["slot_config"]["wild_card"],0 }, //鬼牌
+                        { (int)res["game_config"]["slot_config"]["wild_card"], 0 }, //鬼牌
                         { (int)res["game_config"]["slot_config"]["free_card"],9}, //免费牌
                         { (int)res["game_config"]["slot_config"]["jackpot_card"],10 }, //小游戏
                     };
