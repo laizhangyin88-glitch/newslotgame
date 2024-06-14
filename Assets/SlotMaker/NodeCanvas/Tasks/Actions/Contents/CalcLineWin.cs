@@ -154,8 +154,9 @@ namespace BagelCode.Tasks.Actions.Contents
                 lineMultiplier = (long)OperationTools.Operate(lineMultiplier, GetSymbolMultiplier(symbolInfo.symbol), MultiplierOperation);
 
                 if (SymbolMask.HasWild(symbolInfo) && SymbolMask.HasWild(winSymbolInfo))
+                {
                     ++wildHitCount;
-
+                }
                 // TODO
                 // cells 는 실제 히트된 cell 만 포함하고 있어야 합니다.
                 // 현재 버전에서는 hit 되지 않은 cell 도 포함되고 있습니다.
