@@ -314,7 +314,6 @@ namespace BagelCode.Tasks.Actions.Contents
                             hitCount++;
                             symbolWin.symbolIndex = temp.symbol;
                             symbolWin.cells.Add(new Cell(j, line[j]));
-                            winList.Add(symbolWin);
                         }
                         else
                         {
@@ -322,7 +321,6 @@ namespace BagelCode.Tasks.Actions.Contents
                             {
                                 symbolWin.cells.Add(new Cell(j, line[j]));
                                 hitCount++;
-                                winList.Add(symbolWin);
                             }
                             else
                             {
@@ -338,9 +336,10 @@ namespace BagelCode.Tasks.Actions.Contents
                     symbolWin.multiplier = multiplier.value * lineMultiplier;
                     long earnCredit = FindEarnCredit(temp.symbol, hitCount);
                     symbolWin.earnCredit = earnCredit * betPerLine * symbolWin.multiplier;
-                    totalEarnCredit += earnCredit;
+                    totalEarnCredit += symbolWin.earnCredit;
                     winList.Add(symbolWin);
                 }
+
             }
             return totalEarnCredit;
         }
