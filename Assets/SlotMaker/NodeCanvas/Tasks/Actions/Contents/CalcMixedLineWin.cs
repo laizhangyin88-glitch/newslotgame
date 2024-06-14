@@ -283,26 +283,31 @@ namespace BagelCode.Tasks.Actions.Contents
             return 0;
         }
 
-        private void FillLineData(List<SymbolWin> winList)
+        private long FillLineData(List<SymbolWin> winList, int dircetion)
         {
             var slotData = ContentCustomData.GetSlotData(slotIndex.value);
             var deck = (Deck)slotData.deck.Clone();
             Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
             var response = spinBB.value.GetValue<Blackboard>("response");
             var list = response.GetValue<List<List<int>>>("total_line_result");
-            if(list != null && list.Count > 0)
+            long totalEarnCredit = 0L;
+            if (list != null && list.Count > 0)
             {
                 for (int i = 0; i < list.Count; i++)
                 {
                     List<int> line = list[i];
                     SymbolInfo temp = null;
+                    int hitCount = 0;
                     SymbolWin symbolWin = new SymbolWin();
+                    symbolWin.direction = dircetion;
+                    symbolWin.lineIndex = GetPayLineIndex(line) + 1;
                     for (int j = 0; j < line.Count; j++)
                     {
                         if (temp == null)
                         {
                             temp = deck.deck[j][line[j]];
-                            
+                            hitCount++;
+                            symbolWin.symbolIndex = temp.symbol;
                             symbolWin.cells.Add(new Cell(j, line[j]));
                             winList.Add(symbolWin);
                         }
@@ -311,12 +316,28 @@ namespace BagelCode.Tasks.Actions.Contents
                             if(temp.symbol == deck.deck[j][line[j]].symbol)
                             {
                                 symbolWin.cells.Add(new Cell(j, line[j]));
+                                hitCount++;
                                 winList.Add(symbolWin);
+                            }
+                            else
+                            {
+                                break;
                             }
                         }
                     }
+                    long lineMultiplier = 1L;
+                    lineMultiplier = (long)OperationTools.Operate(lineMultiplier, GetSymbolMultiplier(temp.symbol), MultiplierOperation);
+                    if (MultiplierOperation == OperationMethod.Add && lineMultiplier != 1L)
+                        --lineMultiplier;
+                    symbolWin.hitCount = hitCount;
+                    symbolWin.multiplier = multiplier.value * lineMultiplier;
+                    long earnCredit = FindEarnCredit(temp.symbol, hitCount);
+                    symbolWin.earnCredit = earnCredit * betPerLine * symbolWin.multiplier;
+                    totalEarnCredit += earnCredit;
+                    winList.Add(symbolWin);
                 }
             }
+            return totalEarnCredit;
         }
 
         protected override void OnExecute()
@@ -327,7 +348,9 @@ namespace BagelCode.Tasks.Actions.Contents
             winList = new List<SymbolWin>();
             if (globalStore.IsInNewGame())
             {
-               
+                totalEarnCredit += FillLineData(winList, 1);
+                if (bidirectional.value)
+                    totalEarnCredit += FillLineData(winList, -1);
             }
             else
             {

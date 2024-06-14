@@ -103,7 +103,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     //转换码表
                     Dictionary<int, int> changeCode = new Dictionary<int, int>()
                     {
-                        { (int)res["game_config"]["slot_config"]["wild_card"],0 }, //鬼牌
+                        { (int)res["game_config"]["slot_config"]["wild_card"], 0 }, //鬼牌
                         { (int)res["game_config"]["slot_config"]["free_card"],9}, //免费牌
                         { (int)res["game_config"]["slot_config"]["jackpot_card"],10 }, //小游戏
                     };
@@ -164,6 +164,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     paytablesItem.Add(JSONNode.Parse("[0, 0, 125, 600, 1500]"));
                     paytablesItem.Add(JSONNode.Parse("[0, 0, 0, 0, 0]"));
                     paytablesItem.Add(JSONNode.Parse("[0, 0, 0, 0, 0]"));
+                    contentJson["game_info"]["paytables"].Clear();
                     contentJson["game_info"]["paytables"].Add(paytablesItem);
 
 
