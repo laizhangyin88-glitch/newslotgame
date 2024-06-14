@@ -51,4 +51,8 @@ public class globalStore
 
     // public static int[] test_spin_tab = new int[] { };
     //public static string lastFreeSpinContents = "";
+
+
+    public static List<List<int>> reelSetList1 = new List<List<int>>();
+    public static List<List<int>> reelSetList2 = new List<List<int>>();
 }

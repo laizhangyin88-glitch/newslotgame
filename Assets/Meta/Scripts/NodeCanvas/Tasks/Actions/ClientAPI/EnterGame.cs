@@ -1,3 +1,4 @@
+
 using Newtonsoft.Json;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
@@ -26,7 +27,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
             }
         }
 
-        private List<List<int>> TranslateReelSetList(JSONNode list)
+        private List<List<int>> TranslateReelSetList(JSONNode list, Dictionary<int, int> changeCode)
         {
             List<List<int>> temp = new List<List<int>>();
             for (int i = 0; i < list.Count; i++)
@@ -41,31 +42,26 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                 }
                 for (global::System.Int32 j = 0; j < item.Count; j++)
                 {
-                    temp[j].Add(item[j] - 1);
+                    temp[j].Add(item[j]);
                 }
             }
-            return temp;
-        }
 
-        private List<List<int>> TranslatePayTables(JSONNode node)
-        {
-            List<List<int>> temp = new List<List<int>>();
-            for (int i = 0; i < node.Count; i++)
+            //转换码表
+            foreach (var item in changeCode)
             {
-                temp.Add(new List<int>());
-                for (global::System.Int32 j = 0; j < 2; j++)
+                foreach (List<int> col in temp)
                 {
-                    temp[i].Add(0);
+                    for (int i = 0; i < col.Count; i++)
+                    {
+                        if (col[i] == item.Key)
+                        {
+                            col[i] = item.Value;
+                        }
+                    }
                 }
             }
-            for (int i = 0; i < node.Count; i++)
-            {
-                var item = node[i];
-                foreach (var data in item)
-                {
-                    temp[i].Add(data.Value);
-                }
-            }
+
+
             return temp;
         }
 
@@ -85,51 +81,101 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                 NetManager.Instance.Post(RPCName.newEnterGame, req,
                 (res) =>
                 {
-                    Debug.LogError("进入游戏的数据......." + res.ToString());
-                    var contentJsonStr = "{\"game_type\":1,\"game_info\":{\"game_id\":21,\"game_title\":\"rhr\",\"base_wager\":30,\"pay_lines\":[[[1,1,1,1,1],[0,0,0,0,0],[2,2,2,2,2],[0,1,2,1,0],[2,1,0,1,2],[0,0,1,2,2],[2,2,1,0,0],[1,2,2,2,1],[1,0,0,0,1],[0,1,1,1,0],[2,1,1,1,2],[0,1,0,1,0],[2,1,2,1,2],[1,1,0,1,1],[1,1,2,1,1],[1,2,1,0,1],[1,0,1,2,1],[0,2,0,2,0],[2,0,2,0,2],[1,0,2,0,1],[1,2,0,2,1],[0,0,2,0,0],[2,2,0,2,2],[0,2,2,2,0],[2,0,0,0,2],[0,0,1,0,0],[2,2,1,2,2],[0,1,2,2,2],[2,1,0,0,0],[1,0,1,0,1]]],\"reel_set_list\":[{\"reel_sequence_list\":[[7,6,7,0,4,5,4,5,8,4,5,4,6,9,7,1,3,1,7,6,9,7,6,7,6,8,7,5,4,5,6,7,9,6,7,6,9,6,7,4,5,4,5,6,7,6,2,3,2,6,7,0,6,7,9,6,7,6,7,9,6],[5,4,5,7,10,6,1,2,3,10,5,4,5,6,8,8,3,2,3,6,10,5,4,5,10,6,5,4,5,10,6,5,4,8,8,5,6,10,6,0,10,1,2,1,6,10,0,6,10,3,6,10],[5,4,5,7,9,5,4,5,7,10,7,4,5,4,9,6,7,10,7,5,4,5,10,7,6,2,3,1,8,8,8,2,1,3,9,4,5,4,7,9,7,0,10,3,1,2,9,4,5,4,10],[1,2,3,6,8,8,7,0,3,1,2,0,6,3,2,3,0,7,6,0,7,1,3,2,7,6,5,4,5,7,10,6,0,6,7,6,3,2,3,4,5,4,6,7,6,7,2,3,1,0,6],[6,4,5,4,3,2,1,0,6,7,6,5,4,5,1,3,2,8,6,7,6,9,5,4,5,9,6,2,1,3,7,5,4,5,0,7,1,3,1,6,5,4,5,2,3,2,4,5,4]]},{\"reel_sequence_list\":[[7,6,7,11,4,5,4,5,8,4,5,4,6,9,7,1,3,1,7,6,9,7,6,7,6,8,7,5,4,5,6,7,9,6,7,6,9,6,7,4,5,4,5,6,7,6,2,3,2,6,7,11,6,7,9,6,7,6,7,9,6],[5,4,5,7,10,6,1,2,3,10,5,4,5,6,8,8,3,2,3,6,10,5,4,5,10,6,5,4,5,10,6,5,4,8,8,5,6,10,6,11,10,1,2,1,6,10,11,6,10,3,6,10],[5,4,5,7,9,5,4,5,7,10,7,4,5,4,9,6,7,10,7,5,4,5,10,7,6,2,3,1,8,8,8,2,1,3,9,4,5,4,7,9,7,11,10,3,1,2,9,4,5,4,10],[1,2,3,6,8,8,7,11,3,1,2,11,6,3,2,3,6,7,6,11,7,1,3,2,7,6,5,4,5,7,10,6,11,6,7,6,3,2,3,4,5,4,6,7,6,7,6,2,3,1,11,6,7],[6,4,5,4,3,2,1,11,6,7,6,5,4,5,1,3,2,8,6,7,6,9,5,4,5,9,6,2,1,3,7,5,4,5,11,7,1,3,1,6,5,4,5,2,3,2,4,5,4]]}],\"paytables\":[[[0,0,125,600,1500],[0,0,50,200,400],[0,0,30,85,200],[0,0,15,45,90],[0,0,10,30,75],[0,0,8,30,60],[0,0,4,8,20],[0,0,2,5,15],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,125,600,1500],[0,0,5,25,50],[0,0,2,5,8]]],\"bonus_info\":{\"hot_rush_scatter_pay\":[0,0,1,3,8,30,75,500,1000,1000,1000,1000,1000,1000],\"free_spin_count\":[0,0,0,15],\"cash_wheel\":{\"total_spot\":20,\"item_index_list\":[0,1,0,0,3,0,0,2,0,0,1,0,0,1,0,0,0,1,0,0],\"item_value_list\":[3,0,5,3,0,4,10,0,3,2,0,4,5,0,2,3,6,0,2,4],\"item_weight_list\":[10,8,10,10,3,10,10,6,10,10,8,10,10,8,10,10,10,8,10,10],\"item_weight_total\":181}},\"extra_bet_ratio_list\":[{\"numerator\":0,\"denominator\":1}],\"custom_data\":null,\"reel_set_index\":{\"current_index\":0,\"next_index\":0}},\"jackpot_info\":{\"type\":2,\"info\":{\"eligible_min_bet\":0,\"eligible_min_bet_per_jackpot\":[0,0,0,0,0],\"base_bet\":30,\"info_list\":[{\"current\":240.9,\"prev\":240.9},{\"current\":913.26,\"prev\":913.26},{\"current\":2375.25,\"prev\":2375.25},{\"current\":15100.2,\"prev\":15100.2},{\"current\":30050.1,\"prev\":30050.1}]}},\"gamble_asset_bundle_name\":\"\",\"win_type_multiplier_info\":{\"BIG\":10,\"SUPER_BIG\":20,\"MEGA\":30,\"SUPER_MEGA\":50,\"EPIC\":100},\"delay_between_spin_ms\":0,\"contents_store_info\":{\"game_id\":21,\"contents_store\":{}}}";
-                    var contentJson = JSONNode.Parse(contentJsonStr);
+                    //var contentJsonStr = "{\"game_type\":1,\"game_info\":{\"game_id\":21,\"game_title\":\"rhr\",\"base_wager\":30,\"pay_lines\":[[[1,1,1,1,1],[0,0,0,0,0],[2,2,2,2,2],[0,1,2,1,0],[2,1,0,1,2],[0,0,1,2,2],[2,2,1,0,0],[1,2,2,2,1],[1,0,0,0,1],[0,1,1,1,0],[2,1,1,1,2],[0,1,0,1,0],[2,1,2,1,2],[1,1,0,1,1],[1,1,2,1,1],[1,2,1,0,1],[1,0,1,2,1],[0,2,0,2,0],[2,0,2,0,2],[1,0,2,0,1],[1,2,0,2,1],[0,0,2,0,0],[2,2,0,2,2],[0,2,2,2,0],[2,0,0,0,2],[0,0,1,0,0],[2,2,1,2,2],[0,1,2,2,2],[2,1,0,0,0],[1,0,1,0,1]]],\"reel_set_list\":[{\"reel_sequence_list\":[[7,6,7,0,4,5,4,5,8,4,5,4,6,9,7,1,3,1,7,6,9,7,6,7,6,8,7,5,4,5,6,7,9,6,7,6,9,6,7,4,5,4,5,6,7,6,2,3,2,6,7,0,6,7,9,6,7,6,7,9,6],[5,4,5,7,10,6,1,2,3,10,5,4,5,6,8,8,3,2,3,6,10,5,4,5,10,6,5,4,5,10,6,5,4,8,8,5,6,10,6,0,10,1,2,1,6,10,0,6,10,3,6,10],[5,4,5,7,9,5,4,5,7,10,7,4,5,4,9,6,7,10,7,5,4,5,10,7,6,2,3,1,8,8,8,2,1,3,9,4,5,4,7,9,7,0,10,3,1,2,9,4,5,4,10],[1,2,3,6,8,8,7,0,3,1,2,0,6,3,2,3,0,7,6,0,7,1,3,2,7,6,5,4,5,7,10,6,0,6,7,6,3,2,3,4,5,4,6,7,6,7,2,3,1,0,6],[6,4,5,4,3,2,1,0,6,7,6,5,4,5,1,3,2,8,6,7,6,9,5,4,5,9,6,2,1,3,7,5,4,5,0,7,1,3,1,6,5,4,5,2,3,2,4,5,4]]},{\"reel_sequence_list\":[[7,6,7,11,4,5,4,5,8,4,5,4,6,9,7,1,3,1,7,6,9,7,6,7,6,8,7,5,4,5,6,7,9,6,7,6,9,6,7,4,5,4,5,6,7,6,2,3,2,6,7,11,6,7,9,6,7,6,7,9,6],[5,4,5,7,10,6,1,2,3,10,5,4,5,6,8,8,3,2,3,6,10,5,4,5,10,6,5,4,5,10,6,5,4,8,8,5,6,10,6,11,10,1,2,1,6,10,11,6,10,3,6,10],[5,4,5,7,9,5,4,5,7,10,7,4,5,4,9,6,7,10,7,5,4,5,10,7,6,2,3,1,8,8,8,2,1,3,9,4,5,4,7,9,7,11,10,3,1,2,9,4,5,4,10],[1,2,3,6,8,8,7,11,3,1,2,11,6,3,2,3,6,7,6,11,7,1,3,2,7,6,5,4,5,7,10,6,11,6,7,6,3,2,3,4,5,4,6,7,6,7,6,2,3,1,11,6,7],[6,4,5,4,3,2,1,11,6,7,6,5,4,5,1,3,2,8,6,7,6,9,5,4,5,9,6,2,1,3,7,5,4,5,11,7,1,3,1,6,5,4,5,2,3,2,4,5,4]]}],\"paytables\":[[[0,0,125,600,1500],[0,0,50,200,400],[0,0,30,85,200],[0,0,15,45,90],[0,0,10,30,75],[0,0,8,30,60],[0,0,4,8,20],[0,0,2,5,15],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,125,600,1500],[0,0,5,25,50],[0,0,2,5,8]]],\"bonus_info\":{\"hot_rush_scatter_pay\":[0,0,1,3,8,30,75,500,1000,1000,1000,1000,1000,1000],\"free_spin_count\":[0,0,0,15],\"cash_wheel\":{\"total_spot\":20,\"item_index_list\":[0,1,0,0,3,0,0,2,0,0,1,0,0,1,0,0,0,1,0,0],\"item_value_list\":[3,0,5,3,0,4,10,0,3,2,0,4,5,0,2,3,6,0,2,4],\"item_weight_list\":[10,8,10,10,3,10,10,6,10,10,8,10,10,8,10,10,10,8,10,10],\"item_weight_total\":181}},\"extra_bet_ratio_list\":[{\"numerator\":0,\"denominator\":1}],\"custom_data\":null,\"reel_set_index\":{\"current_index\":0,\"next_index\":0}},\"jackpot_info\":{\"type\":2,\"info\":{\"eligible_min_bet\":0,\"eligible_min_bet_per_jackpot\":[0,0,0,0,0],\"base_bet\":30,\"info_list\":[{\"current\":240.9,\"prev\":240.9},{\"current\":913.26,\"prev\":913.26},{\"current\":2375.25,\"prev\":2375.25},{\"current\":15100.2,\"prev\":15100.2},{\"current\":30050.1,\"prev\":30050.1}]}},\"gamble_asset_bundle_name\":\"\",\"win_type_multiplier_info\":{\"BIG\":10,\"SUPER_BIG\":20,\"MEGA\":30,\"SUPER_MEGA\":50,\"EPIC\":100},\"delay_between_spin_ms\":0,\"contents_store_info\":{\"game_id\":21,\"contents_store\":{}}}";
+                    //var contentJson = JSONNode.Parse(contentJsonStr);
+                    string resStr = res.ToString();
+                    Debug.Log(resStr);
+
+                    TextAsset jsn7 = Resources.Load<TextAsset>("tempdata/enter_game_content_id21");
+                    var contentJson = JSONNode.Parse(jsn7.text);
 
                     contentJson["game_info"]["game_id"] = gameID.value;
                     contentJson["game_info"]["game_title"] = globalStore.GetGameTitle(gameID.value);
                     JSONNode tempJson = JSONNode.Parse("[]");
                     tempJson = res["game_config"]["win_line"];
                     contentJson["game_info"]["pay_lines"].Clear();
-                    contentJson["game_info"]["pay_lines"].Add(tempJson);
+                    contentJson["game_info"]["pay_lines"].Add(tempJson); 
+                    //tempJson = res["game_config"]["card_mutiple"];
+                    //contentJson["game_info"]["paytables"].Add(tempJson);
                     contentJson["game_info"]["base_wager"] = res["game_config"]["win_line"].Count;
 
-                    var tempCard = TranslatePayTables(res["game_config"]["card_mutiple"]);
-                    string cardStr = JsonConvert.SerializeObject(tempCard);
-                    JSONNode cardNode = JSONNode.Parse(cardStr);
-                    contentJson["game_info"]["paytables"].Clear();
-                    contentJson["game_info"]["paytables"].Add(cardNode);
 
-                    ///转换 普通列表
-                    var tempList1 = TranslateReelSetList(res["game_config"]["regular_game_reel"]);
+                    //转换码表
+                    Dictionary<int, int> changeCode = new Dictionary<int, int>()
+                    {
+                        { (int)res["game_config"]["slot_config"]["wild_card"],0 }, //鬼牌
+                        { (int)res["game_config"]["slot_config"]["free_card"],9}, //免费牌
+                        { (int)res["game_config"]["slot_config"]["jackpot_card"],10 }, //小游戏
+                    };
+
+                    //转换 普通列表
+                    var tempList1 = TranslateReelSetList(res["game_config"]["regular_game_reel"], changeCode);
                     Dictionary<string, List<List<int>>> tempArray = new Dictionary<string, List<List<int>>>();
                     tempArray.Add("reel_sequence_list", tempList1);
                     string tempStr2 = JsonConvert.SerializeObject(tempArray);
                     JSONNode node1 = JSONNode.Parse(tempStr2);
+
                     ///转换免费列表
-                    var tempList2 = TranslateReelSetList(res["game_config"]["free_game_reel"]);
+                    var tempList2 = TranslateReelSetList(res["game_config"]["free_game_reel"], changeCode);
                     Dictionary<string, List<List<int>>> tempArray2 = new Dictionary<string, List<List<int>>>();
                     tempArray2.Add("reel_sequence_list", tempList2);                    
-                    string tempStr3 = JsonConvert.SerializeObject(tempArray);
+                    string tempStr3 = JsonConvert.SerializeObject(tempArray2);
                     JSONNode node2 = JSONNode.Parse(tempStr3);
+
+
+                    globalStore.reelSetList1 = tempList1;
+                    globalStore.reelSetList2 = tempList2;
+
 
                     contentJson["game_info"]["reel_set_list"].Clear();
                     contentJson["game_info"]["reel_set_list"].Add(node1);
                     contentJson["game_info"]["reel_set_list"].Add(node2);
 
-                    //string resStr = res.ToString();
+                    Debug.Log($"==@ enter_game 转换后数据 = {contentJson["game_info"]["reel_set_list"].ToString()}");
+
+
+                    //res["game_config"]["card_mutiple"]
+
+                    contentJson["game_info"]["paytables"] = JSONNode.Parse("[]");
+                    JSONNode paytablesItem = JSONNode.Parse("[]");
+
+                    //res["game_config"]["card_mutiple"]["9"]
+
+                    List<KeyValuePair<int, string>> temp = new List<KeyValuePair<int, string>>();
+                    foreach ( KeyValuePair<string,JSONNode> item in res["game_config"]["card_mutiple"])
+                    {
+                        temp.Add(new KeyValuePair<int, string>((int)item.Value["5"], $"[0, 0, {item.Value["3"]}, {item.Value["4"]}, {item.Value["5"]}]"));
+                        //JSONNode node3 = JSONNode.Parse($"[0, 0, {item.Value["3"]}, {item.Value["4"]}, {item.Value["5"]}]");
+                        //paytablesItem.Add(node3);
+                    }
+                    temp.Sort((a,b) =>
+                    {
+                        return a.Key > b.Key? -1: 1;
+                    });
+                    foreach (var item in temp)
+                    {
+                        JSONNode node3 = JSONNode.Parse(item.Value);
+                        paytablesItem.Add(node3);
+                    }
+
+                    paytablesItem.Add(JSONNode.Parse("[0, 0, 0, 0, 0]"));
+                    paytablesItem.Add(JSONNode.Parse("[0, 0, 0, 0, 0]"));
+                    paytablesItem.Add(JSONNode.Parse("[0, 0, 0, 0, 0]"));
+                    paytablesItem.Add(JSONNode.Parse("[0, 0, 125, 600, 1500]"));
+                    paytablesItem.Add(JSONNode.Parse("[0, 0, 0, 0, 0]"));
+                    paytablesItem.Add(JSONNode.Parse("[0, 0, 0, 0, 0]"));
+                    contentJson["game_info"]["paytables"].Add(paytablesItem);
+
 
                     TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/room_enter_response_v3");
                     ClientModels.RoomEnterResponseV3 response = JsonUtility.FromJson<ClientModels.RoomEnterResponseV3>(jsn8.text);
+
 
                     ////System.Collections.Generic.List<long> betList = res["bet_list"].AsStringList.Select(s => long.Parse(s)).ToList();
                     ////response.betList = betList;
 
                     response.betList = new List<long>() { 30, 60, 120, 300, 600, 1200, 6000 };
-                    Debug.LogError("!!!整合后的数据:" + contentJson.ToString());
+                    Debug.Log("!!!json新:" + contentJson.ToString());
 
                     response.contents = contentJson.ToString();
 
