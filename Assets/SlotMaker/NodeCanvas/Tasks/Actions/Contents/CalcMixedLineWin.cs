@@ -283,6 +283,11 @@ namespace BagelCode.Tasks.Actions.Contents
             return 0;
         }
 
+        private bool isWild(SymbolInfo symbolInfo)
+        {
+            return SymbolMask.HasAttribute(symbolInfo, SymbolAttribute.Wild);
+        }
+
         private long FillLineData(List<SymbolWin> winList, int dircetion)
         {
             var slotData = ContentCustomData.GetSlotData(slotIndex.value);
@@ -309,15 +314,13 @@ namespace BagelCode.Tasks.Actions.Contents
                             hitCount++;
                             symbolWin.symbolIndex = temp.symbol;
                             symbolWin.cells.Add(new Cell(j, line[j]));
-                            winList.Add(symbolWin);
                         }
                         else
                         {
-                            if(temp.symbol == deck.deck[j][line[j]].symbol)
+                            if(temp.symbol == deck.deck[j][line[j]].symbol || isWild(deck.deck[j][line[j]]))
                             {
                                 symbolWin.cells.Add(new Cell(j, line[j]));
                                 hitCount++;
-                                winList.Add(symbolWin);
                             }
                             else
                             {
@@ -333,9 +336,10 @@ namespace BagelCode.Tasks.Actions.Contents
                     symbolWin.multiplier = multiplier.value * lineMultiplier;
                     long earnCredit = FindEarnCredit(temp.symbol, hitCount);
                     symbolWin.earnCredit = earnCredit * betPerLine * symbolWin.multiplier;
-                    totalEarnCredit += earnCredit;
+                    totalEarnCredit += symbolWin.earnCredit;
                     winList.Add(symbolWin);
                 }
+
             }
             return totalEarnCredit;
         }
@@ -343,7 +347,6 @@ namespace BagelCode.Tasks.Actions.Contents
         protected override void OnExecute()
         {
             mixedLineWinInfos = ContentCustomData.GetSlotData(slotIndex.value).mixedLineWinInfos;
-
             long totalEarnCredit = 0L;
             winList = new List<SymbolWin>();
             if (globalStore.IsInNewGame())
