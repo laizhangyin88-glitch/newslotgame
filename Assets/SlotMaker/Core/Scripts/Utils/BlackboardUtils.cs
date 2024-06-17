@@ -438,5 +438,17 @@ namespace SlotMaker
         {
             return FindValue<T>(null, name);
         }
+
+        public static Blackboard GetContentFSMBlackboard()
+        {
+            GameObject go = GameObject.Find("Meta System/Content FSM");
+            if(go != null)
+            {
+                Blackboard bb = go.GetComponent<Blackboard>();
+                return bb;
+            }
+            return null;
+        }
+
     }
 }

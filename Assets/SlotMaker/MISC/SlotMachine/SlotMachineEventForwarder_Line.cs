@@ -52,7 +52,10 @@ namespace SlotMaker
             {
                 var win = winList[i];
                 int lineIndex = (win.lineIndex ?? default(int)) - 1;
-                payLinesList[payLineIndex].Play(lineIndex, PAYLINE_SHOW_ANIAMTION);
+                if(lineIndex >= 0)
+                {
+                    payLinesList[payLineIndex].Play(lineIndex, PAYLINE_SHOW_ANIAMTION);
+                }                
             }
         }
 
