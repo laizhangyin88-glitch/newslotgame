@@ -165,7 +165,7 @@ namespace BagelCode
                 //var debug_param1 = "[\"shuffling_list\":" + test + "]";
 
                 ///测试用的数据
-                List<int> debug_param2 = new List<int>() { 139, 167, 126, 84, 16 };
+                List<int> debug_param2 = new List<int>() { 58, 127, 154, 10, 128 };
 
                 Dictionary<string, object> debug_param1 = new Dictionary<string, object> {
                     {"first_index_list",
@@ -180,7 +180,7 @@ namespace BagelCode
             {
                 {"bet",betCredit},
                 {"extra_bet",extraBetCredit },
-                //{ "debug_param", debug_param1},
+                { "debug_param", debug_param1},
                 
             };
                 Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
@@ -213,7 +213,10 @@ namespace BagelCode
 
                     content["result"]["reel_output_list"] = res["game_result"]["first_index_list"]; //获取索引
 
-
+                    if (res["game_result"]["free_game_credit"] != null) ///记录铃铛的得分
+                    {
+                        content["result"]["free_game_credit"] = res["game_result"]["free_game_credit"];
+                    }
 #if UNITY_EDITOR
                     string testStr0 = "";
                     for (int i = 0; i < res["game_result"]["shuffling_list"].Count; i++)
@@ -360,6 +363,11 @@ namespace BagelCode
                 }
             } 
             BlackboardUtils.SetOrCreateValue(bb, "total_line_result", totalList);
+            if(json["result"]["free_game_credit"] != null)///保存铃铛的得分
+            {
+                long freeGameCredit = json["result"]["free_game_credit"];
+                BlackboardUtils.SetOrCreateValue(bb, "free_game_credit", freeGameCredit);
+            }
             //保存中奖的数据
             List<Dictionary<string, object>> dict = new List<Dictionary<string, object>>();
             for (int i = 0; i < json["result"]["win_line_reward_list"].Count; i++)
