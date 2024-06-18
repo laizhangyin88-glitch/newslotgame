@@ -2,6 +2,7 @@
 
 using BagelCode.ClientModels;
 using BagelCode.Internal;
+using Dreamteck.Splines.Primitives;
 using NodeCanvas.Framework;
 using ParadoxNotion;
 using SimpleJSON;
@@ -175,11 +176,11 @@ namespace BagelCode
                 };
 
                 Dictionary<string, object> req = new Dictionary<string, object>
-            {
-                {"bet",betCredit},
-                {"extra_bet",extraBetCredit },
-                //{ "debug_param", debug_param1},
-            };
+                {
+                    {"bet",betCredit},
+                    {"extra_bet",extraBetCredit },
+                    //{ "debug_param", debug_param1},
+                };
                 Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
 
                 NetManager.Instance.Post(RPCName.new_slot_spin, req,
@@ -245,7 +246,6 @@ namespace BagelCode
                     }
                     Debug.Log($"==@ regular_game_reel\n{testStr1}");
                     Debug.Log($"==@ free_game_reel\n{testStr2}");
-
 #endif
 
 
@@ -259,6 +259,8 @@ namespace BagelCode
 
 
                     SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
+
+                    SlotSpinSuccessNew(res.ToString());
 
                     if (successCallback != null)
                         successCallback();
@@ -329,6 +331,14 @@ namespace BagelCode
                     errorCallback();
             });
         }
+
+
+        public void SlotSpinSuccessNew(string str)
+        {
+            var spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
+            BlackboardUtils.SetOrCreateValue(spinBB.value, "responseNew", str);
+        }
+
 
         public void SlotSpinSuccess(ClientModels.SlotSpinResponseV3 response, long betCredit, long extraBetCredit, SpinType spinType)
         {

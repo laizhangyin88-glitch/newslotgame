@@ -1,4 +1,5 @@
 
+using Dreamteck.Splines.Primitives;
 using Newtonsoft.Json;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
@@ -183,6 +184,9 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     var bb = ContentBlackboard.Get();
                     //Debug.LogError(contentJson);
                     Serialize(bb, response);
+
+
+                    BlackboardUtils.SetOrCreateValue(bb, "changeCode", changeCode);
 
                     BlackboardQueryUtils.UpdateSeat(response.room);
                     BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
