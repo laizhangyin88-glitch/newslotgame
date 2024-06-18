@@ -79,7 +79,9 @@ namespace BagelCode.Tasks.Actions.Contents
             //    }
             //}
             //else
-            {
+            {  
+                Variable<bool> variable = BlackboardUtils.GetOrCreateVariable<bool>(BlackboardUtils.GetContentFSMBlackboard(), "_hasWild");
+                variable.value = false;
                 var slotData = ContentCustomData.GetSlotData(slotIndex.value);
                 int totalColumn = slotData.column;
                 int totalRow = slotData.row;
@@ -92,12 +94,19 @@ namespace BagelCode.Tasks.Actions.Contents
                     for (int row = 0; row < totalRow; ++row)
                     {
                         int idx = strip.CalcIndex(deck.stripIndices[column] + row);
-                        reel.Add(SlotUtils.GetSymbol(slotIndex.value, column, strip, idx));
+                        var temp = SlotUtils.GetSymbol(slotIndex.value, column, strip, idx);
+                        if (temp != null && temp.symbol == 0) ///水果派对，wild牌的值为 0
+                        {
+                            variable.value = true;
+                        }
+                        reel.Add(temp);
                         hitReel.Add(false);
-                    }
+                    } 
                     deck.deck.Add(reel);
                     deck.hitMap.Add(hitReel);
-                }
+                } 
+                //BlackboardUtils.SetOrCreateValue<bool>(null, "./customData/_hasWild", variable.value);
+                BlackboardUtils.GetOrCreateVariable<bool>(BlackboardUtils.GetContentFSMBlackboard(), "_hasWild").value = variable.value;
             }
         }
     }
