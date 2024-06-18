@@ -166,6 +166,40 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         ReturnToLoginPage("Return to Login");
     }
 
+
+    [Button]
+    void test_ShowSeqID()
+    {
+        for (int i = 0; i<10;i++)
+        {
+            JSONNode data = JSONNode.Parse("{}");
+            data.Add("cur_time", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
+            Post(RPCName.ping, data,
+            (res) => {
+                Debug.Log($"========= seq_id = {res["seq_id"]}  {this._onceEventHandlerLst[RPCName.ping].Count}");
+                foreach (var item in this._onceEventHandlerLst[RPCName.ping])
+                {
+                    Debug.Log($"==seq_id = {item.seqID}");
+                }
+            },
+            (err) =>
+            {
+                JSONNode res = JSONNode.Parse(err.response);
+   
+                Debug.Log($"=========Err seq_id = {res["seq_id"]}  {this._onceEventHandlerLst[RPCName.ping].Count}");
+                foreach (var item in this._onceEventHandlerLst[RPCName.ping])
+                {
+                    Debug.Log($"==seq_id = {item.seqID}");
+                }
+            });
+        }
+
+        JSONNode jsonNode = JSONNode.Parse(string.Format("{{\"err\":408,\"msg\":\"请求超时\",\"seq_id\":{0}}}", -1));
+        this._Emit(RPCName.ping, jsonNode);
+
+    }
+
+
     void ReturnToLoginPage(string msg = "")
     {
 
@@ -313,10 +347,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
     {
         List<RequestType> lst = this._requests.Where(item => item.force == false).ToList();
         RequestType last = lst.Count >0 ? lst[lst.Count - 1] : null;
-        /*if (last != null)
-        {
-            lst.RemoveAt(lst.Count - 1);
-        }*/
         this._requests.Clear();
         if (last != null)
         {
@@ -325,10 +355,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 lst.RemoveAt(lst.Count - 1);  //删除last
                 this._Send(last.rpcName, last.buffer as string, false);  //最后一条重发
             }
-           /*else
-            {
-                lst.Add(last);
-            }*/
         }
         foreach (var item in lst)
         {
@@ -451,19 +477,59 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
        // (data as JSONNode ).ToString();
 
         var eventData = new EventData<JSONNode>(rpcName, data as JSONNode);
-        //EventSender.SendGlobalEvent(eventData);
-        //MessageDispatcher
-        //EventSender.SendGlobalEvent
-        //MessageDispatcher.Dispatch(eventType, new EventData<T>(eventName, eventData));
         MessageDispatcher.Dispatch(rpcName, eventData);
 
         if (this._onceEventHandlerLst.ContainsKey(rpcName))
         {
             //List<EventHandlerInfo> ehs = new List<EventHandlerInfo>(this._EventHandlerLst[rpcName]);
-            EventHandlerInfo[] ehs = this._onceEventHandlerLst[rpcName].ToArray();
-            this._onceEventHandlerLst[rpcName].Clear();
 
-            if (data["err"] == 0) //Convert.ToInt32(dat["err"])
+            EventHandlerInfo[] ehs = new EventHandlerInfo[] { };
+
+            if (data.HasKey("seq_id"))
+             {
+                 int seqID = data["seq_id"];
+                 if (seqID == -1)
+                 {
+                     RequestType req = this._requests.Find(item => item.rpcName == rpcName);
+                     EventHandlerInfo eh = null;
+                     if (req != null)
+                     {
+                         Match match = Regex.Match((string)req.buffer, "\"seq_id\":\\s*(\\d+)");
+                         if (match.Success)
+                         {
+                             string str = match.Groups[1].Value;
+                             int seq_id = int.Parse(str);
+                             eh = this._onceEventHandlerLst[rpcName].Find(item => item.seqID == seq_id);
+                         }
+                     }
+
+                     if (eh != null)
+                         this._onceEventHandlerLst[rpcName].Remove(eh);
+
+                     ehs = this._onceEventHandlerLst[rpcName].ToArray();
+                     this._onceEventHandlerLst[rpcName].Clear();
+
+                     if (eh != null)
+                         this._onceEventHandlerLst[rpcName].Add(eh);
+                 }
+                 else
+                 {
+                     EventHandlerInfo eh = this._onceEventHandlerLst[rpcName].Find(item => item.seqID == seqID);
+                     if (eh != null)
+                     {
+                         this._onceEventHandlerLst[rpcName].Remove(eh);
+                         ehs = new EventHandlerInfo[] { eh };
+                     }
+                 }
+             }
+             else
+             {
+                 ehs = this._onceEventHandlerLst[rpcName].ToArray();
+                 this._onceEventHandlerLst[rpcName].Clear();
+             }
+
+
+            if ((int)data["err"] == 0) 
             {
                 foreach (var eh in ehs)
                 {
@@ -476,8 +542,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 errMsg.url = rpcName;
                 errMsg.responseCode = data["err"]; // Convert.ToInt64(dat["err"]);
                 errMsg.errorCode = Error.UNKNOWN;
-
-                errMsg.response = data.ToString();
                 if (data.HasKey("msg"))
                 {
                     errMsg.error = data["msg"].ToString();
@@ -489,11 +553,15 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 }
                 foreach (var eh in ehs)
                 {
+                    if (data.HasKey("seq_id"))  //把"seq_id" = -1 替换为对应id
+                    {
+                        data["seq_id"] = eh.seqID;
+                    }
+                    errMsg.response = data.ToString();
                     eh.errorCallback(errMsg);
                 }
             }
         }
-
     }
 
 
@@ -514,9 +582,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         string buffer = null;
         if (data is JSONNode)
         {
-            //if (!(data as JSONNode).IsArray && !(data as JSONNode).HasKey("seq_id"))
-            //    (data as JSONNode).Add("seq_id", CreatSeqID());
-
             JSONNode node = JSONNode.Parse("{}");
             node.Add("protocol_key", rpcName);
             node.Add("data", (JSONNode)data);
@@ -524,25 +589,26 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         }
         else
         {
-            //if ((data is Dictionary<string, object>) && !(data as Dictionary<string, object>).ContainsKey("seq_id"))
-            //     (data as Dictionary<string, object>).Add("seq_id", CreatSeqID());
-
             Dictionary<string, object> jsonNode = new Dictionary<string, object>
-                {
-                    { "protocol_key", rpcName},
-                    { "data", data},
-                };
+            {
+                { "protocol_key", rpcName},
+                { "data", data},
+            };
             buffer = SlotSimpleJson.SerializeObject(jsonNode);
         }
 
+        JSONNode nd = JSONNode.Parse(buffer);
+        if(seq_id == -1)
+            seq_id = CreatSeqID();
         if (!(rpcName == RPCName.login))
         {
-            JSONNode node = JSONNode.Parse(buffer);
-            if(seq_id == -1)
-                seq_id = CreatSeqID();
-            node["data"].Add("seq_id", seq_id);
-            buffer = node.ToString();
+            nd["data"].Add("seq_id", seq_id);
         }
+        else
+        {
+            nd["data"].Add(seq_id);
+        }
+        buffer = nd.ToString();
 
         this._Send(rpcName, buffer);
     }
@@ -757,10 +823,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
         long err = data["err"].AsLong;
 
-       /* if (data["seq_id"])
-        {
-            seq_id
-        }*/
 
 
         // 实时刷新金钱
@@ -909,7 +971,8 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             case RPCName.addCredit:
             case RPCName.decreaseCredit:
 
-                SetMyCredit();
+                if(!isChangeCreditAnimation)
+                    SetMyCredit();
 
                 if (rpcName == RPCName.ping && data.HasKey("cur_time"))
                 {
@@ -925,81 +988,27 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
     }
 
-
-    System.Timers.Timer _setMyCreditTimer = null;
-    public void SetMyCredit()
+    public bool isChangeCreditAnimation = false;
+    public void SetMyCredit(long credit = -1)
     {
-        /*  if (_setMyCreditTimer == null)
-          {
-              this._setMyCreditTimer = new System.Timers.Timer(500);
-              this._setMyCreditTimer.AutoReset = false; //是否重复执行
-              this._setMyCreditTimer.Elapsed += (object sender, ElapsedEventArgs e) => {
-                  taskQueue.Enqueue(() =>
-                  {
-                      this._setMyCreditTimer.Stop();
-                      this._setMyCreditTimer.Dispose();
-                      this._setMyCreditTimer = null;
+        long oldCredit = (long)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value ?? 0);
 
+        long newCredit = credit < 0? globalStore.newCredit : credit;
 
-                      long oldCredit = (long)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value ?? 0);
+        Debug.LogWarning($"@ 玩家金币发生改变1  oldCredit = {oldCredit} ，newCredit = {newCredit}");
 
-                      long creditChange = 0;
-
-                      if (ApplicationSettings.Instance.isMachine)
-                      {
-                          SBoxSanboxController[] comps = GameObject.FindObjectsOfType<SBoxSanboxController>();
-                          if (comps.Length > 0)
-                          {
-                              creditChange = comps[0].getCoinOutCredit();
-                          }
-                      }
-
-                      long newCredit = globalStore.newCredit + creditChange;
-
-                      if (oldCredit != newCredit)
-                      {
-                          //if (globalStore.nowGameID == -1 || globalStore.isPlay == false) // 在大厅 或没有玩游戏
-                          if (globalStore.nowGameID == -1 || !BlackboardQueryUtils.IsSpin()) // 在大厅 或没有玩游戏
-                          {
-                              Debug.LogWarning($"@ 玩家金币发生改变  oldCredit = {oldCredit} ，newCredit = {newCredit}");
-                              BlackboardQueryUtils.SetMyCredit(newCredit);
-                              //Debug.LogError($"Refresh {BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value}");
-                              MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
-                              //EventSender.SendGlobalEvent("OnCreditEvent", "UpdateNaviCredit");
-                          }
-                      }
-                  });
-              };
-              this._setMyCreditTimer.Start();
-          }*/
-
-            long oldCredit = (long)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value ?? 0);
-
-            long creditChange = 0;
-
-            if (ApplicationSettings.Instance.isMachine)
+        if (oldCredit != newCredit)
+        {
+            //if (globalStore.nowGameID == -1 || globalStore.isPlay == false) // 在大厅 或没有玩游戏
+            if (globalStore.nowGameID == -1 || !BlackboardQueryUtils.IsSpin()) // 在大厅 或没有玩游戏
             {
-                SBoxSanboxController[] comps = GameObject.FindObjectsOfType<SBoxSanboxController>();
-                if (comps.Length > 0)
-                {
-                    creditChange = comps[0].getCoinOutCredit();
-                }
+                Debug.LogWarning($"@ 玩家金币发生改变2  oldCredit = {oldCredit} ，newCredit = {newCredit}");
+                BlackboardQueryUtils.SetMyCredit(newCredit);
+                //Debug.LogError($"Refresh {BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value}");
+                MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
+                //EventSender.SendGlobalEvent("OnCreditEvent", "UpdateNaviCredit");
             }
-
-            long newCredit = globalStore.newCredit + creditChange;
-            Debug.LogWarning($"@ 玩家金币发生改变1  oldCredit = {oldCredit} ，newCredit = {newCredit}");
-            if (oldCredit != newCredit)
-            {
-                //if (globalStore.nowGameID == -1 || globalStore.isPlay == false) // 在大厅 或没有玩游戏
-                if (globalStore.nowGameID == -1 || !BlackboardQueryUtils.IsSpin()) // 在大厅 或没有玩游戏
-                {
-                    Debug.LogWarning($"@ 玩家金币发生改变2  oldCredit = {oldCredit} ，newCredit = {newCredit}");
-                    BlackboardQueryUtils.SetMyCredit(newCredit);
-                    //Debug.LogError($"Refresh {BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value}");
-                    MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
-                    //EventSender.SendGlobalEvent("OnCreditEvent", "UpdateNaviCredit");
-                }
-            }
+        }
     }
 
 
@@ -1126,20 +1135,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         {
             this._onceEventHandlerLst.Add(url, new List<EventHandlerInfo>());
         }
-        //int  _seqID = -99;
-
-        /*if (data is JSONNode && !(data as JSONNode).IsArray)
-        {
-            if (!(data as JSONNode).HasKey("seq_id"))
-                (data as JSONNode).Add("seq_id", CreatSeqID());
-            //_seqID = (int)(data as JSONNode)["seq_id"];
-        }
-        else if(data is Dictionary<string, object>)
-        {
-            if (!(data as Dictionary<string, object>).ContainsKey("seq_id"))
-                (data as Dictionary<string, object>).Add("seq_id", CreatSeqID());
-            //_seqID = (int)(data as Dictionary<string, object>)["seq_id"];
-        }*/
 
         int _seqID = CreatSeqID();
 
@@ -1197,24 +1192,24 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         }
     }
 
-
-
     private int seqID = 0;
 
-    List<int> existSeqIDs = new List<int>();
+    //List<int> existSeqIDs = new List<int>();
     private int CreatSeqID()
     {
-        /*while (true)
+        List<int> temp = new List<int>();
+        foreach (KeyValuePair<string, List<EventHandlerInfo>> kv in this._onceEventHandlerLst)
+        {
+            foreach (EventHandlerInfo item in kv.Value)
+            {
+                temp.Add(item.seqID);
+            }
+        }
+        while (temp.Contains(seqID))
         {
             if (++this.seqID > 10000)
-                this.seqID = 0;
-            if(!existSeqIDs.Contains(seqID)){
-                existSeqIDs.Add(seqID);
-                break;
-            }
-        }*/
-        if (++this.seqID > 10000)
-            this.seqID = 1;
+                this.seqID = 1;
+        }
         return seqID;
     }
 

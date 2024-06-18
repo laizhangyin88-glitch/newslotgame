@@ -261,6 +261,37 @@ namespace BagelCode
 
 #if NEW_NET
 
+            if (TestManager.Instance.isTestClaimBonus)
+            {
+                TestManager.Instance.getClaimBonusData((res) =>
+                {
+                    string resStr = res.ToString();
+
+                    //string oldJson = JsonUtility.ToJson(response);
+                    //Debug.Log($"@A KenoPlayResponseV1 = {oldJson}");
+
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_claim_bonus_response_v3");
+                    ClientModels.SlotClaimBonusResponseV3 response = JsonUtility.FromJson<ClientModels.SlotClaimBonusResponseV3>(jsn8.text);
+
+                    response.contents = res["contents"].ToString();
+
+                    var bb = BlackboardUtils.GetOrCreateBlackboard(ContentBlackboard.Get().GetValue<Blackboard>("turn"), "claims");
+                    bb = BlackboardUtils.GetOrCreateBlackboard(bb, claimId);
+                    ClientAPI2Blackboard.Serialize(bb, response);
+                    BlackboardUtils.SetOrCreateValue<int>(bb, "requestType", (int)ContentsRequestType.SlotClaimBonus);
+
+                    ContentsSerializer.Deserialize(bb);
+
+                    // BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
+
+                    if (successCallback != null)
+                        successCallback();
+                });
+                return;
+            }
+
+
+
             if (globalStore.nowGameID == 33) //雷神
             {
                 if (successCallback != null)
