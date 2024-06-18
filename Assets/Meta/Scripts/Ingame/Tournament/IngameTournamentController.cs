@@ -671,7 +671,7 @@ namespace BagelCode
             {
 #if NEW_NET
 
-            NetManager.Instance.Post(RPCName.metaInfo, null,
+            NetManager.Instance.Post(RPCName.metaInfo, new Dictionary<string,object>(),
                 (res) =>
                 {
                     string resStr = res.ToString();

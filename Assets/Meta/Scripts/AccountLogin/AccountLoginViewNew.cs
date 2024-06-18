@@ -499,7 +499,7 @@ public class AccountLoginViewNew : MonoBehaviour
         Dictionary<string, string> registerDict = new Dictionary<string, string>();
         registerDict["user_name"] = registAccountInput.text;
         registerDict["user_pwd"] = registPasswordtInput[0].text;
-        registerDict["user_code"] = registCodeInput.text;
+        registerDict["invite_code"] = registCodeInput.text;
         account = registAccountInput.text;
         password = registPasswordtInput[0].text;
         StartCoroutine(HttpPost(_serverAddress, "/register_user", registerDict, HandleRegisterUserResponse));
@@ -515,17 +515,19 @@ public class AccountLoginViewNew : MonoBehaviour
     {
         if (string.IsNullOrEmpty(response))
             return;
-        AccountLoginRespone accountLoginRespone = JsonUtility.FromJson<AccountLoginRespone>(response);
-        if (accountLoginRespone.err == 0)
+        AccountLoginRegistRespone accountLoginRegistRespone = JsonUtility.FromJson<AccountLoginRegistRespone>(response);
+        if (accountLoginRegistRespone.err == 0)
         {
             //succeed
             accountInput.text = account;
             loginPage.SetActive(true);
             registPage.SetActive(false);
             Debug.LogError("AccountRegistSucceed");
+            StartCoroutine(ShowTips("Account registration successful, please log in."));
         }
         else
         {
+            StartCoroutine(ShowTips($"{accountLoginRegistRespone.msg}"));
             //error
             password = "";
             registPasswordtInput[0].text = password;
@@ -607,7 +609,11 @@ public class AccountLoginViewNew : MonoBehaviour
         public string login_token;
     }
 
-    //token_id
+    public struct AccountLoginRegistRespone
+    {
+        public int err;
+        public string msg;
+    }
     public struct AccountLoginRespone
     {
         public int err;

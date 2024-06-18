@@ -30,6 +30,7 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Sirenix.OdinInspector;
 using System.Collections;
+using static Boo.Lang.Builtins;
 
 public enum SceneBtnType
 {
@@ -887,6 +888,8 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
          * Big Win Text Event Mega Win
          * Big Win Text Event Super Mega Win
          * Big Win Text Event Big Win
+         * id-153-MULTIPLIER_MAN  "Free Game Trigger Popup"
+         * id-153-MULTIPLIER_MAN  "Quick Change Trigger Popupp"
          */
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
 
@@ -1353,6 +1356,15 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
             }
         }
 
+        if (globalStore.nowGameID == 153) //MULTIPLIER_MAN
+        {
+            GameObject Base = GameObject.Find("Anchor/Midground/Quick Change Bouns");
+
+            if (Base != null && Base.active)
+            {
+                return true;
+            }
+        }
 
         return false;
 
@@ -1369,11 +1381,19 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
             name = "OnBigWheelClick";
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>(name, _curSelectNumb));
         }
+       else if (globalStore.nowGameID == 153)
+        {
+
+            Debug.LogError("待完成。。。");
+            //name = "MachineSpinClick";
+            //EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData("MachineSpinClick"));
+        }
         else
         {
             name = "MachineSpinClick";
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData("MachineSpinClick"));
         }
+
         Debug.Log($"【machine】: mini game spin click  {name}  {_curSelectNumb}");
     }
 
