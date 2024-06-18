@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
 

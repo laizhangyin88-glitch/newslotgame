@@ -31,6 +31,11 @@ public class TestManager : MonoSingleton<TestManager>
 
     public GameObject textServer;
 
+    public GameObject inputClaimBonus;
+
+    public GameObject inputCustomSpinReq;
+
+
 
     private void Start()
     {
@@ -53,6 +58,21 @@ public class TestManager : MonoSingleton<TestManager>
         inputSpin.GetComponent<InputField>().text = "";
         return res;
     }
+
+
+
+    public string getClaimBonus()
+    {
+        if (inputClaimBonus == null)
+            return "";
+
+        string res = inputClaimBonus.GetComponent<InputField>().text ?? "";
+        inputClaimBonus.GetComponent<InputField>().text = "";
+        return res;
+    }
+
+
+
     public int getCode()
     {
         if (inputCode == null)
@@ -95,7 +115,52 @@ public class TestManager : MonoSingleton<TestManager>
         return res;
     }
 
-    public bool isTestSpin{
+
+    public string getCustomSpinReq()
+    {
+        if (inputCustomSpinReq == null)
+            return "";
+
+        string res = inputCustomSpinReq.GetComponent<InputField>().text ?? "";
+        inputCustomSpinReq.GetComponent<InputField>().text = "";
+        return res;
+    }
+
+    public bool isCustomSpinReq
+    {
+        get
+        {
+            if (inputCustomSpinReq == null)
+                return false;
+            string text = inputCustomSpinReq.GetComponent<InputField>().text ?? "";
+            return text != null && text != "";
+        }
+    }
+
+    [HideInInspector]
+    public string customSpinRes;
+
+    public bool isCustomSpinRes
+    {
+        get
+        {
+            return customSpinRes != null && customSpinRes != "";
+        }
+    }
+
+    public void getCustomSpinRes(Action<JSONNode> responseCallback)
+    {
+        string res = customSpinRes;
+        customSpinRes = "";
+        StartCoroutine(_getResponseData(res, responseCallback));
+    }
+
+
+
+
+
+    public bool isTestSpin
+    {
         get
         {
             if (inputSpin == null)
@@ -105,18 +170,36 @@ public class TestManager : MonoSingleton<TestManager>
         }
     }
 
-    public void getSpinData(Action<JSONNode> responseCallback)
+
+    public bool isTestClaimBonus
     {
-        StartCoroutine(_getResponseData(responseCallback));
+        get
+        {
+            if (inputClaimBonus == null)
+                return false;
+            string text = inputClaimBonus.GetComponent<InputField>().text ?? "";
+            return text != null && text != "";
+        }
+    }
+
+    public void getClaimBonusData(Action<JSONNode> responseCallback)
+    {
+        StartCoroutine(_getResponseData(TestManager.Instance.getClaimBonus(), responseCallback));
     }
 
 
-    private IEnumerator _getResponseData(Action<JSONNode> responseCallback)
+    public void getSpinData(Action<JSONNode> responseCallback)
     {
-        string spinRes = TestManager.Instance.getSpin();
+        StartCoroutine(_getResponseData(TestManager.Instance.getSpin(), responseCallback));
+    }
+
+
+    private IEnumerator _getResponseData(string resStr, Action<JSONNode> responseCallback)
+    {
+        //string spinRes = TestManager.Instance.getSpin();
         yield return new WaitForSeconds(0.2f);
 
-        SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(spinRes as string);
+        SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(resStr as string);
         SimpleJSON.JSONNode res = dataDict["data"];
         if (responseCallback != null)
         {

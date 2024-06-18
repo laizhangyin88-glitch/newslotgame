@@ -1,18 +1,14 @@
 using BagelCode;
-using BagelCode.Protobuf;
 using BlizzEvent;
-using Dreamteck.Splines.Primitives;
 using Newtonsoft.Json;
 using ParadoxNotion;
 using SBoxApi;
 using SimpleJSON;
 using Sirenix.OdinInspector;
 using SlotMaker;
-using Spine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Timers;
 using UnityEngine;
 using static SBoxApi.SBoxSandbox;
 using EventData = ParadoxNotion.EventData;
@@ -33,19 +29,18 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         MessageDispatcher.Register("NetManagerEvent", OnNetManageEvent);
 
 
-        this._taskTimer = new System.Timers.Timer(3000);
-        this._taskTimer.AutoReset = true; // 是否重复执行
-        this._taskTimer.Elapsed += (object sender, ElapsedEventArgs e) =>
+        DoTaskRepeat("InitBill", () =>
         {
-            task = () =>  //延时，避免   OSA_LobbySlots.ResetCurSelect() 影响
-            {
-                Debug.Log("【BillLst】get bill list ...");
-                GetBillLst();
-                GetPrintList();
-            };
-        };
-        //this._keepAliveTimer.Enabled = true; //开始执行
-        this._taskTimer.Start();
+            GetBillLst();
+        },3000);
+
+
+        DoTaskRepeat("InitPrint", () =>
+        {
+            GetPrintList();
+        }, 3000);
+
+        CheckDeviceState();
 
 
         NetManager.Instance.On(RPCName.confirmCoinOutOrder, OnConfirmCoinOutOrder);
@@ -56,40 +51,18 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
 
 
-    System.Action task;
-    bool isRuning = false;
-    public void Update()
-    {
-        if (!isRuning)
-        {
-            isRuning = true;
-            if (task != null)
-            {
-                task();
-                task = null;
-            }
-            isRuning = false;
-        }
-    }
-
     protected override void OnDestroy()
     {
+        ClearAllTask();
+
         MessageDispatcher.UnRegister("MachineBtnEvent", OnMachineBtnEvent);  //"ShowLightSelectTip"
         MessageDispatcher.UnRegister("NetManagerEvent", OnNetManageEvent);
 
         NetManager.Instance.Off(RPCName.confirmCoinOutOrder, OnConfirmCoinOutOrder);
         NetManager.Instance.Off(RPCName.confirmAddCoinOrder, OnConfirmAddCoin);
         NetManager.Instance.Off(RPCName.createPrintOrder, OnCreatePrintOrder);
-
-        if (this._taskTimer != null)
-        {
-            this._taskTimer.Stop();
-            this._taskTimer.Dispose();
-            this._taskTimer = null;
-        }
     }
 
-    protected System.Timers.Timer _taskTimer = null;
 
     private void OnMachineBtnEvent(ParadoxNotion.EventData eventData)
     {
@@ -703,10 +676,204 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
 
 
-/// <summary>
-/// ## 纸钞机
-/// </summary>
+
+
+
 public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
+{
+
+    Dictionary<string, Coroutine> coroutineDic = new Dictionary<string, Coroutine>();
+
+    bool isTask(string taskName)
+    {
+        if (coroutineDic.ContainsKey(taskName) && coroutineDic[taskName] != null)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void DoTask(string taskName, Action cb, int ms = 0)
+    {
+        ClearTask(taskName);
+        coroutineDic.Add(taskName, StartCoroutine(_doTask(taskName, cb, ms)));
+    }
+    public void ClearTask(string taskName)
+    {
+        //StopCoroutine("doTask");
+        if (coroutineDic.ContainsKey(taskName))
+        {
+            StopCoroutine(coroutineDic[taskName]);
+            coroutineDic.Remove(taskName);
+        }
+    }
+
+    public void ClearAllTask()
+    {
+        foreach (var item in coroutineDic)
+        {
+            StopCoroutine(item.Value);
+        }
+        coroutineDic.Clear();
+    }
+
+    IEnumerator _doTask(string taskName, Action cb, int ms = 0)
+    {
+        yield return new WaitForSeconds(ms / 1000f);
+        if (cb != null)
+            cb();
+        coroutineDic.Remove(taskName);
+    }
+
+    IEnumerator _doTaskRepeat(string taskName, Action cb, int ms = 0)
+    {
+
+        while (true)
+        {
+            yield return new WaitForSeconds(ms / 1000f);
+            if (cb != null)
+                cb();
+        }
+    }
+
+    public void DoTaskRepeat(string taskName, Action cb, int ms = 0)
+    {
+        ClearTask(taskName);
+        coroutineDic.Add(taskName, StartCoroutine(_doTaskRepeat(taskName, cb, ms)));
+    }
+
+}
+
+
+
+
+
+
+public class DeviceState
+{
+    public int state = -2; // -3忽略 -2未连接 -1未指定 >=0正常工作
+    public bool isTip = true;
+    public Dictionary<int, string> msg = null;
+}
+/// <summary>
+/// ## 定时检查设备
+/// </summary>
+
+public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
+{
+
+
+    // 这数据可以用控制台进行配置
+    Dictionary<string, DeviceState> deviceState = new Dictionary<string, DeviceState>() {
+        { "printer",
+            new DeviceState{
+                state =  -1,
+                msg = new Dictionary<int, string>()
+                {
+                    {-1,"It has not been determined which printer to use." },
+                    {-2,"The printer is not connected." },
+                },
+#if !UNITY_EDITOR
+                isTip = false
+#endif
+            }
+        },
+        { "billAcceptor",
+            new DeviceState{
+                state =  -1,
+                msg = new Dictionary<int, string>()
+                {
+                    {-1,"It has not been determined which bill acceptor to use." },
+                    {-2,"The bill acceptor is not connected." },
+                },
+#if !UNITY_EDITOR
+                isTip = false
+#endif
+            }
+        },
+        { "coinIn0",
+            new DeviceState{
+                state =  0,
+                isTip = false
+            }
+        },
+        { "coinIn1",
+            new DeviceState{
+                state =  1,
+                isTip = false
+            }
+        },
+        { "coinIn2",
+            new DeviceState{
+                state =  2,
+                isTip = false
+            }
+        },
+        { "coinOut",
+            new DeviceState{
+                state =  0,
+                isTip = false
+            }
+        }
+    };
+    void CheckDeviceState()
+    {
+        DoTaskRepeat("CheckDeviceState", () =>
+        {
+
+            foreach (var item in deviceState)
+            {
+               if (item.Value.state != -3)
+                {
+                    switch (item.Key)
+                    {
+                        case "printer":
+                            item.Value.state = SBoxSandbox.PrinterState(); //，返回打印机状态，-1时未指定打印机，-2未连接，>= 0 打印机编号
+                            break;
+                        case "billAcceptor":
+                            item.Value.state = SBoxSandbox.BillState(); //，-1时未指定纸钞机，-2未连接，>=0 纸钞机编号
+                            break;
+                        // 投币机和退票机，暂时没有状态查询功能
+                        case "coinIn0":
+                        case "coinIn1":
+                        case "coinIn2":
+                        case "coinOut":
+                            break;
+                    }
+                }
+            }
+
+            if (!MachineSelectManager.Instance.isPopCommon())
+            {
+                foreach (var item in deviceState)
+                {
+                    if (item.Value.isTip && (item.Value.state == -1 || item.Value.state == -2))
+                    {
+                        string msg = item.Value.msg[item.Value.state];
+                        ErrorPopupInfo info = new ErrorPopupInfo();
+                        info.text = $"<size=32>{msg}</size>";
+                        info.type = ErrorPopupType.OK;
+                        ErrorPopupHandler.Instance.OpenError(info);
+                    }
+                }
+            }
+        },10000);
+    }
+
+}
+
+
+
+
+
+
+
+
+
+    /// <summary>
+    /// ## 纸钞机
+    /// </summary>
+    public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 {
     public void GetBillLst()
     {
@@ -730,13 +897,6 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             i++;
         }
 
-        if (this._taskTimer != null)
-        {
-            this._taskTimer.Stop();
-            this._taskTimer.Dispose();
-            this._taskTimer = null;
-        }
-
         test_SetBillSelect();
     }
 
@@ -757,6 +917,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         if (res == 0) //定时
         {
             //存本地
+            ClearTask("InitBill");
         }
 
         Debug.Log($"【BillLst】OnSboxSandBoxBillSelect  res = {res}");
@@ -895,13 +1056,6 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
     void OnPrinterListGet(List<string> strList)
     {
-        if (this._taskTimer != null)
-        {
-            this._taskTimer.Stop();
-            this._taskTimer.Dispose();
-            this._taskTimer = null;
-        }
-
         strList.ForEach(str => Debug.Log(str));
         int data = 0;
 #if UNITY_EDITOR
@@ -916,6 +1070,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         if (result == 0)
         {
             Debug.Log("【printer】: : select succeed");
+            ClearTask("InitPrint");
 
 #if UNITY_EDITOR
             MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_RESET);
@@ -1282,7 +1437,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                     $"{printOrderId}\r\n" +
                     $"Distributor: {agent_name}\r\n" +
                     $"Business: {"--"}\r\n";
- #if UNITY_EDITOR
+#if UNITY_EDITOR
                 MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_PRINTER_MESSAGE, testMsg);
 
 #else
@@ -1390,52 +1545,8 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 }
 
 
-public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
-{
 
-    Dictionary<string,Coroutine> coroutineDic = new Dictionary<string, Coroutine>();
 
-    bool isTask(string taskName)
-    {
-        if (coroutineDic.ContainsKey(taskName) && coroutineDic[taskName] != null)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public void DoTask(string taskName, Action cb, int ms = 0)
-    {
-        ClearTask(taskName);
-        coroutineDic.Add(taskName, StartCoroutine(_doTask(taskName, cb, ms)));
-    }
-    public void ClearTask(string taskName)
-    {
-        //StopCoroutine("doTask");
-        if (coroutineDic.ContainsKey(taskName))
-        {
-            StopCoroutine(coroutineDic[taskName]);
-            coroutineDic.Remove(taskName);
-        }
-    }
-
-    public void ClearAllTask()
-    {
-        foreach(var item in coroutineDic)
-        {
-            StopCoroutine(item.Value);
-        }
-        coroutineDic.Clear();
-    }
-
-    IEnumerator _doTask(string taskName, Action cb, int ms = 0)
-    {
-        yield return new WaitForSeconds(ms / 1000f);
-        if (cb != null)
-            cb();
-        coroutineDic.Remove(taskName);
-    }
-}
 
 
 /// <summary>
@@ -1647,34 +1758,6 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 {
 
-
-    Coroutine _taskCoinOutOutTime = null;
-
-    public void DoTaskCoinOutOutTime(Action cb, int ms = 0)
-    {
-        ClearTaskCoinOutOutTime();
-        _taskCoinOutOutTime = StartCoroutine(_DoTaskCoinOutOutTime(cb, ms));
-    }
-    public void ClearTaskCoinOutOutTime()
-    {
-        //StopCoroutine("doTask");
-        if (_taskCoinOutOutTime != null)
-        {
-            StopCoroutine(_taskCoinOutOutTime);
-            _taskCoinOutOutTime = null;
-        }
-    }
-    IEnumerator _DoTaskCoinOutOutTime(Action cb, int ms = 0)
-    {
-        yield return new WaitForSeconds(ms / 1000f);
-        if (cb != null)
-            cb();
-        _taskCoinOutOutTime = null;
-    }
-
-
-    bool isCoinOuting = false;
-
     void ResetArg()
     {
         this.finishCoinOutNum = 0;
@@ -1686,6 +1769,10 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     int coinOutNum = 0;
     string coinOutOrder = "";
     int cointOutRate = 0;
+
+
+    public bool isTicketError = false;
+
     public void StartCoinOut()
     {
 
@@ -1703,23 +1790,23 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             return;
         }
 
-
-        if (isCoinOuting)
+        if (isTask("isCoinOuting"))
             return;
-        isCoinOuting = true;
+        DoTask("isCoinOuting", () =>{ }, 4001);
 
+        if (isTicketError)
+        {
+            ShowTicketErrorTip();
+            return;
+        }
 
         ResetArg();
 
-
-        Dictionary<string, object> req = new Dictionary<string, object> { };
         //Debug.Log("请求投币");
-        NetManager.Instance.Post(RPCName.createCoinOutOrder, req,
+        NetManager.Instance.Post(RPCName.createCoinOutOrder, new Dictionary<string, object> { },
         (res) =>
         {
-
             //{"protocol_key":"agent_create_outcredit_ticket_order","data":{"order_id":"6884773f-465e-41c3-b0f1-875a148c4754","agent_name":"agent1","money":1,"outcredit_rate_of_exchange":1000,"err":0}}
-
             //{order_id:order_id,agent_name:agent_name,money:money}
 
             Debug.Log($" res = {res.ToString()}");
@@ -1730,7 +1817,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             {
 
                 //“弹窗退票中”
-                OpenMask();
+                //OpenMask();
 
                 this.coinOutNum = num;
                 this.coinOutOrder = res["order_id"];
@@ -1748,23 +1835,23 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 #else
                 CoinOutStart(0, this.coinOutNum, 0);
 #endif
-                DoTaskCoinOutOutTime(
+                DoTask("CoinOutOutTime",
                     () =>
                     {
                         Debug.Log("退票超时!");
                         StopCoinOut();
-                        CloseMask();
+                        //CloseMask();
                     }, 3001);
             }
             else
             {
-                CloseMask();
+                //CloseMask();
                 Debug.Log("退票积分不足");
             }
         },
         (error) =>
         {
-            CloseMask();
+            //CloseMask();
             Debug.LogError(" 查询退票个数失败");
         });
     }
@@ -1773,21 +1860,13 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     [Button]
     void OpenMask()
     {
-        isCoinOuting = true;
-        //打开弹窗
-        /* ErrorPopupInfo info = new ErrorPopupInfo();
-         info.text = $"<size=32>Processing ticket refund</size>";
-         info.type = ErrorPopupType.TextOnly;
-         ErrorPopupHandler.Instance.OpenError(info);*/
+       // 打开遮罩
     }
 
     [Button]
     void CloseMask()
     {
-        //关闭“弹窗退票中”
-        isCoinOuting = false;
-
-        //EventSender.SendGlobalEvent("OnClose"); //关闭弹窗
+       // 关闭遮罩
     }
 
 
@@ -1816,10 +1895,17 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         if (coinOutNum01 <= 0)
             return;
 
+        DoTask("isCoinOuting", () => { }, 4001);
+
+
         finishCoinOutNum += coinOutNum01;
 
         if (finishCoinOutNum > this.coinOutNum)
-        {
+        {       
+            isTicketError = true;
+            StopCoinOut();
+            ShowTicketErrorTip();
+
             finishCoinOutNum = this.coinOutNum;
         }
 
@@ -1841,15 +1927,24 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         Debug.LogWarning($"OnCoinOut 被调用 coinOutNum = {coinOutNum01} 累计数量 = {this.finishCoinOutNum} rate = {cointOutRate}");
 
 
-
         // 前端刷新分数显示
         ChangeCreditShow();
 
 
-        DoTaskCoinOutOutTime(
+        DoTask("CoinOutOutTime",
         () =>
         {
             StopCoinOut();
+
+            if (finishCoinOutNum < this.coinOutNum)
+            {
+                // 机器的票已用光 ，请联系管理员
+                string msg = "The tickets for the machine have been used up. Please contact the administrator.";
+                ErrorPopupInfo info = new ErrorPopupInfo();
+                info.text = $"<size=32>{msg}</size>";
+                info.type = ErrorPopupType.OK;
+                ErrorPopupHandler.Instance.OpenError(info);
+            }
 
             //弹窗，通知退票失败，
             //--还欠多少个币
@@ -1861,10 +1956,46 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             NetManager.Instance.SendMsg(RPCName.confirmCoinOutOrder, req);
 
             Debug.Log("退票超时,结束");
-            //isCoinOuting = false; //?
         }, 3001);
     }
 
+
+    void ShowTicketErrorTip()
+    {
+        if (isTicketError == true && ErrorPopupHandler.Instance.errorList.Count == 0)
+        {
+            bool stringError = false;
+            ErrorPopupInfo info = new ErrorPopupInfo();
+            string msg = "The refund ticket has been damaged. Please contact the administrator.";
+            info.text = $"<size=32>{msg}</size>";
+            info.type = ErrorPopupType.OK;
+            info.buttonText1 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_CLOSE", out stringError);
+            info.callback1 = () =>
+            {
+                //Debug.Log("i am TextOnly Pop ");
+            };
+            ErrorPopupHandler.Instance.OpenError(info);
+        }
+    }
+
+
+    
+    void ShowErrorWin()
+    {
+        if (!isTicketError)
+        {
+            isTicketError = true;
+
+            string msg = "The refund ticket has been damaged. Please contact the administrator.";
+            ErrorPopupInfo info = new ErrorPopupInfo();
+            info.text = $"<size=32>{msg}</size>";
+            info.type = ErrorPopupType.TextOnly;
+            //info.onclose
+            ErrorPopupHandler.Instance.OpenError(info);
+
+        }
+    }
+    
 
     void OnConfirmCoinOutOrder(EventData eventData)
     {
@@ -1883,7 +2014,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             remainCoinOutOrders.Remove((string)res["order_id"]);
             MachineSetString("Server_RemainCoinOutOrders", remainCoinOutOrders.ToString());
             //Debug.Log($"【退票】检查 退票数据 = {MachineGetString("Server_RemainCoinOutOrders", "???")}    @@@ = {remainCoinOutOrders.ToString()}");
-            CloseMask();
+            //CloseMask();
             ChangeCreditShow();
         }
         else
@@ -1901,8 +2032,6 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         }
     }
 
-
-
     private void StopCoinOut()
     {
 #if UNITY_EDITOR
@@ -1912,7 +2041,16 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 #endif
     }
 
+}
 
+
+/// <summary>
+/// ## 模拟加钱动画
+/// </summary>
+public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
+{
+
+    long startCredit = 0;
     public long getCoinOutCredit()
     {
         long res = 0;
@@ -1932,18 +2070,32 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
     public void ChangeCreditShow()
     {
+        if (!isTask("isChangeCreditAnimation"))
+        {
+            startCredit = (long)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value ?? 0);
+            NetManager.Instance.isChangeCreditAnimation = true;
+        }
+
+        //延时关闭动画
+        DoTask("isChangeCreditAnimation", () =>
+        {
+            startCredit = 0;
+            NetManager.Instance.isChangeCreditAnimation = false;
+        }, 3002);
+
         // 前端刷新分数显示
         if (!isTask("ChangeCredit"))
         {
             DoTask("ChangeCredit", () =>
             {
-                //test_ShowRemain();
                 Debug.Log("@@修改金额");
-                NetManager.Instance.SetMyCredit();
-            }, 500);
+                long newCredit = startCredit + getCoinOutCredit();
+                NetManager.Instance.SetMyCredit(newCredit);
+            }, 300);
         }
     }
 }
+
 
 /// <summary>
 /// ## 重启时把剩余数量发给服务器
@@ -1951,13 +2103,9 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 {
 
-
     //bool isRemainData = false;
 
-
     long initStamp = 0;
-
-
     private IEnumerator _SendRemain(long _initStamp)
     {
 
