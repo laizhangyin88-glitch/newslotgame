@@ -2,6 +2,7 @@
 
 using BagelCode.ClientModels;
 using BagelCode.Internal;
+using Dreamteck.Splines.Primitives;
 using NodeCanvas.Framework;
 using ParadoxNotion;
 using SimpleJSON;
@@ -251,7 +252,6 @@ namespace BagelCode
                     }
                     Debug.Log($"==@ regular_game_reel\n{testStr1}");
                     Debug.Log($"==@ free_game_reel\n{testStr2}");
-
 #endif
 
 
@@ -269,6 +269,8 @@ namespace BagelCode
 
 
                     SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
+
+                    SlotSpinSuccessNew(res.ToString());
 
                     if (successCallback != null)
                         successCallback();
@@ -339,6 +341,14 @@ namespace BagelCode
                     errorCallback();
             });
         }
+
+
+        public void SlotSpinSuccessNew(string str)
+        {
+            var spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
+            BlackboardUtils.SetOrCreateValue(spinBB.value, "responseNew", str);
+        }
+
 
         public void SlotSpinSuccess(ClientModels.SlotSpinResponseV3 response, long betCredit, long extraBetCredit, SpinType spinType)
         {

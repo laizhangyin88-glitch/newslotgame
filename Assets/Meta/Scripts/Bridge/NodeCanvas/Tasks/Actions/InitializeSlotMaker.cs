@@ -5,6 +5,7 @@ using NodeCanvas.Framework;
 using ParadoxNotion.Design;
 using SlotMaker;
 using SlotMaker.Json;
+using static UnityEngine.UI.GridLayoutGroup;
 #if DEV
 using SlotMaker.TestSuite;
 #endif
@@ -15,8 +16,8 @@ namespace BagelCode.Tasks.Actions
 	public class InitializeSlotMaker : ActionTask
 	{
 	    protected override void OnExecute()
-	    {
-			MetaSystem.InitializeMetaSystem(new V3MetaSystem());
+        {
+            MetaSystem.InitializeMetaSystem(new V3MetaSystem());
 			Analytics.InitializeAnalytics(new V3Analytics());
 
 			StringTableUtils.customProvider = new BagelCodeFormatProvider();
