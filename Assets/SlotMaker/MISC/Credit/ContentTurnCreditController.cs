@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,6 +53,7 @@ namespace SlotMaker
 
 				unitCredit = BlackboardUtils.GetOrCreateVariable<long>(null, betCreditPath).value;
 				targetCredit = BlackboardUtils.GetOrCreateVariable<long>(null, turnCreditPath).value;
+                
 				if (eventData.value is bool && (bool)eventData.value)
 				{ // Force Update
 					currentCredit = targetCredit;

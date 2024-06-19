@@ -420,10 +420,10 @@ namespace BagelCode.Tasks.Actions.Contents
             {
                 Debug.LogError("触发特殊游戏了......");
                 winList.Add(symbolWin);
-                Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-                var response = spinBB.value.GetValue<Blackboard>("response");
-                long temp = response.GetValue<long>("free_game_credit");
-                symbolWin.earnCredit = temp;
+                //Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
+                //var response = spinBB.value.GetValue<Blackboard>("response");
+                //long temp = response.GetValue<long>("free_game_credit");
+                symbolWin.earnCredit = 0;
             }
         }
 
@@ -460,11 +460,13 @@ namespace BagelCode.Tasks.Actions.Contents
             var spin = BlackboardUtils.FindVariable<Blackboard>(null, "./spin").value;
             BlackboardUtils.SetOrCreateValue<List<SymbolWin>>(spin, "winList", winList);
             ContentBlackboardUtils.AddEarnCredit(spin, totalEarnCredit);
-
+            Blackboard bb = ContentBlackboard.Get();
+            //bb.SetValue("earnCredit", totalEarnCredit);
+            //bb.GetVariable<long>("earnCredit").value = totalEarnCredit;
+            BlackboardUtils.GetOrCreateVariable<long>(bb, "earnCredit").value = totalEarnCredit;
             saveAs.value = winList;
-
             EndAction();
         }
-    }
+    } 
 
 }

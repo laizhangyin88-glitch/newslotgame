@@ -166,7 +166,7 @@ namespace BagelCode
                 //var debug_param1 = "[\"shuffling_list\":" + test + "]";
 
                 ///测试用的数据
-                List<int> debug_param2 = new List<int>() { 58, 127, 154, 10, 128 };
+                List<int> debug_param2 = new List<int>() { 143, 0, 143, 152, 143 }; 
 
                 Dictionary<string, object> debug_param1 = new Dictionary<string, object> {
                     {"first_index_list",
@@ -181,7 +181,7 @@ namespace BagelCode
             {
                 {"bet",betCredit},
                 {"extra_bet",extraBetCredit },
-                { "debug_param", debug_param1},
+                { "debug_param", debug_param1}, 
                 
             };
                 Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
@@ -266,7 +266,7 @@ namespace BagelCode
                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
                     response.contents = content.ToString();
                     Debug.Log("###新的slotSpin：" + res.ToString());
-
+                    Debug.LogError("###新的组合好的slotSpin：" + response.contents.ToString());
 
                     SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
 

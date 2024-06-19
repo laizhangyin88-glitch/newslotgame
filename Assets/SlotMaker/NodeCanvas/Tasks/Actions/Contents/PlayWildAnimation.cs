@@ -10,6 +10,8 @@ namespace SlotMaker.Tasks.Actions.Contents
 {
     public class PlayWildAnimation : ActionTask
     {
+        private float animationTime = 2;
+
         public BBParameter<int> slotIndex = 0;
 
         private float time = 0;
@@ -82,33 +84,33 @@ namespace SlotMaker.Tasks.Actions.Contents
                 {
                     if (count == 0)
                     {
-                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, Vector3.zero, 3, TweenUtils.VectorTweenLinear);
+                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, Vector3.zero, animationTime, TweenUtils.VectorTweenLinear);
                     } 
                     else
                     {
-                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, new Vector3(0, -140,0), 3, TweenUtils.VectorTweenLinear);
+                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, new Vector3(0, -140,0), animationTime, TweenUtils.VectorTweenLinear);
                     }
                 }
                 else if(isDown == 0)///在下面，从下往上运动
                 {
                     if (count == 0)
                     {
-                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, Vector3.zero, 3, TweenUtils.VectorTweenLinear);
+                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, Vector3.zero, animationTime, TweenUtils.VectorTweenLinear);
                     }
                     else
                     {
-                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, new Vector3(0, 140, 0), 3, TweenUtils.VectorTweenLinear);
+                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, new Vector3(0, 140, 0), animationTime, TweenUtils.VectorTweenLinear);
                     }
                 }
                 else
                 {
                     if (count == 0)
                     {
-                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, new Vector3(0, 140, 0), 3, TweenUtils.VectorTweenLinear);
+                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, new Vector3(0, 140, 0), animationTime, TweenUtils.VectorTweenLinear);
                     }
                     else
                     {
-                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, new Vector3(0, -140, 0), 3, TweenUtils.VectorTweenLinear);
+                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, new Vector3(0, -140, 0), animationTime, TweenUtils.VectorTweenLinear);
                     }
                 }
                 count++;
@@ -125,25 +127,9 @@ namespace SlotMaker.Tasks.Actions.Contents
             temp.name = symbolName;
             var animation = temp.GetComponentInChildren<Animator>();
             animations.Add(animation);
-            animation.Play("Default");
+            
             //animation.GetCurrentAnimatorStateInfo(0) = true;
             return temp;
-        }
-
-        protected override void OnUpdate()
-        {
-            Debug.LogError("@@@@@@@@@@@@@@@@@@@@");
-            if(animations.Count > 0)
-            {
-                if((time+=Time.deltaTime) > 1.938)
-                {
-                    for (global::System.Int32 i = 0; i < animations.Count; i++)
-                    {
-                        animations[i].Play("Default");
-                    }
-                    time = 0;
-                }
-            }
         }
     }
 }
