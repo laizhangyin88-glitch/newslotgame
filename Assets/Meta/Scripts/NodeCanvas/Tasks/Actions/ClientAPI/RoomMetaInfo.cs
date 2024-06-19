@@ -6,6 +6,7 @@ using SlotMaker;
 using BagelCode.ClientModels;
 using System.Text.RegularExpressions;
 using System;
+using System.Collections.Generic;
 
 namespace BagelCode.Tasks.Actions.ClientAPI
 {
@@ -26,7 +27,7 @@ public class RoomMetaInfo : ActionTask <Blackboard>
 
 #if NEW_NET
 
-            NetManager.Instance.Post(RPCName.metaInfo, null,
+            NetManager.Instance.Post(RPCName.metaInfo, new Dictionary<string, object>(),
                 (res) =>
                 {
                     string resStr = res.ToString();

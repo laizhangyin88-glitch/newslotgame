@@ -79,7 +79,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
             }*/
 
 
-            List<object> req = new List<object> { globalStore.gToken };
+            List<object> req = new List<object> { globalStore.gToken};
             //res.Add(globalStore.gToken);
             NetManager.Instance.Post(RPCName.login, req,
             (res) =>
