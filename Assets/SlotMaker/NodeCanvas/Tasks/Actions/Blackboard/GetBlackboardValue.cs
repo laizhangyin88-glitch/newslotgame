@@ -19,7 +19,7 @@ namespace SlotMaker.Tasks.Actions
 
         protected override void OnExecute()
         {
-            var variable = BlackboardUtils.FindVariable<T>(agent, valueA.value);
+            var variable = BlackboardUtils.FindVariable<T>(agent, valueA.value);           
             if (variable == null)
             {
                 Debug.LogError("[Blackboard](" + agent.name + ") Null variable founded in " + valueA.value);
