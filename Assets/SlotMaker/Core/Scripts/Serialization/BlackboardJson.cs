@@ -223,6 +223,7 @@ namespace SlotMaker.Json
         public override void DeserializeObject(IBlackboard bb, string key, object value, INamingStrategy namingStrategy)
         {
 #if UNITY_EDITOR
+            Debug.LogError("@@@@@@@@@@@@@@@2    " + key);
             try
             {
                 BlackboardUtils.SetOrCreateValue(bb, namingStrategy.ToBlackboardPropertyName(key), DeserializeObject(value), GetSchemaType());
@@ -313,6 +314,7 @@ namespace SlotMaker.Json
 
         public override void DeserializeObject(IBlackboard bb, string key, object value, INamingStrategy namingStrategy)
         {
+            Debug.LogError("@@@@@@@@@@@@@@@    " + key);
             IList<object> valueAsList = value as IList<object>;
             if (valueAsList != null)
             {
@@ -372,6 +374,7 @@ namespace SlotMaker.Json
 
         public override void DeserializeObject(IBlackboard bb, string key, object value, INamingStrategy namingStrategy)
         {
+            Debug.LogError("@@@@@@@@@@@@@@@ 3   " + key);
             IDictionary<string, object> valueAsMap = value as IDictionary<string, object>;
             if (valueAsMap != null && code.IsPrimitive())
             {
@@ -425,6 +428,7 @@ namespace SlotMaker.Json
 
         public override void DeserializeObject(IBlackboard bb, string key, object value, INamingStrategy namingStrategy)
         {
+            Debug.LogError("@@@@@@@@@@@@@@@  4  " + key);
             IDictionary<string, object> valueAsMap = value as IDictionary<string, object>;
             if (valueAsMap != null)
             {
@@ -442,9 +446,13 @@ namespace SlotMaker.Json
                 {
                     var property = kvp.Value.Resolve(valueAsMap, namingStrategy);
 
+                    Debug.LogError("@@@@@@@@@@@@@@@@@@@" + kvp.Key);
                     object jsonValue;
                     if (valueAsMap.TryGetValue(namingStrategy.ToJsonPropertyName(kvp.Key), out jsonValue))
+                    {
+                        Debug.LogError(jsonValue);
                         property.DeserializeObject(bb, namingStrategy.ToBlackboardPropertyName(kvp.Key), jsonValue, namingStrategy);
+                    }
                     else if (!property.IsObject())
                         property.DeserializeObject(bb, namingStrategy.ToBlackboardPropertyName(kvp.Key), ConstructorStrategy.GetConstructor(property.GetSchemaType()), namingStrategy);
                 }
