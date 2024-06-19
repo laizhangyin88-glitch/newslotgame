@@ -18,7 +18,7 @@ public class globalStore
 
     public static long newCredit = 0;
 
-    private static readonly List<int> newGameId = new List<int>() { 3000, 3001 };
+    private static readonly List<int> newGameId = new List<int>() { 3000, 3001, 3002, 3003 };
 
     public static bool IsNewGame(int gameId)
     {
@@ -38,6 +38,8 @@ public class globalStore
     {
         [3000] = "bst",
         [3001] = "fruitparty",
+        [3002] = "pyramid",
+        [3003] = "ftv",
     };
 
     public static string GetGameTitle(int gameId)
