@@ -114,7 +114,7 @@ namespace SlotMaker.Json
             SchemaProperty property = null;
             object jsonValue;
             if (objects.TryGetValue("type", out jsonValue))
-            {
+            { 
                 property = (SchemaProperty)ConstructorStrategy.GetConstructor(schemaTypes[(string)jsonValue])();
                 if (property.IsArray())
                 {
@@ -132,7 +132,9 @@ namespace SlotMaker.Json
                     var obj = property as SchemaObject;
                     var properties = objects["properties"] as IDictionary<string, object>;
                     foreach (KeyValuePair<string, object> kvp in properties)
+                    {
                         obj.properties[kvp.Key] = CreateSchemaProperty(kvp.Value as IDictionary<string, object>);
+                    }
                 }
             }
             else
@@ -444,7 +446,9 @@ namespace SlotMaker.Json
 
                     object jsonValue;
                     if (valueAsMap.TryGetValue(namingStrategy.ToJsonPropertyName(kvp.Key), out jsonValue))
+                    {
                         property.DeserializeObject(bb, namingStrategy.ToBlackboardPropertyName(kvp.Key), jsonValue, namingStrategy);
+                    }
                     else if (!property.IsObject())
                         property.DeserializeObject(bb, namingStrategy.ToBlackboardPropertyName(kvp.Key), ConstructorStrategy.GetConstructor(property.GetSchemaType()), namingStrategy);
                 }

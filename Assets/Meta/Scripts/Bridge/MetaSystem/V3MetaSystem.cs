@@ -3,6 +3,7 @@
 using BagelCode.ClientModels;
 using BagelCode.Internal;
 using Dreamteck.Splines.Primitives;
+using Newtonsoft.Json;
 using NodeCanvas.Framework;
 using ParadoxNotion;
 using SimpleJSON;
@@ -46,6 +47,42 @@ namespace BagelCode
             bb.AddVariable("enabledBuyABonus", false);
             bb.AddVariable("enabledInstantBonus", false);
             bb.AddVariable("bonusIamInfo", typeof(Blackboard));
+        }
+        public class result
+        {
+            public int type;
+            public long bet_credit;
+            public int added_spin_count;
+        }
+        private class BonusResult
+        {
+            public int bonus_id;
+            public int type;
+            public result result;
+            public long earn_credit;
+            public int claim_type;
+            public string uid;
+        }
+
+        private JSONNode getFreeGameData()
+        {
+            BonusResult temp = new BonusResult
+            {
+                bonus_id = 2102,
+                claim_type = 3,
+                uid = "171876625880326890",
+                earn_credit = 0,
+                type = 2,
+                result = new result
+                {
+                    added_spin_count = 15,
+                    type = 0,
+                    bet_credit = 6000,
+                }
+            };
+            string node1 = JsonConvert.SerializeObject(temp);
+            var node = JSONNode.Parse(node1);
+            return node;
         }
 
         public void SlotSpin(long betCredit, long extraBetCredit, object customData, Action successCallback, Action errorCallback)
@@ -196,7 +233,7 @@ namespace BagelCode
                 //var debug_param1 = "[\"shuffling_list\":" + test + "]";
 
                 ///测试用的数据
-                List<int> debug_param2 = new List<int>() { 58, 127, 154, 10, 128 };
+                List<int> debug_param2 = new List<int>() { 143, 0, 143, 152, 143 }; 
 
                 Dictionary<string, object> debug_param1 = new Dictionary<string, object> {
                     {"first_index_list",
@@ -291,11 +328,14 @@ namespace BagelCode
                     content["result"]["win_line_reward_list"] = res["game_result"]["win_line_reward_list"];
 
                     content["result"]["spin_once_earn_credit"] = res["game_result"]["earn_credit"];
+                    JSONNode ttt = JSONNode.Parse("[]");
+                    ttt.Add("bonus_result", getFreeGameData());
+                    content["bonus_result"] = ttt;
 
                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
                     response.contents = content.ToString();
                     Debug.Log("###新的slotSpin：" + res.ToString());
-
+                    Debug.LogError("###新的组合好的slotSpin：" + response.contents.ToString());
 
                     SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
 
