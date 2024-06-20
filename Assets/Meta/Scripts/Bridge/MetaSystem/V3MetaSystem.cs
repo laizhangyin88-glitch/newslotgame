@@ -22,6 +22,7 @@ namespace BagelCode
 {
     public class V3MetaSystem : IMetaSystem
     {
+
         public void SelectGame(int gameId)
         {
             var gameInfo = BlackboardQueryUtils.GetGameInfo(gameId);
@@ -64,26 +65,28 @@ namespace BagelCode
             public string uid;
         }
 
-        private JSONNode getFreeGameData()
+        private JSONNode getFreeGameData(int count, long bet_credit, int bonus_id, long earn_credit)
         {
             BonusResult temp = new BonusResult
             {
-                bonus_id = 2102,
+                bonus_id = bonus_id,
                 claim_type = 3,
                 uid = "171876625880326890",
-                earn_credit = 0,
+                earn_credit = earn_credit,
                 type = 2,
                 result = new result
                 {
-                    added_spin_count = 15,
+                    added_spin_count = count,
                     type = 0,
-                    bet_credit = 6000,
+                    bet_credit = bet_credit,
                 }
             };
             string node1 = JsonConvert.SerializeObject(temp);
             var node = JSONNode.Parse(node1);
             return node;
         }
+
+        
 
         public void SlotSpin(long betCredit, long extraBetCredit, object customData, Action successCallback, Action errorCallback)
         {
@@ -94,7 +97,7 @@ namespace BagelCode
 
             SpinType spinType = BlackboardUtils.GetOrCreateVariable<SpinType>(ContentBlackboard.Get(), "spinType").value;
             bool isGameSpin = (spinType == SpinType.GameSpin);
-            bool isBonusSpin = (spinType == SpinType.BonusSpin);
+            bool isBonusSpin = (spinType == SpinType.BonusSpin); 
             bool isAutoSpin = BlackboardUtils.GetOrCreateVariable<bool>(ContentBlackboard.Get(), "autoSpin").value;
 
             int gameId = BlackboardUtils.GetOrCreateVariable<int>(null, "./game/gameId").value;
@@ -201,26 +204,35 @@ namespace BagelCode
             {
                 //var test = "[[2,2,2,3,4],[5,1,8,5,3],[1,2,5,4,3]]";
                 //var debug_param1 = "[\"shuffling_list\":" + test + "]";
-
+#if UNITY_EDITOR
                 ///测试用的数据
-                List<int> debug_param2 = new List<int>() { 143, 0, 143, 152, 143 }; 
-
+                List<int> debug_param2 = new List<int>() { 143, 0, 143, 152, 143 };
+                int isFree = 0;
+                var isInFreeGame = BlackboardUtils.GetOrCreateVariable<int>(BlackboardUtils.GetContentFSMBlackboard(), "isInFreeGame").value;
+                //是不是在免费游戏
+                if (isInFreeGame == 1) 
+                {
+                    isFree = 1;
+                }
                 Dictionary<string, object> debug_param1 = new Dictionary<string, object> {
                     {"first_index_list",
                         debug_param2
                     },
                     {
                         "is_free",
-                        0
+                        isFree
                     }
                 };
+#endif
+
                 Dictionary<string, object> req = new Dictionary<string, object>
-            {
-                {"bet",betCredit},
-                {"extra_bet",extraBetCredit },
-                { "debug_param", debug_param1},     
-                
-            };
+                {
+                    {"bet",betCredit},
+                    {"extra_bet",extraBetCredit },
+#if UNITY_EDITOR
+                    { "debug_param", debug_param1},
+#endif
+                };
                 Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
 
                 NetManager.Instance.Post(RPCName.new_slot_spin, req,
@@ -299,9 +311,17 @@ namespace BagelCode
                     content["result"]["win_line_reward_list"] = res["game_result"]["win_line_reward_list"];
 
                     content["result"]["spin_once_earn_credit"] = res["game_result"]["earn_credit"];
-                    JSONNode ttt = JSONNode.Parse("[]");
-                    ttt.Add("bonus_result", getFreeGameData());
-                    content["bonus_result"] = ttt;
+                    if (res["game_result"]["free_game_result"] != null)
+                    {
+                        JSONNode ttt = JSONNode.Parse("[]");
+                        var count = res["game_result"]["free_game_result"]["max_free_game_times"];
+                        ttt.Add("bonus_result", getFreeGameData(count, betCredit, globalStore.bonusID[gameId], res["game_result"]["earn_credit"]));
+                        content["bonus_result"] = ttt;
+                    }
+                    else
+                    {
+                        content["bonus_result"] = null;
+                    }
 
                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
                     response.contents = content.ToString();
@@ -326,7 +346,7 @@ namespace BagelCode
             else
             {
                 Dictionary<string, object> req = new Dictionary<string, object>
-            {
+                {
                 {"bet",betCredit},
                 {"extra_bet",extraBetCredit },
                 {"game_id",gameId },
@@ -334,7 +354,7 @@ namespace BagelCode
                 {"contents_version",ContentsVersionManager.Instance.GetContentsVersion() },
                 // { "debug_param", "{\"is_free_spin\":0}"}
                 { "debug_param", debug_param}
-            };
+                };
                 //globalStore.test_is_free_spin = 0;
 
                 NetManager.Instance.Post(RPCName.slotSpin, req,

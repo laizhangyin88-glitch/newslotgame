@@ -19,6 +19,10 @@ namespace SlotMaker.Tasks.Actions
 
         protected override void OnExecute()
         {
+            if(valueA.value.Contains("bonus/response/jackpotAwardAmount"))
+            {
+                Debug.LogError("===========================");
+            }
             var variable = BlackboardUtils.FindVariable<T>(agent, valueA.value);           
             if (variable == null)
             {

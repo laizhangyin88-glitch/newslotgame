@@ -23,7 +23,6 @@ namespace SlotMaker.Tasks.Actions.Contents
         { 
             gameObjects = new List<GameObject>();
             animations = new List<Animator>();
-            Debug.LogError("播放动画...............................");
             GameObject slotMachine = ContentCustomData.GetSlotData(slotIndex.value).slotMachine;
             var baseSlotMachine = slotMachine.GetComponent<BaseSlotMachine>();
             List<Symbol> symbols = new List<Symbol>();
@@ -43,7 +42,11 @@ namespace SlotMaker.Tasks.Actions.Contents
                     }
                 }
             }
-            BlackboardUtils.GetOrCreateVariable<List<GameObject>>(BlackboardUtils.GetContentFSMBlackboard(), "_wildList").value = gameObjects;
+            if(BlackboardUtils.GetOrCreateVariable<List<GameObject>>(BlackboardUtils.GetContentFSMBlackboard(), "_wildList").value == null)
+            {
+                BlackboardUtils.GetOrCreateVariable<List<GameObject>>(BlackboardUtils.GetContentFSMBlackboard(), "_wildList").value = new List<GameObject>();
+            }
+            BlackboardUtils.GetOrCreateVariable<List<GameObject>>(BlackboardUtils.GetContentFSMBlackboard(), "_wildList").value.AddRange(gameObjects);
             EndAction();
         }
 
