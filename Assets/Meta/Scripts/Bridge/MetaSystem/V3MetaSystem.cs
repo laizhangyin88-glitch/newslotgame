@@ -88,24 +88,6 @@ namespace BagelCode
                 return;
             }
 
-            /*string testRes = TestManager.Instance.getSpin();
-            if (testRes != "")
-            {
-                SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(testRes as string);
-                SimpleJSON.JSONNode res = dataDict["data"];
-
-                    string resStr = res.ToString();
-                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
-                    ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
-                    response.contents = res["contents"].ToString();
-
-                    SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
-
-                    if (successCallback != null)
-                        successCallback();
-                return;
-            }*/
-
             if (LastFreeGameManager.Instance.isLastGameSpin)
             {
                 LastFreeGameManager.Instance.getResponseData(RPCName.slotSpin,
@@ -124,41 +106,89 @@ namespace BagelCode
                 return;
             }
 
-            /*string debug_param = "";
-            if (globalStore.test_spin_tab.Length > 0)
-            {
-                string lstStr = "[";
-                for (int i =0;i<globalStore.test_spin_tab.Length;i++)
-                {
-                    lstStr += $"{globalStore.test_spin_tab[i]},";
-                }
-                lstStr += "]";
-                lstStr = lstStr.Replace(",]","]");
-                debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + ",\"reel_output_list\":"+ lstStr + "}";
-            }
-            else
-            {
-                debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
-            }*/
 
-            string debug_param = "";
-            int code = TestManager.Instance.getCode();
-            int[] lst = TestManager.Instance.getList();
-            if (lst.Length > 0)
+            if (TestManager.Instance.isCustomReelsSpinRes && globalStore.IsNewGame(gameId))
             {
-                string lstStr = "[";
-                for (int i = 0; i < lst.Length; i++)
-                {
-                    lstStr += $"{lst[i]},";
-                }
-                lstStr += "]";
-                lstStr = lstStr.Replace(",]", "]");
-                debug_param = "{\"is_free_spin\":" + code + ",\"reel_output_list\":" + lstStr + "}";
+                TestManager.Instance.getCustomReelsSpinRes(
+                 (res) =>
+                 {
+
+                     TextAsset jsn7 = Resources.Load<TextAsset>("tempdata/slot_spin_content_id21");
+                     var content = JSONNode.Parse(jsn7.text);
+
+                     content["game_id"] = gameId;
+                     content["result"]["earn_credit"] = res["game_result"]["earn_credit"];
+                     content["result"]["reel_output_list"] = res["game_result"]["first_index_list"]; //获取索引
+
+                     if (res["game_result"]["free_game_credit"] != null) ///记录铃铛的得分
+                     {
+                         content["result"]["free_game_credit"] = res["game_result"]["free_game_credit"];
+                     }
+#if UNITY_EDITOR
+                     string testStr0 = "";
+                     for (int i = 0; i < res["game_result"]["shuffling_list"].Count; i++)
+                     {
+                         for (int j = 0; j < res["game_result"]["shuffling_list"][i].Count; j++)
+                         {
+                             testStr0 += $"{(int)res["game_result"]["shuffling_list"][i][j]},";
+                         }
+                         testStr0 += "\n";
+                     }
+                     Debug.Log($"==@ game_reel\n{testStr0}");
+
+                     string testStr1 = "";
+                     string testStr2 = "";
+                     int k = 0;
+                     while (k < 3)
+                     {
+                         for (int i = 0; i < res["game_result"]["first_index_list"].Count; i++)
+                         {
+                             int j = res["game_result"]["first_index_list"][i] + k;
+
+                             if (j >= globalStore.reelSetList1[i].Count)
+                             {
+                                 j -= globalStore.reelSetList1[i].Count;
+                             }
+                             testStr1 += $"{(int)globalStore.reelSetList1[i][j]},";
+                             testStr2 += $"{(int)globalStore.reelSetList2[i][j]},";
+                         }
+                         testStr1 += '\n';
+                         testStr2 += '\n';
+                         k++;
+                     }
+                     Debug.Log($"==@ regular_game_reel\n{testStr1}");
+                     Debug.Log($"==@ free_game_reel\n{testStr2}");
+#endif
+
+
+                     TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
+                     //保存连线的结果
+                     content["result"]["total_line_result"] = res["game_result"]["total_result"];
+                     //保存奖励数据
+                     content["result"]["win_line_reward_list"] = res["game_result"]["win_line_reward_list"];
+
+                     content["result"]["spin_once_earn_credit"] = res["game_result"]["earn_credit"];
+
+                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
+                     response.contents = content.ToString();
+                     Debug.Log("###新的slotSpin：" + res.ToString());
+
+
+                     SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
+
+                     SlotSpinSuccessNew(res.ToString());
+
+                     if (successCallback != null)
+                         successCallback();
+                 }
+
+                );
+                return;
             }
-            else
-            {
-                debug_param = "{\"is_free_spin\":" + code + "}";
-            }
+
+
+
+
             //新游戏接口
             if (globalStore.IsNewGame(gameId))
             {
@@ -178,13 +208,12 @@ namespace BagelCode
                     }
                 };
                 Dictionary<string, object> req = new Dictionary<string, object>
-            {
-                {"bet",betCredit},
-                {"extra_bet",extraBetCredit },
-                { "debug_param", debug_param1},
-                
-            };
-                Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
+                {
+                    {"bet",betCredit},
+                    {"extra_bet",extraBetCredit },
+                   // { "debug_param", debug_param1},
+                };
+
 
                 NetManager.Instance.Post(RPCName.new_slot_spin, req,
                 (res) =>
@@ -285,16 +314,38 @@ namespace BagelCode
             }
             else
             {
+
+
+                string debug_param = "";
+                int code = TestManager.Instance.getCode();
+                int[] lst = TestManager.Instance.getList();
+                if (lst.Length > 0)
+                {
+                    string lstStr = "[";
+                    for (int i = 0; i < lst.Length; i++)
+                    {
+                        lstStr += $"{lst[i]},";
+                    }
+                    lstStr += "]";
+                    lstStr = lstStr.Replace(",]", "]");
+                    debug_param = "{\"is_free_spin\":" + code + ",\"reel_output_list\":" + lstStr + "}";
+                }
+                else
+                {
+                    debug_param = "{\"is_free_spin\":" + code + "}";
+                }
+
+
                 Dictionary<string, object> req = new Dictionary<string, object>
-            {
-                {"bet",betCredit},
-                {"extra_bet",extraBetCredit },
-                {"game_id",gameId },
-                {"custom_data", (customData is int) ? new { extra_int = (int)customData } : customData},
-                {"contents_version",ContentsVersionManager.Instance.GetContentsVersion() },
-                // { "debug_param", "{\"is_free_spin\":0}"}
-                { "debug_param", debug_param}
-            };
+                {
+                    {"bet",betCredit},
+                    {"extra_bet",extraBetCredit },
+                    {"game_id",gameId },
+                    {"custom_data", (customData is int) ? new { extra_int = (int)customData } : customData},
+                    {"contents_version",ContentsVersionManager.Instance.GetContentsVersion() },
+                    // { "debug_param", "{\"is_free_spin\":0}"}
+                    { "debug_param", debug_param}
+                };
                 //globalStore.test_is_free_spin = 0;
 
                 NetManager.Instance.Post(RPCName.slotSpin, req,
