@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
@@ -7,30 +7,31 @@ using SlotMaker;
 namespace BagelCode.Tasks.Actions.Contents
 {
 
-[Category("★ BagelCode/Contents")]
-public class GetBonusResponse : ActionTask
-{
-    public BBParameter<int> bonusId;
-
-    [BlackboardOnly]
-    public BBParameter<Blackboard> response;
-
-    protected override string info
+    [Category("★ BagelCode/Contents")]
+    public class GetBonusResponse : ActionTask
     {
-        get {return string.Format("Get Bonus Response by {0} and save as {1}",bonusId, response);}
-    }
+        public BBParameter<int> bonusId;
 
-    protected override void OnExecute()
-    {
-        var spin = BlackboardUtils.FindVariable<Blackboard>(null, "./spin");
-        if(spin == null || spin.value == null)
+        [BlackboardOnly]
+        public BBParameter<Blackboard> response;
+
+        protected override string info
         {
-            EndAction(false);
-            return;
+            get { return string.Format("Get Bonus Response by {0} and save as {1}", bonusId, response); }
         }
-        response.value = ContentBlackboardUtils.GetBonusResponse(spin.value, bonusId.value);
-        EndAction();
-    }
-}
 
+        protected override void OnExecute()
+        {
+            var spin = BlackboardUtils.FindVariable<Blackboard>(null, "./spin");
+            if (spin == null || spin.value == null)
+            {
+                EndAction(false);
+                return;
+            }
+
+            var temp = ContentBlackboardUtils.GetBonusResponse(spin.value, bonusId.value);
+            response.value = temp;
+            EndAction();
+        }
+    }
 }

@@ -1,4 +1,4 @@
-﻿#define CONVENIENCE_OVER_PERFORMANCE
+#define CONVENIENCE_OVER_PERFORMANCE
 
 using System;
 using System.Collections;

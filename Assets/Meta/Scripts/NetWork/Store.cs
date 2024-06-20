@@ -42,6 +42,11 @@ public class globalStore
         [3003] = "ftv",
     };
 
+    public static readonly Dictionary<int, int> bonusID = new Dictionary<int, int>()
+    {
+        [3001] = 300102,
+    };
+
     public static string GetGameTitle(int gameId)
     {
         if (gameTitle.TryGetValue(gameId, out var title))
