@@ -143,7 +143,7 @@ namespace SlotMaker
             srcPatchCount = (frontSymbol.symbolInfo.link.rowCount - frontSymbol.symbolInfo.link.rowOffset) - 1;
 
             int dstIndex = reel.strip.CalcIndex(reel.nextIndex - 1);
-            SymbolInfo dstSymbol = SlotUtils.GetSymbol(reel.slotMachine.slotIndex, reel.reelIndex, reel.strip, dstIndex, true);
+            SymbolInfo dstSymbol = SlotUtils.GetSymbol(reel.slotMachine.slotIndex, reel.reelIndex, reel.strip, dstIndex);
             dstPatchCount = dstSymbol.link.rowOffset;
 
             //Debug.LogError($"==@  列数 = {reel.reelIndex}  编号 = {dstSymbol.symbol}  码表索引 = {dstIndex} ");

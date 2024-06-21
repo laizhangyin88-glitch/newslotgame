@@ -32,7 +32,7 @@ public class TestManager : MonoSingleton<TestManager>
 
     public GameObject inputClaimBonus;
 
-    public GameObject inputCustomSpinReq;
+    public GameObject inputCustomReels;
 
 
 
@@ -117,11 +117,11 @@ public class TestManager : MonoSingleton<TestManager>
 
     public List<object> getCustomReels()
     {
-        if (inputCustomSpinReq == null)
+        if (inputCustomReels == null)
             return null;
 
-        string res = inputCustomSpinReq.GetComponent<InputField>().text ?? "";
-        inputCustomSpinReq.GetComponent<InputField>().text = "";
+        string res = inputCustomReels.GetComponent<InputField>().text ?? "";
+        inputCustomReels.GetComponent<InputField>().text = "";
 
         return _GetReelsContent(res);
     }
@@ -132,15 +132,15 @@ public class TestManager : MonoSingleton<TestManager>
     {
         get
         {
-            if (inputCustomSpinReq == null)
+            if (inputCustomReels == null)
                 return false;
-            string text = inputCustomSpinReq.GetComponent<InputField>().text ?? "";
+            string text = inputCustomReels.GetComponent<InputField>().text ?? "";
 
             bool isOk = text != null && text != "";
 
             if (isOk)
             {
-                Debug.LogError($"假滚轮数据 = {text}");
+                Debug.LogWarning($"假滚轮数据 = {text}");
             }
             return isOk;
         }
@@ -463,7 +463,7 @@ public class TestManager : MonoSingleton<TestManager>
 
         if (reelsOldLst == null) //备份
         {
-            Debug.LogError("备份滚轮！");
+            Debug.Log("备份滚轮！");
             reelsOldLst = DeepCopy(reelsLst);  // new List<List<List<int>>>(reelsLst);
         }
 
@@ -514,7 +514,7 @@ public class TestManager : MonoSingleton<TestManager>
             List<List<List<int>>> temp = DeepCopy(reelsOldLst); // new List<List<List<int>>>(reelsOldLst);
             reelsOldLst = null;
             StartCoroutine(_SetReel(temp, cb));
-            Debug.LogError("复位滚轮！");
+            Debug.Log("复位滚轮！");
         }
         else
         {
