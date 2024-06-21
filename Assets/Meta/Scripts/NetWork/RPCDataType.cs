@@ -16,14 +16,20 @@ using System.Runtime.CompilerServices;
 
 public class RPCName
 {
+    /// <summary>新的进入子游戏</summary>
+    public const string newEnterGame = "new_enter_game";
+    /// <summary>新拉霸机 开玩</summary>
+    public const string newSlotSpin = "new_slot_spin";
+    public const string newClaimBonus = "new_slot_spin";
+
+
+
     /// <summary>登录</summary>
     public const string login = "login";
     /// <summary>进入大厅</summary>
     public const string lobby = "lobby";
     /// <summary>进入子游戏</summary>
     public const string enterGame = "enter_game";
-    /// <summary>新的进入子游戏</summary>
-    public const string newEnterGame = "new_enter_game";
     /// <summary>房间 玩家数据</summary>
     public const string metaInfo = "meta_info";
     /// <summary>keno 开玩</summary>
@@ -40,12 +46,9 @@ public class RPCName
     public const string jacksGambleTake = "gamble_take"; // /v2/gamble/take
     /// <summary>拉霸机 开玩</summary>
     public const string slotSpin = "slot_spin";
-    /// <summary>新拉霸机 开玩</summary>
-    public const string new_slot_spin = "new_slot_spin";
 
     /// <summary>HAPPY DOLLARS</summary>
     public const string claimBonus = "claim_bonus";
-
 
     /// <summary>免费游戏历史记录</summary>
     public const string freeSpinHistory = "slot_spin_history";

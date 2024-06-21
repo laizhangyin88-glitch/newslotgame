@@ -43,7 +43,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     {"debug_param", debug_param},
                 };
 
-                NetManager.Instance.Post(RPCName.new_slot_spin, req,
+                NetManager.Instance.Post(RPCName.newSlotSpin, req,
                 (res) =>
                 {
                     // 创建假的滚轮
