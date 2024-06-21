@@ -1,6 +1,7 @@
 
 using BagelCode.ClientModels;
 using Dreamteck.Splines.Primitives;
+using JetBrains.Annotations;
 using NodeCanvas.Framework;
 using SimpleJSON;
 using Sirenix.OdinInspector;
@@ -8,8 +9,11 @@ using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using Action = System.Action;
 using EventData = ParadoxNotion.EventData;
 
 public class TestManager : MonoSingleton<TestManager>
@@ -131,7 +135,14 @@ public class TestManager : MonoSingleton<TestManager>
             if (inputCustomSpinReq == null)
                 return false;
             string text = inputCustomSpinReq.GetComponent<InputField>().text ?? "";
-            return text != null && text != "";
+
+            bool isOk = text != null && text != "";
+
+            if (isOk)
+            {
+                Debug.LogError($"假滚轮数据 = {text}");
+            }
+            return isOk;
         }
     }
 
@@ -300,33 +311,32 @@ public class TestManager : MonoSingleton<TestManager>
                     res += item;
                     res += ",";
                 }
-                Debug.Log(res);
+                Debug.Log( $"单列滚轮 {GetHash(res)}  = {res}");
             }
             reelsLst.Add(tempReels);
         }
     }
 
 
+    private static MD5 md5Hash = MD5.Create();
+    private static string GetHash(string source)
+    {
+        if (string.IsNullOrEmpty(source)) return null;
+
+        byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(source));
+        StringBuilder sBuilder = new StringBuilder();
+        for (int i = 0; i < data.Length; i++)
+        {
+            sBuilder.Append(data[i].ToString("x2"));
+        }
+        return sBuilder.ToString();
+    }
+
+
+
     [Button]
     void test_ChangeReel(string str = "2,3,4,5,6#2,3,4,5,6#2,3,4,5,6")
     {
-        /*List<object> shuffling_list = new List<object>();
-        string[] lstStrs = str.Split('#') ?? new string[] { };
-        for (int i = 0; i < lstStrs.Length; i++)
-        {
-            string[] itemsStrs = lstStrs[i].Split(',') ?? new string[] { };
-
-            List<object> temp = new List<object>();
-            for (int j = 0; j < itemsStrs.Length; j++)
-            {
-                if (itemsStrs[j] != "" && itemsStrs[j] != null)
-                {
-                    temp.Add(int.Parse(itemsStrs[j]));
-                }
-            }
-            shuffling_list.Add(temp);
-        }*/
-
         List<object> shuffling_list = _GetReelsContent(str);
 
         List<int> result = ChangeReel(shuffling_list);
@@ -388,11 +398,39 @@ public class TestManager : MonoSingleton<TestManager>
         return showReelsContent;
     }
 
-
     List<List<List<int>>> reelsOldLst = null;
 
-    public List<int> ChangeReel(List<object> Show)
+    public void ClearReelsCache() 
     {
+        reelsOldLst = null;
+    }
+
+    public List<int> ChangeReel(List<object> Show, Action<List<int>> cb = null)
+    {
+        /*List<object> Show = new List<object>(){
+            new List<object>(){8,5,7,2,3},
+            new List<object>(){1,8,4,8,10},
+            new List<object>(){7,1,9,4,5},
+        };*/
+
+        //码表转换
+        Variable<Dictionary<int, int>> changeCode = ContentBlackboard.Get().GetVariable<Dictionary<int, int>>("changeCode");
+        if (changeCode != null && changeCode.value != null)
+        {
+            foreach (var item in changeCode.value)
+            {
+                foreach (List<object> raw in Show)
+                {
+                    for (int i = 0; i < raw.Count; i++)
+                    {
+                        if ((int)raw[i] == item.Key)
+                        {
+                            raw[i] = item.Value;
+                        }
+                    }
+                }
+            }
+        }
 
         List<Blackboard> reelSetList = BlackboardUtils.FindVariable<List<Blackboard>>(null, "./game/reelSetList").value;
 
@@ -425,7 +463,8 @@ public class TestManager : MonoSingleton<TestManager>
 
         if (reelsOldLst == null) //备份
         {
-            reelsOldLst = new List<List<List<int>>>(reelsLst);
+            Debug.LogError("备份滚轮！");
+            reelsOldLst = DeepCopy(reelsLst);  // new List<List<List<int>>>(reelsLst);
         }
 
         List <List<int>> reels0 = reelsLst[0]; //常规码表
@@ -433,31 +472,6 @@ public class TestManager : MonoSingleton<TestManager>
         for (int i = 0; i < reels0.Count; i++)
         {
             data.Add(UnityEngine.Random.Range(0, reels0[i].Count - 1)); //产生每列的索引
-        }
-
-        /*List<object> Show = new List<object>(){
-            new List<object>(){8,5,7,2,3},
-            new List<object>(){1,8,4,8,10},
-            new List<object>(){7,1,9,4,5},
-        };*/
-
-        //码表转换
-        Variable<Dictionary<int, int>>  changeCode = ContentBlackboard.Get().GetVariable<Dictionary<int, int>>("changeCode");
-        if (changeCode != null && changeCode.value !=null)
-        {
-            foreach (var item in changeCode.value)
-            {
-                foreach (List<object> raw in Show)
-                {
-                    for (int i = 0; i < raw.Count; i++)
-                    {
-                        if ((int)raw[i] == item.Key)
-                        {
-                            raw[i] = item.Value;
-                        }
-                    }
-                }
-            }
         }
 
         // 修改常规码表
@@ -482,36 +496,40 @@ public class TestManager : MonoSingleton<TestManager>
             }
         }
 
-
-         /*测试
-        for (int i =0; i< reelsLst[0].Count; i++)
+        StartCoroutine(_SetReel(new List<List<List<int>>>(reelsLst),
+        () =>
         {
-            for (int j = 0; j < reelsLst[0][i].Count; j++)
-            {
-                reelsLst[0][i][j] = 2;
-            }
-        }
-         */
-
-
-        StartCoroutine(_SetReel(new List<List<List<int>>>(reelsLst)));
+            if (cb != null)
+                cb(data);
+        }));
 
         return data;
     }
 
 
-    public void ResetReel()
+    public void ResetReel(Action cb)
     {
         if (reelsOldLst != null)
         {
-            StartCoroutine(_SetReel(new List<List<List<int>>>(reelsOldLst)));
+            List<List<List<int>>> temp = DeepCopy(reelsOldLst); // new List<List<List<int>>>(reelsOldLst);
             reelsOldLst = null;
+            StartCoroutine(_SetReel(temp, cb));
+            Debug.LogError("复位滚轮！");
+        }
+        else
+        {
+            if (cb != null)
+                cb();
         }
     }
 
 
-    IEnumerator _SetReel(List<List<List<int>>> reelsLst2)
+    int ii = 0;
+
+    IEnumerator _SetReel(List<List<List<int>>> reelsLst2, Action cb = null)
     {
+        ii++;
+
         var gameBB = BlackboardUtils.GetOrCreateBlackboard(ContentBlackboard.Get(), "game");
         BlackboardUtils.DestroyBlackboardList(gameBB, "reelSetList");
 
@@ -520,7 +538,7 @@ public class TestManager : MonoSingleton<TestManager>
         BlackboardUtils.GetOrCreateBlackboardList(gameBB, "reelSetList");
         foreach (List<List<int>> reels in reelsLst2)
         {
-            var reelSequenceListBB = BlackboardUtils.CreateBlackboard("Object"); //Object
+            var reelSequenceListBB = BlackboardUtils.CreateBlackboard($"Object{ii}"); //Object
             BlackboardUtils.GetOrCreateBlackboardList(reelSequenceListBB, "reelSequenceList");
             foreach (List<int> reel in reels)
             {
@@ -531,31 +549,37 @@ public class TestManager : MonoSingleton<TestManager>
             BlackboardUtils.AddToBlackboardList(gameBB, "reelSetList", reelSequenceListBB);
         }
 
-        SetReelStripsManager();
+        yield return SetReelStripsManager(cb);
     }
 
-    void SetReelStripsManager()
+    IEnumerator SetReelStripsManager(Action cb = null)
     {
-
         /*
-         * 
+        GameObject go = GameObject.Find("ReelStrips Manager");
+        for (int i = go.transform.childCount - 1; i>=0;i--)
+        {
+            //Destroy(go.transform.GetChild(i).gameObject);
+            GameObject.DestroyImmediate(go.transform.GetChild(i).gameObject);
+        }
+        */
+
+
+        GameObject goOld = GameObject.Find("ReelStrips Manager");
+        GameObject.DestroyImmediate(goOld);
+
+        //var mgr1 = goOld.AddComponent<GlobalReelStrips>();
+        // mgr1.OnDestroy();
+
+        yield return new WaitUntil(() => GameObject.Find("ReelStrips Manager") == null);
+
         var parent = ContentCustomData.Instance.transform;
         var go = new GameObject();
         go.name = "ReelStrips Manager";
         go.transform.SetParent(parent, false);
 
+
+
         var mgr = go.AddComponent<GlobalReelStrips>();
-        */
-
-        GameObject go = GameObject.Find("ReelStrips Manager");
-
-        for (int i = go.transform.childCount - 1; i>=0;i--)
-        {
-            Destroy(go.transform.GetChild(i).gameObject);
-        }
-
-
-        var mgr = go.GetComponent<GlobalReelStrips>();
 
         mgr.stripsList = new List<ReelStrips>();
 
@@ -595,7 +619,123 @@ public class TestManager : MonoSingleton<TestManager>
 
             mgr.stripsList.Add(reelStrips);
         }
+
+        var mark = new GameObject();
+        mark.name = $"mark{ii}";
+        mark.transform.SetParent(GameObject.Find("ReelStrips Manager").transform, false);
+
+        if (cb != null)
+            cb();
     }
 
 
+
+
+    List<List<List<int>>> DeepCopy(List<List<List<int>>> original)
+    {
+        if (original == null)
+        {
+            return null;
+        }
+
+        List<List<List<int>>> copy = new List<List<List<int>>>(original.Count);
+        foreach (var subList2D in original)
+        {
+            List<List<int>> subList2DCopy = new List<List<int>>(subList2D.Count);
+            foreach (var subList1D in subList2D)
+            {
+                List<int> subList1DCopy = new List<int>(subList1D.Count);
+                foreach (var item in subList1D)
+                {
+                    subList1DCopy.Add(item); 
+                }
+                subList2DCopy.Add(subList1DCopy);
+            }
+            copy.Add(subList2DCopy);
+        }
+
+        return copy;
+    }
+
+
+
+    [Button]
+    void test_GetReelCellByIndex(string indexs = "2,2,2,2,2")
+    {
+        string[] itemsStrs = indexs.Replace(" ","").Split(',') ?? new string[] { };
+
+        GameObject go = GameObject.Find("ReelStrips Manager");
+        Transform reels =  go.transform.GetChild(0);  //   [0]
+
+        Dictionary<int, string> res = new Dictionary<int, string>();
+        for  (int i = 0; i<itemsStrs.Length; i++)
+        {   var item = itemsStrs[i];
+            var reelStrip = reels.GetChild(i).GetComponent<ReelStrip>();
+            for (int j=0; j<3; j++)
+            {
+                if (!res.ContainsKey(j))
+                {
+                    res.Add(j, "");
+                }
+                res[j] += $"{reelStrip.strip[int.Parse(item) + j].symbol},";
+            }
+        }
+        foreach (var item in res)
+        {
+            Debug.Log($"==@{item.Value}");
+        }
+    }
+
+
+
+    [Button]
+    void test_ShowReels0Code()
+    {
+        GameObject go = GameObject.Find("ReelStrips Manager");
+        Transform reels = go.transform.GetChild(0);  
+
+        for (int i = 0; i< reels.transform.childCount; i++)
+        {
+            var reelStrip = reels.GetChild(i).GetComponent<ReelStrip>();
+
+            string res = "==@ {";
+            for (int j=0;j< reelStrip.strip.Count;j++)
+            {
+                res += "\""+j+"\":" + reelStrip.strip[j].symbol + ",";
+            }
+            res += "}";
+            res = res.Replace(",}","}");
+            Debug.Log(res);
+        }
+    }
+
+    [Button]
+    void test_ShowGlobalReelStripsInstance()
+    {
+        GameObject go = GameObject.Find("ReelStrips Manager");
+        Transform reels = go.transform.GetChild(0);
+
+        if (go.transform.childCount > 2)
+        {
+            var ch = go.transform.GetChild(2);
+            Debug.LogError($"@@ i am GlobalReelStrips {ch.name}");
+        }
+        else
+        {
+            Debug.LogError($"@@ i am GlobalReelStrips !");
+        }
+
+        go = GlobalReelStrips.Instance.gameObject;
+
+        if (go.transform.childCount > 2)
+        {
+            var ch = go.transform.GetChild(2);
+            Debug.LogError($"@@ i am GlobalReelStrips {ch.name}");
+        }
+        else
+        {
+            Debug.LogError($"@@ i am GlobalReelStrips !");
+        }
+
+    }
 }

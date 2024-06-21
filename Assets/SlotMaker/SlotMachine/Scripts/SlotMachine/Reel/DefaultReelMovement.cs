@@ -130,19 +130,23 @@ namespace SlotMaker
             pendingActions.Add(action);
         }
 
-        public void UpdateStopDisplacement()
+        /// <summary>
+        /// 列滚轮停止时调用
+        /// </summary>
+        public void UpdateStopDisplacement()  
         {
             displacement = Vector3.zero;
-            var frontSymbol = reel.GetSymbols()[0];
+            BaseSymbol frontSymbol = reel.GetSymbols()[0];
             float symbolHeight = reel.cellSize.y + reel.spacing.y;
             float reelHeight = symbolHeight * reel.RowCount;
 
             srcPatchCount = (frontSymbol.symbolInfo.link.rowCount - frontSymbol.symbolInfo.link.rowOffset) - 1;
 
             int dstIndex = reel.strip.CalcIndex(reel.nextIndex - 1);
-            var dstSymbol = SlotUtils.GetSymbol(reel.slotMachine.slotIndex, reel.reelIndex, reel.strip, dstIndex);
+            SymbolInfo dstSymbol = SlotUtils.GetSymbol(reel.slotMachine.slotIndex, reel.reelIndex, reel.strip, dstIndex, true);
             dstPatchCount = dstSymbol.link.rowOffset;
 
+            //Debug.LogError($"==@  列数 = {reel.reelIndex}  编号 = {dstSymbol.symbol}  码表索引 = {dstIndex} ");
             if (blankSolver)
             {
                 int srcIndex = reel.strip.CalcIndex(reel.index - srcPatchCount);

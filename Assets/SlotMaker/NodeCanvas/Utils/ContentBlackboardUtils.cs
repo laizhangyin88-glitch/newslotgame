@@ -44,7 +44,6 @@ namespace SlotMaker
         public static Blackboard GetBonusResponse(Blackboard spin, int id)
         {
             var bonusList = BlackboardUtils.FindVariable<List<Blackboard>>(spin, "response/bonusResult")?.value;
-            Debug.LogError("bonusResult info....................");
             if (bonusList != null)
             {
                 for (int i = 0; i < bonusList.Count; ++i)

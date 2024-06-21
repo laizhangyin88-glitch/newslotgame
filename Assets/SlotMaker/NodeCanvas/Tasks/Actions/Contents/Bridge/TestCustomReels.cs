@@ -47,19 +47,22 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                 (res) =>
                 {
                     // 创建假的滚轮
-                    List<int>  reelsIdex = TestManager.Instance.ChangeReel(shuffling_list);
-
-                    res["game_result"]["first_index_list"] = JSONNode.Parse("[]");
-
-                    foreach (var idx in reelsIdex)
+                    TestManager.Instance.ChangeReel(shuffling_list,
+                    (List<int> reelsIdex) =>
                     {
-                        res["game_result"]["first_index_list"].Add(idx);
-                    }
+                        res["game_result"]["first_index_list"] = JSONNode.Parse("[]");
 
-                    TestManager.Instance.customReelsSpinRes = res.ToString();
+                        foreach (var idx in reelsIdex)
+                        {
+                            res["game_result"]["first_index_list"].Add(idx);
+                        }
 
-                    if (agent != null)
-                        EndAction();
+                        TestManager.Instance.customReelsSpinRes = res.ToString();
+
+                        Debug.Log($"==@ 自定义滚轮数据 {TestManager.Instance.customReelsSpinRes}");
+                        if (agent != null)
+                            EndAction();
+                    });
                 },
                 (error) =>
                 {
@@ -69,10 +72,11 @@ namespace BagelCode.Tasks.Actions.ClientAPI
             else
             {
                 //复位假滚轮
-                TestManager.Instance.ResetReel();
-
-                if (agent != null)
-                    EndAction();
+                TestManager.Instance.ResetReel(() =>
+                {
+                    if (agent != null)
+                        EndAction();
+                });
             }
 
         }

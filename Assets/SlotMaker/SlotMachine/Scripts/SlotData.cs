@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,5 +17,23 @@ namespace SlotMaker
         public MysterySymbolTable mysterySymbolTable;
         public GameObject slotMachine;
         public SymbolRefLinkTable symbolRefLinkTable;
+
+
+        [Button]
+        void test_ShowMysterySymbolTable()
+        {
+            if (mysterySymbolTable == null || mysterySymbolTable.mysterySymbolReels == null)
+                return;
+            foreach (List<SymbolInfo> item in mysterySymbolTable.mysterySymbolReels)
+            {
+                string res = "==@";
+                foreach (SymbolInfo sf in item)
+                {
+                    res += $"{sf.symbol},";
+                }
+                Debug.Log(res);
+            }
+        }
     }
+
 }
