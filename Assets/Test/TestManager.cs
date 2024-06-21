@@ -738,4 +738,29 @@ public class TestManager : MonoSingleton<TestManager>
         }
 
     }
+
+
+/*
+Dictionary<string, object> req = new Dictionary<string, object>(TestManager.Instance.spinAgrs);
+TestManager.Instance.spinAgrs = new Dictionary<string, object>();
+req.Add("bet", betCredit);
+req.Add("extra_bet", extraBetCredit);
+*/
+
+    public Dictionary<string, object> spinAgrs = new Dictionary<string, object>();
+
+    [Button]
+    void test_AddArg(string agrs)  // xxxx:xxx#
+    {
+        string[] itemsStrs = agrs.Replace(" ", "").Split('#') ?? new string[] { };
+
+        spinAgrs = new Dictionary<string, object>();
+        for(int i= 0; i< itemsStrs.Length; i++)
+        {
+            string[] res = itemsStrs[i].Split(':') ?? new string[] {"a","-1"};
+            spinAgrs.Add(res[0], int.Parse(res[1]));
+        }
+    }
+
+
 }

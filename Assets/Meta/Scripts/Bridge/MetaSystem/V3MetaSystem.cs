@@ -150,8 +150,6 @@ namespace BagelCode
             //新游戏接口
             if (globalStore.IsNewGame(gameId))
             {
-                //var test = "[[2,2,2,3,4],[5,1,8,5,3],[1,2,5,4,3]]";
-                //var debug_param1 = "[\"shuffling_list\":" + test + "]";
 #if UNITY_EDITOR
                 ///测试用的数据
                 List<int> debug_param2 = new List<int>() { 143, 0, 143, 152, 143 };
@@ -177,12 +175,11 @@ namespace BagelCode
                 {
                     {"bet",betCredit},
                     {"extra_bet",extraBetCredit },
+                   // { "debug_param", debug_param},
 #if UNITY_EDITOR
                    // { "debug_param", debug_param1},
 #endif
                 };
-
-
 
                 Action<JSONNode> responseCallback = (res) =>
                 {
@@ -227,7 +224,9 @@ namespace BagelCode
                     content["result"]["spin_once_earn_credit"] = res["game_result"]["earn_credit"];
 
 
-                    if (res["game_result"].HasKey("free_game_result")
+                    if (
+                    globalStore.bonusID.ContainsKey(gameId)
+                    && res["game_result"].HasKey("free_game_result")
                     && res["game_result"]["free_game_result"]["cur_free_game_times"] == 0)
                     {
                         JSONNode ttt = JSONNode.Parse("[]");
@@ -239,6 +238,10 @@ namespace BagelCode
                     {
                         content["bonus_result"].Clear();
                     }
+
+                    //修改滚轮码表号
+                    content["reel_set_index"]["current_index"] = res["game_result"]["regular_game_reel"] == "free_game_reel" ? 1 : 0;
+                    content["reel_set_index"]["next_index"] = res["game_result"]["next_game_real_name"] == "free_game_reel" ?1:0; //"regular_game_reel",
 
 
                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
@@ -260,7 +263,7 @@ namespace BagelCode
                 }
                 else
                 {
-                    NetManager.Instance.Post(RPCName.new_slot_spin, req,
+                    NetManager.Instance.Post(RPCName.newSlotSpin, req,
                     responseCallback,
                     (error) =>
                     {
