@@ -181,7 +181,7 @@ namespace BagelCode
                    // { "debug_param", debug_param1},
 #endif
                 };
-                Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
+
 
 
                 Action<JSONNode> responseCallback = (res) =>
