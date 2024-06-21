@@ -79,6 +79,8 @@ namespace BagelCode.Tasks.Actions.ClientAPI
             //新游戏接口
             if (globalStore.IsNewGame(gameID.value))
             {
+                TestManager.Instance.ClearReelsCache();
+
                 NetManager.Instance.Post(RPCName.newEnterGame, req,
                 (res) =>
                 {
@@ -102,13 +104,31 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     contentJson["game_info"]["base_wager"] = res["game_config"]["win_line"].Count;
                     contentJson["game_info"]["free_card"] = res["game_config"]["slot_config"]["free_card"];
 
-                    //转换码表
-                    Dictionary<int, int> changeCode = new Dictionary<int, int>()
+
+                    //res["game_id"]
+                    TextAsset jsn6 = Resources.Load<TextAsset>("tempdata/change_code");
+                    var nodeJson = JSONNode.Parse(jsn6.text);
+                    Dictionary<int, int> changeCode = null;
+                    if (res.HasKey("game_id") && nodeJson.HasKey(res["game_id"].ToString()))
                     {
-                        { (int)res["game_config"]["slot_config"]["wild_card"], 0 }, //鬼牌
-                        { (int)res["game_config"]["slot_config"]["free_card"],9}, //免费牌
-                        { (int)res["game_config"]["slot_config"]["jackpot_card"],10 }, //小游戏
-                    };
+                        JSONNode nd = nodeJson[res["game_id"].ToString()];
+                        changeCode = new Dictionary<int, int>();
+                        changeCode.Add((int)res["game_config"]["slot_config"]["wild_card"], (int)nd["wild_card"]);
+                        changeCode.Add((int)res["game_config"]["slot_config"]["free_card"], (int)nd["free_card"]);
+                        changeCode.Add((int)res["game_config"]["slot_config"]["jackpot_card"], (int)nd["jackpot_card"]);
+                    }
+                    else
+                    {
+                        //转换码表
+                        changeCode = new Dictionary<int, int>()
+                        {
+                            { (int)res["game_config"]["slot_config"]["wild_card"], 0 }, //鬼牌
+                            { (int)res["game_config"]["slot_config"]["free_card"],9}, //免费牌
+                            { (int)res["game_config"]["slot_config"]["jackpot_card"],10 }, //小游戏
+                        };
+                    }
+
+                    
 
                     //转换 普通列表
                     var tempList1 = TranslateReelSetList(res["game_config"]["regular_game_reel"], changeCode);
