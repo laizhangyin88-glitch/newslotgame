@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,7 +60,15 @@ namespace SlotMaker
 
         public BaseReelStrip strip
         {
-            get { return _strip ?? GlobalReelStrips.Instance.GetReelStrips().GetReelStrip(reelIndex); }
+            get {
+                if (_strip != null)
+                {
+                    Debug.LogError("i am here _strip");
+                }
+
+                return _strip ?? GlobalReelStrips.Instance.GetReelStrips().GetReelStrip(reelIndex);
+
+            }
             set { _strip = value; }
         }
 
@@ -159,6 +168,16 @@ namespace SlotMaker
             return symbols;
         }
 
+        [Button]
+        void test_ShowSymbol()
+        {
+            string res = "";
+            foreach (BaseSymbol item in symbols)
+            {
+                res += $"{item.symbolInfo.symbol},";
+            }
+            Debug.Log($"【Test】:{res}");
+        }
         public virtual BaseSymbol GetSymbol(int column, int row)
         {
             return symbols[row - beginRow + topBuffer];
