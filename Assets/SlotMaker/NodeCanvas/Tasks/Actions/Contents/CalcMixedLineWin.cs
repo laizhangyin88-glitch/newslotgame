@@ -359,7 +359,7 @@ namespace BagelCode.Tasks.Actions.Contents
                     lineMultiplier = (long)OperationTools.Operate(lineMultiplier, GetSymbolMultiplier(temp.symbol), MultiplierOperation);
                     if (MultiplierOperation == OperationMethod.Add && lineMultiplier != 1L)
                         --lineMultiplier;
-                    symbolWin.hitCount = hitCount;
+                    symbolWin.hitCount = hitCount; 
                     symbolWin.multiplier = multiplier.value * lineMultiplier;
                     //long earnCredit = FindEarnCredit(temp.symbol, hitCount);
                     symbolWin.earnCredit = getLineCredit(lineIndex); //earnCredit * betPerLine * symbolWin.multiplier;
@@ -379,18 +379,6 @@ namespace BagelCode.Tasks.Actions.Contents
             var slotData = ContentCustomData.GetSlotData(slotIndex.value);
             var deck = (Deck)slotData.deck.Clone();
             int count = 0;
-            //foreach (var item in deck.deck)
-            //{
-            //    SymbolWin symbolWin = new SymbolWin();
-            //    foreach (var info in item)
-            //    {
-            //        if(info.symbol == 9)    
-            //        {
-            //            count++;
-            //            //symbolWin.cells.Add(new Cell())
-            //        }
-            //    }
-            //}
             SymbolWin symbolWin = new SymbolWin();
             for (int i = 0; i < deck.deck.Count; i++)
             {
@@ -398,7 +386,7 @@ namespace BagelCode.Tasks.Actions.Contents
                 for (int j = 0; j < infos.Count; j++)
                 {
                     SymbolInfo info = infos[j];
-                    if(info.symbol == 9)///水果派对，9是免费牌
+                    if(info.symbol == 9)///水果派对，9是免费游戏牌
                     {
                         count++;
                         symbolWin.symbolIndex = info.symbol;
@@ -414,16 +402,48 @@ namespace BagelCode.Tasks.Actions.Contents
                 var response = spinBB.value.GetValue<Blackboard>("response");
                 long temp = response.GetValue<long>("free_game_credit");
                 symbolWin.earnCredit = temp;
+                symbolWin.multiplier = 1;
                 winList.Add(symbolWin);
             } 
             if(count >= 3)
             {
-                Debug.LogError("触发特殊游戏了......");
+                Debug.LogError("触发免费游戏了......");
                 winList.Add(symbolWin);
                 //Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
                 //var response = spinBB.value.GetValue<Blackboard>("response");
                 //long temp = response.GetValue<long>("free_game_credit");
                 symbolWin.earnCredit = 0;
+            }
+        }
+        /// <summary>
+        /// 查找是不是触发小游戏
+        /// </summary>
+        protected void FindMiniGame(List<SymbolWin> list)
+        {
+            var slotData = ContentCustomData.GetSlotData(slotIndex.value);
+            var deck = (Deck)slotData.deck.Clone();
+            int count = 0;
+            SymbolWin symbolWin = new SymbolWin();
+            for (int i = 0; i < deck.deck.Count; i++)
+            {
+                List<SymbolInfo> infos = deck.deck[i];
+                for (int j = 0; j < infos.Count; j++)
+                {
+                    SymbolInfo info = infos[j];
+                    if (info.symbol == 10)///水果派对，10是小游戏牌
+                    {
+                        count++;
+                        symbolWin.symbolIndex = info.symbol;
+                        symbolWin.hitCount = count;
+                        symbolWin.multiplier = 1;
+                        symbolWin.cells.Add(new Cell(i, j));
+                    }
+                }
+            } 
+            if(count >= 3)
+            {
+                Debug.LogError("触发小游戏了...........");
+                list.Add(symbolWin);
             }
         }
 
@@ -436,9 +456,10 @@ namespace BagelCode.Tasks.Actions.Contents
             {
                 totalEarnCredit += FillLineData(winList, 1);
                 if (bidirectional.value)
-                    totalEarnCredit += FillLineData(winList, -1);
+                    totalEarnCredit += FillLineData(winList, -1); 
 
                 FindBell(winList);
+                FindMiniGame(winList);
                 ///使用服务器下发的数据
                 Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
                 var response = spinBB.value.GetValue<Blackboard>("response");
@@ -455,8 +476,6 @@ namespace BagelCode.Tasks.Actions.Contents
                 }
             }
             winList.Sort();
-
-
             var spin = BlackboardUtils.FindVariable<Blackboard>(null, "./spin").value;
             BlackboardUtils.SetOrCreateValue<List<SymbolWin>>(spin, "winList", winList);
             ContentBlackboardUtils.AddEarnCredit(spin, totalEarnCredit);

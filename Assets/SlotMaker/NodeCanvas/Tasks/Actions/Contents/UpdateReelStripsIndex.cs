@@ -9,14 +9,15 @@ using System;
 namespace BagelCode.Tasks.Actions.Contents
 {
 
-[Category("★ BagelCode/Contents")]
-public class UpdateReelStripsIndex : ActionTask<Blackboard>
-{
-    public BBParameter<string> key;
-
-    protected override void OnExecute()
+    [Category("★ BagelCode/Contents")]
+    public class UpdateReelStripsIndex : ActionTask<Blackboard>
     {
-            try{
+        public BBParameter<string> key;
+
+        protected override void OnExecute()
+        {
+            try
+            {
 
                 Blackboard src = BlackboardUtils.FindVariable<Blackboard>(agent, key.value).value;
                 //Debug.LogError($"key.value = {key.value}  agent.gameObject.name ={agent.gameObject.name}  {src.transform.parent.parent.parent.name}/{src.transform.parent.parent.name}/{src.transform.parent.name}/{src.gameObject.name}");
@@ -31,7 +32,7 @@ public class UpdateReelStripsIndex : ActionTask<Blackboard>
                 Debug.LogError($"error = {ex}");
             }
 
+        }
     }
-}
 
 }
