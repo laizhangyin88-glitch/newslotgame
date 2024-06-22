@@ -199,7 +199,7 @@ namespace BagelCode
                 //    req.Remove("debug_param");
                 //}
                 //this.isFree = false;
-                Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
+                //Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
                  
                 Action<JSONNode> responseCallback = (res) =>
                 {
@@ -286,13 +286,18 @@ namespace BagelCode
                     }
                     var current = res["game_result"]["game_real_name"];
                     var next = res["game_result"]["next_game_real_name"];
-                    ///更改需要读取的滚轮表格
-                    content["reel_set_index"]["next_index"] = globalStore.ReelDictDict[gameId][next];
-                    content["reel_set_index"]["current_index"] = globalStore.ReelDictDict[gameId][current];
-                    //修改滚轮码表号
-                    content["reel_set_index"]["current_index"] = res["game_result"]["regular_game_reel"] == "free_game_reel" ? 1 : 0;
-                    content["reel_set_index"]["next_index"] = res["game_result"]["next_game_real_name"] == "free_game_reel" ?1:0; //"regular_game_reel",
-
+                    if (globalStore.ReelDictDict.ContainsKey(gameId))
+                    {
+                        ///更改需要读取的滚轮表格
+                        content["reel_set_index"]["next_index"] = globalStore.ReelDictDict[gameId][next];
+                        content["reel_set_index"]["current_index"] = globalStore.ReelDictDict[gameId][current];
+                    }
+                    else 
+                    {
+                        //修改滚轮码表号
+                        content["reel_set_index"]["current_index"] = res["game_result"]["regular_game_reel"] == "free_game_reel" ? 1 : 0;
+                        content["reel_set_index"]["next_index"] = res["game_result"]["next_game_real_name"] == "free_game_reel" ? 1 : 0; //"regular_game_reel",
+                    }
 
                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
                     response.contents = content.ToString();
@@ -483,7 +488,6 @@ namespace BagelCode
         public void SlotClaimBonus(string claimId, object customData, Action successCallback, Action errorCallback)
         {
 #if NEW_NET
-
             if (TestManager.Instance.isTestClaimBonus)
             {
                 TestManager.Instance.getClaimBonusData((res) =>
@@ -512,9 +516,6 @@ namespace BagelCode
                 });
                 return;
             }
-
-
-
             if (globalStore.nowGameID == 33 || globalStore.IsNewGame(globalStore.nowGameID)) //雷神
             {
                 if (successCallback != null)

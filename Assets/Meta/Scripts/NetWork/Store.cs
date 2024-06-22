@@ -65,6 +65,14 @@ public class globalStore
     public static Dictionary<int, Dictionary<string, int>> ReelDictDict = new Dictionary<int, Dictionary<string, int>>()
     {
         {
+            3000,
+            new Dictionary<string, int>()
+            {
+                { "regular_game_reel", 0 },
+                { "free_game_reel", 1 }
+            }
+        },
+        {
             3001,
             new Dictionary<string, int>()
             {
