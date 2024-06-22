@@ -59,6 +59,21 @@ public class globalStore
     // public static int[] test_spin_tab = new int[] { };
     //public static string lastFreeSpinContents = "";
 
+    /// <summary>
+    /// 每个游戏对应的滚轮表的名字
+    /// </summary>
+    public static Dictionary<int, Dictionary<string, int>> ReelDictDict = new Dictionary<int, Dictionary<string, int>>()
+    {
+        {
+            3001,
+            new Dictionary<string, int>()
+            {
+                { "regular_game_reel", 0 },
+                { "free_game_reel", 1 }
+            }
+        }
+    };
+
 
     public static List<List<int>> reelSetList1 = new List<List<int>>();
     public static List<List<int>> reelSetList2 = new List<List<int>>();
