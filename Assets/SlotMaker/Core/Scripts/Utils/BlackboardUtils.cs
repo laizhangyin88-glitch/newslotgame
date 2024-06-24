@@ -450,5 +450,14 @@ namespace SlotMaker
             return null;
         }
 
+        public static Blackboard GetGameContentsBlackboard()
+        {
+            GameObject Base = GameObject.Find("Game Canvas/Game Contents/Animator");
+            if (Base != null)
+            {
+                return Base.GetComponent<Blackboard>();
+            }
+            return null;
+        }
     }
 }

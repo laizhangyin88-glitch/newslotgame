@@ -203,11 +203,14 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     response.contents = contentJson.ToString();
 
                     var bb = ContentBlackboard.Get();
+
+                    SerializeMiniGameData(bb, res["game_config"]["jackpot_game_config"]); 
                     //Debug.LogError(contentJson);
                     Serialize(bb, response);
 
 
                     BlackboardUtils.SetOrCreateValue(bb, "changeCode", changeCode);
+
 
                     BlackboardQueryUtils.UpdateSeat(response.room);
                     BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
@@ -328,6 +331,15 @@ namespace BagelCode.Tasks.Actions.ClientAPI
             {
                 Debug.LogError("No Game ID found." + agent.gameObject.name);
             }
+        }
+
+        /// <summary>
+        /// 保存免费游戏服务器下发的数据
+        /// </summary>
+        /// <param name="node"></param>
+        private void SerializeMiniGameData(IBlackboard bb, JSONNode node)
+        {
+            BlackboardUtils.SetOrCreateValue(bb, "MiniGameData", node);
         }
 
         private void EnterGameResponse(int gameID, BagelCode.ClientModels.RoomEnterResponseV3 response)

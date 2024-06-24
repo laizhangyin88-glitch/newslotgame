@@ -44,7 +44,7 @@ public class FruitPartyMiniGameTigerMachine : MonoBehaviour
                     bigRingItemController.Index = i;
                     bigRingItemControllers[i, j] = bigRingItemController;
                 }
-                MyTimerManagers.Instance.AddTimer(1, 1, () => { group.enabled = false; });
+                this.DelayAction(1, () => { group.enabled = false; });
                 
             }
         }
@@ -57,19 +57,19 @@ public class FruitPartyMiniGameTigerMachine : MonoBehaviour
             item.ResetPosition();
             item.isMove = true;
         }
-        int index = 0;
-        int[] temp =FruitPartyMiniGameController1.Instance.Results;
-        for (int i = 0; i < col; i++)
-        {
-            for (int j = 0; j < row; j++)
-            {
-                if(j == ColMiddle)
-                {
-                    bigRingItemControllers[i, j].ResultIndex = temp[index];
-                    index++;
-                }
-            }
-        }
+        //int index = 0;
+        //int[] temp =FruitPartyMiniGameController1.Instance.Results;
+        //for (int i = 0; i < col; i++)
+        //{
+        //    for (int j = 0; j < row; j++)
+        //    {
+        //        if(j == ColMiddle)
+        //        {
+        //            bigRingItemControllers[i, j].ResultIndex = temp[index];
+        //            index++;
+        //        }
+        //    }
+        //}
     }
 
     public void StopSlotAnimation()
@@ -78,21 +78,22 @@ public class FruitPartyMiniGameTigerMachine : MonoBehaviour
         {
             item.isMove = false;
             item.ResetPosition();
-            item.PlayResult(Random.Range(0, FruitPartyMiniGameController1.Instance.sprites.Length));
+            item.PlayResult();
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlayResult(int[] result)
     {
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    PlaySlotAnimation();
-        //}
-        //if (Input.GetKeyUp(KeyCode.W))
-        //{
-        //    StopSlotAnimation();
-        //}
+        int[] temp = result;
+        for (int i = 0; i < col; i++)
+        {
+            bigRingItemControllers[i, 1].ResultIndex = temp[i];
+        }
+        StopSlotAnimation();
     }
 
+    public void Pingpong(int index)
+    {
+        bigRingItemControllers[index, 1].Pingpong();
+    }
 }

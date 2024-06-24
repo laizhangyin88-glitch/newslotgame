@@ -40,7 +40,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
         isGameOver = false;
     }
 
-    private void Start()
+    public void OnStart()
     {
         TargetList = transform.Find("TargetList");
         SelectList = transform.Find("SelectList");
@@ -98,7 +98,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
             controller.SelectIndex = i;
             selectItemControllers[i] = controller;
         }
-        MyTimerManagers.Instance.AddTimer(0.5f, 1, () =>
+        this.DelayAction(0.5f, () =>
         {
             SelectList.GetComponent<GridLayoutGroup>().enabled = false;
         });
@@ -129,7 +129,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
             {
                 item.SetColor(Color.gray);
             }
-            MyTimerManagers.Instance.AddTimer(2.5f, 1, () =>
+            this.DelayAction(2.5f, () =>
             {
                 foreach (var item in selectItemControllers)
                 {
@@ -139,7 +139,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
                     }
                 }
             });
-            MyTimerManagers.Instance.AddTimer(5f, 1, () =>
+            this.DelayAction(5f, () =>
             {
                 Reset();
             });

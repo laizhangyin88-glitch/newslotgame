@@ -1,3 +1,5 @@
+using BagelCode;
+using GameUtil;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +22,7 @@ public class BigRingItemController : MonoBehaviour
     private float stopTime = 0;
 
     private Image icon;
+    private Image redIcon;
 
     public int Index = 0;
 
@@ -27,17 +30,23 @@ public class BigRingItemController : MonoBehaviour
 
     public int ResultIndex = 0;
 
+    private LoopTimer _loopTimer;
+
     // Start is called before the first frame update
     private void Start()
     {
-        stopTime = FruitPartyMiniGameController1.AnimationTime - 0.5f;
+        ResultIndex = 0;
+        stopTime = FruitPartyMiniGameController1.AnimationTime;
         icon = transform.Find("icon").GetComponent<Image>();
+        icon.sprite = FruitPartyMiniGameController1.Instance.spritesArray[Random.Range(0, 8)]; 
+        redIcon = transform.Find("redicon").GetComponent<Image>();
+        redIcon.gameObject.SetActive(false);
         RectTransform rectTransform = GetComponent<RectTransform>();
-        MyTimerManagers.Instance.AddTimer(1, 1, () =>
+        this.DelayAction(1, () =>
         {
             startPosition = transform.localPosition;
         });
-        SetSprite(FruitPartyMiniGameController1.Instance.sprites[Random.Range(0, FruitPartyMiniGameController1.Instance.sprites.Length)]);
+        //SetSprite(FruitPartyMiniGameController1.Instance.sprites[Random.Range(0, FruitPartyMiniGameController1.Instance.sprites.Length)]);
     }
 
     public void SetSprite(Sprite sprite)
@@ -49,33 +58,15 @@ public class BigRingItemController : MonoBehaviour
     {
         if (isMove)
         {
-            if (!isStart)
-            {
-                isStart = true;
-                MyTimerManagers.Instance.AddTimer(stopTime + Index * 0.2f, 1, () =>
-                {
-                    isStart = false;
-                    isMove = false;
-                    ResetPosition();
-                    if (ResultIndex == 0)
-                    {
-                        PlayResult(Random.Range(0, FruitPartyMiniGameController1.Instance.sprites.Length));
-                    }
-                    else
-                    {
-                        PlayResult(ResultIndex);
-                    }
-                });
-            }
             transform.localPosition += new Vector3(0, Speed * Time.deltaTime, 0);
-            if (transform.localPosition.y < bottomPositionY)
+            if (transform.localPosition.y <= bottomPositionY)
             {
                 transform.localPosition = new Vector3(transform.localPosition.x, topPositionY, 0);
             }
             if ((changeTime -= Time.deltaTime) < 0)
             {
                 changeTime = 0.2f;
-                SetSprite(FruitPartyMiniGameController1.Instance.sprites[Random.Range(0, FruitPartyMiniGameController1.Instance.sprites.Length)]);
+                SetSprite(FruitPartyMiniGameController1.Instance.spritesArray[Random.Range(0, FruitPartyMiniGameController1.Instance.spritesArray.Length - 1)]);
             }
         }
     }
@@ -85,10 +76,40 @@ public class BigRingItemController : MonoBehaviour
         transform.localPosition = startPosition;
     }
 
-    public void PlayResult(int index)
+    public void PlayResult()
     {
-        SetSprite(FruitPartyMiniGameController1.Instance.sprites[FruitPartyMiniGameController1.Instance.SlotSpriteIndexArray[index]]);
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        //transform.DOLocalMoveY(startPosition.y - rectTransform.rect.height, 0.2f);
+        if (ResultIndex > 0)
+        {
+            SetSprite(FruitPartyMiniGameController1.Instance.spritesArray[ResultIndex - 1]);
+            redIcon.sprite = FruitPartyMiniGameController1.Instance.redSpritesArray[ResultIndex - 1];
+        }
+    }
+
+    public void Pingpong()
+    {
+        Color color = Color.white;
+        int count = 0;
+        float timer = 1f;
+        int id = 0;
+        redIcon.gameObject.SetActive(true);
+        _loopTimer?.Cancel();
+        _loopTimer = this.LoopAction(Time.deltaTime, (time) =>
+        {
+            color.a = Mathf.PingPong(5 * Time.time, 1f);
+            icon.color = color;
+            redIcon.color = color;
+            if ((timer -= Time.deltaTime) < 0)
+            {
+                timer = 1f;
+                count++;
+                if (count >= 3)
+                {
+                    icon.color = Color.white;
+                    redIcon.color = Color.white;
+                    redIcon.gameObject.SetActive(false);
+                    _loopTimer.Cancel();
+                }
+            }
+        });
     }
 }
