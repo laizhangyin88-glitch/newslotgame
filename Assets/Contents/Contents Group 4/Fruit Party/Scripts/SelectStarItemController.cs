@@ -1,3 +1,4 @@
+using GameUtil;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,8 @@ public class SelectStarItemController : MonoBehaviour
 
     private Vector3 startPosition;
 
+    private LoopTimer _loopTimer;
+
     private void Awake()
     {
         isExit = false;
@@ -37,7 +40,7 @@ public class SelectStarItemController : MonoBehaviour
         icon.gameObject.SetActive(false);
 
         UpdateStarItem();
-        MyTimerManagers.Instance.AddTimer(1, 1, () =>
+        this.DelayAction(1, () =>
         {
             PlayStartAnimation();
         });
@@ -147,7 +150,8 @@ public class SelectStarItemController : MonoBehaviour
         int count = 0;
         float timer = 1f;
         int id = 0;
-        id = MyTimerManagers.Instance.AddTimer(0, -1, () =>
+        _loopTimer?.Cancel();
+        _loopTimer = this.LoopAction(Time.deltaTime, (time) =>
         {
             color.a = Mathf.PingPong(5 * Time.time, 1f);
             icon.color = color;
@@ -157,8 +161,8 @@ public class SelectStarItemController : MonoBehaviour
                 count++;
                 if (count >= 3)
                 {
-                    MyTimerManagers.Instance.RemoveTimerById(id);
                     icon.color = Color.white;
+                    _loopTimer.Cancel();
                 }
             }
         });

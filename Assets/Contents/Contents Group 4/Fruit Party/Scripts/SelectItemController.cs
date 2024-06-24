@@ -35,7 +35,7 @@ public class SelectItemController : MonoBehaviour
         frameAnimator.Stop();
         frameAnimator.FinishEvent += AnimationFinishEvent;
         frameAnimator.gameObject.SetActive(false);
-        MyTimerManagers.Instance.AddTimer(1, 1, () =>
+        this.DelayAction(1, () =>
         {
             startPosition = transform.localPosition;
             transform.localPosition = Vector2.one * (SelectIndex < 5 ? -3000 : 3000);
@@ -57,7 +57,7 @@ public class SelectItemController : MonoBehaviour
             this.spriteIndex = UnityEngine.Random.Range(0, FruitPartyMiniGameController2.Instance.sprites.Length);
             icon.sprite = FruitPartyMiniGameController2.Instance.sprites[this.spriteIndex];
         }
-        MyTimerManagers.Instance.AddTimer(0.2f, 1, () =>
+        this.DelayAction(0.2f, () =>
         {
             button.gameObject.SetActive(true);
             PlayMoveAnamtion();

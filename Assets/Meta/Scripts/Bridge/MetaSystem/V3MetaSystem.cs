@@ -22,9 +22,6 @@ namespace BagelCode
 {
     public class V3MetaSystem : IMetaSystem
     {
-        private bool isFree = true;
-        private int spinCount = 0;
-        private bool isInMiniGame = false;
         public void SelectGame(int gameId)
         {
             var gameInfo = BlackboardQueryUtils.GetGameInfo(gameId);
@@ -152,8 +149,6 @@ namespace BagelCode
             //新游戏接口
             if (globalStore.IsNewGame(gameId))
             {
-
-
 #if UNITY_EDITOR
                 ///测试用的数据
                 List<int> debug_param2 = new List<int>() { 160, 119, 63, 132, 194 };
@@ -183,16 +178,6 @@ namespace BagelCode
                    // { "debug_param", debug_param1},
 #endif
                 };
-                if(this.spinCount == 0) 
-                {
-                    req.Remove("debug_param");
-                }
-                if (this.isInMiniGame)
-                {
-                    var index = UnityEngine.Random.Range(0, 3);
-                    Debug.LogError("进入小游戏.....................111......" + index); 
-                    req.Add("jackpot_game_index", index);
-                }
                 //if (!this.isFree)
                 //{
                 //    Debug.LogError("发送触发免费游戏.............");
@@ -200,10 +185,9 @@ namespace BagelCode
                 //}
                 //this.isFree = false;
                 //Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
-                 
+                
                 Action<JSONNode> responseCallback = (res) =>
                 {
-                    spinCount++;
                     Debug.LogError("拉霸下发数据......." + res.ToString());
                     Debug.LogError("拉霸结果....... + " + res["game_result"]["first_index_list"].ToString());
                     //var contentStr = "{\"game_id\":21,\"result\":{\"reel_output_list\":[47,19,36,21,38],\"paytable_index\":0,\"earn_credit\":0},\"bonus_result\":[],\"custom_data\":{},\"reel_set_index\":{\"current_index\":0,\"next_index\":0},\"free_spin_info\":{\"type\":0,\"bet\":0,\"count\":0,\"spun_count\":0,\"total_count\":0,\"initial_count\":0,\"multiplier\":0,\"sticky_wild\":[],\"extra_data\":{}},\"jackpot_info\":{\"type\":2,\"info\":{\"eligible_min_bet\":0,\"eligible_min_bet_per_jackpot\":[0,0,0,0,0],\"base_bet\":30,\"info_list\":[{\"current\":241.02,\"prev\":240.96},{\"current\":913.5,\"prev\":913.38},{\"current\":2375.85,\"prev\":2375.55},{\"current\":15100.68,\"prev\":15100.44},{\"current\":30050.34,\"prev\":30050.22}]}},\"contents_store\":{}}";
@@ -229,13 +213,6 @@ namespace BagelCode
                     content["game_id"] = gameId;
                     content["result"]["earn_credit"] = res["game_result"]["earn_credit"];
 
-                    var reward = res["game_result"]["jackpot_reward3"];
-                    Debug.LogError("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR    +++++" + reward.ToString());
-                    if(reward != null && reward > 0)
-                    {
-                        this.isInMiniGame = true;
-                    }
-
                     content["result"]["reel_output_list"] = res["game_result"]["first_index_list"]; //获取索引
 
                     if (res["game_result"]["free_game_credit"] != null) ///记录铃铛的得分
@@ -251,8 +228,7 @@ namespace BagelCode
 
                     content["result"]["spin_once_earn_credit"] = res["game_result"]["earn_credit"];
 
-
-                    if (
+                    if(
                     globalStore.bonusID.ContainsKey(gameId)
                     && res["game_result"].HasKey("free_game_result")
                     && res["game_result"]["free_game_result"]["cur_free_game_times"] == 0)
@@ -281,8 +257,6 @@ namespace BagelCode
                     else
                     {
                         content["bonus_result"].Clear();
-                        content["reel_set_index"]["next_index"] = 0;
-                        Debug.LogError("没有免费游戏...............");
                     }
                     var current = res["game_result"]["game_real_name"];
                     var next = res["game_result"]["next_game_real_name"];
@@ -318,6 +292,7 @@ namespace BagelCode
                 }
                 else
                 {
+                    Debug.LogError("发送拉霸协议...............");
                     NetManager.Instance.Post(RPCName.newSlotSpin, req,
                     responseCallback,
                     (error) =>

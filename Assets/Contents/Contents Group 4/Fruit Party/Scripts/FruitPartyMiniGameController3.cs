@@ -37,10 +37,8 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
     {
         Instance = this;
     }
-
-
     // Start is called before the first frame update
-    void Start()
+    public void  OnStart()
     {
         TargetList = transform.Find("TargetList");
         SelectList = transform.Find("SelectList");
@@ -118,7 +116,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
         {
             item.SetItemColor(Color.gray);
         }
-        MyTimerManagers.Instance.AddTimer(3, 1, () =>
+        this.DelayAction(3, () =>
         {
             foreach(var item in selectStarItemControllers)
             {
@@ -131,7 +129,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
 
         //if(!isExit)
         {
-            MyTimerManagers.Instance.AddTimer(5, 1, () =>
+            this.DelayAction(5, () =>
             {
                 foreach (var item in selectStarItemControllers)
                 {

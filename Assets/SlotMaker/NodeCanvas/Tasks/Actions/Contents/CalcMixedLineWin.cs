@@ -409,6 +409,7 @@ namespace BagelCode.Tasks.Actions.Contents
             {
                 Debug.LogError("触发免费游戏了......");
                 winList.Add(symbolWin);
+                
                 //Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
                 //var response = spinBB.value.GetValue<Blackboard>("response");
                 //long temp = response.GetValue<long>("free_game_credit");
@@ -443,6 +444,7 @@ namespace BagelCode.Tasks.Actions.Contents
             if(count >= 3)
             {
                 Debug.LogError("触发小游戏了...........");
+                ContentBlackboard.Get().SetValue("isTriggerMiniGame", true);
                 list.Add(symbolWin);
             }
         }
@@ -454,6 +456,7 @@ namespace BagelCode.Tasks.Actions.Contents
             winList = new List<SymbolWin>();
             if (globalStore.IsInNewGame())
             {
+                ContentBlackboard.Get().SetValue("isTriggerMiniGame", false);
                 totalEarnCredit += FillLineData(winList, 1);
                 if (bidirectional.value)
                     totalEarnCredit += FillLineData(winList, -1); 

@@ -7,7 +7,7 @@ namespace SlotMaker
 {
     public class SymbolSprite : MonoBehaviour
     {
-        public List<Sprite> sprites;
+        public List<Sprite> sprites; 
 
         public virtual void Apply(BaseSymbol symbol, SpriteRenderer image, int additionalSortingOrder)
         {
