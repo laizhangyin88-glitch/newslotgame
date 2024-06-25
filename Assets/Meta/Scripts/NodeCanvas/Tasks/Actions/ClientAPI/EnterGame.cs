@@ -39,7 +39,6 @@ public class EnterGame : ActionTask <Blackboard>
             RPCHall.ReqEnterGame req = new RPCHall.ReqEnterGame();
             req.game_id = gameID.value;
 
-           // NetManager.Instance.Post(RPCName.enterGame,
             NetManager.Instance.Post(RPCName.enterGame, req,
                 (res) =>
                 {
@@ -59,66 +58,6 @@ public class EnterGame : ActionTask <Blackboard>
                     System.Collections.Generic.List<long> betList = res["bet_list"].AsStringList.Select(s => long.Parse(s)).ToList();
                     response.betList = betList;
                     response.contents = res["contents"].ToString();
-
-
-                    /*if (res.HasKey("last_session_content"))
-                    {
-
-                        JSONNode _cnt;
-
-                        string boundIdStr = "{\"bonus_id\":2102,\"type\":2,\"result\":{\"type\":0,\"bet_credit\":8000,\"added_spin_count\":20},\"earn_credit\":0,\"claim_type\":3,\"uid\":\"171119377516341340\"}";
-
-                        JSONNode _bound = JSONNode.Parse(boundIdStr);
-
-                        if (res.HasKey("last_session_content"))
-                        {
-                            _cnt = res["last_session_content"];
-                        }
-                        else
-                        {
-                            TextAsset jsn9 = Resources.Load<TextAsset>("tempdata/free_spin_content_777");
-                            _cnt = JSONNode.Parse(jsn9.text);
-                        }
-
-                        var bet = 0;
-                        var addedSpinCount = 15;
-                        if (_cnt.HasKey("free_spin_info"))
-                        {
-                            bet = _cnt["free_spin_info"]["bet"];
-                            addedSpinCount = _cnt["free_spin_info"]["count"]  - 1;  //剩余局数
-                        }
-                        else
-                        {
-                            Debug.LogError("没有 free_spin_info 节点");
-                        }
-
-                        _bound["result"]["bet_credit"] = bet;
-                        _bound["result"]["added_spin_count"] = addedSpinCount;
-
-                        if (addedSpinCount >0 ) //剩余局数大于0
-                        {
-                            _cnt["bonus_result"].Add(_bound);
-                        }
-
-                        //TextAsset jsn9 = Resources.Load<TextAsset>("tempdata/free_spin_content_777");
-                        //_cnt = JSONNode.Parse(jsn9.text);
-
-
-                        string strRes01 = _cnt.ToString();
-                        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "lastFreeSpinContent", strRes01);
-
-                        Debug.Log($"last_session_content = {strRes01}");//last_session_content
-
-                        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "isLastGameSpin", true);
-        
-                    }
-                    else
-                    {
-                        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "isLastGameSpin", false);
-                    }*/
-
-
-                    //Debug.Log($" @contents =  {response.contents}");
 
 
                     var bb = ContentBlackboard.Get();
