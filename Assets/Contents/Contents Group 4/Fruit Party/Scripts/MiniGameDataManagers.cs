@@ -18,6 +18,14 @@ public class Game2Data
     public int extern_mutiple;
 }
 
+public class Game3Data
+{
+    public int is_bonus;
+    public int card_index;
+    public int round_mutiple;
+    public int bonus;
+}
+
 public class MiniGameDataManagers
 {
     private static MiniGameDataManagers instance;
@@ -35,6 +43,7 @@ public class MiniGameDataManagers
 
     public List<Game1Data> game1Datas = new List<Game1Data>();
     public List<Game2Data> game2Datas = new List<Game2Data>();
+    public List<Game3Data> game3Datas = new List<Game3Data>();
     public void FillGame1Data(JSONNode node)
     {
         game1Datas.Clear();
@@ -55,16 +64,16 @@ public class MiniGameDataManagers
             {
                 data.middle_list[j] = ttt[j];
             }
-            Debug.LogError("转灯结果......" + data.card_index);
+            //Debug.LogError("转灯结果......" + data.card_index);
             if(data.round_mutiple > 0)
             {
-                Debug.LogError("击中............................................." + data.card_index);
+                //Debug.LogError("击中............................................." + data.card_index);
             }
             game1Datas.Add(data);
         }
-        Debug.LogError(game1Datas.Count); 
+        //Debug.LogError(game1Datas.Count); 
     }
-
+     
     public void FillGame2Data(JSONNode node) 
     {
         game2Datas.Clear();
@@ -86,9 +95,30 @@ public class MiniGameDataManagers
                 {
                     game2Data.extern_mutiple = 0;
                 }
+                //Debug.LogError("step_mutiple : " + game2Data.step_mutiple + "  card_index:  " + game2Data.card_index); 
                 game2Datas.Add(game2Data);
             }
         }
-        Debug.LogError (game2Datas.Count);
+        //Debug.LogError (game2Datas.Count);
     }
-}
+
+    public void FillGame3Data(JSONNode node)
+    { 
+        Debug.LogError("免费游戏的数据..................." + node.ToString());
+        game3Datas.Clear();
+        for (int i = 0; i < node.Count; i++)
+        {
+            var temp = node[i];
+            Game3Data game3Data = new Game3Data();
+            game3Data.is_bonus = temp["is_bonus"];
+            game3Data.card_index = temp["card_index"];
+            if(game3Data.card_index == 100)
+            {
+                game3Data.card_index = 10;
+            }
+            game3Data.round_mutiple = temp["round_mutiple"];
+            game3Data.bonus = temp["bonus"];
+            game3Datas.Add(game3Data);
+        }
+    }
+} 

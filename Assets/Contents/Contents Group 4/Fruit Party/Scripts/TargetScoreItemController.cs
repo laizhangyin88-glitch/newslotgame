@@ -24,8 +24,6 @@ public class TargetScoreItemController : MonoBehaviour
 
     private Image[] images = new Image[3];
 
-    private int[] ScoreArray = new int[3] { 20, 30, 50};
-
     private LoopTimer _loopTimer;
 
     // Start is called before the first frame update
@@ -40,14 +38,16 @@ public class TargetScoreItemController : MonoBehaviour
     }
 
 
-    public void SetItemData(int totalScore, int spriteIndex)
+    public void SetItemData(int totalScore, int spriteIndex, int score)
     {
         this.totalScore = totalScore;
         this.spriteIndex = spriteIndex;
+        this.currentScore = score;
         TotalScore_Txt.text = totalScore.ToString();
+        CurrentScore_Txt.text = currentScore.ToString();
         SetSpriteList();
         TargetIcon.sprite = FruitPartyMiniGameController2.Instance.sprites[spriteIndex];
-        CurrentScore_Txt.text = "0";
+        
     }
 
     private void SetSpriteList()
@@ -69,15 +69,14 @@ public class TargetScoreItemController : MonoBehaviour
         if(this.spriteIndex == spriteIndex)
         {
             images[activeIndex].color = Color.white;
-            int score = totalScore * ScoreArray[activeIndex] / 100;
+            int score = currentScore;
             FruitPartyMiniGameController2.Instance.SetTotalScore(score);
             activeIndex++;
-            currentScore += score;
             PingPong();
-            CurrentScore_Txt.text = currentScore.ToString();
             if(activeIndex >= 3)
             {
                 FruitPartyMiniGameController2.Instance.FinishGame();
+                FruitPartyMiniGameController2.Instance.SetTotalScore(totalScore);
             }
         }
     }

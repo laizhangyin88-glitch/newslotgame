@@ -50,6 +50,8 @@ public class DoorController : MonoBehaviour
                 break;
             case 2:
                 var controller2 = GameList[index].GetComponent<FruitPartyMiniGameController3>();
+                controller2.gameObject.SetActive(true);
+                controller2.OnStart();
                 break;
         }
         this.gameObject.SetActive(false);

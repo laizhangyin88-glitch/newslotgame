@@ -1,3 +1,5 @@
+using BagelCode;
+using GameUtil;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +22,8 @@ public class SelectItemController : MonoBehaviour
 
     private Image frameImage;
 
+    private LoopTimer loopTimer;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -38,41 +42,34 @@ public class SelectItemController : MonoBehaviour
         this.DelayAction(1, () =>
         {
             startPosition = transform.localPosition;
-            transform.localPosition = Vector2.one * (SelectIndex < 5 ? -3000 : 3000);
             gameObject.SetActive(true);
-            SetSelectItemData(spriteIndex);
+            //SetSelectItemData(spriteIndex);
         });
     }
 
     private void AnimationFinishEvent()
     {
-        ShowAnimation();
+        ShowAnimation(); 
     }
 
-    public void SetSelectItemData(int spriteIndex)
-    {
-        this.spriteIndex = spriteIndex;
-        if (FruitPartyMiniGameController2.Instance != null)
-        {
-            this.spriteIndex = UnityEngine.Random.Range(0, FruitPartyMiniGameController2.Instance.sprites.Length);
-            icon.sprite = FruitPartyMiniGameController2.Instance.sprites[this.spriteIndex];
-        }
-        this.DelayAction(0.2f, () =>
-        {
-            button.gameObject.SetActive(true);
-            PlayMoveAnamtion();
-        });
-    }
-
-    private void OnClickButton()
+    public void OnClickButton()
     {
         isSelected = true;
         button.gameObject.SetActive(false);
         frameAnimator.gameObject.SetActive(true);
         frameAnimator.Reset();
         frameAnimator.Play();
+
+        this.spriteIndex = FruitPartyMiniGameController2.Instance.getClickSpriteIndex();
+        icon.sprite = FruitPartyMiniGameController2.Instance.sprites[spriteIndex];
+        
         FruitPartyMiniGameController2.Instance.ClickSelectItem(spriteIndex);
         FruitPartyMiniGameController2.Instance.IsFinishGame();
+    }
+
+    public void SetSprite(int index)
+    {
+        icon.sprite = FruitPartyMiniGameController2.Instance.sprites[index];
     }
 
     public void PlayAnimationAndShow()
@@ -98,13 +95,12 @@ public class SelectItemController : MonoBehaviour
     public void Reset()
     {
         isSelected = false;
-        transform.localPosition = Vector2.one * (SelectIndex < 5 ? -3000 : 3000);
         icon.gameObject.SetActive(false);
-        button.gameObject.SetActive(false);
+        button.gameObject.SetActive(true);
         SetColor(Color.white);
         frameImage.color = Color.white;
-        this.spriteIndex = UnityEngine.Random.Range(0, FruitPartyMiniGameController2.Instance.sprites.Length);
-        SetSelectItemData(this.spriteIndex);
+        transform.localPosition = startPosition;
+        spriteIndex = 0;
     }
 
     private void OnDestroy()
@@ -146,6 +142,13 @@ public class SelectItemController : MonoBehaviour
         }
         result[2] = startPosition;
         transform.localScale = Vector3.one * 0.5f;
+        transform.localPosition = result[0];
+        loopTimer?.Cancel();
+        //transform.rotation = Vector3.
+        this.loopTimer = this.LoopAction(Time.deltaTime, null, (deltaTime) =>
+        {
+
+        });
         //transform.DOLocalPath(result, 2f).OnComplete(() =>
         //{
         //});

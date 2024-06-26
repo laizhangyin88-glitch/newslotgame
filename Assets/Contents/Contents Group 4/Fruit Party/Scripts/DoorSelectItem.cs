@@ -62,6 +62,7 @@ public class DoorSelectItem : MonoBehaviour
                     MiniGameDataManagers.Instance.FillGame2Data(res["game_result"]["jackpot_game_result"]);
                     break;
                 case 2:
+                    MiniGameDataManagers.Instance.FillGame3Data(res["game_result"]["jackpot_game_result"]);
                     break;
             }
             if(DoorController != null)
