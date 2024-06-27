@@ -21,6 +21,10 @@ public class DoorSelectItem : MonoBehaviour
     [NonSerialized]
     public DoorController DoorController;
 
+    private FrameAnimator _frameAnimator;
+
+    private Button btn;
+
     public void SetIndex(int index)
     {
         this._index = index;
@@ -36,12 +40,26 @@ public class DoorSelectItem : MonoBehaviour
     private void Awake()
     {
         name_image = transform.Find("name").GetComponent<Image>();
-        var btn = transform.Find("Image").GetComponent<Button>();
+        btn = transform.Find("Image").GetComponent<Button>();
+        _frameAnimator = transform.Find("animation").GetComponent<FrameAnimator>();
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(OnClickBtn);
+        _frameAnimator.gameObject.SetActive(false);
+        _frameAnimator.FinishEvent += AnimationFinish;
     }
 
-    private void OnClickBtn()
+    private void AnimationFinish()
+    {
+        _frameAnimator.FinishEvent -= AnimationFinish;
+        _frameAnimator.Stop();
+        _frameAnimator.gameObject.SetActive(false);
+        if (DoorController != null)
+        {
+            DoorController.PlayMiniGame(_index);
+        }
+    }
+
+    public void OnClickBtn()
     {
         long betCredit = BlackboardUtils.FindVariable<long>("./betCredit").value;
         long extraBetCredit = BlackboardUtils.FindVariable<long>("./extraBetCredit").value;
@@ -65,10 +83,11 @@ public class DoorSelectItem : MonoBehaviour
                     MiniGameDataManagers.Instance.FillGame3Data(res["game_result"]["jackpot_game_result"]);
                     break;
             }
-            if(DoorController != null)
-            {
-                DoorController.PlayMiniGame(_index);
-            }
+            
+            this.btn.gameObject.SetActive(false);
+            _frameAnimator.gameObject.SetActive(true);
+            _frameAnimator.Reset();
+            _frameAnimator.Play();
         },
         (error) =>
         {

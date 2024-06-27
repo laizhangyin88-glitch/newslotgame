@@ -225,11 +225,14 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
                 }
             } 
             int temp = Random.Range(0, selectStarItemControllers.Length);
-            while (selectStarItemControllers[temp].isClick)
+            if (spriteIndex != 9)///如果点击的是退出图标，这里就不再设置退出图标了
             {
-                temp = Random.Range(0, selectStarItemControllers.Length);
-            }
-            selectStarItemControllers[temp].SetExit(ExitSprite);
+                while (selectStarItemControllers[temp].isClick)
+                {
+                    temp = Random.Range(0, selectStarItemControllers.Length);
+                }
+                selectStarItemControllers[temp].SetExit(ExitSprite);
+            } 
             while (selectStarItemControllers[temp].isExit || selectStarItemControllers[temp].isClick)
             {
                 temp = Random.Range(0, selectStarItemControllers.Length);
@@ -276,6 +279,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
                 rewardScoreItemControllers[i] = null;
             }
         }
+        MiniGameDataManagers.Instance.ResetAutoSpint();
     }
 }
 

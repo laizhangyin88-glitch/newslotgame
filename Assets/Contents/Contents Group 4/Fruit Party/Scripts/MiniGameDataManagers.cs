@@ -1,4 +1,5 @@
 using SimpleJSON;
+using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -119,6 +120,19 @@ public class MiniGameDataManagers
             game3Data.round_mutiple = temp["round_mutiple"];
             game3Data.bonus = temp["bonus"];
             game3Datas.Add(game3Data);
+        }
+    }
+
+    public void ResetAutoSpint()
+    {
+        GameObject door = BlackboardUtils.GetGameContentsBlackboard().GetValue<GameObject>("Door");
+          if (door != null)
+        {
+            DoorController doorController = door.GetComponent<DoorController>();
+            if (doorController != null)
+            {
+                doorController.ResetAutoSpin();
+            }
         }
     }
 } 

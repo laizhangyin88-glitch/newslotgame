@@ -252,6 +252,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
                 selectItemControllers[i] = null;
             }
         }
+        MiniGameDataManagers.Instance.ResetAutoSpint();
     }
 
     public void IsFinishGame()

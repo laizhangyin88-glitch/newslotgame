@@ -20,6 +20,7 @@ namespace SlotMaker.Tasks.Actions.Contents
                 {
                     door.gameObject.SetActive(true);
                     DoorController doorController = door.GetComponent<DoorController>();
+                    doorController.OnStart();
                 }
             }
             EndAction();

@@ -275,6 +275,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
                 scoreItemControllers[i] = null;
             }
         }
+        MiniGameDataManagers.Instance.ResetAutoSpint();
     }
 
     private void ShowItemPingPong(RingItemController ringItemController)
