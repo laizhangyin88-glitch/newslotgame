@@ -196,7 +196,6 @@ namespace BagelCode
                     TextAsset jsn7 = Resources.Load<TextAsset>("tempdata/slot_spin_content_id21");
                     var content = JSONNode.Parse(jsn7.text);
 
-                    /*
                     var result = res["game_result"]["total_result"];
                     for (int i = 0; i < result.Count; i++)
                     {
@@ -205,8 +204,7 @@ namespace BagelCode
                         {
                             Debug.LogError("win line ...... + " + temp["win_line"].ToString());
                         }
-                    }
-                    */
+                    } 
 
                     //var contentStr = "{\"game_id\":21,\"result\":{\"reel_output_list\":[47,19,36,21,38],\"paytable_index\":0,\"earn_credit\":0},\"bonus_result\":[],\"custom_data\":{},\"reel_set_index\":{\"current_index\":0,\"next_index\":0},\"free_spin_info\":{\"type\":0,\"bet\":0,\"count\":0,\"spun_count\":0,\"total_count\":0,\"initial_count\":0,\"multiplier\":0,\"sticky_wild\":[],\"extra_data\":{}},\"jackpot_info\":{\"type\":2,\"info\":{\"eligible_min_bet\":0,\"eligible_min_bet_per_jackpot\":[0,0,0,0,0],\"base_bet\":30,\"info_list\":[{\"current\":241.02,\"prev\":240.96},{\"current\":913.5,\"prev\":913.38},{\"current\":2375.85,\"prev\":2375.55},{\"current\":15100.68,\"prev\":15100.44},{\"current\":30050.34,\"prev\":30050.22}]}},\"contents_store\":{}}";
                     //var content = JSONNode.Parse(contentStr);
@@ -290,8 +288,22 @@ namespace BagelCode
                 {
                     TestManager.Instance.getCustomReelsSpinRes(responseCallback);
                 }
-                else
+                else 
                 {
+                    var temp = TestManager.Instance.getList();
+                    if(temp.Length > 0)
+                    {
+                        Dictionary<string, object> debug_param11 = new Dictionary<string, object> {
+                            {"first_index_list",
+                                temp
+                            },
+                            {
+                                "is_free",
+                                0
+                            }
+                        };
+                        req.Add("debug_param", debug_param11);
+                    }
                     Debug.LogError("发送拉霸协议...............");
                     NetManager.Instance.Post(RPCName.newSlotSpin, req,
                     responseCallback,
@@ -302,8 +314,7 @@ namespace BagelCode
                             errorCallback();
                     });
                 }
-
-            }
+            } 
             else
             {
 

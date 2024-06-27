@@ -1,6 +1,9 @@
+using GameUtil;
+using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DoorController : MonoBehaviour
 {
@@ -10,12 +13,79 @@ public class DoorController : MonoBehaviour
 
     public GameObject[] GameList;
 
+    private Text TimeTxt;
+
+    private int currentCountDown;
+
+    private Text totalWinValueTxt;
+
+    private Text BetValueTxt;
+
+    private long currentBet;
+
+    private LoopTimer _loopTimer;
+
     private List<DoorSelectItem> doorSelectItems = new List<DoorSelectItem>();
 
-    private void Start()
+    private bool autoSpinValue = false;
+
+    private void SetAutoSpinFalse()
     {
+        var autoSpin = BlackboardUtils.FindVariable<bool>("./autoSpin");
+        if (autoSpin != null && autoSpin.value)
+        {
+            autoSpinValue = autoSpin.value;
+            BlackboardUtils.FindVariable<bool>("./autoSpin").value = false;
+        }
+    }
+
+    public void ResetAutoSpin()
+    {
+        BlackboardUtils.FindVariable<bool>("./autoSpin").value = autoSpinValue;
+    }
+
+    public void OnStart()
+    {
+        SetAutoSpinFalse();
+        currentBet = BlackboardUtils.FindVariable<long>("./betCredit").value;
+
         listParent = transform.Find("list");
+        BetValueTxt = transform.Find("bet/BetValue").GetComponent<Text>();
+        totalWinValueTxt = transform.Find("Img/totalWinValue").GetComponent<Text>();
+        TimeTxt = transform.Find("time/TimeTxt").GetComponent<Text>();
+
+        BetValueTxt.text = currentBet.ToString();
+
         InitSelectItem();
+
+        StartCountDown();
+    }
+
+    private void StartCountDown()
+    {
+        _loopTimer?.Cancel();
+        currentCountDown = 5;
+        TimeTxt.text = currentCountDown.ToString();
+        _loopTimer = this.LoopAction(1, (time) =>
+        {
+            currentCountDown--;
+            TimeTxt.text = currentCountDown.ToString();
+            if(currentCountDown <= 0)
+            {
+                TimeTxt.text = "";
+                AutoSelect();
+                _loopTimer?.Cancel();
+            }
+        });
+    }
+
+    private void AutoSelect()
+    {
+        if(doorSelectItems.Count > 0)
+        {
+            int index = Random.Range(0, doorSelectItems.Count);
+            doorSelectItems[index].OnClickBtn();
+        }
     }
 
     private void InitSelectItem()
@@ -36,22 +106,38 @@ public class DoorController : MonoBehaviour
 
     public void PlayMiniGame(int index)
     {
-        switch (index)
+        this.DelayAction(0.5f, () =>
         {
-            case 0:
-                var controller0 = GameList[index].GetComponent<FruitPartyMiniGameController1>();
-                controller0.gameObject.SetActive(true);
-                controller0.OnStart(); 
-                break;
-            case 1:
-                var controller1 = GameList[index].GetComponent<FruitPartyMiniGameController2>();
-                controller1.gameObject.SetActive(true);
-                controller1.OnStart();
-                break;
-            case 2:
-                var controller2 = GameList[index].GetComponent<FruitPartyMiniGameController3>();
-                break;
-        }
+            switch (index)
+            {
+                case 0:
+                    var controller0 = GameList[index].GetComponent<FruitPartyMiniGameController1>();
+                    controller0.gameObject.SetActive(true);
+                    controller0.OnStart();
+                    break;
+                case 1:
+                    var controller1 = GameList[index].GetComponent<FruitPartyMiniGameController2>();
+                    controller1.gameObject.SetActive(true);
+                    controller1.OnStart();
+                    break;
+                case 2:
+                    var controller2 = GameList[index].GetComponent<FruitPartyMiniGameController3>();
+                    controller2.gameObject.SetActive(true);
+                    controller2.OnStart();
+                    break;
+            }
+            Clear();
+        });
+    }
+
+    private void Clear()
+    {
         this.gameObject.SetActive(false);
+        _loopTimer?.Cancel();
+        for (int i = 0; i < doorSelectItems.Count; i++)
+        {
+            Destroy(doorSelectItems[i].gameObject);
+        }
+        doorSelectItems.Clear();
     }
 }

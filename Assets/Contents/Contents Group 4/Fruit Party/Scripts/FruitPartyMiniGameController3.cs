@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using System.Globalization;
+using SlotMaker;
+using SimpleJSON;
+using GameUtil;
 
 public class FruitPartyMiniGameController3 : MonoBehaviour
 {
@@ -16,6 +19,8 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
 
     public Sprite ExitSprite;
 
+    public Sprite BonusSprite;
+
     private Transform TargetList;
     private Transform SelectList;
     private Text BetTxt;
@@ -24,9 +29,25 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
 
     private Text CountDownTxt;
 
-    public int totalScore = 0;
+    public long totalScore = 0;
 
     private Button MaskButton;
+
+    private Text BonusText;
+
+    private int bonusValue;
+
+    private long currentBet;
+
+    private int dataIndex = 0;
+
+    private List<Game3Data> game3Datas;
+
+    private int[] spriteIndexs;
+
+    private LoopTimer _loopTimer;
+
+    private int currentCountDown;
 
     private RewardScoreItemController[] rewardScoreItemControllers = new RewardScoreItemController[5];
     private SelectStarItemController[] selectStarItemControllers = new SelectStarItemController[6];
@@ -38,8 +59,12 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
         Instance = this;
     }
     // Start is called before the first frame update
-    public void  OnStart()
+    public void OnStart()
     {
+        dataIndex = 0;
+        game3Datas = MiniGameDataManagers.Instance.game3Datas;
+        currentBet = BlackboardUtils.FindVariable<long>("./betCredit").value;
+
         TargetList = transform.Find("TargetList");
         SelectList = transform.Find("SelectList");
         point = SelectList.transform.Find("point");
@@ -47,21 +72,88 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
         TotalWinTxt = transform.Find("Image/TotalWin").GetComponent<Text>();
         CountDownTxt = transform.Find("Image/CountDown").GetComponent<Text>();
         MaskButton = transform.Find("MaskButton").GetComponent<Button>();
+        BonusText = transform.Find("Image/BonusText").GetComponent<Text>();
         MaskButton.gameObject.SetActive(false);
 
+        BetTxt.text = "BET \n" + currentBet.ToString();
+
         TotalWinTxt.text = "0";
+        BonusText.text = "0";
 
         InitRewardScoreList();
         InitSelectList();
 
         UpdateRewarScoreList();
+        this.DelayAction(0.5f, () =>
+        {
+            foreach (var item in selectStarItemControllers)
+            {
+                item.PlayStartAnimation();
+            }
+        });
+        StartCountDown();
+    }
+    private void StartCountDown()
+    {
+        _loopTimer?.Cancel();
+        currentCountDown = 5;
+        CountDownTxt.text = currentCountDown.ToString();
+        _loopTimer = this.LoopAction(1, (count) =>
+        {
+            currentCountDown--;
+            CountDownTxt.text = currentCountDown.ToString();
+            if (currentCountDown <= 0)
+            {
+                _loopTimer?.Cancel();
+                AutoSelected();
+                CountDownTxt.text = "";
+            }
+        });
+    }
+
+    private void AutoSelected()
+    {
+        int index = Random.Range(0, selectStarItemControllers.Length);
+        selectStarItemControllers[index].OnClickButton();
+    }
+    public int getSpriteIndex()
+    {
+        int result = 0;
+        if (game3Datas != null && game3Datas.Count > 0 && dataIndex < game3Datas.Count)
+        {
+            result = game3Datas[dataIndex].card_index - 1;
+        }
+        return result;
+    }
+
+    public void SetBonusValue()
+    {
+        BonusText.text = game3Datas[dataIndex].bonus.ToString();
+        bonusValue = game3Datas[dataIndex].bonus;
+        dataIndex++;
     }
 
     public void UpdateRewarScoreList()
     {
-        int[] scores = new int[5] { 900, 450, 270, 180, 180 };
-        int[] spriteIndexs = new int[5] { 3, 5, 6, 9, 0 };
+        var node = BlackboardUtils.GetOrCreateVariable<JSONNode>(ContentBlackboard.Get(), "MiniGameData");
+        var mutiple_dict = node.value["star"]["mutiple_dict"];
+        int[] scores = new int[mutiple_dict.Count];
+        spriteIndexs = new int[mutiple_dict.Count];
         int index = 0;
+        foreach (var item in mutiple_dict)
+        {
+            scores[index] = item.Value;
+            if (int.Parse(item.Key) == 100)///退出的图标序号是 9 
+            {
+                spriteIndexs[index] = 9; 
+            } 
+            else
+            {
+                spriteIndexs[index] = int.Parse(item.Key) - 1;
+            }
+            index++;
+        }
+        index = 0;
         foreach (var item in rewardScoreItemControllers)
         {
             item.SetRewardScoreData(spriteIndexs[index], scores[index]);
@@ -98,19 +190,24 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
             controller.endPosition = point.position;
             selectStarItemControllers[i] = controller;
         }
-        //selectStarItemControllers[Random.Range(0, selectStarItemControllers.Length)].SetExit(ExitSprite);
     }
 
-    public void ClickStarItem(int spriteIndex, bool isExit)
+    public void ClickStarItem(int spriteIndex)
     {
         MaskButton.gameObject.SetActive(true);
+        _loopTimer?.Cancel();
         foreach (var item in rewardScoreItemControllers)
         {
-            if(spriteIndex == item.spriteIndex) ///选中了，加分
+            if (spriteIndex == item.spriteIndex) ///选中了，加分
             {
-                totalScore += item.score;
+                totalScore += item.score * currentBet;
                 TotalWinTxt.text = "Total Win \n" + totalScore;
             }
+        }
+        if(spriteIndex == 100)///选中bonus，计算得分
+        {
+            totalScore += bonusValue * currentBet;
+            TotalWinTxt.text = "Total Win \n" + totalScore;
         }
         foreach (var item in selectStarItemControllers)
         {
@@ -118,16 +215,31 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
         }
         this.DelayAction(3, () =>
         {
-            foreach(var item in selectStarItemControllers)
+            foreach (var item in selectStarItemControllers)
             {
                 if (!item.isClick)
                 {
+                    int index = Random.Range(0, spriteIndexs.Length - 1);
+                    item.UpdateStarItem(spriteIndexs[index]);
                     item.PlayAnimation();
                 }
+            } 
+            int temp = Random.Range(0, selectStarItemControllers.Length);
+            if (spriteIndex != 9)///如果点击的是退出图标，这里就不再设置退出图标了
+            {
+                while (selectStarItemControllers[temp].isClick)
+                {
+                    temp = Random.Range(0, selectStarItemControllers.Length);
+                }
+                selectStarItemControllers[temp].SetExit(ExitSprite);
+            } 
+            while (selectStarItemControllers[temp].isExit || selectStarItemControllers[temp].isClick)
+            {
+                temp = Random.Range(0, selectStarItemControllers.Length);
             }
+            selectStarItemControllers[temp].UpdateStarItem(BonusSprite);
         });
-
-        //if(!isExit)
+        if (spriteIndex != 9)
         {
             this.DelayAction(5, () =>
             {
@@ -135,17 +247,42 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
                 {
                     item.Reset();
                 }
-                selectStarItemControllers[Random.Range(0, selectStarItemControllers.Length)].SetExit(ExitSprite);
                 MaskButton.gameObject.SetActive(false);
-            });            
+                StartCountDown();
+            });
+        }
+        else
+        {
+            this.DelayAction(6, () =>
+            {
+                gameObject.SetActive(false);
+                Clear();
+            });
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Clear()
     {
-        
+        if(selectStarItemControllers != null && selectStarItemControllers.Length > 0)
+        {
+            for (global::System.Int32 i = 0; i < selectStarItemControllers.Length; i++)
+            {
+                Destroy(selectStarItemControllers[i].gameObject);
+                selectStarItemControllers[i] = null;
+            }
+        }
+        if(rewardScoreItemControllers != null && rewardScoreItemControllers.Length > 0)
+        {
+            for (global::System.Int32 i = 0; i < rewardScoreItemControllers.Length; i++)
+            {
+                Destroy(rewardScoreItemControllers[i].gameObject);
+                rewardScoreItemControllers[i] = null;
+            }
+        }
+        MiniGameDataManagers.Instance.ResetAutoSpint();
     }
-
-
 }
+
+
+
+

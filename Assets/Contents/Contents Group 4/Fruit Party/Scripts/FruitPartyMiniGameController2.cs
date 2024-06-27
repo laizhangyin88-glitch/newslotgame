@@ -1,3 +1,8 @@
+using GameUtil;
+using SimpleJSON;
+using SlotMaker;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,23 +30,43 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
 
     public int currentClickIndex = 0;
 
-    private int CurrentTotalScore = 0;
+    private int dataIndex = 0;
 
-    private bool isGameOver = false;
+    private long CurrentTotalScore = 0;
 
     private Button MaskButton;
+
+    private List<Game2Data> game2Datas;
+
+    private int[] spriteIndexs;
+
+    public long currentBet;
 
     private TargetScoreItemController[] targetScoreItemControllers = new TargetScoreItemController[4];
     private SelectItemController[] selectItemControllers = new SelectItemController[10];
 
+    private LoopTimer _loopTimer;
+
+    private int currentCountDown = 0;
+
+    private bool isGameOver = false;
+
     private void Awake()
     {
         Instance = this;
-        isGameOver = false;
     }
 
     public void OnStart()
     {
+        Debug.LogError("开始第二个小游戏..............");
+        currentClickIndex = 0;
+        dataIndex = 0;
+        game2Datas = MiniGameDataManagers.Instance.game2Datas;
+        currentBet = BlackboardUtils.FindVariable<long>("./betCredit").value;
+        CurrentTotalScore = 0;
+        isGameOver = false;
+        
+
         TargetList = transform.Find("TargetList");
         SelectList = transform.Find("SelectList");
         BetTxt = transform.Find("Image/Bet").GetComponent<Text>();
@@ -49,22 +74,80 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
         CountDownTxt = transform.Find("Image/CountDown").GetComponent<Text>();
         MaskButton = transform.Find("MaskButton").GetComponent<Button>();
 
+        BetTxt.text = "BET \n" + currentBet.ToString();
+
         MaskButton.gameObject.SetActive(false);
         InitTargetScore();
         InitSelectList();
 
         UpdateTargetScore();
         SetTotalScore(0);
+        StartCountDown();
+    }
+
+    private void StartCountDown()
+    {
+        _loopTimer?.Cancel();
+        currentCountDown = 5;
+        CountDownTxt.text = currentCountDown.ToString();
+        _loopTimer = this.LoopAction(1, (count) =>
+        {
+            currentCountDown--;
+            CountDownTxt.text =  currentCountDown.ToString();
+            if(currentCountDown <= 0)
+            {
+                _loopTimer?.Cancel();
+                AutoSelected();
+                CountDownTxt.text = "";
+            }
+        });
+    }
+
+    private void AutoSelected()
+    {
+        int index = Random.Range(0, selectItemControllers.Length);
+        while (selectItemControllers[index].isSelected)
+        {
+            index = Random.Range(0, selectItemControllers.Length);
+        }
+        selectItemControllers[index].OnClickButton();
+    }
+
+    public int getClickSpriteIndex()
+    {
+        int result = 0;
+        if(game2Datas != null && game2Datas.Count > 0 && dataIndex < game2Datas.Count)
+        {
+            result = game2Datas[dataIndex].card_index - 1;
+        }
+        return result; 
     }
 
     public void UpdateTargetScore()
     {
-        int[] totalScore = new int[4] { 1200, 800, 400, 100 };
-        int[] spriteIndex = new int[4] { 3, 6, 9, 10 };
+        var node = BlackboardUtils.GetOrCreateVariable<JSONNode>(ContentBlackboard.Get(), "MiniGameData");
+        var mutiple_dict = node.value["ball"]["mutiple_dict"];
+        var extern_mutiple_dict = node.value["ball"]["extern_mutiple_dict"];
+        int[] totalScore = new int[mutiple_dict.Count];
+        int[] score = new int[mutiple_dict.Count];
+        spriteIndexs = new int[mutiple_dict.Count];
         int index = 0;
+        foreach (var item in mutiple_dict)
+        {
+            spriteIndexs[index] = int.Parse(item.Key) - 1;
+            score[index] = (item.Value);
+            index++;
+        }
+        index = 0;
+        foreach (var item in extern_mutiple_dict)
+        {
+            totalScore[index] = item.Value;
+            index++;
+        }
+        index = 0;
         foreach (var item in targetScoreItemControllers)
         {
-            item.SetItemData(totalScore[index], spriteIndex[index]);
+            item.SetItemData(totalScore[index], spriteIndexs[index], score[index]);
             index++;
         }
     }
@@ -87,7 +170,8 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
 
     private void InitSelectList()
     {
-        for (int i = 0; i < 10; i++)
+        SelectList.GetComponent<GridLayoutGroup>().enabled = true;
+        for (int i = 0; i < 10; i++) 
         {
             GameObject temp = Instantiate(SelectItem);
             //temp.gameObject.SetActive(true);
@@ -98,7 +182,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
             controller.SelectIndex = i;
             selectItemControllers[i] = controller;
         }
-        this.DelayAction(0.5f, () =>
+        this.DelayAction(1f, () =>
         {
             SelectList.GetComponent<GridLayoutGroup>().enabled = false;
         });
@@ -106,24 +190,76 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
 
     public void ClickSelectItem(int spriteIndex)
     {
+        _loopTimer?.Cancel();
         currentClickIndex++;
+        dataIndex++;
         foreach (var item in targetScoreItemControllers)
         {
             item.CompareSpriteIndex(spriteIndex);
         }
+        if (currentClickIndex < 3)
+        {
+            this.DelayAction(1, () =>
+            {
+                StartCountDown();
+            });
+        }
     }
 
-    public void FinishGame()
+    public void FinishGame() 
     {
-        Debug.LogError("游戏结束.........");
+        _loopTimer?.Cancel();
         isGameOver = true;
-        MaskButton.gameObject.SetActive(true);
+        this.DelayAction(2, () =>
+        {
+            if (dataIndex >= game2Datas.Count - 1)
+            {
+                MaskButton.gameObject.SetActive(true);
+                foreach (var item in selectItemControllers)
+                {
+                    if (!item.isSelected)
+                    {
+                        int temp = Random.Range(0, spriteIndexs.Length);
+                        item.SetSprite(spriteIndexs[temp]);
+                        item.PlayAnimationAndShow();
+                    }
+                }
+                this.DelayAction(4f, () =>
+                {
+                    gameObject.SetActive(false);
+                    Clear();
+                });
+            }
+        });
+    }
+
+    private void Clear()
+    {
+        _loopTimer?.Cancel();
+        if (targetScoreItemControllers != null && targetScoreItemControllers.Length > 0)
+        {
+            for (global::System.Int32 i = 0; i < targetScoreItemControllers.Length; i++)
+            {
+                Destroy(targetScoreItemControllers[i].gameObject);
+                targetScoreItemControllers[i] = null;
+            }
+        }
+        if(selectItemControllers != null && selectItemControllers.Length > 0)
+        {
+            for (global::System.Int32 i = 0; i < selectItemControllers.Length; i++)
+            {
+                Destroy(selectItemControllers[i].gameObject);
+                selectItemControllers[i] = null;
+            }
+        }
+        MiniGameDataManagers.Instance.ResetAutoSpint();
     }
 
     public void IsFinishGame()
     {
-        if (currentClickIndex >= 3 && !isGameOver)
+        if (currentClickIndex >= 3)
         {
+            _loopTimer?.Cancel(); 
             MaskButton.gameObject.SetActive(true);
             foreach (var item in selectItemControllers)
             {
@@ -135,14 +271,19 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
                 {
                     if (!item.isSelected)
                     {
+                        int temp = Random.Range(0, spriteIndexs.Length);
+                        item.SetSprite(spriteIndexs[temp]);
                         item.PlayAnimationAndShow();
                     }
                 }
             });
-            this.DelayAction(5f, () =>
+            if (!isGameOver)
             {
-                Reset();
-            });
+                this.DelayAction(5f, () =>
+                {
+                    Reset();
+                });
+            }
         }
     }
 
@@ -154,11 +295,12 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
             selectItemControllers[i].Reset();
         }
         MaskButton.gameObject.SetActive(false);
+        StartCountDown();
     }
 
     public void SetTotalScore(int totalScore)
     {
-        CurrentTotalScore += totalScore;
+        CurrentTotalScore += (totalScore * currentBet);
         TotalWinTxt.text = "Total Win \n" + CurrentTotalScore.ToString();
     }
 }

@@ -1,3 +1,4 @@
+using BagelCode;
 using GameUtil;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,11 +40,10 @@ public class SelectStarItemController : MonoBehaviour
         icon = transform.Find("icon").GetComponent<Image>();
         icon.gameObject.SetActive(false);
 
-        UpdateStarItem();
-        this.DelayAction(1, () =>
-        {
-            PlayStartAnimation();
-        });
+        //this.DelayAction(1, () =>
+        //{
+        //    PlayStartAnimation();
+        //});
     }
 
     private void Start()
@@ -75,13 +75,16 @@ public class SelectStarItemController : MonoBehaviour
         //});
     }
 
-    private void OnClickButton()
+    public void OnClickButton()
     {
         isClick = true;
-        FruitPartyMiniGameController3.Instance.ClickStarItem(spriteIndex, this.isExit);
+        spriteIndex = FruitPartyMiniGameController3.Instance.getSpriteIndex();
+        UpdateStarItem(spriteIndex);
         button.gameObject.SetActive(false);
         PlayAnimation();
         frameImage.color = Color.white;
+        FruitPartyMiniGameController3.Instance.ClickStarItem(spriteIndex);
+        FruitPartyMiniGameController3.Instance.SetBonusValue();
     }
 
     public void PlayAnimation()
@@ -93,13 +96,24 @@ public class SelectStarItemController : MonoBehaviour
         frameAnimator.Play();
     }
 
-    public void UpdateStarItem()
+    public void UpdateStarItem(int spriteIndex)
     {
         if (FruitPartyMiniGameController3.Instance != null)
         {
-            spriteIndex = Random.Range(0, FruitPartyMiniGameController3.Instance.sprites.Length);
-            icon.sprite = FruitPartyMiniGameController3.Instance.sprites[spriteIndex];
+            if (spriteIndex == 100)///bonus图标额外设置
+            {
+                icon.sprite = FruitPartyMiniGameController3.Instance.BonusSprite;
+            }
+            else
+            {
+                icon.sprite = FruitPartyMiniGameController3.Instance.sprites[spriteIndex];
+            }
         }
+    }
+
+    public void UpdateStarItem(Sprite sprite)
+    {
+        icon.sprite = sprite;
     }
 
     public void Reset()
@@ -109,7 +123,7 @@ public class SelectStarItemController : MonoBehaviour
         isExit = false;
         frameImage.color = Color.white;
         frameAnimator.gameObject.SetActive(false);
-        UpdateStarItem();
+        spriteIndex = -10;
         frameImage.color = Color.white;
         SetItemColor(Color.white);
         isClick = false;
@@ -128,7 +142,8 @@ public class SelectStarItemController : MonoBehaviour
         icon.sprite = sprite;
     }
 
-    // Update is called once per frame
+
+
     private void OnDestroy()
     {
         frameAnimator.FinishEvent -= AnimationFinish;
@@ -142,6 +157,9 @@ public class SelectStarItemController : MonoBehaviour
         //transform.DORotate(new Vector3(0, 0, 360), 1.5f, RotateMode.FastBeyond360).SetEase(Ease.InCubic);
         //transform.DOScale(Vector3.one, 1.5f);
         //transform.DOLocalMove(Vector3.zero, 1.5f);
+        AsyncActionUtils.ApplyRotation(this, transform, Vector3.zero, new Vector3(0, 0, 720), 0.5f, TweenUtils.VectorTweenLinear);
+        AsyncActionUtils.ApplyScaling(this, transform, Vector3.one, Vector3.one, 0.5f, TweenUtils.VectorTweenLinear);
+        AsyncActionUtils.ApplyLocalMovement(this, transform, transform.localPosition, Vector3.zero, 0.5f, TweenUtils.VectorTweenLinear);
     }
 
     public void PingPong()
