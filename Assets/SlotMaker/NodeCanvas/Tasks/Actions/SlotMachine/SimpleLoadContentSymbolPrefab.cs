@@ -3,6 +3,7 @@ using System.Collections;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
 using SlotMaker;
+using System;
 
 namespace BagelCode.Tasks.Actions.Contents
 {
@@ -31,9 +32,17 @@ public class SimpleLoadContentSymbolPrefab : ActionTask
         {
             var symbolName = GetSymbolName();
             var prefab = AssetBundleManager.LoadAsset<GameObject>(GetBundleName(), symbolName);
-            GameObject go = GameObject.Instantiate(prefab) as GameObject;
+            GameObject go = null;
+            try
+            {
+                go = GameObject.Instantiate(prefab) as GameObject;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"{GetBundleName()} - {symbolName}");
+                Debug.LogError(e);
+            }
             go.name = symbolName;
-
             var _parent = parent.value;
             go.transform.SetParent(_parent, false);
 
