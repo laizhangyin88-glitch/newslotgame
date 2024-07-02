@@ -82,6 +82,10 @@ public class globalStore
         }
     };
 
+    public static Dictionary<int, bool> IsHaveLineSelect = new Dictionary<int, bool>()
+    {
+        [3001] = true,
+    };
 
     public static List<List<int>> reelSetList1 = new List<List<int>>();
     public static List<List<int>> reelSetList2 = new List<List<int>>();

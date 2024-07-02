@@ -21,7 +21,7 @@ namespace SlotMaker.Tasks.Actions
         {
             if(valueA.value.Contains("bonus/response/jackpotAwardAmount"))
             {
-                Debug.LogError("===========================   " + agent.name);
+                Debug.LogError("===========================   " + agent.name + "     " + valueA.value);
             }
             var variable = BlackboardUtils.FindVariable<T>(agent, valueA.value);           
             if (variable == null)

@@ -54,6 +54,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
 
     private Transform point;
 
+
     private void Awake()
     {
         Instance = this;
@@ -75,7 +76,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
         BonusText = transform.Find("Image/BonusText").GetComponent<Text>();
         MaskButton.gameObject.SetActive(false);
 
-        BetTxt.text = "BET \n" + currentBet.ToString();
+        BetTxt.text = "BET \n" + currentBet.ToString("N0");
 
         TotalWinTxt.text = "0";
         BonusText.text = "0";
@@ -201,13 +202,13 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
             if (spriteIndex == item.spriteIndex) ///选中了，加分
             {
                 totalScore += item.score * currentBet;
-                TotalWinTxt.text = "Total Win \n" + totalScore;
+                TotalWinTxt.text = "Total Win \n" + totalScore.ToString("N0");
             }
         }
         if(spriteIndex == 100)///选中bonus，计算得分
         {
             totalScore += bonusValue * currentBet;
-            TotalWinTxt.text = "Total Win \n" + totalScore;
+            TotalWinTxt.text = "Total Win \n" + totalScore.ToString("N0");
         }
         foreach (var item in selectStarItemControllers)
         {
@@ -283,7 +284,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
             }
         }
         MiniGameDataManagers.Instance.ResetAutoSpint();
-        MiniGameDataManagers.Instance.ShowGameReward(totalScore * currentBet);
+        MiniGameDataManagers.Instance.ShowGameReward(totalScore);
     }
 }
 

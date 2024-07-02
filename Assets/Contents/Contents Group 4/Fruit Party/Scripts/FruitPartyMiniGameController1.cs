@@ -136,7 +136,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
         getScore = transform.Find("Image3/Get Score").GetComponent<Text>();
 
         totalWin.text = "0";
-        totalBet.text = CurrentBet.ToString();
+        totalBet.text = CurrentBet.ToString("N0");
 
         InitView();
         fruitPartyMiniGameTigerMachine = transform.Find("Selected").GetComponent<FruitPartyMiniGameTigerMachine>();
@@ -276,7 +276,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
             }
         } 
         MiniGameDataManagers.Instance.ResetAutoSpint();
-        MiniGameDataManagers.Instance.ShowGameReward(TotalWinScore * CurrentBet);
+        MiniGameDataManagers.Instance.ShowGameReward(TotalWinScore);
     }
 
     private void ShowItemPingPong(RingItemController ringItemController)
@@ -302,7 +302,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
             }
         }
         TotalWinScore += score;
-        totalWin.text = TotalWinScore.ToString();
+        totalWin.text = TotalWinScore.ToString("N0");
     }
 
     private void Update()
