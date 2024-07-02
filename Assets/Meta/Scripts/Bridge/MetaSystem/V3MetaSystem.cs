@@ -145,7 +145,7 @@ namespace BagelCode
                 return;
             }
 
-
+            BlackboardUtils.GetOrCreateVariable<bool>("./game/isEarnCredit").value = false;
             //新游戏接口
             if (globalStore.IsNewGame(gameId))
             {
@@ -226,7 +226,11 @@ namespace BagelCode
 
                     content["result"]["spin_once_earn_credit"] = res["game_result"]["earn_credit"];
 
-                    if(
+                    ///保存下发的牌型数据
+                    content["shuffling_list"] = res["game_result"]["shuffling_list"];
+                    BlackboardUtils.GetOrCreateVariable<bool>("./game/isEarnCredit").value = res["game_result"]["earn_credit"] > 0;
+
+                    if (
                     globalStore.bonusID.ContainsKey(gameId)
                     && res["game_result"].HasKey("free_game_result")
                     && res["game_result"]["free_game_result"]["cur_free_game_times"] == 0)
@@ -304,7 +308,6 @@ namespace BagelCode
                         };
                         req.Add("debug_param", debug_param11);
                     }
-                    Debug.LogError("发送拉霸协议...............");
                     NetManager.Instance.Post(RPCName.newSlotSpin, req,
                     responseCallback,
                     (error) =>
@@ -337,8 +340,6 @@ namespace BagelCode
                 {
                     debug_param = "{\"is_free_spin\":" + code + "}";
                 }
-
-
                 Dictionary<string, object> req = new Dictionary<string, object>
                 {
                     {"bet",betCredit},
@@ -449,6 +450,21 @@ namespace BagelCode
                 dict.Add(temp);
             }
             BlackboardUtils.SetOrCreateValue(bb, "win_line_reward_list", dict);
+
+            ///保存下发的牌型数据
+            var shuffling_list = json["shuffling_list"];
+            var newList = new List<List<int>>();
+            for (int i = 0; i < shuffling_list.Count; i++)
+            {
+                var ttt = shuffling_list[i];
+                var tList = new List<int>();
+                for (global::System.Int32 j = 0; j < ttt.Count; j++)
+                {
+                    tList.Add(ttt[j]);
+                }
+                newList.Add(tList);
+            }
+            BlackboardUtils.SetOrCreateValue(bb, "shuffling_list", newList); 
 
             long spin_once_earn = json["result"]["spin_once_earn_credit"];
             BlackboardUtils.SetOrCreateValue(bb, "spin_once_earn_credit", spin_once_earn);

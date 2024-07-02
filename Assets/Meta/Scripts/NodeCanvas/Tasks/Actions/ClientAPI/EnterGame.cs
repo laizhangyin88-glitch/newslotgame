@@ -122,7 +122,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                         //转换码表
                         changeCode = new Dictionary<int, int>()
                         {
-                            { (int)res["game_config"]["slot_config"]["wild_card"], 0 }, //鬼牌
+                            { (int)res["game_config"]["slot_config"]["wild_card"], 0}, //鬼牌
                             { (int)res["game_config"]["slot_config"]["free_card"],9}, //免费牌
                             { (int)res["game_config"]["slot_config"]["jackpot_card"],10 }, //小游戏
                         };
@@ -197,7 +197,13 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     ////System.Collections.Generic.List<long> betList = res["bet_list"].AsStringList.Select(s => long.Parse(s)).ToList();
                     ////response.betList = betList;
 
-                    response.betList = new List<long>() { 30, 60, 120, 300, 600, 1200, 6000 };
+                    List<long> longs = new List<long>();
+                    for (global::System.Int32 k = 0; k < res["bet_list"].Count; k++)
+                    {
+                        longs.Add(res["bet_list"][k].AsLong);
+                    }
+
+                    response.betList = longs;//new List<long>() { 30, 60, 120, 300, 600, 1200, 6000 };
                     Debug.Log("!!!json新:" + contentJson.ToString());
 
                     response.contents = contentJson.ToString();

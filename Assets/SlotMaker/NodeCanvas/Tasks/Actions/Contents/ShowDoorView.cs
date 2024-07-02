@@ -7,22 +7,17 @@ namespace SlotMaker.Tasks.Actions.Contents
 {
     public class ShowDoorView : ActionTask
     {
-        public BBParameter<string> key;
-
         protected override void OnExecute()
         {
-            var spin = ContentBlackboard.Get();
-            if (spin != null)
+            var isTrigger = BlackboardUtils.GetOrCreateVariable<bool>(BlackboardUtils.GetContentFSMBlackboard(), "isTriggerMiniGame");
+            GameObject door = BlackboardUtils.GetGameContentsBlackboard().GetValue<GameObject>("Door");
+            if (isTrigger.value)
             {
-                bool isTrigger = spin.GetValue<bool>(key.value); 
-                GameObject door = BlackboardUtils.GetGameContentsBlackboard().GetValue<GameObject>("Door");
-                if (isTrigger)
-                {
-                    door.gameObject.SetActive(true);
-                    DoorController doorController = door.GetComponent<DoorController>();
-                    doorController.OnStart();
-                }
+                door.gameObject.SetActive(true);
+                DoorController doorController = door.GetComponent<DoorController>();
+                doorController.OnStart();
             }
+
             EndAction();
         }
     }

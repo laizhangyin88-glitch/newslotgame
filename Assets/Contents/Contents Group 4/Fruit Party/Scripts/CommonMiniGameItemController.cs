@@ -12,6 +12,8 @@ public class CommonMiniGameItemController : MonoBehaviour
 
     public void OnInit()
     {
+        transform.localScale = Vector3.one;
+
         red_Image = transform.Find("red_Image").GetComponent<Image>();
         blue_Image = transform.Find("blue_Image").GetComponent<Image>();
         BlackImage = transform.Find("BlackImage").GetComponent<Image>();

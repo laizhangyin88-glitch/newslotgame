@@ -58,7 +58,6 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
 
     public void OnStart()
     {
-        Debug.LogError("开始第二个小游戏..............");
         currentClickIndex = 0;
         dataIndex = 0;
         game2Datas = MiniGameDataManagers.Instance.game2Datas;
@@ -170,22 +169,56 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
 
     private void InitSelectList()
     {
-        SelectList.GetComponent<GridLayoutGroup>().enabled = true;
-        for (int i = 0; i < 10; i++) 
+        for (int i = 0; i < 10; i++)
         {
             GameObject temp = Instantiate(SelectItem);
-            //temp.gameObject.SetActive(true);
+            temp.gameObject.SetActive(false);
             temp.transform.SetParent(SelectList);
             temp.transform.localScale = Vector3.one;
             temp.transform.localRotation = Quaternion.identity;
             SelectItemController controller = temp.GetComponent<SelectItemController>();
             controller.SelectIndex = i;
+            controller.endPosition = SelectList.transform.GetChild(i).localPosition;
             selectItemControllers[i] = controller;
         }
-        this.DelayAction(1f, () =>
+        //int index = 0;
+        //foreach (var item in selectItemControllers)
+        //{
+        //    this.DelayAction(index * 0.2f, () =>
+        //    {
+        //        item.PlayMoveAnamtion();
+        //    });
+        //    index++;
+        //}
+        PlaySelectsAnimation();
+    }
+
+    private void PlaySelectsAnimation()
+    {
+        foreach (var item in selectItemControllers)
         {
-            SelectList.GetComponent<GridLayoutGroup>().enabled = false;
-        });
+            item.gameObject.SetActive(false);
+            item.Reset();
+        }
+        int index = 4;   
+        for (int i = 0; i < 5; i++)
+        {
+            this.DelayAction(i * 0.2f, () =>
+            {
+                selectItemControllers[index].PlayMoveAnamtion();
+                index--;
+            });
+        }
+        int count = 5;
+        for (int i = 5; i < 10; i++)
+        {
+            int time = i - 5;
+            this.DelayAction(time * 0.2f, () =>
+            {
+                selectItemControllers[count].PlayMoveAnamtion();
+                count++;
+            });
+        }
     }
 
     public void ClickSelectItem(int spriteIndex)
@@ -199,17 +232,18 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
         }
         if (currentClickIndex < 3)
         {
-            this.DelayAction(1, () =>
-            {
-                StartCountDown();
-            });
+            StartCountDown(); 
         }
     }
 
-    public void FinishGame() 
+    /// <summary>
+    /// 游戏结束
+    /// </summary>
+    public void FinishGame()
     {
         _loopTimer?.Cancel();
         isGameOver = true;
+        MaskButton.gameObject.SetActive(true);
         this.DelayAction(2, () =>
         {
             if (dataIndex >= game2Datas.Count - 1)
@@ -238,7 +272,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
         _loopTimer?.Cancel();
         if (targetScoreItemControllers != null && targetScoreItemControllers.Length > 0)
         {
-            for (global::System.Int32 i = 0; i < targetScoreItemControllers.Length; i++)
+            for (int i = 0; i < targetScoreItemControllers.Length; i++)
             {
                 Destroy(targetScoreItemControllers[i].gameObject);
                 targetScoreItemControllers[i] = null;
@@ -246,13 +280,14 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
         }
         if(selectItemControllers != null && selectItemControllers.Length > 0)
         {
-            for (global::System.Int32 i = 0; i < selectItemControllers.Length; i++)
+            for (int i = 0; i < selectItemControllers.Length; i++)
             {
                 Destroy(selectItemControllers[i].gameObject);
                 selectItemControllers[i] = null;
             }
         }
         MiniGameDataManagers.Instance.ResetAutoSpint();
+        MiniGameDataManagers.Instance.ShowGameReward(CurrentTotalScore * currentBet);
     }
 
     public void IsFinishGame()
@@ -290,10 +325,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
     public void Reset()
     {
         currentClickIndex = 0;
-        for (int i = 0; i < selectItemControllers.Length; i++)
-        {
-            selectItemControllers[i].Reset();
-        }
+        PlaySelectsAnimation();
         MaskButton.gameObject.SetActive(false);
         StartCountDown();
     }

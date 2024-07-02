@@ -223,7 +223,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
                     item.UpdateStarItem(spriteIndexs[index]);
                     item.PlayAnimation();
                 }
-            } 
+            }
             int temp = Random.Range(0, selectStarItemControllers.Length);
             if (spriteIndex != 9)///如果点击的是退出图标，这里就不再设置退出图标了
             {
@@ -232,12 +232,15 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
                     temp = Random.Range(0, selectStarItemControllers.Length);
                 }
                 selectStarItemControllers[temp].SetExit(ExitSprite);
-            } 
-            while (selectStarItemControllers[temp].isExit || selectStarItemControllers[temp].isClick)
-            {
-                temp = Random.Range(0, selectStarItemControllers.Length);
             }
-            selectStarItemControllers[temp].UpdateStarItem(BonusSprite);
+            if (spriteIndex != 100)///如果点击的是bonus图标，这里就不再设置bonus图标了
+            {
+                while (selectStarItemControllers[temp].isExit || selectStarItemControllers[temp].isClick)
+                {
+                    temp = Random.Range(0, selectStarItemControllers.Length);
+                }
+                selectStarItemControllers[temp].UpdateStarItem(BonusSprite);
+            }
         });
         if (spriteIndex != 9)
         {
@@ -280,6 +283,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
             }
         }
         MiniGameDataManagers.Instance.ResetAutoSpint();
+        MiniGameDataManagers.Instance.ShowGameReward(totalScore * currentBet);
     }
 }
 
