@@ -1,79 +1,183 @@
+using BagelCode;
+using BagelCode.Tasks.Actions.Contents;
 using GameUtil;
+using ParadoxNotion;
+using SimpleJSON;
+using Sirenix.OdinInspector;
+using SlotMaker;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
+public enum BoyStealHarpState
+{
+    None = -1,
+    ChoseGift,
+    Stealing,
+    StealFinish,
+    TimerUp,
+}
 public class MiniGame2 : MonoBehaviour
 {
+    BoyStealHarpState boyState = BoyStealHarpState.None;
     Transform root;
-    Animator ani_Man, ani_Boy, ani_Gift1, ani_Gift2, ani_Gift3, ani_Gift4, ani_Gift5;
-    Button btn_Gift1, btn_Gift2, btn_Gift3, btn_Gift4, btn_Gift5;
-    TextMeshProUGUI betNum, winNum, scoreNum, countDownText;
+    Animator ani_Man, ani_Boy, ani_Gift1, ani_Gift2, ani_Gift3, ani_Gift4, ani_Gift5, ani_Gift6, ani_Gift7;
+    Button btn_Gift1, btn_Gift2, btn_Gift3, btn_Gift4, btn_Gift5, btn_Gift6, btn_Gift7;
+    TextMeshProUGUI betNum, winNum,countDownText; 
     Dictionary<int, Vector2> _dicPos = new Dictionary<int, Vector2>()
     {
-        [1] = new Vector2(-304, 333),
-        [2] = new Vector2(-276, 183),
-        [3] = new Vector2(-216, 54),
-        [4] = new Vector2(-79, 54),
-        [5] = new Vector2(190, 196),
+        [1] = new Vector2(-224, 333),
+        [2] = new Vector2(-196, 183),
+        [3] = new Vector2(-136, 54),
+        [4] = new Vector2(0, 54),
+        [5] = new Vector2(400, 265),
+        [6] = new Vector2(270, 196),
+        [7] = new Vector2(295, 17),
     };
-    Dictionary<int, int> dic_Score = new Dictionary<int, int>
-    {
-        [1] = 100,
-        [2] = 200,
-        [3] = 300,
-        [4] = 400,
-        [5] = 500,
-    };
-    List<int> RecIndexList;
-    bool isAni;
-    int timeUpIndex = 3;
-    bool isOver = false;
-    List<DelayTimer> _timers;
+
+
+    Dictionary<int, Transform> giftContents = new Dictionary<int, Transform> {};
+    Dictionary<int, Text> giftContentTexts = new Dictionary<int, Text> { };
+    Dictionary<int, Animator> giftAtors = new Dictionary<int, Animator> { };
+
+    List<int> RecIndexList = new List<int>();
+
+    List<DelayTimer> _timers = new List<DelayTimer>();
     LoopTimer _countDownTimer;
     void Awake()
     {
         root = transform.Find("Animator/Anchor");
         ani_Man = root.Find("man/Animator").GetComponent<Animator>();
         ani_Boy = root.Find("boy").GetComponent<Animator>();
-        scoreNum = ani_Boy.transform.Find("score").GetComponent<TextMeshProUGUI>();
         ani_Gift1 = root.Find("gifts/gift1").GetComponent<Animator>();
         ani_Gift2 = root.Find("gifts/gift2").GetComponent<Animator>();
         ani_Gift3 = root.Find("gifts/gift3").GetComponent<Animator>();
         ani_Gift4 = root.Find("gifts/gift4").GetComponent<Animator>();
         ani_Gift5 = root.Find("gifts/gift5").GetComponent<Animator>();
+        ani_Gift6 = root.Find("gifts/gift6").GetComponent<Animator>();
+        ani_Gift7 = root.Find("gifts/gift7").GetComponent<Animator>();
+        giftAtors = new Dictionary<int, Animator>
+        {
+            [1] = ani_Gift1,
+            [2] = ani_Gift2,
+            [3] = ani_Gift3,
+            [4] = ani_Gift4,
+            [5] = ani_Gift5,
+            [6] = ani_Gift6,
+            [7] = ani_Gift7,
+        };
+
         btn_Gift1 = ani_Gift1.GetComponent<Button>();
         btn_Gift2 = ani_Gift2.GetComponent<Button>();
         btn_Gift3 = ani_Gift3.GetComponent<Button>();
         btn_Gift4 = ani_Gift4.GetComponent<Button>();
         btn_Gift5 = ani_Gift5.GetComponent<Button>();
+        btn_Gift6 = ani_Gift6.GetComponent<Button>();
+        btn_Gift7 = ani_Gift7.GetComponent<Button>();
         betNum = root.Find("betWin/bet/betNum").GetComponent<TextMeshProUGUI>();
         winNum = root.Find("betWin/win/winNum").GetComponent<TextMeshProUGUI>();
         countDownText = root.Find("countDown").GetComponent<TextMeshProUGUI>();
+
+        giftContents = new Dictionary<int, Transform>()
+        {
+            [1] = ani_Gift1.transform.GetChild(0),
+            [2] = ani_Gift2.transform.GetChild(0),
+            [3] = ani_Gift3.transform.GetChild(0),
+            [4] = ani_Gift4.transform.GetChild(0),
+            [5] = ani_Gift5.transform.GetChild(0),
+            [6] = ani_Gift6.transform.GetChild(0),
+            [7] = ani_Gift7.transform.GetChild(0),
+
+        };
+
+        giftContentTexts = new Dictionary<int, Text>()
+        {
+            [1] = ani_Gift1.transform.GetChild(0).GetChild(0).GetComponent<Text>(),
+            [2] = ani_Gift2.transform.GetChild(0).GetChild(0).GetComponent<Text>(),
+            [3] = ani_Gift3.transform.GetChild(0).GetChild(0).GetComponent<Text>(),
+            [4] = ani_Gift4.transform.GetChild(0).GetChild(0).GetComponent<Text>(),
+            [5] = ani_Gift5.transform.GetChild(0).GetChild(0).GetComponent<Text>(),
+            [6] = ani_Gift6.transform.GetChild(0).GetChild(0).GetComponent<Text>(),
+            [7] = ani_Gift7.transform.GetChild(0).GetChild(0).GetComponent<Text>(),
+        };
+
+        AddEvent();
     }
+
+    List<int> lstScore = new List<int>();
     void OnEnable()
     {
-        _timers = new List<DelayTimer>();
-        ani_Boy.gameObject.SetActive(false);
-        isAni = false;
+        boyState = BoyStealHarpState.None;
+        foreach (var item in giftContents)
+        {
+            item.Value.gameObject.SetActive(false);
+        }
         RecIndexList = new List<int>();
-        AddEvent();
+        //RefreshGiftState(false);
+        ClearTimer();
+        ani_Boy.gameObject.SetActive(false);
         RefreshBetWin();
-        StartCountDown();
+        //ani_Man.Play("Default");
+
+
+        Dictionary<string, object> req = new Dictionary<string, object>
+        {
+            {"jackpot_game_index",2}
+        };
+
+        NetManager.Instance.Post(RPCName.newClaimBonus, req,
+        (res) =>
+        {
+            string resStr = res.ToString();
+            Debug.Log(resStr);
+
+            lstScore = new List<int>();
+            foreach (JSONNode item in res["game_result"]["jackpot_game_result_list"])
+            {
+                lstScore.Add((int)item);
+            }
+
+            Debug.LogError($"Count = {lstScore.Count}");
+            BeginBonusNew.CreatBonus(resStr, "chili");
+
+            StartSteal();
+        },
+        (error) =>
+        {
+            GlobalErrorHandler.GlobalError(error);
+        });
+
+
     }
+
+    public void ClearTimer()
+    {
+        if (_timers != null && _timers.Count >0)
+        {
+            foreach (var timer in _timers)
+            {
+                timer?.Cancel();
+            }
+            _timers?.Clear();
+        }
+    }
+
     void OnDisable()
     {
-        RemoveEvent();
         RecIndexList?.Clear();
-        foreach (var timer in _timers)
-        {
-            timer?.Cancel();
-        }
-        _timers?.Clear();
-        _timers = null;
+        ClearTimer();
+        _countDownTimer?.Cancel();
+        _countDownTimer = null;
     }
+
+    private void OnDestroy()
+    {
+        RemoveEvent();    
+    }
+
     void AddEvent()
     {
         btn_Gift1.onClick.AddListener(ClickGift1);
@@ -81,6 +185,8 @@ public class MiniGame2 : MonoBehaviour
         btn_Gift3.onClick.AddListener(ClickGift3);
         btn_Gift4.onClick.AddListener(ClickGift4);
         btn_Gift5.onClick.AddListener(ClickGift5);
+        btn_Gift6.onClick.AddListener(ClickGift6);
+        btn_Gift7.onClick.AddListener(ClickGift7);
     }
 
     void ClickGift1() { OnClickGift(1); }
@@ -88,7 +194,8 @@ public class MiniGame2 : MonoBehaviour
     void ClickGift3() { OnClickGift(3); }
     void ClickGift4() { OnClickGift(4); }
     void ClickGift5() { OnClickGift(5); }
-
+    void ClickGift6() { OnClickGift(6); }
+    void ClickGift7() { OnClickGift(7); }
     void RemoveEvent()
     {
         btn_Gift1.onClick.RemoveListener(ClickGift1);
@@ -96,90 +203,103 @@ public class MiniGame2 : MonoBehaviour
         btn_Gift3.onClick.RemoveListener(ClickGift3);
         btn_Gift4.onClick.RemoveListener(ClickGift4);
         btn_Gift5.onClick.RemoveListener(ClickGift5);
+        btn_Gift6.onClick.RemoveListener(ClickGift6);
+        btn_Gift7.onClick.RemoveListener(ClickGift7);
     }
     void OnClickGift(int index)
     {
+        if (boyState != BoyStealHarpState.ChoseGift)
+            return;
+        boyState = BoyStealHarpState.Stealing;
         _countDownTimer?.Cancel();
         _countDownTimer = null;
-        if (!isOver && !isAni && _dicPos.TryGetValue(index, out var pos) && !RecIndexList.Contains(index))
+
+        var score =  0;
+        if (lstScore.Count>0)
         {
-            isAni = true;
+            score = lstScore[0];
+            lstScore.RemoveAt(0);
+        }
+
+        if ( _dicPos.TryGetValue(index, out var pos) && !RecIndexList.Contains(index))
+        {
             RecIndexList.Add(index);
             ani_Boy.gameObject.SetActive(true);
             ani_Boy.transform.localPosition = pos;
-            scoreNum.gameObject.SetActive(false);
-            ani_Boy.Play("Steal");
-            RefreshGiftState(true);
-            if (scoreNum != null && dic_Score.TryGetValue(index, out var score))
-                scoreNum.text = score.ToString();
-            var timer1 = TimerExtensions.DelayAction(this, 1.5f, () =>
+            ani_Boy.Play("ClimbDown");
+            RefreshGiftState(false);
+
+            var timer0 = TimerExtensions.DelayAction(this, 1.5f, () =>
             {
-                scoreNum.gameObject.SetActive(true);
-            });
-            var timer2 = TimerExtensions.DelayAction(this, 2.2f, () =>
-            {
-                scoreNum.gameObject.SetActive(false);
-                var obj = GetGiftObj(index);
-                if (obj != null)
+                Animator gifAtor = giftAtors[index];  
+
+                gifAtor.Play("Open");
+
+                giftContents[index].gameObject.SetActive(true);
+                giftContents[index].GetComponent<Animator>().Play(lstScore.Count == 0 ? "GiftFail" : $"GiftSuccess{Random.Range(1, 6)}");
+                giftContentTexts[index].text = score.ToString();
+
+                var timer2 = TimerExtensions.DelayAction(this, 2.2f, () =>
                 {
-                    obj.SetActive(false);
-                }
-                ani_Boy.gameObject.SetActive(false);
-                RefreshGiftState(false);
-                isAni = false;
-                if (index == timeUpIndex)
-                {
-                    ani_Man.Play("Query");
-                    isOver = true;
-                }
-                if (RecIndexList.Count != 5 && !isOver)
-                    StartCountDown();
+                    giftContents[index].gameObject.SetActive(false);
+
+                    ani_Boy.Play("ClimbUp");
+                    boyState = BoyStealHarpState.StealFinish;
+                    var timer3 = TimerExtensions.DelayAction(this, 2f, () =>
+                    {
+                        ani_Boy.gameObject.SetActive(false);
+                        if (lstScore.Count > 0 && boyState != BoyStealHarpState.TimerUp)
+                        {
+                            StartSteal();
+                        }
+                    });
+                    _timers.Add(timer3);
+
+
+                    if (lstScore.Count == 0)
+                    {
+                        ani_Man.Play("Query");
+                        boyState = BoyStealHarpState.TimerUp;
+                        var timer4 = TimerExtensions.DelayAction(this, 4f, () =>
+                        {
+                            MessageDispatcher.Dispatch("OnContentUIEvent", new EventData("BSTMiniGameFinish")); //发给脚本
+                            EventSender.SendGlobalEvent(new EventData("BSTMiniGameFinish")); //发给NodeCanvas （类型：OnCustomEvent）
+                        });
+                        _timers.Add(timer4);
+                    }
+
+
+                });
+                _timers.Add(timer2);
+
             });
-            _timers.Add(timer1);
-            _timers.Add(timer2);
+            _timers.Add(timer0);
         }
     }
-    void RefreshGiftState(bool isSteal)
+    void RefreshGiftState(bool isHighLight)
     {
-        ani_Gift1.Play((isSteal && RecIndexList.Contains(1) || (!isSteal && !RecIndexList.Contains(1))) ? "HighLight" : "Default");
-        ani_Gift2.Play((isSteal && RecIndexList.Contains(2) || (!isSteal && !RecIndexList.Contains(2))) ? "HighLight" : "Default");
-        ani_Gift3.Play((isSteal && RecIndexList.Contains(3) || (!isSteal && !RecIndexList.Contains(3))) ? "HighLight" : "Default");
-        ani_Gift4.Play((isSteal && RecIndexList.Contains(4) || (!isSteal && !RecIndexList.Contains(4))) ? "HighLight" : "Default");
-        ani_Gift5.Play((isSteal && RecIndexList.Contains(5) || (!isSteal && !RecIndexList.Contains(5))) ? "HighLight" : "Default");
-    }
-    GameObject GetGiftObj(int index)
-    {
-        GameObject obj = null;
-        switch (index)
+        //Debug.LogError($"【TEST】: RefreshGiftState == {isHighLight}");
+        foreach (var item  in giftAtors)
         {
-            case 1:
-                obj = ani_Gift1.gameObject;
-                break;
-            case 2:
-                obj = ani_Gift2.gameObject;
-                break;
-            case 3:
-                obj = ani_Gift3.gameObject;
-                break;
-            case 4:
-                obj = ani_Gift4.gameObject;
-                break;
-            case 5:
-                obj = ani_Gift5.gameObject;
-                break;
-            default:
-                break;
+            if (!RecIndexList.Contains(item.Key))
+            {
+                item.Value.Play(isHighLight == true?"HighLight" : "Default");
+            }
         }
-        return obj;
     }
+
+
     //刷新底部文字
     void RefreshBetWin()
     {
         betNum.text = "111";
         winNum.text = "222";
     }
-    void StartCountDown()
+    void StartSteal()
     {
+        RefreshGiftState(true);
+        boyState = BoyStealHarpState.ChoseGift;
+       
         countDownText.text = "5";
         var timeVal = 5;
         _countDownTimer = TimerExtensions.LoopAction(this, 1, (a) =>
@@ -188,7 +308,7 @@ public class MiniGame2 : MonoBehaviour
             if (timeVal < 0)
             {
                 var index = 1;
-                for (int i = 1; i <= 5; i++)
+                for (int i = 1; i <= 7; i++)
                 {
                     if (!RecIndexList.Contains(i))
                     {

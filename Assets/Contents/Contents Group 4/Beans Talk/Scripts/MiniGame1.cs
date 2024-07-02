@@ -1,24 +1,34 @@
+using BagelCode;
+using BagelCode.Tasks.Actions.Contents;
 using GameUtil;
+using ParadoxNotion;
+using SimpleJSON;
+using Sirenix.OdinInspector;
+using SlotMaker;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
+public enum BoyStealTeasureState
+{
+    None = -1,
+    ChoseTeasure,
+    Stealing,
+    StealFinish,
+    TimerUp,
+}
 public class MiniGame1 : MonoBehaviour
 {
+    BoyStealTeasureState boyState = BoyStealTeasureState.None;
     Transform root;
     Animator ani_ManSleep, ani_Box1, ani_Box2, ani_Box3, ani_TimeUp1, ani_TimeUp2, ani_TimeUp3, ani_Boy;
     Button btn_Box1, btn_Box2, btn_Box3;
     TextMeshProUGUI betNum, winNum, scoreNum, countDownText;
-    List<int> typeList = new List<int>() { 1, 2, 3, 4, 5,3,2,4,5,1,2,4,5,3,2,5,1 };
-    Dictionary<int, int> dic_Score = new Dictionary<int, int> {
-        [1] = 100,
-        [2] = 200,
-        [3] = 300,
-        [4] = 400,
-        [5] = 500,
-    };
     List<DelayTimer> _timers;
     float endTime = 30;
     bool isTimeUp = false;
@@ -42,7 +52,62 @@ public class MiniGame1 : MonoBehaviour
         winNum = root.Find("betWin/win/winNum").GetComponent<TextMeshProUGUI>();
         countDownText = root.Find("countDown").GetComponent<TextMeshProUGUI>();
     }
+
+
+    /*
+    List<int> typeList = new List<int>() { 1, 2, 3, 4, 5,3,2,4,5,1,2,4,5,3,2,5,1 };
+    Dictionary<int, int> dic_Score = new Dictionary<int, int> {
+        [1] = 100,
+        [2] = 200,
+        [3] = 300,
+        [4] = 400,
+        [5] = 500,
+    };
+     */
+    List<KeyValuePair<int, int>> lst_Score = new List<KeyValuePair<int, int>>();
+
+
+    readonly float TIME_STEAL_TREASURE = 1f;  //treasure
+    readonly float TIME_FIND_TREASURE = 1.3f; //treasure
+    readonly float TIME_WARK = 2.2f;
+
     void OnEnable()
+    {
+        boyState = BoyStealTeasureState.None;
+
+        Dictionary<string, object> req = new Dictionary<string, object>
+        {
+            {"jackpot_game_index",1}
+        };
+
+        NetManager.Instance.Post(RPCName.newClaimBonus, req,
+        (res) =>
+        {
+            string resStr = res.ToString();
+            Debug.Log(resStr);
+
+            lst_Score = new List<KeyValuePair<int, int>>();
+
+            foreach (JSONNode item in res["game_result"]["jackpot_game_result_list"])
+            {
+                lst_Score.Add(new KeyValuePair<int,int>(Random.Range(1, 5) , (int)item));
+            }
+
+            Debug.LogError($"Count = {lst_Score.Count}");
+            BeginBonusNew.CreatBonus(resStr, "treasure");
+
+            StartSteale();
+        },
+        (error) =>
+        {
+            GlobalErrorHandler.GlobalError(error);
+        });
+
+
+    }
+
+
+    private void StartSteale()
     {
         isTimeUp = false;
         _timers = new List<DelayTimer>();
@@ -60,22 +125,34 @@ public class MiniGame1 : MonoBehaviour
         winNum.text = "0";
         countDownText.text = "5";
         StartCountDown();
+        boyState = BoyStealTeasureState.ChoseTeasure;
     }
+
+
+
     void OnDisable()
     {
         RemoveEvent();
-        if (_timers != null)
+        ClearTimer();
+        _countDownTimer?.Cancel();
+        _countDownTimer = null;
+    }
+
+
+    void ClearTimer()
+    {
+        if (_timers != null && _timers.Count >0)
         {
             foreach (var timer in _timers)
             {
                 timer?.Cancel();
             }
             _timers?.Clear();
-            _timers = null;
         }
-        _countDownTimer?.Cancel();
-        _countDownTimer = null;
     }
+
+
+
     void AddEvent()
     {
         btn_Box1.onClick.AddListener(ClickBox1);
@@ -96,9 +173,16 @@ public class MiniGame1 : MonoBehaviour
     }
     void OnClickBox(int index)
     {
+
+        if (boyState != BoyStealTeasureState.ChoseTeasure)
+            return;
+        boyState = BoyStealTeasureState.Stealing;
+
         _countDownTimer?.Cancel();
         _countDownTimer = null;
         Animator box = null, timeUp = null;
+
+        endTime = lst_Score.Count * (TIME_STEAL_TREASURE + TIME_FIND_TREASURE) + TIME_WARK;
         float startTime = 1 - endTime / 60;
         Dictionary<int, float> _dicTime = new Dictionary<int, float>();
         _dicTime.Add(index, startTime);
@@ -144,16 +228,36 @@ public class MiniGame1 : MonoBehaviour
             ani_TimeUp1.Play("Start", -1, _dicTime[1]);
             ani_TimeUp2.Play("Start", -1, _dicTime[2]);
             ani_TimeUp3.Play("Start", -1, _dicTime[3]);
+
             ani_Boy.Play("Walk");
-            PlayBoy();
-            var timer = TimerExtensions.DelayAction(this, endTime + 1, () =>
+            //PlayBoy();
+            var timer0 = TimerExtensions.DelayAction(this, TIME_WARK, () =>
             {
+                if (lst_Score.Count == 0)
+                    return;
+                OnPlayBoxEffect(0);
+            });
+            _timers.Add(timer0);
+
+            var timer1 = TimerExtensions.DelayAction(this, endTime + 1, () =>
+            {
+                ClearTimer();
+
                 isTimeUp = true;
                 timeUp.gameObject.SetActive(false);
                 ani_ManSleep.Play("TimeUp");
-                ani_Boy.Play("TimeUp");
+                ani_Boy.gameObject.SetActive(true);
+                ani_Boy.Play("timp_up");
+
+                var timer3 = TimerExtensions.DelayAction(this, 2f, () =>
+                {
+                    MessageDispatcher.Dispatch("OnContentUIEvent", new EventData("BSTMiniGameFinish")); //发给脚本
+                    EventSender.SendGlobalEvent(new EventData("BSTMiniGameFinish")); //发给NodeCanvas （类型：OnCustomEvent）
+                });
+                _timers.Add(timer3);
+
             });
-            _timers.Add(timer);
+            _timers.Add(timer1);
             var timer2 = TimerExtensions.DelayAction(this, 1f, () =>
             {
                 ani_TimeUp1.gameObject.SetActive(index == 1);
@@ -163,32 +267,32 @@ public class MiniGame1 : MonoBehaviour
             _timers.Add(timer2);
         }
     }
-    //走路 偷 播type
-    void PlayBoy()
-    {
-        TimerExtensions.DelayAction(this, 2.2f, () =>
-        {
-            OnPlayBoxEffect(0);
-        });
-    }
+
+
     void OnPlayBoxEffect(int index)
     {
         if (isTimeUp) return;
-        int type = typeList[index];
-        var score = dic_Score[type];
+        boyState = BoyStealTeasureState.Stealing;
+
+        //int type = typeList[index];
+        //var score = dic_Score[type];
+        int type = lst_Score[index].Key;
+        var score = lst_Score[index].Value;
+
         string aniName = "Type" + (type + 1);
         ani_Boy.Play(aniName);
         scoreNum.text = score.ToString();
         scoreNum.gameObject.SetActive(true);
         int totalScore = int.Parse(winNum.text) + score;
         winNum.text = totalScore.ToString();
-        var timer1 = TimerExtensions.DelayAction(this, 1f, () =>
+        var timer1 = TimerExtensions.DelayAction(this, TIME_STEAL_TREASURE, () =>
         {
             scoreNum.gameObject.SetActive(false);
             ani_Boy.Play("Steal");
-            var timer2 = TimerExtensions.DelayAction(this, 1.3f, () =>
+            var timer2 = TimerExtensions.DelayAction(this, TIME_FIND_TREASURE, () =>
             {
-                if (index + 1 < typeList.Count)
+                boyState = BoyStealTeasureState.StealFinish;
+                if (index + 1 < lst_Score.Count)
                 {
                     OnPlayBoxEffect(index + 1);
                 }

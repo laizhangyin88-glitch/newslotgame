@@ -1,4 +1,5 @@
 using BagelCode;
+using BagelCode.Tasks.Actions.Contents;
 using Dreamteck.Splines.Primitives;
 using NodeCanvas.Framework;
 using SimpleJSON;
@@ -131,9 +132,10 @@ public class MiniGame0 : MonoBehaviour
                 lst_Score.Add((int)item);
             }
 
+            //Blackboard bonusBB = (Blackboard)BlackboardUtils.GetOrCreateBlackboard(ContentBlackboard.Get(), "bonus");
+            //BlackboardUtils.SetOrCreateValue(bonusBB, "responseNew", resStr);
 
-            Blackboard bonusBB = (Blackboard)BlackboardUtils.GetOrCreateBlackboard(ContentBlackboard.Get(), "bonus");
-            BlackboardUtils.SetOrCreateValue(bonusBB, "responseNew", resStr);
+            BeginBonusNew.CreatBonus(resStr,"egg");
 
             BoyStealEgg(startPos01);
         },
@@ -141,7 +143,6 @@ public class MiniGame0 : MonoBehaviour
         {
             GlobalErrorHandler.GlobalError(error);
         });
-
 
 
     }

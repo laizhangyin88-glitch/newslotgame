@@ -207,12 +207,20 @@ public class TestManager : MonoSingleton<TestManager>
         //string spinRes = TestManager.Instance.getSpin();
         yield return new WaitForSeconds(0.2f);
 
-        SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(resStr as string);
-        SimpleJSON.JSONNode res = dataDict.HasKey("protocol_key") ? dataDict["data"]: dataDict;
-        if (responseCallback != null)
+        try
         {
-            responseCallback(res);
+            SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(resStr as string);
+            SimpleJSON.JSONNode res = dataDict.HasKey("protocol_key") ? dataDict["data"]: dataDict;
+            if (responseCallback != null)
+            {
+                responseCallback(res);
+            }
+        }catch(Exception e)
+        {
+            Debug.LogError($"【ERR】 data = {resStr}");
+            Debug.LogException(e);
         }
+
     }
 
     public void SetTextServer(string text)
