@@ -245,7 +245,7 @@ public class MiniGame2 : MonoBehaviour
 
                     ani_Boy.Play("ClimbUp");
                     boyState = BoyStealHarpState.StealFinish;
-                    var timer3 = TimerExtensions.DelayAction(this, 2f, () =>
+                    var timer3 = TimerExtensions.DelayAction(this, 1.6f, () =>
                     {
                         ani_Boy.gameObject.SetActive(false);
                         if (lstScore.Count > 0 && boyState != BoyStealHarpState.TimerUp)

@@ -6,10 +6,22 @@ using System.Runtime.Remoting.Contexts;
 using TMPro;
 using UnityEngine;
 
+
+public enum BoyChoseDoorState
+{
+    None = -1,
+    Climb,
+    Idle,
+    Chose0,
+    Chose1,
+    Chose2,
+}
 public class DoorBonus : MonoBehaviour
 {
+    BoyChoseDoorState boyState = BoyChoseDoorState.None;
+
     public static readonly string ON_CONTENT_UI_EVENT = "OnContentUIEvent";
-    //public static readonly string ON_CUSTOM_EVENT = "OnCustomEvent";  //
+
 
     int clickIndex = -1;
     LoopTimer _countDownTimer;
@@ -36,7 +48,7 @@ public class DoorBonus : MonoBehaviour
     void Start()
     {
         MessageDispatcher.Register(ON_CONTENT_UI_EVENT, OnContentUIEvent);
-        //MessageDispatcher.Register(ON_CUSTOM_EVENT, OnCustomEvent);
+
 
         cxeRoot = transform.GetComponent<ContextElement>();
         cxeRoot.UpdateContext(true);
@@ -45,9 +57,7 @@ public class DoorBonus : MonoBehaviour
         cxeDoor1 = ContextUtils.FindElement(cxeRoot, "Door Chose 01/Animator/door1", ContextSearchingType.FullNameSearch) as IContextClickable;
         cxeDoor2 = ContextUtils.FindElement(cxeRoot, "Door Chose 01/Animator/door2", ContextSearchingType.FullNameSearch) as IContextClickable;
 
-        cxeDoor0.RemoveAllListener();
-        cxeDoor1.RemoveAllListener();
-        cxeDoor2.RemoveAllListener();
+
 
         cxeCountDown = ContextUtils.FindElement(cxeRoot, "Door Chose 01/Animator/countDown", ContextSearchingType.FullNameSearch) as ContextTextMeshProUGUI;
 
@@ -59,112 +69,87 @@ public class DoorBonus : MonoBehaviour
 
         cxeDoorChose = ContextUtils.FindElement(cxeRoot, "Door Chose 01", ContextSearchingType.ChildrenSearch) as ContextCompositor;
 
-
-
         //cxeMiniGame5 = ContextUtils.FindElement(cxeRoot, "miniGame5", ContextSearchingType.ChildrenSearch) as ContextCompositor;
 
         cxeMiniGame0.gameObject.SetActive(false);
         cxeMiniGame1.gameObject.SetActive(false);
         cxeMiniGame2.gameObject.SetActive(false);
+
+
+        cxeDoor0.RemoveAllListener();
+        cxeDoor1.RemoveAllListener();
+        cxeDoor2.RemoveAllListener();
+        cxeDoor0.AddListenerOnClick((ContextElement sender) => {
+            if (boyState != BoyChoseDoorState.Idle)
+                return;
+            ClearTimerCountDown();
+            Debug.Log($" == {sender.gameObject.name}");
+            cxeAnimatorDoorChose.SetIntProperty(0);//animatorDoorChose.SetInteger("ChoseDoor", 0);
+        });
+        cxeDoor1.AddListenerOnClick((ContextElement sender) => {
+            if (boyState != BoyChoseDoorState.Idle)
+                return;
+            ClearTimerCountDown();
+            Debug.Log($" == {sender.gameObject.name}");
+            cxeAnimatorDoorChose.SetIntProperty(1);//animatorDoorChose.SetInteger("ChoseDoor", 1);
+        });
+        cxeDoor2.AddListenerOnClick((ContextElement sender) => {
+            if (boyState != BoyChoseDoorState.Idle)
+                return;
+            ClearTimerCountDown();
+            Debug.Log($" == {sender.gameObject.name}");
+            cxeAnimatorDoorChose.SetIntProperty(2);  //animatorDoorChose.SetInteger("ChoseDoor", 2);
+        });
+
     }
+
+
 
     //private void OnDisable()
     private void OnDestroy()
     {
         MessageDispatcher.UnRegister(ON_CONTENT_UI_EVENT, OnContentUIEvent);
-        //MessageDispatcher.UnRegister(ON_CUSTOM_EVENT, OnCustomEvent);
+
+        cxeDoor0.RemoveAllListener();
+        cxeDoor1.RemoveAllListener();
+        cxeDoor2.RemoveAllListener();
 
         ClearTimerCountDown();     
     }
 
-    public void OnCustomEvent(EventData eventData)
-    {
-        if (eventData.name == "BSTMiniGameFinish")
-        {
-            cxeDoorChose.gameObject.SetActive(false);
-            cxeMiniGame0.gameObject.SetActive(false);
-            cxeMiniGame1.gameObject.SetActive(false);
-            cxeMiniGame2.gameObject.SetActive(false);
-            //通知主状态机切换状态
-        }
-    }
     public void OnContentUIEvent(EventData eventData){
 
         if (eventData.name == "Start Door")
         {
-            cxeDoor0.RemoveAllListener();
-            cxeDoor1.RemoveAllListener();
-            cxeDoor2.RemoveAllListener();
-            //doorChose.SetActive(true);
-            cxeDoorChose.gameObject.SetActive(true);
-            //爬树
-            Debug.Log("i am here");
+            boyState = BoyChoseDoorState.Climb; //爬树
+            cxeDoorChose.gameObject.SetActive(true);           
         }
         else if (eventData.name == "BoyClimbFinish")
         {
-
-            cxeDoor0.AddListenerOnClick((ContextElement sender) => {
-                ClearTimerCountDown();
-                Debug.Log($" == {sender.gameObject.name}");
-                //animatorDoorChose.SetInteger("ChoseDoor", 0);
-                cxeAnimatorDoorChose.SetIntProperty(0);
-            });
-
-            cxeDoor1.AddListenerOnClick((ContextElement sender) => {
-                ClearTimerCountDown();
-                Debug.Log($" == {sender.gameObject.name}");
-                //animatorDoorChose.SetInteger("ChoseDoor", 1);
-                cxeAnimatorDoorChose.SetIntProperty(1);
-            });
-
-            cxeDoor2.AddListenerOnClick((ContextElement sender) => {
-                ClearTimerCountDown();
-                Debug.Log($" == {sender.gameObject.name}");
-                //animatorDoorChose.SetInteger("ChoseDoor", 2);
-                cxeAnimatorDoorChose.SetIntProperty(2);
-            });
-
+            boyState = BoyChoseDoorState.Idle;
             StartTimerCountDown();
         }
         else if (eventData.name == "ChoseDoor0")
         {
-            //cxeDoor0.RemoveAllListener();
-            //cxeDoor1.RemoveAllListener();
-            //cxeDoor2.RemoveAllListener();
-
-            //doorChose.SetActive(false);
+            boyState = BoyChoseDoorState.Chose0;
             cxeDoorChose.gameObject.SetActive(false);
             cxeMiniGame0.gameObject.SetActive(true);
-            //miniGame0.gameObject.SetActive(false);
-
-
-            //通知主状态机切换状态
         }
         else if (eventData.name == "ChoseDoor1")
         {
-            //cxeDoor0.RemoveAllListener();
-            //cxeDoor1.RemoveAllListener();
-            //cxeDoor2.RemoveAllListener();
-
-            //doorChose.SetActive(false);
+            boyState = BoyChoseDoorState.Chose1;
             cxeDoorChose.gameObject.SetActive(false);
             cxeMiniGame1.gameObject.SetActive(true);
-
-
-            //通知主状态机切换状态
         }
         else if (eventData.name == "ChoseDoor2")
         {
-            //cxeDoor0.RemoveAllListener();
-            //cxeDoor1.RemoveAllListener();
-            //cxeDoor2.RemoveAllListener();
-
-            //doorChose.SetActive(false);
+            boyState = BoyChoseDoorState.Chose2;
             cxeDoorChose.gameObject.SetActive(false);
             cxeMiniGame2.gameObject.SetActive(true);
         }
         else if (eventData.name == "BSTMiniGameFinish")
         {
+            boyState = BoyChoseDoorState.None;
             cxeDoorChose.gameObject.SetActive(false);
             cxeMiniGame0.gameObject.SetActive(false);
             cxeMiniGame1.gameObject.SetActive(false);
@@ -208,17 +193,4 @@ public class DoorBonus : MonoBehaviour
         });
     }
 
-
-
-    public void testclick01()
-    {
-        Debug.Log("i am click 01");
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
