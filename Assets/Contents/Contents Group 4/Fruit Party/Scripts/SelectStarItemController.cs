@@ -24,8 +24,11 @@ public class SelectStarItemController : MonoBehaviour
 
     private LoopTimer _loopTimer;
 
+    private Rect rect;
+
     private void Awake()
     {
+
         isExit = false;
         button = transform.Find("Button").GetComponent<Button>();
 
@@ -108,12 +111,14 @@ public class SelectStarItemController : MonoBehaviour
             {
                 icon.sprite = FruitPartyMiniGameController3.Instance.sprites[spriteIndex];
             }
+            icon.SetNativeSize();
         }
     }
 
     public void UpdateStarItem(Sprite sprite)
     {
         icon.sprite = sprite;
+        icon.SetNativeSize();
     }
 
     public void Reset()
@@ -140,6 +145,7 @@ public class SelectStarItemController : MonoBehaviour
     {
         isExit = true;
         icon.sprite = sprite;
+        icon.SetNativeSize();
     }
 
 

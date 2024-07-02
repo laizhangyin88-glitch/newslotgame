@@ -73,7 +73,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
         CountDownTxt = transform.Find("Image/CountDown").GetComponent<Text>();
         MaskButton = transform.Find("MaskButton").GetComponent<Button>();
 
-        BetTxt.text = "BET \n" + currentBet.ToString();
+        BetTxt.text = "BET \n" + currentBet.ToString("N0");
 
         MaskButton.gameObject.SetActive(false);
         InitTargetScore();
@@ -104,12 +104,15 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
 
     private void AutoSelected()
     {
-        int index = Random.Range(0, selectItemControllers.Length);
-        while (selectItemControllers[index].isSelected)
+        if (!isGameOver)
         {
-            index = Random.Range(0, selectItemControllers.Length);
+            int index = Random.Range(0, selectItemControllers.Length);
+            while (selectItemControllers[index].isSelected)
+            {
+                index = Random.Range(0, selectItemControllers.Length);
+            }
+            selectItemControllers[index].OnClickButton();
         }
-        selectItemControllers[index].OnClickButton();
     }
 
     public int getClickSpriteIndex()
@@ -241,7 +244,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
     /// </summary>
     public void FinishGame()
     {
-        _loopTimer?.Cancel();
+        _loopTimer?.Pause();
         isGameOver = true;
         MaskButton.gameObject.SetActive(true);
         this.DelayAction(2, () =>
@@ -287,7 +290,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
             }
         }
         MiniGameDataManagers.Instance.ResetAutoSpint();
-        MiniGameDataManagers.Instance.ShowGameReward(CurrentTotalScore * currentBet);
+        MiniGameDataManagers.Instance.ShowGameReward(CurrentTotalScore);
     }
 
     public void IsFinishGame()
@@ -333,6 +336,6 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
     public void SetTotalScore(int totalScore)
     {
         CurrentTotalScore += (totalScore * currentBet);
-        TotalWinTxt.text = "Total Win \n" + CurrentTotalScore.ToString();
+        TotalWinTxt.text = "Total Win \n" + CurrentTotalScore.ToString("N0");
     }
 }

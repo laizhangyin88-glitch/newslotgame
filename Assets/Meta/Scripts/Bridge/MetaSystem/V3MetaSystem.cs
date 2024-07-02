@@ -173,11 +173,14 @@ namespace BagelCode
                 {
                     {"bet",betCredit},
                     {"extra_bet",extraBetCredit },
-                   // { "debug_param", debug_param},
-#if UNITY_EDITOR
-                   // { "debug_param", debug_param1},
-#endif
                 };
+
+                if (globalStore.IsHaveLineSelect.ContainsKey(gameId))
+                {
+                    int line = BlackboardUtils.GetOrCreateVariable<int>(ContentBlackboard.Get(), "./game/lineCount").value;
+                    req.Add("win_line_count", line);
+                }
+
                 //if (!this.isFree)
                 //{
                 //    Debug.LogError("发送触发免费游戏.............");
@@ -273,6 +276,11 @@ namespace BagelCode
                         //修改滚轮码表号
                         content["reel_set_index"]["current_index"] = res["game_result"]["regular_game_reel"] == "free_game_reel" ? 1 : 0;
                         content["reel_set_index"]["next_index"] = res["game_result"]["next_game_real_name"] == "free_game_reel" ? 1 : 0; //"regular_game_reel",
+                    }
+
+                    if (res["game_result"]["jackpot_info"] != null)
+                    {
+                        SaveJackpotInfo(res["game_result"]["jackpot_info"]);
                     }
 
                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
@@ -404,6 +412,11 @@ namespace BagelCode
             BlackboardUtils.SetOrCreateValue(spinBB.value, "responseNew", str);
         }
 
+        private void SaveJackpotInfo(JSONNode node)
+        {
+            long reward = node["jackpot_reward3"];
+            BlackboardUtils.SetOrCreateValue<long>(ContentBlackboard.Get(), "jackpot_reward3", reward);
+        }
 
         public void SlotSpinSuccess(ClientModels.SlotSpinResponseV3 response, long betCredit, long extraBetCredit, SpinType spinType)
         {

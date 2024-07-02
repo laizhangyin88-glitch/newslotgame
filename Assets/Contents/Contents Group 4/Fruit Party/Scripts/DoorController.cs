@@ -1,4 +1,6 @@
+using BagelCode.ClientModels;
 using GameUtil;
+using NodeCanvas.Framework;
 using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +24,8 @@ public class DoorController : MonoBehaviour
     private Text BetValueTxt;
 
     private long currentBet;
+
+    private long rewardValue;
 
     private LoopTimer _loopTimer;
 
@@ -54,7 +58,9 @@ public class DoorController : MonoBehaviour
         totalWinValueTxt = transform.Find("Img/totalWinValue").GetComponent<Text>();
         TimeTxt = transform.Find("time/TimeTxt").GetComponent<Text>();
 
-        BetValueTxt.text = currentBet.ToString();
+        totalWinValueTxt.text = "0";
+
+        BetValueTxt.text = currentBet.ToString("N0");
 
         InitSelectItem();
 
@@ -83,6 +89,7 @@ public class DoorController : MonoBehaviour
     {
         if(doorSelectItems.Count > 0)
         {
+            _loopTimer?.Cancel();
             int index = Random.Range(0, doorSelectItems.Count);
             doorSelectItems[index].OnClickBtn();
         }
@@ -104,6 +111,14 @@ public class DoorController : MonoBehaviour
         }
     }
 
+    public void SetClickReward()
+    {
+        _loopTimer?.Cancel();
+        var value = BlackboardUtils.GetOrCreateVariable<long>(ContentBlackboard.Get(), "jackpot_reward3");
+        totalWinValueTxt.text = value.value.ToString("N0");
+        rewardValue = value.value;
+    }
+     
     public void PlayMiniGame(int index)
     {
         this.DelayAction(0.5f, () =>
@@ -141,3 +156,6 @@ public class DoorController : MonoBehaviour
         doorSelectItems.Clear();
     }
 }
+
+
+

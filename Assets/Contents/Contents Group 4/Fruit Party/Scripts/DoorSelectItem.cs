@@ -55,7 +55,11 @@ public class DoorSelectItem : MonoBehaviour
         _frameAnimator.gameObject.SetActive(false);
         if (DoorController != null)
         {
-            DoorController.PlayMiniGame(_index);
+            DoorController.SetClickReward();
+            this.DelayAction(2, () =>
+            {
+                DoorController.PlayMiniGame(_index);
+            });
         }
     }
 

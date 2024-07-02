@@ -135,7 +135,7 @@ public class MiniGameDataManagers
             }
         }
     }
-
+     
     public void ShowGameReward(long total)
     {
         GameObject go = AssetBundleManager.LoadAsset<GameObject>("fruitparty", "MiniGameRewardPopup");
@@ -144,7 +144,7 @@ public class MiniGameDataManagers
             GameObject gameObject = GameObject.Instantiate(go);
             gameObject.transform.SetParent(PopupManager.Instance.contents, false);
             SetTextValue setTextValue = gameObject.GetComponent<SetTextValue>();
-            setTextValue.textValue = total.ToString();
-        }
+            setTextValue.textValue = total.ToString("N0");
+        } 
     }
 } 

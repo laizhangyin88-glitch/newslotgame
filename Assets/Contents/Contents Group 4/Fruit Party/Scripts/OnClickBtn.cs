@@ -14,6 +14,7 @@ public class OnClickBtn : MonoBehaviour
             btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(OnClickBtnDown);
         }
+        Destroy(gameObject, 5);
     }
 
     private void OnClickBtnDown()
