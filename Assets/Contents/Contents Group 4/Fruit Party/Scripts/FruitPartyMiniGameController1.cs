@@ -274,8 +274,9 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
                 Destroy(scoreItemControllers[i].gameObject, i * 0.2f);
                 scoreItemControllers[i] = null;
             }
-        }
+        } 
         MiniGameDataManagers.Instance.ResetAutoSpint();
+        MiniGameDataManagers.Instance.ShowGameReward(TotalWinScore * CurrentBet);
     }
 
     private void ShowItemPingPong(RingItemController ringItemController)

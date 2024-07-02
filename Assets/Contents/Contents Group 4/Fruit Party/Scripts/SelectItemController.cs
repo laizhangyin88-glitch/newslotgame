@@ -13,7 +13,8 @@ public class SelectItemController : MonoBehaviour
 
     public bool isSelected = false;
 
-    private Vector3 startPosition;
+    [NonSerialized]
+    public Vector3 endPosition;
 
     [NonSerialized]
     public int SelectIndex = 0;
@@ -39,12 +40,6 @@ public class SelectItemController : MonoBehaviour
         frameAnimator.Stop();
         frameAnimator.FinishEvent += AnimationFinishEvent;
         frameAnimator.gameObject.SetActive(false);
-        this.DelayAction(1, () =>
-        {
-            startPosition = transform.localPosition;
-            gameObject.SetActive(true);
-            //SetSelectItemData(spriteIndex);
-        });
     }
 
     private void AnimationFinishEvent()
@@ -86,10 +81,6 @@ public class SelectItemController : MonoBehaviour
         frameAnimator.gameObject.SetActive(false);
         icon.gameObject.SetActive(true);
         button.gameObject.SetActive(false);
-        //transform.DOScale(Vector3.one * 1.5f, 0.5f).OnComplete(() =>
-        //{
-        //    transform.DOScale(Vector3.one, 0.5f);
-        //});
     }
 
     public void Reset()
@@ -99,8 +90,8 @@ public class SelectItemController : MonoBehaviour
         button.gameObject.SetActive(true);
         SetColor(Color.white);
         frameImage.color = Color.white;
-        transform.localPosition = startPosition;
-        spriteIndex = 0;
+        //transform.localPosition = endPosition;
+        spriteIndex = 0; 
     }
 
     private void OnDestroy()
@@ -120,6 +111,7 @@ public class SelectItemController : MonoBehaviour
 
     public void PlayMoveAnamtion()
     {
+        this.gameObject.SetActive(true);
         if (SelectIndex < 5)
         {
             DoPath(0, 2);
@@ -140,14 +132,16 @@ public class SelectItemController : MonoBehaviour
             result[index] = pos;
             index++;
         }
-        result[2] = startPosition;
-        transform.localScale = Vector3.one * 0.5f;
+        result[2] = endPosition;
         transform.localPosition = result[0];
         loopTimer?.Cancel();
-        //transform.rotation = Vector3.
-        this.loopTimer = this.LoopAction(Time.deltaTime, null, (deltaTime) =>
+        AsyncActionUtils.ApplyLocalMovement(this, transform, transform.localPosition, result[1], 0.2f ,TweenUtils.VectorTweenLinear, 0, () =>
         {
-
+            AsyncActionUtils.ApplyLocalMovement(this, transform, transform.localPosition, result[2], 0.2f, TweenUtils.VectorTweenLinear, 0, () =>
+            {
+                transform.localScale = Vector3.one * 1.2f;
+                AsyncActionUtils.ApplyScaling(this, transform, Vector3.one * 1.2f, Vector3.one, 0.2f, TweenUtils.VectorTweenLinear);
+            });
         });
         //transform.DOLocalPath(result, 2f).OnComplete(() =>
         //{

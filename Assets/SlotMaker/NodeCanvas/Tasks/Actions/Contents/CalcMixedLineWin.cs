@@ -5,6 +5,7 @@ using ParadoxNotion.Design;
 using ParadoxNotion;
 using NodeCanvas.Framework;
 using SlotMaker;
+using System.Runtime.CompilerServices;
 
 namespace BagelCode.Tasks.Actions.Contents
 {
@@ -283,9 +284,19 @@ namespace BagelCode.Tasks.Actions.Contents
             return 0;
         }
 
-        private bool isWild(SymbolInfo symbolInfo)
+        /// <summary>
+        /// 判断是不是万能牌
+        /// </summary>
+        /// <param name="symbolInfo"></param>
+        /// <returns></returns>
+        private bool isWild(int index, List<List<int>> shuffling_list)
         {
-            return SymbolMask.HasAttribute(symbolInfo, SymbolAttribute.Wild);
+            return shuffling_list[0][index] == 9 || shuffling_list[1][index] == 9 || shuffling_list[2][index] == 9;
+        }
+
+        private bool isSameSymbol(int index, List<List<int>> shuffling_list, int symbol)
+        {
+            return shuffling_list[0][index] == symbol || shuffling_list[1][index] == symbol || shuffling_list[2][index] == symbol;
         }
 
         private long getLineCredit(int lineIndex)
@@ -314,6 +325,38 @@ namespace BagelCode.Tasks.Actions.Contents
             return result;
         }
 
+        /// <summary>
+        /// 转换牌型数据 3x5 转换为  5x3
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        private int[,] TransposeArray(List<List<int>> input)
+        {
+            int rows = input.Count; //5
+            int cols = input[0].Count;//3 
+            var result = new int[cols, rows];
+            for (int i = 0; i < input.Count; i++) 
+            { 
+                var temp = input[i];
+                for (int j = 0; j < temp.Count; j++)
+                {
+                    result[j, i] = temp[j];
+                }
+            }
+            return result;
+        }
+
+        private List<Cell> fillCell(List<int> line)
+        {
+            List<Cell> result = new List<Cell>();
+            for (int i = 0; i < 5; i++)
+            {
+                Cell cell = new Cell(i, line[i]);
+                result.Add(cell);
+            }
+            return result;
+        }
+
         private long FillLineData(List<SymbolWin> winList, int dircetion)
         {
             var slotData = ContentCustomData.GetSlotData(slotIndex.value);
@@ -321,30 +364,34 @@ namespace BagelCode.Tasks.Actions.Contents
             Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
             var response = spinBB.value.GetValue<Blackboard>("response");
             var list = response.GetValue<List<List<int>>>("total_line_result");
+            var shuffling_list = response.GetValue<List<List<int>>>("shuffling_list");
+            var newList = TransposeArray(shuffling_list);
             long totalEarnCredit = 0L;
             if (list != null && list.Count > 0)
             {
                 for (int i = 0; i < list.Count; i++)
                 {
                     List<int> line = list[i];
+                    var cellLine = fillCell(line);
                     SymbolInfo temp = null;
                     int hitCount = 0;
                     SymbolWin symbolWin = new SymbolWin();
                     symbolWin.direction = dircetion;
                     int lineIndex = GetPayLineIndex(line);
                     symbolWin.lineIndex = lineIndex + 1;
-                    for (int j = 0; j < line.Count; j++)
+                    for (int j = 0; j < cellLine.Count; j++)
                     {
+                        var cell = cellLine[j];
                         if (temp == null)
                         {
-                            temp = deck.deck[j][line[j]];
+                            temp = deck.deck[cell.column][cell.row]; 
                             hitCount++;
                             symbolWin.symbolIndex = temp.symbol;
                             symbolWin.cells.Add(new Cell(j, line[j]));
                         }
                         else
                         {
-                            if(temp.symbol == deck.deck[j][line[j]].symbol || isWild(deck.deck[j][line[j]]))
+                            if (temp.symbol == deck.deck[cell.column][cell.row].symbol || newList[cell.column, cell.row] == 9)
                             {
                                 symbolWin.cells.Add(new Cell(j, line[j]));
                                 hitCount++;
@@ -354,7 +401,7 @@ namespace BagelCode.Tasks.Actions.Contents
                                 break;
                             }
                         }
-                    }
+                    } 
                     long lineMultiplier = 1L;
                     lineMultiplier = (long)OperationTools.Operate(lineMultiplier, GetSymbolMultiplier(temp.symbol), MultiplierOperation);
                     if (MultiplierOperation == OperationMethod.Add && lineMultiplier != 1L)
@@ -366,10 +413,10 @@ namespace BagelCode.Tasks.Actions.Contents
                     totalEarnCredit += symbolWin.earnCredit; 
                     winList.Add(symbolWin);
                 }
-
             }
             return totalEarnCredit;
         }
+
         /// <summary>
         /// 查找铃铛得分
         /// </summary>
@@ -391,6 +438,7 @@ namespace BagelCode.Tasks.Actions.Contents
                         count++;
                         symbolWin.symbolIndex = info.symbol;
                         symbolWin.hitCount = count;
+
                         symbolWin.cells.Add(new Cell(i, j));
                     }
                 }
@@ -404,7 +452,7 @@ namespace BagelCode.Tasks.Actions.Contents
                 symbolWin.earnCredit = temp;
                 symbolWin.multiplier = 1;
                 winList.Add(symbolWin);
-            } 
+            }
             if(count >= 3)
             {
                 Debug.LogError("触发免费游戏了......");
@@ -443,8 +491,8 @@ namespace BagelCode.Tasks.Actions.Contents
             } 
             if(count >= 3)
             {
-                Debug.LogError("触发小游戏了...........");
-                ContentBlackboard.Get().SetValue("isTriggerMiniGame", true);
+                //ContentBlackboard.Get().SetValue("isTriggerMiniGame", true);
+                BlackboardUtils.GetOrCreateVariable<bool>(BlackboardUtils.GetContentFSMBlackboard(), "isTriggerMiniGame").value = true;
                 list.Add(symbolWin);
             }
         }
@@ -456,9 +504,9 @@ namespace BagelCode.Tasks.Actions.Contents
             winList = new List<SymbolWin>();
             if (globalStore.IsInNewGame())
             {
-                ContentBlackboard.Get().SetValue("isTriggerMiniGame", false);
+                BlackboardUtils.GetOrCreateVariable<bool>(BlackboardUtils.GetContentFSMBlackboard(),"isTriggerMiniGame").value = false;
                 totalEarnCredit += FillLineData(winList, 1);
-                if (bidirectional.value)
+                if (bidirectional.value)  
                     totalEarnCredit += FillLineData(winList, -1); 
 
                 FindBell(winList);

@@ -67,53 +67,62 @@ namespace SlotMaker.Tasks.Actions.Contents
         }
 
         private void MoveAnimation(int isDown, BaseSymbol baseSymbol, Vector3 from)
-        {
+        { 
             int count = 0;
-            var wild = loadAnimation(baseSymbol.symbolInfo.symbol);
-            wild.transform.SetParent(baseSymbol.transform, false);
+            var wild = loadAnimation();
+            wild.transform.SetParent(baseSymbol.transform.parent, false);
+            if(isDown == 1)
+            {
+                wild.transform.localPosition = new Vector3(0, 140, 0);
+            }
+            else if(isDown == 0)
+            {
+                wild.transform.localPosition = new Vector3(0, -141, 0);
+            }
+            else
+            {
+                wild.transform.localPosition = Vector3.zero;
+            }
             gameObjects.Add(wild.gameObject);
             for (int i = 0; i < 2; i++)
-            {
-                GameObject go = GameObject.Instantiate(baseSymbol.gameObject); 
-                //go.transform.GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
-                go.name = "TTTTTTTTTTTTT";
-                var temp = loadAnimation(baseSymbol.symbolInfo.symbol);
-                temp.transform.SetParent(go.transform, false);
-                go.transform.SetParent(baseSymbol.transform.parent);
-                go.transform.localScale = Vector3.one;
-                go.transform.localPosition = from;
-                gameObjects.Add(go);
-                if (isDown == 1)    ///在上面，从上往下运动
-                {
+            { 
+                //temp.transform.GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
+                var temp = loadAnimation();
+                temp.transform.SetParent(baseSymbol.transform.parent, false);
+                temp.transform.localScale = Vector3.one;
+                temp.transform.localPosition = from;
+                gameObjects.Add(temp); 
+                if (isDown == 1)///在上面，从上往下运动
+                { 
                     if (count == 0)
                     {
-                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, Vector3.zero, animationTime, TweenUtils.VectorTweenLinear);
+                        AsyncActionUtils.ApplyLocalMovement(baseSymbol, temp.transform, from, Vector3.zero, animationTime, TweenUtils.VectorTweenLinear);
                     } 
                     else
                     {
-                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, new Vector3(0, -140,0), animationTime, TweenUtils.VectorTweenLinear);
+                        AsyncActionUtils.ApplyLocalMovement(baseSymbol, temp.transform, from, new Vector3(0, -140,0), animationTime, TweenUtils.VectorTweenLinear);
                     }
                 }
                 else if(isDown == 0)///在下面，从下往上运动
                 {
                     if (count == 0)
                     {
-                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, Vector3.zero, animationTime, TweenUtils.VectorTweenLinear);
+                        AsyncActionUtils.ApplyLocalMovement(baseSymbol, temp.transform, from, Vector3.zero, animationTime, TweenUtils.VectorTweenLinear);
                     }
                     else
                     {
-                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, new Vector3(0, 140, 0), animationTime, TweenUtils.VectorTweenLinear);
+                        AsyncActionUtils.ApplyLocalMovement(baseSymbol, temp.transform, from, new Vector3(0, 140, 0), animationTime, TweenUtils.VectorTweenLinear);
                     }
                 }
                 else
                 {
                     if (count == 0)
                     {
-                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, new Vector3(0, 140, 0), animationTime, TweenUtils.VectorTweenLinear);
+                        AsyncActionUtils.ApplyLocalMovement(baseSymbol, temp.transform, from, new Vector3(0, 140, 0), animationTime, TweenUtils.VectorTweenLinear);
                     }
                     else
                     {
-                        AsyncActionUtils.ApplyLocalMovement(go.GetComponent<BaseSymbol>(), go.transform, from, new Vector3(0, -140, 0), animationTime, TweenUtils.VectorTweenLinear);
+                        AsyncActionUtils.ApplyLocalMovement(baseSymbol, temp.transform, from, new Vector3(0, -140, 0), animationTime, TweenUtils.VectorTweenLinear);
                     }
                 }
                 count++;
@@ -121,7 +130,7 @@ namespace SlotMaker.Tasks.Actions.Contents
         }
 
 
-        private GameObject loadAnimation(int index)
+        private GameObject loadAnimation()
         {
             var symbolName = "A_frame_wild";//ContentCustomData.Instance.symbolName[index];
 

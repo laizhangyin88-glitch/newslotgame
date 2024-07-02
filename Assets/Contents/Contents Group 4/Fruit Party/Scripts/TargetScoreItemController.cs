@@ -68,7 +68,10 @@ public class TargetScoreItemController : MonoBehaviour
     {
         if(this.spriteIndex == spriteIndex)
         {
-            images[activeIndex].color = Color.white;
+            if (activeIndex < images.Length)
+            {
+                images[activeIndex].color = Color.white;
+            }
             int score = currentScore;
             FruitPartyMiniGameController2.Instance.SetTotalScore(score);
             activeIndex++;

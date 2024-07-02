@@ -21,8 +21,8 @@ public class RPCName
     /// <summary>新拉霸机 开玩</summary>
     public const string newSlotSpin = "new_slot_spin";
     public const string newClaimBonus = "new_slot_spin";
-
-
+    /// <summary> 比大小小游戏协议 /// </summary>
+    public const string new_high_low_game = "new_high_low_game";
 
     /// <summary>登录</summary>
     public const string login = "login";
