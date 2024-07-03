@@ -132,10 +132,10 @@ public class MiniGame0 : MonoBehaviour
                 lst_Score.Add((int)item);
             }
 
-            //Blackboard bonusBB = (Blackboard)BlackboardUtils.GetOrCreateBlackboard(ContentBlackboard.Get(), "bonus");
-            //BlackboardUtils.SetOrCreateValue(bonusBB, "responseNew", resStr);
-
-            BeginBonusNew.CreatBonus(resStr,"egg");
+            Blackboard bonusBB = (Blackboard)BlackboardUtils.GetOrCreateBlackboard(ContentBlackboard.Get(), "bonus");
+            BlackboardUtils.SetOrCreateValue(bonusBB, "responseNew", resStr);
+            BlackboardUtils.SetOrCreateValue(bonusBB, "bonusName", "egg");
+            //BeginBonusNew.CreatBonus(resStr,"egg");
 
             BoyStealEgg(startPos01);
         },

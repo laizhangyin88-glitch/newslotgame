@@ -1,6 +1,7 @@
 using BagelCode;
 using BagelCode.Tasks.Actions.Contents;
 using GameUtil;
+using NodeCanvas.Framework;
 using ParadoxNotion;
 using SimpleJSON;
 using Sirenix.OdinInspector;
@@ -94,7 +95,11 @@ public class MiniGame1 : MonoBehaviour
             }
 
             Debug.LogError($"Count = {lst_Score.Count}");
-            BeginBonusNew.CreatBonus(resStr, "treasure");
+
+            Blackboard bonusBB = (Blackboard)BlackboardUtils.GetOrCreateBlackboard(ContentBlackboard.Get(), "bonus");
+            BlackboardUtils.SetOrCreateValue(bonusBB, "responseNew", resStr);
+            BlackboardUtils.SetOrCreateValue(bonusBB, "bonusName", "treasure");
+            //BeginBonusNew.CreatBonus(resStr, "treasure");
 
             StartSteale();
         },
