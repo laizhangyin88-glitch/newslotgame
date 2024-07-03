@@ -1,3 +1,4 @@
+using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +7,8 @@ using UnityEngine;
 public class SetTextValue : MonoBehaviour
 {
     public TextMeshProUGUI textMeshProUGUI;
+
+    public long value;
 
     public string textValue;
 

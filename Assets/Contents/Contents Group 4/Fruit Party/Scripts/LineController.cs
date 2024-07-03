@@ -21,6 +21,8 @@ public class LineController : MonoBehaviour
     private long currentBet;
 
     private long totalBet;
+
+    private Button button;
     private void Start()
     {
         var temp = BlackboardUtils.FindVariable<long>(null, "./game/baseWager");
@@ -28,6 +30,9 @@ public class LineController : MonoBehaviour
         currentLine = 15;
         lineTxt = transform.Find("line_Text").GetComponent<Text>();
         totalTxt = transform.Find("total_Text").GetComponent<TextMeshProUGUI>();
+        button = transform.Find("Button").GetComponent<Button>();
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(OnClickBtn);
         currentBet = BlackboardUtils.FindVariable<long>("./betCredit").value;
         totalBet = currentLine * currentBet;
 
@@ -42,18 +47,24 @@ public class LineController : MonoBehaviour
         UpdateInfo();
     }
 
+    private void OnClickBtn()
+    {
+        currentLine++;
+        if (currentLine > totalLineCount)
+        {
+            currentLine = 1;
+        }
+        UpdateInfo();
+    }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            currentLine++;
-            if(currentLine > totalLineCount)
-            {
-                currentLine = 1;
-            }
-            UpdateInfo();
+            OnClickBtn();
         }
     }
+
 
     private void UpdateInfo()
     {

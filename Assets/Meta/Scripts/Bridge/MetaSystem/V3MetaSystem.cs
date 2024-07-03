@@ -510,7 +510,7 @@ namespace BagelCode
                             errorCallback();
                     });
                 }
-            } 
+            }
             else
             {
 
