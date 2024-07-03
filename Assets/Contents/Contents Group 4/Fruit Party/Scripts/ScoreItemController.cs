@@ -1,3 +1,5 @@
+using GameUtil;
+using PlayFab.ClientModels;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +10,7 @@ public class ScoreItemController : MonoBehaviour
     [SerializeField]
     private Sprite[] ScoreSprites;
 
-    public static int[] scoreArray = new int[8] { 100, 70, 50, 20, 10, 6, 4, 2 };
+    //public static int[] scoreArray = new int[8] { 100, 70, 50, 20, 10, 6, 4, 2 };
 
     private Text score;
     private Image icon;
@@ -17,6 +19,7 @@ public class ScoreItemController : MonoBehaviour
 
     public int currentScore;
 
+    private LoopTimer _loopTimer;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +27,11 @@ public class ScoreItemController : MonoBehaviour
         score = transform.Find("score").GetComponent<Text>();
         SetSprite();
     }
-
+    
     public void SetSprite()
     {
         icon.sprite = ScoreSprites[Index];
-        currentScore = scoreArray[Index];
+        currentScore = FruitPartyMiniGameController1.Instance.scoreArray[Index];
     }
 
     public void SetScore(int score)
@@ -36,9 +39,26 @@ public class ScoreItemController : MonoBehaviour
         this.score.text = score.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Pingpong()
     {
-        
+        Color color = Color.white;
+        int count = 0;
+        float timer = 1f;
+        _loopTimer?.Cancel();
+        _loopTimer = this.LoopAction(Time.deltaTime, (time) =>
+        {
+            color.a = Mathf.PingPong(5 * Time.time, 1f);
+            icon.color = color;
+            if ((timer -= Time.deltaTime) < 0)
+            {
+                timer = 1f;
+                count++;
+                if (count >= 3)
+                {
+                    icon.color = Color.white;
+                    _loopTimer.Cancel();
+                }
+            }
+        });
     }
 }

@@ -1,3 +1,4 @@
+using GameUtil;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,7 @@ public class TargetScoreItemController : MonoBehaviour
 
     private Image[] images = new Image[3];
 
-    private int[] ScoreArray = new int[3] { 20, 30, 50};
+    private LoopTimer _loopTimer;
 
     // Start is called before the first frame update
     void Awake()
@@ -37,14 +38,16 @@ public class TargetScoreItemController : MonoBehaviour
     }
 
 
-    public void SetItemData(int totalScore, int spriteIndex)
+    public void SetItemData(int totalScore, int spriteIndex, int score)
     {
         this.totalScore = totalScore;
         this.spriteIndex = spriteIndex;
+        this.currentScore = score;
         TotalScore_Txt.text = totalScore.ToString();
+        CurrentScore_Txt.text = currentScore.ToString();
         SetSpriteList();
         TargetIcon.sprite = FruitPartyMiniGameController2.Instance.sprites[spriteIndex];
-        CurrentScore_Txt.text = "0";
+        
     }
 
     private void SetSpriteList()
@@ -65,16 +68,18 @@ public class TargetScoreItemController : MonoBehaviour
     {
         if(this.spriteIndex == spriteIndex)
         {
-            images[activeIndex].color = Color.white;
-            int score = totalScore * ScoreArray[activeIndex] / 100;
+            if (activeIndex < images.Length)
+            {
+                images[activeIndex].color = Color.white;
+            }
+            int score = currentScore;
             FruitPartyMiniGameController2.Instance.SetTotalScore(score);
             activeIndex++;
-            currentScore += score;
             PingPong();
-            CurrentScore_Txt.text = currentScore.ToString();
             if(activeIndex >= 3)
             {
                 FruitPartyMiniGameController2.Instance.FinishGame();
+                FruitPartyMiniGameController2.Instance.SetTotalScore(totalScore);
             }
         }
     }
@@ -94,7 +99,8 @@ public class TargetScoreItemController : MonoBehaviour
         int count = 0;
         float timer = 1f;
         int id = 0;
-        id = MyTimerManagers.Instance.AddTimer(0, -1, () =>
+        _loopTimer?.Cancel();
+        _loopTimer = this.LoopAction(Time.deltaTime, (time) =>
         {
             color.a = Mathf.PingPong(5 * Time.time, 1f);
             foreach(Image img in images)
@@ -107,11 +113,11 @@ public class TargetScoreItemController : MonoBehaviour
                 count++;
                 if (count >= 3)
                 {
-                    MyTimerManagers.Instance.RemoveTimerById(id);
                     foreach (Image img in images)
                     {
                         img.color = Color.white;
                     }
+                    _loopTimer.Cancel();
                 }
             }
         });

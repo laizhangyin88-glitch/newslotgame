@@ -104,7 +104,18 @@ namespace BagelCode.Tasks.Actions.Contents
                     } 
                     deck.deck.Add(reel);
                     deck.hitMap.Add(hitReel);
-                } 
+                }
+                //string result = "";
+                //for (int i = 0; i < deck.deck.Count; i++)
+                //{
+                //    var temp = deck.deck[i];
+                //    for (int j = 0; j < temp.Count; j++)
+                //    {
+                //        result += " " + temp[j].symbol;
+                //    }
+                //    result += "\n";
+                //}
+                //Debug.LogError(result);
                 //BlackboardUtils.SetOrCreateValue<bool>(null, "./customData/_hasWild", variable.value);
                 BlackboardUtils.GetOrCreateVariable<bool>(BlackboardUtils.GetContentFSMBlackboard(), "_hasWild").value = variable.value;
             }

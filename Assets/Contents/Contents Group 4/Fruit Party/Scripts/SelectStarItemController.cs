@@ -1,3 +1,5 @@
+using BagelCode;
+using GameUtil;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,8 +22,13 @@ public class SelectStarItemController : MonoBehaviour
 
     private Vector3 startPosition;
 
+    private LoopTimer _loopTimer;
+
+    private Rect rect;
+
     private void Awake()
     {
+
         isExit = false;
         button = transform.Find("Button").GetComponent<Button>();
 
@@ -36,11 +43,10 @@ public class SelectStarItemController : MonoBehaviour
         icon = transform.Find("icon").GetComponent<Image>();
         icon.gameObject.SetActive(false);
 
-        UpdateStarItem();
-        MyTimerManagers.Instance.AddTimer(1, 1, () =>
-        {
-            PlayStartAnimation();
-        });
+        //this.DelayAction(1, () =>
+        //{
+        //    PlayStartAnimation();
+        //});
     }
 
     private void Start()
@@ -72,13 +78,16 @@ public class SelectStarItemController : MonoBehaviour
         //});
     }
 
-    private void OnClickButton()
+    public void OnClickButton()
     {
         isClick = true;
-        FruitPartyMiniGameController3.Instance.ClickStarItem(spriteIndex, this.isExit);
+        spriteIndex = FruitPartyMiniGameController3.Instance.getSpriteIndex();
+        UpdateStarItem(spriteIndex);
         button.gameObject.SetActive(false);
         PlayAnimation();
         frameImage.color = Color.white;
+        FruitPartyMiniGameController3.Instance.ClickStarItem(spriteIndex);
+        FruitPartyMiniGameController3.Instance.SetBonusValue();
     }
 
     public void PlayAnimation()
@@ -90,13 +99,26 @@ public class SelectStarItemController : MonoBehaviour
         frameAnimator.Play();
     }
 
-    public void UpdateStarItem()
+    public void UpdateStarItem(int spriteIndex)
     {
         if (FruitPartyMiniGameController3.Instance != null)
         {
-            spriteIndex = Random.Range(0, FruitPartyMiniGameController3.Instance.sprites.Length);
-            icon.sprite = FruitPartyMiniGameController3.Instance.sprites[spriteIndex];
+            if (spriteIndex == 100)///bonus图标额外设置
+            {
+                icon.sprite = FruitPartyMiniGameController3.Instance.BonusSprite;
+            }
+            else
+            {
+                icon.sprite = FruitPartyMiniGameController3.Instance.sprites[spriteIndex];
+            }
+            icon.SetNativeSize();
         }
+    }
+
+    public void UpdateStarItem(Sprite sprite)
+    {
+        icon.sprite = sprite;
+        icon.SetNativeSize();
     }
 
     public void Reset()
@@ -106,7 +128,7 @@ public class SelectStarItemController : MonoBehaviour
         isExit = false;
         frameImage.color = Color.white;
         frameAnimator.gameObject.SetActive(false);
-        UpdateStarItem();
+        spriteIndex = -10;
         frameImage.color = Color.white;
         SetItemColor(Color.white);
         isClick = false;
@@ -123,9 +145,11 @@ public class SelectStarItemController : MonoBehaviour
     {
         isExit = true;
         icon.sprite = sprite;
+        icon.SetNativeSize();
     }
 
-    // Update is called once per frame
+
+
     private void OnDestroy()
     {
         frameAnimator.FinishEvent -= AnimationFinish;
@@ -139,6 +163,9 @@ public class SelectStarItemController : MonoBehaviour
         //transform.DORotate(new Vector3(0, 0, 360), 1.5f, RotateMode.FastBeyond360).SetEase(Ease.InCubic);
         //transform.DOScale(Vector3.one, 1.5f);
         //transform.DOLocalMove(Vector3.zero, 1.5f);
+        AsyncActionUtils.ApplyRotation(this, transform, Vector3.zero, new Vector3(0, 0, 720), 0.5f, TweenUtils.VectorTweenLinear);
+        AsyncActionUtils.ApplyScaling(this, transform, Vector3.one, Vector3.one, 0.5f, TweenUtils.VectorTweenLinear);
+        AsyncActionUtils.ApplyLocalMovement(this, transform, transform.localPosition, Vector3.zero, 0.5f, TweenUtils.VectorTweenLinear);
     }
 
     public void PingPong()
@@ -147,7 +174,8 @@ public class SelectStarItemController : MonoBehaviour
         int count = 0;
         float timer = 1f;
         int id = 0;
-        id = MyTimerManagers.Instance.AddTimer(0, -1, () =>
+        _loopTimer?.Cancel();
+        _loopTimer = this.LoopAction(Time.deltaTime, (time) =>
         {
             color.a = Mathf.PingPong(5 * Time.time, 1f);
             icon.color = color;
@@ -157,8 +185,8 @@ public class SelectStarItemController : MonoBehaviour
                 count++;
                 if (count >= 3)
                 {
-                    MyTimerManagers.Instance.RemoveTimerById(id);
                     icon.color = Color.white;
+                    _loopTimer.Cancel();
                 }
             }
         });

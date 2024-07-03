@@ -22,7 +22,6 @@ namespace BagelCode
 {
     public class V3MetaSystem : IMetaSystem
     {
-
         public void SelectGame(int gameId)
         {
             var gameInfo = BlackboardQueryUtils.GetGameInfo(gameId);
@@ -193,20 +192,20 @@ namespace BagelCode
                 return;
             }
 
-
+            BlackboardUtils.GetOrCreateVariable<bool>("./game/isEarnCredit").value = false;
             //新游戏接口
             if (globalStore.IsNewGame(gameId))
             {
 #if UNITY_EDITOR
                 ///测试用的数据
-                List<int> debug_param2 = new List<int>() { 143, 0, 143, 152, 143 };
-                int isFree = 0;
-                var isInFreeGame = BlackboardUtils.GetOrCreateVariable<int>(BlackboardUtils.GetContentFSMBlackboard(), "isInFreeGame").value;
-                //是不是在免费游戏
-                if (isInFreeGame == 1) 
-                {
-                    isFree = 1;
-                }
+                List<int> debug_param2 = new List<int>() { 160, 119, 63, 132, 194 };
+                int isFree = 0; 
+                //var isInFreeGame = BlackboardUtils.GetOrCreateVariable<int>(BlackboardUtils.GetContentFSMBlackboard(), "isInFreeGame").value;
+                ////是不是在免费游戏
+                //if (isInFreeGame == 1) 
+                //{
+                //    isFree = 1;//在免费游戏中
+                //}
                 Dictionary<string, object> debug_param1 = new Dictionary<string, object> {
                     {"first_index_list",
                         debug_param2
@@ -217,21 +216,30 @@ namespace BagelCode
                     }
                 };
 #endif
-
                 Dictionary<string, object> req = new Dictionary<string, object>
                 {
                     {"bet",betCredit},
                     {"extra_bet",extraBetCredit },
-                   // { "debug_param", debug_param},
-#if UNITY_EDITOR
-                   // { "debug_param", debug_param1},
-#endif
                 };
 
+                if (globalStore.IsHaveLineSelect.ContainsKey(gameId))
+                {
+                    int line = BlackboardUtils.GetOrCreateVariable<int>(ContentBlackboard.Get(), "./game/lineCount").value;
+                    req.Add("win_line_count", line);
+                }
+
+                //if (!this.isFree)
+                //{
+                //    Debug.LogError("发送触发免费游戏.............");
+                //    req.Remove("debug_param");
+                //}
+                //this.isFree = false;
+                //Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
+                
                 Action<JSONNode> responseCallback = (res) =>
                 {
 
-                    /*
+                    /*  海草
                     //Debug.LogError("拉霸下发数据......." + res.ToString());
                     //Debug.LogError("拉霸结果....... + " + res["game_result"]["first_index_list"].ToString());
                     //var contentStr = "{\"game_id\":21,\"result\":{\"reel_output_list\":[47,19,36,21,38],\"paytable_index\":0,\"earn_credit\":0},\"bonus_result\":[],\"custom_data\":{},\"reel_set_index\":{\"current_index\":0,\"next_index\":0},\"free_spin_info\":{\"type\":0,\"bet\":0,\"count\":0,\"spun_count\":0,\"total_count\":0,\"initial_count\":0,\"multiplier\":0,\"sticky_wild\":[],\"extra_data\":{}},\"jackpot_info\":{\"type\":2,\"info\":{\"eligible_min_bet\":0,\"eligible_min_bet_per_jackpot\":[0,0,0,0,0],\"base_bet\":30,\"info_list\":[{\"current\":241.02,\"prev\":240.96},{\"current\":913.5,\"prev\":913.38},{\"current\":2375.85,\"prev\":2375.55},{\"current\":15100.68,\"prev\":15100.44},{\"current\":30050.34,\"prev\":30050.22}]}},\"contents_store\":{}}";
@@ -257,20 +265,60 @@ namespace BagelCode
                     //content["result"]["spin_once_earn_credit"] = res["game_result"]["earn_credit"];
          
 
-                    if ( globalStore.bonusID.ContainsKey(gameId)
+                    ///保存下发的牌型数据
+                    content["shuffling_list"] = res["game_result"]["shuffling_list"];
+                    BlackboardUtils.GetOrCreateVariable<bool>("./game/isEarnCredit").value = res["game_result"]["earn_credit"] > 0;
+
+                    if (
+                    globalStore.bonusID.ContainsKey(gameId)
                     && res["game_result"].HasKey("free_game_result")
                     && res["game_result"]["free_game_result"]["cur_free_game_times"] == 0)
                     {
-                        JSONNode ttt = JSONNode.Parse("[]");
-                        var count = res["game_result"]["free_game_result"]["max_free_game_times"];
-                        ttt.Add("bonus_result", getFreeGameData(count, betCredit, globalStore.bonusID[gameId], res["game_result"]["earn_credit"]));
-                        content["bonus_result"] = ttt;
+                        //var curFreeGameTimes = res["game_result"]["free_game_result"]["cur_free_game_times"];
+                        //var maxFreeGameTimes = res["game_result"]["free_game_result"]["max_free_game_times"];
+                        //
+                        //if (res["game_result"]["free_game_result"]["cur_free_game_times"] == 0)
+                        //{
+                        //    JSONNode ttt = JSONNode.Parse("[]");///触发免费游戏的弹窗                      
+                        //    ttt.Add("bonus_result", getFreeGameData(maxFreeGameTimes, betCredit, globalStore.bonusID[gameId], res["game_result"]["earn_credit"]));
+                        //    content["bonus_result"] = ttt;
+                        //}
+                        //else
+                        //{
+                        //    content["bonus_result"] = null;
+                        //}
+                        ////免费游戏的数据
+                        //content["free_spin_info"]["total_count"] = maxFreeGameTimes;
+                        //content["free_spin_info"]["bet"] = betCredit;
+                        //content["free_spin_info"]["initial_count"] = maxFreeGameTimes;
+                        //content["free_spin_info"]["multiplier"] = 1;
+                        //content["free_spin_info"]["spun_count"] = curFreeGameTimes;
+                       	//content["free_spin_info"]["count"] = maxFreeGameTimes - curFreeGameTimes;
                     }
                     else
                     {
                         content["bonus_result"].Clear();
                     }
-
+					//############# >>>
+                    var current = res["game_result"]["game_real_name"];
+                    var next = res["game_result"]["next_game_real_name"];
+                    if (globalStore.ReelDictDict.ContainsKey(gameId))
+                    {
+                        ///更改需要读取的滚轮表格
+                        content["reel_set_index"]["next_index"] = globalStore.ReelDictDict[gameId][next];
+                        content["reel_set_index"]["current_index"] = globalStore.ReelDictDict[gameId][current];
+                    }
+                    else 
+                    {
+                        //修改滚轮码表号
+                        content["reel_set_index"]["current_index"] = res["game_result"]["regular_game_reel"] == "free_game_reel" ? 1 : 0;
+                        content["reel_set_index"]["next_index"] = res["game_result"]["next_game_real_name"] == "free_game_reel" ? 1 : 0; //"regular_game_reel",
+                    }
+                    if (res["game_result"]["jackpot_info"] != null)
+                    {
+                        SaveJackpotInfo(res["game_result"]["jackpot_info"]);
+                    }
+					//############  <<<<
 
                     if (res["game_result"].HasKey("free_game_result")&& res["game_result"]["free_game_result"]["cur_free_game_times"] == 0 ){
                         content["free_spin_info"] = creatFreeSpinInfoID21(betCredit,
@@ -286,7 +334,6 @@ namespace BagelCode
                     content["reel_set_index"]["next_index"] = res["game_result"]["next_game_real_name"] == "free_game_reel" ?1:0; //"regular_game_reel",
 
 
-
                     TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
                     ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
                     response.contents = content.ToString();
@@ -299,6 +346,135 @@ namespace BagelCode
                     BlackboardUtils.SetOrCreateValue(spinBB.value, "responseNew", res.ToString());
                     */
 
+
+
+                    /*  赖工
+                Action<JSONNode> responseCallback = (res) =>
+                {
+                    //Debug.LogError("拉霸下发数据......." + res.ToString());
+                    //Debug.LogError("拉霸结果....... + " + res["game_result"]["first_index_list"].ToString());
+                    Debug.LogError("拉霸下发数据......." + res.ToString());
+                    Debug.LogError("拉霸结果....... + " + res["game_result"]["first_index_list"].ToString());
+
+
+                    //var contentStr = "{\"game_id\":21,\"result\":{\"reel_output_list\":[47,19,36,21,38],\"paytable_index\":0,\"earn_credit\":0},\"bonus_result\":[],\"custom_data\":{},\"reel_set_index\":{\"current_index\":0,\"next_index\":0},\"free_spin_info\":{\"type\":0,\"bet\":0,\"count\":0,\"spun_count\":0,\"total_count\":0,\"initial_count\":0,\"multiplier\":0,\"sticky_wild\":[],\"extra_data\":{}},\"jackpot_info\":{\"type\":2,\"info\":{\"eligible_min_bet\":0,\"eligible_min_bet_per_jackpot\":[0,0,0,0,0],\"base_bet\":30,\"info_list\":[{\"current\":241.02,\"prev\":240.96},{\"current\":913.5,\"prev\":913.38},{\"current\":2375.85,\"prev\":2375.55},{\"current\":15100.68,\"prev\":15100.44},{\"current\":30050.34,\"prev\":30050.22}]}},\"contents_store\":{}}";
+                    //var content = JSONNode.Parse(contentStr);
+
+                    TextAsset jsn7 = Resources.Load<TextAsset>("tempdata/slot_spin_content_id21");
+                    var content = JSONNode.Parse(jsn7.text);
+
+
+                    //var contentStr = "{\"game_id\":21,\"result\":{\"reel_output_list\":[47,19,36,21,38],\"paytable_index\":0,\"earn_credit\":0},\"bonus_result\":[],\"custom_data\":{},\"reel_set_index\":{\"current_index\":0,\"next_index\":0},\"free_spin_info\":{\"type\":0,\"bet\":0,\"count\":0,\"spun_count\":0,\"total_count\":0,\"initial_count\":0,\"multiplier\":0,\"sticky_wild\":[],\"extra_data\":{}},\"jackpot_info\":{\"type\":2,\"info\":{\"eligible_min_bet\":0,\"eligible_min_bet_per_jackpot\":[0,0,0,0,0],\"base_bet\":30,\"info_list\":[{\"current\":241.02,\"prev\":240.96},{\"current\":913.5,\"prev\":913.38},{\"current\":2375.85,\"prev\":2375.55},{\"current\":15100.68,\"prev\":15100.44},{\"current\":30050.34,\"prev\":30050.22}]}},\"contents_store\":{}}";
+                    //var content = JSONNode.Parse(contentStr);
+                    var result = res["game_result"]["total_result"];
+                    for (int i = 0; i < result.Count; i++)
+                    {
+                        var temp = result[i];
+                        if (temp["win_line"] != null)
+                        {
+                            Debug.LogError("win line ...... + " + temp["win_line"].ToString());
+                        }
+                    } 
+
+                    //var contentStr = "{\"game_id\":21,\"result\":{\"reel_output_list\":[47,19,36,21,38],\"paytable_index\":0,\"earn_credit\":0},\"bonus_result\":[],\"custom_data\":{},\"reel_set_index\":{\"current_index\":0,\"next_index\":0},\"free_spin_info\":{\"type\":0,\"bet\":0,\"count\":0,\"spun_count\":0,\"total_count\":0,\"initial_count\":0,\"multiplier\":0,\"sticky_wild\":[],\"extra_data\":{}},\"jackpot_info\":{\"type\":2,\"info\":{\"eligible_min_bet\":0,\"eligible_min_bet_per_jackpot\":[0,0,0,0,0],\"base_bet\":30,\"info_list\":[{\"current\":241.02,\"prev\":240.96},{\"current\":913.5,\"prev\":913.38},{\"current\":2375.85,\"prev\":2375.55},{\"current\":15100.68,\"prev\":15100.44},{\"current\":30050.34,\"prev\":30050.22}]}},\"contents_store\":{}}";
+                    //var content = JSONNode.Parse(contentStr);
+                    content["game_id"] = gameId;
+                    content["result"]["earn_credit"] = res["game_result"]["earn_credit"];
+
+                    content["result"]["reel_output_list"] = res["game_result"]["first_index_list"]; //获取索引
+
+                    if (res["game_result"]["free_game_credit"] != null) ///记录铃铛的得分
+                    {
+                        content["result"]["free_game_credit"] = res["game_result"]["free_game_credit"];
+                    }
+
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
+                    //保存连线的结果
+                    content["result"]["total_line_result"] = res["game_result"]["total_result"];
+                    //保存奖励数据
+                    content["result"]["win_line_reward_list"] = res["game_result"]["win_line_reward_list"];
+
+                    content["result"]["spin_once_earn_credit"] = res["game_result"]["earn_credit"];
+
+
+                    if (
+                    globalStore.bonusID.ContainsKey(gameId)
+                    ///保存下发的牌型数据
+                    content["shuffling_list"] = res["game_result"]["shuffling_list"];
+                    BlackboardUtils.GetOrCreateVariable<bool>("./game/isEarnCredit").value = res["game_result"]["earn_credit"] > 0;
+
+                    if (
+                    globalStore.bonusID.ContainsKey(gameId)
+                    && res["game_result"].HasKey("free_game_result")
+                    && res["game_result"]["free_game_result"]["cur_free_game_times"] == 0)
+                    {
+                        JSONNode ttt = JSONNode.Parse("[]");
+                        var count = res["game_result"]["free_game_result"]["max_free_game_times"];
+                        ttt.Add("bonus_result", getFreeGameData(count, betCredit, globalStore.bonusID[gameId], res["game_result"]["earn_credit"]));
+                        content["bonus_result"] = ttt;
+                        var curFreeGameTimes = res["game_result"]["free_game_result"]["cur_free_game_times"];
+                        var maxFreeGameTimes = res["game_result"]["free_game_result"]["max_free_game_times"];
+                        
+                        if (res["game_result"]["free_game_result"]["cur_free_game_times"] == 0)
+                        {
+                            JSONNode ttt = JSONNode.Parse("[]");///触发免费游戏的弹窗                      
+                            ttt.Add("bonus_result", getFreeGameData(maxFreeGameTimes, betCredit, globalStore.bonusID[gameId], res["game_result"]["earn_credit"]));
+                            content["bonus_result"] = ttt;
+                        }
+                        else
+                        {
+                            content["bonus_result"] = null;
+                        }
+                        //免费游戏的数据
+                        content["free_spin_info"]["total_count"] = maxFreeGameTimes;
+                        content["free_spin_info"]["bet"] = betCredit;
+                        content["free_spin_info"]["initial_count"] = maxFreeGameTimes;
+                        content["free_spin_info"]["multiplier"] = 1;
+                        content["free_spin_info"]["spun_count"] = curFreeGameTimes;
+                        content["free_spin_info"]["count"] = maxFreeGameTimes - curFreeGameTimes;
+                    }
+                    else
+                    {
+                        content["bonus_result"].Clear();
+                    }
+                    var current = res["game_result"]["game_real_name"];
+                    var next = res["game_result"]["next_game_real_name"];
+                    if (globalStore.ReelDictDict.ContainsKey(gameId))
+                    {
+                        ///更改需要读取的滚轮表格
+                        content["reel_set_index"]["next_index"] = globalStore.ReelDictDict[gameId][next];
+                        content["reel_set_index"]["current_index"] = globalStore.ReelDictDict[gameId][current];
+                    }
+                    else 
+                    {
+                        //修改滚轮码表号
+                        content["reel_set_index"]["current_index"] = res["game_result"]["regular_game_reel"] == "free_game_reel" ? 1 : 0;
+                        content["reel_set_index"]["next_index"] = res["game_result"]["next_game_real_name"] == "free_game_reel" ? 1 : 0; //"regular_game_reel",
+                    }
+
+                    //修改滚轮码表号
+                    content["reel_set_index"]["current_index"] = res["game_result"]["regular_game_reel"] == "free_game_reel" ? 1 : 0;
+                    content["reel_set_index"]["next_index"] = res["game_result"]["next_game_real_name"] == "free_game_reel" ?1:0; //"regular_game_reel",
+                    if (res["game_result"]["jackpot_info"] != null)
+                    {
+                        SaveJackpotInfo(res["game_result"]["jackpot_info"]);
+                    }
+
+
+                    ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
+                    response.contents = content.ToString();
+                    //Debug.Log("###新的slotSpin：" + res.ToString());
+                    //Debug.LogError("###新的组合好的slotSpin：" + response.contents.ToString());
+
+                    SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
+
+                    SlotSpinSuccessNew(res.ToString());
+
+                    if (successCallback != null)
+                        successCallback();
+                    }
+                     * 
+                     */
                     SlotSpinSuccessNew(res, gameId, betCredit, extraBetCredit, spinType);
 
                     if (successCallback != null)
@@ -309,8 +485,22 @@ namespace BagelCode
                 {
                     TestManager.Instance.getCustomReelsSpinRes(responseCallback);
                 }
-                else
+                else 
                 {
+                    var temp = TestManager.Instance.getList();
+                    if(temp.Length > 0)
+                    {
+                        Dictionary<string, object> debug_param11 = new Dictionary<string, object> {
+                            {"first_index_list",
+                                temp
+                            },
+                            {
+                                "is_free",
+                                0
+                            }
+                        };
+                        req.Add("debug_param", debug_param11);
+                    }
                     NetManager.Instance.Post(RPCName.newSlotSpin, req,
                     responseCallback,
                     (error) =>
@@ -320,8 +510,7 @@ namespace BagelCode
                             errorCallback();
                     });
                 }
-
-            }
+            } 
             else
             {
 
@@ -344,8 +533,6 @@ namespace BagelCode
                 {
                     debug_param = "{\"is_free_spin\":" + code + "}";
                 }
-
-
                 Dictionary<string, object> req = new Dictionary<string, object>
                 {
                     {"bet",betCredit},
@@ -473,6 +660,11 @@ namespace BagelCode
                 BlackboardUtils.SetOrCreateValue(spinBB.value, "responseNew", res.ToString());
         }
 
+        private void SaveJackpotInfo(JSONNode node)
+        {
+            long reward = node["jackpot_reward3"];
+            BlackboardUtils.SetOrCreateValue<long>(ContentBlackboard.Get(), "jackpot_reward3", reward);
+        }
 
         public void SlotSpinSuccess(ClientModels.SlotSpinResponseV3 response, long betCredit, long extraBetCredit, SpinType spinType)
         {
@@ -542,6 +734,21 @@ namespace BagelCode
             }
             BlackboardUtils.SetOrCreateValue(bb, "win_line_reward_list", dict);
 
+            ///保存下发的牌型数据
+            var shuffling_list = json["shuffling_list"];
+            var newList = new List<List<int>>();
+            for (int i = 0; i < shuffling_list.Count; i++)
+            {
+                var ttt = shuffling_list[i];
+                var tList = new List<int>();
+                for (global::System.Int32 j = 0; j < ttt.Count; j++)
+                {
+                    tList.Add(ttt[j]);
+                }
+                newList.Add(tList);
+            }
+            BlackboardUtils.SetOrCreateValue(bb, "shuffling_list", newList); 
+
             long spin_once_earn = json["result"]["spin_once_earn_credit"];
             BlackboardUtils.SetOrCreateValue(bb, "spin_once_earn_credit", spin_once_earn);
             ClientAPI2Blackboard.Serialize(bb, response);
@@ -567,7 +774,6 @@ namespace BagelCode
         public void SlotClaimBonus(string claimId, object customData, Action successCallback, Action errorCallback)
         {
 #if NEW_NET
-
             if (TestManager.Instance.isTestClaimBonus)
             {
                 TestManager.Instance.getClaimBonusData((res) =>
@@ -596,9 +802,6 @@ namespace BagelCode
                 });
                 return;
             }
-
-
-
             if (globalStore.nowGameID == 33 || globalStore.IsNewGame(globalStore.nowGameID)) //雷神
             {
                 if (successCallback != null)

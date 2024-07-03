@@ -30,16 +30,10 @@ public class RewardScoreItemController : MonoBehaviour
         this.score = score;
         icon.sprite = FruitPartyMiniGameController3.Instance.sprites[this.spriteIndex];
         scoreTxt.text = this.score.ToString();
-        if(index == 4)
+        if (spriteIndex == 9)
         {
-            icon.sprite = FruitPartyMiniGameController3.Instance.ExitSprite;
+            icon.SetNativeSize();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
 

@@ -23,7 +23,6 @@ namespace BagelCode
             BlackboardUtils.SetOrCreateValue<List<int>>(gameIDReelBB, "value", gameIdReel);
             BlackboardUtils.SetOrCreateValue<List<int>>(spinCountReelBB, "value", spinCountReel);
             BlackboardUtils.SetOrCreateValue<List<int>>(betScaleReelBB, "value", freebieBetScaleReel);
-            Debug.LogError("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@!!!!!!!!!!!!!!!");
             // Convert Blackboard Info
             var reelSequenceListBB = BlackboardUtils.CreateBlackboard("reelSequenceList");
             BlackboardUtils.GetOrCreateBlackboardList(reelSequenceListBB, "reelSequenceList");
