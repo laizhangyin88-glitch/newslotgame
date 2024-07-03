@@ -2,10 +2,12 @@
 using BagelCode.ClientModels;
 using Dreamteck.Splines.Primitives;
 using JetBrains.Annotations;
+using Newtonsoft.Json.Linq;
 using NodeCanvas.Framework;
 using SimpleJSON;
 using Sirenix.OdinInspector;
 using SlotMaker;
+using Spine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -205,12 +207,20 @@ public class TestManager : MonoSingleton<TestManager>
         //string spinRes = TestManager.Instance.getSpin();
         yield return new WaitForSeconds(0.2f);
 
-        SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(resStr as string);
-        SimpleJSON.JSONNode res = dataDict.HasKey("protocol_key") ? dataDict["data"]: dataDict;
-        if (responseCallback != null)
+        try
         {
-            responseCallback(res);
+            SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(resStr as string);
+            SimpleJSON.JSONNode res = dataDict.HasKey("protocol_key") ? dataDict["data"]: dataDict;
+            if (responseCallback != null)
+            {
+                responseCallback(res);
+            }
+        }catch(Exception e)
+        {
+            Debug.LogError($"【ERR】 data = {resStr}");
+            Debug.LogException(e);
         }
+
     }
 
     public void SetTextServer(string text)
@@ -763,4 +773,49 @@ req.Add("extra_bet", extraBetCredit);
     }
 
 
+    [Button]
+    void test_responeNew()
+    {
+
+        var variableA = BlackboardUtils.FindVariable<Blackboard>(null, "./turn/spin");
+
+        if (variableA != null)
+            Debug.Log($" @@-1 = {variableA.value}");
+
+        variableA = BlackboardUtils.FindVariable<Blackboard>(null, "./spin");
+
+        if (variableA != null)
+            Debug.Log($" @@0 = {variableA.value}");
+
+        var variableA1 = BlackboardUtils.FindVariable<string>(null, "./spin/responseNew");
+
+        if(variableA1 != null)
+            Debug.Log($" @@1 = {variableA.value}");
+
+        variableA1 = BlackboardUtils.FindVariable<string>(null, "./spin/response/responseNew");
+
+        if (variableA1 != null)
+            Debug.Log($" @@2 = {variableA.value}");
+    }
+
+    [Button]
+    void test_ShowDoor()
+    {
+        Animator anim = GameObject.Find("Game Contents/Animator").GetComponent<Animator>();
+        anim.SetTrigger("Door Appear");
+
+        //MessageDispatcher.Dispatch("OnContentUIEvent", new EventData("Start Door"));
+    }
+
+
+    [Button]
+    void test_ShowUI()
+    {
+        MessageDispatcher.Dispatch("OnContentUIEvent", new EventData("ShowUI"));
+    }
+    [Button]
+    void test_HideUI()
+    {
+        MessageDispatcher.Dispatch("OnContentUIEvent", new EventData("HideUI"));
+    }
 }
