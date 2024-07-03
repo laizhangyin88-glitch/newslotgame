@@ -193,7 +193,7 @@ namespace SlotMaker
 
         public virtual void Initialize(BaseSlotMachine slotMachine, BaseReel src)
         {
-            Debug.LogError("初始化..............");
+            //Debug.LogError("初始化..............");
             this.slotMachine = slotMachine;
             this.beginColumn = src.beginColumn;
             this.beginRow = src.beginRow;

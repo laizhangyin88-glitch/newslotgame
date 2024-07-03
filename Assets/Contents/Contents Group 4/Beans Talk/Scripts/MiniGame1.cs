@@ -1,206 +1,315 @@
 using BagelCode;
+using BagelCode.Tasks.Actions.Contents;
 using GameUtil;
+using NodeCanvas.Framework;
+using ParadoxNotion;
+using SimpleJSON;
+using Sirenix.OdinInspector;
+using SlotMaker;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
+public enum BoyStealTeasureState
+{
+    None = -1,
+    ChoseTeasure,
+    Stealing,
+    StealFinish,
+    TimerUp,
+}
 public class MiniGame1 : MonoBehaviour
 {
-
+    BoyStealTeasureState boyState = BoyStealTeasureState.None;
     Transform root;
-    Animator ani_Woman, ani_Boy, ani_Fire, ani_Egg, ani_Goose, ani_Door1, ani_Door2, ani_Door3, ani_Door4, ani_Door5;
-    Button btn_Door1, btn_Door2, btn_Door3, btn_Door4, btn_Door5;
+    Animator ani_ManSleep, ani_Box1, ani_Box2, ani_Box3, ani_TimeUp1, ani_TimeUp2, ani_TimeUp3, ani_Boy;
+    Button btn_Box1, btn_Box2, btn_Box3;
     TextMeshProUGUI betNum, winNum, scoreNum, countDownText;
-    //List<bool> openList = new List<bool>() { true,false,true,true,false};
-    int fireIndex = 2;//着火的门index
-    int clickIndex = 0;
-    Dictionary<int, Vector2> dicPos = new Dictionary<int, Vector2>();
     List<DelayTimer> _timers;
-    bool isAni;
-    Vector2 startPos = new Vector2(49, -165);
-    Vector2 endPos = new Vector2(-225, -165);
+    float endTime = 30;
+    bool isTimeUp = false;
     LoopTimer _countDownTimer;
-    Dictionary<int, int> dic_Score = new Dictionary<int, int>
+    void Awake()
     {
+        root = transform.Find("Animator/Anchor");
+        ani_ManSleep = root.Find("manSleep/Animator").GetComponent<Animator>();
+        ani_Box1 = root.Find("boxs/box1").GetComponent<Animator>();
+        ani_Box2 = root.Find("boxs/box2").GetComponent<Animator>();
+        ani_Box3 = root.Find("boxs/box3").GetComponent<Animator>();
+        ani_TimeUp1 = ani_Box1.transform.Find("TimeUp").GetComponent<Animator>();
+        ani_TimeUp2 = ani_Box2.transform.Find("TimeUp").GetComponent<Animator>();
+        ani_TimeUp3 = ani_Box3.transform.Find("TimeUp").GetComponent<Animator>();
+        ani_Boy = root.transform.Find("boxs/boy").GetComponent<Animator>();
+        scoreNum = ani_Boy.transform.Find("score").GetComponent<TextMeshProUGUI>();
+        btn_Box1 = ani_Box1.GetComponent<Button>();
+        btn_Box2 = ani_Box2.GetComponent<Button>();
+        btn_Box3 = ani_Box3.GetComponent<Button>();
+        betNum = root.Find("betWin/bet/betNum").GetComponent<TextMeshProUGUI>();
+        winNum = root.Find("betWin/win/winNum").GetComponent<TextMeshProUGUI>();
+        countDownText = root.Find("countDown").GetComponent<TextMeshProUGUI>();
+    }
+
+
+    /*
+    List<int> typeList = new List<int>() { 1, 2, 3, 4, 5,3,2,4,5,1,2,4,5,3,2,5,1 };
+    Dictionary<int, int> dic_Score = new Dictionary<int, int> {
         [1] = 100,
         [2] = 200,
         [3] = 300,
         [4] = 400,
         [5] = 500,
     };
-    void Awake()
-    {
-        root = transform.Find("Animator/Anchor");
-        ani_Woman = root.Find("woman").GetComponent<Animator>();
-        ani_Boy = root.Find("boy").GetComponent<Animator>();
-        ani_Fire = root.Find("fire").GetComponent<Animator>();
-        ani_Egg = root.Find("egg").GetComponent<Animator>();
-        ani_Goose = root.Find("goose").GetComponent<Animator>();
-        ani_Door1 = root.Find("doors/door1").GetComponent<Animator>();
-        ani_Door2 = root.Find("doors/door2").GetComponent<Animator>();
-        ani_Door3 = root.Find("doors/door3").GetComponent<Animator>();
-        ani_Door4 = root.Find("doors/door4").GetComponent<Animator>();
-        ani_Door5 = root.Find("doors/door5").GetComponent<Animator>();
-        btn_Door1 = ani_Door1.GetComponent<Button>();
-        btn_Door2 = ani_Door2.GetComponent<Button>();
-        btn_Door3 = ani_Door3.GetComponent<Button>();
-        btn_Door4 = ani_Door4.GetComponent<Button>();
-        btn_Door5 = ani_Door5.GetComponent<Button>();
-        scoreNum = ani_Boy.transform.Find("score").GetComponent<TextMeshProUGUI>();
-        betNum = root.Find("betWin/bet/betNum").GetComponent<TextMeshProUGUI>();
-        winNum = root.Find("betWin/win/winNum").GetComponent<TextMeshProUGUI>();
-        countDownText = root.Find("countDown").GetComponent<TextMeshProUGUI>();
-
-        dicPos.Add(1, ani_Door1.transform.localPosition);
-        dicPos.Add(2, ani_Door2.transform.localPosition);
-        dicPos.Add(3, ani_Door3.transform.localPosition);
-        dicPos.Add(4, ani_Door4.transform.localPosition);
-        dicPos.Add(5, ani_Door5.transform.localPosition);
+     */
+    List<KeyValuePair<int, int>> lst_Score = new List<KeyValuePair<int, int>>();
 
 
-        AddEvent();
-    }
+    readonly float TIME_STEAL_TREASURE = 1f;  //treasure
+    readonly float TIME_FIND_TREASURE = 1.3f; //treasure
+    readonly float TIME_WARK = 2.2f;
+
     void OnEnable()
     {
-        scoreNum.gameObject.SetActive(false);
-        countDownText.text = "5";
-        isAni = false;
-        _timers = new List<DelayTimer>();
-        ani_Fire.gameObject.SetActive(false);
-        SetDoorCanOpenState(false);
-        RefreshBetWin();
-        clickIndex = 3;
-        PlayEffect();
+        boyState = BoyStealTeasureState.None;
+
+        Dictionary<string, object> req = new Dictionary<string, object>
+        {
+            {"jackpot_game_index",1}
+        };
+
+        NetManager.Instance.Post(RPCName.newClaimBonus, req,
+        (res) =>
+        {
+            string resStr = res.ToString();
+            Debug.Log(resStr);
+
+            lst_Score = new List<KeyValuePair<int, int>>();
+
+            foreach (JSONNode item in res["game_result"]["jackpot_game_result_list"])
+            {
+                lst_Score.Add(new KeyValuePair<int,int>(Random.Range(1, 5) , (int)item));
+            }
+
+            Debug.LogError($"Count = {lst_Score.Count}");
+
+            Blackboard bonusBB = (Blackboard)BlackboardUtils.GetOrCreateBlackboard(ContentBlackboard.Get(), "bonus");
+            BlackboardUtils.SetOrCreateValue(bonusBB, "responseNew", resStr);
+            BlackboardUtils.SetOrCreateValue(bonusBB, "bonusName", "treasure");
+            //BeginBonusNew.CreatBonus(resStr, "treasure");
+
+            StartSteale();
+        },
+        (error) =>
+        {
+            GlobalErrorHandler.GlobalError(error);
+        });
+
+
     }
+
+
+    private void StartSteale()
+    {
+        isTimeUp = false;
+        _timers = new List<DelayTimer>();
+        AddEvent();
+        RefreshBetWin();
+        ani_Box1.Play("CanOpen");
+        ani_Box2.Play("CanOpen");
+        ani_Box3.Play("CanOpen");
+
+        ani_TimeUp1.gameObject.SetActive(false);
+        ani_TimeUp2.gameObject.SetActive(false);
+        ani_TimeUp3.gameObject.SetActive(false);
+        ani_Boy.gameObject.SetActive(false);
+        scoreNum.gameObject.SetActive(false);
+        winNum.text = "0";
+        countDownText.text = "5";
+        StartCountDown();
+        boyState = BoyStealTeasureState.ChoseTeasure;
+    }
+
+
+
     void OnDisable()
     {
-        dicPos?.Clear();
         RemoveEvent();
-        if (_timers != null)
+        ClearTimer();
+        _countDownTimer?.Cancel();
+        _countDownTimer = null;
+    }
+
+
+    void ClearTimer()
+    {
+        if (_timers != null && _timers.Count >0)
         {
             foreach (var timer in _timers)
             {
                 timer?.Cancel();
             }
             _timers?.Clear();
-            _timers = null;
         }
-        _countDownTimer?.Cancel();
-        _countDownTimer = null;
     }
+
+
+
     void AddEvent()
     {
-        btn_Door1.onClick.AddListener(ClickDoor1);
-        btn_Door2.onClick.AddListener(ClickDoor2);
-        btn_Door3.onClick.AddListener(ClickDoor3);
-        btn_Door4.onClick.AddListener(ClickDoor4);
-        btn_Door5.onClick.AddListener(ClickDoor5);
+        btn_Box1.onClick.AddListener(ClickBox1);
+        btn_Box2.onClick.AddListener(ClickBox2);
+        btn_Box3.onClick.AddListener(ClickBox3);
     }
-    void ClickDoor1() { OnClickDoor(1); }
-    void ClickDoor2() { OnClickDoor(2); }
-    void ClickDoor3() { OnClickDoor(3); }
-    void ClickDoor4() { OnClickDoor(4); }
-    void ClickDoor5() { OnClickDoor(5); }
-
+    int test1;
+    public int Test => test1;
+    void ClickBox1() { OnClickBox(1); }
+    void ClickBox2() { OnClickBox(2); }
+    void ClickBox3() { OnClickBox(3); }
 
     void RemoveEvent()
     {
-        btn_Door1.onClick.RemoveListener(ClickDoor1);
-        btn_Door2.onClick.RemoveListener(ClickDoor2);
-        btn_Door3.onClick.RemoveListener(ClickDoor3);
-        btn_Door4.onClick.RemoveListener(ClickDoor4);
-        btn_Door5.onClick.RemoveListener(ClickDoor5);
+        btn_Box1.onClick.RemoveListener(ClickBox1);
+        btn_Box2.onClick.RemoveListener(ClickBox2);
+        btn_Box3.onClick.RemoveListener(ClickBox3);
     }
-    void OnClickDoor(int index)
+    void OnClickBox(int index)
     {
-        clickIndex = index;
-        PlayEffect();
-    }
-    void PlayEffect()
-    {
+
+        if (boyState != BoyStealTeasureState.ChoseTeasure)
+            return;
+        boyState = BoyStealTeasureState.Stealing;
+
         _countDownTimer?.Cancel();
         _countDownTimer = null;
-        if (isAni) return;
-        isAni = true;
-        ani_Door1.Play(1 == clickIndex || 1 == fireIndex ? "Open" : "Default");
-        ani_Door2.Play(2 == clickIndex || 2 == fireIndex ? "Open" : "Default");
-        ani_Door3.Play(3 == clickIndex || 3 == fireIndex ? "Open" : "Default");
-        ani_Door4.Play(4 == clickIndex || 4 == fireIndex ? "Open" : "Default");
-        ani_Door5.Play(5 == clickIndex || 5 == fireIndex ? "Open" : "Default");
+        Animator box = null, timeUp = null;
 
-        if (dicPos.TryGetValue(clickIndex, out var pos) && dicPos.TryGetValue(fireIndex,out var firePos))
+        endTime = lst_Score.Count * (TIME_STEAL_TREASURE + TIME_FIND_TREASURE) + TIME_WARK;
+        float startTime = 1 - endTime / 60;
+        Dictionary<int, float> _dicTime = new Dictionary<int, float>();
+        _dicTime.Add(index, startTime);
+        for (int i = 1; i <= 3; i++)
         {
-            ani_Boy.transform.localPosition = new Vector2(pos.x, pos.y);
-            ani_Boy.Play("Hide");
-            ani_Goose.Play("State1");
-            var timer1 = TimerExtensions.DelayAction(this, 1f, () =>
+            if (!_dicTime.ContainsKey(i))
             {
-                ani_Egg.gameObject.SetActive(true);
-                ani_Egg.Play("Start");
-                var timer2 = TimerExtensions.DelayAction(this, 1f, () =>
+                var randomTime = Random.Range(1, 60);
+                _dicTime.Add(i, 1 - randomTime / 60);
+            }
+        }
+        if (index == 1)
+        {
+            box = ani_Box1;
+            timeUp = ani_TimeUp1;
+            ani_Box2.Play("Default");
+            ani_Box3.Play("Default");
+        }
+        else if (index == 2)
+        {
+            box = ani_Box2;
+            timeUp = ani_TimeUp2;
+            ani_Box1.Play("Default");
+            ani_Box3.Play("Default");
+
+        }
+        else if (index == 3)
+        {
+            box = ani_Box3;
+            timeUp = ani_TimeUp3;
+            ani_Box1.Play("Default");
+            ani_Box2.Play("Default");
+        }
+        ani_TimeUp1.gameObject.SetActive(true);
+        ani_TimeUp2.gameObject.SetActive(true);
+        ani_TimeUp3.gameObject.SetActive(true);
+        if (box != null && timeUp != null)
+        {
+            ani_Boy.transform.localPosition = new Vector2(box.transform.localPosition.x, ani_Boy.transform.localPosition.y);
+            ani_Boy.gameObject.SetActive(true);
+            box.Play("Open");
+            timeUp.gameObject.SetActive(true);
+            ani_TimeUp1.Play("Start", -1, _dicTime[1]);
+            ani_TimeUp2.Play("Start", -1, _dicTime[2]);
+            ani_TimeUp3.Play("Start", -1, _dicTime[3]);
+
+            ani_Boy.Play("Walk");
+            //PlayBoy();
+            var timer0 = TimerExtensions.DelayAction(this, TIME_WARK, () =>
+            {
+                if (lst_Score.Count == 0)
+                    return;
+                OnPlayBoxEffect(0);
+            });
+            _timers.Add(timer0);
+
+            var timer1 = TimerExtensions.DelayAction(this, endTime + 1, () =>
+            {
+                ClearTimer();
+
+                isTimeUp = true;
+                timeUp.gameObject.SetActive(false);
+                ani_ManSleep.Play("TimeUp");
+                ani_Boy.gameObject.SetActive(true);
+                ani_Boy.Play("timp_up");
+
+                var timer3 = TimerExtensions.DelayAction(this, 2f, () =>
                 {
-                    ani_Egg.gameObject.SetActive(false);
+                    MessageDispatcher.Dispatch("OnContentUIEvent", new EventData("BSTMiniGameFinish")); //发给脚本
+                    EventSender.SendGlobalEvent(new EventData("BSTMiniGameFinish")); //发给NodeCanvas （类型：OnCustomEvent）
                 });
-                _timers.Add(timer2);
+                _timers.Add(timer3);
+
             });
             _timers.Add(timer1);
-            ani_Fire.transform.localPosition = new Vector2(firePos.x, firePos.y);
-            ani_Fire.gameObject.SetActive(true);
-        }
-
-
-        if (clickIndex != fireIndex)
-        {
-            ani_Woman.GetComponent<Image>().enabled = true;
-            ani_Woman.Play("State1");
-            var timer3 = TimerExtensions.DelayAction(this, 2f, () =>
+            var timer2 = TimerExtensions.DelayAction(this, 1f, () =>
             {
-                ani_Fire.gameObject.SetActive(false);
-                SetDoorCanOpenState(true);
-                ani_Boy.Play("Steal");
-                AsyncActionUtils.ApplyLocalMovement(this, ani_Boy.transform, startPos, endPos, 0.3f, TweenUtils.VectorTweenLinear, 0, () =>
-                {
-                    if (dic_Score.TryGetValue(clickIndex,out var score))
-                    {
-                        scoreNum.gameObject.SetActive(true);
-                        scoreNum.text = score.ToString();
-                    }
-                    ani_Goose.Play("State2");
-                    var timer4 = TimerExtensions.DelayAction(this, 1.2f, () =>
-                    {
-                        scoreNum.gameObject.SetActive(false);
-                        AsyncActionUtils.ApplyLocalMovement(this, ani_Boy.transform, endPos, startPos, 0.4f, TweenUtils.VectorTweenLinear, 0f, () =>
-                        {
-                            SetDoorCanOpenState(false);
-                            isAni = false;
-                            clickIndex = 0;
-                            StartCountDown();
-                        });
-                    });
-                    _timers.Add(timer4);
-                });
+                ani_TimeUp1.gameObject.SetActive(index == 1);
+                ani_TimeUp2.gameObject.SetActive(index == 2);
+                ani_TimeUp3.gameObject.SetActive(index == 3);
             });
-            _timers.Add(timer3);
-        }
-        else
-        {
-            ani_Woman.GetComponent<Image>().enabled = true;
-            ani_Woman.Play("State3");
-            ani_Boy.Play("Fire");
-            SetDoorCanOpenState(true);
-            isAni = false;
-            clickIndex = 0;
+            _timers.Add(timer2);
         }
     }
-    void SetDoorCanOpenState(bool isDefault)
+
+
+    void OnPlayBoxEffect(int index)
     {
-        ani_Door1.Play(isDefault ? "Default" : "CanOpen");
-        ani_Door2.Play(isDefault ? "Default" : "CanOpen");
-        ani_Door3.Play(isDefault ? "Default" : "CanOpen");
-        ani_Door4.Play(isDefault ? "Default" : "CanOpen");
-        ani_Door5.Play(isDefault ? "Default" : "CanOpen");
+        if (isTimeUp) return;
+        boyState = BoyStealTeasureState.Stealing;
+
+        //int type = typeList[index];
+        //var score = dic_Score[type];
+        int type = lst_Score[index].Key;
+        var score = lst_Score[index].Value;
+
+        string aniName = "Type" + (type + 1);
+        ani_Boy.Play(aniName);
+        scoreNum.text = score.ToString();
+        scoreNum.gameObject.SetActive(true);
+        int totalScore = int.Parse(winNum.text) + score;
+        winNum.text = totalScore.ToString();
+        var timer1 = TimerExtensions.DelayAction(this, TIME_STEAL_TREASURE, () =>
+        {
+            scoreNum.gameObject.SetActive(false);
+            ani_Boy.Play("Steal");
+            var timer2 = TimerExtensions.DelayAction(this, TIME_FIND_TREASURE, () =>
+            {
+                boyState = BoyStealTeasureState.StealFinish;
+                if (index + 1 < lst_Score.Count)
+                {
+                    OnPlayBoxEffect(index + 1);
+                }
+            });
+            _timers.Add(timer2);
+        });
+        _timers.Add(timer1);
+    }
+    //刷新底部文字
+    void RefreshBetWin()
+    {
+        betNum.text = "111";
     }
     void StartCountDown()
     {
@@ -210,9 +319,7 @@ public class MiniGame1 : MonoBehaviour
             timeVal--;
             if (timeVal < 0)
             {
-                countDownText.text = "5";
-                clickIndex = Random.Range(1,5);
-                PlayEffect();
+                OnClickBox(Random.Range(1, 3));
                 return;
             }
             else
@@ -220,11 +327,5 @@ public class MiniGame1 : MonoBehaviour
                 countDownText.text = timeVal.ToString();
             }
         });
-    }
-    //刷新底部文字
-    void RefreshBetWin()
-    {
-        betNum.text = "111";
-        winNum.text = "222";
     }
 }

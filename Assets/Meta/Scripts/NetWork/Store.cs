@@ -44,6 +44,7 @@ public class globalStore
 
     public static readonly Dictionary<int, int> bonusID = new Dictionary<int, int>()
     {
+        [3000] = 300003,
         [3001] = 300102,
     };
 
