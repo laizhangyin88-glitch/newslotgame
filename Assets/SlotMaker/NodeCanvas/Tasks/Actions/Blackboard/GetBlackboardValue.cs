@@ -1,6 +1,7 @@
 using UnityEngine;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
+using Sirenix.Utilities;
 
 namespace SlotMaker.Tasks.Actions
 {
@@ -19,10 +20,6 @@ namespace SlotMaker.Tasks.Actions
 
         protected override void OnExecute()
         {
-            if(valueA.value.Contains("bonus/response/jackpotAwardAmount"))
-            {
-                Debug.LogError("===========================   " + agent.name + "     " + valueA.value);
-            }
             var variable = BlackboardUtils.FindVariable<T>(agent, valueA.value);           
             if (variable == null)
             {

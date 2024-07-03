@@ -325,7 +325,7 @@ namespace BagelCode
                             errorCallback();
                     });
                 }
-            } 
+            }
             else
             {
 

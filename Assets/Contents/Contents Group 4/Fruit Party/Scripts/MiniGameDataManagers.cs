@@ -144,7 +144,8 @@ public class MiniGameDataManagers
             GameObject gameObject = GameObject.Instantiate(go);
             gameObject.transform.SetParent(PopupManager.Instance.contents, false);
             SetTextValue setTextValue = gameObject.GetComponent<SetTextValue>();
-            setTextValue.textValue = total.ToString("N0");
+            setTextValue.value = total;
+            setTextValue.textValue = total.ToString("N0"); 
         } 
     }
 } 
