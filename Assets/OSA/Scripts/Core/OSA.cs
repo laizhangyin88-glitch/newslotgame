@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -703,16 +703,38 @@ namespace Com.TheFallenGames.OSA.Core
 			return true;
 		}
 
-		/// <summary>
-		/// Similar to <see cref="SmoothScrollTo(int, float, float, float, Func{float, bool}, bool)"/> (see it for more info about the other params), 
-		/// but scrolls the content only by the minimum needed amount to make the item fully visible and 
-		/// optionally adding some spacing as specified by <paramref name="spacingFromViewportEdge"/>
-		/// </summary>
-		/// <param name="spacingFromViewportEdge">
-		/// if not set, <see cref="BaseParams.ContentSpacing"/> will be used. Set to 0 to align the item's edge to the viewport's edge exactly, with no spacing
-		/// </param>
-		/// <returns>True, if the animation started. For details, see also the return value of <see cref="SmoothScrollTo(int, float, float, float, Func{float, bool}, bool)"/></returns>
-		public virtual bool SmoothBringToView(int itemIndex, float duration, float? spacingFromViewportEdge = null, Func<float, bool> onProgress = null, bool overrideCurrentScrollingAnimation = false)
+        public virtual bool SmoothScrollTimes(int srollTimes, float duration, float normalizedOffsetFromViewportStart = 0f, float normalizedPositionOfItemPivotToUse = 0f, Func<float, bool> onProgress = null, bool overrideCurrentScrollingAnimation = false)
+        {
+            //if (_Params.effects.loopItems && duration < .5f)
+            //	throw new UnityException("If looping is enabled, SmoothScrollTo best works with a duration bigger than 0.5 seconds");
+
+            if (_SmoothScrollCoroutine != null)
+            {
+                if (overrideCurrentScrollingAnimation)
+                {
+                    CancelAnimationsIfAny();
+
+                    //Debug.Log("cancel - other started");
+                }
+                else
+                    return false;
+            }
+
+            _SmoothScrollCoroutine = StartCoroutine(SmoothScrollTimesProgressCoroutine(srollTimes, duration, normalizedOffsetFromViewportStart, normalizedPositionOfItemPivotToUse, onProgress));
+
+            return true;
+        }
+
+        /// <summary>
+        /// Similar to <see cref="SmoothScrollTo(int, float, float, float, Func{float, bool}, bool)"/> (see it for more info about the other params), 
+        /// but scrolls the content only by the minimum needed amount to make the item fully visible and 
+        /// optionally adding some spacing as specified by <paramref name="spacingFromViewportEdge"/>
+        /// </summary>
+        /// <param name="spacingFromViewportEdge">
+        /// if not set, <see cref="BaseParams.ContentSpacing"/> will be used. Set to 0 to align the item's edge to the viewport's edge exactly, with no spacing
+        /// </param>
+        /// <returns>True, if the animation started. For details, see also the return value of <see cref="SmoothScrollTo(int, float, float, float, Func{float, bool}, bool)"/></returns>
+        public virtual bool SmoothBringToView(int itemIndex, float duration, float? spacingFromViewportEdge = null, Func<float, bool> onProgress = null, bool overrideCurrentScrollingAnimation = false)
 		{
 			double spacingToUse = spacingFromViewportEdge ?? _Params.ContentSpacing;
 			float spacing01RelativeToViewportSize = (float)(spacingToUse / _InternalState.vpSize);

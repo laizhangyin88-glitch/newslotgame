@@ -1,4 +1,4 @@
-﻿//#define DEBUG_COMPUTE_VISIBILITY
+//#define DEBUG_COMPUTE_VISIBILITY
 
 using System;
 using System.Collections;

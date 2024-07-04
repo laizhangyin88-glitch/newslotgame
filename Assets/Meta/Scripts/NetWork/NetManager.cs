@@ -976,7 +976,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
                 if (rpcName == RPCName.ping && data.HasKey("cur_time"))
                 {
-                    MessageDispatcher.Dispatch("OnContentEvent01", new EventData<string>("ShowInfo", data.ToString()));
+                    MessageDispatcher.Dispatch("OnPing", new EventData<string>("ShowInfo", data.ToString()));
                 }
 
                 break;

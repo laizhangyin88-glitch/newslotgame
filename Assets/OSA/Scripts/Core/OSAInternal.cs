@@ -1,4 +1,4 @@
-﻿//#define ALLOW_DEBUG_OUTSIDE_EDITOR
+//#define ALLOW_DEBUG_OUTSIDE_EDITOR
 
 #if UNITY_EDITOR || ALLOW_DEBUG_OUTSIDE_EDITOR
 	//#define DEBUG_COMPUTE_VISIBILITY_TWIN
@@ -215,7 +215,6 @@ namespace Com.TheFallenGames.OSA.Core
 			{
 				// This needs to be updated regularly (if looping/twin pass, but it doesn't add too much overhead, so it's ok to re-calculate it each time)
 				vsa = _InternalState.VirtualScrollableArea;
-
 				return ScrollToHelper_GetContentStartVirtualInsetFromViewportStart_Clamped(
 							vsa, 
 							itemIndex, 
@@ -287,17 +286,16 @@ namespace Com.TheFallenGames.OSA.Core
 					//}
 				}
 
-				value = initialVrtInsetFromParent * (1d - localProgress) + targetVrtInsetFromParent * localProgress; // Lerp for double
-				//Debug.Log(
-				//	"t=" + progress.ToString("0.####") +
-				//	", i=" + initialVrtInsetFromParent.ToString("0") +
-				//	", t=" + targetVrtInsetFromParent.ToString("0") +
-				//	", t-i=" + (targetVrtInsetFromParent - initialVrtInsetFromParent).ToString("0") +
-				//	", toSet=" + value.ToString("0"));
-
-				
-				// If finished earlier => don't make additional unnecesary steps
-				if (Math.Abs(targetVrtInsetFromParent - value) < .01d)
+				value = initialVrtInsetFromParent * (1d - localProgress) + targetVrtInsetFromParent * localProgress;
+                // Lerp for double
+                //Debug.Log("" +
+                //    "i=" + initialVrtInsetFromParent.ToString("0") +
+                //    ", t=" + targetVrtInsetFromParent.ToString("0") +
+                //    ", t-i=" + (targetVrtInsetFromParent - initialVrtInsetFromParent).ToString("0") +
+                //    ", toSet=" + value.ToString("0"));
+                //Debug.Log($"targetVrtInsetFromParent = {targetVrtInsetFromParent} vlaue = {value}  ${Math.Abs(targetVrtInsetFromParent - value)}");
+                // If finished earlier => don't make additional unnecesary steps
+                if (Math.Abs(targetVrtInsetFromParent - value) < .01d)
 				{
 					value = targetVrtInsetFromParent;
 					reportedProgress = localProgress = 1d;
@@ -362,13 +360,139 @@ namespace Com.TheFallenGames.OSA.Core
 			_SkipComputeVisibilityInUpdateOrOnScroll = ignorOnScroll_lastValue;
 		}
 
-		/// <summary> It assumes that the content is bigger than the viewport </summary>
-		double ScrollToHelper_GetContentStartVirtualInsetFromViewportStart_Clamped(double vsa, int itemIndex, double normalizedItemOffsetFromStart, double normalizedPositionOfItemPivotToUse)
+        IEnumerator SmoothScrollTimesProgressCoroutine(
+        int scrollTimes,
+        double duration,
+        double normalizedOffsetFromViewportStart = 0f,
+        double normalizedPositionOfItemPivotToUse = 0f,
+        Func<float, bool> onProgress = null)
+        {
+            double vsa = _InternalState.VirtualScrollableArea;
+            if (vsa <= 0d)
+            {
+                _SmoothScrollCoroutine = null;
+
+                if (onProgress != null)
+                    onProgress(1f);
+                yield break;
+            }
+
+            var ignorOnScroll_lastValue = _SkipComputeVisibilityInUpdateOrOnScroll;
+            _SkipComputeVisibilityInUpdateOrOnScroll = true;
+
+            StopMovement();
+
+            _InternalState.RebuildLayoutImmediateCompat(_Params.ScrollViewRT);
+
+            Func<double> getTargetVrtInset = () =>
+            {
+                // This needs to be updated regularly (if looping/twin pass, but it doesn't add too much overhead, so it's ok to re-calculate it each time)
+                vsa = _InternalState.VirtualScrollableArea;
+                return ScrollToHelper_GetContentStartVirtualInsetFromViewportStart_ClampedTimes(
+                            vsa,
+                            scrollTimes,
+                            normalizedOffsetFromViewportStart,
+                            normalizedPositionOfItemPivotToUse
+                        );
+            };
+
+            double initialVrtInsetFromParent = -1d, targetVrtInsetFromParent = -1d; // setting a value because of compiler, but it's initialized at least once in the loop below
+            bool needToCalculateInitialInset = true, needToCalculateTargetInset = true, notCanceledByCaller = true;
+            double startTime = Time.time, elapsedTime;
+            double localProgress = 0d, // used in calculations
+                    reportedProgress, // the "real" progress, as needed for the caller of this function
+                    value;
+            var endOfFrame = new WaitForEndOfFrame();
+
+            var contentPosChangeParams = new ContentSizeOrPositionChangeParams
+            {
+                computeVisibilityParams = _ComputeVisibilityParams_Reusable_Empty,
+                fireScrollPositionChangedEvent = true,
+                allowOutsideBounds = true
+            };
+
+            bool looped = false;
+            Action<double> setInsetAndUpdateLocalsFn = inset =>
+            {
+                contentPosChangeParams.allowOutsideBounds = _Params.effects.loopItems && _InternalState.VirtualScrollableArea > 0d;
+                SetContentVirtualInsetFromViewportStart(inset, ref contentPosChangeParams, out looped);
+            };
+
+            double time;
+            double originalStartTime = startTime, originalDuration = duration;
+            do
+            {
+                yield return null;
+                yield return endOfFrame;
+
+                time = Time.time;
+                elapsedTime = time - startTime;
+
+                if (elapsedTime >= duration)
+                    reportedProgress = localProgress = 1d;
+                else
+                {
+                    localProgress = Math.Sin((elapsedTime / duration) * Math.PI / 2);
+                    reportedProgress = Math.Sin(((time - originalStartTime) / originalDuration) * Math.PI / 2);
+                }
+
+                //neededToRecalculateInitialInset = needToCalculateInitialInset;
+                if (needToCalculateInitialInset)
+                {
+                    initialVrtInsetFromParent = _InternalState.ctVirtualInsetFromVPS_Cached;
+
+                    startTime = time;
+                    duration -= elapsedTime;
+                }
+
+                if (needToCalculateTargetInset)
+                {
+                    targetVrtInsetFromParent = getTargetVrtInset();
+                }
+
+                value = initialVrtInsetFromParent * (1d - localProgress) + targetVrtInsetFromParent * localProgress;
+                if (Math.Abs(targetVrtInsetFromParent - value) < .01d)
+                {
+                    value = targetVrtInsetFromParent;
+                    reportedProgress = localProgress = 1d;
+                }
+                if (value > 0d && !_Params.effects.loopItems)
+                {
+                    reportedProgress = localProgress = 1d; // end; last loop
+                    value = 0d;
+                }
+                else
+                {
+                    setInsetAndUpdateLocalsFn(value);
+
+                    needToCalculateInitialInset = needToCalculateTargetInset = _Params.effects.loopItems || _InternalState.lastComputeVisibilityHadATwinPass;
+                }
+            }
+            while (reportedProgress < 1d && (onProgress == null || (notCanceledByCaller = onProgress((float)reportedProgress))));
+
+            if (notCanceledByCaller)
+            {
+                setInsetAndUpdateLocalsFn(getTargetVrtInset());
+
+                if (looped || _InternalState.lastComputeVisibilityHadATwinPass)
+                    setInsetAndUpdateLocalsFn(getTargetVrtInset());
+
+                _SmoothScrollCoroutine = null;
+
+                if (onProgress != null)
+                    onProgress(1f);
+
+            }
+            _SkipComputeVisibilityInUpdateOrOnScroll = ignorOnScroll_lastValue;
+        }
+
+        /// <summary> It assumes that the content is bigger than the viewport </summary>
+        double ScrollToHelper_GetContentStartVirtualInsetFromViewportStart_Clamped(double vsa, int itemIndex, double normalizedItemOffsetFromStart, double normalizedPositionOfItemPivotToUse)
 		{
 			double maxContentInsetFromVPAllowed = _Params.effects.loopItems && vsa > 0d ? _InternalState.vpSize/2d : 0d; // if looping, there's no need to clamp. in addition, clamping would cancel a scrollTo if the content is exactly at start or end
 			double minContentVirtualInsetFromVPAllowed = -vsa - maxContentInsetFromVPAllowed;
-			int itemViewIdex = _ItemsDesc.GetItemViewIndexFromRealIndexChecked(itemIndex);
-			double itemSize = _ItemsDesc[itemViewIdex];
+            int itemViewIdex = _ItemsDesc.GetItemViewIndexFromRealIndexChecked(itemIndex);
+            double itemSize = _ItemsDesc[itemViewIdex];
 			double insetToAdd = _InternalState.vpSize * normalizedItemOffsetFromStart - itemSize * normalizedPositionOfItemPivotToUse;
 
 			double itemVrtInsetFromStart = _InternalState.GetItemVirtualInsetFromParentStartUsingItemIndexInView(itemViewIdex);
@@ -377,18 +501,57 @@ namespace Com.TheFallenGames.OSA.Core
 						Math.Min(maxContentInsetFromVPAllowed, -itemVrtInsetFromStart + insetToAdd)
 					);
 
-			//Debug.Log("siz=" + itemSize + ", -itemVrtInsetFromStart=" + (-itemVrtInsetFromStart) + ", insetToAdd=" + insetToAdd + ", ctInsetFromStart_Clamped=" + ctInsetFromStart_Clamped);
+            //Debug.LogError("itemViewIdex=" + itemViewIdex + ", -itemVrtInsetFromStart=" + (-itemVrtInsetFromStart) + ", ctInsetFromStart_Clamped=" + ctInsetFromStart_Clamped);
 
-			return ctInsetFromStart_Clamped;
+            return ctInsetFromStart_Clamped;
 		}
 
-		//bool DoesInsetDeltaRequireOptimization(double insetDelta)
-		//{
-		//	return Math.Abs(insetDelta) > RECYCLE_ALL__MIN_DRAG_AMOUNT_AS_FACTOR_OF_VIEWPORT_SIZE * _InternalState.vpSize;
-		//}
+        double ScrollToHelper_GetContentStartVirtualInsetFromViewportStart_ClampedTimes(double vsa, int scrollTimes, double normalizedItemOffsetFromStart, double normalizedPositionOfItemPivotToUse)
+        {
+            double maxContentInsetFromVPAllowed = _Params.effects.loopItems && vsa > 0d ? _InternalState.vpSize / 2d : 0d; // if looping, there's no need to clamp. in addition, clamping would cancel a scrollTo if the content is exactly at start or end
+            double minContentVirtualInsetFromVPAllowed = -vsa - maxContentInsetFromVPAllowed;
 
-		/// <summary><paramref name="virtualInset"/> should be a valid value. See how it's clamped in <see cref="ScrollTo(int, float, float)"/></summary>
-		double SetContentVirtualInsetFromViewportStart(double virtualInset, ref ContentSizeOrPositionChangeParams p, out bool looped)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            int itemViewIdex = _ItemsDesc.GetItemViewIndexFromRealIndexChecked(scrollTimes);
+            double itemSize = _ItemsDesc[itemViewIdex];
+            double insetToAdd = _InternalState.vpSize * normalizedItemOffsetFromStart - itemSize * normalizedPositionOfItemPivotToUse;
+
+            double itemVrtInsetFromStart = _InternalState.GetItemVirtualInsetFromParentStartUsingItemIndexInView(itemViewIdex);
+            double ctInsetFromStart_Clamped = Math.Max(
+                        minContentVirtualInsetFromVPAllowed,
+                        Math.Min(maxContentInsetFromVPAllowed, -itemVrtInsetFromStart + insetToAdd)
+                    );
+
+            Debug.LogError("itemViewIdex=" + itemViewIdex + ", -itemVrtInsetFromStart=" + (-itemVrtInsetFromStart) + ", ctInsetFromStart_Clamped=" + ctInsetFromStart_Clamped);
+
+            return ctInsetFromStart_Clamped;
+        }
+
+        //bool DoesInsetDeltaRequireOptimization(double insetDelta)
+        //{
+        //	return Math.Abs(insetDelta) > RECYCLE_ALL__MIN_DRAG_AMOUNT_AS_FACTOR_OF_VIEWPORT_SIZE * _InternalState.vpSize;
+        //}
+
+        /// <summary><paramref name="virtualInset"/> should be a valid value. See how it's clamped in <see cref="ScrollTo(int, float, float)"/></summary>
+        double SetContentVirtualInsetFromViewportStart(double virtualInset, ref ContentSizeOrPositionChangeParams p, out bool looped)
 		{
 			_ReleaseFromPull.inProgress = false;
 

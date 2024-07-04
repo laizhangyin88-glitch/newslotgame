@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -351,20 +351,21 @@ public class NetworkDis : MonoBehaviour
                 {
 
                     // if(singlePacket.Length>100)
-                //MsgInfo info1 = MemManager<MsgInfo>.tryGet(MemType.Mem_MsgInfo);
+                    //MsgInfo info1 = MemManager<MsgInfo>.tryGet(MemType.Mem_MsgInfo);
                     // info = JsonUtility.FromJson<MsgInfo>(singlePacket);
                     //  else
                     //    info1 = (MsgBetInfo)JsonConvert.DeserializeObject(singlePacket, typeof(MsgBetInfo));
-                    JObject item = JObject.Parse(singlePacket);
-                    info.id = item["id"].Value<int>();
-                    info.cmd = item["cmd"].Value<int>();
-                    info.socketid = item["socketid"].Value<int>();
-                    info.info = item["info"].Value<string>();
-                    JArray arrdata2 = JArray.Parse(item["data"].ToString());
-                    for( int i = 0; i < arrdata2.Count; i ++ )
-                        info.data[i] = arrdata2[i].Value<int>();
-                    arrdata2.ClearItems();
-                    item.ClearItems();
+                    //JObject item = JObject.Parse(singlePacket);
+                    //info.id = item["id"].Value<int>();
+                    //info.cmd = item["cmd"].Value<int>();
+                    //info.socketid = item["socketid"].Value<int>();
+                    //info.info = item["info"].Value<string>();
+                    //JArray arrdata2 = JArray.Parse(item["data"].ToString());
+                    //for( int i = 0; i < arrdata2.Count; i ++ )
+                    //    info.data[i] = arrdata2[i].Value<int>();
+                    //arrdata2.ClearItems();
+                    //item.ClearItems();
+                    info = JsonConvert.DeserializeObject<MsgInfo>(singlePacket);
                 }
                 catch (System.Exception ex)
                 {
@@ -512,16 +513,18 @@ public class NetworkDis : MonoBehaviour
                     //   else
                     //       info1 = (MsgBetInfo)JsonConvert.DeserializeObject(singlePacket, typeof(MsgBetInfo));
 
-                    JObject item = JObject.Parse(singlePacket);
-                    info.id = item["id"].Value<int>();
-                    info.cmd = item["cmd"].Value<int>();
-                    info.socketid = item["socketid"].Value<int>();
-                    info.info = item["info"].Value<string>();
-                    JArray arrdata2 = JArray.Parse(item["data"].ToString());
-                    for (int i = 0; i < arrdata2.Count; i++)
-                        info.data[i] = arrdata2[i].Value<int>();
-                    arrdata2.ClearItems();
-                    item.ClearItems();
+                    //JObject item = JObject.Parse(singlePacket);
+                    //info.id = item["id"].Value<int>();
+                    //info.cmd = item["cmd"].Value<int>();
+                    //info.socketid = item["socketid"].Value<int>();
+                    //info.info = item["info"].Value<string>();
+                    //JArray arrdata2 = JArray.Parse(item["data"].ToString());
+                    //for (int i = 0; i < arrdata2.Count; i++)
+                    //    info.data[i] = arrdata2[i].Value<int>();
+                    //arrdata2.ClearItems();
+                    //item.ClearItems();
+
+                    info = JsonConvert.DeserializeObject<MsgInfo>(singlePacket);
                 }
                 catch (System.Exception ex)
                 {

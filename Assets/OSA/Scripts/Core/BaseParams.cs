@@ -1,4 +1,4 @@
-﻿// Migration support requires keeping some of the fields around a little longer, so we could retrieve their old values
+// Migration support requires keeping some of the fields around a little longer, so we could retrieve their old values
 #pragma warning disable 0414
 //#define MIGRATE_3_2_TO_4_1_AVAILABLE
 using System;
@@ -21,7 +21,7 @@ namespace Com.TheFallenGames.OSA.Core
 
 		#region Core params
 		[SerializeField]
-		RectTransform _Content = null;
+		RectTransform _Content ;
 		[Obsolete("Use Content instead")]
 		public RectTransform content { get { return Content; } set { Content = value; } }
 		public RectTransform Content { get { return _Content; } set { _Content = value; } }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -396,20 +396,23 @@ namespace Com.TheFallenGames.OSA.Core
 		}
 
 		public int GetItemRealIndexFromViewIndex(int indexInView) { return (int)(((long)realIndexOfFirstItemInView + indexInView) % itemsCount); }
-		int GetItemViewIndexFromRealIndexWithoutChecks(int realIndex) { return (int)(((long)realIndex - realIndexOfFirstItemInView + itemsCount) % itemsCount); }
+		int GetItemViewIndexFromRealIndexWithoutChecks(int realIndex) {
+            //Debug.LogError($"realIndex={realIndex}, realIndexOfFirstItemInView={realIndexOfFirstItemInView}");
+            return (int)(((long)realIndex - realIndexOfFirstItemInView + itemsCount) % itemsCount);
+        }
 
 		public int GetItemViewIndexFromRealIndexChecked(int realIndex)
 		{
 			if (realIndex < 0)
 				throw new ArgumentOutOfRangeException("realIndex", realIndex, "OSA.GetItemViewIndexFromRealIndexNotAllowingTotalCount: argument should be >=0");
-			if (realIndex >= itemsCount)
-				throw new ArgumentOutOfRangeException("realIndex", realIndex, "OSA.GetItemViewIndexFromRealIndexNotAllowingTotalCount: argument should be < totalCount(=" + itemsCount + ")");
+            if (realIndex >= itemsCount)
+                throw new ArgumentOutOfRangeException("realIndex", realIndex, "OSA.GetItemViewIndexFromRealIndexNotAllowingTotalCount: argument should be < totalCount(=" + itemsCount + ")");
 
-			return GetItemViewIndexFromRealIndexWithoutChecks(realIndex);
+            return GetItemViewIndexFromRealIndexWithoutChecks(realIndex);
 		}
 
-		// Make sure this does the same thing as "this[int itemIndexInView]" property, whenever it's modified
-		public double GetItemSizeOrDefault(int itemIndexInView)
+        // Make sure this does the same thing as "this[int itemIndexInView]" property, whenever it's modified
+        public double GetItemSizeOrDefault(int itemIndexInView)
 		{
 			double val;
 			if (_Sizes.TryGetValue(itemIndexInView, out val))
