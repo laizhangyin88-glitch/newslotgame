@@ -33,6 +33,7 @@ public class DoorController : MonoBehaviour
 
     private bool autoSpinValue = false;
 
+    public bool isSelect = false;
     private void SetAutoSpinFalse()
     {
         var autoSpin = BlackboardUtils.FindVariable<bool>("./autoSpin");
@@ -52,6 +53,7 @@ public class DoorController : MonoBehaviour
     {
         SetAutoSpinFalse();
         currentBet = BlackboardUtils.FindVariable<long>("./betCredit").value;
+        isSelect = false;
 
         listParent = transform.Find("list");
         BetValueTxt = transform.Find("bet/BetValue").GetComponent<Text>();
@@ -84,9 +86,10 @@ public class DoorController : MonoBehaviour
             }
         });
     }
-
+     
     private void AutoSelect()
     {
+        if (isSelect) return;
         if(doorSelectItems.Count > 0)
         {
             _loopTimer?.Cancel();
@@ -105,7 +108,7 @@ public class DoorController : MonoBehaviour
                 go.transform.SetParent(listParent, false);
                 var select = go.GetComponent<DoorSelectItem>();
                 select.SetIndex(i);
-                select.DoorController = this;
+                select._DoorController = this;
                 doorSelectItems.Add(select);
             }
         }

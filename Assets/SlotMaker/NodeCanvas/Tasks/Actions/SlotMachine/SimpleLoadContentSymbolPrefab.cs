@@ -8,60 +8,61 @@ using System;
 namespace BagelCode.Tasks.Actions.Contents
 {
 
-[Category("★ BagelCode/SlotMachine")]
-public class SimpleLoadContentSymbolPrefab : ActionTask
-{
-    public BBParameter<int> symbolIndex;
-    public BBParameter<Transform> parent;
-    public BBParameter<GameObject> delegator;
-    public BBParameter<GameObject> animator;
-
-    protected override string info
+    [Category("★ BagelCode/SlotMachine")]
+    public class SimpleLoadContentSymbolPrefab : ActionTask
     {
-        get { return string.Format("{0} = LoadSymbolPrefab({1})", delegator, symbolIndex); }
-    }
+        public BBParameter<int> symbolIndex;
+        public BBParameter<Transform> parent;
+        public BBParameter<GameObject> delegator;
+        public BBParameter<GameObject> animator;
 
-    private string GetSymbolName()
-    {
-        return ContentCustomData.Instance.symbolName[symbolIndex.value];
-    }
-
-    protected override void OnExecute()
-    {
-        if (delegator.value == null)
+        protected override string info
         {
-            var symbolName = GetSymbolName();
-            var prefab = AssetBundleManager.LoadAsset<GameObject>(GetBundleName(), symbolName);
-            GameObject go = null;
-            try
-            {
-                go = GameObject.Instantiate(prefab) as GameObject;
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"{GetBundleName()} - {symbolName}");
-                Debug.LogError(e);
-            }
-            go.name = symbolName;
-            var _parent = parent.value;
-            go.transform.SetParent(_parent, false);
-
-            delegator.value = go;
-        }
-        else
-        {
-            delegator.value.SetActive(true);
+            get { return string.Format("{0} = LoadSymbolPrefab({1})", delegator, symbolIndex); }
         }
 
-        animator.value.SetActive(false);
+        private string GetSymbolName()
+        {
+            return ContentCustomData.Instance.symbolName[symbolIndex.value];
+        }
 
-        EndAction();
-    }
+        protected override void OnExecute()
+        {
+            if (delegator.value == null)
+            {
+                var symbolName = GetSymbolName(); 
+                var prefab = AssetBundleManager.LoadAsset<GameObject>(GetBundleName(), symbolName);
 
-    protected string GetBundleName()
-    {
-        return BlackboardUtils.FindVariable<string>(null, "./game/gameTitle").value;
+                GameObject go = null;
+                try
+                {
+                    go = GameObject.Instantiate(prefab) as GameObject;
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"{GetBundleName()} - {symbolName}");
+                    Debug.LogError(e);
+                }
+                go.name = symbolName;
+                var _parent = parent.value;
+                go.transform.SetParent(_parent, false);
+
+                delegator.value = go;
+            }
+            else
+            {
+                delegator.value.SetActive(true);
+            }
+
+            animator.value.SetActive(false);
+
+            EndAction();
+        }
+
+        protected string GetBundleName()
+        {
+            return BlackboardUtils.FindVariable<string>(null, "./game/gameTitle").value;
+        }
     }
-}
 
 }

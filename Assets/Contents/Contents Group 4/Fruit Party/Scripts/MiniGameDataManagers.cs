@@ -135,17 +135,20 @@ public class MiniGameDataManagers
             }
         }
     }
-     
+
     public void ShowGameReward(long total)
     {
         GameObject go = AssetBundleManager.LoadAsset<GameObject>("fruitparty", "MiniGameRewardPopup");
-        if(go != null)
+        if (go != null)
         {
             GameObject gameObject = GameObject.Instantiate(go);
             gameObject.transform.SetParent(PopupManager.Instance.contents, false);
             SetTextValue setTextValue = gameObject.GetComponent<SetTextValue>();
             setTextValue.value = total;
-            setTextValue.textValue = total.ToString("N0"); 
-        } 
+            setTextValue.textValue = total.ToString("N0");
+            Debug.LogError("befor.............." + BlackboardUtils.FindVariable<long>(null, "/me/credit").value);
+            BlackboardUtils.FindVariable<long>(null, "/me/credit").value += total;
+            Debug.LogError("after................" + BlackboardUtils.FindVariable<long>(null, "/me/credit").value);
+        }
     }
 } 

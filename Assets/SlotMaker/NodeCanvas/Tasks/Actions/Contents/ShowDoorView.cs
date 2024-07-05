@@ -9,15 +9,10 @@ namespace SlotMaker.Tasks.Actions.Contents
     {
         protected override void OnExecute()
         {
-            var isTrigger = BlackboardUtils.GetOrCreateVariable<bool>(BlackboardUtils.GetContentFSMBlackboard(), "isTriggerMiniGame");
-            GameObject door = BlackboardUtils.GetGameContentsBlackboard().GetValue<GameObject>("Door");
-            if (isTrigger.value)
-            {
-                door.gameObject.SetActive(true);
-                DoorController doorController = door.GetComponent<DoorController>();
-                doorController.OnStart();
-            }
-
+            GameObject door = BlackboardUtils.GetGameContentsBlackboard().GetValue<GameObject>("Door"); 
+            door.gameObject.SetActive(true);
+            DoorController doorController = door.GetComponent<DoorController>();
+            doorController.OnStart();
             EndAction();
         }
     }

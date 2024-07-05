@@ -38,6 +38,8 @@ namespace SlotMaker.Tasks.Condition
             {
                 if (target.HasKey(itemStr))
                 {
+                    Debug.LogError(itemStr);
+                    Debug.LogError(target[itemStr]);
                     target = target[itemStr];
                 }
                 else

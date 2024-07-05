@@ -19,11 +19,12 @@ public class DoorSelectItem : MonoBehaviour
     private int _index = 0;
 
     [NonSerialized]
-    public DoorController DoorController;
+    public DoorController _DoorController;
 
     private FrameAnimator _frameAnimator;
 
     private Button btn;
+
 
     public void SetIndex(int index)
     {
@@ -53,12 +54,12 @@ public class DoorSelectItem : MonoBehaviour
         _frameAnimator.FinishEvent -= AnimationFinish;
         _frameAnimator.Stop();
         _frameAnimator.gameObject.SetActive(false);
-        if (DoorController != null)
+        if (_DoorController != null)
         {
-            DoorController.SetClickReward();
+            _DoorController.SetClickReward();
             this.DelayAction(2, () =>
             {
-                DoorController.PlayMiniGame(_index);
+                _DoorController.PlayMiniGame(_index);
             });
         }
     }
@@ -67,6 +68,7 @@ public class DoorSelectItem : MonoBehaviour
     {
         long betCredit = BlackboardUtils.FindVariable<long>("./betCredit").value;
         long extraBetCredit = BlackboardUtils.FindVariable<long>("./extraBetCredit").value;
+        this._DoorController.isSelect = true;
         Dictionary<string, object> req = new Dictionary<string, object>
         {
             {"bet",betCredit},
@@ -74,7 +76,8 @@ public class DoorSelectItem : MonoBehaviour
             {"jackpot_game_index", _index},
         };
         NetManager.Instance.Post(RPCName.newSlotSpin, req, (res) =>
-        { 
+        {
+            Debug.LogError("免费游戏的全部数据......................" + res.ToString());
             switch(_index)
             {
                 case 0:
