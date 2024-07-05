@@ -21,7 +21,7 @@ namespace SlotMaker.Tasks.Conditions
             var temp = SymbolMask.HasAttribute((SymbolAttribute)valueA.value, valueB);
             if (temp)
             {
-                Debug.LogError("播放特效.....................");
+               // Debug.LogError("播放特效.....................");
             }
             return temp;
         }

@@ -424,7 +424,9 @@ public class TestManager : MonoSingleton<TestManager>
         };*/
 
         //码表转换
-        Variable<Dictionary<int, int>> changeCode = ContentBlackboard.Get().GetVariable<Dictionary<int, int>>("changeCode");
+        //Variable<Dictionary<int, int>> changeCode = ContentBlackboard.Get().GetVariable<Dictionary<int, int>>("changeCode");
+        Variable<Dictionary<int, int>> changeCode = ContentBlackboard.Get().GetValue<Blackboard>("gameNew").GetVariable<Dictionary<int, int>>("changeCode");
+
         if (changeCode != null && changeCode.value != null)
         {
             foreach (var item in changeCode.value)

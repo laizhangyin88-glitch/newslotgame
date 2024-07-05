@@ -6,6 +6,7 @@ using ParadoxNotion.Design;
 using SimpleJSON;
 using SlotMaker;
 using SlotMaker.Contents;
+using SlotMaker.Tasks.Actions;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -211,11 +212,20 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     var bb = ContentBlackboard.Get();
 
                     SerializeMiniGameData(bb, res["game_config"]["jackpot_game_config"]); 
-                    //Debug.LogError(contentJson);
                     Serialize(bb, response);
 
 
-                    BlackboardUtils.SetOrCreateValue(bb, "changeCode", changeCode);
+                    //BlackboardUtils.SetOrCreateValue(bb, "changeCode", changeCode);
+
+
+                    // 新游戏属性
+                    var gameNew = BlackboardUtils.GetOrCreateBlackboard(bb, "gameNew");
+                    //Blackboard gameNew = BlackboardUtils.GetOrCreateVariable<Blackboard>(bb, "gameNew").value;
+                    BlackboardUtils.SetOrCreateValue(gameNew, "changeCode", changeCode);
+                    BlackboardUtils.SetOrCreateValue(gameNew, "betListBase", longs);
+                    BlackboardUtils.SetOrCreateValue(gameNew, "selectLine", 1);
+
+
 
 
                     BlackboardQueryUtils.UpdateSeat(response.room);
