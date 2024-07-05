@@ -24,13 +24,13 @@ namespace BagelCode.Tasks.Actions.Contents
         private string GetSymbolName()
         {
             return ContentCustomData.Instance.symbolName[symbolIndex.value];
-        }
-
+        }         
         protected override void OnExecute()
         {
+
             if (delegator.value == null)
             {
-                var symbolName = GetSymbolName(); 
+                var symbolName = GetSymbolName();
                 var prefab = AssetBundleManager.LoadAsset<GameObject>(GetBundleName(), symbolName);
 
                 GameObject go = null;
