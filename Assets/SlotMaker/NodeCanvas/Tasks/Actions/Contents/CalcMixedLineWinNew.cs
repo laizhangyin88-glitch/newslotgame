@@ -270,8 +270,8 @@ namespace BagelCode.Tasks.Actions.Contents
 
             var bb = ContentBlackboard.Get();
 
-            Dictionary<int, int>  changeCode = bb.GetValue<Dictionary<int, int>>("changeCode");
-
+            //Dictionary<int, int>  changeCode = bb.GetValue<Dictionary<int, int>>("changeCode");
+            Dictionary<int, int> changeCode = bb.GetValue<Blackboard>("gameNew").GetValue<Dictionary<int, int>>("changeCode");
 
             var slotData = ContentCustomData.GetSlotData(slotIndex.value);
             var deck = (Deck)slotData.deck.Clone();
