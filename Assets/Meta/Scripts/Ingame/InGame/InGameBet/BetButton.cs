@@ -62,6 +62,7 @@ namespace BagelCode
 
         public virtual void UpdatedTotalBetCredit(long totalCredit)
         {
+            //Debug.LogError("i am UpdatedTotalBetCredit  01");
             totalBetCredit = totalCredit;
             UpdateButtonState();
 

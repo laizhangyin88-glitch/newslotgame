@@ -198,35 +198,41 @@ namespace BagelCode
             {
 #if UNITY_EDITOR
                 ///测试用的数据
-                List<int> debug_param2 = new List<int>() { 160, 119, 63, 132, 194 };
-                int isFree = 0; 
-                //var isInFreeGame = BlackboardUtils.GetOrCreateVariable<int>(BlackboardUtils.GetContentFSMBlackboard(), "isInFreeGame").value;
-                ////是不是在免费游戏
-                //if (isInFreeGame == 1) 
-                //{
-                //    isFree = 1;//在免费游戏中
-                //}
-                Dictionary<string, object> debug_param1 = new Dictionary<string, object> {
-                    {"first_index_list",
-                        debug_param2
-                    },
-                    {
-                        "is_free",
-                        isFree
-                    }
-                };
+                /* List<int> debug_param2 = new List<int>() { 160, 119, 63, 132, 194 };
+                 int isFree = 0; 
+                 //var isInFreeGame = BlackboardUtils.GetOrCreateVariable<int>(BlackboardUtils.GetContentFSMBlackboard(), "isInFreeGame").value;
+                 ////是不是在免费游戏
+                 //if (isInFreeGame == 1) 
+                 //{
+                 //    isFree = 1;//在免费游戏中
+                 //}
+                 Dictionary<string, object> debug_param1 = new Dictionary<string, object> {
+                     {"first_index_list",
+                         debug_param2
+                     },
+                     {
+                         "is_free",
+                         isFree
+                     }
+                 };*/
 #endif
+
+                int selectLine = BlackboardUtils.GetOrCreateVariable<int>(null, "./gameNew/selectLine").value;
+
                 Dictionary<string, object> req = new Dictionary<string, object>
                 {
-                    {"bet",betCredit},
+                    {"bet",betCredit/selectLine},
                     {"extra_bet",extraBetCredit },
+                    {"win_line_count",selectLine},
                 };
 
-                if (globalStore.IsHaveLineSelect.ContainsKey(gameId))
+               /* if (globalStore.IsHaveLineSelect.ContainsKey(gameId))
                 {
                     int line = BlackboardUtils.GetOrCreateVariable<int>(ContentBlackboard.Get(), "./game/lineCount").value;
                     req.Add("win_line_count", line);
                 }
+               */
+
 
                 //if (!this.isFree)
                 //{
@@ -533,6 +539,7 @@ namespace BagelCode
                 {
                     debug_param = "{\"is_free_spin\":" + code + "}";
                 }
+
                 Dictionary<string, object> req = new Dictionary<string, object>
                 {
                     {"bet",betCredit},
