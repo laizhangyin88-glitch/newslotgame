@@ -516,7 +516,7 @@ namespace BagelCode
                             errorCallback();
                     });
                 }
-            } 
+            }
             else
             {
 

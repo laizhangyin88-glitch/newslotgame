@@ -78,7 +78,6 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                         EndAction();
                 });
             }
-
         }
     }
 }
