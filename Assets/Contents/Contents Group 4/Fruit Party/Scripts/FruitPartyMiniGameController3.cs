@@ -283,7 +283,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
                 rewardScoreItemControllers[i] = null;
             }
         }
-        MiniGameDataManagers.Instance.ResetAutoSpint();
+        MiniGameDataManagers.Instance.ResetAutoSpin();
         MiniGameDataManagers.Instance.ShowGameReward(totalScore);
     }
 }
