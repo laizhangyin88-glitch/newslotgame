@@ -1,3 +1,6 @@
+using BagelCode;
+using NodeCanvas.Framework;
+using ParadoxNotion;
 using SimpleJSON;
 using SlotMaker;
 using System.Collections;
@@ -40,6 +43,15 @@ public class MiniGameDataManagers
             }
             return instance;
         }
+    }
+    /// <summary>
+    /// 是否进入了水果派对游戏里面的小游戏逻辑了
+    /// </summary>
+    public bool isInFruitPartyMiniGame = false;
+
+    private MiniGameDataManagers()
+    {
+        isInFruitPartyMiniGame = false;
     }
 
     public List<Game1Data> game1Datas = new List<Game1Data>();
@@ -123,7 +135,7 @@ public class MiniGameDataManagers
         }
     }
 
-    public void ResetAutoSpint()
+    public void ResetAutoSpin()
     {
         GameObject door = BlackboardUtils.GetGameContentsBlackboard().GetValue<GameObject>("Door");
           if (door != null)
@@ -146,9 +158,52 @@ public class MiniGameDataManagers
             SetTextValue setTextValue = gameObject.GetComponent<SetTextValue>();
             setTextValue.value = total;
             setTextValue.textValue = total.ToString("N0");
-            Debug.LogError("befor.............." + BlackboardUtils.FindVariable<long>(null, "/me/credit").value);
-            BlackboardUtils.FindVariable<long>(null, "/me/credit").value += total;
-            Debug.LogError("after................" + BlackboardUtils.FindVariable<long>(null, "/me/credit").value);
+            //Debug.LogError("befor.............." + BlackboardUtils.FindVariable<long>("/me/credit").value);
+            //Debug.LogError("前端计算的小游戏的总金额............" + total);
+            long temp = BlackboardUtils.FindVariable<long>("/me/credit").value;
+
+            int line = BlackboardUtils.GetOrCreateVariable<int>(null, "./gameNew/selectLine").value;
+            long betCredit = BlackboardUtils.FindVariable<long>("./betCredit").value;         
+            BlackboardQueryUtils.SetMyCredit(temp + total - line * betCredit);
+
+            //Debug.LogError("after................" + BlackboardUtils.FindVariable<long>("/me/credit").value);
+
+            MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
         }
+    }
+
+    public void EnterMiniGame()
+    {
+        isInFruitPartyMiniGame = true;
+    }
+
+    public void ExitMiniGame()
+    {
+        isInFruitPartyMiniGame = false;
+    }
+
+    public bool GetIsInFruitPartyMiniGame()
+    {
+        if (isInFruitPartyMiniGame)
+        {
+            return isInFruitPartyMiniGame;
+        }
+        else
+        {
+            Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
+            if (spinBB != null)
+            {
+                string responseNew = spinBB.value.GetValue<string>("responseNew");
+                if (!string.IsNullOrEmpty(responseNew))
+                {
+                    JSONNode res = JSONNode.Parse(responseNew);
+                    if (res != null)
+                    {
+                        return res["game_result"]["jackpot_info"] != null;
+                    }
+                }
+            }
+        }
+        return false;
     }
 } 

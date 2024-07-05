@@ -275,7 +275,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
                 scoreItemControllers[i] = null;
             }
         } 
-        MiniGameDataManagers.Instance.ResetAutoSpint();
+        MiniGameDataManagers.Instance.ResetAutoSpin();
         MiniGameDataManagers.Instance.ShowGameReward(TotalWinScore);
     }
 

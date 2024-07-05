@@ -44,7 +44,7 @@ public class InGameApostarController : MonoBehaviour
             totalBetCredit = BlackboardUtils.FindVariable<long>("./totalBetCredit").value;
         }
         int selectLine = BlackboardUtils.FindVariable<int>("./gameNew/selectLine").value;
-        cxeText.SetText($"{totalBetCredit/ selectLine}"); 
+        cxeText.SetText($"{(totalBetCredit/ selectLine).ToString("N0")}"); 
      }
 
 }
