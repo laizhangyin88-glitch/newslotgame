@@ -143,10 +143,10 @@ namespace BagelCode
 
         private void PointerDown()
         {
-            if (!CheckMyCredit.CheckCredit())
+            /*if (!CheckMyCredit.CheckCredit())
             {
                 return;
-            }
+            }*/
             if (!button.IsActive() || !button.IsInteractable())
                 return;
 
