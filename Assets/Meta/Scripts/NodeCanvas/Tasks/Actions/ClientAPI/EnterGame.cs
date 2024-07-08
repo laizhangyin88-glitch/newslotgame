@@ -204,8 +204,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                         longs.Add(res["bet_list"][k].AsLong);
                     }
 
-                    response.betList = longs;//new List<long>() { 30, 60, 120, 300, 600, 1200, 6000 };
-                    Debug.Log("!!!json新:" + contentJson.ToString());
+                    response.betList = longs;
 
                     response.contents = contentJson.ToString();
 
@@ -215,8 +214,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     Serialize(bb, response);
 
 
-                    //BlackboardUtils.SetOrCreateValue(bb, "changeCode", changeCode);
-
+  
 
                     // 新游戏属性
                     var gameNew = BlackboardUtils.GetOrCreateBlackboard(bb, "gameNew");
@@ -225,6 +223,17 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     BlackboardUtils.SetOrCreateValue(gameNew, "betListBase", longs);
                     BlackboardUtils.SetOrCreateValue(gameNew, "selectLine", 1);
 
+                    Dictionary<int, Dictionary<int, int>> paytables = new Dictionary<int, Dictionary<int, int>>();
+                    foreach (KeyValuePair<string, JSONNode> item in res["game_config"]["card_mutiple"])
+                    {
+                        Dictionary<int, int> temp1 = new Dictionary<int, int>();
+                        foreach (KeyValuePair<string, JSONNode> item1 in item.Value)
+                        {
+                            temp1.Add(int.Parse(item1.Key), int.Parse(item1.Value));
+                        }
+                        paytables.Add(int.Parse(item.Key), temp1);
+                    }
+                    BlackboardUtils.SetOrCreateValue(gameNew, "paytables", paytables);
 
 
 
