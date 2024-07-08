@@ -55,6 +55,8 @@ namespace SlotMaker
 
         public bool isMachine;
 
+        public bool isExchangeUI;
+
         public List<string> streamingAssets = new List<string>();
         public List<string> staticStreamingAssets = new List<string>();
         public List<string> staticMachineStreamingAssets = new List<string>();

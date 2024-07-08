@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BagelCode.ClientModels;
-using Com.TheFallenGames.OSA.Core;
+using Com.ForbiddenByte.OSA.Core;
 using NodeCanvas.Framework;
 using SlotMaker;
 using UnityEngine;
@@ -105,7 +105,7 @@ namespace BagelCode.OSA_Scroll
             }
             
             if (item != null)
-                item.Init(FindPrefab((int)itemType), itemIndex);
+                item.Init(FindPrefab((int)itemType), _Params.Content, itemIndex);
 
             return item;
         }

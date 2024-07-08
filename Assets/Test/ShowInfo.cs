@@ -39,11 +39,11 @@ public class ShowInfo : MonoBehaviour
         if(datasLength.Count>0)
             SetData();
 
-        MessageDispatcher.Register("OnContentEvent01", OnShowInfo);
+        MessageDispatcher.Register("OnPing", OnShowInfo);
     }
     private void OnDestroy()
     {
-        MessageDispatcher.UnRegister("OnContentEvent01", OnShowInfo);
+        MessageDispatcher.UnRegister("OnPing", OnShowInfo);
     }
 
     int lastGameID = 0;

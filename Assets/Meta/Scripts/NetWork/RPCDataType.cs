@@ -99,7 +99,6 @@ public class RPCName
 
 }
 
-
 namespace RPCBase
 {
     [System.Serializable]

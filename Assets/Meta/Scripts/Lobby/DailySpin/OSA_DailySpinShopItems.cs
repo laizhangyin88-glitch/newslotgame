@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Com.TheFallenGames.OSA.Core;
 using NodeCanvas.Framework;
 using BagelCode.ClientModels;
 using SlotMaker;
 using System.Linq;
+using Com.ForbiddenByte.OSA.Core;
 
 namespace BagelCode
 {
@@ -69,7 +69,7 @@ namespace BagelCode
         protected override DailySpinShopItemViewHolder CreateViewsHolder(int itemIndex)
         {
             var viewHolder = new DailySpinShopItemViewHolder();
-            viewHolder.Init(_Params.prefab, itemIndex);
+            viewHolder.Init(_Params.prefab, _Params.Content, itemIndex);
 
             return viewHolder;
         }

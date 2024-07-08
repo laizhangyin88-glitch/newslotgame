@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.Audio;
 using SlotMaker;
 
-
 namespace BagelCode
 {
     public class MetaStreamingSoundController : MonoBehaviour

@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using BagelCode.ClientModels;
-using Com.TheFallenGames.OSA.Core;
+using Com.ForbiddenByte.OSA.Core;
 using NodeCanvas.Framework;
 using SlotMaker;
 using UnityEngine;
@@ -68,7 +68,7 @@ namespace BagelCode
         protected override ScratcherCoverViewHolder CreateViewsHolder(int itemIndex)
         {
             ScratcherCoverViewHolder viewHolder = new ScratcherCoverViewHolder();
-            viewHolder.Init(FindPrefab(), itemIndex);
+            viewHolder.Init(FindPrefab(), _Params.Content ,itemIndex);
 
             return viewHolder;
         }

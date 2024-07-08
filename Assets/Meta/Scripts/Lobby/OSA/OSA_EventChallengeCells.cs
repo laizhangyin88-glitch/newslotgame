@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Com.TheFallenGames.OSA.Core;
 using NodeCanvas.Framework;
+using Com.ForbiddenByte.OSA.Core;
 
 namespace BagelCode.OSA_Scroll
 {
@@ -73,7 +73,7 @@ namespace BagelCode.OSA_Scroll
         protected override EventChallengeCellViewHolder CreateViewsHolder(int itemIndex)
         {
             var viewHolder = new EventChallengeCellViewHolder();
-            viewHolder.Init(_Params.prefab, itemIndex);
+            viewHolder.Init(_Params.prefab, _Params.Content, itemIndex);
 
             return viewHolder;
         }

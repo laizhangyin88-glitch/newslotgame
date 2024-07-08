@@ -1,7 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Com.TheFallenGames.OSA.Core;
+using Com.ForbiddenByte.OSA.Core;
 
 namespace BagelCode
 {

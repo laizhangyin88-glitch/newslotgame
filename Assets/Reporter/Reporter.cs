@@ -1737,6 +1737,11 @@ public class Reporter : MonoBehaviour
 		return false;
 	}
 
+    bool isKeyDown()
+    {
+        return Input.GetKeyDown(KeyCode.R);
+    }
+
 	float lastClickTime = -1;
 	bool isDoubleClickDone()
 	{
@@ -1873,7 +1878,7 @@ public class Reporter : MonoBehaviour
 #endif
 
 		calculateStartIndex();
-		if (!show && isGestureDone()) {
+		if (!show && isGestureDone() || isKeyDown()) {
 			doShow();
 		}
 
