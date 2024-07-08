@@ -1,7 +1,6 @@
 using UnityEngine;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
-using Sirenix.Utilities;
 
 namespace SlotMaker.Tasks.Actions
 {

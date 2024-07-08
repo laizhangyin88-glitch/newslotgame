@@ -146,6 +146,7 @@ public class MiniGameDataManagers
                 doorController.ResetAutoSpin();
             }
         }
+        GSManager.Instance.GetHandler("Base Games BGM").Play();
     }
 
     public void ShowGameReward(long total)
@@ -193,14 +194,24 @@ public class MiniGameDataManagers
             Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
             if (spinBB != null)
             {
-                string responseNew = spinBB.value.GetValue<string>("responseNew");
-                if (!string.IsNullOrEmpty(responseNew))
+                try
                 {
-                    JSONNode res = JSONNode.Parse(responseNew);
-                    if (res != null)
+                    var responseNew = spinBB.value.GetVariable<string>("responseNew");
+                    if (responseNew != null)
                     {
-                        return res["game_result"]["jackpot_info"] != null;
+                        if (!string.IsNullOrEmpty(responseNew.value))
+                        {
+                            JSONNode res = JSONNode.Parse(responseNew.value);
+                            if (res != null)
+                            {
+                                return res["game_result"]["jackpot_info"] != null;
+                            }
+                        }
                     }
+                }
+                catch
+                {
+                     
                 }
             }
         }
