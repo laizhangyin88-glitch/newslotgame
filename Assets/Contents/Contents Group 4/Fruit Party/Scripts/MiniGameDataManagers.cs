@@ -37,7 +37,7 @@ public class MiniGameDataManagers
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = new MiniGameDataManagers();
             }
@@ -66,7 +66,7 @@ public class MiniGameDataManagers
             var temp = node[i];
             Game1Data data = new Game1Data();
             data.card_index = temp["card_index"];
-            if(data.card_index == 100)
+            if (data.card_index == 100)
             {
                 data.card_index = 10;//退出图标转义为 10
             }
@@ -78,7 +78,7 @@ public class MiniGameDataManagers
                 data.middle_list[j] = ttt[j];
             }
             //Debug.LogError("转灯结果......" + data.card_index);
-            if(data.round_mutiple > 0)
+            if (data.round_mutiple > 0)
             {
                 //Debug.LogError("击中............................................." + data.card_index);
             }
@@ -86,8 +86,8 @@ public class MiniGameDataManagers
         }
         //Debug.LogError(game1Datas.Count); 
     }
-     
-    public void FillGame2Data(JSONNode node) 
+
+    public void FillGame2Data(JSONNode node)
     {
         game2Datas.Clear();
         Debug.LogError("免费游戏的数据..................." + node.ToString());
@@ -116,7 +116,7 @@ public class MiniGameDataManagers
     }
 
     public void FillGame3Data(JSONNode node)
-    { 
+    {
         Debug.LogError("免费游戏的数据..................." + node.ToString());
         game3Datas.Clear();
         for (int i = 0; i < node.Count; i++)
@@ -125,7 +125,7 @@ public class MiniGameDataManagers
             Game3Data game3Data = new Game3Data();
             game3Data.is_bonus = temp["is_bonus"];
             game3Data.card_index = temp["card_index"];
-            if(game3Data.card_index == 100)
+            if (game3Data.card_index == 100)
             {
                 game3Data.card_index = 10;
             }
@@ -138,7 +138,7 @@ public class MiniGameDataManagers
     public void ResetAutoSpin()
     {
         GameObject door = BlackboardUtils.GetGameContentsBlackboard().GetValue<GameObject>("Door");
-          if (door != null)
+        if (door != null)
         {
             DoorController doorController = door.GetComponent<DoorController>();
             if (doorController != null)
@@ -164,7 +164,7 @@ public class MiniGameDataManagers
             long temp = BlackboardUtils.FindVariable<long>("/me/credit").value;
 
             int line = BlackboardUtils.GetOrCreateVariable<int>(null, "./gameNew/selectLine").value;
-            long betCredit = BlackboardUtils.FindVariable<long>("./betCredit").value;         
+            long betCredit = BlackboardUtils.FindVariable<long>("./betCredit").value;
             BlackboardQueryUtils.SetMyCredit(temp + total - line * betCredit);
 
             //Debug.LogError("after................" + BlackboardUtils.FindVariable<long>("/me/credit").value);
@@ -211,10 +211,16 @@ public class MiniGameDataManagers
                 }
                 catch
                 {
-                     
+
                 }
             }
         }
         return false;
     }
-} 
+
+
+    public static void StopBGM()
+    {
+        MessageDispatcher.Dispatch("OnSoundEvent", new EventData("StopBgm"));
+    }
+}
