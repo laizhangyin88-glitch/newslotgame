@@ -30,7 +30,6 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Sirenix.OdinInspector;
 using System.Collections;
-using static Boo.Lang.Builtins;
 
 public enum SceneBtnType
 {

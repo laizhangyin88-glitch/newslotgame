@@ -1,15 +1,15 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Com.TheFallenGames.OSA.Core;
 using SlotMaker;
 using BagelCode;
 using BagelCode.ClientModels;
 using BagelCode.EpicPass;
 using NodeCanvas.Framework;
+using Com.ForbiddenByte.OSA.Core;
 
 namespace BagelCode.OSA_Scroll
 {
@@ -53,7 +53,7 @@ namespace BagelCode.OSA_Scroll
         protected override PopupEpicPassV2RewardItemViewHolder CreateViewsHolder(int itemIndex)
         {
             PopupEpicPassV2RewardItemViewHolder viewHolder = new PopupEpicPassV2RewardItemViewHolder();
-            viewHolder.Init(_Params.GetPrefab(transform), itemIndex);
+            viewHolder.Init(_Params.GetPrefab(transform), _Params.Content, itemIndex);
 
             return viewHolder;
         }

@@ -41,7 +41,7 @@ namespace SlotMaker
                 return true;
             if (fmt >= TextureFormat.ETC2_RGB && fmt <= TextureFormat.ETC2_RGBA8)
                 return true;
-            if (fmt >= TextureFormat.ASTC_RGB_4x4 && fmt <= TextureFormat.ASTC_RGBA_12x12)
+            if (fmt >= TextureFormat.ASTC_4x4 && fmt <= TextureFormat.ASTC_12x12)
                 return true;
             if (fmt >= TextureFormat.DXT1Crunched && fmt <= TextureFormat.DXT5Crunched)
                 return true;
