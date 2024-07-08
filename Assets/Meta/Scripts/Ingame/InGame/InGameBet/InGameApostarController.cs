@@ -10,9 +10,9 @@ public class InGameApostarController : MonoBehaviour
 {
     private MessageDelegates creditDelegates;
 
-    //ContextTextMeshProUGUI cxeText;
+    ContextTextMeshProUGUI cxeText;
     //IContextText cxeText;
-    ContextElement cxeText;
+    //ContextElement cxeText;
     ContextElement cxeRoot;
     private void Start()
      {
@@ -20,7 +20,8 @@ public class InGameApostarController : MonoBehaviour
         cxeRoot = transform.GetComponent<ContextElement>();
         cxeRoot.UpdateContext(true);
         //cxeText = ContextUtils.FindElement(cxeRoot, "Text Apostar", ContextSearchingType.ChildrenSearch) as IContextText;
-        cxeText = ContextUtils.FindElement(cxeRoot, "Text Apostar", ContextSearchingType.ChildrenSearch) as ContextElement;
+        //cxeText = ContextUtils.FindElement(cxeRoot, "Text Apostar", ContextSearchingType.ChildrenSearch) as ContextElement;
+        cxeText = ContextUtils.FindElement(cxeRoot, "Text Apostar", ContextSearchingType.ChildrenSearch) as ContextTextMeshProUGUI;
         creditDelegates = new MessageDelegates
          (
              new Dictionary<string, MessageDispatcher.EventDelegate>
@@ -49,7 +50,7 @@ public class InGameApostarController : MonoBehaviour
         }
         int selectLine = BlackboardUtils.FindVariable<int>("./gameNew/selectLine").value;
         cxeText.SetText($"{(totalBetCredit/ selectLine).ToString("N0")}"); 
-		//ContextUtils.SetGlobalText(cxeText, "TEXT_BET_CREDIT", totalBetCredit / selectLine);
+		//ContextUtils.SetGlobalText((ContextElement)cxeText, "TEXT_BET_CREDIT", totalBetCredit / selectLine);
      }
 
 

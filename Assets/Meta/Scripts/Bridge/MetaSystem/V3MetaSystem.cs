@@ -361,8 +361,8 @@ namespace BagelCode
 
         public void SlotSpinSuccessNew(JSONNode res, int gameId, long betCredit, long extraBetCredit, SpinType spinType)
         {
-            Debug.LogError("拉霸下发数据......." + res.ToString());
-            Debug.LogError("拉霸结果....... + " + res["game_result"]["first_index_list"].ToString());
+            //Debug.LogError("拉霸下发数据......." + res.ToString());
+            //Debug.LogError("拉霸结果....... + " + res["game_result"]["first_index_list"].ToString());
             //var contentStr = "{\"game_id\":21,\"result\":{\"reel_output_list\":[47,19,36,21,38],\"paytable_index\":0,\"earn_credit\":0},\"bonus_result\":[],\"custom_data\":{},\"reel_set_index\":{\"current_index\":0,\"next_index\":0},\"free_spin_info\":{\"type\":0,\"bet\":0,\"count\":0,\"spun_count\":0,\"total_count\":0,\"initial_count\":0,\"multiplier\":0,\"sticky_wild\":[],\"extra_data\":{}},\"jackpot_info\":{\"type\":2,\"info\":{\"eligible_min_bet\":0,\"eligible_min_bet_per_jackpot\":[0,0,0,0,0],\"base_bet\":30,\"info_list\":[{\"current\":241.02,\"prev\":240.96},{\"current\":913.5,\"prev\":913.38},{\"current\":2375.85,\"prev\":2375.55},{\"current\":15100.68,\"prev\":15100.44},{\"current\":30050.34,\"prev\":30050.22}]}},\"contents_store\":{}}";
             //var content = JSONNode.Parse(contentStr);
 
