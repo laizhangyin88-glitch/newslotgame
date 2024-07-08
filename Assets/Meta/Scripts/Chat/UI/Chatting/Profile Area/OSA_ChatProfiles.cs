@@ -1,9 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BagelCode.ClientModels;
-using Com.TheFallenGames.OSA.Core;
 using System;
+using Com.ForbiddenByte.OSA.Core;
 
 namespace BagelCode.Chat
 {

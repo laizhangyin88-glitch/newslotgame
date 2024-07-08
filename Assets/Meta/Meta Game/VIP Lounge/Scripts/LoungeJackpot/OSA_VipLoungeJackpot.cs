@@ -1,14 +1,14 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Com.TheFallenGames.OSA.Core;
 using SlotMaker;
 using BagelCode;
 using BagelCode.ClientModels;
 using BagelCode.VipLounge;
 using Sirenix.OdinInspector;
 using NodeCanvas.Framework;
+using Com.ForbiddenByte.OSA.Core;
 
 namespace BagelCode.OSA_Scroll
 {
@@ -66,7 +66,7 @@ namespace BagelCode.OSA_Scroll
 
             _Params.data.Clear();
             _Params.data.AddRange(dataList);
-            _Params.effects.loopItems = true;
+            _Params.effects.LoopItems = true;
 
             ResetItems(dataList.Count);
             ScrollTo(GetGrandIndex(dataList), 0.5f, 0.5f);
@@ -75,7 +75,7 @@ namespace BagelCode.OSA_Scroll
         protected override VipLoungeJackpotItemViewHolder CreateViewsHolder(int itemIndex)
         {
             VipLoungeJackpotItemViewHolder viewHolder = new VipLoungeJackpotItemViewHolder();
-            viewHolder.Init(_Params.GetPrefab(_Params.data[itemIndex].winType), itemIndex);
+            viewHolder.Init(_Params.GetPrefab(_Params.data[itemIndex].winType), _Params.Content, itemIndex);
             return viewHolder;
         }
 
@@ -273,8 +273,8 @@ namespace BagelCode.OSA_Scroll
         private IEnumerator SimulationCoroutine(int targetIndex, float animationTime, int loopCount, System.Action endCallback = null, System.Action spinDurationCallback = null, System.Action successCallback = null)
         {
             isAppear = true;
-            _Params.effects.loopItems = true;
-            _Params.effects.inertiaDecelerationRate = 0.0f;
+            _Params.effects.LoopItems = true;
+            _Params.effects.InertiaDecelerationRate = 0.0f;
 
             SetTargetIndexList(targetIndex);
 
@@ -294,7 +294,7 @@ namespace BagelCode.OSA_Scroll
             bool spinDuration = false;
             while (deltaTime < animationTime)
             {
-                deltaTime += Time.deltaTime;
+                deltaTime += UnityEngine.Time.deltaTime;
                 UpdateVelocity(velocityMultiplier * curve.Evaluate(deltaTime / animationTime) * -1.0f);
 
                 currentItem = GetCurrentItem();
@@ -313,7 +313,7 @@ namespace BagelCode.OSA_Scroll
                 yield return new WaitForFixedUpdate();
             }
 
-            _Params.effects.inertiaDecelerationRate = 0.8f;
+            _Params.effects.InertiaDecelerationRate = 0.8f;
             float duration = 0.1f;
             if (CheckItemIsTarget(currentItem, targetIndex) && (currentItem.IsCenter(middleY, currentItem.GetHeight() * centerWeight) || currentItem.GetPosY() <= middleY))
             {

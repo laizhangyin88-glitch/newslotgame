@@ -912,6 +912,8 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 globalStore.gameState = GameState.Hall;
                 globalStore.nowGameID = -1;
 
+                if (data.HasKey("bonus_result"))
+                    MessageDispatcher.Dispatch("SetJackpot", new EventData<string>("SetJackpot", data["bonus_result"].ToString()));
                 break;
 
             case RPCName.enterGame://进入子游戏
@@ -974,10 +976,13 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 if(!isChangeCreditAnimation)
                     SetMyCredit();
 
-                if (rpcName == RPCName.ping && data.HasKey("cur_time"))
+                if (rpcName == RPCName.ping)
                 {
-                    MessageDispatcher.Dispatch("OnPing", new EventData<string>("ShowInfo", data.ToString()));
-                }
+                    if (data.HasKey("cur_time"))
+                        MessageDispatcher.Dispatch("OnPing", new EventData<string>("ShowInfo", data.ToString()));
+                    if (data.HasKey("bonus_result"))
+                        MessageDispatcher.Dispatch("UpdateJackpot", new EventData<string>("UpdateJackpot", data["bonus_result"].ToString()));
+                }       
 
                 break;
             default:
