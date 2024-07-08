@@ -69,6 +69,7 @@ public class DoorSelectItem : MonoBehaviour
         long betCredit = BlackboardUtils.FindVariable<long>("./betCredit").value;
         long extraBetCredit = BlackboardUtils.FindVariable<long>("./extraBetCredit").value;
         this._DoorController.isSelect = true;
+        GSManager.Instance.GetHandler("door_select_E01").Play();
         Dictionary<string, object> req = new Dictionary<string, object>
         {
             {"bet",betCredit},

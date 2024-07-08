@@ -78,7 +78,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
 
         BetTxt.text = "BET \n" + currentBet.ToString("N0");
 
-        TotalWinTxt.text = "0";
+        TotalWinTxt.text = "Total Win \n0";
         BonusText.text = "0";
 
         InitRewardScoreList();

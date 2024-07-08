@@ -159,16 +159,19 @@ namespace BagelCode.Tasks.Actions.Contents
             Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
             string responseNew = spinBB.value.GetValue<string>("responseNew");
             res = JSONNode.Parse(responseNew);
-            Debug.LogError("拉霸下发数据......." + res.ToString());
-            Debug.LogError("拉霸结果....... + " + res["game_result"]["first_index_list"].ToString());
-            for (int i = 0; i < res["game_result"]["total_result"].Count; i++)
-            {
-                var temp = res["game_result"]["total_result"][i];
-                if(temp != null && temp["win_line"] != null)
-                {
-                    Debug.LogError(temp["win_line"].ToString());
-                }
-            }
+
+            //Debug.LogError("拉霸下发数据......." + res.ToString());
+            //Debug.LogError("拉霸结果....... + " + res["game_result"]["first_index_list"].ToString());
+
+            //for (int i = 0; i < res["game_result"]["total_result"].Count; i++)
+            //{
+            //    var temp = res["game_result"]["total_result"][i];
+            //    if(temp != null && temp["win_line"] != null)
+            //    {
+            //        Debug.LogError(temp["win_line"].ToString());
+            //    }
+            //}
+
             JSONNode lineResult = res["game_result"]["total_result"];
             var list = new List<List<int>>();
             for (int i = 0; i < lineResult.Count; i++)
