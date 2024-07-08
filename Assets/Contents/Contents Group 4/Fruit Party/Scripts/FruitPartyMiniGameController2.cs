@@ -247,6 +247,10 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
         _loopTimer?.Pause();
         isGameOver = true;
         MaskButton.gameObject.SetActive(true);
+        foreach (var item in selectItemControllers)
+        {
+            item.SetColor(Color.gray);
+        } 
         this.DelayAction(2, () =>
         {
             if (dataIndex >= game2Datas.Count - 1)
@@ -305,6 +309,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
             }
             this.DelayAction(2.5f, () =>
             {
+                if (isGameOver) return; 
                 foreach (var item in selectItemControllers)
                 {
                     if (!item.isSelected)

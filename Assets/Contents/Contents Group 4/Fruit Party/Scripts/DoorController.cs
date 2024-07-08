@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static SlotMaker.IoC.Strategy.Tween.TweenEase;
 
 public class DoorController : MonoBehaviour
 {
@@ -58,6 +59,9 @@ public class DoorController : MonoBehaviour
         SetAutoSpinFalse();
         currentBet = BlackboardUtils.FindVariable<long>("./betCredit").value;
         isSelect = false;
+        
+        GSManager.Instance.GetHandler("Base Games BGM").Clear();
+        GSManager.Instance.GetHandler("door_A15").Play();
 
         listParent = transform.Find("list");
         BetValueTxt = transform.Find("bet/BetValue").GetComponent<Text>();
@@ -78,11 +82,13 @@ public class DoorController : MonoBehaviour
         _loopTimer?.Cancel();
         currentCountDown = 5;
         TimeTxt.text = currentCountDown.ToString();
+        GSManager.Instance.GetHandler("cound_down_C01").Play();
         _loopTimer = this.LoopAction(1, (time) =>
         {
             currentCountDown--;
             TimeTxt.text = currentCountDown.ToString();
-            if(currentCountDown <= 0)
+            GSManager.Instance.GetHandler("cound_down_C01").Play();
+            if (currentCountDown <= 0)
             {
                 TimeTxt.text = "";
                 AutoSelect();
@@ -165,6 +171,7 @@ public class DoorController : MonoBehaviour
                     break;
             }
             Clear();
+            GSManager.Instance.GetHandler("door_A15").Clear();
         });
     }
 
