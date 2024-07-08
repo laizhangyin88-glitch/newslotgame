@@ -5,7 +5,6 @@ using ParadoxNotion.Design;
 using ParadoxNotion;
 using NodeCanvas.Framework;
 using SlotMaker;
-using System.Runtime.CompilerServices;
 
 namespace BagelCode.Tasks.Actions.Contents
 {
@@ -81,7 +80,6 @@ namespace BagelCode.Tasks.Actions.Contents
 
         public long FindEarnCredit(int symbolIndex, int hitCount)
         {
-            if (symbolIndex >= payTable.value.Count) return 0;
             return payTable.value[symbolIndex].GetValue<List<long>>("value")[hitCount - 1];
         }
 
@@ -92,7 +90,6 @@ namespace BagelCode.Tasks.Actions.Contents
                 if (SymbolMask.HasAttribute((SymbolAttribute)mixedWinMask, mixedLineWinInfos[count].masks[0]))
                 {
                     symbolIndex = mixedLineWinInfos[count].payIndex;
-                    if (symbolIndex >= payTable.value.Count) return 0;
                     return payTable.value[symbolIndex].GetValue<List<long>>("value")[mixedHitCount - 1];
                 }
             }
@@ -147,9 +144,7 @@ namespace BagelCode.Tasks.Actions.Contents
                     ++mixedHitCount;
                     mixedWinMask = (int)symbolInfo.mask;
                     if (SymbolMask.HasWild(winSymbolInfo))
-                    {
                         ++wildHitCount;
-                    }
                 }
                 else
                 {
@@ -258,285 +253,27 @@ namespace BagelCode.Tasks.Actions.Contents
             return symbolWin.earnCredit;
         }
 
-        private int GetPayLineIndex(List<int> line)
-        {
-            
-            for (int i = 0; i < payLine.value.Count; i++)
-            {
-                var tempLine = GetPayLine(i);
-                int count = 0;
-                for (int j = 0; j < tempLine.Count; j++)
-                {
-                    if ((tempLine[j] == line[j]))
-                    {
-                        count++;
-                        if(count >= 5)
-                        {
-                            return i;
-                        }
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-            }
-            return 0;
-        }
-
-        /// <summary>
-        /// 判断是不是万能牌
-        /// </summary>
-        /// <param name="symbolInfo"></param>
-        /// <returns></returns>
-        private bool isWild(int index, List<List<int>> shuffling_list)
-        {
-            return shuffling_list[0][index] == 9 || shuffling_list[1][index] == 9 || shuffling_list[2][index] == 9;
-        }
-
-        private bool isSameSymbol(int index, List<List<int>> shuffling_list, int symbol)
-        {
-            return shuffling_list[0][index] == symbol || shuffling_list[1][index] == symbol || shuffling_list[2][index] == symbol;
-        }
-
-        private long getLineCredit(int lineIndex)
-        {
-            long result = 0;
-            Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-            var response = spinBB.value.GetValue<Blackboard>("response");
-            List<Dictionary<string, object>> list = response.GetValue<List<Dictionary<string, object>>>("win_line_reward_list");
-            for (int i = 0; i < list.Count; i++)
-            {
-                var temp = list[i];
-                if (temp.TryGetValue("index", out object value))
-                {
-
-                    if (int.Parse(value.ToString()) == lineIndex)
-                    {
-                        if (temp.TryGetValue("credit", out object credit))
-                        {
-                            result = long.Parse(credit.ToString());
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// 转换牌型数据 3x5 转换为  5x3
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        private int[,] TransposeArray(List<List<int>> input)
-        {
-            int rows = input.Count; //5
-            int cols = input[0].Count;//3 
-            var result = new int[cols, rows];
-            for (int i = 0; i < input.Count; i++) 
-            { 
-                var temp = input[i];
-                for (int j = 0; j < temp.Count; j++)
-                {
-                    result[j, i] = temp[j];
-                }
-            }
-            return result;
-        }
-
-        private List<Cell> fillCell(List<int> line)
-        {
-            List<Cell> result = new List<Cell>();
-            for (int i = 0; i < 5; i++)
-            {
-                Cell cell = new Cell(i, line[i]);
-                result.Add(cell);
-            }
-            return result;
-        }
-
-        private long FillLineData(List<SymbolWin> winList, int dircetion)
-        {
-            var slotData = ContentCustomData.GetSlotData(slotIndex.value);
-            var deck = (Deck)slotData.deck.Clone();
-            Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-            var response = spinBB.value.GetValue<Blackboard>("response");
-            var list = response.GetValue<List<List<int>>>("total_line_result");
-            var shuffling_list = response.GetValue<List<List<int>>>("shuffling_list");
-            var newList = TransposeArray(shuffling_list);
-            long totalEarnCredit = 0L;
-            if (list != null && list.Count > 0)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    List<int> line = list[i];
-                    var cellLine = fillCell(line);
-                    SymbolInfo temp = null;
-                    int hitCount = 0;
-                    SymbolWin symbolWin = new SymbolWin();
-                    symbolWin.direction = dircetion;
-                    int lineIndex = GetPayLineIndex(line);
-                    symbolWin.lineIndex = lineIndex + 1;
-                    for (int j = 0; j < cellLine.Count; j++)
-                    {
-                        var cell = cellLine[j];
-                        if (temp == null)
-                        {
-                            temp = deck.deck[cell.column][cell.row]; 
-                            hitCount++;
-                            symbolWin.symbolIndex = temp.symbol;
-                            symbolWin.cells.Add(new Cell(j, line[j]));
-                        }
-                        else
-                        {
-                            if (temp.symbol == deck.deck[cell.column][cell.row].symbol || newList[cell.column, cell.row] == 9)
-                            {
-                                symbolWin.cells.Add(new Cell(j, line[j]));
-                                hitCount++;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                    } 
-                    long lineMultiplier = 1L;
-                    lineMultiplier = (long)OperationTools.Operate(lineMultiplier, GetSymbolMultiplier(temp.symbol), MultiplierOperation);
-                    if (MultiplierOperation == OperationMethod.Add && lineMultiplier != 1L)
-                        --lineMultiplier;
-                    symbolWin.hitCount = hitCount; 
-                    symbolWin.multiplier = multiplier.value * lineMultiplier;
-                    //long earnCredit = FindEarnCredit(temp.symbol, hitCount);
-                    symbolWin.earnCredit = getLineCredit(lineIndex); //earnCredit * betPerLine * symbolWin.multiplier;
-                    totalEarnCredit += symbolWin.earnCredit; 
-                    winList.Add(symbolWin);
-                }
-            }
-            return totalEarnCredit;
-        }
-
-        /// <summary>
-        /// 查找铃铛得分
-        /// </summary>
-        /// <param name="list"></param>
-        private void FindBell(List<SymbolWin> list)
-        {
-            var slotData = ContentCustomData.GetSlotData(slotIndex.value);
-            var deck = (Deck)slotData.deck.Clone();
-            int count = 0;
-            SymbolWin symbolWin = new SymbolWin();
-            for (int i = 0; i < deck.deck.Count; i++)
-            {
-                List<SymbolInfo> infos = deck.deck[i];
-                for (int j = 0; j < infos.Count; j++)
-                {
-                    SymbolInfo info = infos[j];
-                    if(info.symbol == 9)///水果派对，9是免费游戏牌
-                    {
-                        count++;
-                        symbolWin.symbolIndex = info.symbol;
-                        symbolWin.hitCount = count;
-
-                        symbolWin.cells.Add(new Cell(i, j));
-                    }
-                }
-            }
-            if (count == 2)//有两张以上的免费牌
-            {
-                Debug.LogError("摇到两个免费牌");
-                Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-                var response = spinBB.value.GetValue<Blackboard>("response");
-                long temp = response.GetValue<long>("free_game_credit");
-                symbolWin.earnCredit = temp;
-                symbolWin.multiplier = 1;
-                winList.Add(symbolWin);
-            }
-            if(count >= 3)
-            {
-                Debug.LogError("触发免费游戏了......");
-                winList.Add(symbolWin);
-                
-                //Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-                //var response = spinBB.value.GetValue<Blackboard>("response");
-                //long temp = response.GetValue<long>("free_game_credit");
-                symbolWin.earnCredit = 0;
-            }
-        }
-        /// <summary>
-        /// 查找是不是触发小游戏
-        /// </summary>
-        protected void FindMiniGame(List<SymbolWin> list)
-        {
-            var slotData = ContentCustomData.GetSlotData(slotIndex.value);
-            var deck = (Deck)slotData.deck.Clone();
-            int count = 0;
-            SymbolWin symbolWin = new SymbolWin();
-            for (int i = 0; i < deck.deck.Count; i++)
-            {
-                List<SymbolInfo> infos = deck.deck[i];
-                for (int j = 0; j < infos.Count; j++)
-                {
-                    SymbolInfo info = infos[j];
-                    if (info.symbol == 10)///水果派对，10是小游戏牌
-                    {
-                        count++;
-                        symbolWin.symbolIndex = info.symbol;
-                        symbolWin.hitCount = count;
-                        symbolWin.multiplier = 1;
-                        symbolWin.cells.Add(new Cell(i, j));
-                    }
-                }
-            } 
-            if(count >= 3)
-            {
-                //ContentBlackboard.Get().SetValue("isTriggerMiniGame", true);
-                BlackboardUtils.GetOrCreateVariable<bool>(BlackboardUtils.GetContentFSMBlackboard(), "isTriggerMiniGame").value = true;
-                list.Add(symbolWin);
-            }
-        }
-
         protected override void OnExecute()
         {
             mixedLineWinInfos = ContentCustomData.GetSlotData(slotIndex.value).mixedLineWinInfos;
+
             long totalEarnCredit = 0L;
             winList = new List<SymbolWin>();
-            if (globalStore.IsInNewGame())
+            for (int i = 0; i < payLine.value.Count; ++i)
             {
-                BlackboardUtils.GetOrCreateVariable<bool>(BlackboardUtils.GetContentFSMBlackboard(),"isTriggerMiniGame").value = false;
-                totalEarnCredit += FillLineData(winList, 1);
-                if (bidirectional.value)  
-                    totalEarnCredit += FillLineData(winList, -1); 
-
-                FindBell(winList);
-                FindMiniGame(winList);
-                ///使用服务器下发的数据
-                Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-                var response = spinBB.value.GetValue<Blackboard>("response");
-                var total = response.GetValue<long>("spin_once_earn_credit");
-                totalEarnCredit = total;
-            }
-            else
-            {
-                for (int i = 0; i < payLine.value.Count; ++i)
-                {
-                    totalEarnCredit += CalcOneLine(i, 1);
-                    if (bidirectional.value)
-                        totalEarnCredit += CalcOneLine(i, -1);
-                }
+                totalEarnCredit += CalcOneLine(i, 1);
+                if (bidirectional.value)
+                    totalEarnCredit += CalcOneLine(i, -1);
             }
             winList.Sort();
+
             var spin = BlackboardUtils.FindVariable<Blackboard>(null, "./spin").value;
             BlackboardUtils.SetOrCreateValue<List<SymbolWin>>(spin, "winList", winList);
             ContentBlackboardUtils.AddEarnCredit(spin, totalEarnCredit);
-            Blackboard bb = ContentBlackboard.Get();
-            //bb.SetValue("earnCredit", totalEarnCredit);
-            //bb.GetVariable<long>("earnCredit").value = totalEarnCredit;
-            BlackboardUtils.GetOrCreateVariable<long>(bb, "earnCredit").value = totalEarnCredit;
+
             saveAs.value = winList;
+
             EndAction();
         }
-    } 
-
+    }
 }

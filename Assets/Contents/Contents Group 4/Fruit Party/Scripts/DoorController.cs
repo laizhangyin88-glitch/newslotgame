@@ -1,6 +1,9 @@
+using BagelCode;
 using BagelCode.ClientModels;
 using GameUtil;
 using NodeCanvas.Framework;
+using ParadoxNotion;
+using SimpleJSON;
 using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,6 +36,7 @@ public class DoorController : MonoBehaviour
 
     private bool autoSpinValue = false;
 
+    public bool isSelect = false;
     private void SetAutoSpinFalse()
     {
         var autoSpin = BlackboardUtils.FindVariable<bool>("./autoSpin");
@@ -50,8 +54,10 @@ public class DoorController : MonoBehaviour
 
     public void OnStart()
     {
+        Debug.LogError("显示选中小游戏界面..................");
         SetAutoSpinFalse();
         currentBet = BlackboardUtils.FindVariable<long>("./betCredit").value;
+        isSelect = false;
 
         listParent = transform.Find("list");
         BetValueTxt = transform.Find("bet/BetValue").GetComponent<Text>();
@@ -84,9 +90,10 @@ public class DoorController : MonoBehaviour
             }
         });
     }
-
+     
     private void AutoSelect()
     {
+        if (isSelect) return;
         if(doorSelectItems.Count > 0)
         {
             _loopTimer?.Cancel();
@@ -105,7 +112,7 @@ public class DoorController : MonoBehaviour
                 go.transform.SetParent(listParent, false);
                 var select = go.GetComponent<DoorSelectItem>();
                 select.SetIndex(i);
-                select.DoorController = this;
+                select._DoorController = this;
                 doorSelectItems.Add(select);
             }
         }
@@ -114,9 +121,25 @@ public class DoorController : MonoBehaviour
     public void SetClickReward()
     {
         _loopTimer?.Cancel();
-        var value = BlackboardUtils.GetOrCreateVariable<long>(ContentBlackboard.Get(), "jackpot_reward3");
-        totalWinValueTxt.text = value.value.ToString("N0");
-        rewardValue = value.value;
+        //var value = BlackboardUtils.GetOrCreateVariable<long>(ContentBlackboard.Get(), "jackpot_reward3");
+        //totalWinValueTxt.text = value.value.ToString("N0");
+        //rewardValue = value.value;
+        Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
+        string responseNew = spinBB.value.GetValue<string>("responseNew");
+        JSONNode res = JSONNode.Parse(responseNew);
+        if (res["game_result"]["jackpot_info"]["jackpot_reward3"] != null)
+        {
+            long value = res["game_result"]["jackpot_info"]["jackpot_reward3"].AsLong;
+            if (value > 0) 
+            {
+                totalWinValueTxt.text = ((long)value).ToString("N0");
+                long temp = BlackboardUtils.FindVariable<long>("/me/credit").value;
+                BlackboardQueryUtils.SetMyCredit(temp + value);
+                rewardValue = value;
+                MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
+
+            }
+        }
     }
      
     public void PlayMiniGame(int index)

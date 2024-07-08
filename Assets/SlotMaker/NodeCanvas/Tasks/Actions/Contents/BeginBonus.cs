@@ -18,7 +18,6 @@ namespace BagelCode.Tasks.Actions.Contents
 
         protected override void OnExecute()
         {
-            Debug.LogError("触发执行了这个脚本...........................");
             var cb = ContentBlackboard.Get();
             var spin = cb.GetValue<Blackboard>("spin");
             var parent = cb.GetValue<Blackboard>("current"); 

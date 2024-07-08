@@ -3,7 +3,7 @@ using SlotMaker;
 using System.Collections.Generic;
 
 public class globalStore
-{
+{ 
     public static GameState gameState = GameState.None;
 
     public static string gToken = null;

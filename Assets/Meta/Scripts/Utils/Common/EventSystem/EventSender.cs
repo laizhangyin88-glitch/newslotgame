@@ -257,7 +257,7 @@ namespace BagelCode
         {
             SendGlobalEvent(ON_CUSTOM_EVENT, eventData);
         }
-
+         
         public static void SendGlobalEvent(string eventName)
         {
             SendGlobalEvent(ON_CUSTOM_EVENT, new EventData(eventName));
