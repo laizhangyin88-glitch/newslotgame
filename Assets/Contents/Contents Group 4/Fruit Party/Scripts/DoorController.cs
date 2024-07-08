@@ -59,8 +59,8 @@ public class DoorController : MonoBehaviour
         SetAutoSpinFalse();
         currentBet = BlackboardUtils.FindVariable<long>("./betCredit").value;
         isSelect = false;
-        
-        GSManager.Instance.GetHandler("Base Games BGM").Clear();
+
+        MiniGameDataManagers.StopBGM();  
         GSManager.Instance.GetHandler("door_A15").Play();
 
         listParent = transform.Find("list");
