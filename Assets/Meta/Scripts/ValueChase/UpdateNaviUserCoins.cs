@@ -127,12 +127,12 @@ namespace BagelCode
 
             if (UseSimpleFormat())
             {
-                Debug.LogError("更新金币...................................................1   " + coins);
+                //Debug.LogError("更新金币...................................................1   " + coins);
                 property.SetText(StringTableUtils.GetString(tableType, simpleFormatKey, coins));
             }
             else
             {
-                Debug.LogError("更新金币...................................................2   " + coins);
+                //Debug.LogError("更新金币...................................................2   " + coins);
                 property.SetText(StringTableUtils.GetString(tableType, defaultFormatKey, coins));
             }
             prevCoins = coins;
