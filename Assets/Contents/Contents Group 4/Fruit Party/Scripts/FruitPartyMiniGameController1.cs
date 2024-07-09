@@ -1,9 +1,9 @@
-using Boo.Lang;
 using SlotMaker;
 using System;
 using SimpleJSON;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class FruitPartyMiniGameController1 : MonoBehaviour
 {

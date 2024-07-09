@@ -117,6 +117,12 @@ namespace BagelCode.Tasks.Actions.ClientAPI
 
                 string resStr2 = globalStore.gameInfoList.ToString();
 
+                JSONNode excUI = null;
+                if (ApplicationSettings.Instance.isExchangeUI)
+                {
+                    excUI = JSONNode.Parse(TestManager.Instance.getExcUIConfig());
+                }
+
                 Dictionary<string, string> slotWebImageURL = new Dictionary<string, string>();
 
                 Dictionary<int, JSONNode> gameInfos = new Dictionary<int, JSONNode>();
@@ -130,7 +136,10 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                 var j = 0;
                 while (j < response.gameInfoList.Count)
                 {
-                    if (gameIds.Contains(response.gameInfoList[j].gameId))
+                    int id = response.gameInfoList[j].gameId;
+                    if ((excUI != null && excUI.HasKey(id.ToString()) && gameIds.Contains(id))
+                    || (excUI == null && gameIds.Contains(id))
+                    )
                     {
                         j++;
                     }
@@ -142,7 +151,11 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                 j = 0;
                 while (j < response.slotList.Count)
                 {
-                    if (gameIds.Contains(response.slotList[j].gameId))
+                    int id = response.slotList[j].gameId;
+                    //if (gameIds.Contains(id))
+                    if ((excUI != null && excUI.HasKey(id.ToString()) && gameIds.Contains(id))
+                    || (excUI == null && gameIds.Contains(id))
+                    )
                     {
                         j++;
                     }
@@ -166,10 +179,8 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     response.gameInfoList[i].gameType = (BagelCode.ClientModels.GameType)type;
                 }
 
-
                 string oldJson = SlotSimpleJson.SerializeObject(response.gameInfoList);
                 //;  JsonUtility.ToJson(response.gameInfoList);
-
 
                 ClientAPI2Blackboard.Serialize(MainBlackboard.Get(), response);
                 BlackboardUtils.GetOrCreateBlackboard(MainBlackboard.Get(), "shortcut");

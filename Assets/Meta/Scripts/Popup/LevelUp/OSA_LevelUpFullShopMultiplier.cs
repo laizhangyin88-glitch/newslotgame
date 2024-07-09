@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Com.TheFallenGames.OSA.Core;
 using SlotMaker;
+using Com.ForbiddenByte.OSA.Core;
 
 namespace BagelCode.OSA_Scroll
 {
@@ -36,7 +36,7 @@ namespace BagelCode.OSA_Scroll
         {
             LevelUpFullShopMultiplierViewHolder viewHolder = new LevelUpFullShopMultiplierViewHolder();
 
-            viewHolder.Init(_Params.GetPrefab(transform), itemIndex);
+            viewHolder.Init(_Params.GetPrefab(transform), _Params.Content,itemIndex);
             return viewHolder;
         }
 

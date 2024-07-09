@@ -11,10 +11,10 @@ using NodeCanvas.Framework;
 using frame8.Logic.Misc.Other;
 using frame8.Logic.Misc.Other.Extensions;
 using frame8.Logic.Misc.Visual.UI;
-using Com.TheFallenGames.OSA.Core;
 using System.IO;
 using System.Text;
 using SlotMaker.Json;
+using Com.ForbiddenByte.OSA.Core;
 
 namespace BagelCode.OSA_Scroll
 {
@@ -296,7 +296,7 @@ namespace BagelCode.OSA_Scroll
             }
 
             if (item != null)
-                item.Init(FindPrefab((int)itemType, itemIndex), itemIndex);
+                item.Init(FindPrefab((int)itemType, itemIndex), _Params.Content, itemIndex);
 
             return item;
         }
@@ -340,8 +340,8 @@ namespace BagelCode.OSA_Scroll
                 contentsSize -= GetViewportSize();
 
                 double targetWidth = (double)showBackButtonTargetSlotIndex * (double)BaseParameters.DefaultItemSize;
-                targetWidth += (double)((showBackButtonTargetSlotIndex - 1) * (double)BaseParameters.contentSpacing);
-                targetWidth += (double)BaseParameters.contentPadding.left;
+                targetWidth += (double)((showBackButtonTargetSlotIndex - 1) * (double)BaseParameters.ContentSpacing);
+                targetWidth += (double)BaseParameters.ContentPadding.left;
 
                 // page over enable
                 // showBackButtonTargetDelta = targetWidth/contentsSize;

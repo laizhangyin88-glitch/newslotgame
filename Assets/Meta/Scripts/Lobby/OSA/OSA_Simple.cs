@@ -10,7 +10,7 @@ using NodeCanvas.Framework;
 using frame8.Logic.Misc.Other;
 using frame8.Logic.Misc.Other.Extensions;
 using frame8.Logic.Misc.Visual.UI;
-using Com.TheFallenGames.OSA.Core;
+using Com.ForbiddenByte.OSA.Core;
 
 namespace BagelCode.OSA_Scroll
 {
@@ -44,7 +44,7 @@ namespace BagelCode.OSA_Scroll
         protected override BaseItemViewsHolder CreateViewsHolder(int itemIndex)
         {
             var item = new BaseItemViewsHolder();
-            item.Init(Prefab, itemIndex);
+            item.Init(Prefab, _Params.Content, itemIndex);
             return item;
         }
 

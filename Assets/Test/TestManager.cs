@@ -36,7 +36,7 @@ public class TestManager : MonoSingleton<TestManager>
 
     public GameObject inputCustomReels;
 
-
+    public GameObject inputExcUI;
 
     private void Start()
     {
@@ -114,6 +114,37 @@ public class TestManager : MonoSingleton<TestManager>
         String res = inputAutoUrl.GetComponent<InputField>().text ?? "";
         PlayerPrefs.SetString("TestAutoUrl", res);
         return res;
+    }
+
+    public string getExcUIConfig()
+    {
+        string res = null;
+        if (inputExcUI == null)
+        {
+            res = "";
+        }
+        else
+        {
+            res = inputExcUI.GetComponent<InputField>().text ?? "";
+            inputExcUI.GetComponent<InputField>().text = "";
+        }
+
+        if (res == "")
+        {
+            TextAsset jsn8 = Resources.Load<TextAsset>("ExcUI");
+            res = PlayerPrefs.GetString("ExcUI", jsn8.text);
+        }
+        PlayerPrefs.SetString("ExcUI", res);
+        PlayerPrefs.Save();
+
+        return res;
+    }
+
+    public void ClearExcUI()
+    {
+        inputExcUI.GetComponent<InputField>().text = "";
+        PlayerPrefs.DeleteKey("ExcUI");
+        PlayerPrefs.Save();
     }
 
 
@@ -321,7 +352,7 @@ public class TestManager : MonoSingleton<TestManager>
                     res += item;
                     res += ",";
                 }
-                Debug.Log( $"单列滚轮 {GetHash(res)}  = {res}");
+                Debug.Log($"单列滚轮 {GetHash(res)}  = {res}");
             }
             reelsLst.Add(tempReels);
         }
@@ -410,7 +441,7 @@ public class TestManager : MonoSingleton<TestManager>
 
     List<List<List<int>>> reelsOldLst = null;
 
-    public void ClearReelsCache() 
+    public void ClearReelsCache()
     {
         reelsOldLst = null;
     }
@@ -479,18 +510,18 @@ public class TestManager : MonoSingleton<TestManager>
             reelsOldLst = DeepCopy(reelsLst);  // new List<List<List<int>>>(reelsLst);
         }
 
-        List <List<int>> reels0 = reelsLst[0]; //常规码表
-        List<int> data = new List<int>(); 
+        List<List<int>> reels0 = reelsLst[0]; //常规码表
+        List<int> data = new List<int>();
         for (int i = 0; i < reels0.Count; i++)
         {
             data.Add(UnityEngine.Random.Range(0, reels0[i].Count - 1)); //产生每列的索引
         }
 
         // 修改常规码表
-         for (int i = 0; i< data.Count; i++)
+        for (int i = 0; i < data.Count; i++)
         {
             int k = data[i];
-            for (int j = 0; j<Show.Count; j++)
+            for (int j = 0; j < Show.Count; j++)
             {
                 int idx = k + j;
                 if (idx >= reelsLst[0][i].Count) // i = 第i列  j = 第j行
@@ -500,7 +531,7 @@ public class TestManager : MonoSingleton<TestManager>
                     reelsLst[0][i][idx] = (int)((Show[j] as List<object>)[i]);
                     //Debug.LogWarning($" 第{i}列 第{idx}行 = {reelsLst[0][i][idx]} ");
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Debug.LogError($" reel{i}.Count = {reelsLst[0][i].Count} idx = {idx} i={i} j={j} {(int)((Show[j] as List<object>)[i])}");
                     Debug.LogError($" Err = {e}");
@@ -659,7 +690,7 @@ public class TestManager : MonoSingleton<TestManager>
                 List<int> subList1DCopy = new List<int>(subList1D.Count);
                 foreach (var item in subList1D)
                 {
-                    subList1DCopy.Add(item); 
+                    subList1DCopy.Add(item);
                 }
                 subList2DCopy.Add(subList1DCopy);
             }
@@ -674,16 +705,17 @@ public class TestManager : MonoSingleton<TestManager>
     [Button]
     void test_GetReelCellByIndex(string indexs = "2,2,2,2,2")
     {
-        string[] itemsStrs = indexs.Replace(" ","").Split(',') ?? new string[] { };
+        string[] itemsStrs = indexs.Replace(" ", "").Split(',') ?? new string[] { };
 
         GameObject go = GameObject.Find("ReelStrips Manager");
-        Transform reels =  go.transform.GetChild(0);  //   [0]
+        Transform reels = go.transform.GetChild(0);  //   [0]
 
         Dictionary<int, string> res = new Dictionary<int, string>();
-        for  (int i = 0; i<itemsStrs.Length; i++)
-        {   var item = itemsStrs[i];
+        for (int i = 0; i < itemsStrs.Length; i++)
+        {
+            var item = itemsStrs[i];
             var reelStrip = reels.GetChild(i).GetComponent<ReelStrip>();
-            for (int j=0; j<3; j++)
+            for (int j = 0; j < 3; j++)
             {
                 if (!res.ContainsKey(j))
                 {
@@ -704,19 +736,19 @@ public class TestManager : MonoSingleton<TestManager>
     void test_ShowReels0Code()
     {
         GameObject go = GameObject.Find("ReelStrips Manager");
-        Transform reels = go.transform.GetChild(0);  
+        Transform reels = go.transform.GetChild(0);
 
-        for (int i = 0; i< reels.transform.childCount; i++)
+        for (int i = 0; i < reels.transform.childCount; i++)
         {
             var reelStrip = reels.GetChild(i).GetComponent<ReelStrip>();
 
             string res = "==@ {";
-            for (int j=0;j< reelStrip.strip.Count;j++)
+            for (int j = 0; j < reelStrip.strip.Count; j++)
             {
-                res += "\""+j+"\":" + reelStrip.strip[j].symbol + ",";
+                res += "\"" + j + "\":" + reelStrip.strip[j].symbol + ",";
             }
             res += "}";
-            res = res.Replace(",}","}");
+            res = res.Replace(",}", "}");
             Debug.Log(res);
         }
     }

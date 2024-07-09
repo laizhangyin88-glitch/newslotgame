@@ -50,8 +50,8 @@ namespace SlotMaker
 
         protected void Awake()
         {
-            MusicVolume = (float)PlayerPrefs.GetInt("MUTE_MUSIC", 1);
-            SfxVolume = (float)PlayerPrefs.GetInt("MUTE_SFX", 1);
+            MusicVolume = (float)PlayerPrefs.GetFloat("MUTE_MUSIC", 1);
+            SfxVolume = (float)PlayerPrefs.GetFloat("MUTE_SFX", 1);
 
             StartCoroutine(ClearUnusedClipsCoroutine());
 
