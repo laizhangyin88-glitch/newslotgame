@@ -7,6 +7,8 @@ using BagelCode.ClientModels;
 using ParadoxNotion;
 using ParadoxNotion.Services;
 using NodeCanvas.Framework;
+using UnityEngine.UI;
+using Newtonsoft.Json;
 
 namespace BagelCode
 {
@@ -18,6 +20,7 @@ namespace BagelCode
         public Transform badgeArea;
         public Transform lockArea;
         public Transform tagArea;
+        public Toggle isCollect;
 
         public bool isLong;
 
@@ -63,9 +66,16 @@ namespace BagelCode
         public Blackboard gameInfoBB;
         public Blackboard bonusIAMBB;
 
+        public List<int> collectList;
+
         private const string LOCK_ANI_PARAMETER_NAME = "Appear";
 
         private Dictionary<string, GameObject> slotThumbDict = new Dictionary<string, GameObject>();
+
+        private void Awake()
+        {
+            isCollect.onValueChanged.AddListener(OnCollectChange);
+        }
 
         private void OnEnable()
         {
@@ -164,6 +174,8 @@ namespace BagelCode
 
             enterGameInfo.gameId = 0;
             enterGameInfo.slotStatus = 0;
+            collectList = MainBlackboard.Get().GetValue<List<int>>("collectList");
+            isCollect.isOn = collectList.Contains(gameID);
         }
 
         private void SetSlotImage(bool isRefresh)
@@ -567,5 +579,18 @@ namespace BagelCode
                 gameObject.GetComponent<SendEvent>().SendNow("ClickedSlot");
             }
         }
+
+        private void OnCollectChange(bool collect)
+        {
+            if (!collect)
+                collectList.Remove(gameID);
+            else
+            {
+                if (!collectList.Contains(gameID))
+                    collectList.Add(gameID);
+            }
+            PlayerPrefs.SetString("collect", JsonConvert.SerializeObject(collectList));
+        }
+
     }
 }
