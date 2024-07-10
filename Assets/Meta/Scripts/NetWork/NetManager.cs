@@ -911,10 +911,30 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
                 globalStore.gameState = GameState.Hall;
                 globalStore.nowGameID = -1;
-
                 if (data.HasKey("bonus_result"))
                     MessageDispatcher.Dispatch("SetJackpot", new EventData<string>("SetJackpot", data["bonus_result"].ToString()));
+                List<string> strs = new List<string>
+                {
+                    "https://cdn.bagelgames.com/SLOTS1/images/slot_thumbnail/tinify/Slot%20Image%20Big%20BLC.png",
+                    "https://cdn.bagelgames.com/SLOTS1/images/slot_thumbnail/tinify/Slot%20Image%20Big%20VGS.png",
+                    "https://cdn.bagelgames.com/SLOTS1/images/slot_thumbnail/tinify/Slot%20Image%20Big%20BTD.png",
+                    "https://cdn.bagelgames.com/SLOTS1/images/slot_thumbnail/tinify/Slot%20Image%20Big%20CAH.png",
+                    "https://cdn.bagelgames.com/SLOTS1/images/slot_thumbnail/tinify/Slot%20Image%20Big%20CNY.png"
+                };
+                MainBlackboard.Get().SetValue("slotADurls", strs);
+
+                string collectJson = PlayerPrefs.GetString("collect", "");
+                List<int> collectList;
+                if (!string.IsNullOrEmpty(collectJson))
+                    collectList = SlotSimpleJson.DeserializeObject<List<int>>(collectJson);
+                else
+                    collectList = new List<int>();
+
+                MainBlackboard.Get().SetValue("collectList", collectList);
+
                 break;
+
+                //MainBlackboard.Get().SetValue
 
             case RPCName.enterGame://进入子游戏
 

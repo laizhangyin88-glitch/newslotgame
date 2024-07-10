@@ -87,8 +87,6 @@ public class RPCName
     public const string confirmCoinOutOrder = "agent_confirm_outcredit_ticket_order";
 
 
-
-
     /// <summary>创建“打印订单”</summary>
     /// {"money", 100}, 
     public const string createPrintOrder = "agent_create_outcredit_print_order";
@@ -96,7 +94,10 @@ public class RPCName
     /// {"money", 100},
     public const string confirmPrintOrder = "agent_confirm_outcredit_print_order";
 
-
+    /// <summary>
+    /// 赢得大厅彩金
+    /// </summary>
+    public const string winGameBonus = "win_game_bonus";
 }
 
 namespace RPCBase
