@@ -68,6 +68,12 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         newOrRecycled.image.sprite = sprites[newOrRecycled.ItemIndex];
     }
 
+    public override void ScrollTo(int itemIndex, float normalizedOffsetFromViewportStart = 0, float normalizedPositionOfItemPivotToUse = 0)
+    {
+        StopAllCoroutines();
+        base.ScrollTo(itemIndex, normalizedOffsetFromViewportStart, normalizedPositionOfItemPivotToUse);
+    }
+
     public void Simulation(int targetIndex, float animationTime, int loopCount)
     {
         StopScorllCoroutine();

@@ -2,6 +2,7 @@ using ParadoxNotion;
 using SlotMaker;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class JackpotView : MonoBehaviour
@@ -22,6 +23,7 @@ public class JackpotView : MonoBehaviour
             jackpotNums.Add(trans.GetChild(i).GetComponent<OSA_JackpotNum>());
             jackpotNums[i].numIndex = i;
             jackpotNums[i].flag = flag;
+            datas.Add(0);
         }
         MessageDispatcher.Register("JackpotNumChange", OnJackpotNumChange);
     }
@@ -37,6 +39,7 @@ public class JackpotView : MonoBehaviour
         for (int i = 0; i < jackpotNums.Count; i++)
         {
             jackpotNums[i].ScrollTo(jackpot % 10, .5f, .5f);
+            datas[i] = jackpot % 10;
             jackpot /= 10;
         }
     }
