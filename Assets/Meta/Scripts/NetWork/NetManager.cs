@@ -1003,7 +1003,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             case RPCName.metaInfo:
                 break;
             case RPCName.gameBonusResult:
-                //MessageDispatcher.Dispatch("UpdateJackpot", new EventData<string>("UpdateJackpot", data["bonus_result"].ToString()));
+                MessageDispatcher.Dispatch("UpdateJackpot", new EventData<string>("UpdateJackpot", data["data"]["bonus_list"].ToString()));
                 break;
             case RPCName.ping:
             case RPCName.confirmAddCoinOrder:
