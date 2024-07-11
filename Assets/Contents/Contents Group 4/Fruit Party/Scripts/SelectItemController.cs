@@ -1,5 +1,6 @@
 using BagelCode;
 using GameUtil;
+using SlotMaker;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,6 +50,7 @@ public class SelectItemController : MonoBehaviour
 
     public void OnClickButton()
     {
+        GSManager.Instance.GetHandler("game2_hit_D02").Play();
         isSelected = true;
         button.gameObject.SetActive(false);
         frameAnimator.gameObject.SetActive(true);

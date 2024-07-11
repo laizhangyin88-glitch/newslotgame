@@ -55,7 +55,6 @@ public class DoorController : MonoBehaviour
 
     public void OnStart()
     {
-        Debug.LogError("显示选中小游戏界面..................");
         SetAutoSpinFalse();
         currentBet = BlackboardUtils.FindVariable<long>("./betCredit").value;
         isSelect = false;
@@ -186,6 +185,3 @@ public class DoorController : MonoBehaviour
         doorSelectItems.Clear();
     }
 }
-
-
-
