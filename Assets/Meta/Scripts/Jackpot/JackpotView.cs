@@ -15,6 +15,8 @@ public class JackpotView : MonoBehaviour
     public int jackpot = 0;
     public string flag;
 
+    private float aniSpeed = 2f;
+
     private void Awake()
     {
         var trans = transform.Find("Nums");
@@ -48,19 +50,24 @@ public class JackpotView : MonoBehaviour
     {
         if (value == jackpot)
             return;
-        if (jackpot > value)
+        if (jackpot > value || jackpot == 0)
             SetJackpot(value);
         value -= jackpot;
         jackpot = value;
         int single = value % 10;
         int round = single <= jackpotNums[0].curItemIndex ? value / 10 - 1 : value / 10;
-        jackpotNums[0].Simulation(single, 1f * round, round);
+        jackpotNums[0].Simulation(single, aniSpeed * (round + 1), round);
     }
 
     void OnJackpotNumChange(EventData data)
     {
         if (data.name == flag)
         {
+            string str = "";
+            for (int i = datas.Count - 1; i >= 0; i--)
+            {
+                str += datas[i];
+            }
             int index = (int)data.value + 1;
             int temp = datas[index];
             int scrollValue = temp + 1 > 9 ? 0 : temp + 1;
