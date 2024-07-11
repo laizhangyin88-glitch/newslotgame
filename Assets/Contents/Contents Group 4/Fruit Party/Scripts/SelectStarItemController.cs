@@ -1,5 +1,6 @@
 using BagelCode;
 using GameUtil;
+using SlotMaker;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -80,6 +81,7 @@ public class SelectStarItemController : MonoBehaviour
 
     public void OnClickButton()
     {
+        GSManager.Instance.GetHandler("game2_hit_D02").Play();
         isClick = true;
         spriteIndex = FruitPartyMiniGameController3.Instance.getSpriteIndex();
         UpdateStarItem(spriteIndex);

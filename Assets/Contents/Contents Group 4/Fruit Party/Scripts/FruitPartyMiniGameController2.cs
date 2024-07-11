@@ -64,7 +64,8 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
         currentBet = BlackboardUtils.FindVariable<long>("./betCredit").value;
         CurrentTotalScore = 0;
         isGameOver = false;
-        
+
+        GSManager.Instance.GetHandler("game2_bg_A16").Play();
 
         TargetList = transform.Find("TargetList");
         SelectList = transform.Find("SelectList");
@@ -89,11 +90,14 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
         _loopTimer?.Cancel();
         currentCountDown = 5;
         CountDownTxt.text = currentCountDown.ToString();
+        GSManager.Instance.GetHandler("cound_down_C01").Play();
         _loopTimer = this.LoopAction(1, (count) =>
         {
+            if (isGameOver) return;
             currentCountDown--;
             CountDownTxt.text =  currentCountDown.ToString();
-            if(currentCountDown <= 0)
+            GSManager.Instance.GetHandler("cound_down_C01").Play();
+            if (currentCountDown <= 0)
             {
                 _loopTimer?.Cancel();
                 AutoSelected();
@@ -295,6 +299,7 @@ public class FruitPartyMiniGameController2 : MonoBehaviour
         }
         MiniGameDataManagers.Instance.ResetAutoSpin();
         MiniGameDataManagers.Instance.ShowGameReward(CurrentTotalScore);
+        GSManager.Instance.GetHandler("game2_bg_A16").Clear();
     }
 
     public void IsFinishGame()
