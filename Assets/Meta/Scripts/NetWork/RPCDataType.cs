@@ -38,6 +38,8 @@ public class RPCName
     public const string jacksGambleTake = "gamble_take"; // /v2/gamble/take
     /// <summary>拉霸机 开玩</summary>
     public const string slotSpin = "slot_spin";
+    /// <summary>更新玩家缓存</summary>
+    public const string updateUserCache = "update_user_cache";
 
     /// <summary>HAPPY DOLLARS</summary>
     public const string claimBonus = "claim_bonus";
@@ -87,10 +89,11 @@ public class RPCName
     /// {"money", 100},
     public const string confirmPrintOrder = "agent_confirm_outcredit_print_order";
 
-    /// <summary>
-    /// 赢得大厅彩金
-    /// </summary>
+    /// <summary> 赢得大厅彩金 </summary>
     public const string winGameBonus = "win_game_bonus";
+
+    /// <summary> 押注彩金返回 </summary>
+    public const string gameBonusResult = "game_bonus_result";
 }
 
 namespace RPCBase

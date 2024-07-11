@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
+public class OSA_JackpotNumBeta : OSA<JackpotNumParamsBeta, JackpotNumItemViewsHolderBeta>
 {
     public AnimationCurve curve = new AnimationCurve(
     new Keyframe(1f, 1f, 1f, 1f)
@@ -48,25 +48,20 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
     {
         base.Update();
         var middleVH = _Params.Snapper.GetMiddleVH(out _) as JackpotNumItemViewsHolder;
-        
         curItemIndex = _Params.GetItemValueAtIndex(middleVH.ItemIndex);
         if (preItemIndex == 9 && curItemIndex == 0)
-        {
-            //Debug.LogError("index: " + _Params.GetItemValueAtIndex(middleVH.ItemIndex));
             MessageDispatcher.Dispatch("JackpotNumChange", new EventData<int>(flag, numIndex));
-        }
         preItemIndex = curItemIndex;
     }
 
-    protected override JackpotNumItemViewsHolder CreateViewsHolder(int itemIndex)
+    protected override JackpotNumItemViewsHolderBeta CreateViewsHolder(int itemIndex)
     {
-        var item = new JackpotNumItemViewsHolder();
+        var item = new JackpotNumItemViewsHolderBeta();
         item.Init(_Params.ItemPrefab, _Params.Content, itemIndex);
-        //prefab.SetActive(false);
         return item;
     }
 
-    protected override void UpdateViewsHolder(JackpotNumItemViewsHolder newOrRecycled)
+    protected override void UpdateViewsHolder(JackpotNumItemViewsHolderBeta newOrRecycled)
     {
         newOrRecycled.image.sprite = sprites[newOrRecycled.ItemIndex];
     }
@@ -89,7 +84,7 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         _Params.effects.InertiaDecelerationRate = 0f;
 
         float targetHeight = 0.0f;
-        JackpotNumItemViewsHolder currentItem = GetCurrentItem();
+        JackpotNumItemViewsHolderBeta currentItem = GetCurrentItem();
         targetHeight += GetTargetDistance(currentItem, targetIndex);
         targetHeight += loopCount * totalHeight;
         float timeScaleResult = GetCurveTimeScaleResult(animationTime);
@@ -105,7 +100,6 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
             currentItem = GetCurrentItem();
             if (currentItem != null && currentItem.ItemIndex != lastItemIndex)
             {
-                // tick
                 lastItemIndex = currentItem.ItemIndex;
             }
             if (spinDuration == false && deltaTime * 2.0f > animationTime)
@@ -120,14 +114,12 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         if (CheckItemIsTarget(currentItem, targetIndex) && (currentItem.IsCenter(middleY, _Params.DefaultItemSize * centerWeight) || currentItem.GetPosY() <= middleY))
         {
             // target arrive
-            SmoothScrollTo(targetIndex, duration, 0.5f, 0.5f,onDone: () => { StopScorllCoroutine(); });
+            SmoothScrollTo(targetIndex, duration, 0.5f, 0.5f, onDone: () => { StopScorllCoroutine(); });
         }
         else
         {
-            // set last wheel velocity
             float lastVelocity = velocityMultiplier * curve.Evaluate(1.0f) * 1.0f;
             int checkTargetIndex = targetIndex;
-            // move to target index wait
             while (true)
             {
                 UpdateVelocity(lastVelocity);
@@ -139,9 +131,7 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
                 }
                 else if (currentItem != null && currentItem.ItemIndex != lastItemIndex)
                 {
-                    // tick
                     lastItemIndex = currentItem.ItemIndex;
-                    //checkTargetIndex = lastItemIndex;
                 }
             }
         }
@@ -159,9 +149,8 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         return false;
     }
 
-    private JackpotNumItemViewsHolder GetCurrentItem()
+    private JackpotNumItemViewsHolderBeta GetCurrentItem()
     {
-       
         for (int i = 0; i < VisibleItemsCount; ++i)
         {
             if (_VisibleItems[i].IsCurrentItem(middleY))
@@ -170,7 +159,7 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         return null;
     }
 
-    private float GetTargetDistance(JackpotNumItemViewsHolder currentItem, int targetIndex)
+    private float GetTargetDistance(JackpotNumItemViewsHolderBeta currentItem, int targetIndex)
     {
         if (currentItem == null)
             return 0.0f;
@@ -179,25 +168,21 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         float distHeight = 0;
         if (currentItemIndex != targetIndex)
         {
-            if (currentItemIndex > targetIndex) // ex) 5 -> 2
-                distHeight = (10 - currentItemIndex + targetIndex) * _Params.DefaultItemSize; 
-            else // ex) 5 -> 16
-                //distHeight = (targetIndex - currentItemIndex + 0.75f) * _Params.DefaultItemSize;
+            if (currentItemIndex > targetIndex)
+                distHeight = (10 - currentItemIndex + targetIndex) * _Params.DefaultItemSize;
+            else
                 distHeight = (targetIndex - currentItemIndex) * _Params.DefaultItemSize;
         }
         else
         {
-            //distHeight = currentItem.GetPosY() - middleY;
-            //if (distHeight < 0.0f)
-                distHeight += totalHeight;// + 0.5f * _Params.DefaultItemSize;
+            distHeight += totalHeight;
         }
         return distHeight;
     }
 
     private float GetCurveTimeScaleResult(float animationTime)
     {
-        // Animation Curve Distance
-        float tempDeltaTimeWeight = 50.0f;// 1.0f / Time.deltaTime;
+        float tempDeltaTimeWeight = 50.0f;
         int precisionStep = Mathf.RoundToInt(tempDeltaTimeWeight * animationTime);
 
         float calcMoveHeightScale = 0.0f;
@@ -219,14 +204,14 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         Velocity = updateVelocity;
     }
 
-    private bool CheckItemIsTarget(JackpotNumItemViewsHolder checkItem, int targetIndex)
+    private bool CheckItemIsTarget(JackpotNumItemViewsHolderBeta checkItem, int targetIndex)
     {
         return checkItem != null && checkItem.ItemIndex == targetIndex;
     }
 }
 
 [Serializable] // serializable, so it can be shown in inspector
-public class JackpotNumParams : BaseParamsWithPrefab
+public class JackpotNumParamsBeta : BaseParamsWithPrefab
 {
     public int startItemNumber = 0;
     public int increment = 1;
@@ -236,7 +221,7 @@ public class JackpotNumParams : BaseParamsWithPrefab
     public int GetItemValueAtIndex(int index) { return startItemNumber + increment * index; }
 }
 
-public class JackpotNumItemViewsHolder : BaseItemViewsHolder
+public class JackpotNumItemViewsHolderBeta : BaseItemViewsHolder
 {
     public Image image;
 
