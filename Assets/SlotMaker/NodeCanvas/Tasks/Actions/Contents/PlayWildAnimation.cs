@@ -47,88 +47,68 @@ namespace SlotMaker.Tasks.Actions.Contents
                 BlackboardUtils.GetOrCreateVariable<List<GameObject>>(BlackboardUtils.GetContentFSMBlackboard(), "_wildList").value = new List<GameObject>();
             }
             BlackboardUtils.GetOrCreateVariable<List<GameObject>>(BlackboardUtils.GetContentFSMBlackboard(), "_wildList").value.AddRange(gameObjects);
+             
             EndAction();
         }
 
         private void PlayAnimation(BaseSymbol symbol)
         {
-            if(Mathf.Round(symbol.transform.localPosition.y) > 0)   ///在上面，从上往下运动
+            //GameObject prefab = AssetBundleManager.LoadAsset<GameObject>(BlackboardUtils.FindVariable<string>(null, "./game/gameTitle").value, symbolName);
+            string bundleName = BlackboardUtils.FindVariable<string>(null, "./game/gameTitle").value;
+            GameObject prefab = null;
+            if (Mathf.Round(symbol.transform.localPosition.y) > 0)   ///在上面，从上往下运动
             {
-                MoveAnimation(1, symbol, symbol.transform.localPosition);
+                //MoveAnimation(1, symbol, symbol.transform.localPosition);
+                prefab = AssetBundleManager.LoadAsset<GameObject>(bundleName, "zuanshi02");
             }
             else if(Math.Round(symbol.transform.localPosition.y) < 0)///在下面，从下往上运动
             {
-                MoveAnimation(0, symbol, symbol.transform.localPosition);
+                //MoveAnimation(0, symbol, symbol.transform.localPosition);
+                prefab = AssetBundleManager.LoadAsset<GameObject>(bundleName, "zuanshi01");
             }
             else ///在中间
             {
-                MoveAnimation(2, symbol, symbol.transform.localPosition);
+                prefab = AssetBundleManager.LoadAsset<GameObject>(bundleName, "zuanshi03");
+            }
+            CreateWild(symbol);
+            if (prefab != null)
+            {
+                GameObject go = GameObject.Instantiate(prefab);
+                gameObjects.Add(go);
+
+                go.transform.SetParent(symbol.transform.parent, false);
+                go.transform.localScale = Vector3.one * 43;
+                go.transform.localPosition = new Vector3(0, -42, 0);
+                TimerExtensions.DelayAction(go, 1.2f, () => 
+                {
+                    for (global::System.Int32 i = 0; i < gameObjects.Count; i++)
+                    {
+                        if(i == gameObjects.Count - 1)
+                        {
+                            gameObjects[i].gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            gameObjects[i].gameObject.SetActive(true);
+                        }
+                    }
+                    go.SetActive(false);
+                });
             }
         }
 
-        private void MoveAnimation(int isDown, BaseSymbol baseSymbol, Vector3 from)
+        private void CreateWild(BaseSymbol baseSymbol)
         { 
-            int count = 0;
-            var wild = loadAnimation();
-            wild.transform.SetParent(baseSymbol.transform.parent, false);
-            if(isDown == 1)
+            int y = 140;
+            for (int i = 0; i < 3; i++)
             {
-                wild.transform.localPosition = new Vector3(0, 140, 0);
-            }
-            else if(isDown == 0)
-            {
-                wild.transform.localPosition = new Vector3(0, -141, 0);
-            }
-            else
-            {
-                wild.transform.localPosition = Vector3.zero;
-            }
-            gameObjects.Add(wild.gameObject);
-            for (int i = 0; i < 2; i++)
-            { 
-                //temp.transform.GetComponentInChildren<SpriteRenderer>().sortingOrder = 1;
-                var temp = loadAnimation();
-                temp.transform.SetParent(baseSymbol.transform.parent, false);
-                temp.transform.localScale = Vector3.one;
-                temp.transform.localPosition = from;
-                gameObjects.Add(temp); 
-                if (isDown == 1)///在上面，从上往下运动
-                { 
-                    if (count == 0)
-                    {
-                        AsyncActionUtils.ApplyLocalMovement(baseSymbol, temp.transform, from, Vector3.zero, animationTime, TweenUtils.VectorTweenLinear);
-                    } 
-                    else
-                    {
-                        AsyncActionUtils.ApplyLocalMovement(baseSymbol, temp.transform, from, new Vector3(0, -140,0), animationTime, TweenUtils.VectorTweenLinear);
-                    }
-                }
-                else if(isDown == 0)///在下面，从下往上运动
-                {
-                    if (count == 0)
-                    {
-                        AsyncActionUtils.ApplyLocalMovement(baseSymbol, temp.transform, from, Vector3.zero, animationTime, TweenUtils.VectorTweenLinear);
-                    }
-                    else
-                    {
-                        AsyncActionUtils.ApplyLocalMovement(baseSymbol, temp.transform, from, new Vector3(0, 140, 0), animationTime, TweenUtils.VectorTweenLinear);
-                    }
-                }
-                else
-                {
-                    if (count == 0)
-                    {
-                        AsyncActionUtils.ApplyLocalMovement(baseSymbol, temp.transform, from, new Vector3(0, 140, 0), animationTime, TweenUtils.VectorTweenLinear);
-                    }
-                    else
-                    {
-                        AsyncActionUtils.ApplyLocalMovement(baseSymbol, temp.transform, from, new Vector3(0, -140, 0), animationTime, TweenUtils.VectorTweenLinear);
-                    }
-                }
-                count++;
+                GameObject game = loadAnimation();
+                game.SetActive(false);
+                game.transform.SetParent(baseSymbol.transform.parent, false);
+                game.transform.localScale = Vector3.one;
+                game.transform.localPosition = new Vector3(0, y - y * i, 0);
             }
         }
-
 
         private GameObject loadAnimation()
         {
@@ -136,11 +116,11 @@ namespace SlotMaker.Tasks.Actions.Contents
 
             GameObject prefab = AssetBundleManager.LoadAsset<GameObject>(BlackboardUtils.FindVariable<string>(null, "./game/gameTitle").value, symbolName);
             GameObject temp = GameObject.Instantiate(prefab);
-            temp.name = symbolName;
+            gameObjects.Add(temp);
+            temp.name = symbolName; 
             var animation = temp.GetComponentInChildren<Animator>();
             animations.Add(animation);
             
-            //animation.GetCurrentAnimatorStateInfo(0) = true;
             return temp;
         }
     }

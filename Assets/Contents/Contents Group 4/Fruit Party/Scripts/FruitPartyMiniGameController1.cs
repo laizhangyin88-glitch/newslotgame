@@ -124,6 +124,8 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
         currentResultIndex = 0;
         currentGame1Data = null;
 
+        GSManager.Instance.GetHandler("game1_bg_A12").Play();
+
         TotalWinScore = 0;
         _selectIndex = 0;
         RingItem = transform.Find("RingItem");
@@ -239,6 +241,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
         ///击中的分数
         if(currentGame1Data.round_mutiple > 0)
         {
+            GSManager.Instance.GetHandler("game1_hit_A41").Play();
             time = 5;
         }
 
@@ -277,6 +280,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
         } 
         MiniGameDataManagers.Instance.ResetAutoSpin();
         MiniGameDataManagers.Instance.ShowGameReward(TotalWinScore);
+        GSManager.Instance.GetHandler("game1_bg_A12").Clear();
     }
 
     private void ShowItemPingPong(RingItemController ringItemController)
@@ -317,6 +321,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
                 SelectIndex = currentNumber;
                 if(currentNumber >= endNumber)
                 {
+                    GSManager.Instance.GetHandler("ring_A09").Pause();
                     FinishAnimation();
                 }
             }
@@ -326,6 +331,8 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
     {
         this.DelayAction(time, () =>
         {
+            GSManager.Instance.GetHandler("game1_hit_A41").Clear();
+            GSManager.Instance.GetHandler("ring_A09").Play();
             PlayRingAnimation();
             fruitPartyMiniGameTigerMachine.PlaySlotAnimation();
         });

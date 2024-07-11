@@ -1,3 +1,4 @@
+using GameUtil;
 using NodeCanvas.Framework;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,16 +10,20 @@ namespace SlotMaker.Tasks.Actions.Contents
     {
         protected override void OnExecute()
         {
-            base.OnExecute();
-            var list = BlackboardUtils.GetOrCreateVariable<List<GameObject>>(BlackboardUtils.GetContentFSMBlackboard(), "_wildList").value;
-            if (list != null && list.Count > 0)
+            
+            Timer.DelayAction(0.1f, () =>
             {
-                for (int i = 0; i < list.Count; i++)
+                var list = BlackboardUtils.GetOrCreateVariable<List<GameObject>>(BlackboardUtils.GetContentFSMBlackboard(), "_wildList").value;
+
+                if (list != null && list.Count > 0)
                 {
-                    GameObject.Destroy(list[i].gameObject);
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        GameObject.Destroy(list[i].gameObject);
+                    }
+                    list.Clear();
                 }
-                list.Clear();
-            }
+            });
             EndAction();
         }
     }

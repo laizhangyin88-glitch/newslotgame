@@ -66,6 +66,8 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
         game3Datas = MiniGameDataManagers.Instance.game3Datas;
         currentBet = BlackboardUtils.FindVariable<long>("./betCredit").value;
 
+        GSManager.Instance.GetHandler("game3_bg_C00a").Play();
+
         TargetList = transform.Find("TargetList");
         SelectList = transform.Find("SelectList");
         point = SelectList.transform.Find("point");
@@ -95,12 +97,14 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
         StartCountDown();
     }
     private void StartCountDown()
-    {
+    { 
         _loopTimer?.Cancel();
         currentCountDown = 5;
         CountDownTxt.text = currentCountDown.ToString();
+        GSManager.Instance.GetHandler("cound_down_C01").Play();
         _loopTimer = this.LoopAction(1, (count) =>
         {
+            GSManager.Instance.GetHandler("cound_down_C01").Play();
             currentCountDown--;
             CountDownTxt.text = currentCountDown.ToString();
             if (currentCountDown <= 0)
@@ -285,6 +289,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
         }
         MiniGameDataManagers.Instance.ResetAutoSpin();
         MiniGameDataManagers.Instance.ShowGameReward(totalScore);
+        GSManager.Instance.GetHandler("game3_bg_C00a").Clear();
     }
 }
 

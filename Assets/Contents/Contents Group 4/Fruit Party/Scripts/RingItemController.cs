@@ -86,7 +86,7 @@ public class RingItemController : MonoBehaviour
                 {
                     icon.color = Color.white;
                     redIcon.color = Color.white;
-                    _loopTimer.Cancel();
+                    _loopTimer?.Cancel();
                 }
             }
         });
