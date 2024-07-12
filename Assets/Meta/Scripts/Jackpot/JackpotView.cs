@@ -15,7 +15,7 @@ public class JackpotView : MonoBehaviour
     public int jackpot = 0;
     public string flag;
 
-    private float aniSpeed = 2f;
+    private float aniSpeed = 1f;
 
     private void Awake()
     {
