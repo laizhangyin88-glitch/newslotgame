@@ -6527,6 +6527,8 @@ public static partial class ClientAPI2Blackboard
         BlackboardUtils.SetOrCreateValue(bb, "longImageUrl", gameInfo.longImageUrl);
         BlackboardUtils.SetOrCreateValue(bb, "minClientVersion", gameInfo.minClientVersion);
         BlackboardUtils.SetOrCreateValue(bb, "gameFilter", gameInfo.gameFilter);
+        BlackboardUtils.SetOrCreateValue(bb, "gameOrder", gameInfo.gameOrder);
+        BlackboardUtils.SetOrCreateValue(bb, "isLong", gameInfo.isLong);
     }
 
     public static void Serialize(IBlackboard bb, GamePlayRestriction gamePlayRestriction)
@@ -10116,6 +10118,7 @@ public static partial class ClientAPI2Blackboard
         {
             BlackboardUtils.DestroyBlackboard(bb, "common");
         }
+
         BlackboardUtils.SetOrCreateValue(bb, "serverTime", lobbyResponseV6.serverTime);
         BlackboardUtils.SetOrCreateValue(bb, "slotListId", lobbyResponseV6.slotListId);
         BlackboardUtils.SetOrCreateList(bb, "slotList", lobbyResponseV6.slotList, Serialize);

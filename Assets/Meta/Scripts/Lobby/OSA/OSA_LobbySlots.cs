@@ -520,6 +520,7 @@ namespace BagelCode.OSA_Scroll
             for (int i = 0; i < slotCount; ++i)
             {
                 gameId = slotInfoList[i].GetValue<int>("gameId");
+
                 if (!gameInfoDict.ContainsKey(gameId))
                     continue;
                 tempSlotInfoList.Add(slotInfoList[i]);

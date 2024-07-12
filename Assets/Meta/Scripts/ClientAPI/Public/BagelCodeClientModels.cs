@@ -5949,6 +5949,8 @@ public partial class GameInfo
     public string longImageUrl = "";
     public int minClientVersion = 0;
     public int gameFilter = 0;
+    public int gameOrder = 0;
+    public int isLong = 0;
 }
 
 [System.Serializable]
