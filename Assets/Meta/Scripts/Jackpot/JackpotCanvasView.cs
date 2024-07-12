@@ -17,12 +17,12 @@ public class JackpotCanvasView : MonoBehaviour
 
     public void TestSetJackpot()
     {
-        jackpotViews[0].SetJackpot(500);
+        jackpotViews[3].SetJackpot(50);
     }
 
     public void TestUpdateJackpot()
     {
-        jackpotViews[0].ScrollTo(1000);
+        jackpotViews[3].ScrollTo(100);
     }
 
     private void Awake()
