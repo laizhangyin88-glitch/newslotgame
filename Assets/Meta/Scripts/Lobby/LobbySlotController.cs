@@ -9,6 +9,7 @@ using ParadoxNotion.Services;
 using NodeCanvas.Framework;
 using UnityEngine.UI;
 using Newtonsoft.Json;
+using SimpleJSON;
 
 namespace BagelCode
 {
@@ -583,14 +584,32 @@ namespace BagelCode
         private void OnCollectChange(bool collect)
         {
             if (!collect)
-                collectList.Remove(gameID);
+            {
+                if (collectList.Contains(gameID))
+                {
+                    collectList.Remove(gameID);
+                    SendUserCache();
+                }
+
+            }
             else
             {
                 if (!collectList.Contains(gameID))
+                {
                     collectList.Add(gameID);
+                    SendUserCache();
+                }
             }
-            PlayerPrefs.SetString("collect", JsonConvert.SerializeObject(collectList));
+
         }
 
+        private void SendUserCache()
+        {
+            var userCache = MainBlackboard.Get().GetValue<JSONNode>("userCache");
+            userCache["userCollect"] = JsonConvert.SerializeObject(collectList);
+            var tempNode = JSONNode.Parse("{}");
+            tempNode.Add("user_cache", userCache);
+            NetManager.Instance.SendMsg(RPCName.updateUserCache, tempNode);
+        }
     }
 }

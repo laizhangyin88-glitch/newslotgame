@@ -16,8 +16,7 @@ using BagelCode.ClientModels;
 using Action = System.Action;
 using Sirenix.OdinInspector;
 using EventData = ParadoxNotion.EventData;
-
-
+using Newtonsoft.Json;
 public class RequestType {
 
     public RequestType(object buffer, string rpcName, long time, bool force =false)
@@ -911,31 +910,49 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
                 globalStore.gameState = GameState.Hall;
                 globalStore.nowGameID = -1;
+
+                //彩金
                 if (data.HasKey("bonus_result"))
                     MessageDispatcher.Dispatch("SetJackpot", new EventData<string>("SetJackpot", data["bonus_result"].ToString()));
-                List<string> strs = new List<string>
+
+                //广告
+                var adJson = JSONNode.Parse(data["l_ads"]);
+                if (data.HasKey("l_ads"))
                 {
-                    "https://cdn.bagelgames.com/SLOTS1/images/slot_thumbnail/tinify/Slot%20Image%20Big%20BLC.png",
-                    "https://cdn.bagelgames.com/SLOTS1/images/slot_thumbnail/tinify/Slot%20Image%20Big%20VGS.png",
-                    "https://cdn.bagelgames.com/SLOTS1/images/slot_thumbnail/tinify/Slot%20Image%20Big%20BTD.png",
-                    "https://cdn.bagelgames.com/SLOTS1/images/slot_thumbnail/tinify/Slot%20Image%20Big%20CAH.png",
-                    "https://cdn.bagelgames.com/SLOTS1/images/slot_thumbnail/tinify/Slot%20Image%20Big%20CNY.png"
-                };
-                MainBlackboard.Get().SetValue("slotADurls", strs);
+                    List<ADSData> adsDatas = new List<ADSData>();
+                    for (int i = 0; i < adJson.Count; i++)
+                    {
+                        ADSData adsData = new ADSData
+                        {
+                            imageUrl = adJson[i]["image_url"],
+                            linkUrl = adJson[i]["page_url"],
+                            showTime = adJson[i]["show_long"]
+                        };
+                        adsDatas.Add(adsData);
+                    }
+                    MainBlackboard.Get().SetValue("slotADurls", adsDatas);
+                }
 
-                string collectJson = PlayerPrefs.GetString("collect", "");
-                List<int> collectList;
-                if (!string.IsNullOrEmpty(collectJson))
-                    collectList = SlotSimpleJson.DeserializeObject<List<int>>(collectJson);
+                //收藏
+                string res = (string)data["user_cache"];
+                var cacheJsonNode = JSONNode.Parse(res);
+                List<int> collectList = new List<int>();
+                if (cacheJsonNode.HasKey("userCollect"))
+                {
+                    JSONNode res1 = JSONNode.Parse((string)cacheJsonNode["userCollect"]);
+                    for (int i = 0; i < res1.Count; i++)
+                        collectList.Add(res1[i]);
+                }
                 else
+                {
                     collectList = new List<int>();
-
+                    cacheJsonNode.Add("userCollect", JsonConvert.SerializeObject(collectList));
+                }
+                
+                MainBlackboard.Get().SetValue("userCache", cacheJsonNode);
                 MainBlackboard.Get().SetValue("collectList", collectList);
 
                 break;
-
-                //MainBlackboard.Get().SetValue
-
             case RPCName.enterGame://进入子游戏
 
                 //断线重链子游戏
@@ -984,6 +1001,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             case RPCName.jacksGambleTake:
                 break;
             case RPCName.metaInfo:
+                break;
+            case RPCName.gameBonusResult:
+                MessageDispatcher.Dispatch("UpdateJackpot", new EventData<string>("UpdateJackpot", data["data"]["bonus_list"].ToString()));
                 break;
             case RPCName.ping:
             case RPCName.confirmAddCoinOrder:

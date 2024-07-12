@@ -173,14 +173,38 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     var gameTitle = globalStore.GetGameTitle(response.gameInfoList[i].gameId);
                     response.gameInfoList[i].gameTitle = string.IsNullOrEmpty(gameTitle) ? (string)temp["gameTitle"] : gameTitle;
                     response.gameInfoList[i].gameFilter = temp["gameFilter"];
+                    response.gameInfoList[i].gameOrder = temp["gameOrder"];
+                    response.gameInfoList[i].isLong = temp["isLong"];
 
                     //int type = temp["gameType"] ? temp["gameType"].AsInt : (int)GameType.UNKNOWN;
                     int type = temp["gameType"].AsInt;
                     response.gameInfoList[i].gameType = (BagelCode.ClientModels.GameType)type;
                 }
 
+                List<Slot> tempSlotList = new List<Slot>();
+                response.gameInfoList.Sort((a, b) => a.gameOrder.CompareTo(b.gameOrder));
+
+                for (int i = 0; i < response.gameInfoList.Count; i++)
+                {
+                    var gameId = response.gameInfoList[i].gameId;
+                    for (int k = 0; k < response.slotList.Count; k++)
+                    {
+                        if (gameId == response.slotList[k].gameId)
+                        {
+                            tempSlotList.Add(response.slotList[k]);
+                        }
+                    }
+                }
+                response.slotList = tempSlotList;
+
                 string oldJson = SlotSimpleJson.SerializeObject(response.gameInfoList);
                 //;  JsonUtility.ToJson(response.gameInfoList);
+
+                //for (int i = 0; i < response.gameInfoList.Count; i++)
+                //{
+                //    Debug.LogError($"response.gameInfoList[i].gameId: {response.gameInfoList[i].gameId}");
+                //    Debug.LogError($"response.gameInfoList[i].gameOrder: {response.gameInfoList[i].gameOrder}");
+                //}
 
                 ClientAPI2Blackboard.Serialize(MainBlackboard.Get(), response);
                 BlackboardUtils.GetOrCreateBlackboard(MainBlackboard.Get(), "shortcut");

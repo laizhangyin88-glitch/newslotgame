@@ -44,17 +44,6 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         totalHeight = _Params.DefaultItemSize * 10.75f;
     }
 
-    protected override void Update()
-    {
-        base.Update();
-        var middleVH = _Params.Snapper.GetMiddleVH(out _) as JackpotNumItemViewsHolder;
-        //Debug.Log(_Params.GetItemValueAtIndex(middleVH.ItemIndex));
-        curItemIndex = _Params.GetItemValueAtIndex(middleVH.ItemIndex);
-        if (preItemIndex == 9 && curItemIndex == 0)
-            MessageDispatcher.Dispatch("JackpotNumChange", new EventData<int>(flag, numIndex));
-        preItemIndex = curItemIndex;
-    }
-
     protected override JackpotNumItemViewsHolder CreateViewsHolder(int itemIndex)
     {
         var item = new JackpotNumItemViewsHolder();
@@ -74,6 +63,12 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         base.ScrollTo(itemIndex, normalizedOffsetFromViewportStart, normalizedPositionOfItemPivotToUse);
     }
 
+    /// <summary>
+    /// 滚动到指定位置
+    /// </summary>
+    /// <param name="targetIndex"></param>
+    /// <param name="animationTime"></param>
+    /// <param name="loopCount"></param>
     public void Simulation(int targetIndex, float animationTime, int loopCount)
     {
         StopScorllCoroutine();
@@ -91,8 +86,9 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         targetHeight += loopCount * totalHeight;
         float timeScaleResult = GetCurveTimeScaleResult(animationTime);
         float velocityMultiplier = targetHeight / timeScaleResult;
-        int lastItemIndex = curItemIndex;// currentItem.ItemIndex;
+        int lastItemIndex = currentItem.ItemIndex;
         float deltaTime = 0.0f;
+        int preItemIndex = 0;
         bool spinDuration = false;
         while (deltaTime < animationTime)
         {
@@ -100,10 +96,14 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
             UpdateVelocity(velocityMultiplier * curve.Evaluate(deltaTime / animationTime) * 1.0f);
 
             currentItem = GetCurrentItem();
+            
             if (currentItem != null && currentItem.ItemIndex != lastItemIndex)
             {
                 // tick
+                preItemIndex = lastItemIndex;
                 lastItemIndex = currentItem.ItemIndex;
+                if (lastItemIndex < preItemIndex && preItemIndex != 0)
+                    MessageDispatcher.Dispatch("JackpotNumChange", new EventData<int>(flag, numIndex));
             }
             if (spinDuration == false && deltaTime * 2.0f > animationTime)
             {
@@ -113,39 +113,15 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         }
         gameObject.SetActive(true);
         _Params.effects.InertiaDecelerationRate = 0.8f;
-        float duration = 0.25f;
-        if (CheckItemIsTarget(currentItem, targetIndex) && (currentItem.IsCenter(middleY, _Params.DefaultItemSize * centerWeight) || currentItem.GetPosY() <= middleY))
-        {
-            // target arrive
-            SmoothScrollTo(targetIndex, duration, 0.5f, 0.5f,onDone: () => { StopScorllCoroutine(); });
-        }
-        else
-        {
-            // set last wheel velocity
-            float lastVelocity = velocityMultiplier * curve.Evaluate(1.0f) * 1.0f;
-            int checkTargetIndex = targetIndex;
-            // move to target index wait
-            while (true)
-            {
-                UpdateVelocity(lastVelocity);
-                yield return new WaitForFixedUpdate();
-                currentItem = GetCurrentItem();
-                if (CheckItemIsTarget(currentItem, checkTargetIndex) && (currentItem.IsCenter(middleY, _Params.DefaultItemSize * centerWeight) || currentItem.GetPosY() <= middleY))
-                {
-                    SmoothScrollTo(checkTargetIndex, duration, 0.5f, 0.5f, onDone: () => { StopScorllCoroutine(); });
-                }
-                else if (currentItem != null && currentItem.ItemIndex != lastItemIndex)
-                {
-                    // tick
-                    lastItemIndex = currentItem.ItemIndex;
-                    //checkTargetIndex = lastItemIndex;
-                }
-            }
-        }
+        float duration = 0.5f;
+
+        SmoothScrollTo(targetIndex, duration, 0.5f, 0.5f, onDone: () => { StopScorllCoroutine(); });
     }
 
     private bool StopScorllCoroutine()
     {
+        var cancelAnim = _Params.Animation.Cancel;
+        CancelAnimations(true, true, cancelAnim.UserAnimations.OnBeginSmoothScroll);
         if (scrollCoroutine != null)
         {
             StopCoroutine(scrollCoroutine);
@@ -163,6 +139,8 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         {
             if (_VisibleItems[i].IsCurrentItem(middleY))
                 return _VisibleItems[i];
+            {
+            }
         }
         return null;
     }
@@ -236,6 +214,7 @@ public class JackpotNumParams : BaseParamsWithPrefab
 public class JackpotNumItemViewsHolder : BaseItemViewsHolder
 {
     public Image image;
+    public int value;
 
     public override void CollectViews()
     {
@@ -245,8 +224,12 @@ public class JackpotNumItemViewsHolder : BaseItemViewsHolder
 
     public bool IsCurrentItem(float centerY)
     {
-        float height = root.sizeDelta.y * 0.5f;
-        return root.anchoredPosition.y + height >= centerY && root.anchoredPosition.y - height <= centerY;
+        // item 高度的一半
+        //float height = root.sizeDelta.y * 0.5f;
+        //Debug.LogError($"itemIndex: {ItemIndex}, root.anchoredPosition.y: {root.anchoredPosition.y}");
+        //return root.anchoredPosition.y + height >= centerY && root.anchoredPosition.y - height <= centerY;
+
+        return root.anchoredPosition.y < 0;
     }
 
     public float GetPosY()

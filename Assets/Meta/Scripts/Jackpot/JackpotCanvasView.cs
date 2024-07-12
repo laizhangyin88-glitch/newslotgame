@@ -3,22 +3,26 @@ using NodeCanvas.Framework;
 using ParadoxNotion;
 using SimpleJSON;
 using SlotMaker;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.PlayerLoop.PreUpdate;
 
 public class JackpotCanvasView : MonoBehaviour
 {
     private List<JackpotView> jackpotViews = new List<JackpotView>();
-    private bool canUpdate;
+    private bool canUpdate = true;
+    private GameObject effect;
+    private Coroutine effectCorountine;
 
     public void TestSetJackpot()
     {
-        jackpotViews[0].SetJackpot(500);
+        jackpotViews[3].SetJackpot(50);
     }
 
     public void TestUpdateJackpot()
     {
-        jackpotViews[0].ScrollTo(1000);
+        jackpotViews[3].ScrollTo(100);
     }
 
     private void Awake()
@@ -26,6 +30,7 @@ public class JackpotCanvasView : MonoBehaviour
         var trans = transform.Find("Anchor/JackpotParent");
         for (int i = 0; i < trans.childCount; i++)
             jackpotViews.Add(trans.GetChild(i).GetComponent<JackpotView>());
+        effect = transform.Find("Anchor/Effect").gameObject;
         MessageDispatcher.Register("SetJackpot", OnSetJackpot);
         MessageDispatcher.Register("UpdateJackpot", OnUpdateJackpot);
         MessageDispatcher.Register(RPCName.winGameBonus, OnWinGameBounus);
@@ -55,28 +60,53 @@ public class JackpotCanvasView : MonoBehaviour
 
     private void OnWinGameBounus(EventData eventData)
     {
+        Debug.LogError("call OnWinGameBounus");
         var data = eventData.value as JSONNode;
         if(!data.HasKey("win_result_list")) return;
         canUpdate = false;
-        var winJackpotData = JsonConvert.DeserializeObject<WinJackpotData>(data["win_result_list"].ToString());
+        var winResultList = JsonConvert.DeserializeObject<List<WinResult>>(data["win_result_list"].ToString());
 
-        var meBB = BlackboardUtils.FindVariable<Blackboard>(MainBlackboard.Get(), "me");
-        if (meBB == null) return;
-        int userId = BlackboardUtils.FindVariable<int>(meBB.value, "userId").value;
-        if (int.TryParse(winJackpotData.userId, out int winJackpotId) && userId == winJackpotId)
-            ShowWinJackpot(winJackpotData.singleReward);
-        else
-            DispatchWinJackpot(winJackpotData.singleReward);
+        string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
+        for (int i = 0; i < winResultList.Count; i++)
+        {
+            var winResult = winResultList[i];
+            if (winResult.user_id == userId)
+                ShowWinJackpot(winResult);
+            else
+                DispatchWinJackpot(winResult);
+        }
     }
 
-    private void ShowWinJackpot(int singleReward)
+    private void ShowWinJackpot(WinResult winResult)
     {
-        
+        ShowEffect();
+        var jackpotView = jackpotViews[winResult.bonus_id - 1];
+        jackpotView.jackpot = jackpotView.jackpot - winResult.single_reward > 0 ? jackpotView.jackpot - winResult.single_reward : 0;
+        jackpotView.SetJackpot(jackpotView.jackpot);
     }
 
-    private void DispatchWinJackpot(int singleReward)
+    private void DispatchWinJackpot(WinResult winResult)
     {
+        ShowEffect();
+        var jackpotView = jackpotViews[winResult.bonus_id - 1];
+        jackpotView.jackpot -= winResult.single_reward;
+        jackpotView.SetJackpot(jackpotView.jackpot);
+    }
 
+    private void ShowEffect()
+    {
+        if (effectCorountine != null)
+            StopCoroutine(effectCorountine);
+        effectCorountine = StartCoroutine(ShowEffectEnumerator());
+    }
+
+    private IEnumerator ShowEffectEnumerator()
+    {
+        canUpdate = false;
+        effect.SetActive(true);
+        yield return new WaitForSeconds(5);
+        effect.SetActive(false);
+        canUpdate = true;
     }
 }
 
@@ -85,9 +115,10 @@ public class Jackpot
     public int total_bonus_count; 
 }
 
-public class WinJackpotData
+public class WinResult
 {
-    public int singleReward;
-    public string userId;
-    public string nickName;
+    public string user_id;
+    public string nick_name;
+    public int single_reward;
+    public int bonus_id;
 }

@@ -12,13 +12,14 @@ public class OSA_SlotAD : OSA<SlotADParams, SlotAD>
 {
     private float time = 0;
     private int currentIndex;
-    private List<string> urls;
+    private List<ADSData> adsDatas;
+    private float showTime = 5;
 
     protected override void Start()
     {
         base.Start();
-        urls = MainBlackboard.Get().GetValue<List<string>>("slotADurls");
-        ResetItems(urls.Count);
+        adsDatas = MainBlackboard.Get().GetValue<List<ADSData>>("slotADurls");
+        ResetItems(adsDatas.Count);
         currentIndex = 0;
     }
 
@@ -26,10 +27,10 @@ public class OSA_SlotAD : OSA<SlotADParams, SlotAD>
     {
         base.Update();
         time += UnityEngine.Time.deltaTime;
-        if (time > 5)
+        if (time > showTime)
         {
             time = 0;
-            currentIndex = currentIndex + 1 >= urls.Count ? 0 : currentIndex + 1;
+            currentIndex = currentIndex + 1 >= adsDatas.Count ? 0 : currentIndex + 1;
             SmoothScrollTo(currentIndex, 1, .5f, .5f);
         }
     }
@@ -43,13 +44,13 @@ public class OSA_SlotAD : OSA<SlotADParams, SlotAD>
 
     protected override void UpdateViewsHolder(SlotAD newOrRecycled)
     {
-        //newOrRecycled.image.sprite = sprites[newOrRecycled.ItemIndex];
-        newOrRecycled.webImageController.SetWebImage(urls[newOrRecycled.ItemIndex], false);
+        newOrRecycled.webImageController.SetWebImage(adsDatas[newOrRecycled.ItemIndex].imageUrl, false);
+        showTime = adsDatas[newOrRecycled.ItemIndex].showTime == 0 ? 5 : adsDatas[newOrRecycled.ItemIndex].showTime;
     }
 
     public void OnClickAD()
     {
-        Application.OpenURL(urls[currentIndex]);
+        Application.OpenURL(adsDatas[currentIndex].linkUrl);
     }
 }
 
@@ -70,4 +71,11 @@ public class SlotAD : BaseItemViewsHolder
         image = root.GetComponent<Image>();
         webImageController = root.GetComponent<WebImageController>();
     }
+}
+
+public class ADSData
+{
+    public string imageUrl;
+    public string linkUrl;
+    public float showTime;
 }
