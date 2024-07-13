@@ -23,7 +23,10 @@ namespace SlotMaker.Tasks.Condition
         {
             var variableA = BlackboardUtils.FindVariable<string>(agent, nodePath.value);
             if (variableA == null || variableA.value == null)
+            {
+                Debug.LogError($"{nodePath.value} is null");
                 return false;
+            }
 
             string data = variableA.value;
             JSONNode node = JSONNode.Parse(data);

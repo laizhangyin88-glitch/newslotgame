@@ -76,10 +76,16 @@ public class MiniGame1 : MonoBehaviour
     {
         boyState = BoyStealTeasureState.None;
 
+        long betCredit = BlackboardUtils.GetOrCreateVariable<long>(null, "./totalBetCredit").value;
+        int selectLine = BlackboardUtils.GetOrCreateVariable<int>(null, "./gameNew/selectLine").value;
+
         Dictionary<string, object> req = new Dictionary<string, object>
         {
-            {"jackpot_game_index",1}
+                {"bet",betCredit/selectLine},
+                { "win_line_count",selectLine},
+                { "jackpot_game_index",1}
         };
+
 
         NetManager.Instance.Post(RPCName.newClaimBonus, req,
         (res) =>

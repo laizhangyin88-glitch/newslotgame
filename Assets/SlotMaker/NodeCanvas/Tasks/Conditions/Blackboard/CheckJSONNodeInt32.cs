@@ -25,7 +25,10 @@ public class CheckJSONNodeInt32 : ConditionTask<Blackboard>
 	{
 		var variableA = BlackboardUtils.FindVariable<string>(agent, nodePath.value);
         if (variableA == null || variableA.value == null)
+        {
+            Debug.LogError($"{nodePath.value} is null");
             return false;
+        }
 
         JSONNode node = JSONNode.Parse(variableA.value);
 

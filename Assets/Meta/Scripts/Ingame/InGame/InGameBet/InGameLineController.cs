@@ -37,7 +37,8 @@ public class InGameLineController : MonoBehaviour
         cxeRootBtn.UpdateContext(true);
         cxeText = ContextUtils.FindElement(cxeRootBtn, "Text Line", ContextSearchingType.ChildrenSearch) as IContextText;
 
-        Debug.Log(cxeText);
+        //Debug.Log(cxeText);
+        cxeText.SetText(line.value.ToString());
 
     }
 
