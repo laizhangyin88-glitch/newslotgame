@@ -145,10 +145,8 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     string tempStr3 = JsonConvert.SerializeObject(tempArray2);
                     JSONNode node2 = JSONNode.Parse(tempStr3);
 
-
                     globalStore.reelSetList1 = tempList1;
                     globalStore.reelSetList2 = tempList2;
-
 
                     contentJson["game_info"]["reel_set_list"].Clear();
                     contentJson["game_info"]["reel_set_list"].Add(node1);
@@ -194,34 +192,26 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/room_enter_response_v3");
                     ClientModels.RoomEnterResponseV3 response = JsonUtility.FromJson<ClientModels.RoomEnterResponseV3>(jsn8.text);
 
-
-                    ////System.Collections.Generic.List<long> betList = res["bet_list"].AsStringList.Select(s => long.Parse(s)).ToList();
-                    ////response.betList = betList;
-
                     List<long> longs = new List<long>();
                     for (global::System.Int32 k = 0; k < res["bet_list"].Count; k++)
                     {
                         longs.Add(res["bet_list"][k].AsLong);
                     }
-
-                    response.betList = longs;
-
                     response.contents = contentJson.ToString();
 
+
+
+
                     var bb = ContentBlackboard.Get();
-
-                    SerializeMiniGameData(bb, res["game_config"]["jackpot_game_config"]); 
-                    Serialize(bb, response);
-
-
-  
-
-                    // 新游戏属性
+                    
+                    // ============新游戏属性
+                    int selectLine = res["game_config"]["win_line"].Count;
+                    //int selectLine = 1;
                     var gameNew = BlackboardUtils.GetOrCreateBlackboard(bb, "gameNew");
                     //Blackboard gameNew = BlackboardUtils.GetOrCreateVariable<Blackboard>(bb, "gameNew").value;
                     BlackboardUtils.SetOrCreateValue(gameNew, "changeCode", changeCode);
                     BlackboardUtils.SetOrCreateValue(gameNew, "betListBase", longs);
-                    BlackboardUtils.SetOrCreateValue(gameNew, "selectLine", 1);
+                    BlackboardUtils.SetOrCreateValue(gameNew, "selectLine", selectLine);
 
                     Dictionary<int, Dictionary<int, int>> paytables = new Dictionary<int, Dictionary<int, int>>();
                     foreach (KeyValuePair<string, JSONNode> item in res["game_config"]["card_mutiple"])
@@ -236,6 +226,15 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     BlackboardUtils.SetOrCreateValue(gameNew, "paytables", paytables);
 
 
+
+                    for (int i=0; i< longs.Count; i++)
+                    {
+                        longs[i] = longs[i] * selectLine;
+                    }
+
+                    response.betList = longs;
+                    SerializeMiniGameData(bb, res["game_config"]["jackpot_game_config"]); 
+                    Serialize(bb, response);
 
                     BlackboardQueryUtils.UpdateSeat(response.room);
                     BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);

@@ -21,6 +21,9 @@ namespace BagelCode.Tasks.Actions.ClientAPI
         {
             int gameId = BlackboardUtils.GetOrCreateVariable<int>(null, "./game/gameId").value;
 
+            int selectLine = BlackboardUtils.GetOrCreateVariable<int>(null, "./gameNew/selectLine").value;
+           // long betCredit = BlackboardUtils.GetOrCreateVariable<long>(null, "./totalBetCredit").value;
+
             if (TestManager.Instance.isCustomReels &&  globalStore.IsNewGame(gameId))
             {
                 /*List<object> shuffling_list = new List<object>(){
@@ -38,7 +41,9 @@ namespace BagelCode.Tasks.Actions.ClientAPI
 
                 Dictionary<string, object> req = new Dictionary<string, object>
                 {
-                    {"bet",betCredit.value},
+                    //{"bet",betCredit.value},
+                    {"bet",betCredit.value/selectLine},
+                    {"win_line_count",selectLine},
                     {"extra_bet",extraBetCredit.value},
                     {"debug_param", debug_param},
                 };

@@ -29,24 +29,28 @@ namespace BagelCode.Tasks.Actions.Contents
 
         public static Blackboard CreatJackpotInfo(long earnCredit)
         {
+
+            /*
+                    {
+                        "bonus_id": 2101,
+                        "type": 1,
+                        "earn_credit": 3899,
+                        "result": {
+                            "is_cash_wheel": false,
+                            "is_jackpot": true,
+                            "jackpot_index": 1,
+                            "jackpot_award_amount": 3899,
+                            "context_id": "45fcdfab-d9cc-445b-8244-3cd65ed3e9ba"
+                        },
+                        "claim_type": 1,
+                        "uid": "171271880676829890"
+                    }
+            */
+
+
             var cb = ContentBlackboard.Get();
-            var bonus = cb.GetValue<Blackboard>("bonus");
-/*
-        {
-            "bonus_id": 2101,
-            "type": 1,
-            "earn_credit": 3899,
-            "result": {
-                "is_cash_wheel": false,
-                "is_jackpot": true,
-                "jackpot_index": 1,
-                "jackpot_award_amount": 3899,
-                "context_id": "45fcdfab-d9cc-445b-8244-3cd65ed3e9ba"
-            },
-            "claim_type": 1,
-            "uid": "171271880676829890"
-        }
-*/
+            //var bonus = cb.GetValue<Blackboard>("bonus");
+            var bonus = cb.GetValue<Blackboard>("current");
 
             Blackboard response = (Blackboard)BlackboardUtils.GetOrCreateBlackboard(cb, "response");
             BlackboardUtils.SetOrCreateValue<long>(response, "earnCredit", earnCredit);

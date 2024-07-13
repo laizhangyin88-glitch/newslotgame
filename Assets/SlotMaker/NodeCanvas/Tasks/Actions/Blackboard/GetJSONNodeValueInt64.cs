@@ -47,6 +47,8 @@ namespace SlotMaker.Tasks.Actions
             var variableA = BlackboardUtils.FindVariable<string>(agent, nodePath.value);
             if (variableA == null || variableA.value == null)
             {
+
+                Debug.LogError($"{nodePath.value} is null");
                 _OnErr();
                 return;
             }
@@ -64,13 +66,27 @@ namespace SlotMaker.Tasks.Actions
 
 
             JSONNode target = node;
-            foreach (string itemStr in itemsStrs)
+            /*foreach (string itemStr in itemsStrs)
             {
                 if (target.HasKey(itemStr))
                 {
                     target = target[itemStr];
                 }
                 else{
+                    _OnErr();
+                    return;
+                }
+            }*/
+
+            for (int i=0;i< itemsStrs.Length; i++)
+            {
+                string itemStr = itemsStrs[i];
+                if (target.HasKey(itemStr))
+                {
+                    target = target[itemStr];
+                }
+                else
+                {
                     _OnErr();
                     return;
                 }

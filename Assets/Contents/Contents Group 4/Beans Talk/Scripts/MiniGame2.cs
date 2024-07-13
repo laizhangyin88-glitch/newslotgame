@@ -124,10 +124,16 @@ public class MiniGame2 : MonoBehaviour
         //ani_Man.Play("Default");
 
 
+        long betCredit = BlackboardUtils.GetOrCreateVariable<long>(null, "./totalBetCredit").value;
+        int selectLine = BlackboardUtils.GetOrCreateVariable<int>(null, "./gameNew/selectLine").value;
+
         Dictionary<string, object> req = new Dictionary<string, object>
         {
-            {"jackpot_game_index",2}
+                {"bet",betCredit/selectLine},
+                { "win_line_count",selectLine},
+                { "jackpot_game_index",2}
         };
+
 
         NetManager.Instance.Post(RPCName.newClaimBonus, req,
         (res) =>

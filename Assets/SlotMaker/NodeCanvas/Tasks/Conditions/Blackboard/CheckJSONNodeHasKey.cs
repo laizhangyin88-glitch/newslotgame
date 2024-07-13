@@ -22,8 +22,12 @@ namespace SlotMaker.Tasks.Condition
         protected override bool OnCheck()
         {
             var variableA = BlackboardUtils.FindVariable<string>(agent, nodePath.value);
+
             if (variableA == null || variableA.value == null)
+            {
+                Debug.LogError($"{nodePath.value} is null");
                 return false;
+            }
 
             string data = variableA.value;
             JSONNode node = JSONNode.Parse(data);
@@ -34,8 +38,9 @@ namespace SlotMaker.Tasks.Condition
                 return false;
 
             JSONNode target = node;
-            foreach (string itemStr in itemsStrs)
+            for (int i =0; i< itemsStrs.Length; i++)
             {
+                string itemStr = itemsStrs[i];
                 if (target.HasKey(itemStr))
                 {
                     target = target[itemStr];
