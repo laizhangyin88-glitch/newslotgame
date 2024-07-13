@@ -33,10 +33,11 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                 };*/
 
                 List<object> shuffling_list = TestManager.Instance.getCustomReels();
-
-                Dictionary<string,object> debug_param = new Dictionary<string, object>()
+                
+                Dictionary<string, object> debug_param = new Dictionary<string, object>()
                 {
-                    {"shuffling_list", shuffling_list },
+                    {"shuffling_list", shuffling_list }, 
+                    
                 };
 
                 Dictionary<string, object> req = new Dictionary<string, object>

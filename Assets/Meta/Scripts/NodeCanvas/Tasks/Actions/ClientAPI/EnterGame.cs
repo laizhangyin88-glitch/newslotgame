@@ -62,8 +62,6 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     }
                 }
             }
-
-
             return temp;
         }
 
@@ -128,9 +126,6 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                             { (int)res["game_config"]["slot_config"]["jackpot_card"],10 }, //小游戏
                         };
                     }
-
-                    
-
                     //转换 普通列表
                     var tempList1 = TranslateReelSetList(res["game_config"]["regular_game_reel"], changeCode);
                     Dictionary<string, List<List<int>>> tempArray = new Dictionary<string, List<List<int>>>();

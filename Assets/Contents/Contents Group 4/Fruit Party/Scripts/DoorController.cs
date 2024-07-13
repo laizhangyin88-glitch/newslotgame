@@ -1,12 +1,15 @@
 using BagelCode;
 using BagelCode.ClientModels;
+using GameStudio.Slot.FSF;
 using GameUtil;
 using NodeCanvas.Framework;
 using ParadoxNotion;
 using SimpleJSON;
 using SlotMaker;
+using Spine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 using static SlotMaker.IoC.Strategy.Tween.TweenEase;
@@ -38,6 +41,9 @@ public class DoorController : MonoBehaviour
     private bool autoSpinValue = false;
 
     public bool isSelect = false;
+
+    private int _playGameIndex = -1;
+
     private void SetAutoSpinFalse()
     {
         var autoSpin = BlackboardUtils.FindVariable<bool>("./autoSpin");
@@ -52,12 +58,13 @@ public class DoorController : MonoBehaviour
     {
         BlackboardUtils.FindVariable<bool>("./autoSpin").value = autoSpinValue;
     }
+     
+    public void OnStart() { 
 
-    public void OnStart()
-    {
         SetAutoSpinFalse();
         currentBet = BlackboardUtils.FindVariable<long>("./betCredit").value;
         isSelect = false;
+        _playGameIndex = -1;
 
         MiniGameDataManagers.StopBGM();  
         GSManager.Instance.GetHandler("door_A15").Play();
@@ -123,32 +130,11 @@ public class DoorController : MonoBehaviour
         }
     }
 
-    public void SetClickReward()
-    {
-        _loopTimer?.Cancel();
-        //var value = BlackboardUtils.GetOrCreateVariable<long>(ContentBlackboard.Get(), "jackpot_reward3");
-        //totalWinValueTxt.text = value.value.ToString("N0");
-        //rewardValue = value.value;
-        Variable<Blackboard> spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-        string responseNew = spinBB.value.GetValue<string>("responseNew");
-        JSONNode res = JSONNode.Parse(responseNew);
-        if (res["game_result"]["jackpot_info"]["jackpot_reward3"] != null)
-        {
-            long value = res["game_result"]["jackpot_info"]["jackpot_reward3"].AsLong;
-            if (value > 0) 
-            {
-                totalWinValueTxt.text = ((long)value).ToString("N0");
-                long temp = BlackboardUtils.FindVariable<long>("/me/credit").value;
-                BlackboardQueryUtils.SetMyCredit(temp + value);
-                rewardValue = value;
-                MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
 
-            }
-        }
-    }
-     
+
     public void PlayMiniGame(int index)
     {
+        _playGameIndex = index;
         this.DelayAction(0.5f, () =>
         {
             switch (index)
@@ -172,8 +158,8 @@ public class DoorController : MonoBehaviour
             Clear();
             GSManager.Instance.GetHandler("door_A15").Clear();
         });
-    }
 
+    }
     private void Clear()
     {
         this.gameObject.SetActive(false);

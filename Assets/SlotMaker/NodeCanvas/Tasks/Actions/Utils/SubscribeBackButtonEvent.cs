@@ -24,7 +24,6 @@ namespace BagelCode.Tasks.Actions
         protected override void OnExecute()
         {
             GraphOwner owner = agent.GetComponent<GraphOwner>();
-
             if (sendGlobal)
             {
                 MetaSystem.SubscribeBackButton(owner.GetHashCode(), () => { GraphOwner.SendGlobalEvent(eventName.value); });

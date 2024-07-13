@@ -6,7 +6,6 @@ using SimpleJSON;
 
 namespace SlotMaker.Tasks.Condition
 {
-
     [Category("★ SlotMaker/Blackboard")]
     public class CheckJSONNodeHasKey : ConditionTask<Blackboard>
     {
@@ -47,9 +46,11 @@ namespace SlotMaker.Tasks.Condition
                 }
                 else
                 {
+                    Debug.LogError("false..........................." + keyPath.value);
                     return false;
                 }
             }
+            Debug.LogError("true..........................." + keyPath.value);   
             return true;
         }
     }
