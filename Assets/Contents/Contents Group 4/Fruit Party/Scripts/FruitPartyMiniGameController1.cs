@@ -15,10 +15,10 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
 
     public float intervalTime = 0;
     [NonSerialized]
-    public int laps = 3; 
+    public int laps = 3;
      
-    private List<int> fruitList = new List<int>() { 10, 5, 6, 7, 1, 8, 6, 4, 10, 2, 7, 8, 3, 10, 5, 6, 7, 9, 8, 6, 4, 10, 2, 7, 8, 3 };
-
+    private List<int> fruitList = new List<int>() { 20, 5, 6, 7, 1, 8, 6, 4, 20, 2, 7, 8, 3, 20, 5, 6, 7, 9, 8, 6, 4, 20, 2, 7, 8, 3 };
+     
     public Sprite[] spritesArray;
     public Sprite[] redSpritesArray;
 
@@ -114,7 +114,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
             index++;
         }
     }
-     
+
     public void OnStart()
     {
         InitScoreArray();
@@ -131,7 +131,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
         RingItem = transform.Find("RingItem");
         ScoreItem = transform.Find("ScoreItem");
         Ring = transform.Find("Ring");
-        Score = transform.Find("Score"); 
+        Score = transform.Find("Score");
 
         totalWin = transform.Find("Image1/Total Win").GetComponent<Text>();
         totalBet = transform.Find("Image2/Total Bet").GetComponent<Text>();
@@ -174,6 +174,10 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
                 controller.itemIndex = index;
                 //SlotSpriteIndexArray[index] = tempIndex;
                 int tempIndex = fruitList[index] - 1;
+                if(tempIndex == 19)//这里转换一下，读对应的图片
+                {
+                    tempIndex = 9;  
+                }
                 controller.SetSprite(spritesArray[tempIndex]);
                 controller.SetRedSprite(redSpritesArray[tempIndex]);
                 ringItemControllers[index] = controller;
@@ -201,23 +205,23 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
     public void PlayRingAnimation()
     {
         isPlayAnimation = true;
-         
+
         currentGame1Data = MiniGameDataManagers.Instance.game1Datas[this.currentResultIndex];
         SlotResultNumber = getCardIndexPos(currentGame1Data.card_index);
 
         endNumber = laps * slotCount + SlotResultNumber;
         intervalTime = (AnimationTime / (endNumber + _selectIndex));
         interval = intervalTime;
-        this.currentResultIndex++;    
+        this.currentResultIndex++;
     }
 
     private int getCardIndexPos(int index)
     {
         int start = _selectIndex;
-        while (fruitList[start] != index)
+        while (fruitList[start] != index) 
         {
             start++;
-            if(start >= fruitList.Count)
+            if (start >= fruitList.Count)
             {
                 start = 0;
             }
@@ -234,12 +238,12 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
         {
             ringItemControllers[_selectIndex].SetSelectIsActive(true);
             ShowItemPingPong(ringItemControllers[_selectIndex]);
-        }); 
+        });
         fruitPartyMiniGameTigerMachine.PlayResult(currentGame1Data.middle_list);
         CalculateScore();
         float time = 4;
         ///击中的分数
-        if(currentGame1Data.round_mutiple > 0)
+        if (currentGame1Data.round_mutiple > 0)
         {
             GSManager.Instance.GetHandler("game1_hit_A41").Play();
             time = 5;
@@ -262,7 +266,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
 
     private void Clear()
     {
-        if(ringItemControllers.Length > 0)
+        if (ringItemControllers.Length > 0)
         {
             for (global::System.Int32 i = 0; i < ringItemControllers.Length; i++)
             {
@@ -270,14 +274,14 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
                 ringItemControllers[i] = null;
             }
         }
-        if(scoreItemControllers.Length > 0)
+        if (scoreItemControllers.Length > 0)
         {
             for (global::System.Int32 i = 0; i < scoreItemControllers.Length; i++)
             {
                 Destroy(scoreItemControllers[i].gameObject, i * 0.2f);
                 scoreItemControllers[i] = null;
             }
-        } 
+        }
         MiniGameDataManagers.Instance.ResetAutoSpin();
         MiniGameDataManagers.Instance.ShowGameReward(TotalWinScore);
         GSManager.Instance.GetHandler("game1_bg_A12").Clear();
@@ -311,15 +315,15 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
 
     private void Update()
     {
-        if(isPlayAnimation)
+        if (isPlayAnimation)
         {
             interval -= Time.deltaTime;
-            if(interval < 0)
+            if (interval < 0)
             {
                 interval = intervalTime;
                 currentNumber++;
                 SelectIndex = currentNumber;
-                if(currentNumber >= endNumber)
+                if (currentNumber >= endNumber)
                 {
                     GSManager.Instance.GetHandler("ring_A09").Pause();
                     FinishAnimation();
@@ -327,6 +331,7 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
             }
         }
     }
+
     public void StartMachine(float time)
     {
         this.DelayAction(time, () =>

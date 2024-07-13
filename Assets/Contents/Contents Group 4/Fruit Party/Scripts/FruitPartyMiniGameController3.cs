@@ -97,7 +97,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
         StartCountDown();
     }
     private void StartCountDown()
-    { 
+    {
         _loopTimer?.Cancel();
         currentCountDown = 5;
         CountDownTxt.text = currentCountDown.ToString();
@@ -148,9 +148,9 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
         foreach (var item in mutiple_dict)
         {
             scores[index] = item.Value;
-            if (int.Parse(item.Key) == 100)///退出的图标序号是 9 
+            if (int.Parse(item.Key) == 20)///退出的图标序号是 9 
             {
-                spriteIndexs[index] = 9; 
+                spriteIndexs[index] = 9;
             } 
             else
             {
@@ -209,15 +209,18 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
                 TotalWinTxt.text = "Total Win \n" + totalScore.ToString("N0");
             }
         }
-        if(spriteIndex == 100)///选中bonus，计算得分
+        if (spriteIndex == 20)///选中bonus，计算得分
         {
             totalScore += bonusValue * currentBet;
             TotalWinTxt.text = "Total Win \n" + totalScore.ToString("N0");
         }
-        foreach (var item in selectStarItemControllers)
+        this.DelayAction(1f, () =>
         {
-            item.SetItemColor(Color.gray);
-        }
+            foreach (var item in selectStarItemControllers)
+            {
+                item.SetItemColor(Color.gray);
+            }
+        });
         this.DelayAction(3, () =>
         {
             foreach (var item in selectStarItemControllers)
@@ -238,7 +241,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
                 }
                 selectStarItemControllers[temp].SetExit(ExitSprite);
             }
-            if (spriteIndex != 100)///如果点击的是bonus图标，这里就不再设置bonus图标了
+            if (spriteIndex != 20)///如果点击的是bonus图标，这里就不再设置bonus图标了
             {
                 while (selectStarItemControllers[temp].isExit || selectStarItemControllers[temp].isClick)
                 {
@@ -271,7 +274,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
 
     private void Clear()
     {
-        if(selectStarItemControllers != null && selectStarItemControllers.Length > 0)
+        if (selectStarItemControllers != null && selectStarItemControllers.Length > 0)
         {
             for (global::System.Int32 i = 0; i < selectStarItemControllers.Length; i++)
             {
@@ -279,7 +282,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
                 selectStarItemControllers[i] = null;
             }
         }
-        if(rewardScoreItemControllers != null && rewardScoreItemControllers.Length > 0)
+        if (rewardScoreItemControllers != null && rewardScoreItemControllers.Length > 0)
         {
             for (global::System.Int32 i = 0; i < rewardScoreItemControllers.Length; i++)
             {
