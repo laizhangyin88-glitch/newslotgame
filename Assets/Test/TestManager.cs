@@ -38,6 +38,8 @@ public class TestManager : MonoSingleton<TestManager>
 
     public GameObject inputExcUI;
 
+    public GameObject inputJackpot;
+
     private void Start()
     {
         if (inputAutoUrl != null)
@@ -60,7 +62,23 @@ public class TestManager : MonoSingleton<TestManager>
         return res;
     }
 
-
+    public string getJackpot()
+    {
+        if(inputJackpot != null)
+        {
+            InputField inputField = inputJackpot.GetComponent<InputField>();
+            if(inputField != null )
+            {
+                if (!string.IsNullOrEmpty(inputField.text))
+                {
+                    string temp = inputField.text;
+                    inputField.text = "";
+                    return temp;
+                }
+            }
+        }
+        return "0";
+    }
 
     public string getClaimBonus()
     {

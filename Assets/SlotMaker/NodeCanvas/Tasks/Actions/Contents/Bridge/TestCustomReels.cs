@@ -21,7 +21,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
         {
             int gameId = BlackboardUtils.GetOrCreateVariable<int>(null, "./game/gameId").value;
 
-            if (TestManager.Instance.isCustomReels &&  globalStore.IsNewGame(gameId))
+            if (TestManager.Instance.isCustomReels && globalStore.IsNewGame(gameId))
             {
                 /*List<object> shuffling_list = new List<object>(){
                     new List<object>(){2,2,2,2,2},
@@ -30,10 +30,11 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                 };*/
 
                 List<object> shuffling_list = TestManager.Instance.getCustomReels();
-
-                Dictionary<string,object> debug_param = new Dictionary<string, object>()
+                
+                Dictionary<string, object> debug_param = new Dictionary<string, object>()
                 {
-                    {"shuffling_list", shuffling_list },
+                    {"shuffling_list", shuffling_list }, 
+                    
                 };
 
                 Dictionary<string, object> req = new Dictionary<string, object>

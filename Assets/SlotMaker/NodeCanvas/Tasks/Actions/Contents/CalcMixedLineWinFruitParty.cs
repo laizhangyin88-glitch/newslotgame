@@ -345,7 +345,6 @@ namespace BagelCode.Tasks.Actions.Contents
             FindMiniGame(winList);
             ///使用服务器下发的数据
             var total = res["game_result"]["earn_credit"].AsLong;
-            Debug.LogError("服务器下发的赢钱数值....." + total);
             totalEarnCredit = total;
 
             winList.Sort();

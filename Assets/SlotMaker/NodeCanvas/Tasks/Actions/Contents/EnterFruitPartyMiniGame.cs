@@ -14,12 +14,10 @@ namespace SlotMaker.Tasks.Actions.Contents
             base.OnExecute();
             if(isEnter != null && isEnter.value)
             {
-                Debug.LogError("Enter..................................");
                 MiniGameDataManagers.Instance.EnterMiniGame();
             }
             else
             {
-                Debug.LogError("Exit..................................");
                 MiniGameDataManagers.Instance.ExitMiniGame();
             }
             EndAction();
