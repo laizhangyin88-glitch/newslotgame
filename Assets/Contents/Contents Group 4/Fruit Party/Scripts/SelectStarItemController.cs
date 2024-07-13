@@ -105,7 +105,7 @@ public class SelectStarItemController : MonoBehaviour
     {
         if (FruitPartyMiniGameController3.Instance != null)
         {
-            if (spriteIndex == 100)///bonus图标额外设置
+            if (spriteIndex == 20)///bonus图标额外设置 
             {
                 icon.sprite = FruitPartyMiniGameController3.Instance.BonusSprite;
             }

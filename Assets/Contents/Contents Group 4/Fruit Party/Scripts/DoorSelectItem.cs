@@ -46,7 +46,7 @@ public class DoorSelectItem : MonoBehaviour
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(OnClickBtn);
         _frameAnimator.gameObject.SetActive(false);
-        _frameAnimator.FinishEvent += AnimationFinish;
+        _frameAnimator.FinishEvent += AnimationFinish; 
     }
 
     private void AnimationFinish()
@@ -56,8 +56,7 @@ public class DoorSelectItem : MonoBehaviour
         _frameAnimator.gameObject.SetActive(false);
         if (_DoorController != null)
         {
-            _DoorController.SetClickReward();
-            this.DelayAction(2, () =>
+            this.DelayAction(1, () => 
             {
                 _DoorController.PlayMiniGame(_index);
             });
@@ -91,11 +90,17 @@ public class DoorSelectItem : MonoBehaviour
                     MiniGameDataManagers.Instance.FillGame3Data(res["game_result"]["jackpot_game_result"]);
                     break;
             }
-            
-            this.btn.gameObject.SetActive(false);
-            _frameAnimator.gameObject.SetActive(true);
-            _frameAnimator.Reset();
-            _frameAnimator.Play();
+
+            //this.btn.gameObject.SetActive(false);
+            //_frameAnimator.gameObject.SetActive(true);
+            //_frameAnimator.Reset();
+            //_frameAnimator.Play();
+            btn.transform.localScale = Vector3.one * 1.2f;
+            AnimationFinish();
+            this.DelayAction(0.1f, () =>
+            {
+                btn.transform.localScale = Vector3.one;
+            });
         },
         (error) =>
         {

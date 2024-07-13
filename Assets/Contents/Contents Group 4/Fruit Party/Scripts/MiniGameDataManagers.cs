@@ -60,7 +60,7 @@ public class MiniGameDataManagers
     public void FillGame1Data(JSONNode node)
     {
         game1Datas.Clear();
-        Debug.LogError("免费游戏的数据..................." + node.ToString());
+        
         for (int i = 0; i < node.Count; i++)
         {
             var temp = node[i];
@@ -90,7 +90,7 @@ public class MiniGameDataManagers
     public void FillGame2Data(JSONNode node)
     {
         game2Datas.Clear();
-        Debug.LogError("免费游戏的数据..................." + node.ToString());
+        
         for (int i = 0; i < node.Count; i++)
         {
             var temp = node[i];
@@ -117,7 +117,7 @@ public class MiniGameDataManagers
 
     public void FillGame3Data(JSONNode node)
     {
-        Debug.LogError("免费游戏的数据..................." + node.ToString());
+        
         game3Datas.Clear();
         for (int i = 0; i < node.Count; i++)
         {
@@ -125,7 +125,7 @@ public class MiniGameDataManagers
             Game3Data game3Data = new Game3Data();
             game3Data.is_bonus = temp["is_bonus"];
             game3Data.card_index = temp["card_index"];
-            if (game3Data.card_index == 100)
+            if (game3Data.card_index == 20)///退出的图标序号是 20
             {
                 game3Data.card_index = 10;
             }
