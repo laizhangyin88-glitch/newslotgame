@@ -78,10 +78,6 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
             {
                 _results = new int[fruitPartyMiniGameTigerMachine.row];
             }
-            for (int i = 0; i < 3; i++)
-            {
-                //_results[i] = UnityEngine.Random.Range(0, FruitPartyMiniGameController1.Instance.SlotSpriteIndexArray.Length);
-            }
             return _results;
         }
     }
@@ -172,9 +168,8 @@ public class FruitPartyMiniGameController1 : MonoBehaviour
                 temp.transform.localScale = Vector3.one;
                 RingItemController controller = temp.GetComponent<RingItemController>();
                 controller.itemIndex = index;
-                //SlotSpriteIndexArray[index] = tempIndex;
                 int tempIndex = fruitList[index] - 1;
-                if(tempIndex == 19)//这里转换一下，读对应的图片
+                if(tempIndex == 19)//这里转换一下退出图标，读对应的图片
                 {
                     tempIndex = 9;  
                 }
