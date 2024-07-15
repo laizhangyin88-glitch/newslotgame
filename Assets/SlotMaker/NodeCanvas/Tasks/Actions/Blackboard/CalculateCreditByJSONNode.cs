@@ -48,6 +48,7 @@ namespace SlotMaker.Tasks.Actions
             var variableA = BlackboardUtils.FindVariable<string>(agent, nodePath.value);
             if (variableA == null || variableA.value == null)
             {
+                Debug.LogError($"{nodePath.value} is null");
                 EndAction(false);
                 return;
             }
