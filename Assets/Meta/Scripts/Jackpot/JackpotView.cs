@@ -51,11 +51,14 @@ public class JackpotView : MonoBehaviour
         if (value == jackpot)
             return;
         if (jackpot > value || jackpot == 0)
+        {
             SetJackpot(value);
-        value -= jackpot;
+            return;
+        }
+        int tempValue = value - jackpot;
         jackpot = value;
-        int single = value % 10;
-        int round = single <= jackpotNums[0].curItemIndex ? value / 10 - 1 : value / 10;
+        int single = tempValue % 10;
+        int round = single <= jackpotNums[0].curItemIndex ? tempValue / 10 - 1 : tempValue / 10;
         jackpotNums[0].Simulation(single, aniSpeed * (round + 1), round);
     }
 
