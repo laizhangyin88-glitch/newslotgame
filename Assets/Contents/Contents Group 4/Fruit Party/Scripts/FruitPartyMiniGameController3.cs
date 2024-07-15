@@ -148,14 +148,7 @@ public class FruitPartyMiniGameController3 : MonoBehaviour
         foreach (var item in mutiple_dict)
         {
             scores[index] = item.Value;
-            if (int.Parse(item.Key) == 20)///退出的图标序号是 9 
-            {
-                spriteIndexs[index] = 9;
-            } 
-            else
-            {
-                spriteIndexs[index] = int.Parse(item.Key) - 1;
-            }
+            spriteIndexs[index] = int.Parse(item.Key) - 1;
             index++;
         }
         index = 0;

@@ -28,12 +28,16 @@ public class RewardScoreItemController : MonoBehaviour
     {
         this.spriteIndex = spriteIndex;
         this.score = score;
-        icon.sprite = FruitPartyMiniGameController3.Instance.sprites[this.spriteIndex];
-        scoreTxt.text = this.score.ToString();
-        if (spriteIndex == 9)
+        if (spriteIndex == 19)//退出图标特殊设置
         {
-            icon.SetNativeSize();
+            icon.sprite = FruitPartyMiniGameController3.Instance.ExitSprite;
+            icon.SetNativeSize(); 
         }
+        else 
+        {
+            icon.sprite = FruitPartyMiniGameController3.Instance.sprites[this.spriteIndex];
+        }
+        scoreTxt.text = this.score.ToString();
     }
 }
 

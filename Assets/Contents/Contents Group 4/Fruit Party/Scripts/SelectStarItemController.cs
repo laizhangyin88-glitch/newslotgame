@@ -43,11 +43,6 @@ public class SelectStarItemController : MonoBehaviour
         button.onClick.AddListener(OnClickButton);
         icon = transform.Find("icon").GetComponent<Image>();
         icon.gameObject.SetActive(false);
-
-        //this.DelayAction(1, () =>
-        //{
-        //    PlayStartAnimation();
-        //});
     }
 
     private void Start()
@@ -73,10 +68,6 @@ public class SelectStarItemController : MonoBehaviour
     private void ShowIconAnimation()
     {
         icon.gameObject.SetActive(true);
-        //transform.DOScale(Vector3.one * 1.2f, 0.2f).OnComplete(() =>
-        //{
-        //    transform.localScale = Vector3.one;
-        //});
     }
 
     public void OnClickButton()
@@ -162,9 +153,6 @@ public class SelectStarItemController : MonoBehaviour
         gameObject.SetActive(true);
         transform.position = endPosition;
         transform.localScale = Vector3.one * 0.2f;
-        //transform.DORotate(new Vector3(0, 0, 360), 1.5f, RotateMode.FastBeyond360).SetEase(Ease.InCubic);
-        //transform.DOScale(Vector3.one, 1.5f);
-        //transform.DOLocalMove(Vector3.zero, 1.5f);
         AsyncActionUtils.ApplyRotation(this, transform, Vector3.zero, new Vector3(0, 0, 720), 0.5f, TweenUtils.VectorTweenLinear);
         AsyncActionUtils.ApplyScaling(this, transform, Vector3.one, Vector3.one, 0.5f, TweenUtils.VectorTweenLinear);
         AsyncActionUtils.ApplyLocalMovement(this, transform, transform.localPosition, Vector3.zero, 0.5f, TweenUtils.VectorTweenLinear);
@@ -193,4 +181,4 @@ public class SelectStarItemController : MonoBehaviour
             }
         });
     }
-}
+} 
