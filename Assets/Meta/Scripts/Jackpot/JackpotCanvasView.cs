@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using NodeCanvas.Framework;
 using ParadoxNotion;
 using SimpleJSON;
+using SimpleJSON;
 using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,10 @@ public class JackpotCanvasView : MonoBehaviour
     public void TestSetJackpot()
     {
         jackpotViews[3].SetJackpot(50);
+    }
+
+    public void TestUpdateJackpot()
+    {
     }
 
     public void TestUpdateJackpot()
@@ -121,4 +126,5 @@ public class WinResult
     public string nick_name;
     public int single_reward;
     public int bonus_id;
+    public int bonusId;
 }
