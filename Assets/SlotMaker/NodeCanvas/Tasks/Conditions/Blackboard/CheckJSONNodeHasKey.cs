@@ -46,11 +46,11 @@ namespace SlotMaker.Tasks.Condition
                 }
                 else
                 {
-                    Debug.LogError("false..........................." + keyPath.value);
+                    //Debug.LogError("false..........................." + keyPath.value);
                     return false;
                 }
             }
-            Debug.LogError("true..........................." + keyPath.value);   
+            //Debug.LogError("true..........................." + keyPath.value);   
             return true;
         }
     }
