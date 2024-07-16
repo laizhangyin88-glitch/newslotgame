@@ -90,4 +90,5 @@ public class WinJackpotData
     public int singleReward;
     public string userId;
     public string nickName;
+    public int bonusId;
 }
