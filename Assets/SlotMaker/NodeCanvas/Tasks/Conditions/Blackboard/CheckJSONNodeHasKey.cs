@@ -48,7 +48,7 @@ namespace SlotMaker.Tasks.Condition
                 {
                     return false;
                 }
-            } 
+            }
             return true;
         }
     }

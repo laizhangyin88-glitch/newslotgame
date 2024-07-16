@@ -147,7 +147,7 @@ public class MiniGame2 : MonoBehaviour
                 lstScore.Add((int)item);
             }
 
-            Debug.LogError($"Count = {lstScore.Count}");
+            Debug.LogWarning($"Count = {lstScore.Count}");
 
             Blackboard bonusBB = (Blackboard)BlackboardUtils.GetOrCreateBlackboard(ContentBlackboard.Get(), "bonus");
             BlackboardUtils.SetOrCreateValue(bonusBB, "responseNew", resStr);

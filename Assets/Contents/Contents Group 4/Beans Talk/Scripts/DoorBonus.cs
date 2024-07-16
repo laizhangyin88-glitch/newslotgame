@@ -101,7 +101,15 @@ public class DoorBonus : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+        GSManager.Instance.GetHandler("SB Bubble Appear BGM").Play();
+    }
 
+    private void OnDisable()
+    {
+        GSManager.Instance.GetHandler("SB Bubble Appear").Stop();
+    }
 
     //private void OnDisable()
     private void OnDestroy()
