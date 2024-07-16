@@ -160,18 +160,6 @@ namespace BagelCode.Tasks.Actions.Contents
             string responseNew = spinBB.value.GetValue<string>("responseNew");
             res = JSONNode.Parse(responseNew);
 
-            //Debug.LogError("拉霸下发数据......." + res.ToString());
-            //Debug.LogError("拉霸结果....... + " + res["game_result"]["first_index_list"].ToString());
-
-            //for (int i = 0; i < res["game_result"]["total_result"].Count; i++)
-            //{
-            //    var temp = res["game_result"]["total_result"][i];
-            //    if(temp != null && temp["win_line"] != null)
-            //    {
-            //        Debug.LogError(temp["win_line"].ToString());
-            //    }
-            //}
-
             JSONNode lineResult = res["game_result"]["total_result"];
             var list = new List<List<int>>();
             for (int i = 0; i < lineResult.Count; i++)
@@ -227,7 +215,7 @@ namespace BagelCode.Tasks.Actions.Contents
                         }
                         else
                         {
-                            if (temp.symbol == deck.deck[cell.column][cell.row].symbol || newList[cell.column, cell.row] == 9)
+                            if (temp.symbol == deck.deck[cell.column][cell.row].symbol || newList[cell.column, cell.row] == 0 || newList[cell.column, cell.row] == 11) 
                             {
                                 symbolWin.cells.Add(new Cell(j, line[j]));
                                 hitCount++;
@@ -289,7 +277,6 @@ namespace BagelCode.Tasks.Actions.Contents
             }
             if (count >= 3)
             {
-                Debug.LogError("触发免费游戏了......");
                 winList.Add(symbolWin);
                 symbolWin.earnCredit = 0;
             }
