@@ -140,7 +140,8 @@ namespace BlizzUtils
             for (int i = 0; i < totalResultNode.Count; i++)
             {
                 JSONNode temp = totalResultNode[i];
-                if (temp.HasKey("value") && (int)temp["value"] == value)
+
+                if (temp.HasKey("value") && (int)temp["value"] == value && (int)temp["count"] > 0)
                 {
                     lineIndex = (int)temp["index"];
                     break;
