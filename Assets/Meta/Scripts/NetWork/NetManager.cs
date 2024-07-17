@@ -842,6 +842,10 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     AesManager.Instance.initAesIv(data["aes_iv"]);
                 }
 
+                //彩金
+                if (data.HasKey("bonus_result"))
+                    MessageDispatcher.Dispatch("SetJackpot", new EventData<string>("SetJackpot", data["bonus_result"].ToString()));
+
                 if (this._state == NetNodeState.Checking) //断线重连
                 {
 
@@ -910,10 +914,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
                 globalStore.gameState = GameState.Hall;
                 globalStore.nowGameID = -1;
-
-                //彩金
-                if (data.HasKey("bonus_result"))
-                    MessageDispatcher.Dispatch("SetJackpot", new EventData<string>("SetJackpot", data["bonus_result"].ToString()));
 
                 //广告
                 var adJson = JSONNode.Parse(data["l_ads"]);
@@ -1020,8 +1020,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 {
                     if (data.HasKey("cur_time"))
                         MessageDispatcher.Dispatch("OnPing", new EventData<string>("ShowInfo", data.ToString()));
-                    if (data.HasKey("bonus_result"))
-                        MessageDispatcher.Dispatch("UpdateJackpot", new EventData<string>("UpdateJackpot", data["bonus_result"].ToString()));
                 }       
 
                 break;
