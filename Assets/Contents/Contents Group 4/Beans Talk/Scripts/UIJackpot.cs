@@ -18,13 +18,38 @@ public class UIJackpot : MonoBehaviour
 
     public ContextElement compText;
 
+
+    private const string ON_CONTENT_EVENT = "OnContentEvent";
+
     void Start()
     {
         nowData = minData + Random.Range(0, 100);
         tempGap = gap;
 
-
+        MessageDispatcher.Register(ON_CONTENT_EVENT, OnJackpotEvent);
     }
+
+    private void OnDestroy()
+    {
+        MessageDispatcher.UnRegister(ON_CONTENT_EVENT, OnJackpotEvent);
+    }
+
+
+    bool isJackpotRun = true;
+
+    private void OnJackpotEvent(ParadoxNotion.EventData eventData)
+    {
+        if (eventData.name == "JackpotRun")
+        {
+            isJackpotRun = true;
+        }
+        else if (eventData.name == "JackpotStop")
+        {
+            isJackpotRun = false;
+        }
+    }
+
+
 
     void Update()
     {
@@ -34,7 +59,7 @@ public class UIJackpot : MonoBehaviour
         {
             tempGap = gap;
 
-            if (!BlackboardQueryUtils.IsSpin())
+            if (isJackpotRun) //!BlackboardQueryUtils.IsSpin())
             {
                 nowData += Random.Range(10000, 100);
                 if (nowData > maxData)
