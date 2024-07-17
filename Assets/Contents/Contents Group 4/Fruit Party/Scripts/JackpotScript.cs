@@ -15,12 +15,35 @@ public class JackpotScript : MonoBehaviour
     private long nowData;
     private int tempGap;
 
+    private bool isSpin = false;
+
     public TextMeshProUGUI compText;
      
     void Start()
     {
         nowData = minData + Random.Range(0, 100);
         tempGap = gap;
+        isSpin = true;
+
+
+        MessageDispatcher.Register("OnContentEvent", OnJackpotEvent);
+    }
+
+    private void OnDestroy()
+    {
+        MessageDispatcher.UnRegister("OnContentEvent", OnJackpotEvent);
+    }
+
+    private void OnJackpotEvent(ParadoxNotion.EventData eventData)
+    {
+        if (eventData.name == "JackpotRun")
+        {
+            isSpin = false;
+        }
+        else if (eventData.name == "JackpotStop")
+        {
+            isSpin = true;
+        }
     }
 
     void Update()
@@ -31,7 +54,7 @@ public class JackpotScript : MonoBehaviour
         {
             tempGap = gap;
 
-            if (!BlackboardQueryUtils.IsSpin())
+            if (isSpin)
             {
                 nowData += Random.Range(10000, 100);
                 if (nowData > maxData)
