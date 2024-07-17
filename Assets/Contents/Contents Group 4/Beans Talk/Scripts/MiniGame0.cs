@@ -38,6 +38,9 @@ public class MiniGame0 : MonoBehaviour
     int clickIndex = 0;
     Dictionary<int, Vector2> dicPos = new Dictionary<int, Vector2>();
 
+
+    long _winNum = 0;
+
     /*
     Dictionary<int, int> dic_Score = new Dictionary<int, int>
     {
@@ -99,6 +102,10 @@ public class MiniGame0 : MonoBehaviour
 
         //Debug.Log($"【ani_Boy】 x={ani_Boy.transform.localPosition.x}   y={ani_Boy.transform.localPosition.y}");
 
+
+        betNum.text = $"{BlackboardUtils.FindVariable<long>("./totalBetCredit").value}";
+        _winNum = 0;
+        winNum.text = $"{_winNum}";
     }
 
     public static readonly string ON_CONTENT_UI_EVENT = "OnContentUIEvent";
