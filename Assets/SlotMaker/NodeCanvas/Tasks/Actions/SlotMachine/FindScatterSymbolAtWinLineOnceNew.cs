@@ -23,7 +23,7 @@ namespace BagelCode.Tasks.Actions.Contents
 
         protected override string info
         {
-            get { return string.Format("Find Scatter({0}) at win line (new)", symbolMask); }
+            get { return string.Format("Find Scatter({0}) at win line <new>", symbolMask); }
         }
 
         protected override void OnExecute()
@@ -63,10 +63,14 @@ namespace BagelCode.Tasks.Actions.Contents
 
             if (lineIndex == -1)
             {
+                Debug.LogError($"can not find symbol {symbol.value} win line");
                 EndAction(false);
                 return;
             }
-            
+
+            Debug.Log($"==@  find symbol {symbol.value} win line index = {lineIndex} ");
+
+
             var payLinesBB = BlackboardUtils.FindVariable<List<Blackboard>>(null, "./game/payLines").value;
            // int column1 = BlackboardUtils.FindVariable<int>(null, "./customData/slotDataList/0/column").value;
            //  int row2 = BlackboardUtils.FindVariable<int>(null, "./customData/slotDataList/0/row").value;

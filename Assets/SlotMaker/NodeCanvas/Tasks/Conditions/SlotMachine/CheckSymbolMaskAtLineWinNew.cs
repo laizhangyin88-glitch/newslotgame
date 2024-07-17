@@ -18,7 +18,7 @@ namespace SlotMaker.Tasks.Conditions
         public SymbolAttribute valueB;
         public BBParameter<int> symbol;
 
-        protected override string info { get { return string.Format("CheckSymbolMask({0}, {1}) && in line win (new)", symbolMask, valueB); } }
+        protected override string info { get { return string.Format("CheckSymbolMask({0}, {1}) && in line win <new>", symbolMask, valueB); } }
 
         protected override bool OnCheck()
         {
