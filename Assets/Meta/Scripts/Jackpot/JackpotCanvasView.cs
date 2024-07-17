@@ -92,9 +92,8 @@ public class JackpotCanvasView : MonoBehaviour
 
     private void DispatchWinJackpot(WinResult winResult)
     {
-        ShowEffect();
         var jackpotView = jackpotViews[winResult.bonus_id - 1];
-        jackpotView.jackpot -= winResult.single_reward;
+        jackpotView.jackpot = jackpotView.jackpot - winResult.single_reward > 0 ? jackpotView.jackpot - winResult.single_reward : 0;
         jackpotView.SetJackpot(jackpotView.jackpot);
     }
 
