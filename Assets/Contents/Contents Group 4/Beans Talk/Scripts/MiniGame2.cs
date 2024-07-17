@@ -6,6 +6,7 @@ using ParadoxNotion;
 using SimpleJSON;
 using Sirenix.OdinInspector;
 using SlotMaker;
+using SlotMaker.Slots.Tasks.Actions.Win;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -48,6 +49,8 @@ public class MiniGame2 : MonoBehaviour
 
     List<DelayTimer> _timers = new List<DelayTimer>();
     LoopTimer _countDownTimer;
+
+    long _totalWin = 0;
     void Awake()
     {
         root = transform.Find("Animator/Anchor");
@@ -120,7 +123,11 @@ public class MiniGame2 : MonoBehaviour
         //RefreshGiftState(false);
         ClearTimer();
         ani_Boy.gameObject.SetActive(false);
-        RefreshBetWin();
+
+        betNum.text = $"{BlackboardUtils.FindVariable<long>("./totalBetCredit").value}";
+        _totalWin = 0;
+        winNum.text = $"{_totalWin}";
+
         //ani_Man.Play("Default");
 
 
@@ -255,6 +262,9 @@ public class MiniGame2 : MonoBehaviour
                 {
                     giftContents[index].gameObject.SetActive(false);
 
+                    _totalWin += score;
+                    winNum.text = $"{_totalWin}";
+
                     ani_Boy.Play("ClimbUp");
                     boyState = BoyStealHarpState.StealFinish;
                     var timer3 = TimerExtensions.DelayAction(this, 1.6f, () =>
@@ -301,12 +311,7 @@ public class MiniGame2 : MonoBehaviour
     }
 
 
-    //刷新底部文字
-    void RefreshBetWin()
-    {
-        betNum.text = "111";
-        winNum.text = "222";
-    }
+
     void StartSteal()
     {
         RefreshGiftState(true);

@@ -34,6 +34,8 @@ public class MiniGame1 : MonoBehaviour
     float endTime = 30;
     bool isTimeUp = false;
     LoopTimer _countDownTimer;
+
+
     void Awake()
     {
         root = transform.Find("Animator/Anchor");
@@ -52,6 +54,7 @@ public class MiniGame1 : MonoBehaviour
         betNum = root.Find("betWin/bet/betNum").GetComponent<TextMeshProUGUI>();
         winNum = root.Find("betWin/win/winNum").GetComponent<TextMeshProUGUI>();
         countDownText = root.Find("countDown").GetComponent<TextMeshProUGUI>();
+
     }
 
 
@@ -75,6 +78,9 @@ public class MiniGame1 : MonoBehaviour
     void OnEnable()
     {
         boyState = BoyStealTeasureState.None;
+        betNum.text = $"{BlackboardUtils.FindVariable<long>("./totalBetCredit").value}";
+        winNum.text = "0";
+
 
         long betCredit = BlackboardUtils.GetOrCreateVariable<long>(null, "./totalBetCredit").value;
         int selectLine = BlackboardUtils.GetOrCreateVariable<int>(null, "./gameNew/selectLine").value;
@@ -123,7 +129,6 @@ public class MiniGame1 : MonoBehaviour
         isTimeUp = false;
         _timers = new List<DelayTimer>();
         AddEvent();
-        RefreshBetWin();
         ani_Box1.Play("CanOpen");
         ani_Box2.Play("CanOpen");
         ani_Box3.Play("CanOpen");
@@ -294,11 +299,13 @@ public class MiniGame1 : MonoBehaviour
         ani_Boy.Play(aniName);
         scoreNum.text = score.ToString();
         scoreNum.gameObject.SetActive(true);
-        int totalScore = int.Parse(winNum.text) + score;
-        winNum.text = totalScore.ToString();
         var timer1 = TimerExtensions.DelayAction(this, TIME_STEAL_TREASURE, () =>
         {
             scoreNum.gameObject.SetActive(false);
+
+            int totalScore = int.Parse(winNum.text) + score;
+            winNum.text = totalScore.ToString();
+
             ani_Boy.Play("Steal");
             var timer2 = TimerExtensions.DelayAction(this, TIME_FIND_TREASURE, () =>
             {
@@ -312,11 +319,7 @@ public class MiniGame1 : MonoBehaviour
         });
         _timers.Add(timer1);
     }
-    //刷新底部文字
-    void RefreshBetWin()
-    {
-        betNum.text = "111";
-    }
+
     void StartCountDown()
     {
         var timeVal = 5;
