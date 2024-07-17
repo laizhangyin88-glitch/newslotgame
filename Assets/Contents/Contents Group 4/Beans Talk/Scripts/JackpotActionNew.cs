@@ -45,7 +45,6 @@ namespace BagelCode.Tasks.Actions.ClientAPI
             {
 
 
-
                 string resStr = res.ToString();
                // var bb = ContentBlackboard.Get();
                // var gameNew = BlackboardUtils.GetOrCreateBlackboard(bb, "gameNew");

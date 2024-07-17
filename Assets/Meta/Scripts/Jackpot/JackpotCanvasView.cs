@@ -21,9 +21,9 @@ public class JackpotCanvasView : MonoBehaviour
         jackpotViews[3].SetJackpot(50);
     }
 
-    public void TestUpdateJackpot()
-    {
-    }
+    //public void testupdatejackpot()
+    //{
+    //}
 
     public void TestUpdateJackpot()
     {
