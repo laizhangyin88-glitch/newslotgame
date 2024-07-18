@@ -26,10 +26,16 @@ namespace SlotMaker
             var parent = bb.GetVariable<Blackboard>("parent");
             while (parent != null)
             {
+                var temp = parent.value.GetVariable<long>("earnCredit");
+                if(temp == null)
+                {
+                    BlackboardUtils.GetOrCreateVariable<long>(parent.value, "earnCredit");
+                }
                 parent.value.GetVariable<long>("earnCredit").value += earnCredit;
-                parent = parent.value.GetVariable<Blackboard>("parent");
+                var ttt = parent.value.GetVariable<Blackboard>("parent"); 
+                parent = ttt;
             }
-
+             
             BlackboardUtils.FindVariable<long>(null, "./game/earnCredit").value += earnCredit;
         }
 

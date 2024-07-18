@@ -294,7 +294,7 @@ namespace SlotMaker
                 if (newVariable == null || newVariable.value == null)
                 {
                     if (ApplicationSettings.LogSystem())
-                        Debug.LogWarning("[Blackboard] Null(" + tokens[i] + ") blackboard variable founded in " + name);
+                        Debug.LogError("[Blackboard] Null(" + tokens[i] + ") blackboard variable founded in " + name);
                     return null;
                 }
 
@@ -420,7 +420,7 @@ namespace SlotMaker
         public static object FindValue(IBlackboard bb, string name)
         {
             var variable = FindVariable(bb, name);
-            if (variable == null)
+            if (variable == null) 
             {
                 //Debug.LogWarning("Blackboard库(库名：" + bb.name + ") 的字段： " + name +" 为 null");
                 Debug.LogError("[Blackboard](" + bb.name + ") Null variable founded in " + name);

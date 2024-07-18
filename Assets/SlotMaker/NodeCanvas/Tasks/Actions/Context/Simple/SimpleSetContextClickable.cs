@@ -58,7 +58,7 @@ namespace SlotMaker.Tasks.Actions
                 }
 
                 if (sendGlobal)
-                    clickableElement.AddListenerOnClick((ContextElement sender) => { Debug.LogError("@@@@@@@@@@@@@@@@@..............."); GraphOwner.SendGlobalEvent<ContextElement>(_eventName, sender); });
+                    clickableElement.AddListenerOnClick((ContextElement sender) => { GraphOwner.SendGlobalEvent<ContextElement>(_eventName, sender); });
                 else
                 {
                     GraphOwner owner = null;
@@ -67,9 +67,9 @@ namespace SlotMaker.Tasks.Actions
                         owner = ownerSystem.agent.GetComponent<GraphOwner>();
 
                     if (owner != null)
-                        clickableElement.AddListenerOnClick((ContextElement sender) => { Debug.LogError("@@@@@@@@@@@@@@@@@..............."); owner.SendEvent<ContextElement>(_eventName, sender); });
+                        clickableElement.AddListenerOnClick((ContextElement sender) => { owner.SendEvent<ContextElement>(_eventName, sender); });
                     else
-                        clickableElement.AddListenerOnClick((ContextElement sender) => { Debug.LogError("@@@@@@@@@@@@@@@@@..............."); SendEvent<ContextElement>(_eventName, sender); });
+                        clickableElement.AddListenerOnClick((ContextElement sender) => { SendEvent<ContextElement>(_eventName, sender); });
                 }
                 EndAction();
             }

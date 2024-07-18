@@ -335,14 +335,14 @@ namespace BagelCode.Tasks.Actions.Contents
             totalEarnCredit = total;
 
             winList.Sort();
-            var spin = BlackboardUtils.FindVariable<Blackboard>(null, "./spin").value;
+            var spin = BlackboardUtils.FindVariable<Blackboard>(null, "./spin").value; 
             BlackboardUtils.SetOrCreateValue<List<SymbolWin>>(spin, "winList", winList);
-            ContentBlackboardUtils.AddEarnCredit(spin, totalEarnCredit);
+            ContentBlackboardUtils.AddEarnCredit(spin, totalEarnCredit); 
             Blackboard bb = ContentBlackboard.Get();
             //bb.SetValue("earnCredit", totalEarnCredit);
             //bb.GetVariable<long>("earnCredit").value = totalEarnCredit;
             BlackboardUtils.GetOrCreateVariable<long>(bb, "earnCredit").value = totalEarnCredit;
-            saveAs.value = winList;
+            saveAs.value = winList; 
             if(winList.Count > 0)
             {
                 EventSender.SendGlobalEvent(new EventData("Win")); 
@@ -350,5 +350,4 @@ namespace BagelCode.Tasks.Actions.Contents
             EndAction();
         }
     }
-
 }

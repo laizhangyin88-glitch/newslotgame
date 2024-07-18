@@ -22,6 +22,7 @@ namespace BagelCode
 {
     public class V3MetaSystem : IMetaSystem
     {
+
         public void SelectGame(int gameId)
         {
             var gameInfo = BlackboardQueryUtils.GetGameInfo(gameId);
@@ -64,7 +65,7 @@ namespace BagelCode
             public string uid;
         }
 
-        private JSONNode getFreeGameData(int count, long bet_credit, int bonus_id, long earn_credit)
+        public static JSONNode getFreeGameData(int count, long bet_credit, int bonus_id, long earn_credit)
         {
             BonusResult temp = new BonusResult
             {
@@ -106,7 +107,7 @@ namespace BagelCode
             public long spin_earn_credit = 0;
         }
 
-        private JSONNode creatFreeSpinInfoID21(long bet_credit, int spun_count, int total_count, long earn_credit)
+        private static JSONNode creatFreeSpinInfoID21(long bet_credit, int spun_count, int total_count, long earn_credit)
         {
             FreeSpinInfoID21 temp = new FreeSpinInfoID21
             {
@@ -359,7 +360,7 @@ namespace BagelCode
         }
 
 
-        public void SlotSpinSuccessNew(JSONNode res, int gameId, long betCredit, long extraBetCredit, SpinType spinType)
+        public static void SlotSpinSuccessNew(JSONNode res, int gameId, long betCredit, long extraBetCredit, SpinType spinType)
         {
             //Debug.LogError("拉霸下发数据......." + res.ToString());
             //Debug.LogError("拉霸结果....... + " + res["game_result"]["first_index_list"].ToString());
@@ -439,7 +440,7 @@ namespace BagelCode
             BlackboardUtils.SetOrCreateValue<long>(ContentBlackboard.Get(), "jackpot_reward3", reward);
         }
 
-        public void SlotSpinSuccess(ClientModels.SlotSpinResponseV3 response, long betCredit, long extraBetCredit, SpinType spinType)
+        public static void SlotSpinSuccess(ClientModels.SlotSpinResponseV3 response, long betCredit, long extraBetCredit, SpinType spinType)
         {
             var spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
             if (spinBB == null || spinBB.value == null) return;
@@ -461,87 +462,6 @@ namespace BagelCode
             BlackboardQueryUtils.UpdateVegasDreamsTotalDepotCount(response.vipLoungeCompositeInfo?.buildDreamInfo ?? null);
             BlackboardQueryUtils.UpdateMysteryGiftInfo(response.nextMysteryGiftLevel, response.mysteryGiftInfo, response.serverTime);
             LevelUpDash.LevelUpDash.Utils.UpdateLevelUpDashInfo(response.levelUpDashInfo);
-
-            /*
-            var spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-            if (spinBB == null || spinBB.value == null) return;
-
-            var bb = BlackboardUtils.GetOrCreateBlackboard(spinBB.value, "response");
-            var json = JSONNode.Parse(response.contents);
-            var totalList = new List<List<int>>();
-            //保存划线的数据
-            for (int i = 0; i < json["result"]["total_line_result"].Count; i++)
-            {
-                var list = json["result"]["total_line_result"][i];
-                if (list["win_line"] != null)
-                {   ///保存连线的结果
-                    var list1 = new List<int>();
-                    for (int j = 0; j < list["win_line"].Count; j++)
-                    {
-                        list1.Add(list["win_line"][j]);
-                    }
-                    totalList.Add(list1);
-                }
-            } 
-            BlackboardUtils.SetOrCreateValue(bb, "total_line_result", totalList);
-            if(json["result"]["free_game_credit"] != null)///保存铃铛的得分
-            {
-                long freeGameCredit = json["result"]["free_game_credit"];
-                BlackboardUtils.SetOrCreateValue(bb, "free_game_credit", freeGameCredit);
-            }
-            //保存中奖的数据
-            List<Dictionary<string, object>> dict = new List<Dictionary<string, object>>();
-            for (int i = 0; i < json["result"]["win_line_reward_list"].Count; i++)
-            {
-                var list = json["result"]["win_line_reward_list"][i];
-                Dictionary<string, object> temp = new Dictionary<string, object>();
-                if (list["index"] != null)
-                {
-                    temp.Add("index", list["index"]);
-                }
-                if (list["credit"]!= null)
-                {
-                    temp.Add("credit", list["credit"]);
-                }
-                dict.Add(temp);
-            }
-            BlackboardUtils.SetOrCreateValue(bb, "win_line_reward_list", dict);
-
-            ///保存下发的牌型数据
-            var shuffling_list = json["shuffling_list"];
-            var newList = new List<List<int>>();
-            for (int i = 0; i < shuffling_list.Count; i++)
-            {
-                var ttt = shuffling_list[i];
-                var tList = new List<int>();
-                for (global::System.Int32 j = 0; j < ttt.Count; j++)
-                {
-                    tList.Add(ttt[j]);
-                }
-                newList.Add(tList);
-            }
-            BlackboardUtils.SetOrCreateValue(bb, "shuffling_list", newList); 
-
-            long spin_once_earn = json["result"]["spin_once_earn_credit"];
-            BlackboardUtils.SetOrCreateValue(bb, "spin_once_earn_credit", spin_once_earn);
-            ClientAPI2Blackboard.Serialize(bb, response);
-            BlackboardUtils.SetOrCreateValue<int>(bb, "requestType", (int)ContentsRequestType.SlotSpin);
-            ContentsSerializer.Deserialize(bb);
-
-            BlackboardQueryUtils.UpdateTournament(response.tournamentInfo);
-            BlackboardQueryUtils.UpdatePotOfGold(response.userSyncInfo.piggyCredit);
-            BlackboardQueryUtils.UpdateUnlockFeature(response.featureUnlockList);
-            BlackboardQueryUtils.UpdateMetaGameInfo(response.metaGameInfo, response.serverTime);
-            BlackboardQueryUtils.UpdateBonusSpinCountPerBet(betCredit, response.gameSpinCount, "./gameSpinCountPerBet");
-
-            BlackboardQueryUtils.UpdateBonusSpinCountPerBet(betCredit, response.bonusSpinCount, "./bonusSpinCountPerBet");
-            BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
-            BlackboardQueryUtils.UpdateHiddenUniverseFinder(response.earnFinder);
-            BlackboardQueryUtils.UpdateVIPLoungeInfo(response.vipLoungeCompositeInfo?.vipLoungeInfo ?? null);
-            BlackboardQueryUtils.UpdateVegasDreamsTotalDepotCount(response.vipLoungeCompositeInfo?.buildDreamInfo ?? null);
-            BlackboardQueryUtils.UpdateMysteryGiftInfo(response.nextMysteryGiftLevel, response.mysteryGiftInfo, response.serverTime);
-            LevelUpDash.LevelUpDash.Utils.UpdateLevelUpDashInfo(response.levelUpDashInfo);
-            */
         }
 
         public void SlotClaimBonus(string claimId, object customData, Action successCallback, Action errorCallback)
@@ -581,7 +501,6 @@ namespace BagelCode
                     successCallback();
                 return;
             }
-
             if (LastFreeGameManager.Instance.isLastGameSpin)
             {
                 LastFreeGameManager.Instance.getResponseData(RPCName.claimBonus,

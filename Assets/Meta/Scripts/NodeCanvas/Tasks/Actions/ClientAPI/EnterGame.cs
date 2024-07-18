@@ -228,7 +228,10 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     }
 
                     response.betList = longs;
-                    SerializeMiniGameData(bb, res["game_config"]["jackpot_game_config"]); 
+                    SerializeMiniGameData(bb, res["game_config"]["jackpot_game_config"]);
+
+
+
                     Serialize(bb, response);
 
                     BlackboardQueryUtils.UpdateSeat(response.room);
@@ -241,6 +244,9 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     IAMRouter.Instance.SortTrigger(BagelCode.ClientModels.InAppMessageTriggerType.ALL_IN, gameID.value);
 
                     enterSuccess.value = true;
+
+                    CheckIsReconnect(res);
+
                     EndAction(true);
                 },
                 (error) =>
@@ -349,6 +355,20 @@ namespace BagelCode.Tasks.Actions.ClientAPI
             else
             {
                 Debug.LogError("No Game ID found." + agent.gameObject.name);
+            }
+        }
+        /// <summary>
+        /// 检测是不是重连
+        /// </summary>
+        /// <param name="node"></param>
+        private void CheckIsReconnect(JSONNode node)
+        {
+            if (node.HasKey("game_result"))
+            {
+                var bb = ContentBlackboard.Get();
+                var gameNew = BlackboardUtils.GetOrCreateBlackboard(bb, "gameNew");
+                BlackboardUtils.SetOrCreateValue<JSONNode>(gameNew, "ConnectData", node["game_result"]);
+                Debug.LogError("保存断线重连数据................" + node["game_result"].ToString());
             }
         }
 
