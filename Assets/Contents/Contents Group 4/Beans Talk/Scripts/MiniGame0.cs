@@ -38,6 +38,9 @@ public class MiniGame0 : MonoBehaviour
     int clickIndex = 0;
     Dictionary<int, Vector2> dicPos = new Dictionary<int, Vector2>();
 
+
+    long _totalWin = 0;
+
     /*
     Dictionary<int, int> dic_Score = new Dictionary<int, int>
     {
@@ -99,6 +102,8 @@ public class MiniGame0 : MonoBehaviour
 
         //Debug.Log($"【ani_Boy】 x={ani_Boy.transform.localPosition.x}   y={ani_Boy.transform.localPosition.y}");
 
+
+
     }
 
     public static readonly string ON_CONTENT_UI_EVENT = "OnContentUIEvent";
@@ -114,6 +119,10 @@ public class MiniGame0 : MonoBehaviour
     void OnEnable()
     {
         //Debug.Log("BST  i am enable");
+
+        betNum.text = $"{BlackboardUtils.FindVariable<long>("./totalBetCredit").value}";
+        _totalWin = 0;
+        winNum.text = $"{_totalWin}";
 
         long betCredit = BlackboardUtils.GetOrCreateVariable<long>(null, "./totalBetCredit").value;
         int selectLine = BlackboardUtils.GetOrCreateVariable<int>(null, "./gameNew/selectLine").value;
@@ -295,9 +304,11 @@ public class MiniGame0 : MonoBehaviour
         yield return new WaitUntil(() => boyState == BoyStealEggState.StealFinish);
 
 
-        if(lst_Score.Count > 0)
+        int score = 0;
+        if (lst_Score.Count > 0)
         {
             scoreNum.text = lst_Score[0].ToString();
+            score = lst_Score[0];
             lst_Score.RemoveAt(0);
         }
 
@@ -306,6 +317,10 @@ public class MiniGame0 : MonoBehaviour
         AsyncActionUtils.ApplyLocalMovement(this, ani_Boy.transform, endPos01, middlePos01, 0.1f, TweenUtils.VectorTweenLinear, 0, () =>{});
 
         yield return new WaitUntil(() => boyState == BoyStealEggState.MoveMiddle);
+
+
+        _totalWin += score;
+        winNum.text = $"{_totalWin}";
 
         // 倒计时
         // 门闪缩
