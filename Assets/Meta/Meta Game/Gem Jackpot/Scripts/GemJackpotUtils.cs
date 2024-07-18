@@ -1,11 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using SlotMaker;
-using UnityEngine.UI;
-using ParadoxNotion;
-using NodeCanvas.Framework;
 using BagelCode.ClientModels;
+using NodeCanvas.Framework;
+using SlotMaker;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace BagelCode
 {
@@ -21,6 +18,7 @@ namespace BagelCode
         private const string GEM_JACKPOT_LAST_ADS_TIMESTAMP = "GEM_JACKPOT_LAST_ADS_TIMESTAMP";
 
         private static Blackboard gemJackpotInfo = null;
+
         public static Blackboard GemJackpotInfo
         {
             get
@@ -273,7 +271,7 @@ namespace BagelCode
                 if (GemJackpotInfo != null)
                 {
                     List<int> startIndex = BlackboardUtils.FindValue<List<int>>(GemJackpotInfo, "initialSlotReelSetIndexList");
-                    for(int i = 0; i < startIndex.Count; ++i)
+                    for (int i = 0; i < startIndex.Count; ++i)
                         startIndex[i] = startIndex[i] - 1;
                     return startIndex;
                 }
@@ -473,7 +471,6 @@ namespace BagelCode
             BlackboardUtils.SetOrCreateValue(jackpotInfo, "alarm", BlackboardUtils.FindValue<bool>(origJackpotInfo, "alarm"));
 
             JackpotInfo = (Blackboard)jackpotInfo;
-
         }
 
         public static bool CheckUnlockedLevel()

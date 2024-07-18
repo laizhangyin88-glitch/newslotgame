@@ -1,8 +1,13 @@
+using NodeCanvas.Framework;
+using SimpleJSON;
+using SlotMaker;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using UnityEngine;
 
 namespace BlizzUtils
 {
@@ -102,6 +107,92 @@ namespace BlizzUtils
                     list.Add(SourceString.Trim().Substring(i, SourceString.Trim().Length - i));
             }
             return list;
+        }
+
+
+        /// <summary>
+        /// 获取中奖线，且中奖号码为symbol
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
+
+        public static int new_game_GetLineIndexOnce(int symbol)
+        {
+            int lineIndex = -1;
+            Blackboard cb = ContentBlackboard.Get();
+
+            Dictionary<int, int> changeCode = cb.GetValue<Blackboard>("gameNew").GetValue<Dictionary<int, int>>("changeCode");
+
+            int value = symbol;
+            foreach (var item in changeCode)
+            {
+                if (item.Value == symbol)
+                {
+                    value = item.Key;
+                }
+            }
+
+            //Variable<Blackboard> current = cb.GetVariable<Blackboard>("current");
+            Variable<Blackboard> spin = cb.GetVariable<Blackboard>("spin");
+            string responseNew = spin.value.GetValue<string>("responseNew");
+            JSONNode node = JSONNode.Parse(responseNew);
+            JSONNode totalResultNode = node["game_result"]["total_result"];
+            for (int i = 0; i < totalResultNode.Count; i++)
+            {
+                JSONNode temp = totalResultNode[i];
+
+                if (temp.HasKey("value") && (int)temp["value"] == value && (int)temp["count"] > 0)
+                {
+                    lineIndex = (int)temp["index"];
+                    break;
+                }
+            }
+
+            return lineIndex;
+
+        }
+
+        /// <summary>
+        /// 滚轮可见区域，图标所在的行和列
+        /// </summary>
+        /// <param name="Symbol"></param>
+        /// <returns></returns>
+        public static Cell GetVisibleSymbolColumnRow(Transform Symbol)
+        {
+            Cell cell = new Cell();
+            cell.column = -1;
+            cell.row = -1;
+
+            Reel compReel = null;
+
+            for (int i = 0; i < 10; i++)
+            {
+                if (Symbol.parent == null)
+                {
+                    return cell;
+                }
+                if (Symbol.parent.name == "Symbols")
+                {
+                    cell.row = Symbol.GetSiblingIndex();
+                }
+                if (Symbol.name == "Reel" && Symbol.parent.name == "Reels")
+                {
+                    compReel = Symbol.GetComponent<Reel>();
+                    cell.column = Symbol.GetSiblingIndex();
+                    break;
+                }
+                else
+                {
+                    Symbol = Symbol.parent;
+                }
+            }
+
+            if (compReel != null)
+            {
+                cell.row -= compReel.topBuffer;  //减去buffer数量
+            }
+
+            return cell;
         }
 
     }

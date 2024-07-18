@@ -26,10 +26,16 @@ namespace SlotMaker
             var parent = bb.GetVariable<Blackboard>("parent");
             while (parent != null)
             {
+                var temp = parent.value.GetVariable<long>("earnCredit");
+                if(temp == null)
+                {
+                    BlackboardUtils.GetOrCreateVariable<long>(parent.value, "earnCredit");
+                }
                 parent.value.GetVariable<long>("earnCredit").value += earnCredit;
-                parent = parent.value.GetVariable<Blackboard>("parent");
+                var ttt = parent.value.GetVariable<Blackboard>("parent"); 
+                parent = ttt;
             }
-
+             
             BlackboardUtils.FindVariable<long>(null, "./game/earnCredit").value += earnCredit;
         }
 
@@ -44,6 +50,7 @@ namespace SlotMaker
         public static Blackboard GetBonusResponse(Blackboard spin, int id)
         {
             var bonusList = BlackboardUtils.FindVariable<List<Blackboard>>(spin, "response/bonusResult")?.value;
+            //Debug.LogError("bonusResult info....................");
             if (bonusList != null)
             {
                 for (int i = 0; i < bonusList.Count; ++i)

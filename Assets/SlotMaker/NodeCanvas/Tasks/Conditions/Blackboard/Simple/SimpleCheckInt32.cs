@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using NodeCanvas.Framework;
 using ParadoxNotion;
 using ParadoxNotion.Design;
@@ -19,7 +19,7 @@ public class SimpleCheckInt32 : ConditionTask<Blackboard>
 	}
 
 	protected override bool OnCheck() 
-	{
+	{ 
 		var variableA = BlackboardUtils.FindVariable<int>(agent, valueA.value);
         var variableB = BlackboardUtils.FindVariable<int>(agent, valueB.value);
 		return OperationUtils.Compare(variableA.value, variableB.value, checkType);

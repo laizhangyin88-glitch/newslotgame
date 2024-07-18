@@ -1,5 +1,3 @@
-using ParadoxNotion;
-using SBoxApi;
 using SlotMaker;
 using SlotMaker.Keno.Events;
 using SlotMaker.Tasks.Actions;

@@ -1,44 +1,265 @@
-using UnityEngine;
+
+using Dreamteck.Splines.Primitives;
+using Newtonsoft.Json;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
-using SlotMaker;
-using SlotMaker.Json;
-using SlotMaker.Contents;
-using System.Collections.Generic;
-using System;
-using System.Linq;
 using SimpleJSON;
-
+using SlotMaker;
+using SlotMaker.Contents;
+using SlotMaker.Tasks.Actions;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace BagelCode.Tasks.Actions.ClientAPI
 {
-
-[Category("★ BagelCode/ClientAPI")]
-public class EnterGame : ActionTask <Blackboard>
-{
-    public BBParameter<int> gameID;
-    public BBParameter<string> targetRoomID;
-    public BBParameter<bool> isEarlyAccess;
-    public BBParameter<bool> enterSuccess;
-
-    protected override string info
+    [Category("★ BagelCode/ClientAPI")]
+    public class EnterGame : ActionTask<Blackboard>
     {
-        get
+        public BBParameter<int> gameID;
+        public BBParameter<string> targetRoomID;
+        public BBParameter<bool> isEarlyAccess;
+        public BBParameter<bool> enterSuccess;
+
+        protected override string info
         {
-            return string.Format("Request Enter Game {0}", gameID);
+            get
+            {
+                return string.Format("Request Enter Game {0}", gameID);
+            }
         }
-    }
 
-    protected override void OnExecute()
-    {
-        var context_id = BlackboardUtils.FindVariable<string>(null, "/enterGameInfo/contextID");
+        private List<List<int>> TranslateReelSetList(JSONNode list, Dictionary<int, int> changeCode)
+        {
+            List<List<int>> temp = new List<List<int>>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                var item = list[i];
+                if(temp.Count <= 0)
+                {
+                    for (global::System.Int32 j = 0; j < item.Count; j++)
+                    {
+                        temp.Add(new List<int>());
+                    }
+                }
+                for (global::System.Int32 j = 0; j < item.Count; j++)
+                {
+                    temp[j].Add(item[j]);
+                }
+            }
+
+            //转换码表
+            foreach (var item in changeCode)
+            {
+                foreach (List<int> col in temp)
+                {
+                    for (int i = 0; i < col.Count; i++)
+                    {
+                        if (col[i] == item.Key)
+                        {
+                            col[i] = item.Value;
+                        }
+                    }
+                }
+            }
+            return temp;
+        }
+
+        protected override void OnExecute()
+        {
+            var context_id = BlackboardUtils.FindVariable<string>(null, "/enterGameInfo/contextID");
 
 #if NEW_NET
 
             RPCHall.ReqEnterGame req = new RPCHall.ReqEnterGame();
             req.game_id = gameID.value;
 
-            NetManager.Instance.Post(RPCName.enterGame, req,
+            // NetManager.Instance.Post(RPCName.enterGame,
+            //新游戏接口
+            if (globalStore.IsNewGame(gameID.value))
+            {
+                TestManager.Instance.ClearReelsCache();
+
+                NetManager.Instance.Post(RPCName.newEnterGame, req,
+                (res) =>
+                {
+                    Debug.Log("服务下发的新的游戏的初始数据......." + res.ToString());
+                    //var contentJsonStr = "{\"game_type\":1,\"game_info\":{\"game_id\":21,\"game_title\":\"rhr\",\"base_wager\":30,\"pay_lines\":[[[1,1,1,1,1],[0,0,0,0,0],[2,2,2,2,2],[0,1,2,1,0],[2,1,0,1,2],[0,0,1,2,2],[2,2,1,0,0],[1,2,2,2,1],[1,0,0,0,1],[0,1,1,1,0],[2,1,1,1,2],[0,1,0,1,0],[2,1,2,1,2],[1,1,0,1,1],[1,1,2,1,1],[1,2,1,0,1],[1,0,1,2,1],[0,2,0,2,0],[2,0,2,0,2],[1,0,2,0,1],[1,2,0,2,1],[0,0,2,0,0],[2,2,0,2,2],[0,2,2,2,0],[2,0,0,0,2],[0,0,1,0,0],[2,2,1,2,2],[0,1,2,2,2],[2,1,0,0,0],[1,0,1,0,1]]],\"reel_set_list\":[{\"reel_sequence_list\":[[7,6,7,0,4,5,4,5,8,4,5,4,6,9,7,1,3,1,7,6,9,7,6,7,6,8,7,5,4,5,6,7,9,6,7,6,9,6,7,4,5,4,5,6,7,6,2,3,2,6,7,0,6,7,9,6,7,6,7,9,6],[5,4,5,7,10,6,1,2,3,10,5,4,5,6,8,8,3,2,3,6,10,5,4,5,10,6,5,4,5,10,6,5,4,8,8,5,6,10,6,0,10,1,2,1,6,10,0,6,10,3,6,10],[5,4,5,7,9,5,4,5,7,10,7,4,5,4,9,6,7,10,7,5,4,5,10,7,6,2,3,1,8,8,8,2,1,3,9,4,5,4,7,9,7,0,10,3,1,2,9,4,5,4,10],[1,2,3,6,8,8,7,0,3,1,2,0,6,3,2,3,0,7,6,0,7,1,3,2,7,6,5,4,5,7,10,6,0,6,7,6,3,2,3,4,5,4,6,7,6,7,2,3,1,0,6],[6,4,5,4,3,2,1,0,6,7,6,5,4,5,1,3,2,8,6,7,6,9,5,4,5,9,6,2,1,3,7,5,4,5,0,7,1,3,1,6,5,4,5,2,3,2,4,5,4]]},{\"reel_sequence_list\":[[7,6,7,11,4,5,4,5,8,4,5,4,6,9,7,1,3,1,7,6,9,7,6,7,6,8,7,5,4,5,6,7,9,6,7,6,9,6,7,4,5,4,5,6,7,6,2,3,2,6,7,11,6,7,9,6,7,6,7,9,6],[5,4,5,7,10,6,1,2,3,10,5,4,5,6,8,8,3,2,3,6,10,5,4,5,10,6,5,4,5,10,6,5,4,8,8,5,6,10,6,11,10,1,2,1,6,10,11,6,10,3,6,10],[5,4,5,7,9,5,4,5,7,10,7,4,5,4,9,6,7,10,7,5,4,5,10,7,6,2,3,1,8,8,8,2,1,3,9,4,5,4,7,9,7,11,10,3,1,2,9,4,5,4,10],[1,2,3,6,8,8,7,11,3,1,2,11,6,3,2,3,6,7,6,11,7,1,3,2,7,6,5,4,5,7,10,6,11,6,7,6,3,2,3,4,5,4,6,7,6,7,6,2,3,1,11,6,7],[6,4,5,4,3,2,1,11,6,7,6,5,4,5,1,3,2,8,6,7,6,9,5,4,5,9,6,2,1,3,7,5,4,5,11,7,1,3,1,6,5,4,5,2,3,2,4,5,4]]}],\"paytables\":[[[0,0,125,600,1500],[0,0,50,200,400],[0,0,30,85,200],[0,0,15,45,90],[0,0,10,30,75],[0,0,8,30,60],[0,0,4,8,20],[0,0,2,5,15],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,125,600,1500],[0,0,5,25,50],[0,0,2,5,8]]],\"bonus_info\":{\"hot_rush_scatter_pay\":[0,0,1,3,8,30,75,500,1000,1000,1000,1000,1000,1000],\"free_spin_count\":[0,0,0,15],\"cash_wheel\":{\"total_spot\":20,\"item_index_list\":[0,1,0,0,3,0,0,2,0,0,1,0,0,1,0,0,0,1,0,0],\"item_value_list\":[3,0,5,3,0,4,10,0,3,2,0,4,5,0,2,3,6,0,2,4],\"item_weight_list\":[10,8,10,10,3,10,10,6,10,10,8,10,10,8,10,10,10,8,10,10],\"item_weight_total\":181}},\"extra_bet_ratio_list\":[{\"numerator\":0,\"denominator\":1}],\"custom_data\":null,\"reel_set_index\":{\"current_index\":0,\"next_index\":0}},\"jackpot_info\":{\"type\":2,\"info\":{\"eligible_min_bet\":0,\"eligible_min_bet_per_jackpot\":[0,0,0,0,0],\"base_bet\":30,\"info_list\":[{\"current\":240.9,\"prev\":240.9},{\"current\":913.26,\"prev\":913.26},{\"current\":2375.25,\"prev\":2375.25},{\"current\":15100.2,\"prev\":15100.2},{\"current\":30050.1,\"prev\":30050.1}]}},\"gamble_asset_bundle_name\":\"\",\"win_type_multiplier_info\":{\"BIG\":10,\"SUPER_BIG\":20,\"MEGA\":30,\"SUPER_MEGA\":50,\"EPIC\":100},\"delay_between_spin_ms\":0,\"contents_store_info\":{\"game_id\":21,\"contents_store\":{}}}";
+                    //var contentJson = JSONNode.Parse(contentJsonStr);
+                    string resStr = res.ToString();
+                    Debug.Log(resStr);
+
+                    TextAsset jsn7 = Resources.Load<TextAsset>("tempdata/enter_game_content_id21");
+                    var contentJson = JSONNode.Parse(jsn7.text);
+
+                    contentJson["game_info"]["game_id"] = gameID.value;
+                    contentJson["game_info"]["game_title"] = globalStore.GetGameTitle(gameID.value);
+                    JSONNode tempJson = JSONNode.Parse("[]");
+                    tempJson = res["game_config"]["win_line"];
+                    contentJson["game_info"]["pay_lines"].Clear();
+                    contentJson["game_info"]["pay_lines"].Add(tempJson); 
+                    //tempJson = res["game_config"]["card_mutiple"];
+                    //contentJson["game_info"]["paytables"].Add(tempJson);
+                    contentJson["game_info"]["base_wager"] = res["game_config"]["win_line"].Count;
+                    contentJson["game_info"]["free_card"] = res["game_config"]["slot_config"]["free_card"];
+
+
+                    //res["game_id"]
+                    TextAsset jsn6 = Resources.Load<TextAsset>("tempdata/change_code");
+                    var nodeJson = JSONNode.Parse(jsn6.text);
+                    Dictionary<int, int> changeCode = null;
+                    if (res.HasKey("game_id") && nodeJson.HasKey(res["game_id"].ToString()))
+                    {
+                        JSONNode nd = nodeJson[res["game_id"].ToString()];
+                        changeCode = new Dictionary<int, int>();
+                        changeCode.Add((int)res["game_config"]["slot_config"]["wild_card"], (int)nd["wild_card"]);
+                        changeCode.Add((int)res["game_config"]["slot_config"]["free_card"], (int)nd["free_card"]);
+                        changeCode.Add((int)res["game_config"]["slot_config"]["jackpot_card"], (int)nd["jackpot_card"]);
+                    }
+                    else
+                    {
+                        //转换码表
+                        changeCode = new Dictionary<int, int>()
+                        {
+                            { (int)res["game_config"]["slot_config"]["wild_card"], 0}, //鬼牌
+                            { (int)res["game_config"]["slot_config"]["free_card"],9}, //免费牌
+                            { (int)res["game_config"]["slot_config"]["jackpot_card"],10 }, //小游戏
+                        };
+                    }
+                    //转换 普通列表
+                    var tempList1 = TranslateReelSetList(res["game_config"]["regular_game_reel"], changeCode);
+                    Dictionary<string, List<List<int>>> tempArray = new Dictionary<string, List<List<int>>>();
+                    tempArray.Add("reel_sequence_list", tempList1);
+                    string tempStr2 = JsonConvert.SerializeObject(tempArray);
+                    JSONNode node1 = JSONNode.Parse(tempStr2);
+
+                    ///转换免费列表
+                    var tempList2 = TranslateReelSetList(res["game_config"]["free_game_reel"], changeCode);
+                    Dictionary<string, List<List<int>>> tempArray2 = new Dictionary<string, List<List<int>>>();
+                    tempArray2.Add("reel_sequence_list", tempList2);                    
+                    string tempStr3 = JsonConvert.SerializeObject(tempArray2);
+                    JSONNode node2 = JSONNode.Parse(tempStr3);
+
+                    globalStore.reelSetList1 = tempList1;
+                    globalStore.reelSetList2 = tempList2;
+
+                    contentJson["game_info"]["reel_set_list"].Clear();
+                    contentJson["game_info"]["reel_set_list"].Add(node1);
+                    contentJson["game_info"]["reel_set_list"].Add(node2);
+
+                    Debug.Log($"==@ enter_game 转换后数据 = {contentJson["game_info"]["reel_set_list"].ToString()}");
+
+
+                    //res["game_config"]["card_mutiple"]
+
+                    contentJson["game_info"]["paytables"] = JSONNode.Parse("[]");
+                    JSONNode paytablesItem = JSONNode.Parse("[]");
+
+                    //res["game_config"]["card_mutiple"]["9"]
+
+                    List<KeyValuePair<int, string>> temp = new List<KeyValuePair<int, string>>();
+                    foreach ( KeyValuePair<string,JSONNode> item in res["game_config"]["card_mutiple"])
+                    {
+                        temp.Add(new KeyValuePair<int, string>((int)item.Value["5"], $"[0, 0, {item.Value["3"]}, {item.Value["4"]}, {item.Value["5"]}]"));
+                        //JSONNode node3 = JSONNode.Parse($"[0, 0, {item.Value["3"]}, {item.Value["4"]}, {item.Value["5"]}]");
+                        //paytablesItem.Add(node3);
+                    }
+                    temp.Sort((a,b) =>
+                    {
+                        return a.Key > b.Key? -1: 1;
+                    });
+                    foreach (var item in temp)
+                    {
+                        JSONNode node3 = JSONNode.Parse(item.Value);
+                        paytablesItem.Add(node3);
+                    }
+
+                    //paytablesItem.Add(JSONNode.Parse("[0, 0, 0, 0, 0]"));
+                    //paytablesItem.Add(JSONNode.Parse("[0, 0, 0, 0, 0]"));
+                    //paytablesItem.Add(JSONNode.Parse("[0, 0, 0, 0, 0]"));
+                    //paytablesItem.Add(JSONNode.Parse("[0, 0, 125, 600, 1500]"));
+                    //paytablesItem.Add(JSONNode.Parse("[0, 0, 0, 0, 0]"));
+                    //paytablesItem.Add(JSONNode.Parse("[0, 0, 0, 0, 0]"));
+                    contentJson["game_info"]["paytables"].Clear();
+                    contentJson["game_info"]["paytables"].Add(paytablesItem);
+
+
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/room_enter_response_v3");
+                    ClientModels.RoomEnterResponseV3 response = JsonUtility.FromJson<ClientModels.RoomEnterResponseV3>(jsn8.text);
+
+                    List<long> longs = new List<long>();
+                    for (global::System.Int32 k = 0; k < res["bet_list"].Count; k++)
+                    {
+                        longs.Add(res["bet_list"][k].AsLong);
+                    }
+                    response.contents = contentJson.ToString();
+
+
+
+
+                    var bb = ContentBlackboard.Get();
+                    
+                    // ============新游戏属性
+                    int selectLine = res["game_config"]["win_line"].Count;
+                    //int selectLine = 1;
+                    var gameNew = BlackboardUtils.GetOrCreateBlackboard(bb, "gameNew");
+                    //Blackboard gameNew = BlackboardUtils.GetOrCreateVariable<Blackboard>(bb, "gameNew").value;
+                    BlackboardUtils.SetOrCreateValue(gameNew, "changeCode", changeCode);
+                    BlackboardUtils.SetOrCreateValue(gameNew, "betListBase", longs);
+                    BlackboardUtils.SetOrCreateValue(gameNew, "selectLine", selectLine);
+
+                    Dictionary<int, Dictionary<int, int>> paytables = new Dictionary<int, Dictionary<int, int>>();
+                    foreach (KeyValuePair<string, JSONNode> item in res["game_config"]["card_mutiple"])
+                    {
+                        Dictionary<int, int> temp1 = new Dictionary<int, int>();
+                        foreach (KeyValuePair<string, JSONNode> item1 in item.Value)
+                        {
+                            temp1.Add(int.Parse(item1.Key), int.Parse(item1.Value));
+                        }
+                        paytables.Add(int.Parse(item.Key), temp1);
+                    }
+                    BlackboardUtils.SetOrCreateValue(gameNew, "paytables", paytables);
+
+
+
+                    for (int i=0; i< longs.Count; i++)
+                    {
+                        longs[i] = longs[i] * selectLine;
+                    }
+
+                    response.betList = longs;
+                    SerializeMiniGameData(bb, res["game_config"]["jackpot_game_config"]);
+
+
+
+                    Serialize(bb, response);
+
+                    BlackboardQueryUtils.UpdateSeat(response.room);
+                    BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
+                    BlackboardQueryUtils.UpdateTournament(response.tournamentInfo);
+                    BlackboardQueryUtils.UpdateMetaGameEnterInfo(response.metaGameEnterInfo);
+                    BlackboardQueryUtils.UpdateSeasonPassEnterInfo(response.seasonPassEnterInfo);
+                    BlackboardQueryUtils.ApplyUserSyncInfo();
+
+                    IAMRouter.Instance.SortTrigger(BagelCode.ClientModels.InAppMessageTriggerType.ALL_IN, gameID.value);
+
+                    enterSuccess.value = true;
+
+                    CheckIsReconnect(res);
+
+                    EndAction(true);
+                },
+                (error) =>
+                {
+                    string oldJson = JsonUtility.ToJson(error);
+                    Debug.Log($"@A SlotSpinResponseV3 = {oldJson}");
+                    ErrorHandle(error);
+                }
+             );
+            }
+            else
+            {
+                NetManager.Instance.Post(RPCName.enterGame, req,
                 (res) =>
                 {
                     string resStr = res.ToString();
@@ -56,7 +277,12 @@ public class EnterGame : ActionTask <Blackboard>
 
                     System.Collections.Generic.List<long> betList = res["bet_list"].AsStringList.Select(s => long.Parse(s)).ToList();
                     response.betList = betList;
+                    //if (res["contents"]["game_info"]["game_id"].AsInt == 21)
+                    //{
+                    //    res["contents"]["game_info"]["game_title"] = "bst";
+                    //}
                     response.contents = res["contents"].ToString();
+                    Debug.Log("!!!json旧:" + response.contents.ToString());
 
 
                     var bb = ContentBlackboard.Get();
@@ -74,8 +300,7 @@ public class EnterGame : ActionTask <Blackboard>
 
                     enterSuccess.value = true;
 
-
-                    if (res.HasKey("last_regular_message")  && res["last_regular_message"] != null)
+                    if (res.HasKey("last_regular_message") && res["last_regular_message"] != null)
                     {
                         Debug.Log($"【last_regular_message】  = {res["last_regular_message"].ToString()} ");
                         LastFreeGameManager.Instance.GetFreeSpinHistory(res["last_regular_message"].ToString());
@@ -86,7 +311,6 @@ public class EnterGame : ActionTask <Blackboard>
                     }
 
                     EndAction(true);
-
                 },
                 (error) =>
                 {
@@ -95,109 +319,124 @@ public class EnterGame : ActionTask <Blackboard>
                     ErrorHandle(error);
                 }
              );
-
+            }
             return;
 #endif
 
-
-
-
-
             if (targetRoomID.value != null && !string.IsNullOrEmpty(targetRoomID.value))
-        {
-            BagelCodeClientAPI.GameEnterRoom(gameID.value, targetRoomID.value, isEarlyAccess.value, context_id.value,
-            (response) =>
             {
-                if(agent != null)
-                    EnterGameResponse(gameID.value, response);
-            },
-            (error) =>
-            {
-                ErrorHandle(error);
-            });
-        }
-        else if (gameID != null)
-        {
-            BagelCodeClientAPI.GameEnter(gameID.value, isEarlyAccess.value, context_id.value,
-            (response) =>
-            {
-
-                string oldJson = JsonUtility.ToJson(response);
-                Debug.Log($"@A SlotSpinResponseV3 = {oldJson}");
-
-
-                if (agent != null)
-                    EnterGameResponse(gameID.value, response);
-            },
-            (error) =>
-            {
-                ErrorHandle(error);
-            });
-        }
-        else
-        {
-            Debug.LogError("No Game ID found." + agent.gameObject.name);
-        }
-    }
-
-    private void EnterGameResponse(int gameID, BagelCode.ClientModels.RoomEnterResponseV3 response)
-    {
-
-        string oldJson = JsonUtility.ToJson(response);
-        Debug.Log($"@A RoomEnterResponseV3 = {oldJson}");
-
-
-        var bb = ContentBlackboard.Get();
-
-        Serialize(bb, response);
-
-        BlackboardQueryUtils.UpdateSeat(response.room);
-        BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
-        BlackboardQueryUtils.UpdateTournament(response.tournamentInfo);
-        BlackboardQueryUtils.UpdateMetaGameEnterInfo(response.metaGameEnterInfo);
-        BlackboardQueryUtils.UpdateSeasonPassEnterInfo(response.seasonPassEnterInfo);
-        BlackboardQueryUtils.ApplyUserSyncInfo();
-
-        IAMRouter.Instance.SortTrigger(BagelCode.ClientModels.InAppMessageTriggerType.ALL_IN, gameID);
-
-        enterSuccess.value = true;
-        EndAction(true);
-    }
-
-    void Serialize(IBlackboard bb, BagelCode.ClientModels.RoomEnterResponseV3 roomEnterResponse)
-    {
-        ClientAPI2Blackboard.Serialize(bb, roomEnterResponse);
-        BlackboardUtils.SetOrCreateValue<ContentsRequestType>(bb, "requestType", ContentsRequestType.Enter);
-        ContentsSerializer.Deserialize(bb);
-    }
-
-    private void ErrorHandle(BagelCodeHTTPError error)
-    {
-        switch(error.errorCode)
-        {
-            case ClientModels.Error.ROOM_FULL_ERROR:
+                BagelCodeClientAPI.GameEnterRoom(gameID.value, targetRoomID.value, isEarlyAccess.value, context_id.value,
+                (response) =>
                 {
-                    bool stringError = false;
-                    ErrorPopupInfo info = new ErrorPopupInfo();
+                    if (agent != null)
+                        EnterGameResponse(gameID.value, response);
+                },
+                (error) =>
+                {
+                    ErrorHandle(error);
+                });
+            }
+            else if (gameID != null)
+            {
+                BagelCodeClientAPI.GameEnter(gameID.value, isEarlyAccess.value, context_id.value,
+                (response) =>
+                {
+                    string oldJson = JsonUtility.ToJson(response);
+                    Debug.Log($"@A SlotSpinResponseV3 = {oldJson}");
 
-                    info.type = ErrorPopupType.OK;
-                    info.text = StringTableUtils.GetString(StringTable.StringTableType.Global, "ERROR_ROOM_FULL", out stringError);
-                    info.buttonText1 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_OKAY", out stringError);
+                    if (agent != null)
+                        EnterGameResponse(gameID.value, response);
+                },
+                (error) =>
+                {
+                    ErrorHandle(error);
+                });
+            }
+            else
+            {
+                Debug.LogError("No Game ID found." + agent.gameObject.name);
+            }
+        }
+        /// <summary>
+        /// 检测是不是重连
+        /// </summary>
+        /// <param name="node"></param>
+        private void CheckIsReconnect(JSONNode node)
+        {
+            if (node.HasKey("game_result"))
+            {
+                var bb = ContentBlackboard.Get();
+                var gameNew = BlackboardUtils.GetOrCreateBlackboard(bb, "gameNew");
+                BlackboardUtils.SetOrCreateValue<JSONNode>(gameNew, "ConnectData", node["game_result"]);
+                Debug.LogError("保存断线重连数据................" + node["game_result"].ToString());
+            }
+        }
 
-                    info.callback1 = delegate
+        /// <summary>
+        /// 保存免费游戏服务器下发的数据
+        /// </summary>
+        /// <param name="node"></param>
+        private void SerializeMiniGameData(IBlackboard bb, JSONNode node)
+        {
+            BlackboardUtils.SetOrCreateValue(bb, "MiniGameData", node);
+        }
+
+        private void EnterGameResponse(int gameID, BagelCode.ClientModels.RoomEnterResponseV3 response)
+        {
+            string oldJson = JsonUtility.ToJson(response);
+            Debug.Log($"@A RoomEnterResponseV3 = {oldJson}");
+
+            var bb = ContentBlackboard.Get();
+
+            Serialize(bb, response);
+
+            BlackboardQueryUtils.UpdateSeat(response.room);
+            BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
+            BlackboardQueryUtils.UpdateTournament(response.tournamentInfo);
+            BlackboardQueryUtils.UpdateMetaGameEnterInfo(response.metaGameEnterInfo);
+            BlackboardQueryUtils.UpdateSeasonPassEnterInfo(response.seasonPassEnterInfo);
+            BlackboardQueryUtils.ApplyUserSyncInfo();
+
+            IAMRouter.Instance.SortTrigger(BagelCode.ClientModels.InAppMessageTriggerType.ALL_IN, gameID);
+
+            enterSuccess.value = true;
+            EndAction(true);
+        }
+
+        private void Serialize(IBlackboard bb, BagelCode.ClientModels.RoomEnterResponseV3 roomEnterResponse)
+        {
+            ClientAPI2Blackboard.Serialize(bb, roomEnterResponse);
+            BlackboardUtils.SetOrCreateValue<ContentsRequestType>(bb, "requestType", ContentsRequestType.Enter);
+            ContentsSerializer.Deserialize(bb);
+        }
+
+        private void ErrorHandle(BagelCodeHTTPError error)
+        {
+            switch (error.errorCode)
+            {
+                case ClientModels.Error.ROOM_FULL_ERROR:
                     {
-                        enterSuccess.value = false;
-                        EndAction();
-                    };
+                        bool stringError = false;
+                        ErrorPopupInfo info = new ErrorPopupInfo();
 
-                    ErrorPopupHandler.Instance.OpenError(info);
-                }
-                break;
-            default:
-                GlobalErrorHandler.GlobalError(error);
-                break;
+                        info.type = ErrorPopupType.OK;
+                        info.text = StringTableUtils.GetString(StringTable.StringTableType.Global, "ERROR_ROOM_FULL", out stringError);
+                        info.buttonText1 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_OKAY", out stringError);
+
+                        info.callback1 = delegate
+                        {
+                            enterSuccess.value = false;
+                            EndAction();
+                        };
+
+                        ErrorPopupHandler.Instance.OpenError(info);
+                    }
+                    break;
+
+                default:
+                    GlobalErrorHandler.GlobalError(error);
+                    break;
+            }
         }
     }
-}
-
 }

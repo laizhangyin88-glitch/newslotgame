@@ -16,6 +16,14 @@ using System.Runtime.CompilerServices;
 
 public class RPCName
 {
+    /// <summary>新的进入子游戏</summary>
+    public const string newEnterGame = "new_enter_game";
+    /// <summary>新拉霸机 开玩</summary>
+    public const string newSlotSpin = "new_slot_spin";
+    public const string newClaimBonus = "new_slot_spin";
+    /// <summary> 比大小小游戏协议 /// </summary>
+    public const string new_high_low_game = "new_high_low_game";
+
     /// <summary>登录</summary>
     public const string login = "login";
     /// <summary>进入大厅</summary>
@@ -43,7 +51,6 @@ public class RPCName
 
     /// <summary>HAPPY DOLLARS</summary>
     public const string claimBonus = "claim_bonus";
-
 
     /// <summary>免费游戏历史记录</summary>
     public const string freeSpinHistory = "slot_spin_history";
@@ -142,7 +149,6 @@ namespace RPCHall
         /// <summary>游戏id</summary>
         public int game_id;
     }
-
 }
 
 namespace RPCKenoClassic

@@ -84,7 +84,6 @@ namespace BagelCode.Tasks.Actions.ClientAPI
             NetManager.Instance.Post(RPCName.login, req,
             (res) =>
             {
-
                 string resStr = res.ToString();
 
                 TextAsset jsn0 = Resources.Load<TextAsset>("tempdata/login_response");
@@ -134,6 +133,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                 //还未结束的免费游戏id
                 if (res.HasKey("last_game_id") && res["last_game_id"] >= 0) //res
                 {
+                    Debug.LogError("free  game id   " + res["last_game_id"].AsInt); 
                     BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "lastFreeGameID", res["last_game_id"].AsInt);
                     BlackboardUtils.GetOrCreateVariable<bool>(MainBlackboard.Get(), "isLastGameSpin").value = true;
                 }

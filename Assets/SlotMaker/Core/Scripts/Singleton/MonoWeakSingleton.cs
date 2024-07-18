@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using System;
+using UnityEngine;
 
 namespace SlotMaker
 {
@@ -12,7 +13,7 @@ namespace SlotMaker
 			{
 				if (_instance == null)
 				{
-					var founds = FindObjectsOfType(typeof(T));
+                    var founds = FindObjectsOfType(typeof(T));
 					if (founds.Length > 1)
 					{
 						Debug.LogError("[Weak Singleton] Singlton '" + typeof(T) +
@@ -28,9 +29,10 @@ namespace SlotMaker
 								"' already created in this scene!");
 					}
 				}
-				return _instance;
+                return _instance;
 			}
 		}
+
 
 		protected virtual void OnDestroy()
 		{
