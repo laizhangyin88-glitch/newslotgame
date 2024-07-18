@@ -1,7 +1,9 @@
-using NodeCanvas.Framework;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using NodeCanvas.Framework;
+using ParadoxNotion.Design;
 
 namespace SlotMaker
 {
@@ -90,34 +92,26 @@ namespace SlotMaker
 
         public delegate void SerializeToBBEntry<T>(IBlackboard b, string key, T value);
 
-        public static SerializeToBB<List<T>> WrapAnonymousList<T>(SerializeToBB<T> serialize)
-        {
-            return delegate (IBlackboard bb, List<T> list)
-            {
+        public static SerializeToBB<List<T>> WrapAnonymousList<T>(SerializeToBB<T> serialize) {
+            return delegate (IBlackboard bb, List<T> list) {
                 SetOrCreateList(bb, LIST_WRAPPER_KEY, list, serialize);
             };
         }
 
-        public static SerializeToBB<T> WrapAnonymousList2<T>(SerializeToBBEntry<T> serialize)
-        {
-            return delegate (IBlackboard bb, T value)
-            {
+        public static SerializeToBB<T> WrapAnonymousList2<T>(SerializeToBBEntry<T> serialize) {
+            return delegate (IBlackboard bb, T value) {
                 serialize(bb, LIST_WRAPPER_KEY, value);
             };
         }
 
-        public static SerializeToBB<Dictionary<TK, TV>> WrapDict<TK, TV>(SerializeToBB<TV> valueSerialize)
-        {
-            return delegate (IBlackboard bb, Dictionary<TK, TV> value)
-            {
+        public static SerializeToBB<Dictionary<TK, TV>> WrapDict<TK, TV>(SerializeToBB<TV> valueSerialize) {
+            return delegate (IBlackboard bb, Dictionary<TK, TV> value) {
                 SetOrCreateDict(bb, value, valueSerialize);
             };
         }
 
-        public static SerializeToBB<Dictionary<TK, TV>> WrapDict2<TK, TV>(SerializeToBBEntry<TV> valueSerialize)
-        {
-            return delegate (IBlackboard bb, Dictionary<TK, TV> value)
-            {
+        public static SerializeToBB<Dictionary<TK, TV>> WrapDict2<TK, TV>(SerializeToBBEntry<TV> valueSerialize) {
+            return delegate (IBlackboard bb, Dictionary<TK, TV> value) {
                 if (value == null) return;
                 foreach (var kvp in value)
                 {
@@ -153,7 +147,7 @@ namespace SlotMaker
             variable.value = blackboardList;
         }
 
-        public static void SetOrCreateDict<K, V>(IBlackboard bb, string key, Dictionary<K, V> dict, SerializeToBB<V> serialize)
+        public static void SetOrCreateDict<K,V>(IBlackboard bb, string key, Dictionary<K, V> dict, SerializeToBB<V> serialize)
         {
             if (dict == null) return;
 
@@ -165,9 +159,9 @@ namespace SlotMaker
             variable.value = dictBb;
         }
 
-        private static void SetOrCreateDict<K, V>(IBlackboard bb, Dictionary<K, V> dict, SerializeToBB<V> serialize)
+        private static void SetOrCreateDict<K,V>(IBlackboard bb, Dictionary<K, V> dict, SerializeToBB<V> serialize)
         {
-            foreach (KeyValuePair<K, V> kvp in dict)
+            foreach (KeyValuePair<K,V> kvp in dict)
             {
                 var go = new GameObject();
                 go.name = kvp.Key.ToString();
@@ -294,7 +288,7 @@ namespace SlotMaker
                 if (newVariable == null || newVariable.value == null)
                 {
                     if (ApplicationSettings.LogSystem())
-                        Debug.LogError("[Blackboard] Null(" + tokens[i] + ") blackboard variable founded in " + name);
+                        Debug.LogWarning("[Blackboard] Null(" + tokens[i] + ") blackboard variable founded in " + name);
                     return null;
                 }
 
@@ -390,10 +384,10 @@ namespace SlotMaker
             return variable;
         }
 
-        public static Variable<T> GetOrCreateVariable<T>(string name)
-        {
-            return GetOrCreateVariable<T>(null, name);
-        }
+    	public static Variable<T> GetOrCreateVariable<T>(string name)
+    	{
+    		return GetOrCreateVariable<T>(null, name);
+    	}
 
         public static Variable FindOrCreateVariable(IBlackboard bb, string name, Type ofType)
         {
@@ -420,7 +414,7 @@ namespace SlotMaker
         public static object FindValue(IBlackboard bb, string name)
         {
             var variable = FindVariable(bb, name);
-            if (variable == null) 
+            if (variable == null)
             {
                 //Debug.LogWarning("Blackboard库(库名：" + bb.name + ") 的字段： " + name +" 为 null");
                 Debug.LogError("[Blackboard](" + bb.name + ") Null variable founded in " + name);
@@ -437,27 +431,6 @@ namespace SlotMaker
         public static T FindValue<T>(string name)
         {
             return FindValue<T>(null, name);
-        }
-
-        public static Blackboard GetContentFSMBlackboard()
-        {
-            GameObject go = GameObject.Find("Meta System/Content FSM");
-            if(go != null)
-            {
-                Blackboard bb = go.GetComponent<Blackboard>();
-                return bb;
-            }
-            return null;
-        }
-
-        public static Blackboard GetGameContentsBlackboard()
-        {
-            GameObject Base = GameObject.Find("Game Canvas/Game Contents/Animator");
-            if (Base != null)
-            {
-                return Base.GetComponent<Blackboard>();
-            }
-            return null;
         }
     }
 }

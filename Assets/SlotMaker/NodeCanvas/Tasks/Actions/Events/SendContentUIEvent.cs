@@ -24,7 +24,7 @@ namespace BagelCode.Tasks.Actions
 		}
 
 		protected override void OnUpdate(){
-            if (elapsedTime >= delay.value){
+			if (elapsedTime >= delay.value){
 				var e = new EventData(eventName.value);
 				if (sendGlobal){
 					MessageDispatcher.Dispatch(ON_CONTENT_UI_EVENT, e);

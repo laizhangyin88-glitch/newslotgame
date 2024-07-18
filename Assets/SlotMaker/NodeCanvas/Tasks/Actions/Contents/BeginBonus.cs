@@ -9,42 +9,42 @@ using SlotMaker;
 namespace BagelCode.Tasks.Actions.Contents
 {
 
-    [Category("★ BagelCode/Contents")]
-    public class BeginBonus : ActionTask
+[Category("★ BagelCode/Contents")]
+public class BeginBonus : ActionTask
+{
+    public BBParameter<int> bonusId;
+
+    protected override string info { get { return string.Format("Begin Bonus {0}", bonusId); } }
+
+    protected override void OnExecute()
     {
-        public BBParameter<int> bonusId;
+        var cb = ContentBlackboard.Get();
+        var spin = cb.GetValue<Blackboard>("spin");
+        var parent = cb.GetValue<Blackboard>("current");
 
-        protected override string info { get { return string.Format("Begin Bonus {0}", bonusId); } }
+        var bonus = (Blackboard)BlackboardUtils.CreateBlackboard("bonus");
+        var bonusList = BlackboardUtils.AddToBlackboardList(parent, "bonusList", bonus);
+        BlackboardUtils.SetOrCreateValue<Blackboard>(cb, "bonus", bonus);
+        cb.SetValue("current", bonus);
 
-        protected override void OnExecute()
-        {
-            var cb = ContentBlackboard.Get();
-            var spin = cb.GetValue<Blackboard>("spin");
-            var parent = cb.GetValue<Blackboard>("current"); 
+        string guid = Guid.NewGuid().ToString();
+        Blackboard response = ContentBlackboardUtils.GetBonusResponse(spin, bonusId.value);
+        long timestamp = MetaSystem.GetTimeStamp();
 
-            var bonus = (Blackboard)BlackboardUtils.CreateBlackboard("bonus");
-            var bonusList = BlackboardUtils.AddToBlackboardList(parent, "bonusList", bonus);
-            BlackboardUtils.SetOrCreateValue<Blackboard>(cb, "bonus", bonus);
-            cb.SetValue("current", bonus);
+        BlackboardUtils.SetOrCreateValue<int>(bonus, "bonusIndex", bonusList.Count - 1);
+        BlackboardUtils.SetOrCreateValue<ContentNodeType>(bonus, "type", ContentNodeType.Bonus);
+        BlackboardUtils.SetOrCreateValue<Blackboard>(bonus, "parent", parent);
+        BlackboardUtils.SetOrCreateValue(bonus, "uid", guid);
+        BlackboardUtils.SetOrCreateValue<int>(bonus, "bonusId", this.bonusId.value);
+        BlackboardUtils.SetOrCreateValue<Blackboard>(bonus, "response", response);
+        BlackboardUtils.SetOrCreateValue<long>(bonus, "earnCredit", 0L);
+        BlackboardUtils.SetOrCreateValue<long>(bonus, "singleCredit", 0L);
+        BlackboardUtils.SetOrCreateValue<long>(bonus, "beginTime", timestamp);
 
-            string guid = Guid.NewGuid().ToString();
-            Blackboard response = ContentBlackboardUtils.GetBonusResponse(spin, bonusId.value);
-            long timestamp = MetaSystem.GetTimeStamp();
+        ContentEvent.BeginBonus(bonus);
 
-            BlackboardUtils.SetOrCreateValue<int>(bonus, "bonusIndex", bonusList.Count - 1);
-            BlackboardUtils.SetOrCreateValue<ContentNodeType>(bonus, "type", ContentNodeType.Bonus);
-            BlackboardUtils.SetOrCreateValue<Blackboard>(bonus, "parent", parent);
-            BlackboardUtils.SetOrCreateValue(bonus, "uid", guid);
-            BlackboardUtils.SetOrCreateValue<int>(bonus, "bonusId", this.bonusId.value);
-            BlackboardUtils.SetOrCreateValue<Blackboard>(bonus, "response", response);
-            BlackboardUtils.SetOrCreateValue<long>(bonus, "earnCredit", 0L);
-            BlackboardUtils.SetOrCreateValue<long>(bonus, "singleCredit", 0L);
-            BlackboardUtils.SetOrCreateValue<long>(bonus, "beginTime", timestamp);
-
-            ContentEvent.BeginBonus(bonus);
-
-            EndAction();
-        }
+        EndAction();
     }
+}
 
 }

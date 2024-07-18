@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------
+﻿//-----------------------------------------------------------------------
 // <copyright file="SimpleJson.cs" company="The Outercurve Foundation">
 //    Copyright (c) 2011, The Outercurve Foundation.
 //
@@ -56,7 +56,6 @@ using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 #if SIMPLE_JSON_DYNAMIC
 using System.Dynamic;
@@ -689,7 +688,7 @@ namespace SlotMaker.Json
         static IDictionary<string, object> ParseObject(string json, ref int index, ref bool success)
         {
             IDictionary<string, object> table = new JsonObject();
-            TokenType token; 
+            TokenType token;
 
             // {
             NextToken(json, ref index);

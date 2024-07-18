@@ -1,12 +1,14 @@
-using NodeCanvas.Framework;
-using ParadoxNotion;
-using ParadoxNotion.Design;
-using SlotMaker;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ParadoxNotion.Design;
+using ParadoxNotion;
+using NodeCanvas.Framework;
+using SlotMaker;
 
 namespace BagelCode.Tasks.Actions.Contents
 {
+
     [Category("★ BagelCode/Contents")]
     public class CalcDiscontinuousLineWin : ActionTask<Blackboard>
     {
@@ -33,8 +35,7 @@ namespace BagelCode.Tasks.Actions.Contents
 
         private const int wildSymbolIndex = 0;
 
-        protected long betPerLine
-        { get { return betCredit.value / baseWager.value; } }
+        protected long betPerLine { get { return betCredit.value / baseWager.value; } }
 
         protected SymbolInfo GetSymbolInfo(int column, int row)
         {
@@ -56,7 +57,7 @@ namespace BagelCode.Tasks.Actions.Contents
 
         public long FindEarnCredit(int symbolIndex, int hitCount)
         {
-            /// CRASH REPORT
+            /// CRASH REPORT    
             long result = 0L;
             try
             {
@@ -238,5 +239,7 @@ namespace BagelCode.Tasks.Actions.Contents
         }
 
 #endif
+
     }
+
 }

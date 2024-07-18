@@ -55,7 +55,6 @@ namespace BagelCode.Tasks.Actions
 		protected override void OnUpdate(){
 			if (elapsedTime >= delay.value){
 				var e = new EventData<T>(eventName.value, eventValue.value);
-                
 				if (sendGlobal){
 					MessageDispatcher.Dispatch(ON_CREDIT_EVENT, e);
 				} else {

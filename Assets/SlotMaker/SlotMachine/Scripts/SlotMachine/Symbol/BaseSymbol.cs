@@ -1,4 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System;
 
 namespace SlotMaker
 {
@@ -8,51 +11,37 @@ namespace SlotMaker
         public int column { get; set; }
         public int row { get; set; }
 
-        public override int GetHashCode()
-        { return Cell.GetHashCode(column, row); }
+        public override int GetHashCode() { return Cell.GetHashCode(column, row); }
 
         public SymbolInfo symbolInfo;
 
-        public int symbolIndex
-        { get { return symbolInfo.symbol; } set { symbolInfo.symbol = value; } }
+        public int symbolIndex { get { return symbolInfo.symbol; } set { symbolInfo.symbol = value; } }
 
-        public int symbolMultiplier
-        { get { return symbolInfo.multiplier; } set { symbolInfo.multiplier = value; } }
+        public int symbolMultiplier { get { return symbolInfo.multiplier; } set { symbolInfo.multiplier = value; } }
 
-        public int subSymbolIndex
-        { get { return symbolInfo.subSymbol.symbol; } set { symbolInfo.subSymbol.symbol = value; } }
+        public int subSymbolIndex { get { return symbolInfo.subSymbol.symbol; } set { symbolInfo.subSymbol.symbol = value; } }
 
-        public int symbolMask
-        { get { return (int)symbolInfo.mask; } set { symbolInfo.mask = (SymbolAttribute)value; } }
+        public int symbolMask { get { return (int)symbolInfo.mask; } set { symbolInfo.mask = (SymbolAttribute)value; } }
 
-        public bool isPivot
-        { get { return symbolInfo.link.isPivot; } }
+        public bool isPivot { get { return symbolInfo.link.isPivot; } }
 
-        public bool unitSymbol
-        { get { return symbolInfo.link.unitSymbol; } }
+        public bool unitSymbol { get { return symbolInfo.link.unitSymbol; } }
 
-        public int physicalRow
-        { get { return row - reel.beginRow + reel.topBuffer; } }
+        public int physicalRow { get { return row - reel.beginRow + reel.topBuffer; } }
 
-        public int rowCount
-        { get { return symbolInfo.link.rowCount; } }
+        public int rowCount { get { return symbolInfo.link.rowCount; } }
 
-        public int columnCount
-        { get { return symbolInfo.link.columnCount; } }
+        public int columnCount { get { return symbolInfo.link.columnCount; } }
 
         private RectTransform _rectTransform;
+        public RectTransform rectTransform { get { return _rectTransform ?? (_rectTransform = GetComponent<RectTransform>()); } }
 
-        public RectTransform rectTransform
-        { get { return _rectTransform ?? (_rectTransform = GetComponent<RectTransform>()); } }
-
-        public virtual RectTransform anchor
-        { get { return rectTransform; } }
+        public virtual RectTransform anchor { get { return rectTransform; } }
 
         public BaseSlotMachine slotMachine { get; set; }
         public BaseReel reel { get; set; }
 
-        public SymbolAssets symbolAssets
-        { get { return (reel != null) ? reel.symbolAssets : GlobalSymbolAssets.Instance; } }
+        public SymbolAssets symbolAssets { get { return (reel != null) ? reel.symbolAssets : GlobalSymbolAssets.Instance; } }
 
         public virtual void Clear()
         {
@@ -103,8 +92,8 @@ namespace SlotMaker
             this.reel = reel;
             this.column = column;
             this.row = row;
-            SymbolInfo temp = SlotUtils.GetSymbol(slotMachine.slotIndex, reel.reelIndex, reel.strip, stripIndex);
-            Change(temp);
+
+            Change(SlotUtils.GetSymbol(slotMachine.slotIndex, reel.reelIndex, reel.strip, stripIndex));
             Apply();
         }
 
@@ -134,22 +123,11 @@ namespace SlotMaker
             OnSkip();
         }
 
-        protected virtual void OnClear()
-        { }
-
-        protected virtual void OnChange()
-        { }
-
-        protected virtual void OnApply()
-        { }
-
-        protected virtual void OnRestore(BaseSymbol src)
-        { }
-
-        protected virtual void OnPlay(string animationName)
-        { }
-
-        protected virtual void OnSkip()
-        { }
+        protected virtual void OnClear() { }
+        protected virtual void OnChange() { }
+        protected virtual void OnApply() { }
+        protected virtual void OnRestore(BaseSymbol src) { }
+        protected virtual void OnPlay(string animationName) { }
+        protected virtual void OnSkip() { }
     }
 }

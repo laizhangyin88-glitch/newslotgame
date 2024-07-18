@@ -1,9 +1,11 @@
+using UnityEngine;
+using System;
+using System.Collections.Generic;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
 using SlotMaker;
+
 using SlotMaker.Json;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace BagelCode.Tasks.Actions.BI
 {
@@ -20,9 +22,9 @@ namespace BagelCode.Tasks.Actions.BI
         {
             var game = BlackboardUtils.FindVariable<Blackboard>(agent, "./game");
 
-            if (product.value != null)
+            if(product.value != null)
             {
-                if (PlayerPrefs.HasKey(dataKey))
+                if( PlayerPrefs.HasKey(dataKey) )
                 {
                     string loadProductIDSet = PlayerPrefs.GetString(dataKey);
                     productIDList = SlotSimpleJson.DeserializeObject<List<string>>(loadProductIDSet);
@@ -36,7 +38,7 @@ namespace BagelCode.Tasks.Actions.BI
             }
             else
             {
-                if (PlayerPrefs.HasKey(dataKey))
+                if( PlayerPrefs.HasKey(dataKey) )
                 {
                     string loadProductIDSet = PlayerPrefs.GetString(dataKey);
                     productIDList = SlotSimpleJson.DeserializeObject<List<string>>(loadProductIDSet);
@@ -51,7 +53,7 @@ namespace BagelCode.Tasks.Actions.BI
                     PlayerPrefs.DeleteKey(dataKey);
                 }
             }
-
+            
             EndAction();
         }
     }

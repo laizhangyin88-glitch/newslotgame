@@ -81,6 +81,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Actions_GetListElementsCount_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Actions.GetListElementsCount<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Actions_GetListElementsCount_BagelCode_ClientModels_UserClubState : BagelCode.Task.Actions.GetListElementsCount<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Actions_GetListElementsCount_BagelCode_ClientModels_WinType : BagelCode.Task.Actions.GetListElementsCount<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Actions_GetListElementsCount_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Actions.GetListElementsCount<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Actions_GetListElementsCount_SlotMaker_SpinState : BagelCode.Task.Actions.GetListElementsCount<SlotMaker.SpinState>{}
 		class BagelCode_Task_Actions_GetListElementsCount_System_Double : BagelCode.Task.Actions.GetListElementsCount<System.Double>{}
 		class BagelCode_Task_Actions_GetListElementsCount_System_Int64 : BagelCode.Task.Actions.GetListElementsCount<System.Int64>{}
@@ -163,6 +164,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Actions_SendCalleeCallbackMeta_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Actions.SendCalleeCallbackMeta<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Actions_SendCalleeCallbackMeta_BagelCode_ClientModels_UserClubState : BagelCode.Task.Actions.SendCalleeCallbackMeta<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Actions_SendCalleeCallbackMeta_BagelCode_ClientModels_WinType : BagelCode.Task.Actions.SendCalleeCallbackMeta<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Actions_SendCalleeCallbackMeta_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Actions.SendCalleeCallbackMeta<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Actions_SendCalleeCallbackMeta_SlotMaker_SpinState : BagelCode.Task.Actions.SendCalleeCallbackMeta<SlotMaker.SpinState>{}
 		class BagelCode_Task_Actions_SendCalleeCallbackMeta_System_Double : BagelCode.Task.Actions.SendCalleeCallbackMeta<System.Double>{}
 		class BagelCode_Task_Actions_SendCalleeCallbackMeta_System_Int64 : BagelCode.Task.Actions.SendCalleeCallbackMeta<System.Int64>{}
@@ -245,6 +247,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Actions_SendEventMeta_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Actions.SendEventMeta<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Actions_SendEventMeta_BagelCode_ClientModels_UserClubState : BagelCode.Task.Actions.SendEventMeta<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Actions_SendEventMeta_BagelCode_ClientModels_WinType : BagelCode.Task.Actions.SendEventMeta<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Actions_SendEventMeta_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Actions.SendEventMeta<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Actions_SendEventMeta_SlotMaker_SpinState : BagelCode.Task.Actions.SendEventMeta<SlotMaker.SpinState>{}
 		class BagelCode_Task_Actions_SendEventMeta_System_Double : BagelCode.Task.Actions.SendEventMeta<System.Double>{}
 		class BagelCode_Task_Actions_SendEventMeta_System_Int64 : BagelCode.Task.Actions.SendEventMeta<System.Int64>{}
@@ -327,6 +330,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckContentEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckContentEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckContentEvent_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckContentEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckContentEvent_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckContentEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckContentEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckContentEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckContentEvent_SlotMaker_SpinState : BagelCode.Task.Condition.CheckContentEvent<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckContentEvent_System_Double : BagelCode.Task.Condition.CheckContentEvent<System.Double>{}
 		class BagelCode_Task_Condition_CheckContentEvent_System_Int64 : BagelCode.Task.Condition.CheckContentEvent<System.Int64>{}
@@ -409,6 +413,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckContentEventBlackboardValue_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckContentEventBlackboardValue<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckContentEventBlackboardValue_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckContentEventBlackboardValue<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckContentEventBlackboardValue_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckContentEventBlackboardValue<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckContentEventBlackboardValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckContentEventBlackboardValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckContentEventBlackboardValue_SlotMaker_SpinState : BagelCode.Task.Condition.CheckContentEventBlackboardValue<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckContentEventBlackboardValue_System_Double : BagelCode.Task.Condition.CheckContentEventBlackboardValue<System.Double>{}
 		class BagelCode_Task_Condition_CheckContentEventBlackboardValue_System_Int64 : BagelCode.Task.Condition.CheckContentEventBlackboardValue<System.Int64>{}
@@ -491,6 +496,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckContentEventValue_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckContentEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckContentEventValue_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckContentEventValue<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckContentEventValue_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckContentEventValue<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckContentEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckContentEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckContentEventValue_SlotMaker_SpinState : BagelCode.Task.Condition.CheckContentEventValue<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckContentEventValue_System_Double : BagelCode.Task.Condition.CheckContentEventValue<System.Double>{}
 		class BagelCode_Task_Condition_CheckContentEventValue_System_Int64 : BagelCode.Task.Condition.CheckContentEventValue<System.Int64>{}
@@ -573,6 +579,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckContentUIDetailEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckContentUIDetailEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckContentUIDetailEvent_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckContentUIDetailEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckContentUIDetailEvent_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckContentUIDetailEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckContentUIDetailEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckContentUIDetailEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckContentUIDetailEvent_SlotMaker_SpinState : BagelCode.Task.Condition.CheckContentUIDetailEvent<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckContentUIDetailEvent_System_Double : BagelCode.Task.Condition.CheckContentUIDetailEvent<System.Double>{}
 		class BagelCode_Task_Condition_CheckContentUIDetailEvent_System_Int64 : BagelCode.Task.Condition.CheckContentUIDetailEvent<System.Int64>{}
@@ -655,6 +662,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckContentUIDetailEventValue_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckContentUIDetailEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckContentUIDetailEventValue_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckContentUIDetailEventValue<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckContentUIDetailEventValue_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckContentUIDetailEventValue<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckContentUIDetailEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckContentUIDetailEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckContentUIDetailEventValue_SlotMaker_SpinState : BagelCode.Task.Condition.CheckContentUIDetailEventValue<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckContentUIDetailEventValue_System_Double : BagelCode.Task.Condition.CheckContentUIDetailEventValue<System.Double>{}
 		class BagelCode_Task_Condition_CheckContentUIDetailEventValue_System_Int64 : BagelCode.Task.Condition.CheckContentUIDetailEventValue<System.Int64>{}
@@ -737,6 +745,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckContentUIEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckContentUIEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckContentUIEvent_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckContentUIEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckContentUIEvent_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckContentUIEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckContentUIEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckContentUIEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckContentUIEvent_SlotMaker_SpinState : BagelCode.Task.Condition.CheckContentUIEvent<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckContentUIEvent_System_Double : BagelCode.Task.Condition.CheckContentUIEvent<System.Double>{}
 		class BagelCode_Task_Condition_CheckContentUIEvent_System_Int64 : BagelCode.Task.Condition.CheckContentUIEvent<System.Int64>{}
@@ -819,6 +828,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckContentUIEventValue_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckContentUIEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckContentUIEventValue_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckContentUIEventValue<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckContentUIEventValue_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckContentUIEventValue<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckContentUIEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckContentUIEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckContentUIEventValue_SlotMaker_SpinState : BagelCode.Task.Condition.CheckContentUIEventValue<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckContentUIEventValue_System_Double : BagelCode.Task.Condition.CheckContentUIEventValue<System.Double>{}
 		class BagelCode_Task_Condition_CheckContentUIEventValue_System_Int64 : BagelCode.Task.Condition.CheckContentUIEventValue<System.Int64>{}
@@ -901,6 +911,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckCreditEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckCreditEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckCreditEvent_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckCreditEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckCreditEvent_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckCreditEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckCreditEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckCreditEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckCreditEvent_SlotMaker_SpinState : BagelCode.Task.Condition.CheckCreditEvent<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckCreditEvent_System_Double : BagelCode.Task.Condition.CheckCreditEvent<System.Double>{}
 		class BagelCode_Task_Condition_CheckCreditEvent_System_Int64 : BagelCode.Task.Condition.CheckCreditEvent<System.Int64>{}
@@ -983,6 +994,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckCreditEventValue_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckCreditEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckCreditEventValue_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckCreditEventValue<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckCreditEventValue_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckCreditEventValue<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckCreditEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckCreditEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckCreditEventValue_SlotMaker_SpinState : BagelCode.Task.Condition.CheckCreditEventValue<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckCreditEventValue_System_Double : BagelCode.Task.Condition.CheckCreditEventValue<System.Double>{}
 		class BagelCode_Task_Condition_CheckCreditEventValue_System_Int64 : BagelCode.Task.Condition.CheckCreditEventValue<System.Int64>{}
@@ -1065,6 +1077,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckLongPollEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckLongPollEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckLongPollEvent_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckLongPollEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckLongPollEvent_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckLongPollEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckLongPollEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckLongPollEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckLongPollEvent_SlotMaker_SpinState : BagelCode.Task.Condition.CheckLongPollEvent<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckLongPollEvent_System_Double : BagelCode.Task.Condition.CheckLongPollEvent<System.Double>{}
 		class BagelCode_Task_Condition_CheckLongPollEvent_System_Int64 : BagelCode.Task.Condition.CheckLongPollEvent<System.Int64>{}
@@ -1147,6 +1160,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckLongPollEventValue_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckLongPollEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckLongPollEventValue_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckLongPollEventValue<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckLongPollEventValue_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckLongPollEventValue<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckLongPollEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckLongPollEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckLongPollEventValue_SlotMaker_SpinState : BagelCode.Task.Condition.CheckLongPollEventValue<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckLongPollEventValue_System_Double : BagelCode.Task.Condition.CheckLongPollEventValue<System.Double>{}
 		class BagelCode_Task_Condition_CheckLongPollEventValue_System_Int64 : BagelCode.Task.Condition.CheckLongPollEventValue<System.Int64>{}
@@ -1229,6 +1243,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckMetaUIEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckMetaUIEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckMetaUIEvent_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckMetaUIEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckMetaUIEvent_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckMetaUIEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckMetaUIEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckMetaUIEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckMetaUIEvent_SlotMaker_SpinState : BagelCode.Task.Condition.CheckMetaUIEvent<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckMetaUIEvent_System_Double : BagelCode.Task.Condition.CheckMetaUIEvent<System.Double>{}
 		class BagelCode_Task_Condition_CheckMetaUIEvent_System_Int64 : BagelCode.Task.Condition.CheckMetaUIEvent<System.Int64>{}
@@ -1311,6 +1326,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckMetaUIEventValue_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckMetaUIEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckMetaUIEventValue_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckMetaUIEventValue<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckMetaUIEventValue_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckMetaUIEventValue<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckMetaUIEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckMetaUIEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckMetaUIEventValue_SlotMaker_SpinState : BagelCode.Task.Condition.CheckMetaUIEventValue<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckMetaUIEventValue_System_Double : BagelCode.Task.Condition.CheckMetaUIEventValue<System.Double>{}
 		class BagelCode_Task_Condition_CheckMetaUIEventValue_System_Int64 : BagelCode.Task.Condition.CheckMetaUIEventValue<System.Int64>{}
@@ -1393,6 +1409,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckPassiveEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckPassiveEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckPassiveEvent_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckPassiveEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckPassiveEvent_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckPassiveEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckPassiveEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckPassiveEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckPassiveEvent_SlotMaker_SpinState : BagelCode.Task.Condition.CheckPassiveEvent<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckPassiveEvent_System_Double : BagelCode.Task.Condition.CheckPassiveEvent<System.Double>{}
 		class BagelCode_Task_Condition_CheckPassiveEvent_System_Int64 : BagelCode.Task.Condition.CheckPassiveEvent<System.Int64>{}
@@ -1475,6 +1492,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckPassiveEventValue_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckPassiveEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckPassiveEventValue_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckPassiveEventValue<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckPassiveEventValue_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckPassiveEventValue<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckPassiveEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckPassiveEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckPassiveEventValue_SlotMaker_SpinState : BagelCode.Task.Condition.CheckPassiveEventValue<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckPassiveEventValue_System_Double : BagelCode.Task.Condition.CheckPassiveEventValue<System.Double>{}
 		class BagelCode_Task_Condition_CheckPassiveEventValue_System_Int64 : BagelCode.Task.Condition.CheckPassiveEventValue<System.Int64>{}
@@ -1557,6 +1575,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckSlotDetailEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckSlotDetailEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckSlotDetailEvent_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckSlotDetailEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckSlotDetailEvent_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckSlotDetailEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckSlotDetailEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckSlotDetailEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckSlotDetailEvent_SlotMaker_SpinState : BagelCode.Task.Condition.CheckSlotDetailEvent<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckSlotDetailEvent_System_Double : BagelCode.Task.Condition.CheckSlotDetailEvent<System.Double>{}
 		class BagelCode_Task_Condition_CheckSlotDetailEvent_System_Int64 : BagelCode.Task.Condition.CheckSlotDetailEvent<System.Int64>{}
@@ -1639,6 +1658,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckSlotDetailEventValue_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckSlotDetailEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckSlotDetailEventValue_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckSlotDetailEventValue<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckSlotDetailEventValue_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckSlotDetailEventValue<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckSlotDetailEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckSlotDetailEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckSlotDetailEventValue_SlotMaker_SpinState : BagelCode.Task.Condition.CheckSlotDetailEventValue<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckSlotDetailEventValue_System_Double : BagelCode.Task.Condition.CheckSlotDetailEventValue<System.Double>{}
 		class BagelCode_Task_Condition_CheckSlotDetailEventValue_System_Int64 : BagelCode.Task.Condition.CheckSlotDetailEventValue<System.Int64>{}
@@ -1721,6 +1741,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckSlotEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckSlotEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckSlotEvent_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckSlotEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckSlotEvent_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckSlotEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckSlotEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckSlotEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckSlotEvent_SlotMaker_SpinState : BagelCode.Task.Condition.CheckSlotEvent<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckSlotEvent_System_Double : BagelCode.Task.Condition.CheckSlotEvent<System.Double>{}
 		class BagelCode_Task_Condition_CheckSlotEvent_System_Int64 : BagelCode.Task.Condition.CheckSlotEvent<System.Int64>{}
@@ -1803,6 +1824,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckSlotEventValue_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckSlotEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckSlotEventValue_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckSlotEventValue<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckSlotEventValue_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckSlotEventValue<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckSlotEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckSlotEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckSlotEventValue_SlotMaker_SpinState : BagelCode.Task.Condition.CheckSlotEventValue<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckSlotEventValue_System_Double : BagelCode.Task.Condition.CheckSlotEventValue<System.Double>{}
 		class BagelCode_Task_Condition_CheckSlotEventValue_System_Int64 : BagelCode.Task.Condition.CheckSlotEventValue<System.Int64>{}
@@ -1885,6 +1907,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckSoundEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckSoundEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckSoundEvent_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckSoundEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckSoundEvent_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckSoundEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckSoundEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckSoundEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckSoundEvent_SlotMaker_SpinState : BagelCode.Task.Condition.CheckSoundEvent<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckSoundEvent_System_Double : BagelCode.Task.Condition.CheckSoundEvent<System.Double>{}
 		class BagelCode_Task_Condition_CheckSoundEvent_System_Int64 : BagelCode.Task.Condition.CheckSoundEvent<System.Int64>{}
@@ -1967,6 +1990,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckSoundEventValue_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckSoundEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckSoundEventValue_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckSoundEventValue<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckSoundEventValue_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckSoundEventValue<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckSoundEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckSoundEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckSoundEventValue_SlotMaker_SpinState : BagelCode.Task.Condition.CheckSoundEventValue<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckSoundEventValue_System_Double : BagelCode.Task.Condition.CheckSoundEventValue<System.Double>{}
 		class BagelCode_Task_Condition_CheckSoundEventValue_System_Int64 : BagelCode.Task.Condition.CheckSoundEventValue<System.Int64>{}
@@ -2049,6 +2073,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckSymbolEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckSymbolEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckSymbolEvent_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckSymbolEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckSymbolEvent_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckSymbolEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckSymbolEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckSymbolEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckSymbolEvent_SlotMaker_SpinState : BagelCode.Task.Condition.CheckSymbolEvent<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckSymbolEvent_System_Double : BagelCode.Task.Condition.CheckSymbolEvent<System.Double>{}
 		class BagelCode_Task_Condition_CheckSymbolEvent_System_Int64 : BagelCode.Task.Condition.CheckSymbolEvent<System.Int64>{}
@@ -2131,6 +2156,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckSymbolEventValue_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckSymbolEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckSymbolEventValue_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckSymbolEventValue<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckSymbolEventValue_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckSymbolEventValue<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckSymbolEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckSymbolEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckSymbolEventValue_SlotMaker_SpinState : BagelCode.Task.Condition.CheckSymbolEventValue<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckSymbolEventValue_System_Double : BagelCode.Task.Condition.CheckSymbolEventValue<System.Double>{}
 		class BagelCode_Task_Condition_CheckSymbolEventValue_System_Int64 : BagelCode.Task.Condition.CheckSymbolEventValue<System.Int64>{}
@@ -2213,6 +2239,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckSystemEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckSystemEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckSystemEvent_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckSystemEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckSystemEvent_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckSystemEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckSystemEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckSystemEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckSystemEvent_SlotMaker_SpinState : BagelCode.Task.Condition.CheckSystemEvent<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckSystemEvent_System_Double : BagelCode.Task.Condition.CheckSystemEvent<System.Double>{}
 		class BagelCode_Task_Condition_CheckSystemEvent_System_Int64 : BagelCode.Task.Condition.CheckSystemEvent<System.Int64>{}
@@ -2295,6 +2322,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckSystemEventValue_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckSystemEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckSystemEventValue_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckSystemEventValue<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckSystemEventValue_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckSystemEventValue<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckSystemEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckSystemEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckSystemEventValue_SlotMaker_SpinState : BagelCode.Task.Condition.CheckSystemEventValue<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckSystemEventValue_System_Double : BagelCode.Task.Condition.CheckSystemEventValue<System.Double>{}
 		class BagelCode_Task_Condition_CheckSystemEventValue_System_Int64 : BagelCode.Task.Condition.CheckSystemEventValue<System.Int64>{}
@@ -2377,6 +2405,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckWinEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckWinEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckWinEvent_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckWinEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckWinEvent_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckWinEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckWinEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckWinEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckWinEvent_SlotMaker_SpinState : BagelCode.Task.Condition.CheckWinEvent<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckWinEvent_System_Double : BagelCode.Task.Condition.CheckWinEvent<System.Double>{}
 		class BagelCode_Task_Condition_CheckWinEvent_System_Int64 : BagelCode.Task.Condition.CheckWinEvent<System.Int64>{}
@@ -2459,6 +2488,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckWinEventList_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckWinEventList<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckWinEventList_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckWinEventList<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckWinEventList_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckWinEventList<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckWinEventList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckWinEventList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckWinEventList_SlotMaker_SpinState : BagelCode.Task.Condition.CheckWinEventList<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckWinEventList_System_Double : BagelCode.Task.Condition.CheckWinEventList<System.Double>{}
 		class BagelCode_Task_Condition_CheckWinEventList_System_Int64 : BagelCode.Task.Condition.CheckWinEventList<System.Int64>{}
@@ -2541,6 +2571,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_CheckWinEventValue_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.CheckWinEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_CheckWinEventValue_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.CheckWinEventValue<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_CheckWinEventValue_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.CheckWinEventValue<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_CheckWinEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.CheckWinEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_CheckWinEventValue_SlotMaker_SpinState : BagelCode.Task.Condition.CheckWinEventValue<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_CheckWinEventValue_System_Double : BagelCode.Task.Condition.CheckWinEventValue<System.Double>{}
 		class BagelCode_Task_Condition_CheckWinEventValue_System_Int64 : BagelCode.Task.Condition.CheckWinEventValue<System.Int64>{}
@@ -2623,6 +2654,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Task_Condition_SendPassiveEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Task.Condition.SendPassiveEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Task_Condition_SendPassiveEvent_BagelCode_ClientModels_UserClubState : BagelCode.Task.Condition.SendPassiveEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Task_Condition_SendPassiveEvent_BagelCode_ClientModels_WinType : BagelCode.Task.Condition.SendPassiveEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Task_Condition_SendPassiveEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Task.Condition.SendPassiveEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Task_Condition_SendPassiveEvent_SlotMaker_SpinState : BagelCode.Task.Condition.SendPassiveEvent<SlotMaker.SpinState>{}
 		class BagelCode_Task_Condition_SendPassiveEvent_System_Double : BagelCode.Task.Condition.SendPassiveEvent<System.Double>{}
 		class BagelCode_Task_Condition_SendPassiveEvent_System_Int64 : BagelCode.Task.Condition.SendPassiveEvent<System.Int64>{}
@@ -2705,6 +2737,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Tasks_Actions_SendContentEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Tasks.Actions.SendContentEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Tasks_Actions_SendContentEvent_BagelCode_ClientModels_UserClubState : BagelCode.Tasks.Actions.SendContentEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Tasks_Actions_SendContentEvent_BagelCode_ClientModels_WinType : BagelCode.Tasks.Actions.SendContentEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Tasks_Actions_SendContentEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Tasks.Actions.SendContentEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Tasks_Actions_SendContentEvent_SlotMaker_SpinState : BagelCode.Tasks.Actions.SendContentEvent<SlotMaker.SpinState>{}
 		class BagelCode_Tasks_Actions_SendContentEvent_System_Double : BagelCode.Tasks.Actions.SendContentEvent<System.Double>{}
 		class BagelCode_Tasks_Actions_SendContentEvent_System_Int64 : BagelCode.Tasks.Actions.SendContentEvent<System.Int64>{}
@@ -2787,6 +2820,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Tasks_Actions_SendContentUIDetailEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Tasks.Actions.SendContentUIDetailEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Tasks_Actions_SendContentUIDetailEvent_BagelCode_ClientModels_UserClubState : BagelCode.Tasks.Actions.SendContentUIDetailEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Tasks_Actions_SendContentUIDetailEvent_BagelCode_ClientModels_WinType : BagelCode.Tasks.Actions.SendContentUIDetailEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Tasks_Actions_SendContentUIDetailEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Tasks.Actions.SendContentUIDetailEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Tasks_Actions_SendContentUIDetailEvent_SlotMaker_SpinState : BagelCode.Tasks.Actions.SendContentUIDetailEvent<SlotMaker.SpinState>{}
 		class BagelCode_Tasks_Actions_SendContentUIDetailEvent_System_Double : BagelCode.Tasks.Actions.SendContentUIDetailEvent<System.Double>{}
 		class BagelCode_Tasks_Actions_SendContentUIDetailEvent_System_Int64 : BagelCode.Tasks.Actions.SendContentUIDetailEvent<System.Int64>{}
@@ -2869,6 +2903,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Tasks_Actions_SendContentUIEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Tasks.Actions.SendContentUIEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Tasks_Actions_SendContentUIEvent_BagelCode_ClientModels_UserClubState : BagelCode.Tasks.Actions.SendContentUIEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Tasks_Actions_SendContentUIEvent_BagelCode_ClientModels_WinType : BagelCode.Tasks.Actions.SendContentUIEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Tasks_Actions_SendContentUIEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Tasks.Actions.SendContentUIEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Tasks_Actions_SendContentUIEvent_SlotMaker_SpinState : BagelCode.Tasks.Actions.SendContentUIEvent<SlotMaker.SpinState>{}
 		class BagelCode_Tasks_Actions_SendContentUIEvent_System_Double : BagelCode.Tasks.Actions.SendContentUIEvent<System.Double>{}
 		class BagelCode_Tasks_Actions_SendContentUIEvent_System_Int64 : BagelCode.Tasks.Actions.SendContentUIEvent<System.Int64>{}
@@ -2951,6 +2986,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Tasks_Actions_SendCreditEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Tasks.Actions.SendCreditEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Tasks_Actions_SendCreditEvent_BagelCode_ClientModels_UserClubState : BagelCode.Tasks.Actions.SendCreditEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Tasks_Actions_SendCreditEvent_BagelCode_ClientModels_WinType : BagelCode.Tasks.Actions.SendCreditEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Tasks_Actions_SendCreditEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Tasks.Actions.SendCreditEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Tasks_Actions_SendCreditEvent_SlotMaker_SpinState : BagelCode.Tasks.Actions.SendCreditEvent<SlotMaker.SpinState>{}
 		class BagelCode_Tasks_Actions_SendCreditEvent_System_Double : BagelCode.Tasks.Actions.SendCreditEvent<System.Double>{}
 		class BagelCode_Tasks_Actions_SendCreditEvent_System_Int64 : BagelCode.Tasks.Actions.SendCreditEvent<System.Int64>{}
@@ -3033,6 +3069,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Tasks_Actions_SendLongPollEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Tasks.Actions.SendLongPollEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Tasks_Actions_SendLongPollEvent_BagelCode_ClientModels_UserClubState : BagelCode.Tasks.Actions.SendLongPollEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Tasks_Actions_SendLongPollEvent_BagelCode_ClientModels_WinType : BagelCode.Tasks.Actions.SendLongPollEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Tasks_Actions_SendLongPollEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Tasks.Actions.SendLongPollEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Tasks_Actions_SendLongPollEvent_SlotMaker_SpinState : BagelCode.Tasks.Actions.SendLongPollEvent<SlotMaker.SpinState>{}
 		class BagelCode_Tasks_Actions_SendLongPollEvent_System_Double : BagelCode.Tasks.Actions.SendLongPollEvent<System.Double>{}
 		class BagelCode_Tasks_Actions_SendLongPollEvent_System_Int64 : BagelCode.Tasks.Actions.SendLongPollEvent<System.Int64>{}
@@ -3115,6 +3152,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Tasks_Actions_SendMetaUIEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Tasks.Actions.SendMetaUIEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Tasks_Actions_SendMetaUIEvent_BagelCode_ClientModels_UserClubState : BagelCode.Tasks.Actions.SendMetaUIEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Tasks_Actions_SendMetaUIEvent_BagelCode_ClientModels_WinType : BagelCode.Tasks.Actions.SendMetaUIEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Tasks_Actions_SendMetaUIEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Tasks.Actions.SendMetaUIEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Tasks_Actions_SendMetaUIEvent_SlotMaker_SpinState : BagelCode.Tasks.Actions.SendMetaUIEvent<SlotMaker.SpinState>{}
 		class BagelCode_Tasks_Actions_SendMetaUIEvent_System_Double : BagelCode.Tasks.Actions.SendMetaUIEvent<System.Double>{}
 		class BagelCode_Tasks_Actions_SendMetaUIEvent_System_Int64 : BagelCode.Tasks.Actions.SendMetaUIEvent<System.Int64>{}
@@ -3197,6 +3235,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Tasks_Actions_SendSlotDetailEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Tasks.Actions.SendSlotDetailEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Tasks_Actions_SendSlotDetailEvent_BagelCode_ClientModels_UserClubState : BagelCode.Tasks.Actions.SendSlotDetailEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Tasks_Actions_SendSlotDetailEvent_BagelCode_ClientModels_WinType : BagelCode.Tasks.Actions.SendSlotDetailEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Tasks_Actions_SendSlotDetailEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Tasks.Actions.SendSlotDetailEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Tasks_Actions_SendSlotDetailEvent_SlotMaker_SpinState : BagelCode.Tasks.Actions.SendSlotDetailEvent<SlotMaker.SpinState>{}
 		class BagelCode_Tasks_Actions_SendSlotDetailEvent_System_Double : BagelCode.Tasks.Actions.SendSlotDetailEvent<System.Double>{}
 		class BagelCode_Tasks_Actions_SendSlotDetailEvent_System_Int64 : BagelCode.Tasks.Actions.SendSlotDetailEvent<System.Int64>{}
@@ -3279,6 +3318,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Tasks_Actions_SendSlotEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Tasks.Actions.SendSlotEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Tasks_Actions_SendSlotEvent_BagelCode_ClientModels_UserClubState : BagelCode.Tasks.Actions.SendSlotEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Tasks_Actions_SendSlotEvent_BagelCode_ClientModels_WinType : BagelCode.Tasks.Actions.SendSlotEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Tasks_Actions_SendSlotEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Tasks.Actions.SendSlotEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Tasks_Actions_SendSlotEvent_SlotMaker_SpinState : BagelCode.Tasks.Actions.SendSlotEvent<SlotMaker.SpinState>{}
 		class BagelCode_Tasks_Actions_SendSlotEvent_System_Double : BagelCode.Tasks.Actions.SendSlotEvent<System.Double>{}
 		class BagelCode_Tasks_Actions_SendSlotEvent_System_Int64 : BagelCode.Tasks.Actions.SendSlotEvent<System.Int64>{}
@@ -3361,6 +3401,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Tasks_Actions_SendSoundEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Tasks.Actions.SendSoundEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Tasks_Actions_SendSoundEvent_BagelCode_ClientModels_UserClubState : BagelCode.Tasks.Actions.SendSoundEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Tasks_Actions_SendSoundEvent_BagelCode_ClientModels_WinType : BagelCode.Tasks.Actions.SendSoundEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Tasks_Actions_SendSoundEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Tasks.Actions.SendSoundEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Tasks_Actions_SendSoundEvent_SlotMaker_SpinState : BagelCode.Tasks.Actions.SendSoundEvent<SlotMaker.SpinState>{}
 		class BagelCode_Tasks_Actions_SendSoundEvent_System_Double : BagelCode.Tasks.Actions.SendSoundEvent<System.Double>{}
 		class BagelCode_Tasks_Actions_SendSoundEvent_System_Int64 : BagelCode.Tasks.Actions.SendSoundEvent<System.Int64>{}
@@ -3443,6 +3484,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Tasks_Actions_SendSymbolEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Tasks.Actions.SendSymbolEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Tasks_Actions_SendSymbolEvent_BagelCode_ClientModels_UserClubState : BagelCode.Tasks.Actions.SendSymbolEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Tasks_Actions_SendSymbolEvent_BagelCode_ClientModels_WinType : BagelCode.Tasks.Actions.SendSymbolEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Tasks_Actions_SendSymbolEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Tasks.Actions.SendSymbolEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Tasks_Actions_SendSymbolEvent_SlotMaker_SpinState : BagelCode.Tasks.Actions.SendSymbolEvent<SlotMaker.SpinState>{}
 		class BagelCode_Tasks_Actions_SendSymbolEvent_System_Double : BagelCode.Tasks.Actions.SendSymbolEvent<System.Double>{}
 		class BagelCode_Tasks_Actions_SendSymbolEvent_System_Int64 : BagelCode.Tasks.Actions.SendSymbolEvent<System.Int64>{}
@@ -3525,6 +3567,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Tasks_Actions_SendSystemEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Tasks.Actions.SendSystemEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Tasks_Actions_SendSystemEvent_BagelCode_ClientModels_UserClubState : BagelCode.Tasks.Actions.SendSystemEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Tasks_Actions_SendSystemEvent_BagelCode_ClientModels_WinType : BagelCode.Tasks.Actions.SendSystemEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Tasks_Actions_SendSystemEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Tasks.Actions.SendSystemEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Tasks_Actions_SendSystemEvent_SlotMaker_SpinState : BagelCode.Tasks.Actions.SendSystemEvent<SlotMaker.SpinState>{}
 		class BagelCode_Tasks_Actions_SendSystemEvent_System_Double : BagelCode.Tasks.Actions.SendSystemEvent<System.Double>{}
 		class BagelCode_Tasks_Actions_SendSystemEvent_System_Int64 : BagelCode.Tasks.Actions.SendSystemEvent<System.Int64>{}
@@ -3607,6 +3650,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Tasks_Actions_SendWinEvent_BagelCode_ClientModels_TournamentStatus : BagelCode.Tasks.Actions.SendWinEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Tasks_Actions_SendWinEvent_BagelCode_ClientModels_UserClubState : BagelCode.Tasks.Actions.SendWinEvent<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Tasks_Actions_SendWinEvent_BagelCode_ClientModels_WinType : BagelCode.Tasks.Actions.SendWinEvent<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Tasks_Actions_SendWinEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Tasks.Actions.SendWinEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Tasks_Actions_SendWinEvent_SlotMaker_SpinState : BagelCode.Tasks.Actions.SendWinEvent<SlotMaker.SpinState>{}
 		class BagelCode_Tasks_Actions_SendWinEvent_System_Double : BagelCode.Tasks.Actions.SendWinEvent<System.Double>{}
 		class BagelCode_Tasks_Actions_SendWinEvent_System_Int64 : BagelCode.Tasks.Actions.SendWinEvent<System.Int64>{}
@@ -3689,6 +3733,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Tasks_Actions_SendWinEventList_BagelCode_ClientModels_TournamentStatus : BagelCode.Tasks.Actions.SendWinEventList<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Tasks_Actions_SendWinEventList_BagelCode_ClientModels_UserClubState : BagelCode.Tasks.Actions.SendWinEventList<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Tasks_Actions_SendWinEventList_BagelCode_ClientModels_WinType : BagelCode.Tasks.Actions.SendWinEventList<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Tasks_Actions_SendWinEventList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Tasks.Actions.SendWinEventList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Tasks_Actions_SendWinEventList_SlotMaker_SpinState : BagelCode.Tasks.Actions.SendWinEventList<SlotMaker.SpinState>{}
 		class BagelCode_Tasks_Actions_SendWinEventList_System_Double : BagelCode.Tasks.Actions.SendWinEventList<System.Double>{}
 		class BagelCode_Tasks_Actions_SendWinEventList_System_Int64 : BagelCode.Tasks.Actions.SendWinEventList<System.Int64>{}
@@ -3771,6 +3816,7 @@ namespace ParadoxNotion.Internal{
 		class BagelCode_Tasks_Actions_Contents_ReplaceReelStripWithCustomData_BagelCode_ClientModels_TournamentStatus : BagelCode.Tasks.Actions.Contents.ReplaceReelStripWithCustomData<BagelCode.ClientModels.TournamentStatus>{}
 		class BagelCode_Tasks_Actions_Contents_ReplaceReelStripWithCustomData_BagelCode_ClientModels_UserClubState : BagelCode.Tasks.Actions.Contents.ReplaceReelStripWithCustomData<BagelCode.ClientModels.UserClubState>{}
 		class BagelCode_Tasks_Actions_Contents_ReplaceReelStripWithCustomData_BagelCode_ClientModels_WinType : BagelCode.Tasks.Actions.Contents.ReplaceReelStripWithCustomData<BagelCode.ClientModels.WinType>{}
+		class BagelCode_Tasks_Actions_Contents_ReplaceReelStripWithCustomData_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : BagelCode.Tasks.Actions.Contents.ReplaceReelStripWithCustomData<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class BagelCode_Tasks_Actions_Contents_ReplaceReelStripWithCustomData_SlotMaker_SpinState : BagelCode.Tasks.Actions.Contents.ReplaceReelStripWithCustomData<SlotMaker.SpinState>{}
 		class BagelCode_Tasks_Actions_Contents_ReplaceReelStripWithCustomData_System_Double : BagelCode.Tasks.Actions.Contents.ReplaceReelStripWithCustomData<System.Double>{}
 		class BagelCode_Tasks_Actions_Contents_ReplaceReelStripWithCustomData_System_Int64 : BagelCode.Tasks.Actions.Contents.ReplaceReelStripWithCustomData<System.Int64>{}
@@ -3853,6 +3899,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Framework_BBParameter_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Framework.BBParameter<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Framework_BBParameter_BagelCode_ClientModels_UserClubState : NodeCanvas.Framework.BBParameter<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Framework_BBParameter_BagelCode_ClientModels_WinType : NodeCanvas.Framework.BBParameter<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Framework_BBParameter_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Framework.BBParameter<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Framework_BBParameter_SlotMaker_SpinState : NodeCanvas.Framework.BBParameter<SlotMaker.SpinState>{}
 		class NodeCanvas_Framework_BBParameter_System_Double : NodeCanvas.Framework.BBParameter<System.Double>{}
 		class NodeCanvas_Framework_BBParameter_System_Int64 : NodeCanvas.Framework.BBParameter<System.Int64>{}
@@ -3935,6 +3982,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Framework_Variable_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Framework.Variable<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Framework_Variable_BagelCode_ClientModels_UserClubState : NodeCanvas.Framework.Variable<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Framework_Variable_BagelCode_ClientModels_WinType : NodeCanvas.Framework.Variable<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Framework_Variable_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Framework.Variable<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Framework_Variable_SlotMaker_SpinState : NodeCanvas.Framework.Variable<SlotMaker.SpinState>{}
 		class NodeCanvas_Framework_Variable_System_Double : NodeCanvas.Framework.Variable<System.Double>{}
 		class NodeCanvas_Framework_Variable_System_Int64 : NodeCanvas.Framework.Variable<System.Int64>{}
@@ -4017,6 +4065,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Framework_Internal_ReflectedAction_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Framework.Internal.ReflectedAction<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Framework_Internal_ReflectedAction_BagelCode_ClientModels_UserClubState : NodeCanvas.Framework.Internal.ReflectedAction<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Framework_Internal_ReflectedAction_BagelCode_ClientModels_WinType : NodeCanvas.Framework.Internal.ReflectedAction<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Framework_Internal_ReflectedAction_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Framework.Internal.ReflectedAction<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Framework_Internal_ReflectedAction_SlotMaker_SpinState : NodeCanvas.Framework.Internal.ReflectedAction<SlotMaker.SpinState>{}
 		class NodeCanvas_Framework_Internal_ReflectedAction_System_Double : NodeCanvas.Framework.Internal.ReflectedAction<System.Double>{}
 		class NodeCanvas_Framework_Internal_ReflectedAction_System_Int64 : NodeCanvas.Framework.Internal.ReflectedAction<System.Int64>{}
@@ -4099,6 +4148,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Framework_Internal_ReflectedFunction_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Framework.Internal.ReflectedFunction<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Framework_Internal_ReflectedFunction_BagelCode_ClientModels_UserClubState : NodeCanvas.Framework.Internal.ReflectedFunction<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Framework_Internal_ReflectedFunction_BagelCode_ClientModels_WinType : NodeCanvas.Framework.Internal.ReflectedFunction<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Framework_Internal_ReflectedFunction_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Framework.Internal.ReflectedFunction<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Framework_Internal_ReflectedFunction_SlotMaker_SpinState : NodeCanvas.Framework.Internal.ReflectedFunction<SlotMaker.SpinState>{}
 		class NodeCanvas_Framework_Internal_ReflectedFunction_System_Double : NodeCanvas.Framework.Internal.ReflectedFunction<System.Double>{}
 		class NodeCanvas_Framework_Internal_ReflectedFunction_System_Int64 : NodeCanvas.Framework.Internal.ReflectedFunction<System.Int64>{}
@@ -4181,6 +4231,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_AddElementToDictionary_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.AddElementToDictionary<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_AddElementToDictionary_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.AddElementToDictionary<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_AddElementToDictionary_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.AddElementToDictionary<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_AddElementToDictionary_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.AddElementToDictionary<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_AddElementToDictionary_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.AddElementToDictionary<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_AddElementToDictionary_System_Double : NodeCanvas.Tasks.Actions.AddElementToDictionary<System.Double>{}
 		class NodeCanvas_Tasks_Actions_AddElementToDictionary_System_Int64 : NodeCanvas.Tasks.Actions.AddElementToDictionary<System.Int64>{}
@@ -4263,6 +4314,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_AddElementToList_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.AddElementToList<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_AddElementToList_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.AddElementToList<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_AddElementToList_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.AddElementToList<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_AddElementToList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.AddElementToList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_AddElementToList_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.AddElementToList<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_AddElementToList_System_Double : NodeCanvas.Tasks.Actions.AddElementToList<System.Double>{}
 		class NodeCanvas_Tasks_Actions_AddElementToList_System_Int64 : NodeCanvas.Tasks.Actions.AddElementToList<System.Int64>{}
@@ -4345,6 +4397,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_AddVariable_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.AddVariable<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_AddVariable_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.AddVariable<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_AddVariable_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.AddVariable<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_AddVariable_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.AddVariable<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_AddVariable_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.AddVariable<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_AddVariable_System_Double : NodeCanvas.Tasks.Actions.AddVariable<System.Double>{}
 		class NodeCanvas_Tasks_Actions_AddVariable_System_Int64 : NodeCanvas.Tasks.Actions.AddVariable<System.Int64>{}
@@ -4427,6 +4480,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_CheckOrCreateVariable_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.CheckOrCreateVariable<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_CheckOrCreateVariable_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.CheckOrCreateVariable<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_CheckOrCreateVariable_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.CheckOrCreateVariable<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_CheckOrCreateVariable_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.CheckOrCreateVariable<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_CheckOrCreateVariable_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.CheckOrCreateVariable<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_CheckOrCreateVariable_System_Double : NodeCanvas.Tasks.Actions.CheckOrCreateVariable<System.Double>{}
 		class NodeCanvas_Tasks_Actions_CheckOrCreateVariable_System_Int64 : NodeCanvas.Tasks.Actions.CheckOrCreateVariable<System.Int64>{}
@@ -4509,6 +4563,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_GetDictionaryElement_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.GetDictionaryElement<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_GetDictionaryElement_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.GetDictionaryElement<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_GetDictionaryElement_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.GetDictionaryElement<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_GetDictionaryElement_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.GetDictionaryElement<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_GetDictionaryElement_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.GetDictionaryElement<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_GetDictionaryElement_System_Double : NodeCanvas.Tasks.Actions.GetDictionaryElement<System.Double>{}
 		class NodeCanvas_Tasks_Actions_GetDictionaryElement_System_Int64 : NodeCanvas.Tasks.Actions.GetDictionaryElement<System.Int64>{}
@@ -4591,6 +4646,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_GetIndexOfElement_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.GetIndexOfElement<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_GetIndexOfElement_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.GetIndexOfElement<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_GetIndexOfElement_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.GetIndexOfElement<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_GetIndexOfElement_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.GetIndexOfElement<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_GetIndexOfElement_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.GetIndexOfElement<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_GetIndexOfElement_System_Double : NodeCanvas.Tasks.Actions.GetIndexOfElement<System.Double>{}
 		class NodeCanvas_Tasks_Actions_GetIndexOfElement_System_Int64 : NodeCanvas.Tasks.Actions.GetIndexOfElement<System.Int64>{}
@@ -4673,6 +4729,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_GetOrCreateVariable_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.GetOrCreateVariable<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_GetOrCreateVariable_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.GetOrCreateVariable<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_GetOrCreateVariable_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.GetOrCreateVariable<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_GetOrCreateVariable_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.GetOrCreateVariable<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_GetOrCreateVariable_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.GetOrCreateVariable<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_GetOrCreateVariable_System_Double : NodeCanvas.Tasks.Actions.GetOrCreateVariable<System.Double>{}
 		class NodeCanvas_Tasks_Actions_GetOrCreateVariable_System_Int64 : NodeCanvas.Tasks.Actions.GetOrCreateVariable<System.Int64>{}
@@ -4755,6 +4812,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_InsertElementToList_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.InsertElementToList<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_InsertElementToList_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.InsertElementToList<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_InsertElementToList_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.InsertElementToList<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_InsertElementToList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.InsertElementToList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_InsertElementToList_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.InsertElementToList<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_InsertElementToList_System_Double : NodeCanvas.Tasks.Actions.InsertElementToList<System.Double>{}
 		class NodeCanvas_Tasks_Actions_InsertElementToList_System_Int64 : NodeCanvas.Tasks.Actions.InsertElementToList<System.Int64>{}
@@ -4837,6 +4895,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_PickListElement_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.PickListElement<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_PickListElement_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.PickListElement<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_PickListElement_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.PickListElement<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_PickListElement_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.PickListElement<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_PickListElement_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.PickListElement<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_PickListElement_System_Double : NodeCanvas.Tasks.Actions.PickListElement<System.Double>{}
 		class NodeCanvas_Tasks_Actions_PickListElement_System_Int64 : NodeCanvas.Tasks.Actions.PickListElement<System.Int64>{}
@@ -4919,6 +4978,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_PickRandomListElement_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.PickRandomListElement<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_PickRandomListElement_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.PickRandomListElement<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_PickRandomListElement_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.PickRandomListElement<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_PickRandomListElement_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.PickRandomListElement<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_PickRandomListElement_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.PickRandomListElement<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_PickRandomListElement_System_Double : NodeCanvas.Tasks.Actions.PickRandomListElement<System.Double>{}
 		class NodeCanvas_Tasks_Actions_PickRandomListElement_System_Int64 : NodeCanvas.Tasks.Actions.PickRandomListElement<System.Int64>{}
@@ -5001,6 +5061,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_RemoveElementAtFromList_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.RemoveElementAtFromList<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementAtFromList_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.RemoveElementAtFromList<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementAtFromList_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.RemoveElementAtFromList<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_RemoveElementAtFromList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.RemoveElementAtFromList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementAtFromList_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.RemoveElementAtFromList<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementAtFromList_System_Double : NodeCanvas.Tasks.Actions.RemoveElementAtFromList<System.Double>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementAtFromList_System_Int64 : NodeCanvas.Tasks.Actions.RemoveElementAtFromList<System.Int64>{}
@@ -5083,6 +5144,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_RemoveElementFromList_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.RemoveElementFromList<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementFromList_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.RemoveElementFromList<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementFromList_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.RemoveElementFromList<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_RemoveElementFromList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.RemoveElementFromList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementFromList_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.RemoveElementFromList<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementFromList_System_Double : NodeCanvas.Tasks.Actions.RemoveElementFromList<System.Double>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementFromList_System_Int64 : NodeCanvas.Tasks.Actions.RemoveElementFromList<System.Int64>{}
@@ -5165,6 +5227,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_RemoveElementRangeFromList_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.RemoveElementRangeFromList<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementRangeFromList_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.RemoveElementRangeFromList<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementRangeFromList_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.RemoveElementRangeFromList<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_RemoveElementRangeFromList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.RemoveElementRangeFromList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementRangeFromList_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.RemoveElementRangeFromList<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementRangeFromList_System_Double : NodeCanvas.Tasks.Actions.RemoveElementRangeFromList<System.Double>{}
 		class NodeCanvas_Tasks_Actions_RemoveElementRangeFromList_System_Int64 : NodeCanvas.Tasks.Actions.RemoveElementRangeFromList<System.Int64>{}
@@ -5247,6 +5310,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_SendEvent_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.SendEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_SendEvent_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.SendEvent<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_SendEvent_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.SendEvent<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_SendEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.SendEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_SendEvent_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.SendEvent<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_SendEvent_System_Double : NodeCanvas.Tasks.Actions.SendEvent<System.Double>{}
 		class NodeCanvas_Tasks_Actions_SendEvent_System_Int64 : NodeCanvas.Tasks.Actions.SendEvent<System.Int64>{}
@@ -5329,6 +5393,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_SendEventList_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.SendEventList<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_SendEventList_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.SendEventList<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_SendEventList_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.SendEventList<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_SendEventList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.SendEventList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_SendEventList_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.SendEventList<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_SendEventList_System_Double : NodeCanvas.Tasks.Actions.SendEventList<System.Double>{}
 		class NodeCanvas_Tasks_Actions_SendEventList_System_Int64 : NodeCanvas.Tasks.Actions.SendEventList<System.Int64>{}
@@ -5411,6 +5476,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_SendEventToObjects_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.SendEventToObjects<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_SendEventToObjects_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.SendEventToObjects<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_SendEventToObjects_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.SendEventToObjects<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_SendEventToObjects_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.SendEventToObjects<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_SendEventToObjects_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.SendEventToObjects<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_SendEventToObjects_System_Double : NodeCanvas.Tasks.Actions.SendEventToObjects<System.Double>{}
 		class NodeCanvas_Tasks_Actions_SendEventToObjects_System_Int64 : NodeCanvas.Tasks.Actions.SendEventToObjects<System.Int64>{}
@@ -5493,6 +5559,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_SendMessage_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.SendMessage<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_SendMessage_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.SendMessage<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_SendMessage_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.SendMessage<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_SendMessage_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.SendMessage<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_SendMessage_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.SendMessage<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_SendMessage_System_Double : NodeCanvas.Tasks.Actions.SendMessage<System.Double>{}
 		class NodeCanvas_Tasks_Actions_SendMessage_System_Int64 : NodeCanvas.Tasks.Actions.SendMessage<System.Int64>{}
@@ -5575,6 +5642,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_SetCallerVariable_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.SetCallerVariable<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_SetCallerVariable_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.SetCallerVariable<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_SetCallerVariable_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.SetCallerVariable<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_SetCallerVariable_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.SetCallerVariable<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_SetCallerVariable_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.SetCallerVariable<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_SetCallerVariable_System_Double : NodeCanvas.Tasks.Actions.SetCallerVariable<System.Double>{}
 		class NodeCanvas_Tasks_Actions_SetCallerVariable_System_Int64 : NodeCanvas.Tasks.Actions.SetCallerVariable<System.Int64>{}
@@ -5657,6 +5725,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_SetListElement_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.SetListElement<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_SetListElement_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.SetListElement<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_SetListElement_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.SetListElement<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_SetListElement_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.SetListElement<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_SetListElement_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.SetListElement<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_SetListElement_System_Double : NodeCanvas.Tasks.Actions.SetListElement<System.Double>{}
 		class NodeCanvas_Tasks_Actions_SetListElement_System_Int64 : NodeCanvas.Tasks.Actions.SetListElement<System.Int64>{}
@@ -5739,6 +5808,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_SetListElements_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.SetListElements<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_SetListElements_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.SetListElements<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_SetListElements_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.SetListElements<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_SetListElements_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.SetListElements<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_SetListElements_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.SetListElements<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_SetListElements_System_Double : NodeCanvas.Tasks.Actions.SetListElements<System.Double>{}
 		class NodeCanvas_Tasks_Actions_SetListElements_System_Int64 : NodeCanvas.Tasks.Actions.SetListElements<System.Int64>{}
@@ -5821,6 +5891,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_SetListShuffle_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.SetListShuffle<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_SetListShuffle_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.SetListShuffle<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_SetListShuffle_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.SetListShuffle<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_SetListShuffle_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.SetListShuffle<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_SetListShuffle_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.SetListShuffle<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_SetListShuffle_System_Double : NodeCanvas.Tasks.Actions.SetListShuffle<System.Double>{}
 		class NodeCanvas_Tasks_Actions_SetListShuffle_System_Int64 : NodeCanvas.Tasks.Actions.SetListShuffle<System.Int64>{}
@@ -5903,6 +5974,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_SetOrCreateVariable_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.SetOrCreateVariable<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_SetOrCreateVariable_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.SetOrCreateVariable<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_SetOrCreateVariable_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.SetOrCreateVariable<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_SetOrCreateVariable_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.SetOrCreateVariable<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_SetOrCreateVariable_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.SetOrCreateVariable<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_SetOrCreateVariable_System_Double : NodeCanvas.Tasks.Actions.SetOrCreateVariable<System.Double>{}
 		class NodeCanvas_Tasks_Actions_SetOrCreateVariable_System_Int64 : NodeCanvas.Tasks.Actions.SetOrCreateVariable<System.Int64>{}
@@ -5985,6 +6057,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Actions_SetVariable_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Actions.SetVariable<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Actions_SetVariable_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Actions.SetVariable<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Actions_SetVariable_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Actions.SetVariable<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Actions_SetVariable_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Actions.SetVariable<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Actions_SetVariable_SlotMaker_SpinState : NodeCanvas.Tasks.Actions.SetVariable<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Actions_SetVariable_System_Double : NodeCanvas.Tasks.Actions.SetVariable<System.Double>{}
 		class NodeCanvas_Tasks_Actions_SetVariable_System_Int64 : NodeCanvas.Tasks.Actions.SetVariable<System.Int64>{}
@@ -6067,6 +6140,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Conditions_CheckCSharpEvent_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Conditions.CheckCSharpEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Conditions_CheckCSharpEvent_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Conditions.CheckCSharpEvent<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Conditions_CheckCSharpEvent_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Conditions.CheckCSharpEvent<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Conditions_CheckCSharpEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Conditions.CheckCSharpEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Conditions_CheckCSharpEvent_SlotMaker_SpinState : NodeCanvas.Tasks.Conditions.CheckCSharpEvent<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Conditions_CheckCSharpEvent_System_Double : NodeCanvas.Tasks.Conditions.CheckCSharpEvent<System.Double>{}
 		class NodeCanvas_Tasks_Conditions_CheckCSharpEvent_System_Int64 : NodeCanvas.Tasks.Conditions.CheckCSharpEvent<System.Int64>{}
@@ -6149,6 +6223,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Conditions_CheckCSharpEventValue_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Conditions.CheckCSharpEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Conditions_CheckCSharpEventValue_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Conditions.CheckCSharpEventValue<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Conditions_CheckCSharpEventValue_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Conditions.CheckCSharpEventValue<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Conditions_CheckCSharpEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Conditions.CheckCSharpEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Conditions_CheckCSharpEventValue_SlotMaker_SpinState : NodeCanvas.Tasks.Conditions.CheckCSharpEventValue<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Conditions_CheckCSharpEventValue_System_Double : NodeCanvas.Tasks.Conditions.CheckCSharpEventValue<System.Double>{}
 		class NodeCanvas_Tasks_Conditions_CheckCSharpEventValue_System_Int64 : NodeCanvas.Tasks.Conditions.CheckCSharpEventValue<System.Int64>{}
@@ -6231,6 +6306,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Conditions_CheckEvent_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Conditions.CheckEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Conditions_CheckEvent_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Conditions.CheckEvent<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Conditions_CheckEvent_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Conditions.CheckEvent<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Conditions_CheckEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Conditions.CheckEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Conditions_CheckEvent_SlotMaker_SpinState : NodeCanvas.Tasks.Conditions.CheckEvent<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Conditions_CheckEvent_System_Double : NodeCanvas.Tasks.Conditions.CheckEvent<System.Double>{}
 		class NodeCanvas_Tasks_Conditions_CheckEvent_System_Int64 : NodeCanvas.Tasks.Conditions.CheckEvent<System.Int64>{}
@@ -6313,6 +6389,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Conditions_CheckEventList_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Conditions.CheckEventList<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Conditions_CheckEventList_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Conditions.CheckEventList<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Conditions_CheckEventList_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Conditions.CheckEventList<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Conditions_CheckEventList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Conditions.CheckEventList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Conditions_CheckEventList_SlotMaker_SpinState : NodeCanvas.Tasks.Conditions.CheckEventList<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Conditions_CheckEventList_System_Double : NodeCanvas.Tasks.Conditions.CheckEventList<System.Double>{}
 		class NodeCanvas_Tasks_Conditions_CheckEventList_System_Int64 : NodeCanvas.Tasks.Conditions.CheckEventList<System.Int64>{}
@@ -6395,6 +6472,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Conditions_CheckEventValue_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Conditions.CheckEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Conditions_CheckEventValue_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Conditions.CheckEventValue<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Conditions_CheckEventValue_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Conditions.CheckEventValue<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Conditions_CheckEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Conditions.CheckEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Conditions_CheckEventValue_SlotMaker_SpinState : NodeCanvas.Tasks.Conditions.CheckEventValue<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Conditions_CheckEventValue_System_Double : NodeCanvas.Tasks.Conditions.CheckEventValue<System.Double>{}
 		class NodeCanvas_Tasks_Conditions_CheckEventValue_System_Int64 : NodeCanvas.Tasks.Conditions.CheckEventValue<System.Int64>{}
@@ -6477,6 +6555,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Conditions_CheckStaticCSharpEvent_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Conditions.CheckStaticCSharpEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Conditions_CheckStaticCSharpEvent_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Conditions.CheckStaticCSharpEvent<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Conditions_CheckStaticCSharpEvent_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Conditions.CheckStaticCSharpEvent<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Conditions_CheckStaticCSharpEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Conditions.CheckStaticCSharpEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Conditions_CheckStaticCSharpEvent_SlotMaker_SpinState : NodeCanvas.Tasks.Conditions.CheckStaticCSharpEvent<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Conditions_CheckStaticCSharpEvent_System_Double : NodeCanvas.Tasks.Conditions.CheckStaticCSharpEvent<System.Double>{}
 		class NodeCanvas_Tasks_Conditions_CheckStaticCSharpEvent_System_Int64 : NodeCanvas.Tasks.Conditions.CheckStaticCSharpEvent<System.Int64>{}
@@ -6559,6 +6638,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Conditions_CheckUnityEvent_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Conditions.CheckUnityEvent<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Conditions_CheckUnityEvent_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Conditions.CheckUnityEvent<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Conditions_CheckUnityEvent_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Conditions.CheckUnityEvent<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Conditions_CheckUnityEvent_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Conditions.CheckUnityEvent<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Conditions_CheckUnityEvent_SlotMaker_SpinState : NodeCanvas.Tasks.Conditions.CheckUnityEvent<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Conditions_CheckUnityEvent_System_Double : NodeCanvas.Tasks.Conditions.CheckUnityEvent<System.Double>{}
 		class NodeCanvas_Tasks_Conditions_CheckUnityEvent_System_Int64 : NodeCanvas.Tasks.Conditions.CheckUnityEvent<System.Int64>{}
@@ -6641,6 +6721,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Conditions_CheckUnityEventValue_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Conditions.CheckUnityEventValue<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Conditions_CheckUnityEventValue_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Conditions.CheckUnityEventValue<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Conditions_CheckUnityEventValue_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Conditions.CheckUnityEventValue<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Conditions_CheckUnityEventValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Conditions.CheckUnityEventValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Conditions_CheckUnityEventValue_SlotMaker_SpinState : NodeCanvas.Tasks.Conditions.CheckUnityEventValue<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Conditions_CheckUnityEventValue_System_Double : NodeCanvas.Tasks.Conditions.CheckUnityEventValue<System.Double>{}
 		class NodeCanvas_Tasks_Conditions_CheckUnityEventValue_System_Int64 : NodeCanvas.Tasks.Conditions.CheckUnityEventValue<System.Int64>{}
@@ -6723,6 +6804,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Conditions_CheckVariable_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Conditions.CheckVariable<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Conditions_CheckVariable_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Conditions.CheckVariable<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Conditions_CheckVariable_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Conditions.CheckVariable<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Conditions_CheckVariable_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Conditions.CheckVariable<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Conditions_CheckVariable_SlotMaker_SpinState : NodeCanvas.Tasks.Conditions.CheckVariable<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Conditions_CheckVariable_System_Double : NodeCanvas.Tasks.Conditions.CheckVariable<System.Double>{}
 		class NodeCanvas_Tasks_Conditions_CheckVariable_System_Int64 : NodeCanvas.Tasks.Conditions.CheckVariable<System.Int64>{}
@@ -6805,6 +6887,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Conditions_ListContainsElement_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Conditions.ListContainsElement<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Conditions_ListContainsElement_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Conditions.ListContainsElement<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Conditions_ListContainsElement_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Conditions.ListContainsElement<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Conditions_ListContainsElement_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Conditions.ListContainsElement<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Conditions_ListContainsElement_SlotMaker_SpinState : NodeCanvas.Tasks.Conditions.ListContainsElement<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Conditions_ListContainsElement_System_Double : NodeCanvas.Tasks.Conditions.ListContainsElement<System.Double>{}
 		class NodeCanvas_Tasks_Conditions_ListContainsElement_System_Int64 : NodeCanvas.Tasks.Conditions.ListContainsElement<System.Int64>{}
@@ -6887,6 +6970,7 @@ namespace ParadoxNotion.Internal{
 		class NodeCanvas_Tasks_Conditions_TryGetValue_BagelCode_ClientModels_TournamentStatus : NodeCanvas.Tasks.Conditions.TryGetValue<BagelCode.ClientModels.TournamentStatus>{}
 		class NodeCanvas_Tasks_Conditions_TryGetValue_BagelCode_ClientModels_UserClubState : NodeCanvas.Tasks.Conditions.TryGetValue<BagelCode.ClientModels.UserClubState>{}
 		class NodeCanvas_Tasks_Conditions_TryGetValue_BagelCode_ClientModels_WinType : NodeCanvas.Tasks.Conditions.TryGetValue<BagelCode.ClientModels.WinType>{}
+		class NodeCanvas_Tasks_Conditions_TryGetValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : NodeCanvas.Tasks.Conditions.TryGetValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class NodeCanvas_Tasks_Conditions_TryGetValue_SlotMaker_SpinState : NodeCanvas.Tasks.Conditions.TryGetValue<SlotMaker.SpinState>{}
 		class NodeCanvas_Tasks_Conditions_TryGetValue_System_Double : NodeCanvas.Tasks.Conditions.TryGetValue<System.Double>{}
 		class NodeCanvas_Tasks_Conditions_TryGetValue_System_Int64 : NodeCanvas.Tasks.Conditions.TryGetValue<System.Int64>{}
@@ -6969,6 +7053,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_AddListToList_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.AddListToList<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_AddListToList_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.AddListToList<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_AddListToList_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.AddListToList<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_AddListToList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.AddListToList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_AddListToList_SlotMaker_SpinState : SlotMaker.Tasks.Actions.AddListToList<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_AddListToList_System_Double : SlotMaker.Tasks.Actions.AddListToList<System.Double>{}
 		class SlotMaker_Tasks_Actions_AddListToList_System_Int64 : SlotMaker.Tasks.Actions.AddListToList<System.Int64>{}
@@ -7051,6 +7136,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_CopyList_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.CopyList<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_CopyList_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.CopyList<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_CopyList_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.CopyList<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_CopyList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.CopyList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_CopyList_SlotMaker_SpinState : SlotMaker.Tasks.Actions.CopyList<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_CopyList_System_Double : SlotMaker.Tasks.Actions.CopyList<System.Double>{}
 		class SlotMaker_Tasks_Actions_CopyList_System_Int64 : SlotMaker.Tasks.Actions.CopyList<System.Int64>{}
@@ -7133,6 +7219,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_ExtractBlackboardList_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.ExtractBlackboardList<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_ExtractBlackboardList_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.ExtractBlackboardList<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_ExtractBlackboardList_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.ExtractBlackboardList<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_ExtractBlackboardList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.ExtractBlackboardList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_ExtractBlackboardList_SlotMaker_SpinState : SlotMaker.Tasks.Actions.ExtractBlackboardList<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_ExtractBlackboardList_System_Double : SlotMaker.Tasks.Actions.ExtractBlackboardList<System.Double>{}
 		class SlotMaker_Tasks_Actions_ExtractBlackboardList_System_Int64 : SlotMaker.Tasks.Actions.ExtractBlackboardList<System.Int64>{}
@@ -7215,6 +7302,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_FloorDouble_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.FloorDouble<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_FloorDouble_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.FloorDouble<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_FloorDouble_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.FloorDouble<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_FloorDouble_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.FloorDouble<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_FloorDouble_SlotMaker_SpinState : SlotMaker.Tasks.Actions.FloorDouble<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_FloorDouble_System_Double : SlotMaker.Tasks.Actions.FloorDouble<System.Double>{}
 		class SlotMaker_Tasks_Actions_FloorDouble_System_Int64 : SlotMaker.Tasks.Actions.FloorDouble<System.Int64>{}
@@ -7297,6 +7385,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_GetBlackboardValue_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.GetBlackboardValue<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValue_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.GetBlackboardValue<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValue_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.GetBlackboardValue<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_GetBlackboardValue_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.GetBlackboardValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValue_SlotMaker_SpinState : SlotMaker.Tasks.Actions.GetBlackboardValue<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValue_System_Double : SlotMaker.Tasks.Actions.GetBlackboardValue<System.Double>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValue_System_Int64 : SlotMaker.Tasks.Actions.GetBlackboardValue<System.Int64>{}
@@ -7379,6 +7468,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionary_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionary<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionary_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionary<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionary_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionary<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionary_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionary<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionary_SlotMaker_SpinState : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionary<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionary_System_Double : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionary<System.Double>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionary_System_Int64 : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionary<System.Int64>{}
@@ -7461,6 +7551,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionaryIntKey_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryIntKey<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionaryIntKey_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryIntKey<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionaryIntKey_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryIntKey<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionaryIntKey_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryIntKey<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionaryIntKey_SlotMaker_SpinState : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryIntKey<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionaryIntKey_System_Double : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryIntKey<System.Double>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionaryIntKey_System_Int64 : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryIntKey<System.Int64>{}
@@ -7543,6 +7634,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionaryLongKey_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryLongKey<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionaryLongKey_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryLongKey<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionaryLongKey_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryLongKey<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionaryLongKey_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryLongKey<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionaryLongKey_SlotMaker_SpinState : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryLongKey<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionaryLongKey_System_Double : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryLongKey<System.Double>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtDictionaryLongKey_System_Int64 : SlotMaker.Tasks.Actions.GetBlackboardValueAtDictionaryLongKey<System.Int64>{}
@@ -7625,6 +7717,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtList_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.GetBlackboardValueAtList<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtList_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.GetBlackboardValueAtList<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtList_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.GetBlackboardValueAtList<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_GetBlackboardValueAtList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.GetBlackboardValueAtList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtList_SlotMaker_SpinState : SlotMaker.Tasks.Actions.GetBlackboardValueAtList<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtList_System_Double : SlotMaker.Tasks.Actions.GetBlackboardValueAtList<System.Double>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueAtList_System_Int64 : SlotMaker.Tasks.Actions.GetBlackboardValueAtList<System.Int64>{}
@@ -7707,6 +7800,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_GetBlackboardValueList_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.GetBlackboardValueList<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueList_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.GetBlackboardValueList<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueList_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.GetBlackboardValueList<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_GetBlackboardValueList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.GetBlackboardValueList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueList_SlotMaker_SpinState : SlotMaker.Tasks.Actions.GetBlackboardValueList<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueList_System_Double : SlotMaker.Tasks.Actions.GetBlackboardValueList<System.Double>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueList_System_Int64 : SlotMaker.Tasks.Actions.GetBlackboardValueList<System.Int64>{}
@@ -7789,6 +7883,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_GetBlackboardValueList1_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.GetBlackboardValueList1<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueList1_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.GetBlackboardValueList1<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueList1_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.GetBlackboardValueList1<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_GetBlackboardValueList1_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.GetBlackboardValueList1<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueList1_SlotMaker_SpinState : SlotMaker.Tasks.Actions.GetBlackboardValueList1<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueList1_System_Double : SlotMaker.Tasks.Actions.GetBlackboardValueList1<System.Double>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueList1_System_Int64 : SlotMaker.Tasks.Actions.GetBlackboardValueList1<System.Int64>{}
@@ -7871,6 +7966,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_GetBlackboardValueListAtDictionaryLongKey_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.GetBlackboardValueListAtDictionaryLongKey<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueListAtDictionaryLongKey_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.GetBlackboardValueListAtDictionaryLongKey<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueListAtDictionaryLongKey_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.GetBlackboardValueListAtDictionaryLongKey<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_GetBlackboardValueListAtDictionaryLongKey_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.GetBlackboardValueListAtDictionaryLongKey<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueListAtDictionaryLongKey_SlotMaker_SpinState : SlotMaker.Tasks.Actions.GetBlackboardValueListAtDictionaryLongKey<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueListAtDictionaryLongKey_System_Double : SlotMaker.Tasks.Actions.GetBlackboardValueListAtDictionaryLongKey<System.Double>{}
 		class SlotMaker_Tasks_Actions_GetBlackboardValueListAtDictionaryLongKey_System_Int64 : SlotMaker.Tasks.Actions.GetBlackboardValueListAtDictionaryLongKey<System.Int64>{}
@@ -7953,6 +8049,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_MultiplierLong_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.MultiplierLong<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_MultiplierLong_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.MultiplierLong<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_MultiplierLong_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.MultiplierLong<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_MultiplierLong_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.MultiplierLong<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_MultiplierLong_SlotMaker_SpinState : SlotMaker.Tasks.Actions.MultiplierLong<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_MultiplierLong_System_Double : SlotMaker.Tasks.Actions.MultiplierLong<System.Double>{}
 		class SlotMaker_Tasks_Actions_MultiplierLong_System_Int64 : SlotMaker.Tasks.Actions.MultiplierLong<System.Int64>{}
@@ -8035,6 +8132,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_SetBlackboardValueAtDictionaryIntKey_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryIntKey<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueAtDictionaryIntKey_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryIntKey<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueAtDictionaryIntKey_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryIntKey<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_SetBlackboardValueAtDictionaryIntKey_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryIntKey<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueAtDictionaryIntKey_SlotMaker_SpinState : SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryIntKey<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueAtDictionaryIntKey_System_Double : SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryIntKey<System.Double>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueAtDictionaryIntKey_System_Int64 : SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryIntKey<System.Int64>{}
@@ -8117,6 +8215,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_SetBlackboardValueAtDictionaryLongKey_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryLongKey<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueAtDictionaryLongKey_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryLongKey<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueAtDictionaryLongKey_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryLongKey<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_SetBlackboardValueAtDictionaryLongKey_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryLongKey<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueAtDictionaryLongKey_SlotMaker_SpinState : SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryLongKey<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueAtDictionaryLongKey_System_Double : SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryLongKey<System.Double>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueAtDictionaryLongKey_System_Int64 : SlotMaker.Tasks.Actions.SetBlackboardValueAtDictionaryLongKey<System.Int64>{}
@@ -8199,6 +8298,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_SetBlackboardValueListAtDictionaryLongKey_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.SetBlackboardValueListAtDictionaryLongKey<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueListAtDictionaryLongKey_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.SetBlackboardValueListAtDictionaryLongKey<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueListAtDictionaryLongKey_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.SetBlackboardValueListAtDictionaryLongKey<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_SetBlackboardValueListAtDictionaryLongKey_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.SetBlackboardValueListAtDictionaryLongKey<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueListAtDictionaryLongKey_SlotMaker_SpinState : SlotMaker.Tasks.Actions.SetBlackboardValueListAtDictionaryLongKey<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueListAtDictionaryLongKey_System_Double : SlotMaker.Tasks.Actions.SetBlackboardValueListAtDictionaryLongKey<System.Double>{}
 		class SlotMaker_Tasks_Actions_SetBlackboardValueListAtDictionaryLongKey_System_Int64 : SlotMaker.Tasks.Actions.SetBlackboardValueListAtDictionaryLongKey<System.Int64>{}
@@ -8281,6 +8381,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_SetListIndex_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.SetListIndex<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_SetListIndex_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.SetListIndex<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_SetListIndex_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.SetListIndex<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_SetListIndex_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.SetListIndex<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_SetListIndex_SlotMaker_SpinState : SlotMaker.Tasks.Actions.SetListIndex<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_SetListIndex_System_Double : SlotMaker.Tasks.Actions.SetListIndex<System.Double>{}
 		class SlotMaker_Tasks_Actions_SetListIndex_System_Int64 : SlotMaker.Tasks.Actions.SetListIndex<System.Int64>{}
@@ -8363,6 +8464,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_SimpleSetContextListenable_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.SimpleSetContextListenable<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_SimpleSetContextListenable_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.SimpleSetContextListenable<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_SimpleSetContextListenable_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.SimpleSetContextListenable<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_SimpleSetContextListenable_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.SimpleSetContextListenable<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_SimpleSetContextListenable_SlotMaker_SpinState : SlotMaker.Tasks.Actions.SimpleSetContextListenable<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_SimpleSetContextListenable_System_Double : SlotMaker.Tasks.Actions.SimpleSetContextListenable<System.Double>{}
 		class SlotMaker_Tasks_Actions_SimpleSetContextListenable_System_Int64 : SlotMaker.Tasks.Actions.SimpleSetContextListenable<System.Int64>{}
@@ -8445,6 +8547,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_SymbolGetCustomData_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.SymbolGetCustomData<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_SymbolGetCustomData_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.SymbolGetCustomData<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_SymbolGetCustomData_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.SymbolGetCustomData<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_SymbolGetCustomData_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.SymbolGetCustomData<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_SymbolGetCustomData_SlotMaker_SpinState : SlotMaker.Tasks.Actions.SymbolGetCustomData<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_SymbolGetCustomData_System_Double : SlotMaker.Tasks.Actions.SymbolGetCustomData<System.Double>{}
 		class SlotMaker_Tasks_Actions_SymbolGetCustomData_System_Int64 : SlotMaker.Tasks.Actions.SymbolGetCustomData<System.Int64>{}
@@ -8527,6 +8630,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_Contents_GetSlotSymbolCustomData_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.Contents.GetSlotSymbolCustomData<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_Contents_GetSlotSymbolCustomData_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.Contents.GetSlotSymbolCustomData<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_Contents_GetSlotSymbolCustomData_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.Contents.GetSlotSymbolCustomData<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_Contents_GetSlotSymbolCustomData_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.Contents.GetSlotSymbolCustomData<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_Contents_GetSlotSymbolCustomData_SlotMaker_SpinState : SlotMaker.Tasks.Actions.Contents.GetSlotSymbolCustomData<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_Contents_GetSlotSymbolCustomData_System_Double : SlotMaker.Tasks.Actions.Contents.GetSlotSymbolCustomData<System.Double>{}
 		class SlotMaker_Tasks_Actions_Contents_GetSlotSymbolCustomData_System_Int64 : SlotMaker.Tasks.Actions.Contents.GetSlotSymbolCustomData<System.Int64>{}
@@ -8609,6 +8713,7 @@ namespace ParadoxNotion.Internal{
 		class SlotMaker_Tasks_Actions_Contents_SetSlotSymbolCustomData_BagelCode_ClientModels_TournamentStatus : SlotMaker.Tasks.Actions.Contents.SetSlotSymbolCustomData<BagelCode.ClientModels.TournamentStatus>{}
 		class SlotMaker_Tasks_Actions_Contents_SetSlotSymbolCustomData_BagelCode_ClientModels_UserClubState : SlotMaker.Tasks.Actions.Contents.SetSlotSymbolCustomData<BagelCode.ClientModels.UserClubState>{}
 		class SlotMaker_Tasks_Actions_Contents_SetSlotSymbolCustomData_BagelCode_ClientModels_WinType : SlotMaker.Tasks.Actions.Contents.SetSlotSymbolCustomData<BagelCode.ClientModels.WinType>{}
+		class SlotMaker_Tasks_Actions_Contents_SetSlotSymbolCustomData_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType : SlotMaker.Tasks.Actions.Contents.SetSlotSymbolCustomData<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>{}
 		class SlotMaker_Tasks_Actions_Contents_SetSlotSymbolCustomData_SlotMaker_SpinState : SlotMaker.Tasks.Actions.Contents.SetSlotSymbolCustomData<SlotMaker.SpinState>{}
 		class SlotMaker_Tasks_Actions_Contents_SetSlotSymbolCustomData_System_Double : SlotMaker.Tasks.Actions.Contents.SetSlotSymbolCustomData<System.Double>{}
 		class SlotMaker_Tasks_Actions_Contents_SetSlotSymbolCustomData_System_Int64 : SlotMaker.Tasks.Actions.Contents.SetSlotSymbolCustomData<System.Int64>{}
@@ -8694,6 +8799,7 @@ namespace ParadoxNotion.Internal{
 			_NodeCanvas_Framework_Blackboard.GetVariable<BagelCode.ClientModels.TournamentStatus>( (System.String)o );
 			_NodeCanvas_Framework_Blackboard.GetVariable<BagelCode.ClientModels.UserClubState>( (System.String)o );
 			_NodeCanvas_Framework_Blackboard.GetVariable<BagelCode.ClientModels.WinType>( (System.String)o );
+			_NodeCanvas_Framework_Blackboard.GetVariable<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>( (System.String)o );
 			_NodeCanvas_Framework_Blackboard.GetVariable<SlotMaker.SpinState>( (System.String)o );
 			_NodeCanvas_Framework_Blackboard.GetVariable<System.Double>( (System.String)o );
 			_NodeCanvas_Framework_Blackboard.GetVariable<System.Int64>( (System.String)o );
@@ -8779,6 +8885,7 @@ namespace ParadoxNotion.Internal{
 			_NodeCanvas_Framework_Blackboard.GetValue<BagelCode.ClientModels.TournamentStatus>( (System.String)o );
 			_NodeCanvas_Framework_Blackboard.GetValue<BagelCode.ClientModels.UserClubState>( (System.String)o );
 			_NodeCanvas_Framework_Blackboard.GetValue<BagelCode.ClientModels.WinType>( (System.String)o );
+			_NodeCanvas_Framework_Blackboard.GetValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>( (System.String)o );
 			_NodeCanvas_Framework_Blackboard.GetValue<SlotMaker.SpinState>( (System.String)o );
 			_NodeCanvas_Framework_Blackboard.GetValue<System.Double>( (System.String)o );
 			_NodeCanvas_Framework_Blackboard.GetValue<System.Int64>( (System.String)o );
@@ -8864,6 +8971,7 @@ namespace ParadoxNotion.Internal{
 			_NodeCanvas_Framework_IBlackboard.GetVariable<BagelCode.ClientModels.TournamentStatus>( (System.String)o );
 			_NodeCanvas_Framework_IBlackboard.GetVariable<BagelCode.ClientModels.UserClubState>( (System.String)o );
 			_NodeCanvas_Framework_IBlackboard.GetVariable<BagelCode.ClientModels.WinType>( (System.String)o );
+			_NodeCanvas_Framework_IBlackboard.GetVariable<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>( (System.String)o );
 			_NodeCanvas_Framework_IBlackboard.GetVariable<SlotMaker.SpinState>( (System.String)o );
 			_NodeCanvas_Framework_IBlackboard.GetVariable<System.Double>( (System.String)o );
 			_NodeCanvas_Framework_IBlackboard.GetVariable<System.Int64>( (System.String)o );
@@ -8949,6 +9057,7 @@ namespace ParadoxNotion.Internal{
 			_NodeCanvas_Framework_IBlackboard.GetValue<BagelCode.ClientModels.TournamentStatus>( (System.String)o );
 			_NodeCanvas_Framework_IBlackboard.GetValue<BagelCode.ClientModels.UserClubState>( (System.String)o );
 			_NodeCanvas_Framework_IBlackboard.GetValue<BagelCode.ClientModels.WinType>( (System.String)o );
+			_NodeCanvas_Framework_IBlackboard.GetValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>( (System.String)o );
 			_NodeCanvas_Framework_IBlackboard.GetValue<SlotMaker.SpinState>( (System.String)o );
 			_NodeCanvas_Framework_IBlackboard.GetValue<System.Double>( (System.String)o );
 			_NodeCanvas_Framework_IBlackboard.GetValue<System.Int64>( (System.String)o );
@@ -9034,6 +9143,7 @@ namespace ParadoxNotion.Internal{
 			_SlotMaker_BlackboardAsset.GetVariable<BagelCode.ClientModels.TournamentStatus>( (System.String)o );
 			_SlotMaker_BlackboardAsset.GetVariable<BagelCode.ClientModels.UserClubState>( (System.String)o );
 			_SlotMaker_BlackboardAsset.GetVariable<BagelCode.ClientModels.WinType>( (System.String)o );
+			_SlotMaker_BlackboardAsset.GetVariable<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>( (System.String)o );
 			_SlotMaker_BlackboardAsset.GetVariable<SlotMaker.SpinState>( (System.String)o );
 			_SlotMaker_BlackboardAsset.GetVariable<System.Double>( (System.String)o );
 			_SlotMaker_BlackboardAsset.GetVariable<System.Int64>( (System.String)o );
@@ -9119,6 +9229,7 @@ namespace ParadoxNotion.Internal{
 			_SlotMaker_BlackboardAsset.GetValue<BagelCode.ClientModels.TournamentStatus>( (System.String)o );
 			_SlotMaker_BlackboardAsset.GetValue<BagelCode.ClientModels.UserClubState>( (System.String)o );
 			_SlotMaker_BlackboardAsset.GetValue<BagelCode.ClientModels.WinType>( (System.String)o );
+			_SlotMaker_BlackboardAsset.GetValue<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType>( (System.String)o );
 			_SlotMaker_BlackboardAsset.GetValue<SlotMaker.SpinState>( (System.String)o );
 			_SlotMaker_BlackboardAsset.GetValue<System.Double>( (System.String)o );
 			_SlotMaker_BlackboardAsset.GetValue<System.Int64>( (System.String)o );
@@ -9729,6 +9840,14 @@ namespace ParadoxNotion.Internal{
 			System.Collections.Generic.IDictionary<System.String, BagelCode.ClientModels.WinType> IDict_BagelCode_ClientModels_WinType;
 			System.Collections.Generic.Dictionary<System.String, BagelCode.ClientModels.WinType> Dict_BagelCode_ClientModels_WinType;
 			///------
+			System.Action<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType> System_Action_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType;
+			System.Func<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType> System_Func_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType;
+			UnityEngine.Events.UnityAction<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType> UnityEngine_Events_UnityAction_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType;
+			System.Collections.Generic.IList<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType> System_Collections_Generic_IList_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType;
+			System.Collections.Generic.List<BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType> System_Collections_Generic_List_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType;
+			System.Collections.Generic.IDictionary<System.String, BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType> IDict_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType;
+			System.Collections.Generic.Dictionary<System.String, BagelCode.Tasks.Actions.BI.BI_client_vip_club_funnel.BIVIPClubFunnelType> Dict_BagelCode_Tasks_Actions_BI_BI_client_vip_club_funnel_BIVIPClubFunnelType;
+			///------
 			System.Action<SlotMaker.SpinState> System_Action_SlotMaker_SpinState;
 			System.Func<SlotMaker.SpinState> System_Func_SlotMaker_SpinState;
 			UnityEngine.Events.UnityAction<SlotMaker.SpinState> UnityEngine_Events_UnityAction_SlotMaker_SpinState;
@@ -9781,5 +9900,5 @@ namespace ParadoxNotion.Internal{
 	}
 }
 
-//8991 Types | 486 Methods spoofed
+//9102 Types | 492 Methods spoofed
 #pragma warning restore 0219, 0168, 0612

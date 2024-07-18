@@ -383,7 +383,7 @@ namespace SlotMaker
             }
             else
             {
-                Debug.LogError("[AssetBundleManager] There is no asset with name \"" + assetName + "\" in " + bundleName);
+                Debug.Log("[AssetBundleManager] There is no asset with name \"" + assetName + "\" in " + bundleName);
                 return null;
             }
 #else

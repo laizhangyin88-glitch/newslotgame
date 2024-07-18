@@ -1,12 +1,14 @@
-using NodeCanvas.Framework;
-using ParadoxNotion;
-using ParadoxNotion.Design;
-using SlotMaker;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using ParadoxNotion.Design;
+using ParadoxNotion;
+using NodeCanvas.Framework;
+using SlotMaker;
 
 namespace BagelCode.Tasks.Actions.Contents
 {
+
     [Category("★ BagelCode/Contents")]
     public class CalcLineWin1 : ActionTask<Blackboard>
     {
@@ -35,8 +37,7 @@ namespace BagelCode.Tasks.Actions.Contents
 
         private const int wildSymbolIndex = 0;
 
-        protected long betPerLine
-        { get { return betCredit.value / baseWager.value; } }
+        protected long betPerLine { get { return betCredit.value / baseWager.value; } }
 
         protected int GetDirectionalColumn(int column, int direction)
         {
@@ -106,6 +107,7 @@ namespace BagelCode.Tasks.Actions.Contents
                 var symbolInfo = GetSymbolInfo(dColumn + columnOffset.value, row);
                 int symbolMultiplier = symbolInfo.multiplier;
 
+
                 if ((int)ignoreSymbolAttribute != 0 &&
                     SymbolMask.HasAttribute(symbolInfo, ignoreSymbolAttribute))
                 {
@@ -125,7 +127,7 @@ namespace BagelCode.Tasks.Actions.Contents
                 {
                     break;
                 }
-
+                
                 if (MultiplierOperation == OperationMethod.Add)
                     symbolMultiplier = symbolMultiplier <= 1 ? 0 : symbolMultiplier;
 
@@ -229,5 +231,7 @@ namespace BagelCode.Tasks.Actions.Contents
         }
 
 #endif
+
     }
+
 }
