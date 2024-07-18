@@ -5,52 +5,51 @@ using ParadoxNotion;
 using ParadoxNotion.Services;
 using NodeCanvas.Framework;
 using SlotMaker;
-using Sirenix.OdinInspector;
 
 namespace BagelCode
 {
 
-    public class ContentUIActive : MonoBehaviour
+public class ContentUIActive : MonoBehaviour
+{
+    public Animator animator;
+    
+    // private Dictionary<string, MessageDispatcher.EventDelegate> contentUIDelegates = new Dictionary<string, MessageDispatcher.EventDelegate>();
+
+    private bool forceMode;
+    
+    private MessageDelegates delegates;
+    
+    private int ANIMATOR_ACTIVE = Animator.StringToHash("Active");
+    
+    private void Awake()
     {
-        public Animator animator;
-
-        // private Dictionary<string, MessageDispatcher.EventDelegate> contentUIDelegates = new Dictionary<string, MessageDispatcher.EventDelegate>();
-
-        private bool forceMode;
-
-        private MessageDelegates delegates;
-
-        private int ANIMATOR_ACTIVE = Animator.StringToHash("Active");
-
-        private void Awake()
-        {
-            delegates = new MessageDelegates
-            (
-                new Dictionary<string, MessageDispatcher.EventDelegate>
-                {
+        delegates = new MessageDelegates
+        (
+            new Dictionary<string, MessageDispatcher.EventDelegate>
+            {
                 { "ShowUI", ShowUI },
                 { "HideUI", HideUI }
-                }
-            );
-        }
-
-        private void Start()
-        {
-            BlackboardUtils.GetOrCreateVariable<bool>(null, "/inGame").value = true;
-        }
-
-        private void OnEnable()
-        {
-            MessageDispatcher.Register("OnContentUIEvent", delegates.Delegate);
-        }
-
-        private void OnDisable()
-        {
-            MessageDispatcher.UnRegister("OnContentUIEvent", delegates.Delegate);
-        }
-
-        private void ShowUI(EventData eventData)
-        {
+            }
+        );
+    }
+    
+    private void Start()
+    {
+        BlackboardUtils.GetOrCreateVariable<bool>(null, "/inGame").value = true;
+    }
+    
+    private void OnEnable()
+    {
+        MessageDispatcher.Register("OnContentUIEvent", delegates.Delegate);
+    }
+    
+    private void OnDisable()
+    {
+        MessageDispatcher.UnRegister("OnContentUIEvent", delegates.Delegate);
+    }
+    
+    private void ShowUI(EventData eventData)
+    {
 #if DEV
         if (eventData.value != null)
         {
@@ -59,12 +58,13 @@ namespace BagelCode
             return;
         }
 #endif
-            if (!forceMode)
-                animator.SetBool(ANIMATOR_ACTIVE, true);
-        }
-
-        private void HideUI(EventData eventData)
-        {
+        
+        if (!forceMode)
+            animator.SetBool(ANIMATOR_ACTIVE, true);
+    }
+    
+    private void HideUI(EventData eventData)
+    {
 #if DEV
         if (eventData.value != null)
         {
@@ -73,20 +73,9 @@ namespace BagelCode
             return;
         }
 #endif
-            if (!forceMode)
-                animator.SetBool(ANIMATOR_ACTIVE, false);
-        }
-
-        [Button]
-        public void test_HideUI()
-        {
+        if (!forceMode)
             animator.SetBool(ANIMATOR_ACTIVE, false);
-        }
-        [Button]
-        public void test_ShowUI()
-        {
-            animator.SetBool(ANIMATOR_ACTIVE, true);
-        }
-    }  
+    }
+}
     
 }

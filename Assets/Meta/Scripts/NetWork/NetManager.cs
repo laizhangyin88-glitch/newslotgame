@@ -1030,19 +1030,16 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         this._Emit(rpcName, data as JSONNode);
 
     }
-     
+
     public bool isChangeCreditAnimation = false;
     public void SetMyCredit(long credit = -1)
     {
-        if (MiniGameDataManagers.Instance.GetIsInFruitPartyMiniGame())
-        {
-            return;
-        }
         long oldCredit = (long)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value ?? 0);
 
         long newCredit = credit < 0? globalStore.newCredit : credit;
 
         Debug.LogWarning($"@ 玩家金币发生改变1  oldCredit = {oldCredit} ，newCredit = {newCredit}");
+
         if (oldCredit != newCredit)
         {
             //if (globalStore.nowGameID == -1 || globalStore.isPlay == false) // 在大厅 或没有玩游戏

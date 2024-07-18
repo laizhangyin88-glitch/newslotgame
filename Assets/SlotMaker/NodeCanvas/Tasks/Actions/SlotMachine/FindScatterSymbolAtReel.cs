@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using ParadoxNotion.Design;
@@ -44,6 +44,3 @@ public class FindScatterSymbolAtReel : ActionTask<Blackboard>
 }
 
 }
-
-//bool isBonusSymbol = SymbolMask.HasAnyAttribute(ContentCustomData.GetSlotData(slotMachineIndex).deck.GetSymbol(colIndex, rowIndex).mask, SymbolAttribute.Scatter2);
-//if (isBonusSymbol) symbolList.Add(slotMachine.value.GetSymbol(colIndex, rowIndex).gameObject);

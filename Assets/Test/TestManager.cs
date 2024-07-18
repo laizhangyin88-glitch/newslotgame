@@ -38,8 +38,6 @@ public class TestManager : MonoSingleton<TestManager>
 
     public GameObject inputExcUI;
 
-    public GameObject inputJackpot;
-
     private void Start()
     {
         if (inputAutoUrl != null)
@@ -62,23 +60,7 @@ public class TestManager : MonoSingleton<TestManager>
         return res;
     }
 
-    public string getJackpot()
-    {
-        if(inputJackpot != null)
-        {
-            InputField inputField = inputJackpot.GetComponent<InputField>();
-            if(inputField != null )
-            {
-                if (!string.IsNullOrEmpty(inputField.text))
-                {
-                    string temp = inputField.text;
-                    inputField.text = "";
-                    return temp;
-                }
-            }
-        }
-        return "0";
-    }
+
 
     public string getClaimBonus()
     {
@@ -256,20 +238,12 @@ public class TestManager : MonoSingleton<TestManager>
         //string spinRes = TestManager.Instance.getSpin();
         yield return new WaitForSeconds(0.2f);
 
-        try
+        SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(resStr as string);
+        SimpleJSON.JSONNode res = dataDict.HasKey("protocol_key") ? dataDict["data"] : dataDict;
+        if (responseCallback != null)
         {
-            SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(resStr as string);
-            SimpleJSON.JSONNode res = dataDict.HasKey("protocol_key") ? dataDict["data"]: dataDict;
-            if (responseCallback != null)
-            {
-                responseCallback(res);
-            }
-        }catch(Exception e)
-        {
-            Debug.LogError($"【ERR】 data = {resStr}");
-            Debug.LogException(e);
+            responseCallback(res);
         }
-
     }
 
     public void SetTextServer(string text)
@@ -473,9 +447,7 @@ public class TestManager : MonoSingleton<TestManager>
         };*/
 
         //码表转换
-        //Variable<Dictionary<int, int>> changeCode = ContentBlackboard.Get().GetVariable<Dictionary<int, int>>("changeCode");
-        Variable<Dictionary<int, int>> changeCode = ContentBlackboard.Get().GetValue<Blackboard>("gameNew").GetVariable<Dictionary<int, int>>("changeCode");
-
+        Variable<Dictionary<int, int>> changeCode = ContentBlackboard.Get().GetVariable<Dictionary<int, int>>("changeCode");
         if (changeCode != null && changeCode.value != null)
         {
             foreach (var item in changeCode.value)
@@ -802,12 +774,12 @@ public class TestManager : MonoSingleton<TestManager>
     }
 
 
-/*
-Dictionary<string, object> req = new Dictionary<string, object>(TestManager.Instance.spinAgrs);
-TestManager.Instance.spinAgrs = new Dictionary<string, object>();
-req.Add("bet", betCredit);
-req.Add("extra_bet", extraBetCredit);
-*/
+    /*
+    Dictionary<string, object> req = new Dictionary<string, object>(TestManager.Instance.spinAgrs);
+    TestManager.Instance.spinAgrs = new Dictionary<string, object>();
+    req.Add("bet", betCredit);
+    req.Add("extra_bet", extraBetCredit);
+    */
 
     public Dictionary<string, object> spinAgrs = new Dictionary<string, object>();
 
@@ -817,9 +789,9 @@ req.Add("extra_bet", extraBetCredit);
         string[] itemsStrs = agrs.Replace(" ", "").Split('#') ?? new string[] { };
 
         spinAgrs = new Dictionary<string, object>();
-        for(int i= 0; i< itemsStrs.Length; i++)
+        for (int i = 0; i < itemsStrs.Length; i++)
         {
-            string[] res = itemsStrs[i].Split(':') ?? new string[] {"a","-1"};
+            string[] res = itemsStrs[i].Split(':') ?? new string[] { "a", "-1" };
             spinAgrs.Add(res[0], int.Parse(res[1]));
         }
     }
@@ -841,7 +813,7 @@ req.Add("extra_bet", extraBetCredit);
 
         var variableA1 = BlackboardUtils.FindVariable<string>(null, "./spin/responseNew");
 
-        if(variableA1 != null)
+        if (variableA1 != null)
             Debug.Log($" @@1 = {variableA.value}");
 
         variableA1 = BlackboardUtils.FindVariable<string>(null, "./spin/response/responseNew");
@@ -850,24 +822,5 @@ req.Add("extra_bet", extraBetCredit);
             Debug.Log($" @@2 = {variableA.value}");
     }
 
-    [Button]
-    void test_ShowDoor()
-    {
-        Animator anim = GameObject.Find("Game Contents/Animator").GetComponent<Animator>();
-        anim.SetTrigger("Door Appear");
 
-        //MessageDispatcher.Dispatch("OnContentUIEvent", new EventData("Start Door"));
-    }
-
-
-    [Button]
-    void test_ShowUI()
-    {
-        MessageDispatcher.Dispatch("OnContentUIEvent", new EventData("ShowUI"));
-    }
-    [Button]
-    void test_HideUI()
-    {
-        MessageDispatcher.Dispatch("OnContentUIEvent", new EventData("HideUI"));
-    }
 }

@@ -1,8 +1,9 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
 using SlotMaker;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace BagelCode.Tasks.Actions.Contents
 {
@@ -23,11 +24,9 @@ namespace BagelCode.Tasks.Actions.Contents
         [SerializeField] protected bool ignoreExpectation;
         [SerializeField] protected List<bool> masks;
 
-        protected override string info
-        { get { return string.Format("UpdateExpectationSpot({0}, {1})", symbolMask, symbolCount); } }
+        protected override string info { get { return string.Format("UpdateExpectationSpot({0}, {1})", symbolMask, symbolCount); } }
 
         private List<int> hiddenSpotCounts = new List<int>();
-
         private void UpdateHiddenSpotCounts()
         {
             int spotCount = 0;
@@ -63,8 +62,8 @@ namespace BagelCode.Tasks.Actions.Contents
             return (hiddenSpotCount + accumulatedSpotCount) >= symbolCount;
         }
 
-        protected override void OnExecute()
-        {
+    	protected override void OnExecute()
+    	{
             var slotData = ContentCustomData.GetSlotData(slotIndex.value);
             var deck = slotData.deck;
             var expectation = slotData.expectation;
@@ -102,14 +101,14 @@ namespace BagelCode.Tasks.Actions.Contents
                 accumulatedSpotCount += reelAccumulatedSpotCount;
 
                 if (!found && continuous) break;
-            }
-            EndAction();
-        }
+             }
+             EndAction();
+    	}
 
         ////////////////////////////////////////
         ///////////GUI AND EDITOR STUFF/////////
         ////////////////////////////////////////
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
 
         protected override void OnTaskInspectorGUI()
         {
@@ -122,6 +121,6 @@ namespace BagelCode.Tasks.Actions.Contents
             continuous = UnityEditor.EditorGUILayout.Toggle("Continuous", continuous);
         }
 
-#endif
+        #endif
     }
 }

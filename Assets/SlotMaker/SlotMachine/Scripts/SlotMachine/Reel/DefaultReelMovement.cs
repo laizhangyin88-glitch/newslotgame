@@ -1,9 +1,10 @@
-using NodeCanvas;
-using NodeCanvas.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using NodeCanvas;
+using NodeCanvas.Framework;
 
 namespace SlotMaker
 {
@@ -17,10 +18,7 @@ namespace SlotMaker
         public Vector3 acceleration;
         public Vector3 velocity;
         public Vector3 displacement;
-
-        public Vector3 position
-        { get { return -displacement; } }
-
+        public Vector3 position { get { return -displacement; } }
         public Vector3 forceStopVelocity = new Vector3(0f, -3500f, 0f);
         public bool locked;
         public bool lockedOutOfBound;
@@ -30,8 +28,7 @@ namespace SlotMaker
         public bool blankSolver;
 
         [Serializable]
-        public class ReelEvent : UnityEvent<BaseReel>
-        { }
+        public class ReelEvent : UnityEvent<BaseReel> {}
 
         public ReelEvent onPrepareStopped;
         public ReelEvent onTargetPosition;
@@ -41,9 +38,7 @@ namespace SlotMaker
         private float updateTime;
 
         private Reel _reel = null;
-
-        protected Reel reel
-        { get { return _reel ?? (_reel = GetComponent<Reel>()); } }
+        protected Reel reel { get { return _reel ?? (_reel = GetComponent<Reel>()); } }
 
         public override float GetVelocity()
         {
@@ -120,7 +115,7 @@ namespace SlotMaker
                 pendingActions[actionIndex].Skip();
                 if (pendingActions[actionIndex].actionList.isRunning)
                     ++actionIndex;
-                else
+                else 
                     pendingActions.RemoveAt(actionIndex);
             }
         }
@@ -130,35 +125,31 @@ namespace SlotMaker
             pendingActions.Add(action);
         }
 
-        /// <summary>
-        /// 列滚轮停止时调用
-        /// </summary>
-        public void UpdateStopDisplacement()  
+        public void UpdateStopDisplacement()
         {
             displacement = Vector3.zero;
-            BaseSymbol frontSymbol = reel.GetSymbols()[0];
+            var frontSymbol = reel.GetSymbols()[0];
             float symbolHeight = reel.cellSize.y + reel.spacing.y;
             float reelHeight = symbolHeight * reel.RowCount;
-
+            
             srcPatchCount = (frontSymbol.symbolInfo.link.rowCount - frontSymbol.symbolInfo.link.rowOffset) - 1;
-
+            
             int dstIndex = reel.strip.CalcIndex(reel.nextIndex - 1);
-            SymbolInfo dstSymbol = SlotUtils.GetSymbol(reel.slotMachine.slotIndex, reel.reelIndex, reel.strip, dstIndex);
+            var dstSymbol = SlotUtils.GetSymbol(reel.slotMachine.slotIndex, reel.reelIndex, reel.strip, dstIndex);
             dstPatchCount = dstSymbol.link.rowOffset;
-
-            //Debug.LogError($"==@  列数 = {reel.reelIndex}  编号 = {dstSymbol.symbol}  码表索引 = {dstIndex} ");
+            
             if (blankSolver)
             {
                 int srcIndex = reel.strip.CalcIndex(reel.index - srcPatchCount);
                 var srcSymbol = SlotUtils.GetSymbol(reel.slotMachine.slotIndex, reel.reelIndex, reel.strip, srcIndex);
                 bool srcBlank = SymbolMask.HasBlank(srcSymbol);
-
+                
                 if (dstPatchCount > 0)
                 {
                     dstIndex = reel.strip.CalcIndex(dstIndex + dstPatchCount);
                     dstSymbol = SlotUtils.GetSymbol(reel.slotMachine.slotIndex, reel.reelIndex, reel.strip, dstIndex);
                 }
-
+                
                 bool dstBlank = SymbolMask.HasBlank(dstSymbol);
                 if (srcBlank == dstBlank)
                     dstPatchCount += 1;
@@ -169,7 +160,7 @@ namespace SlotMaker
             displacement.y += -symbolHeight * srcPatchCount;
             displacement.y += -symbolHeight * dstPatchCount;
         }
-
+        
         public void UpdateManualDisplacement(int count)
         {
             displacement = Vector3.zero;
@@ -180,7 +171,7 @@ namespace SlotMaker
         private int fixedCount;
 
         private void FixedUpdate()
-        {
+        {            
             if (++fixedCount > 2)
             {
                 updateTime = Time.time;
@@ -204,7 +195,7 @@ namespace SlotMaker
                 velocity += acceleration * Time.fixedDeltaTime;
                 movement = velocity * Time.fixedDeltaTime;
                 displacement -= movement;
-
+                
                 reel.TranslateSymbols(movement);
 
                 if (!lockedOutOfBound && reel.IsOutOfBound())
@@ -221,11 +212,13 @@ namespace SlotMaker
                             {
                                 reel.nextIndex += dstPatchCount;
                                 dstPatchCount = 0;
+
                                 reel.SwapIndex();
                             }
                         }
 
                         reel.PushFrontSymbol();
+
                     } while (reel.IsOutOfBound());
 
                     reel.UpdateSymbolsZOrder();

@@ -1,3 +1,5 @@
+using UnityEngine;
+using System.Collections.Generic;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
 using SlotMaker;

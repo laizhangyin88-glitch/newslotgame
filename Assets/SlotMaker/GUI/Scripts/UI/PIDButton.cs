@@ -70,9 +70,6 @@ namespace SlotMaker
 
         protected override void DoStateTransition(SelectionState state, bool instant)
         {
-           // if(transform.name == "Button Minus")
-           //     Debug.LogError($"【Test】 call cover {transform.name}");
-
             if (gameObject.activeInHierarchy)
             {
                 float toFactor = 1f;
@@ -96,6 +93,5 @@ namespace SlotMaker
 
             base.DoStateTransition(state, instant);        
         }
-
     }
 }

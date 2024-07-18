@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using ParadoxNotion.Design;
 using NodeCanvas.Framework;
@@ -68,6 +68,7 @@ public class LoadSceneAsync : ActionTask<Transform>
 			}
 		}
 	}
+
 	protected string GetBundleName()
 	{
 		return combineApplicationType.value ? ApplicationSettings.MakeApplicationBundleName(bundleName.value) : bundleName.value;

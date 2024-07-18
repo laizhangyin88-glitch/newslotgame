@@ -384,11 +384,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
     public bool isLastGameSpin
     {
         get {
-            var gameId = BlackboardUtils.FindValue<int>("./game/gameId"); 
-            if (globalStore.IsNewGame(gameId))
-                return false;
             _isLastGameSpin = BlackboardUtils.GetOrCreateVariable<bool>(MainBlackboard.Get(), "isLastGameSpin").value;
-
             return _isLastGameSpin;
         }
         set {
@@ -495,6 +491,8 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
         }
         isLastGameSpin = true;
     }
+
+
 }
 
 /// <summary>
