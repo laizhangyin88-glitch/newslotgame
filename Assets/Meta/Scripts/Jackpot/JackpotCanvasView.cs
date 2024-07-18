@@ -1,12 +1,12 @@
 using Newtonsoft.Json;
-using NodeCanvas.Framework;
 using ParadoxNotion;
 using SimpleJSON;
 using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using static UnityEngine.PlayerLoop.PreUpdate;
+using UnityEngine.UI;
 
 public class JackpotCanvasView : MonoBehaviour
 {
@@ -14,16 +14,9 @@ public class JackpotCanvasView : MonoBehaviour
     private bool canUpdate = true;
     private GameObject effect;
     private Coroutine effectCorountine;
-
-    public void TestSetJackpot()
-    {
-        jackpotViews[3].SetJackpot(50);
-    }
-
-    public void TestUpdateJackpot()
-    {
-        jackpotViews[3].ScrollTo(100);
-    }
+    private GameObject winTips;
+    private List<GameObject> titleList = new List<GameObject>();
+    private TextMeshProUGUI content;
 
     private void Awake()
     {
@@ -31,9 +24,16 @@ public class JackpotCanvasView : MonoBehaviour
         for (int i = 0; i < trans.childCount; i++)
             jackpotViews.Add(trans.GetChild(i).GetComponent<JackpotView>());
         effect = transform.Find("Anchor/Effect").gameObject;
+        winTips = transform.Find("Anchor/WinTips").gameObject;
+        var titleTrans = winTips.transform.Find("Title");
+        for (int i = 0; i < titleTrans.childCount; i++)
+            titleList.Add(titleTrans.GetChild(i).gameObject);
+        content = winTips.transform.Find("content").GetComponent<TextMeshProUGUI>();
         MessageDispatcher.Register("SetJackpot", OnSetJackpot);
         MessageDispatcher.Register("UpdateJackpot", OnUpdateJackpot);
         MessageDispatcher.Register(RPCName.winGameBonus, OnWinGameBounus);
+
+        content.text = "123";
     }
 
     private void OnDestroy()
@@ -90,6 +90,45 @@ public class JackpotCanvasView : MonoBehaviour
         var jackpotView = jackpotViews[winResult.bonus_id - 1];
         jackpotView.jackpot = jackpotView.jackpot - winResult.single_reward > 0 ? jackpotView.jackpot - winResult.single_reward : 0;
         jackpotView.SetJackpot(jackpotView.jackpot);
+        ShowWinTips(winResult);
+    }
+
+    private void ShowWinTips(WinResult winResult)
+    {
+        int index = winResult.bonus_id - 1;
+        winTips.SetActive(true);
+        titleList[index].SetActive(true);
+        string titleStr = "";
+        switch (index)
+        {
+            case 0: titleStr = "grand"; break;
+            case 1: titleStr = "mega"; break;
+            case 2: titleStr = "minor"; break;
+            case 3: titleStr = "mini"; break;
+        }
+        content.text = $"{winResult.nick_name} win {titleStr} jackpot $";
+        content.text += GetNumStr(winResult.single_reward);
+    }
+
+    private string GetNumStr(int value)
+    {
+        string str;
+        int tempValue = value % 100;
+        string point;
+        if (tempValue < 10)
+            point = "0" + tempValue;
+        else
+            point = tempValue.ToString();
+        value /= 100;
+        if (value > 1000)
+        {
+            str = $"{(value / 1000)},";
+            str += value % 1000;
+        }
+        else
+            str = value.ToString();
+        str += $".{point}";
+        return str;
     }
 
     private void ShowEffect()
@@ -105,6 +144,9 @@ public class JackpotCanvasView : MonoBehaviour
         effect.SetActive(true);
         yield return new WaitForSeconds(5);
         effect.SetActive(false);
+        winTips.SetActive(false);
+        titleList.ForEach(t => t.SetActive(false));
+        content.text = "";
         canUpdate = true;
     }
 }
