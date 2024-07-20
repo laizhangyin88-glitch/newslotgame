@@ -354,8 +354,6 @@ namespace SlotMaker
         {
             string variableName = null;
             bb = FindBlackboard(bb, name, ref variableName);
-            Debug.Log(bb);
-            Debug.Log(name);
             if (bb == null) return null;
 
             return bb.GetVariable<T>(variableName);
