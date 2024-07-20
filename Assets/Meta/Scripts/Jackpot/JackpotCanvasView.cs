@@ -41,17 +41,11 @@ public class JackpotCanvasView : MonoBehaviour
         MessageDispatcher.Register(RPCName.winGameBonus, OnWinGameBounus);
         assetName = new List<string>
         {
-            "Mini Jackpot Trigger Popup Scene",
-            "Minor Jackpot Trigger Popup Scene",
+            "Grand Jackpot Trigger Popup Scene",
             "Major Jackpot Trigger Popup Scene",
-            "Mega Jackpot Trigger Popup Scene",
-            "Grand Jackpot Trigger Popup Scene"
+            "Minor Jackpot Trigger Popup Scene",
+            "Mini Jackpot Trigger Popup Scene",
         };
-    }
-
-    private void Start()
-    {
-        //StartCoroutine(LoadOrignalJackpot());
     }
 
     private void OnDestroy()
@@ -106,13 +100,14 @@ public class JackpotCanvasView : MonoBehaviour
         jackpotView.jackpot = jackpotView.jackpot - winResult.single_reward > 0 ? jackpotView.jackpot - winResult.single_reward : 0;
         jackpotView.SetJackpot(jackpotView.jackpot);
         ShowAnnounce(winResult);
+        ShowWinTips(winResult);
+        //StartCoroutine(LoadOrignalJackpot(winResult.bonus_id - 1, (long)winResult.single_reward));
     }
 
-    private IEnumerator LoadOrignalJackpot()
+    private IEnumerator LoadOrignalJackpot(int index, long target)
     {
-        
         if (loadSceneInfoOperation == null)
-            loadSceneInfoOperation = AssetBundleManager.LoadAssetAsync<SceneInfoObject>(ApplicationSettings.MakeApplicationBundleName("lobby"), assetName[0]);
+            loadSceneInfoOperation = AssetBundleManager.LoadAssetAsync<SceneInfoObject>(ApplicationSettings.MakeApplicationBundleName("lobby"), assetName[index]);
         while (!loadSceneInfoOperation.IsDone())
         { yield return new WaitForEndOfFrame(); }
         if (loadSceneInfoOperation.IsDone())
@@ -133,16 +128,12 @@ public class JackpotCanvasView : MonoBehaviour
             if (sceneLoadOperation.IsDone())
             {
                 var obj = sceneLoadOperation.GetScene();
-                long a = 500;
+                long orignal = 0;
                 var contentBB = ContentBlackboard.Get();
+                BlackboardUtils.SetOrCreateValue(contentBB, "totalBetCredit", orignal);
                 var bonusBB = BlackboardUtils.GetOrCreateBlackboard(contentBB, "bonus");
                 var responeseBB = BlackboardUtils.GetOrCreateBlackboard(bonusBB, "response");
-                var earnCreditBB = BlackboardUtils.GetOrCreateBlackboard(responeseBB, "earnCredit");
-                earnCreditBB.SetValue("earnCredit", 20000);
-
-                BlackboardUtils.SetOrCreateValue(contentBB, "totalBetCredit", a);
-                Debug.LogError(BlackboardUtils.FindVariable<long>(obj.GetComponent<Blackboard>(), "./totalBetCredit").value);
-                Debug.Log("SetBB");
+                responeseBB.SetValue("earnCredit", target);
                 PopupManager.Instance.Open(obj);
                 obj.SetActive(true);
             }
