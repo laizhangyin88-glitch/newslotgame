@@ -51,7 +51,7 @@ public class JackpotCanvasView : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(LoadOrignalJackpot());
+        //StartCoroutine(LoadOrignalJackpot());
     }
 
     private void OnDestroy()
