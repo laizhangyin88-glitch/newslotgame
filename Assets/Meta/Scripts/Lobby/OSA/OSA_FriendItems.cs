@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BagelCode.ClientModels;
-using Com.TheFallenGames.OSA.Core;
+using Com.ForbiddenByte.OSA.Core;
 using frame8.Logic.Misc.Other.Extensions;
 using NodeCanvas.Framework;
 using SlotMaker;
@@ -177,7 +177,7 @@ namespace BagelCode.OSA_Scroll
             GameObject prefab = FindPrefab((int) itemType);
             
             if (item != null)
-                item.Init(prefab, itemIndex);
+                item.Init(prefab, _Params.Content, itemIndex);
 
             item.ContentSizeFitter = prefab.GetComponent<ContentSizeFitter>();
             

@@ -1,14 +1,14 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Com.TheFallenGames.OSA.Core;
 using SlotMaker;
 using BagelCode;
 using BagelCode.ClientModels;
 using BagelCode.BossRaiders;
 using NodeCanvas.Framework;
+using Com.ForbiddenByte.OSA.Core;
 
 namespace BagelCode.OSA_Scroll
 {
@@ -83,7 +83,7 @@ namespace BagelCode.OSA_Scroll
         protected override BossRaidersRaidConquerorsItemViewHolder CreateViewsHolder(int itemIndex)
         {
             BossRaidersRaidConquerorsItemViewHolder viewHolder = new BossRaidersRaidConquerorsItemViewHolder();
-            viewHolder.Init(_Params.GetPrefab(transform), itemIndex);
+            viewHolder.Init(_Params.GetPrefab(transform), _Params.Content, itemIndex);
             return viewHolder;
         }
 

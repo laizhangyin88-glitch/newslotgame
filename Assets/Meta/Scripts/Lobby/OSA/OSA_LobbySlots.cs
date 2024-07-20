@@ -11,10 +11,12 @@ using NodeCanvas.Framework;
 using frame8.Logic.Misc.Other;
 using frame8.Logic.Misc.Other.Extensions;
 using frame8.Logic.Misc.Visual.UI;
-using Com.TheFallenGames.OSA.Core;
 using System.IO;
 using System.Text;
 using SlotMaker.Json;
+using Com.ForbiddenByte.OSA.Core;
+using AssetBundleBrowser.AssetBundleModel;
+using System.Runtime.CompilerServices;
 
 namespace BagelCode.OSA_Scroll
 {
@@ -39,16 +41,16 @@ namespace BagelCode.OSA_Scroll
         private int curSelectIndex = 0;
         private int maxIndex = 0;
         private bool isMovingPage;
-        private int hallScrollviewItemCount = 0;
+
 
         private GameFilter curShowGameType = GameFilter.UNKNOWN;
 
         public void Refresh()
         {
-            ClearVisibleItems();
-            // ClearCachedRecyclableItems();
-            CreateSlotList();
-            ResetCurSelect();
+            //ClearVisibleItems();
+            //// ClearCachedRecyclableItems();
+            //CreateSlotList();
+            //ResetCurSelect();
         }
 
         /* 旧版本
@@ -156,15 +158,12 @@ namespace BagelCode.OSA_Scroll
             GetCurShowGameType();
             if (curShowGameType == GameFilter.UNKNOWN)
             {
-                //Refresh();
-
-
                 var newModels = new List<LobbySlotsModel>();
                 var slotInfoDict = new Dictionary<int, Blackboard>();
                 var gameInfoDict = GetGameInfoDict();
                 var bonusIAMBBDict = BlackboardQueryUtils.GetBonusIAMDict();
                 ClearVisibleItems();
-                CreateSortSlotList(newModels, slotInfoDict, gameInfoDict, bonusIAMBBDict);
+                CreateSortSlotList(newModels, slotInfoDict, gameInfoDict, bonusIAMBBDict, true);
                 ResetCurSelect();
             }
             else
@@ -174,7 +173,7 @@ namespace BagelCode.OSA_Scroll
                 var gameInfoDict = GetGameInfoDict();
                 var bonusIAMBBDict = BlackboardQueryUtils.GetBonusIAMDict();
                 ClearVisibleItems();
-                CreateSortSlotList(newModels, slotInfoDict, gameInfoDict, bonusIAMBBDict);
+                CreateSortSlotList(newModels, slotInfoDict, gameInfoDict, bonusIAMBBDict, false);
                 ResetCurSelect();
             }
         }
@@ -207,8 +206,6 @@ namespace BagelCode.OSA_Scroll
             }
         }
 
-
-
         private void OnEnable()
         {
             isInteractable = PopupManager.Instance.popupCount == 0;
@@ -219,8 +216,6 @@ namespace BagelCode.OSA_Scroll
         {
             ScrollPositionChanged -= OnChangeScrollPosition;
         }
-
-
 
         public void OnChangeMetaPopupCount()
         {
@@ -275,7 +270,6 @@ namespace BagelCode.OSA_Scroll
         {
             LobbySlotsItem item = null;
             LobbySlotsItemType itemType = _Params.data[itemIndex].itemType;
-
             switch (itemType)
             {
                 case LobbySlotsItemType.Banner_Portrait:
@@ -293,10 +287,13 @@ namespace BagelCode.OSA_Scroll
                 case LobbySlotsItemType.SlotDouble:
                     item = new LobbySlotsItem_SlotDouble();
                     break;
+                case LobbySlotsItemType.AD:
+                    item = new LobbySlotsAD();
+                    break;
             }
 
             if (item != null)
-                item.Init(FindPrefab((int)itemType, itemIndex), itemIndex);
+                item.Init(FindPrefab((int)itemType, itemIndex), _Params.Content, itemIndex);
 
             return item;
         }
@@ -317,40 +314,40 @@ namespace BagelCode.OSA_Scroll
             return inRecycleBin.ShouldDestroyRecyclableItem();
         }
 
+
         void CreateSlotList()
         {
-            var newModels = new List<LobbySlotsModel>();
+            //var newModels = new List<LobbySlotsModel>();
 
-            var slotInfoDict = new Dictionary<int, Blackboard>();
-            var gameInfoDict = GetGameInfoDict();
-            var bonusIAMBBDict = BlackboardQueryUtils.GetBonusIAMDict();
+            //var slotInfoDict = new Dictionary<int, Blackboard>();
+            //var gameInfoDict = GetGameInfoDict();
+            //var bonusIAMBBDict = BlackboardQueryUtils.GetBonusIAMDict();
 
-            int bannerCount = CreateSlotBanner(newModels);
-            CreateSlotList(newModels, slotInfoDict, gameInfoDict, bonusIAMBBDict);
-            InsertFavorites(newModels, slotInfoDict, gameInfoDict, bannerCount);
+            //int bannerCount = CreateSlotBanner(newModels);
+            //CreateSlotList(newModels, slotInfoDict, gameInfoDict, bonusIAMBBDict);
+            //InsertFavorites(newModels, slotInfoDict, gameInfoDict, bannerCount);
 
-            _Params.data.Clear();
-            _Params.data.AddRange(newModels);
-            ResetItems(newModels.Count);
+            //_Params.data.Clear();
+            //_Params.data.AddRange(newModels);
+            //ResetItems(newModels.Count);
 
-            // Set show back button target delta position
-            if (showBackButtonTargetSlotIndex < _Params.data.Count)
-            {
-                double contentsSize = (double)GetContentSize();
-                contentsSize -= GetViewportSize();
+            //// Set show back button target delta position
+            //if (showBackButtonTargetSlotIndex < _Params.data.Count)
+            //{
+            //    double contentsSize = (double)GetContentSize();
+            //    contentsSize -= GetViewportSize();
 
-                double targetWidth = (double)showBackButtonTargetSlotIndex * (double)BaseParameters.DefaultItemSize;
-                targetWidth += (double)((showBackButtonTargetSlotIndex - 1) * (double)BaseParameters.contentSpacing);
-                targetWidth += (double)BaseParameters.contentPadding.left;
+            //    double targetWidth = (double)showBackButtonTargetSlotIndex * (double)BaseParameters.DefaultItemSize;
+            //    targetWidth += (double)((showBackButtonTargetSlotIndex - 1) * (double)BaseParameters.ContentSpacing);
+            //    targetWidth += (double)BaseParameters.ContentPadding.left;
 
-                // page over enable
-                // showBackButtonTargetDelta = targetWidth/contentsSize;
+            //    // page over enable
+            //    // showBackButtonTargetDelta = targetWidth/contentsSize;
 
-                // android hotfix back button LobbyHomeScreenButtonController;
-                showBackButtonTargetDelta = 0.0;
-            }
+            //    // android hotfix back button LobbyHomeScreenButtonController;
+            //    showBackButtonTargetDelta = 0.0;
+            //}
         }
-
 
         /// <summary>刷新大厅游戏选择框</summary>
         private void ChangeCurSelect()
@@ -397,13 +394,11 @@ namespace BagelCode.OSA_Scroll
             maxIndex = index;
         }
 
-
         public void SetCurSelect(int index)
         {
             curSelectIndex = index;
             ChangeCurSelect();
         }
-
 
         int CreateSlotBanner(List<LobbySlotsModel> newModels)
         {
@@ -450,8 +445,8 @@ namespace BagelCode.OSA_Scroll
                 slotInfos[0] = slotInfoList[i];
                 slotInfos[1] = (i < (slotCount - 1)) ? slotInfoList[i + 1] : null;
 
-                bool isLong1 = BlackboardUtils.FindValue<bool>(slotInfos[0], "flags/isLong");
-                if (isLong1)
+                bool isLong = BlackboardUtils.FindValue<bool>(slotInfos[0], "flags/isLong");
+                if (isLong)
                 {
                     var model = new LobbySlotsModel_SlotSingle();
                     model.itemType = LobbySlotsItemType.SlotSingle;
@@ -514,7 +509,8 @@ namespace BagelCode.OSA_Scroll
         void CreateSortSlotList(List<LobbySlotsModel> newModels,
             Dictionary<int, Blackboard> slotInfoDict,
             Dictionary<int, Blackboard> gameInfoDict,
-            Dictionary<int, Blackboard> bonusIAMBBDict)
+            Dictionary<int, Blackboard> bonusIAMBBDict,
+            bool addAD = true)
         {
             var slotInfoList = MainBlackboard.Get().GetValue<List<Blackboard>>("slotList");
             List<Blackboard> tempSlotInfoList = new List<Blackboard>();
@@ -523,24 +519,125 @@ namespace BagelCode.OSA_Scroll
             for (int i = 0; i < slotCount; ++i)
             {
                 gameId = slotInfoList[i].GetValue<int>("gameId");
+
                 if (!gameInfoDict.ContainsKey(gameId))
                     continue;
                 tempSlotInfoList.Add(slotInfoList[i]);
             }
+            if (addAD)
+            {
+                var ADModel = new LobbySlotsModel_AD
+                {
+                    itemType = LobbySlotsItemType.AD
+                };
+                newModels.Add(ADModel);
+            }
+
+            NewCreate(tempSlotInfoList,
+                gameId,gameInfoDict,
+                bonusIAMBBDict,
+                slotInfoDict,
+                newModels
+                );
+
+            //SimpleCreate(tempSlotInfoList,
+            //    slotCount, gameId,
+            //    gameInfoDict, bonusIAMBBDict,
+            //    slotInfoDict, newModels);
+
+            _Params.data.Clear();
+            _Params.data.AddRange(newModels);
+            ResetItems(newModels.Count);
+        }
+
+        private void NewCreate(List<Blackboard> tempSlotInfoList,
+            int gameId, Dictionary<int, Blackboard> gameInfoDict,
+            Dictionary<int, Blackboard> bonusIAMBBDict,
+            Dictionary<int, Blackboard> slotInfoDict,
+            List<LobbySlotsModel> newModels)
+        {
+            for (int i = 0; i < tempSlotInfoList.Count; i++)
+            {
+                gameId = tempSlotInfoList[i].GetValue<int>("gameId");
+                var tempGameInfo = gameInfoDict[gameId];
+                bool isLong = tempGameInfo.GetValue<int>("isLong") == 1;
+                if (isLong)
+                {
+                    var model = new LobbySlotsModel_SlotSingle
+                    {
+                        itemType = LobbySlotsItemType.SlotSingle,
+                        slotInfo = tempSlotInfoList[i],
+                        gameInfo = gameInfoDict[gameId],
+                        bonusIAMBB = bonusIAMBBDict.ContainsKey(gameId) ? bonusIAMBBDict[gameId] : null
+                    };
+                    BlackboardUtils.SetOrCreateValue<bool>(tempSlotInfoList[0], "isViewLong", true);
+                    slotInfoDict[gameId] = tempSlotInfoList[0];
+                    newModels.Add(model);
+                }
+                else
+                {
+                    var modelDouble = new LobbySlotsModel_SlotDouble();
+                    modelDouble.itemType = LobbySlotsItemType.SlotDouble;
+                    Blackboard[] slotInfos = new Blackboard[2];
+                    slotInfos[0] = tempSlotInfoList[i];
+                    slotInfos[1] = (i < (tempSlotInfoList.Count - 1)) ? tempSlotInfoList[i + 1] : null;
+                    bool isLong2 = true;
+                    if (slotInfos[1] != null)
+                    {
+                        gameId = slotInfos[1].GetValue<int>("gameId");
+                        isLong2 = gameInfoDict[gameId].GetValue<int>("isLong") == 1;
+                    }
+                    if (isLong2)
+                    {
+                        modelDouble.slotInfos[0] = slotInfos[0];
+                        gameId = slotInfos[0].GetValue<int>("gameId");
+                        if (!gameInfoDict.ContainsKey(gameId))
+                            continue;
+                        modelDouble.gameInfos[0] = gameInfoDict[gameId];
+                        modelDouble.bonusIAMBBs[0] = bonusIAMBBDict.ContainsKey(gameId) ? bonusIAMBBDict[gameId] : null;
+                        BlackboardUtils.SetOrCreateValue<bool>(slotInfos[0], "isViewLong", false);
+                        slotInfoDict[gameId] = slotInfos[0];
+                    }
+                    else
+                    {
+                        for (int j = 0; j < 2; ++j)
+                        {
+                            modelDouble.slotInfos[j] = slotInfos[j];
+                            gameId = slotInfos[j].GetValue<int>("gameId");
+                            modelDouble.gameInfos[j] = gameInfoDict[gameId];
+                            modelDouble.bonusIAMBBs[j] = bonusIAMBBDict.ContainsKey(gameId) ? bonusIAMBBDict[gameId] : null;
+                            BlackboardUtils.SetOrCreateValue<bool>(slotInfos[j], "isViewLong", false);
+
+                            slotInfoDict[gameId] = slotInfos[j];
+                        }
+                        ++i;
+                    }
+                    
+                    newModels.Add(modelDouble);
+                }
+            }
+        }
+
+        private void SimpleCreate(List<Blackboard> tempSlotInfoList,
+            int slotCount, int gameId,
+            Dictionary<int, Blackboard> gameInfoDict,
+            Dictionary<int, Blackboard> bonusIAMBBDict,
+            Dictionary<int, Blackboard> slotInfoDict,
+            List<LobbySlotsModel> newModels)
+        {
             slotCount = tempSlotInfoList.Count;
-            hallScrollviewItemCount = tempSlotInfoList.Count;
             int startIndex = slotCount % 2 > 0 ? 1 : 0;
             if (slotCount % 2 > 0) // 有单个
             {
-                var model = new LobbySlotsModel_SlotSingle();
-                model.itemType = LobbySlotsItemType.SlotSingle;
-                model.slotInfo = tempSlotInfoList[0];
                 gameId = tempSlotInfoList[0].GetValue<int>("gameId");
-                model.gameInfo = gameInfoDict[gameId];
-
-                model.bonusIAMBB = bonusIAMBBDict.ContainsKey(gameId) ? bonusIAMBBDict[gameId] : null;
+                var model = new LobbySlotsModel_SlotSingle
+                {
+                    itemType = LobbySlotsItemType.SlotSingle,
+                    slotInfo = tempSlotInfoList[0],
+                    gameInfo = gameInfoDict[gameId],
+                    bonusIAMBB = bonusIAMBBDict.ContainsKey(gameId) ? bonusIAMBBDict[gameId] : null
+                };
                 BlackboardUtils.SetOrCreateValue<bool>(tempSlotInfoList[0], "isViewLong", true);
-
                 slotInfoDict[gameId] = tempSlotInfoList[0];
                 newModels.Add(model);
             }
@@ -565,11 +662,6 @@ namespace BagelCode.OSA_Scroll
                 ++i;
                 newModels.Add(modelDouble);
             }
-
-            _Params.data.Clear();
-            _Params.data.AddRange(newModels);
-            Debug.Log($"newModels.Count = {newModels.Count}");
-            ResetItems(newModels.Count);
         }
 
         void InsertFavorites(
@@ -623,15 +715,24 @@ namespace BagelCode.OSA_Scroll
 
             for (int i = 0; i < count; ++i)
             {
+                int gameId = gameInfoList[i].GetValue<int>("gameId");
                 gameTitles.Add(gameInfoList[i].GetValue<string>("gameTitle"));
                 if (curShowGameType == GameFilter.UNKNOWN)
                 {
-                    if (!result.ContainsKey(gameInfoList[i].GetValue<int>("gameId")))
-                        result[gameInfoList[i].GetValue<int>("gameId")] = gameInfoList[i];
+                    if (!result.ContainsKey(gameId))
+                        result[gameId] = gameInfoList[i];
+                }
+                else if (curShowGameType == GameFilter.FISH)
+                {
+                    if (!result.ContainsKey(gameId) && MainBlackboard.Get().GetValue<List<int>>("collectList").Contains(gameId))
+                        result[gameId] = gameInfoList[i];
                 }
                 else
-                    if (!result.ContainsKey(gameInfoList[i].GetValue<int>("gameId")) && gameInfoList[i].GetValue<GameFilter>("gameFilter") == curShowGameType)
-                    result[gameInfoList[i].GetValue<int>("gameId")] = gameInfoList[i];
+                {
+                    if (!result.ContainsKey(gameId) && gameInfoList[i].GetValue<GameFilter>("gameFilter") == curShowGameType)
+                        result[gameId] = gameInfoList[i];
+                }
+                    
             }
             ////生成SelectGames的json文件
             //string jsonStr = SlotSimpleJson.SerializeObject(gameTitles);
@@ -715,7 +816,6 @@ namespace BagelCode.OSA_Scroll
             SmoothScrollTo(itemIndex, 0.3f, offset);
         }
 
-
         /* 旧版本
         void MachineMovePage(int pageCount)
         {
@@ -790,7 +890,6 @@ namespace BagelCode.OSA_Scroll
             });
         }
 
-
         private int GetPageVisibleIconCount()
         {
             int count = 0;
@@ -814,8 +913,6 @@ namespace BagelCode.OSA_Scroll
             }
             return count;
         }
-
-
 
         private int GetPageTrulyItemCount()
         {
@@ -850,7 +947,8 @@ namespace BagelCode.OSA_Scroll
         Banner_LL, // Landscape, Landscape
         FavoriteDouble,
         SlotSingle,
-        SlotDouble
+        SlotDouble,
+        AD,
     }
 
     [Serializable]
@@ -893,11 +991,29 @@ namespace BagelCode.OSA_Scroll
         public Blackboard[] bonusIAMBBs = new Blackboard[2];
     }
 
+    public class LobbySlotsModel_AD : LobbySlotsModel
+    {
+        public Blackboard adInfo;
+    }
+
     public abstract class LobbySlotsItem : BaseItemViewsHolder
     {
         public abstract bool CanPresentModelType(LobbySlotsItemType itemType);
         public virtual bool ShouldDestroyRecyclableItem() { return false; }
         public abstract void UpdateViews(LobbySlotsModel model);
+    }
+
+    public class LobbySlotsAD : LobbySlotsItem
+    {
+        public override bool CanPresentModelType(LobbySlotsItemType itemType) { return itemType == LobbySlotsItemType.AD; }
+
+        public override bool ShouldDestroyRecyclableItem() { return true; }
+
+        public override void UpdateViews(LobbySlotsModel model)
+        {
+            var adModel = model as LobbySlotsModel_AD;
+            root.gameObject.SetActive(true);
+        }
     }
 
     public class LobbySlotsItem_BannerPortrait : LobbySlotsItem

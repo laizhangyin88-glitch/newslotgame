@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Com.TheFallenGames.OSA.Core;
+using Com.ForbiddenByte.OSA.Core;
 using NodeCanvas.Framework;
 using ParadoxNotion;
 using SlotMaker;

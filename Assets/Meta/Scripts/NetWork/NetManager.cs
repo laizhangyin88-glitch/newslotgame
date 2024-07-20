@@ -16,8 +16,7 @@ using BagelCode.ClientModels;
 using Action = System.Action;
 using Sirenix.OdinInspector;
 using EventData = ParadoxNotion.EventData;
-
-
+using Newtonsoft.Json;
 public class RequestType {
 
     public RequestType(object buffer, string rpcName, long time, bool force =false)
@@ -843,6 +842,10 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     AesManager.Instance.initAesIv(data["aes_iv"]);
                 }
 
+                //彩金
+                if (data.HasKey("bonus_result"))
+                    MessageDispatcher.Dispatch("SetJackpot", new EventData<string>("SetJackpot", data["bonus_result"].ToString()));
+
                 if (this._state == NetNodeState.Checking) //断线重连
                 {
 
@@ -912,8 +915,44 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 globalStore.gameState = GameState.Hall;
                 globalStore.nowGameID = -1;
 
-                break;
+                //广告
+                var adJson = JSONNode.Parse(data["l_ads"]);
+                if (data.HasKey("l_ads"))
+                {
+                    List<ADSData> adsDatas = new List<ADSData>();
+                    for (int i = 0; i < adJson.Count; i++)
+                    {
+                        ADSData adsData = new ADSData
+                        {
+                            imageUrl = adJson[i]["image_url"],
+                            linkUrl = adJson[i]["page_url"],
+                            showTime = adJson[i]["show_long"]
+                        };
+                        adsDatas.Add(adsData);
+                    }
+                    MainBlackboard.Get().SetValue("slotADurls", adsDatas);
+                }
 
+                //收藏
+                string res = (string)data["user_cache"];
+                var cacheJsonNode = JSONNode.Parse(res);
+                List<int> collectList = new List<int>();
+                if (cacheJsonNode.HasKey("userCollect"))
+                {
+                    JSONNode res1 = JSONNode.Parse((string)cacheJsonNode["userCollect"]);
+                    for (int i = 0; i < res1.Count; i++)
+                        collectList.Add(res1[i]);
+                }
+                else
+                {
+                    collectList = new List<int>();
+                    cacheJsonNode.Add("userCollect", JsonConvert.SerializeObject(collectList));
+                }
+                
+                MainBlackboard.Get().SetValue("userCache", cacheJsonNode);
+                MainBlackboard.Get().SetValue("collectList", collectList);
+
+                break;
             case RPCName.enterGame://进入子游戏
 
                 //断线重链子游戏
@@ -963,6 +1002,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 break;
             case RPCName.metaInfo:
                 break;
+            case RPCName.gameBonusResult:
+                MessageDispatcher.Dispatch("UpdateJackpot", new EventData<string>("UpdateJackpot", data["data"]["bonus_list"].ToString()));
+                break;
             case RPCName.ping:
             case RPCName.confirmAddCoinOrder:
             case RPCName.confirmCoinOutOrder:
@@ -974,10 +1016,11 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 if(!isChangeCreditAnimation)
                     SetMyCredit();
 
-                if (rpcName == RPCName.ping && data.HasKey("cur_time"))
+                if (rpcName == RPCName.ping)
                 {
-                    MessageDispatcher.Dispatch("OnContentEvent01", new EventData<string>("ShowInfo", data.ToString()));
-                }
+                    if (data.HasKey("cur_time"))
+                        MessageDispatcher.Dispatch("OnPing", new EventData<string>("ShowInfo", data.ToString()));
+                }       
 
                 break;
             default:
