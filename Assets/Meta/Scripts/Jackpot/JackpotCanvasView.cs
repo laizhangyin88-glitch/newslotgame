@@ -58,6 +58,7 @@ public class JackpotCanvasView : MonoBehaviour
     private void OnSetJackpot(EventData data)
     {
         List<Jackpot> jackpots = JsonConvert.DeserializeObject<List<Jackpot>>(data.value.ToString());
+        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "LobbyJackpot", jackpots);
         for (int i = 0; i < jackpotViews.Count; i++)
             jackpotViews[i].SetJackpot(jackpots[i].total_bonus_count);
     }

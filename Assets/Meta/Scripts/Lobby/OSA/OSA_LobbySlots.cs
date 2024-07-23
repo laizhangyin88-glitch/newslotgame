@@ -1,22 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using SlotMaker;
 using BagelCode.ClientModels;
-using ParadoxNotion;
-using ParadoxNotion.Services;
 using NodeCanvas.Framework;
-using frame8.Logic.Misc.Other;
-using frame8.Logic.Misc.Other.Extensions;
-using frame8.Logic.Misc.Visual.UI;
-using System.IO;
-using System.Text;
-using SlotMaker.Json;
 using Com.ForbiddenByte.OSA.Core;
-using AssetBundleBrowser.AssetBundleModel;
-using System.Runtime.CompilerServices;
 
 namespace BagelCode.OSA_Scroll
 {
@@ -689,7 +678,7 @@ namespace BagelCode.OSA_Scroll
                     if (!result.ContainsKey(gameId))
                         result[gameId] = gameInfoList[i];
                 }
-                else if (curShowGameType == GameFilter.FISH)
+                else if (curShowGameType == GameFilter.FAV)
                 {
                     if (!result.ContainsKey(gameId) && MainBlackboard.Get().GetValue<List<int>>("collectList").Contains(gameId))
                         result[gameId] = gameInfoList[i];
