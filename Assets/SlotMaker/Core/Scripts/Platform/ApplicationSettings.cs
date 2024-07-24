@@ -150,7 +150,17 @@ namespace SlotMaker
     	}
         public static string GetAssetBundlesPath()
         {
-            return Instance.bundleUrl;
+            string url = Instance.bundleUrl;
+#if K3K_TEST
+            url += "K3K/Test/";
+#elif K3K_REALSE
+            url += "K3K/Realse/";
+#elif MARS_FORTUNE_TEST
+            url += "MarsFortune/Test/";
+#elif MARS_FORTUNE_REALSE
+            url += "MarsFortune/Realse/";
+#endif
+            return url;
         }
         public static string GetStreamingBundlePath()
     	{
