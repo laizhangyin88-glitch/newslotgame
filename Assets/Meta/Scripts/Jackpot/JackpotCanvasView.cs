@@ -167,6 +167,7 @@ public class JackpotCanvasView : MonoBehaviour
 
     private void ShowWinTips(WinResult winResult)
     {
+        titleList.ForEach(t => t.SetActive(false));
         int index = winResult.bonus_id - 1;
         winTips.SetActive(true);
         titleList[index].SetActive(true);
