@@ -918,7 +918,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 //广告
                 if (data.HasKey("l_ads"))
                 {
-                    var adJson = JSONNode.Parse(data["l_ads"]);
+                    var adJson = data["l_ads"];
                     List<ADSData> adsDatas = new List<ADSData>();
                     for (int i = 0; i < adJson.Count; i++)
                     {
@@ -926,10 +926,17 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                         {
                             imageUrl = adJson[i]["image_url"],
                             linkUrl = adJson[i]["page_url"],
-                            showTime = adJson[i]["show_long"]
+                            showTime = adJson[i]["show_long"],
+                            status = adJson[i]["status"],
+                            sort = adJson[i]["sort"]
                         };
-                        adsDatas.Add(adsData);
+                        
+                        if (adsData.status != 0)
+                            adsDatas.Add(adsData);
                     }
+
+                    adsDatas.Sort((a, b) => -a.sort.CompareTo(b.sort));
+
                     MainBlackboard.Get().SetValue("slotADurls", adsDatas);
                 }
 
