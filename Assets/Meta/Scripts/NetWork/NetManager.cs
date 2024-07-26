@@ -916,9 +916,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 globalStore.nowGameID = -1;
 
                 //广告
-                var adJson = JSONNode.Parse(data["l_ads"]);
                 if (data.HasKey("l_ads"))
                 {
+                    var adJson = data["l_ads"];
                     List<ADSData> adsDatas = new List<ADSData>();
                     for (int i = 0; i < adJson.Count; i++)
                     {
@@ -926,31 +926,42 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                         {
                             imageUrl = adJson[i]["image_url"],
                             linkUrl = adJson[i]["page_url"],
-                            showTime = adJson[i]["show_long"]
+                            showTime = adJson[i]["show_long"],
+                            status = adJson[i]["status"],
+                            sort = adJson[i]["sort"]
                         };
-                        adsDatas.Add(adsData);
+                        
+                        if (adsData.status != 0)
+                            adsDatas.Add(adsData);
                     }
+
+                    adsDatas.Sort((a, b) => -a.sort.CompareTo(b.sort));
+
                     MainBlackboard.Get().SetValue("slotADurls", adsDatas);
                 }
 
                 //收藏
-                string res = (string)data["user_cache"];
-                var cacheJsonNode = JSONNode.Parse(res);
-                List<int> collectList = new List<int>();
-                if (cacheJsonNode.HasKey("userCollect"))
+                if (data.HasKey("user_cache"))
                 {
-                    JSONNode res1 = JSONNode.Parse((string)cacheJsonNode["userCollect"]);
-                    for (int i = 0; i < res1.Count; i++)
-                        collectList.Add(res1[i]);
+                    string res = (string)data["user_cache"];
+                    var cacheJsonNode = JSONNode.Parse(res);
+                    List<int> collectList = new List<int>();
+                    if (cacheJsonNode.HasKey("userCollect"))
+                    {
+                        JSONNode res1 = JSONNode.Parse((string)cacheJsonNode["userCollect"]);
+                        for (int i = 0; i < res1.Count; i++)
+                            collectList.Add(res1[i]);
+                    }
+                    else
+                    {
+                        collectList = new List<int>();
+                        cacheJsonNode.Add("userCollect", JsonConvert.SerializeObject(collectList));
+                    }
+
+                    MainBlackboard.Get().SetValue("userCache", cacheJsonNode);
+                    MainBlackboard.Get().SetValue("collectList", collectList);
                 }
-                else
-                {
-                    collectList = new List<int>();
-                    cacheJsonNode.Add("userCollect", JsonConvert.SerializeObject(collectList));
-                }
-                
-                MainBlackboard.Get().SetValue("userCache", cacheJsonNode);
-                MainBlackboard.Get().SetValue("collectList", collectList);
+
 
                 break;
             case RPCName.enterGame://进入子游戏

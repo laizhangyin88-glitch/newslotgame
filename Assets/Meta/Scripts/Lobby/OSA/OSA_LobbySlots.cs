@@ -1,22 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using SlotMaker;
 using BagelCode.ClientModels;
-using ParadoxNotion;
-using ParadoxNotion.Services;
 using NodeCanvas.Framework;
-using frame8.Logic.Misc.Other;
-using frame8.Logic.Misc.Other.Extensions;
-using frame8.Logic.Misc.Visual.UI;
-using System.IO;
-using System.Text;
-using SlotMaker.Json;
 using Com.ForbiddenByte.OSA.Core;
-using AssetBundleBrowser.AssetBundleModel;
-using System.Runtime.CompilerServices;
 
 namespace BagelCode.OSA_Scroll
 {
@@ -24,12 +13,10 @@ namespace BagelCode.OSA_Scroll
     {
         private bool isInteractable = true;
 
-        private int showBackButtonTargetSlotIndex = 8;
         private double showBackButtonTargetDelta = 0;
 
         private Variable<bool> isShowLobbyBackButton;
 
-        /// MachineUse
         private bool initMod = true;
 
         //特别注意深坑!
@@ -37,11 +24,10 @@ namespace BagelCode.OSA_Scroll
         //当往前翻页时, 隐藏Item在右侧
         private int offsetIndex = 1;
 
-        private int curPage = 0;
         private int curSelectIndex = 0;
         private int maxIndex = 0;
         private bool isMovingPage;
-
+        private List<ADSData> adsDatas;
 
         private GameFilter curShowGameType = GameFilter.UNKNOWN;
 
@@ -53,95 +39,54 @@ namespace BagelCode.OSA_Scroll
             //ResetCurSelect();
         }
 
-        /* 旧版本
-        public void SelectNextItem()
-        {
-            if (isMovingPage)
-                return;
-            curSelectIndex++;
-            GSManager.Instance.GetHandler("UI_Button_Normal").Play();
-            if (maxIndex > 0 &&
-                ((initMod && curSelectIndex == maxIndex)
-                || !initMod && curSelectIndex == maxIndex - 2)
-            )
-            {
-                MachineMovePage(1);
-                offsetIndex = 1;
-                maxIndex = 0;
-            }
-            else
-                ChangeCurSelect();
-        }
-         */
         public void SelectNextItem()
         {
             if (isMovingPage)
                 return;
             curSelectIndex++;
 
-            //bool isFirstPage =  0 == GetItemViewsHolder(0).ItemIndex;
-            bool isLastPage = _Params.data.Count - 1 == GetItemViewsHolder(_VisibleItems.Count - 1).ItemIndex;
+            LobbySlotsItem lastItemView = GetItemViewsHolder(_VisibleItems.Count - 1);
+            bool isLastPage = _Params.data.Count - 1 == lastItemView.ItemIndex;
 
             if (isLastPage && curSelectIndex > maxIndex - 1)
                 curSelectIndex = maxIndex - 1;
 
-            Debug.LogWarning($"@#@ ++ curSelectIndex ={curSelectIndex} maxIndex={maxIndex}  isLastPage = {isLastPage} offsetIndex={offsetIndex}");
-            //Debug.LogWarning($"@ firstColIndex {GetItemViewsHolder(0).ItemIndex}  lastColIndex {GetItemViewsHolder(_VisibleItems.Count -1).ItemIndex}  allColCount {_VisibleItems.Count} ");
-
             GSManager.Instance.GetHandler("UI_Button_Normal").Play();
-            if (!isLastPage && maxIndex > 0 &&
-            ((initMod && curSelectIndex == maxIndex) //最后一列时开始跳转
-            || !initMod && curSelectIndex == maxIndex - 2)  //提前一列开始跳转
-            )
+
+            bool isLastItem = false;
+            if (initMod)
+                isLastItem = curSelectIndex == maxIndex;
+            else
             {
-                //Debug.LogWarning($"@#@  ++ 跳转起点{GetItemViewsHolder(_VisibleItems.Count - 1).ItemIndex -1}");
+                var lastItemViewModel = _Params.data[lastItemView.ItemIndex];
+                isLastItem = curSelectIndex == maxIndex - 1;
+                if (lastItemViewModel.itemType == LobbySlotsItemType.SlotDouble)
+                {
+                    var lastItemViewDoubleMode = lastItemViewModel as LobbySlotsModel_SlotDouble;
+                    if (lastItemViewDoubleMode.gameInfos[1] != null)
+                        isLastItem = curSelectIndex == maxIndex - 2;
+                }
+            }
+
+            if (!isLastPage && maxIndex > 0 && isLastItem)
+            {
                 MachineMovePage(1);
-                offsetIndex = 1;
                 maxIndex = 0;
             }
             else
                 ChangeCurSelect();
         }
 
-        /* 旧版本
         public void SelectPreItem()
         {
             if (isMovingPage)
                 return;
-            GSManager.Instance.GetHandler("UI_Button_Normal").Play();
-            if (curPage > 0)
-                curSelectIndex--;
-            else
-                curSelectIndex = curSelectIndex > 0 ? curSelectIndex - 1 : 0;
-            if (curSelectIndex == offsetIndex && curPage > 0)
-            {
-                MachineMovePage(-1);
-                offsetIndex = -1;
-                maxIndex = 0;
-            }
-            else
-                ChangeCurSelect();
-        } 
-         */
-
-        public void SelectPreItem()
-        {
-            if (isMovingPage)
-                return;
-
-            // Debug.LogWarning($"@  first {GetItemViewsHolder(0).ItemIndex}  last {GetItemViewsHolder(_VisibleItems.Count - 1).ItemIndex} count {_VisibleItems.Count}  col {col} allcol {_Params.data.Count}");
 
             GSManager.Instance.GetHandler("UI_Button_Normal").Play();
             curSelectIndex--;
             bool isFirstPage = 0 == GetItemViewsHolder(0).ItemIndex;
             if (isFirstPage && curSelectIndex < 0)
-                curSelectIndex = 0;
-
-
-
-            Debug.LogWarning($"@#@ ++ curSelectIndex ={curSelectIndex} maxIndex={maxIndex}  isFirstPage = {isFirstPage} offsetIndex={offsetIndex}");
-            //Debug.LogWarning($"@#@ -- curSelectIndex ={ curSelectIndex} maxIndex={maxIndex}");
-            //Debug.LogWarning($"@ firstColIndex {GetItemViewsHolder(0).ItemIndex}  lastColIndex {GetItemViewsHolder(_VisibleItems.Count -1).ItemIndex}  allColCount {_VisibleItems.Count} ");
+                curSelectIndex = 0;;
 
             if (!isFirstPage && curSelectIndex <= offsetIndex)
             {
@@ -260,6 +205,7 @@ namespace BagelCode.OSA_Scroll
             var slotInfoDict = new Dictionary<int, Blackboard>();
             var gameInfoDict = GetGameInfoDict();
             var bonusIAMBBDict = BlackboardQueryUtils.GetBonusIAMDict();
+            adsDatas = MainBlackboard.Get().GetValue<List<ADSData>>("slotADurls");
             ClearVisibleItems();
             CreateSortSlotList(newModels, slotInfoDict, gameInfoDict, bonusIAMBBDict);
             ResetCurSelect();
@@ -314,7 +260,6 @@ namespace BagelCode.OSA_Scroll
             return inRecycleBin.ShouldDestroyRecyclableItem();
         }
 
-
         void CreateSlotList()
         {
             //var newModels = new List<LobbySlotsModel>();
@@ -352,12 +297,12 @@ namespace BagelCode.OSA_Scroll
         /// <summary>刷新大厅游戏选择框</summary>
         private void ChangeCurSelect()
         {
-            //Debug.LogError($"【test】 curSelectIndex = {curSelectIndex}");
             int index = 0;
             for (int i = 0; i < _VisibleItems.Count; i++)
             {
                 LobbySlotsItem visibleItem = _VisibleItems[i];
-                switch (_Params.data[visibleItem.ItemIndex].itemType)
+                LobbySlotsModel model = _Params.data[visibleItem.ItemIndex];
+                switch (model.itemType)
                 {
                     case LobbySlotsItemType.FavoriteDouble:
                         var element = visibleItem.root.GetComponent<ContextElement>();
@@ -370,27 +315,39 @@ namespace BagelCode.OSA_Scroll
                             index++;
                         }
                         break;
-                    case LobbySlotsItemType.SlotSingle: // 大单个
+                    case LobbySlotsItemType.SlotSingle: // 大图标
+                        var singleModel = model as LobbySlotsModel_SlotSingle;
+                        //Debug.LogError($"long single {singleModel.gameInfo.GetValue<string>("gameTitle")}");
                         var controller1 = visibleItem.root.GetComponent<LobbySlotController>();
                         controller1.Select(index == curSelectIndex);
                         index++;
                         break;
-                    case LobbySlotsItemType.SlotDouble: // 小个
-                        for (int j = 0; j < 2; ++j)
+                    case LobbySlotsItemType.SlotDouble: // 小图标
+                        var doubleModel = model as LobbySlotsModel_SlotDouble;
+                        if (doubleModel.slotInfos[1] == null)
                         {
-                            var child = visibleItem.root.GetChild(j);
+                            //Debug.LogError($"short single {doubleModel.gameInfos[0].GetValue<string>("gameTitle")}");
+                            var child = visibleItem.root.GetChild(0);
                             var controller = child.GetComponent<LobbySlotController>();
                             controller.Select(index == curSelectIndex);
                             index++;
+                        }
+                        else
+                        {
+                            for (int j = 0; j < 2; ++j)
+                            {
+                                //Debug.LogError($"short double {doubleModel.gameInfos[j].GetValue<string>("gameTitle")}");
+                                var child = visibleItem.root.GetChild(j);
+                                var controller = child.GetComponent<LobbySlotController>();
+                                controller.Select(index == curSelectIndex);
+                                index++;
+                            }
                         }
                         break;
                     default:
                         break;
                 }
             }
-            //Debug.LogWarning($"@#@ ++ curSelectIndex ={curSelectIndex} maxIndex={maxIndex}  index = {index}");
-            /*if (maxIndex == 0)
-                maxIndex = index;*/
             maxIndex = index;
         }
 
@@ -524,7 +481,7 @@ namespace BagelCode.OSA_Scroll
                     continue;
                 tempSlotInfoList.Add(slotInfoList[i]);
             }
-            if (addAD)
+            if (addAD && adsDatas.Count > 0)
             {
                 var ADModel = new LobbySlotsModel_AD
                 {
@@ -587,6 +544,7 @@ namespace BagelCode.OSA_Scroll
                         gameId = slotInfos[1].GetValue<int>("gameId");
                         isLong2 = gameInfoDict[gameId].GetValue<int>("isLong") == 1;
                     }
+                    //下一个为长型
                     if (isLong2)
                     {
                         modelDouble.slotInfos[0] = slotInfos[0];
@@ -689,8 +647,7 @@ namespace BagelCode.OSA_Scroll
                         var slotInfo = slotInfoDict[gameId];
                         var flags = slotInfo.GetValue<Blackboard>("flags");
                         int status = flags.GetValue<int>("status");
-                        // int tag = flags.GetValue<int>("tag");
-                        if (status == 0)// && tag == 0)
+                        if (status == 0)
                         {
                             model.slotInfos[found] = slotInfo;
                             model.gameInfos[found] = gameInfoDict[gameId];
@@ -722,7 +679,7 @@ namespace BagelCode.OSA_Scroll
                     if (!result.ContainsKey(gameId))
                         result[gameId] = gameInfoList[i];
                 }
-                else if (curShowGameType == GameFilter.FISH)
+                else if (curShowGameType == GameFilter.FAV)
                 {
                     if (!result.ContainsKey(gameId) && MainBlackboard.Get().GetValue<List<int>>("collectList").Contains(gameId))
                         result[gameId] = gameInfoList[i];
@@ -753,19 +710,6 @@ namespace BagelCode.OSA_Scroll
         {
             curShowGameType = MainBlackboard.Get().GetValue<GameFilter>("curShowGameType");
         }
-
-        //        Dictionary<int, Blackboard> GetBuyABonusIAMDict()
-        //        {
-        //            var iamInfoList = BlackboardQueryUtils.GetIAMListFromType(InAppMessageType.BUY_A_BONUS_PURCHASE_POPUP);
-        //            var result = new Dictionary<int, Blackboard>();
-        //            int count = iamInfoList.Count;
-        //            for (int i = 0; i < count; ++i)
-        //            {
-        //                if(!result.ContainsKey(iamInfoList[i].GetValue<int>("gameId")))
-        //                    result.Add(iamInfoList[i].GetValue<int>("gameId"), iamInfoList[i]);
-        //            }
-        //            return result;
-        //        }
 
         GameObject FindPrefab(int id, int itemIndex)
         {
@@ -816,74 +760,77 @@ namespace BagelCode.OSA_Scroll
             SmoothScrollTo(itemIndex, 0.3f, offset);
         }
 
-        /* 旧版本
         void MachineMovePage(int pageCount)
         {
             float offset = 0.02f;
-            int temp = initMod ? VisibleItemsCount : VisibleItemsCount - 1;
-            if (pageCount < 0 && offsetIndex > 0)
-                temp -= 2;
-            initMod = false;
-            int itemIndex = GetItemViewsHolder(0).ItemIndex + pageCount * temp;
-            itemIndex = Mathf.Clamp(itemIndex, 0, _Params.data.Count);
-            isMovingPage = true;
-            SmoothScrollTo(itemIndex, 0.3f, offset, 0, (progress) =>
-            {
-                if (progress == 1)
-                {
-                    curSelectIndex = pageCount > 0 ? 2 : GetPageTrulyItemCount();
-                    ChangeCurSelect();
-                    curPage += pageCount;
-                    isMovingPage = false;
-                }
-                return true;
-            });
-        }
-        */
 
-        void MachineMovePage(int pageCount)
-        {
-            float offset = 0.02f;
-            int temp = initMod ? VisibleItemsCount : VisibleItemsCount - 1; //要跳过的列数
-            if (pageCount < 0 && offsetIndex > 0)
-                temp -= 2;
-
-            initMod = false;
-            int itemIndex = GetItemViewsHolder(0).ItemIndex + pageCount * temp;
-            itemIndex = Mathf.Clamp(itemIndex, 0, _Params.data.Count);
-            isMovingPage = true;
-
-            int lastEndIdx = GetItemViewsHolder(_VisibleItems.Count - 1).ItemIndex;
             int lastStartIdx = GetItemViewsHolder(0).ItemIndex;
+            int lastEndIdx = GetItemViewsHolder(_VisibleItems.Count - 1).ItemIndex;
 
-            Debug.LogWarning($"@#@ curSelectIndex = {curSelectIndex}");
+            int temp = initMod ? VisibleItemsCount : VisibleItemsCount - 1; //要跳过的列数
+            if (pageCount < 0)
+            {
+                temp = VisibleItemsCount == 7 ? temp - 2 : temp;
+
+            }
+            initMod = false;
+            int itemIndex = lastStartIdx + pageCount * temp;
+            itemIndex = Mathf.Clamp(itemIndex, 0, _Params.data.Count);
+            isMovingPage = true;
             SmoothScrollTo(itemIndex, 0.3f, offset, 0, (progress) =>
             {
                 if (progress == 1)
                 {
                     int endIdx = GetItemViewsHolder(_VisibleItems.Count - 1).ItemIndex;
                     int startIdx = GetItemViewsHolder(0).ItemIndex;
-
-                    if (pageCount > 0)
+                    int offset = 1;
+                    LobbySlotsModel startModel = _Params.data[startIdx];
+                    LobbySlotsModel endModel = _Params.data[endIdx];
+                    if (startModel.itemType == LobbySlotsItemType.SlotDouble)
                     {
-                        curSelectIndex = (lastEndIdx - startIdx) * 2;
-                        //Debug.LogWarning($"@#@ +++ lastStartIdx {lastStartIdx}  lastEndIdx {lastEndIdx}  move {itemIndex} Start {startIdx}  End {endIdx} count ={GetPageVisibleIconCount()}");
+                        var startDoubleModel = startModel as LobbySlotsModel_SlotDouble;
+                        if (startDoubleModel.gameInfos[1] != null)
+                            offset = 2;
+                        if (pageCount > 0)
+                            offsetIndex = 1;
                     }
                     else
                     {
+                        if (pageCount > 0)
+                            offsetIndex = 0;
+                    }
+
+                    if (pageCount > 0)
+                        curSelectIndex = (lastEndIdx - startIdx) * offset == 0 ? 1 : (lastEndIdx - startIdx) * offset;
+                    else
+                    {
+                        var nextVisibleCount = GetPageVisibleIconCount();
+                        //连续左移
                         if (endIdx == lastStartIdx)
                         {
-                            curSelectIndex = GetPageVisibleIconCount() - 2 - 1;
+                            curSelectIndex = nextVisibleCount - 2;
+                            if (endModel.itemType == LobbySlotsItemType.SlotDouble)
+                            {
+                                var endDoubleModel = endModel as LobbySlotsModel_SlotDouble;
+                                if (endDoubleModel.gameInfos[1] != null)
+                                    curSelectIndex = nextVisibleCount - 3;
+                            }
                         }
+                        //先右移 后 左移
                         else
                         {
-                            curSelectIndex = GetPageVisibleIconCount() - (endIdx - lastStartIdx) * 2 - 1;
+                            
+
+                            curSelectIndex = nextVisibleCount - (endIdx - lastStartIdx) - 1;
+                            if (endModel.itemType == LobbySlotsItemType.SlotDouble)
+                            {
+                                var endDoubleModel = endModel as LobbySlotsModel_SlotDouble;
+                                if (endDoubleModel.gameInfos[1] != null)
+                                    curSelectIndex = nextVisibleCount - (endIdx - lastStartIdx) * 2 - 1;
+                            }
                         }
-                        //Debug.LogWarning($"@#@ --- lastStartIdx {lastStartIdx}  lastEndIdx {lastEndIdx}  move {itemIndex} Start {startIdx}  End {endIdx} count ={GetPageVisibleIconCount()}  - {1 + (endIdx - lastStartIdx) * 2}  {offsetIndex}");
                     }
-                    //curSelectIndex = pageCount > 0 ? 2 : GetPageTrulyItemCount();
                     ChangeCurSelect();
-                    //curPage += pageCount;
                     isMovingPage = false;
                 }
                 return true;
@@ -896,7 +843,8 @@ namespace BagelCode.OSA_Scroll
             for (int i = 0; i < _VisibleItems.Count; i++)
             {
                 LobbySlotsItem visibleItem = _VisibleItems[i];
-                switch (_Params.data[visibleItem.ItemIndex].itemType)
+                var model = _Params.data[visibleItem.ItemIndex];
+                switch (model.itemType)
                 {
                     case LobbySlotsItemType.FavoriteDouble:
                         count += 2;
@@ -905,7 +853,8 @@ namespace BagelCode.OSA_Scroll
                         count++;
                         break;
                     case LobbySlotsItemType.SlotDouble:
-                        count += 2;
+                        var doubleModel = model as LobbySlotsModel_SlotDouble;
+                        count = doubleModel.gameInfos[1] == null ? count + 1 : count + 2;
                         break;
                     default:
                         break;

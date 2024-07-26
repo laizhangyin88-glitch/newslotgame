@@ -802,7 +802,7 @@ public enum GameFilter
     SLOT_MACHINE = 1,
     VIDEO_POKER = 2,
     KENO = 3,
-    FISH = 4,
+    FAV = 4,
     BINGO = 5,
 }
 
