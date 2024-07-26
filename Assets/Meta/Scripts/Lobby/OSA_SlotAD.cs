@@ -78,4 +78,6 @@ public class ADSData
     public string imageUrl;
     public string linkUrl;
     public float showTime;
+    public int sort;
+    public int status;
 }

@@ -27,7 +27,7 @@ namespace BagelCode.OSA_Scroll
         private int curSelectIndex = 0;
         private int maxIndex = 0;
         private bool isMovingPage;
-
+        private List<ADSData> adsDatas;
 
         private GameFilter curShowGameType = GameFilter.UNKNOWN;
 
@@ -205,6 +205,7 @@ namespace BagelCode.OSA_Scroll
             var slotInfoDict = new Dictionary<int, Blackboard>();
             var gameInfoDict = GetGameInfoDict();
             var bonusIAMBBDict = BlackboardQueryUtils.GetBonusIAMDict();
+            adsDatas = MainBlackboard.Get().GetValue<List<ADSData>>("slotADurls");
             ClearVisibleItems();
             CreateSortSlotList(newModels, slotInfoDict, gameInfoDict, bonusIAMBBDict);
             ResetCurSelect();
@@ -480,7 +481,7 @@ namespace BagelCode.OSA_Scroll
                     continue;
                 tempSlotInfoList.Add(slotInfoList[i]);
             }
-            if (addAD)
+            if (addAD && adsDatas.Count > 0)
             {
                 var ADModel = new LobbySlotsModel_AD
                 {
