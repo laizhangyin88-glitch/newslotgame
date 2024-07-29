@@ -1045,7 +1045,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
     public bool isChangeCreditAnimation = false;
     public void SetMyCredit(long credit = -1)
     {
-        int updateCreditState = (int)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "updateCreditState").value ?? 1);
+        int updateCreditState = (int)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "updateCreditState")?.value ?? 1);
 
         if (updateCreditState != 1)return;
 
