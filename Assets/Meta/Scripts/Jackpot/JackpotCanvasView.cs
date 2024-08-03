@@ -67,6 +67,7 @@ public class JackpotCanvasView : MonoBehaviour
     {
         if (!canUpdate) return;
         List<Jackpot> jackpots = JsonConvert.DeserializeObject<List<Jackpot>>(data.value.ToString());
+        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "LobbyJackpot", jackpots);
         UpdateJackpot(jackpots);
     }
 
