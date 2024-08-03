@@ -1,3 +1,5 @@
+using BagelCode.ClientModels;
+using BagelCode;
 using Newtonsoft.Json;
 using ParadoxNotion;
 using SlotMaker;
@@ -15,6 +17,7 @@ public class LobbyTimeBonus : MonoBehaviour
     private int index;
     private Coroutine changeCoroutine;
     private float timers = 5;
+    private ContextButton contextButton => GetComponent<ContextButton>();
 
     void Start()
     {
@@ -22,6 +25,10 @@ public class LobbyTimeBonus : MonoBehaviour
         icon = transform.Find("Anchors/Icon").GetComponent<Image>();
         MessageDispatcher.Register("UpdateJackpot", OnUpdateJackpot);
         InitJackpot();
+
+        contextButton.UpdateContext();
+
+        contextButton.AddListenerOnClick((context) => EventSender.SendGlobalEvent("OnEnterNewJackpotDialog"));
     }
 
     private void InitJackpot()
