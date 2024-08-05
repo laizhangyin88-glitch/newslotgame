@@ -66,10 +66,19 @@ public class LobbyTimeBonus : MonoBehaviour
         {
             str += num / 1000;
             str += ",";
+            num %= 1000;
+            for (int i = 0; i < 3 - num.ToString().Length; i++)
+                str += '0';
+            str += num;
+            str += ".";
+            str += temp;
         }
-        str += num % 1000;
-        str += ".";
-        str += temp;
+        else
+        {
+            str += num % 1000;
+            str += ".";
+            str += temp;
+        }
         return str;
     }
 

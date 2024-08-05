@@ -56,10 +56,10 @@ public class JackpotView : MonoBehaviour
             return;
         }
         int tempValue = value - jackpot;
-        jackpot = value;
-        int single = tempValue % 10;
-        int round = single <= jackpotNums[0].curItemIndex ? tempValue / 10 - 1 : tempValue / 10;
+        int single = value % 10;
+        int round = single == jackpot % 10 ? tempValue / 10 - 1 : tempValue / 10;
         jackpotNums[0].Simulation(single, aniSpeed * (round + 1), round);
+        jackpot = value;
     }
 
     void OnJackpotNumChange(EventData data)
