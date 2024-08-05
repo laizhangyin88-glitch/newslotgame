@@ -203,24 +203,30 @@ public class JackpotCanvasView : MonoBehaviour
         content.text = "";
     }
 
-    private string GetNumStr(int value)
+    private string GetNumStr(int num)
     {
-        string str;
-        int tempValue = value % 100;
-        string point;
-        if (tempValue < 10)
-            point = "0" + tempValue;
-        else
-            point = tempValue.ToString();
-        value /= 100;
-        if (value > 1000)
+        string str = "$";
+        string temp = (num % 10).ToString();
+        num /= 10;
+        temp = (num % 10).ToString() + temp;
+        num /= 10;
+        if (num > 999)
         {
-            str = $"{(value / 1000)},";
-            str += value % 1000;
+            str += num / 1000;
+            str += ",";
+            num %= 1000;
+            for (int i = 0; i < 3 - num.ToString().Length; i++)
+                str += '0';
+            str += num;
+            str += ".";
+            str += temp;
         }
         else
-            str = value.ToString();
-        str += $".{point}";
+        {
+            str += num % 1000;
+            str += ".";
+            str += temp;
+        }
         return str;
     }
 
