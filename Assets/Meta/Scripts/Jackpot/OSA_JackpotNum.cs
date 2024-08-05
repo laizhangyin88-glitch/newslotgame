@@ -35,6 +35,7 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
     public string flag;
 
     public Coroutine scrollCoroutine = null;
+    public int sendCount;
 
     protected override void Start()
     {
@@ -82,6 +83,7 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
 
         float targetHeight = 0.0f;
         JackpotNumItemViewsHolder currentItem = GetCurrentItem();
+        sendCount = currentItem.ItemIndex > targetIndex ? loopCount + 1 : loopCount;
         targetHeight += GetTargetDistance(currentItem, targetIndex);
         targetHeight += loopCount * totalHeight;
         float timeScaleResult = GetCurveTimeScaleResult(animationTime);
@@ -103,7 +105,10 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
                 preItemIndex = lastItemIndex;
                 lastItemIndex = currentItem.ItemIndex;
                 if (lastItemIndex < preItemIndex && preItemIndex != 0)
+                {
                     MessageDispatcher.Dispatch("JackpotNumChange", new EventData<int>(flag, numIndex));
+                    sendCount--;
+                }
             }
             if (spinDuration == false && deltaTime * 2.0f > animationTime)
             {
@@ -126,6 +131,10 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         {
             StopCoroutine(scrollCoroutine);
             StopMovement();
+            JackpotNumItemViewsHolder currentItem = GetCurrentItem();
+            if (currentItem.ItemIndex == 0 && sendCount > 0)
+                MessageDispatcher.Dispatch("JackpotNumChange", new EventData<int>(flag, numIndex));
+            sendCount = 0;
             scrollCoroutine = null;
             return true;
         }
