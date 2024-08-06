@@ -254,6 +254,13 @@ namespace SlotMaker
             }
         }
 
+        /// <summary>
+        /// 通过<paramref name="name"/>变量全路径查找黑板对象，并通过ref参数返回变量名
+        /// </summary>
+        /// <param name="bb">黑板接口对象</param>
+        /// <param name="name">变量全路径，"/login"表示从<paramref name="MainBlackboard"/>全局黑板开始查找,"./login"表示从<paramref name="ContentBlackboard"/>开始查找,"login"表示从传入的<paramref name="bb"/>黑板对象开始查找</param>
+        /// <param name="variableName"></param>
+        /// <returns></returns>
         public static IBlackboard FindBlackboard(IBlackboard bb, string name, ref string variableName)
         {
             variableName = null;
@@ -350,6 +357,13 @@ namespace SlotMaker
             return bb.GetVariable(variableName, type);
         }
 
+        /// <summary>
+        /// 查找变量
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="bb">黑板接口对象</param>
+        /// <param name="name">变量全路径，"/login"表示从<paramref name="MainBlackboard"/>全局黑板开始查找,"./login"表示从<paramref name="ContentBlackboard"/>开始查找,"login"表示从传入的<paramref name="bb"/>黑板对象开始查找</param>
+        /// <returns></returns>
         public static Variable<T> FindVariable<T>(IBlackboard bb, string name)
         {
             string variableName = null;
