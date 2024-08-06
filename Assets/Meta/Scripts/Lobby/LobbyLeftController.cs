@@ -30,7 +30,7 @@ public class LobbyLeftController : MonoBehaviour
             transform, hidePos, originalPos, 0.5f, TweenUtils.VectorTweenLinear, onComplete: AniFinish);
 
 
-        animator.SetInteger("show", value ? 0 : 1);
+        //animator.SetInteger("show", value ? 0 : 1);
     }
 
     public void AniFinish()
