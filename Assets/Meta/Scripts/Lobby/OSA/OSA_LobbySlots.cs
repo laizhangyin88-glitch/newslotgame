@@ -517,7 +517,7 @@ namespace BagelCode.OSA_Scroll
             {
                 gameId = tempSlotInfoList[i].GetValue<int>("gameId");
                 var tempGameInfo = gameInfoDict[gameId];
-                bool isLong = tempGameInfo.GetValue<int>("isLong") == 1;
+                bool isLong = curShowGameType == GameFilter.FAV ? true : tempGameInfo.GetValue<int>("isLong") == 1;
                 if (isLong)
                 {
                     var model = new LobbySlotsModel_SlotSingle

@@ -17,6 +17,9 @@ using Action = System.Action;
 using Sirenix.OdinInspector;
 using EventData = ParadoxNotion.EventData;
 using Newtonsoft.Json;
+using Spine;
+using static UnityEngine.PlayerLoop.PreUpdate;
+
 public class RequestType {
 
     public RequestType(object buffer, string rpcName, long time, bool force =false)
@@ -1046,6 +1049,36 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 break;
             case RPCName.gameBonusResult:
                 MessageDispatcher.Dispatch("UpdateJackpot", new EventData<string>("UpdateJackpot", data["data"]["bonus_list"].ToString()));
+                break;
+            case RPCName.winGameBonus:
+                if (!data.HasKey("win_result_list")) return;
+                bool isWin = false;
+                var winResultList = JsonConvert.DeserializeObject<List<WinResult>>(data["win_result_list"].ToString());
+                string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
+                for (int i = 0; i < winResultList.Count; i++)
+                {
+                    var winResult = winResultList[i];
+                    if (winResult.user_id == userId)
+                    {
+                        isWin = true;
+                        
+                        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "winLobbyJackpotResult", winResult);
+                        break;
+                    }
+                }
+                if (isWin)
+                {
+                    if (BlackboardQueryUtils.IsSpin())
+                        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isWinLobbyJackpot", isWin);
+                    else
+                    {
+                        var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>(MetaStringDefine.LOBBY_BUNDLE_NAME, "Popup Win Lobby Jackpot Scene").GetSceneInfo();
+                        var parent = GameObject.Find("Popup Manager/Area");
+                        var sceneObj = SceneManager.LoadScene(parent.transform, sceneInfo);
+                        PopupManager.Instance.Open(sceneObj);
+                        sceneObj.SetActive(true);
+                    }
+                }
                 break;
             case RPCName.ping:
             case RPCName.confirmAddCoinOrder:
