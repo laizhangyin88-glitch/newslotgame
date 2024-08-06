@@ -1301,8 +1301,17 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                     break;
 
                 case 2:
-
-                    testMsg = "\t\tK3K\r\n" +
+                    string printTitle = "\t\tK3K\r\n";
+#if K3K_TEST
+                    printTitle = "\t\tK3K\r\n";
+#elif K3K_REALSE
+                    printTitle = "\t\tK3K\r\n";
+#elif MARS_FORTUNE_TEST
+                    printTitle = "\t\tMarsFortune\r\n";
+#elif MARS_FORTUNE_REALSE
+                    printTitle = "\t\tMarsFortune\r\n";
+#endif
+                    testMsg = printTitle +
                         $"${printMoney}\r\n" +
                         $"Order number: \r\n" +
                         $"{printOrderId}\r\n" +
