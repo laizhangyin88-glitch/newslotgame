@@ -962,37 +962,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     MainBlackboard.Get().SetValue("collectList", collectList);
                 }
 
-                if (data.HasKey("agent_notice"))
-                {
-                    var noticeNode = data["agent_notice"];
-                    if (noticeNode.IsArray)
-                    {
-                        List<NoticeData> noticeList = new List<NoticeData>();
-
-                        foreach (var item in noticeNode)
-                        {
-                            var node = item.Value;
-                            NoticeData noticeData = new NoticeData()
-                            {
-                                id = node["id"],
-                                agent_id = node["agent_id"],
-                                title = node["title"],
-                                content = node["content"],
-                                start_time = node["start_time"],
-                                end_time = node["end_time"],
-                                status = node["status"],
-                                is_system = node["is_system"],
-                                created_at = node["created_at"],
-                                updated_at = node["updated_at"],
-                                deleted_at = node["deleted_at"]
-                            };
-
-                            noticeList.Add(noticeData);
-                        }
-
-                        MainBlackboard.Get().SetValue("notices", noticeList);
-                    }
-                }
 
                 break;
             case RPCName.enterGame://进入子游戏

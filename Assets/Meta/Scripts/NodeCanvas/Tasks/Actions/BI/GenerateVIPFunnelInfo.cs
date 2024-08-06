@@ -6,7 +6,6 @@ namespace BagelCode.Tasks.Actions.BI
 {
 
     [Category("★ BagelCode/BI")]
-    [Description("存储到PlayerPrefs\nVIP_CLUB_FUNNEL_TYPE <- type(int)\nVIP_CLUB_FUNNEL_CONTEXT_ID <- new GUID")]
     public class GenerateVIPFunnelInfo : ActionTask<Blackboard>
     {
         public BBParameter<BI_client_vip_club_funnel.BIVIPClubFunnelType> type;

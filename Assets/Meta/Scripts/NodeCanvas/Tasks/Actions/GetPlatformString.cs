@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
@@ -9,7 +9,6 @@ namespace BagelCode.Tasks.Actions
 {
 
 [Category("★ BagelCode/Utils")]
-[Description("获取全大写的当前平台名")]
 public class GetPlatformString : ActionTask
 {
 	public BBParameter<string> saveAs;
