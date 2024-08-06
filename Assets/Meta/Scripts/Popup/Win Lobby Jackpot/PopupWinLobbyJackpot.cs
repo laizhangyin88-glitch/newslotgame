@@ -23,11 +23,9 @@ public class PopupWinLobbyJackpot : MonoBehaviour
 
     private IEnumerator DelayClose()
     {
-        Debug.LogError("CallDelay!");
         yield return new WaitForSeconds(5);
         PopupManager.Instance.Close(gameObject);
         Destroy(gameObject);
-        Debug.LogError("CallClose");
     }
 
     private void ShowWinTips(WinResult winResult)
