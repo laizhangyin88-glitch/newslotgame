@@ -40,7 +40,7 @@ namespace BagelCode
 
         public void ChangeOrientation(ScreenOrientation targetOrientation)
         {
-            UpdateScaleFactor();
+            //UpdateScaleFactor();
         }
 
         private void UpdateScaleFactor()
@@ -49,7 +49,7 @@ namespace BagelCode
 
             if(OrientationUtils.Instance.contentOrientation == ScreenOrientation.LandscapeLeft)
             {
-                transform.localScale = Vector3.one;
+                //transform.localScale = Vector3.one;
             }
             else
             {
