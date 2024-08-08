@@ -17,7 +17,7 @@ public class UIProfileController : MonoBehaviour
     {
         _btnCom.onClick.AddListener(() =>
         {
-            SlotMaker.Tasks.Actions.OpenLobbyPopup.LoadAndOpenLobbyPupup("lobby", "Popup_Profile", true, this.gameObject);
+            SlotMaker.Tasks.Actions.OpenLobbyPopup.LoadAndOpenLobbyPopup("lobby", "Popup_Profile", true, this.gameObject);
         });
     }
 
