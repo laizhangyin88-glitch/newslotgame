@@ -849,6 +849,12 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 if (data.HasKey("bonus_result"))
                     MessageDispatcher.Dispatch("SetJackpot", new EventData<string>("SetJackpot", data["bonus_result"].ToString()));
 
+                if (data.HasKey("level"))
+                    MainBlackboard.Get().SetValue("level", data["level"].AsInt);
+
+                if(data.HasKey("profile_url"))
+                    MainBlackboard.Get().SetValue("profile_url", data["profile_url"].Value);
+
                 if (this._state == NetNodeState.Checking) //断线重连
                 {
 

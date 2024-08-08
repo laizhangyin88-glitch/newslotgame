@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using SlotMaker;
 
 public class UIProfileController : MonoBehaviour
 {
@@ -19,12 +20,9 @@ public class UIProfileController : MonoBehaviour
         {
             SlotMaker.Tasks.Actions.OpenLobbyPopup.LoadAndOpenLobbyPopup("lobby", "Popup_Profile", true, this.gameObject);
         });
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-
+        _idCom.text = NetworkData_Login.Instance.NetData_UserId;
+        _levelCom.text = NetworkData_Login.Instance.UserLevel.ToString();
     }
 
 
