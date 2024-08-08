@@ -14,15 +14,16 @@ public class Popup_Announcement : MonoBehaviour
 
 
     public List<NoticeData> NoticeDatas => MainBlackboard.Get().GetValue<List<NoticeData>>("notices");
-    public List<NoticeData> NoticeDatasIsSystem => NoticeDatas.FindAll((item) => item.status != 0 && item.is_system != 0);
-    public List<NoticeData> NoticeDatasNotSystem => NoticeDatas.FindAll((item) => item.status != 0 && item.is_system == 0);
+    public List<NoticeData> NoticeDatasIsSystem => NoticeDatas?.FindAll((item) => item.status != 0 && item.is_system != 0);
+    public List<NoticeData> NoticeDatasNotSystem => NoticeDatas?.FindAll((item) => item.status != 0 && item.is_system == 0);
 
     // Start is called before the first frame update
     void Start()
     {
         _textCom1.text = GenerateNoticeTextByDataList(NoticeDatasNotSystem);
         _textCom2.text = GenerateNoticeTextByDataList(NoticeDatasIsSystem);
-        _closeBtnCom.onClick.AddListener(()=> {
+        _closeBtnCom.onClick.AddListener(() =>
+        {
             PopupManager.Instance.Close();
             Destroy(this.gameObject);
         });
