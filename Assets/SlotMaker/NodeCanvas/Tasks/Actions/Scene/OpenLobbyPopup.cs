@@ -28,7 +28,18 @@ namespace SlotMaker.Tasks.Actions
 
         protected override void OnExecute()
         {
-            var prefab = AssetBundleManager.LoadAsset<GameObject>(GetBundleName(), assetName.value);
+            GameObject go = LoadAndOpenLobbyPopup(bundleName.value, assetName.value, isGlobalPopup, agent.gameObject, combineApplicationType.value);
+
+            if (!saveAs.isNone)
+                saveAs.value = go;
+
+            EndAction();
+        }
+
+        public static GameObject LoadAndOpenLobbyPopup(string abName, string assetName, bool isGlobalPopup, GameObject agent, bool isCombineApplicationType = true)
+        {
+            string abFullName = isCombineApplicationType ? ApplicationSettings.MakeApplicationBundleName(abName) : abName;
+            var prefab = AssetBundleManager.LoadAsset<GameObject>(abFullName, assetName);
             GameObject go = GameObject.Instantiate(prefab) as GameObject;
 
             if (isGlobalPopup)
@@ -41,13 +52,10 @@ namespace SlotMaker.Tasks.Actions
             if (bb != null)
             {
                 var variable = BlackboardUtils.GetOrCreateVariable<GameObject>(bb, "caller");
-                variable.value = agent.gameObject;
+                variable.value = agent;
             }
 
-            if (!saveAs.isNone)
-                saveAs.value = go;
-
-            EndAction();
+            return go;
         }
 
         protected string GetBundleName()
