@@ -850,10 +850,10 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     MessageDispatcher.Dispatch("SetJackpot", new EventData<string>("SetJackpot", data["bonus_result"].ToString()));
 
                 if (data.HasKey("level"))
-                    MainBlackboard.Get().SetValue("level", data["level"].AsInt);
+                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserLevel, data["level"].AsInt);
 
-                if(data.HasKey("profile_url"))
-                    MainBlackboard.Get().SetValue("profile_url", data["profile_url"].Value);
+                if (data.HasKey("profile_url"))
+                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserProfileUrl, data["profile_url"].Value);
 
                 if (this._state == NetNodeState.Checking) //断线重连
                 {

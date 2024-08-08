@@ -22,7 +22,7 @@ public class Popup_Profile : MonoBehaviour
             Destroy(this.gameObject);
         });
 
-        _idTextCom.text = NetworkData_Login.Instance.NetData_UserId;
-        _nameInputField.Init(NetworkData_Login.Instance.NetData_UserName);
+        _idTextCom.text = NetData_Login.Instance.NetData_UserId;
+        _nameInputField.Init(NetData_Login.Instance.NetData_UserName);
     }
 }

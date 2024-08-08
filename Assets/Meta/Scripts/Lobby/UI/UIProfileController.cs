@@ -21,8 +21,8 @@ public class UIProfileController : MonoBehaviour
             SlotMaker.Tasks.Actions.OpenLobbyPopup.LoadAndOpenLobbyPopup("lobby", "Popup_Profile", true, this.gameObject);
         });
 
-        _idCom.text = NetworkData_Login.Instance.NetData_UserId;
-        _levelCom.text = NetworkData_Login.Instance.UserLevel.ToString();
+        _idCom.text = NetData_Login.Instance.NetData_UserId;
+        _levelCom.text = NetData_Login.Instance.UserLevel.ToString();
     }
 
 
