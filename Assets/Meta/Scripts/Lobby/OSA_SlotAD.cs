@@ -3,7 +3,6 @@ using Com.ForbiddenByte.OSA.Core;
 using Com.ForbiddenByte.OSA.CustomParams;
 using SlotMaker;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;

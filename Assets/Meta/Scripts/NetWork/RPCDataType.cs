@@ -94,6 +94,9 @@ public class RPCName
 
     /// <summary> 押注彩金返回 </summary>
     public const string gameBonusResult = "game_bonus_result";
+
+    /// <summary> 彩金排行返回 </summary>
+    public const string queryJackpotRanking = "query_jackpot_ranking";
 }
 
 namespace RPCBase
