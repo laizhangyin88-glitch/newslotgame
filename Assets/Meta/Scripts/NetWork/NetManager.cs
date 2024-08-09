@@ -830,10 +830,14 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         // 实时刷新金钱
         if (err == 0 && data.HasKey("balance"))
         {
-            globalStore.newCredit = data["balance"].AsLong;
+            long credit = data["balance"].AsLong;
+            globalStore.newCredit = credit;
+            NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserCredit, credit);
         }else if (err == 0 && data.HasKey("after_credit"))
         {
-            globalStore.newCredit = data["after_credit"].AsLong;
+            long credit = data["after_credit"].AsLong;
+            globalStore.newCredit = credit;
+            NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserCredit, credit);
         }
 
         //添加检测code 和msg 的逻辑
@@ -848,6 +852,12 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 //彩金
                 if (data.HasKey("bonus_result"))
                     MessageDispatcher.Dispatch("SetJackpot", new EventData<string>("SetJackpot", data["bonus_result"].ToString()));
+
+                if (data.HasKey("level"))
+                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserLevel, data["level"].AsInt);
+
+                if (data.HasKey("profile_url"))
+                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserProfileUrl, data["profile_url"].Value);
 
                 if (this._state == NetNodeState.Checking) //断线重连
                 {
