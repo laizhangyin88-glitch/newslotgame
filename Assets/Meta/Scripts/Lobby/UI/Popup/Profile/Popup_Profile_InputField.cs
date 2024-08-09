@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 [RequireComponent(typeof(TMP_InputField))]
 public class Popup_Profile_InputField : MonoBehaviour
@@ -10,8 +11,13 @@ public class Popup_Profile_InputField : MonoBehaviour
     [SerializeField] private TMP_InputField _inputFieldCom;
     [SerializeField] private Button _editorBtnCom;
 
-    public void Init(string name)
+    public event Action<string> OnInputFieldDeselect;
+
+    public void UpdateNameDisplay(string name)
     {
+        if (_inputFieldCom.text == name)
+            return;
+
         _inputFieldCom.text = name;
     }
 
@@ -23,9 +29,8 @@ public class Popup_Profile_InputField : MonoBehaviour
 
     protected virtual void OnInputFieldDeselectHandle(string str)
     {
-        //判断名称格式否是符合
-        //发送更名协议
-        //监听返回，弹出更名成功显示
+        OnInputFieldDeselect?.Invoke(str);
+
         _inputFieldCom.readOnly = true;
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using SlotMaker;
 
 public class UIProfileController : MonoBehaviour
 {
@@ -19,14 +20,17 @@ public class UIProfileController : MonoBehaviour
         {
             SlotMaker.Tasks.Actions.OpenLobbyPopup.LoadAndOpenLobbyPopup("lobby", "Popup_Profile", true, this.gameObject);
         });
+
+        _idCom.text = NetData_Login.Instance.NetData_UserId;
+
+        _levelCom.text = NetData_Login.Instance.UserLevel.ToString();
+        NetData_Login.Instance.AddNetDataChangeEvent(NetData_Login.Path_UserLevel, OnUserLevelChangeHandle);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnUserLevelChangeHandle(string k, object v)
     {
-
+        _levelCom.text = v.ToString();
     }
-
 
 
     public Sprite GetProfile(string name)
