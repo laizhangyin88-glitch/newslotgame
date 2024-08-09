@@ -3,6 +3,7 @@ using Com.ForbiddenByte.OSA.CustomParams;
 using ParadoxNotion;
 using SimpleJSON;
 using SlotMaker;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -54,7 +55,14 @@ public class OSA_JackpotRecord : OSA<BaseParamsWithPrefab, JackpotRecordItemView
             jackpotRecord.jackpot_id = recordType == 0 ? (int)recordInfoJson[i]["jackpot_id"] : recordType;
             jackpotRecordInfos.Add(jackpotRecord);
         }
-        ResetItems(recordInfoJson.Count);
+        StartCoroutine(DelayReset(recordInfoJson.Count));
+        
+    }
+
+    private IEnumerator DelayReset(int count)
+    {
+        yield return new WaitForSeconds(0.15f);
+        ResetItems(count);
     }
 
     protected override JackpotRecordItemViewsHolder CreateViewsHolder(int itemIndex)

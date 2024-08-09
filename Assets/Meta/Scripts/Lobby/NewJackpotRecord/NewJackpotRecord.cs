@@ -58,7 +58,6 @@ public class NewJackpotRecord : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"Get ex record {bbJackpotRecordStr}");
             var eventData = MainBlackboard.Get().GetValue<EventData>(bbJackpotRecordStr);
             MessageDispatcher.Dispatch(RPCName.queryJackpotRanking, eventData);
         }
