@@ -829,12 +829,10 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         {
             long credit = data["balance"].AsLong;
             globalStore.newCredit = credit;
-            NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserCredit, credit);
         }else if (err == 0 && data.HasKey("after_credit"))
         {
             long credit = data["after_credit"].AsLong;
             globalStore.newCredit = credit;
-            NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserCredit, credit);
         }
 
         //添加检测code 和msg 的逻辑
@@ -1004,6 +1002,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     }
                 }
 
+                if (data.HasKey("profile_pictures"))
+                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_ProfilePictures, data["profile_pictures"]);
+
                 break;
             case RPCName.enterGame://进入子游戏
 
@@ -1136,6 +1137,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 //Debug.LogError($"Refresh {BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value}");
                 MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
                 //EventSender.SendGlobalEvent("OnCreditEvent", "UpdateNaviCredit");
+                NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserCredit, credit);
             }
         }
     }
