@@ -23,7 +23,7 @@ namespace SlotMaker
         /// </summary>
         public string NetData_UserName => GetNetDataValue<string>(Path_UserName);
         /// <summary>
-        /// 用户资产
+        /// 用户资产(可靠的，实时更新的用户资产)
         /// </summary>
         public long NetData_UserCredit => GetNetDataValue<long>(Path_UserCredit);
 

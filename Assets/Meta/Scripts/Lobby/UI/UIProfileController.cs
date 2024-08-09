@@ -22,9 +22,15 @@ public class UIProfileController : MonoBehaviour
         });
 
         _idCom.text = NetData_Login.Instance.NetData_UserId;
+
         _levelCom.text = NetData_Login.Instance.UserLevel.ToString();
+        NetData_Login.Instance.AddNetDataChangeEvent(NetData_Login.Path_UserLevel, OnUserLevelChangeHandle);
     }
 
+    public void OnUserLevelChangeHandle(string k, object v)
+    {
+        _levelCom.text = v.ToString();
+    }
 
 
     public Sprite GetProfile(string name)

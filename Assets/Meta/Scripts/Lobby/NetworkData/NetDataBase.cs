@@ -11,12 +11,15 @@ namespace SlotMaker
         /// <summary>
         /// 添加网络数据改变事件
         /// </summary>
+        /// <remarks>
+        /// 在数据值有真实改变的时候才会触发事件，而不是set的时候
+        /// </remarks>
         /// <typeparam name="T"></typeparam>
         /// <param name="path"></param>
         /// <param name="handle"></param>
-        public void AddNetDataChangeEvent<T>(string path, Action<string, object> handle)
+        public void AddNetDataChangeEvent(string path, Action<string, object> handle)
         {
-            Variable<T> variable = BlackboardUtils.FindVariable<T>(path);
+            Variable variable = BlackboardUtils.FindVariable(null, path);
             if (variable == null)
             {
 #if UNITY_EDITOR
@@ -34,9 +37,9 @@ namespace SlotMaker
         /// <typeparam name="T"></typeparam>
         /// <param name="path"></param>
         /// <param name="handle"></param>
-        public void RemoveNetDataChangeEvent<T>(string path, Action<string, object> handle)
+        public void RemoveNetDataChangeEvent(string path, Action<string, object> handle)
         {
-            Variable<T> variable = BlackboardUtils.FindVariable<T>(path);
+            Variable variable = BlackboardUtils.FindVariable(null, path);
             if (variable == null)
             {
 #if UNITY_EDITOR
@@ -73,6 +76,7 @@ namespace SlotMaker
         /// </summary>
         /// <remarks>
         /// 会触发网络数据改变事件
+        /// 在数据值有真实改变的时候才会触发事件，而不是set的时候
         /// </remarks>
         /// <typeparam name="T"></typeparam>
         /// <param name="path"></param>
