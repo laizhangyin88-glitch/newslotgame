@@ -97,6 +97,9 @@ public class RPCName
 
     /// <summary> 更改名称 </summary>
     public const string resetNickName = "reset_nick_name";
+
+    /// <summary> 彩金排行返回 </summary>
+    public const string queryJackpotRanking = "query_jackpot_ranking";
 }
 
 namespace RPCBase

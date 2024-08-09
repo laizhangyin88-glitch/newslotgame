@@ -78,12 +78,12 @@ public class NewJackpotDialog : MonoBehaviour
     private void OnBackBtnClick(ContextElement context)
     {
 
-        EventSender.SendGlobalEvent("OnLeaveNewJackpotDialog");
+        EventSender.SendGlobalEvent(MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_LEAVE_JACKPOT_DIALOG);
         Destroy(gameObject);
     }
 
     private void OnRecordBtnClick(ContextElement context)
     {
-
+        EventSender.SendGlobalEvent(MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_JACKPOT_RECORD);
     }
 }
