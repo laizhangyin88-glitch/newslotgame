@@ -1137,7 +1137,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 //Debug.LogError($"Refresh {BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value}");
                 MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
                 //EventSender.SendGlobalEvent("OnCreditEvent", "UpdateNaviCredit");
-                NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserCredit, credit);
+                NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserCredit, newCredit);
             }
         }
     }
