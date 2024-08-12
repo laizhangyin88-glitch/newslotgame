@@ -1,5 +1,6 @@
 using BagelCode;
 using com.adjust.sdk;
+using ParadoxNotion;
 using SlotMaker;
 using System;
 using System.Collections;
@@ -58,11 +59,6 @@ public class AccountLoginViewNew : MonoBehaviour
         }
     }
 
-
-
-
-
-
     private void Awake()
     {
         txtClientVersion = transform.Find("Anchor/Login/clientVersion").GetComponent<Text>();
@@ -110,6 +106,7 @@ public class AccountLoginViewNew : MonoBehaviour
         remember = transform.Find("Anchor/Login/RememToggle").GetComponent<Toggle>();
         remember.onValueChanged.AddListener((bool value) =>
         {
+            GSManager.Instance?.GetHandler("UI_Button_Normal").Play();
             isRememberAccount = value;
         });
 
@@ -234,7 +231,7 @@ public class AccountLoginViewNew : MonoBehaviour
         //http://8.138.117.128:9981/get_config?key=myApplication.haicao_logic_url
 
         string finalStr = TestManager.Instance.getAutoUrl();
-        if (finalStr == "") {
+        if (string.IsNullOrEmpty(finalStr)) {
             finalStr = ApplicationSettings.Instance.autoUrl;
         } 
 
@@ -296,8 +293,6 @@ public class AccountLoginViewNew : MonoBehaviour
         }
     }
 
-
-
     public void OnLoginClick()
     {
         if (string.IsNullOrEmpty(accountInput.text))//|| string.IsNullOrEmpty(passwordInput.text))
@@ -348,10 +343,9 @@ public class AccountLoginViewNew : MonoBehaviour
         else if (_isAutoSever || string.IsNullOrEmpty(_serverAddress)) //自动获取地址
         {
             string autoUrl = TestManager.Instance.getAutoUrl();
-            if (autoUrl == "")
-            {
+            if (string.IsNullOrEmpty(autoUrl))
                 autoUrl = ApplicationSettings.Instance.autoUrl;
-            }
+
             Debug.LogWarning(autoUrl);
 
             StartCoroutine(WWW_Get02(
@@ -392,9 +386,21 @@ public class AccountLoginViewNew : MonoBehaviour
         }
     }
 
-
-
-
+    public void OnForgotClick()
+    {
+        account = accountInput.text;
+        Debug.LogError("Forgot Click");
+        if (string.IsNullOrEmpty(account))
+        {
+            StartCoroutine(ShowTips("Account can not be empty!"));
+        }
+        else
+        {
+            MainBlackboard.Get().SetValue("account", account);
+            EventSender.SendGlobalEvent(MetaEventDefine.ON_META_UI_EVENT,
+                new EventData(MetaEventDefine.ON_ENTER_RESET_PASSWORD));
+        }
+    }
 
     void HandleLoginUserResponse(string response)
     {
@@ -450,7 +456,6 @@ public class AccountLoginViewNew : MonoBehaviour
             StartCoroutine(ShowTips($"{accountLoginRespone.msg}"));
         }
     }
-
 
     void res_login(ParadoxNotion.EventData eventData)
     {
