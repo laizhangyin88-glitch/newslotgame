@@ -23,7 +23,7 @@ public class PopupWinLobbyJackpot : MonoBehaviour
 
     private IEnumerator DelayClose()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
         PopupManager.Instance.Close(gameObject);
         Destroy(gameObject);
     }

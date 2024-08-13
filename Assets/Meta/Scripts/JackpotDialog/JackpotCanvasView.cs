@@ -98,6 +98,8 @@ public class JackpotCanvasView : MonoBehaviour
 
     private void ShowWinJackpot(WinResult winResult)
     {
+        var mgr = GSManager.Instance;
+        if (mgr != null) mgr.GetHandler("SFX_Coin_Drop").Play();
         var jackpotView = jackpotViews[winResult.bonus_id - 1];
         jackpotView.jackpot = jackpotView.jackpot - winResult.single_reward > 0 ? jackpotView.jackpot - winResult.single_reward : 0;
         jackpotView.SetJackpot(jackpotView.jackpot);
@@ -144,6 +146,11 @@ public class JackpotCanvasView : MonoBehaviour
 
     private void DispatchWinJackpot(WinResult winResult)
     {
+        if (ApplicationSettings.Instance.isMachine)
+        {
+            var mgr = GSManager.Instance;
+            if (mgr != null) mgr.GetHandler("SFX_Coin_Drop").Play();
+        }
         var jackpotView = jackpotViews[winResult.bonus_id - 1];
         jackpotView.jackpot = jackpotView.jackpot - winResult.single_reward > 0 ? jackpotView.jackpot - winResult.single_reward : 0;
         jackpotView.SetJackpot(jackpotView.jackpot);
@@ -241,7 +248,7 @@ public class JackpotCanvasView : MonoBehaviour
     {
         canUpdate = false;
         effect.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
         effect.SetActive(false);
         HideWinTips();
         canUpdate = true;
