@@ -572,7 +572,7 @@ public class MachineSelectBorder : MonoBehaviour
     private void Awake()
     {
         if (selectBorder == null)
-            selectBorder = transform.FindChild("Selected")?.gameObject;
+            selectBorder = transform.Find("Selected")?.gameObject;
     }
 
     void Start()
