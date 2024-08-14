@@ -97,6 +97,9 @@ public class RPCName
 
     /// <summary> 更改名称 </summary>
     public const string resetNickName = "reset_nick_name";
+
+    /// <summary> 更改头像 </summary>
+    public const string resetUserProfile = "reset_user_profile";
 }
 
 namespace RPCBase
