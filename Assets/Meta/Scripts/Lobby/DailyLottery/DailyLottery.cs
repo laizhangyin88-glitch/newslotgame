@@ -123,7 +123,7 @@ public class DailyLottery : MonoBehaviour
         int index = jsonData["index"];
         int reward = jsonData["reward_credit"];
         balance = jsonData["balance"];
-        targetZ = index * 36f;
+        targetZ = (index + 1) * 36f;
         StartRoll();
     }
 
