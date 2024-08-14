@@ -34,7 +34,7 @@ public class Popup_Profile : MonoBehaviour
         _idTextCom.text = NetData_Login.Instance.NetData_UserId;
 
         _nameInputField.UpdateNameDisplay(NetData_Login.Instance.NetData_UserName);
-        _nameInputField.OnInputFieldDeselect += OnInputFieldDeselectHandle;
+        _nameInputField.OnInputFieldConfirm += OnInputFieldDeselectHandle;
         NetData_Login.Instance.AddNetDataChangeEvent(NetData_Login.Path_UserName, OnUserNameChangeHandle);
 
         _goldTextCom.text = NetData_Login.Instance.NetData_UserCredit.ToString("###,###");
@@ -70,14 +70,13 @@ public class Popup_Profile : MonoBehaviour
     {
         if (string.IsNullOrEmpty(obj))
         {
-            Debug.Log($"<color=red>【--名称格式错误】</color> newName:{obj}");
             _nameInputField.UpdateNameDisplay(NetData_Login.Instance.NetData_UserName);
+            Popup_Tips.OpenTips(this.gameObject, "Name format error");
             return;
         }
             
         if (string.Equals(obj, NetData_Login.Instance.NetData_UserName))
         {
-            Debug.Log($"<color=red>【--名称未改变】</color> newName:{obj}");
             return;
         }
 
@@ -87,13 +86,13 @@ public class Popup_Profile : MonoBehaviour
         },
         (responseData) =>
         {
-            Debug.Log($"<color=red>【--更改名称成功】</color> newName:{obj}");
             NetData_Login.Instance.SetNetDataValue<string>(NetData_Login.Path_UserName, obj);
             Popup_Tips.OpenTips(this.gameObject, "Successful name change");
         },
         (errData) =>
         {
-            Debug.Log($"<color=red>【--更改名称失败】</color> newName:{obj}");
+            _nameInputField.UpdateNameDisplay(NetData_Login.Instance.NetData_UserName);
+            Popup_Tips.OpenTips(this.gameObject, "Name change failure");
         });
     }
 }
