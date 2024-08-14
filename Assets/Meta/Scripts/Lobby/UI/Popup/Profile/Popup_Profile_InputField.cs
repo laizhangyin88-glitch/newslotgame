@@ -4,14 +4,15 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using Dreamteck.Splines.Primitives;
 
 [RequireComponent(typeof(TMP_InputField))]
 public class Popup_Profile_InputField : MonoBehaviour
 {
     [SerializeField] private TMP_InputField _inputFieldCom;
-    [SerializeField] private Button _editorBtnCom;
+    [SerializeField] private Button _confirmBtnCom;
 
-    public event Action<string> OnInputFieldDeselect;
+    public event Action<string> OnInputFieldConfirm;
 
     public void UpdateNameDisplay(string name)
     {
@@ -21,28 +22,35 @@ public class Popup_Profile_InputField : MonoBehaviour
         _inputFieldCom.text = name;
     }
 
+    public void SetConfirmBtnActive(bool active)
+    {
+        _confirmBtnCom.gameObject.SetActive(active);
+    }
+
     protected virtual void OnButtonClickHandle()
     {
-        _inputFieldCom.readOnly = false;
-        _inputFieldCom.Select();
+        OnInputFieldConfirm?.Invoke(_inputFieldCom.text);
+        SetConfirmBtnActive(false);
     }
 
-    protected virtual void OnInputFieldDeselectHandle(string str)
+    protected virtual void OnInputFieldChangeHandle(string str)
     {
-        OnInputFieldDeselect?.Invoke(str);
-
-        _inputFieldCom.readOnly = true;
+        if (_confirmBtnCom.gameObject.activeSelf == false)
+            SetConfirmBtnActive(true);
     }
 
-    private void OnEnable()
-    {
-        _editorBtnCom.onClick.AddListener(OnButtonClickHandle);
-        _inputFieldCom.onDeselect.AddListener(OnInputFieldDeselectHandle);
-    }
+    //protected virtual void OnInputFieldDeselectHandle(string str)
+    //{
+    //    OnInputFieldConfirm?.Invoke(str);
 
-    private void OnDisable()
+    //    _inputFieldCom.readOnly = true;
+    //}
+
+    private void Start()
     {
-        _editorBtnCom.onClick.RemoveListener(OnButtonClickHandle);
-        _inputFieldCom.onDeselect.RemoveListener(OnInputFieldDeselectHandle);
+        _confirmBtnCom.onClick.AddListener(OnButtonClickHandle);
+        SetConfirmBtnActive(false);
+        _inputFieldCom.onValueChanged.AddListener(OnInputFieldChangeHandle);
+        //_inputFieldCom.onDeselect.AddListener(OnInputFieldDeselectHandle);
     }
 }
