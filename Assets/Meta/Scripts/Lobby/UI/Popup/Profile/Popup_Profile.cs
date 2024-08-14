@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using BagelCode;
+using SlotMaker.Tasks.Actions;
 
 public class Popup_Profile : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Popup_Profile : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _goldTextCom;
     [SerializeField] private TextMeshProUGUI _idTextCom;
     [SerializeField] private TextMeshProUGUI _descTextCom;
+    [SerializeField] private WebImageController _iconCom;
+    [SerializeField] private Button _iconBtnCom;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +26,11 @@ public class Popup_Profile : MonoBehaviour
             Destroy(this.gameObject);
         });
 
+        _iconBtnCom.onClick.AddListener(() =>
+        {
+            OpenLobbyPopup.LoadAndOpenLobbyPopup("lobby", "Popup_ProfileChange", false, this.gameObject);
+        });
+
         _idTextCom.text = NetData_Login.Instance.NetData_UserId;
 
         _nameInputField.UpdateNameDisplay(NetData_Login.Instance.NetData_UserName);
@@ -31,16 +39,26 @@ public class Popup_Profile : MonoBehaviour
 
         _goldTextCom.text = NetData_Login.Instance.NetData_UserCredit.ToString("###,###");
         NetData_Login.Instance.AddNetDataChangeEvent(NetData_Login.Path_UserCredit, OnUserCreditChangeHandle);
+
+        _iconCom.SetWebImage(NetData_Login.Instance.UserProfileUrl, false);
+        NetData_Login.Instance.AddNetDataChangeEvent(NetData_Login.Path_UserProfileUrl, OnProfileChangeHandle);
     }
 
     private void OnDestroy()
     {
         NetData_Login.Instance.RemoveNetDataChangeEvent(NetData_Login.Path_UserName, OnUserNameChangeHandle);
+        NetData_Login.Instance.RemoveNetDataChangeEvent(NetData_Login.Path_UserCredit, OnUserCreditChangeHandle);
+        NetData_Login.Instance.RemoveNetDataChangeEvent(NetData_Login.Path_UserProfileUrl, OnProfileChangeHandle);
     }
 
     private void OnUserNameChangeHandle(string k, object v)
     {
         _nameInputField.UpdateNameDisplay(v.ToString());
+    }
+
+    private void OnProfileChangeHandle(string k, object v)
+    {
+        _iconCom.SetWebImage(v.ToString().Trim('"'), false);
     }
 
     private void OnUserCreditChangeHandle(string k, object v)
@@ -71,6 +89,7 @@ public class Popup_Profile : MonoBehaviour
         {
             Debug.Log($"<color=red>【--更改名称成功】</color> newName:{obj}");
             NetData_Login.Instance.SetNetDataValue<string>(NetData_Login.Path_UserName, obj);
+            Popup_Tips.OpenTips(this.gameObject, "Successful name change");
         },
         (errData) =>
         {

@@ -149,6 +149,7 @@ MonoBehaviour:
   _relationObj: {fileID: 7063699761496252432}
   _imageCom: {fileID: 3197070763196462449}
   _textCom: {fileID: 3111842471503784191}
+  _gameSoundPlayer: {fileID: 6977848328676652129}
 --- !u!1 &302924951335438520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1442,7 +1443,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1466,7 +1467,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 795528001713806501}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6977848328676652129}
+        m_TargetAssemblyTypeName: SlotMaker.GameSoundPlayer, Assembly-CSharp
+        m_MethodName: PlayGameSound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: UI_Button_Normal
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7063699761496252432
 GameObject:
   m_ObjectHideFlags: 0
@@ -2039,3 +2052,4 @@ MonoBehaviour:
   _relationObj: {fileID: 4156206240711573437}
   _imageCom: {fileID: 2828575714473636057}
   _textCom: {fileID: 1683356326225296903}
+  _gameSoundPlayer: {fileID: 6977848328676652129}
