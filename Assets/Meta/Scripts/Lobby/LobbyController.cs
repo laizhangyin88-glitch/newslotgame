@@ -121,6 +121,16 @@ namespace BagelCode
             MetaPopupUtils.OpenPopup(popupObj);
         }
 
+        public void OnEnterLottery()
+        {
+            string bundle = MetaStringDefine.LOBBY_BUNDLE_NAME;
+            string asset = "Daily Lottery Scene";
+            Transform parent = MetaPopupUtils.PopupManagerAreaTransform;
+            var popupObj = MetaObjectUtils.MakeScene(bundle, asset, parent, useAssetName: false);
+            MetaObjectUtils.SetCalleeCaller(popupObj, gameObject);
+            MetaPopupUtils.OpenPopup(popupObj);
+        }
+
         private void OnOpenCustomerSupport()
         {
             AEUtils.SendAE("client_click_customer_support", ("type", "default"));

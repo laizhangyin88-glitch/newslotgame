@@ -70,8 +70,6 @@ public class ResetPassword : MonoBehaviour
         if (string.IsNullOrEmpty(autoUrl))
             autoUrl = ApplicationSettings.Instance.autoUrl;
 
-        Debug.LogWarning(autoUrl);
-
         StartCoroutine(WWWGet(
             autoUrl,
             (address, err) =>

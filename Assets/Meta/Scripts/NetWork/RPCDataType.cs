@@ -103,6 +103,12 @@ public class RPCName
 
     /// <summary> 彩金排行返回 </summary>
     public const string queryJackpotRanking = "query_jackpot_ranking";
+
+    /// <summary> 查询每日转盘次数 </summary>
+    public const string queryDailyLottery = "query_daily_lottery";
+
+    /// <summary> 每日转盘 </summary>
+    public const string tryDailyLottery = "try_daily_lottery";
 }
 
 namespace RPCBase
