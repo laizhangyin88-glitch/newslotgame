@@ -32,6 +32,7 @@ namespace BagelCode
         private ContextElement rightIconArea;
         private ContextElement badgeIcon;
         private ContextElement BonusButtonElement;
+        private ContextElement LotteryButtonElement;
 
         public void Init()
         {
@@ -78,6 +79,7 @@ namespace BagelCode
         private void NewInitContext()
         {
             BonusButtonElement = ContextUtils.FindElement(root, "Right/Button Area/Button Lobby Bonus", ContextSearchingType.FullNameSearch);
+            LotteryButtonElement = ContextUtils.FindElement(root, "Right/Button Area/Button Lobby Lottery", ContextSearchingType.FullNameSearch);
         }
 
         private void InitClickEvents()
@@ -101,6 +103,7 @@ namespace BagelCode
         private void NewInitClickEvents()
         {
             MetaContextElementUtils.SetClickable(BonusButtonElement, gameObject, MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_JACKPOT_RECORD, true, true);
+            MetaContextElementUtils.SetClickable(LotteryButtonElement, gameObject, MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_LOTTERY, true, true);
         }
 
         private void CreateSideLobbyIcons()
