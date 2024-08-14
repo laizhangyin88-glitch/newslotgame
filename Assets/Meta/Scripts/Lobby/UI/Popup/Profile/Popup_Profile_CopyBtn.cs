@@ -1,3 +1,4 @@
+using BagelCode;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -33,6 +34,6 @@ public class Popup_Profile_CopyBtn : MonoBehaviour
             return;
 
         GUIUtility.systemCopyBuffer = _textTarget.text;
-        Debug.Log($"剪切板内容{GUIUtility.systemCopyBuffer}");
+        Popup_Tips.OpenTips(gameObject, "Copy successfully");
     }
 }

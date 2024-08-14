@@ -4,6 +4,7 @@ using UnityEngine;
 using NodeCanvas.Framework;
 using System;
 using SimpleJSON;
+using BagelCode.ClientModels;
 
 namespace SlotMaker
 {
@@ -40,7 +41,7 @@ namespace SlotMaker
         /// <summary>
         /// 当前用户等级可选的头像数据
         /// </summary>
-        public List<Tuple<int, string>> ProfilePicturesWithCurrentLevel => GetProfilePicturesByLevel(UserLevel);
+        public List<Tuple<int, string, string>> ProfilePicturesWithCurrentLevel => GetProfilePicturesByLevel(UserLevel);
         /// <summary>
         /// 用户当前头像地址
         /// </summary>
@@ -66,14 +67,17 @@ namespace SlotMaker
         /// <summary>
         /// 根据当前等级获取可选的头像列表
         /// </summary>
+        /// <remarks>
+        /// 已根据头像id排序
+        /// </remarks>
         /// <param name="level"></param>
-        /// <returns>元组：item1=>头像id, item2=>头像Url</returns>
-        protected List<Tuple<int, string>> GetProfilePicturesByLevel(int level)
+        /// <returns>元组：item1=>头像id, item2=>头像Url, item3=>类型male或female</returns>
+        protected List<Tuple<int, string, string>> GetProfilePicturesByLevel(int level)
         {
             if (level < 0)
                 return null;
 
-            List<Tuple<int, string>> ret = new List<Tuple<int, string>>();
+            List<Tuple<int, string, string>> ret = new List<Tuple<int, string, string>>();
 
             foreach (var item in ProfilePictures)
             {
@@ -83,13 +87,15 @@ namespace SlotMaker
 
                 int itemId = item.Value["id"].AsInt;
                 string itemUrl = item.Value["image_url"].ToString().Trim('"');
+                string itemType = item.Value["type"].ToString().Trim('"');
 
-                ret.Add(new Tuple<int, string>(itemId, itemUrl));
+                ret.Add(new Tuple<int, string, string>(itemId, itemUrl, itemType));
             }
 
             if (ret.Count <= 0)
                 return null;
 
+            ret.Sort((item1, item2) => item1.Item1 - item2.Item1);
             return ret;
         }
 
