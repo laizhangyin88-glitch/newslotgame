@@ -17,9 +17,6 @@ using Action = System.Action;
 using Sirenix.OdinInspector;
 using EventData = ParadoxNotion.EventData;
 using Newtonsoft.Json;
-using Spine;
-using static UnityEngine.PlayerLoop.PreUpdate;
-
 public class RequestType {
 
     public RequestType(object buffer, string rpcName, long time, bool force =false)

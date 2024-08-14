@@ -100,6 +100,9 @@ public class RPCName
 
     /// <summary> 更改头像 </summary>
     public const string resetUserProfile = "reset_user_profile";
+
+    /// <summary> 彩金排行返回 </summary>
+    public const string queryJackpotRanking = "query_jackpot_ranking";
 }
 
 namespace RPCBase
