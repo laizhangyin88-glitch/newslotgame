@@ -50,11 +50,12 @@ public class Popup_ProfileChange_ScrollController : MonoBehaviour
     {
         InitProfileData(profileDatas);
         InitPageInfo();
+        _scroll.ScrollPage(0);
     }
 
     private void InitProfileData(List<Tuple<int, string, string>> profileDatas)
     {
-        _scrollContentNode.RemoveAllChildren();
+        _scrollContentNode.RemoveAllChildrenImmediate(true);
 
         if (profileDatas == null)
             return;
