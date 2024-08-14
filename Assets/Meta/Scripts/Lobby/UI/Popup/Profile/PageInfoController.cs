@@ -13,7 +13,7 @@ public class PageInfoController : MonoBehaviour
 
     public void Init(int count, int cur)
     {
-        transform.RemoveAllChildren();
+        transform.RemoveAllChildrenImmediate();
 
         PageCount = count;
         CurPage = cur;
@@ -30,7 +30,7 @@ public class PageInfoController : MonoBehaviour
     public void SetCur(int cur)
     {
         Debug.Log($"<color=green>@==</color>{cur}/{PageCount}");
-        if (cur < 0 || cur > PageCount)
+        if (cur < 0 || cur >= PageCount)
             return;
 
         transform.GetChild(cur).GetComponent<Toggle>().isOn = true;

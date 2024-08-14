@@ -53,10 +53,13 @@ public class PageScrollView : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
     public void Init()
     {
-        rect = transform.GetComponent<ScrollRect>();
-        if (rect == null)
+        if(rect == null)
         {
-            throw new System.Exception("未查询到scrollRect");
+            rect = transform.GetComponent<ScrollRect>();
+            if (rect == null)
+            {
+                throw new System.Exception("未查询到scrollRect");
+            }
         }
 
         InitPage();
@@ -77,7 +80,6 @@ public class PageScrollView : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         //    }
 
         //}
-
     }
 
     public void InitPage()
