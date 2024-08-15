@@ -1,14 +1,8 @@
-using AssetBundleBrowser.AssetBundleModel;
 using BagelCode;
-using BagelCode.ClientModels;
 using BlizzUtils;
-using Newtonsoft.Json;
 using ParadoxNotion;
 using SimpleJSON;
 using SlotMaker;
-using SlotMaker.Slots;
-using SlotMaker.Slots.Tasks.Actions.Game;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -29,7 +23,6 @@ public class DailyLottery : MonoBehaviour
     private bool hasSlowed;
     private float startSlowRotate;
     private State state;
-    private float rollTimer;
     private float acceTimer;
     private float slowTimer;
     private float rotateTimer;
