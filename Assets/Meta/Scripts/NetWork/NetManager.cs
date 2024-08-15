@@ -17,9 +17,6 @@ using Action = System.Action;
 using Sirenix.OdinInspector;
 using EventData = ParadoxNotion.EventData;
 using Newtonsoft.Json;
-using Spine;
-using static UnityEngine.PlayerLoop.PreUpdate;
-
 public class RequestType {
 
     public RequestType(object buffer, string rpcName, long time, bool force =false)
@@ -830,10 +827,12 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         // 实时刷新金钱
         if (err == 0 && data.HasKey("balance"))
         {
-            globalStore.newCredit = data["balance"].AsLong;
+            long credit = data["balance"].AsLong;
+            globalStore.newCredit = credit;
         }else if (err == 0 && data.HasKey("after_credit"))
         {
-            globalStore.newCredit = data["after_credit"].AsLong;
+            long credit = data["after_credit"].AsLong;
+            globalStore.newCredit = credit;
         }
 
         //添加检测code 和msg 的逻辑
@@ -848,6 +847,12 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 //彩金
                 if (data.HasKey("bonus_result"))
                     MessageDispatcher.Dispatch("SetJackpot", new EventData<string>("SetJackpot", data["bonus_result"].ToString()));
+
+                if (data.HasKey("level"))
+                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserLevel, data["level"].AsInt);
+
+                if (data.HasKey("profile_url"))
+                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserProfileUrl, data["profile_url"].Value);
 
                 if (this._state == NetNodeState.Checking) //断线重连
                 {
@@ -997,6 +1002,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     }
                 }
 
+                if (data.HasKey("profile_pictures"))
+                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_ProfilePictures, data["profile_pictures"]);
+
                 break;
             case RPCName.enterGame://进入子游戏
 
@@ -1129,6 +1137,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 //Debug.LogError($"Refresh {BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value}");
                 MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
                 //EventSender.SendGlobalEvent("OnCreditEvent", "UpdateNaviCredit");
+                NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserCredit, newCredit);
             }
         }
     }

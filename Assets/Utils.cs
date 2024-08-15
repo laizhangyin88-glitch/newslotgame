@@ -15,6 +15,8 @@ namespace BlizzUtils
         }
         public static int GetRandom(int from, int to)
         {
+            if (rand == null)
+                rand = new System.Random((int)System.DateTime.Now.Ticks);
             return rand.Next(from, to);
         }
 
@@ -103,7 +105,6 @@ namespace BlizzUtils
             }
             return list;
         }
-
     }
 
 }

@@ -53,7 +53,7 @@ public class RPCName
     /// <summary>心跳</summary>
     public const string ping = "ping";
 
-    /// <summary>上分</summary>
+    /// <summary>上分</summary><remarks>实体机专用协议，Editor环境下会报err:12</remarks>
     /// {"balance", 1000}, //上分1000
     public const string addCredit = "agent_incredit_exchange";
     /// <summary>下分</summary>
@@ -94,6 +94,21 @@ public class RPCName
 
     /// <summary> 押注彩金返回 </summary>
     public const string gameBonusResult = "game_bonus_result";
+
+    /// <summary> 更改名称 </summary>
+    public const string resetNickName = "reset_nick_name";
+
+    /// <summary> 更改头像 </summary>
+    public const string resetUserProfile = "reset_user_profile";
+
+    /// <summary> 彩金排行返回 </summary>
+    public const string queryJackpotRanking = "query_jackpot_ranking";
+
+    /// <summary> 查询每日转盘次数 </summary>
+    public const string queryDailyLottery = "query_daily_lottery";
+
+    /// <summary> 每日转盘 </summary>
+    public const string tryDailyLottery = "try_daily_lottery";
 }
 
 namespace RPCBase

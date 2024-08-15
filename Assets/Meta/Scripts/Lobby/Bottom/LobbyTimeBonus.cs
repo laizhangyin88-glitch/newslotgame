@@ -28,7 +28,7 @@ public class LobbyTimeBonus : MonoBehaviour
 
         contextButton.UpdateContext();
 
-        contextButton.AddListenerOnClick((context) => EventSender.SendGlobalEvent("OnEnterNewJackpotDialog"));
+        contextButton.AddListenerOnClick((context) => EventSender.SendGlobalEvent(MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_JACKPOT_DIALOG));
     }
 
     private void InitJackpot()

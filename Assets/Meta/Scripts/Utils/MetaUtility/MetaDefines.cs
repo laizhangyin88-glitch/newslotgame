@@ -224,7 +224,15 @@ namespace BagelCode
         public const string ON_LEAVE_COUPON = "OnLeaveCoupon";
         public const string ON_ENTER_CUSTOMER_SUPPORT = "OnEnterCustomerSupport";
         public const string ON_ENTER_REFUND_DIALOG = "OnEnterRefundDialog";
-        public const string ON_Leave_REFUND_DIALOG = "OnLeaveRefundDialog";
+        public const string ON_LEAVE_REFUND_DIALOG = "OnLeaveRefundDialog";
+        public const string ON_ENTER_JACKPOT_DIALOG = "OnEnterNewJackpotDialog";
+        public const string ON_LEAVE_JACKPOT_DIALOG = "OnLeaveNewJackpotDialog";
+        public const string ON_ENTER_JACKPOT_RECORD = "OnEnterJackpotRecord";
+        public const string ON_LEAVE_JACKPOT_RECORD = "OnLeaveJackpotRecord";
+        public const string ON_ENTER_RESET_PASSWORD = "OnEnterResetPassword";
+        public const string ON_LEAVE_RESET_PASSWORD = "OnLeaveResetPassword";
+        public const string ON_ENTER_LOTTERY = "OnEnterLottery";
+        public const string ON_LEAVE_LOTTERY = "OnLeaveLottery";
 
         public const string REDEEM_COUPON = "RedeemCoupon";
         public const string ON_COUPON_REDEEM_SUCCESS = "OnRedeemSuccess";
