@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Com.TheFallenGames.OSA.Core;
 using NodeCanvas.Framework;
 using ParadoxNotion;
 using SlotMaker;
 using UnityEngine;
 using UnityEngine.UI;
 using BagelCode;
+using Com.ForbiddenByte.OSA.Core;
 
 namespace BagelCode.OSA_Scroll
 {

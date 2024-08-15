@@ -7,6 +7,7 @@ namespace BagelCode.Tasks.Actions
 {
 
 [Category("★ BagelCode/NativeHelper")]
+[Description("!!空实现")]
 public class InitializeSocialManager : ActionTask
 {
     protected override string info

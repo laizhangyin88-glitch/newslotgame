@@ -38,6 +38,8 @@ public class RPCName
     public const string jacksGambleTake = "gamble_take"; // /v2/gamble/take
     /// <summary>拉霸机 开玩</summary>
     public const string slotSpin = "slot_spin";
+    /// <summary>更新玩家缓存</summary>
+    public const string updateUserCache = "update_user_cache";
 
     /// <summary>HAPPY DOLLARS</summary>
     public const string claimBonus = "claim_bonus";
@@ -53,40 +55,46 @@ public class RPCName
 
     /// <summary>上分</summary>
     /// {"balance", 1000}, //上分1000
-    public const string addCredit = "agent_increase_device_user";
+    public const string addCredit = "agent_incredit_exchange";
     /// <summary>下分</summary>
-    public const string decreaseCredit = "agent_decrease_device_user";
+    public const string decreaseCredit = "agent_outcredit_exchange";
+
+
+    /// <summary>查询是否可以进币</summary>
+    public const string creatAddCoinOrder = "agent_create_incredit_coin_order";
+
+    /// <summary>投币</summary>
+    /// {"device_id":100,"count":100 }
+    public const string confirmAddCoinOrder = "agent_confirm_incredit_coin_order";
 
 
     /// <summary>查询是否可以充美刀</summary>
-    public const string checkAddMoney = "agent_query_recharge_to_device_user";
-
+    public const string creatAddMoneyOrder = "agent_create_incredit_inbanknote_order";
     /// <summary>充美元</summary>
     /// {"money", 100}, //充100美元
-    public const string addMoney = "agent_recharge_to_device_user";
+    public const string confirmAddMoneyOrder = "agent_confirm_incredit_inbanknote_order";
+
 
     /// <summary>查询是否可以退币</summary>
-    public const string createCoinOutOrder = "agent_create_reback_ticket_order";
-
+    public const string createCoinOutOrder = "agent_create_outcredit_ticket_order";
     /// <summary>退币</summary>
     /// {"money", 100}, //退票 100 
-    public const string confirmCoinOutOrder = "agent_decrease_reback_ticket_order";
-
-
+    public const string confirmCoinOutOrder = "agent_confirm_outcredit_ticket_order";
 
 
     /// <summary>创建“打印订单”</summary>
-    /// {"money", 100}, //退票 100
-    public const string createPrintOrder = "agent_create_print_reback_amount_order";
-
-
+    /// {"money", 100}, 
+    public const string createPrintOrder = "agent_create_outcredit_print_order";
     /// <summary>确认“打印订单”</summary>
-    /// {"money", 100}, //退票 100
-    public const string confirmPrintOrder = "agent_decrease_print_reback_amount_order";
+    /// {"money", 100},
+    public const string confirmPrintOrder = "agent_confirm_outcredit_print_order";
 
+    /// <summary> 赢得大厅彩金 </summary>
+    public const string winGameBonus = "win_game_bonus";
 
+    /// <summary> 押注彩金返回 </summary>
+    public const string gameBonusResult = "game_bonus_result";
 }
-
 
 namespace RPCBase
 {

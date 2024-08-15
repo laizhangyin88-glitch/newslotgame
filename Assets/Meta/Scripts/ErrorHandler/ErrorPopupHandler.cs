@@ -101,6 +101,38 @@ public class ErrorPopupHandler : SlotMaker.MonoWeakSingleton<ErrorPopupHandler>
     {
         errorList.Clear();
     }
-}
+
+
+    /// <summary>
+    /// This new API is only used in the script.
+    /// </summary>
+    /// <param name="eventName"></param>
+    public void ClosePopup(string eventName = null)
+    {
+            if (errorList.Count > 0)
+            {
+                switch (errorList[0].type)
+                {
+                    case ErrorPopupType.TextOnly:
+                        handlerOwner.SendEvent(eventName ?? "CloseTextOnlyPopup");
+                        break;
+                    case ErrorPopupType.OK:
+                        handlerOwner.SendEvent(eventName ?? "OnClose");
+                        break;
+                    case ErrorPopupType.OkWithTitle:
+                        handlerOwner.SendEvent(eventName ?? "OnXClose"); //OnOK
+                        break;
+                    case ErrorPopupType.YesNo:
+                        handlerOwner.SendEvent(eventName ?? "OnNo");
+                        break;
+                    case ErrorPopupType.SystemReset:
+                        handlerOwner.SendEvent("OnClose");
+                        break;
+                }
+                EventSender.SendGlobalEvent("OnClose");
+            }
+    }
+
+    }
 
 }

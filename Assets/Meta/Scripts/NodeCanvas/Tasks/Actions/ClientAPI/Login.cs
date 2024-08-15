@@ -79,7 +79,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
             }*/
 
 
-            List<object> req = new List<object> { globalStore.gToken };
+            List<object> req = new List<object> { globalStore.gToken};
             //res.Add(globalStore.gToken);
             NetManager.Instance.Post(RPCName.login, req,
             (res) =>
@@ -101,7 +101,6 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                 EpicPassUtils.Clear();
                 BlackboardQueryUtils.ClearGameAndSlotInfos();
 
-                Debug.Log("@ login 赋值 给 bb");
                 ClientAPI2Blackboard.Serialize(MainBlackboard.Get(), response);
 
                 BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "fromLogin", true);
@@ -130,6 +129,21 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                 BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "metaInterruptingCount", 0);
 
                 UpdateAgeGateTry();
+
+
+                //还未结束的免费游戏id
+                if (res.HasKey("last_game_id") && res["last_game_id"] >= 0) //res
+                {
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "lastFreeGameID", res["last_game_id"].AsInt);
+                    BlackboardUtils.GetOrCreateVariable<bool>(MainBlackboard.Get(), "isLastGameSpin").value = true;
+                }
+                else
+                {
+                    //BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isLastGameSpin", false);
+                    //BlackboardUtils.GetOrCreateVariable<bool>(null, "/isLastGameSpin").value = false;
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "lastFreeGameID", -1);
+                    BlackboardUtils.GetOrCreateVariable<bool>(MainBlackboard.Get(), "isLastGameSpin").value = false;
+                }
 
                 EndAction(true);
 

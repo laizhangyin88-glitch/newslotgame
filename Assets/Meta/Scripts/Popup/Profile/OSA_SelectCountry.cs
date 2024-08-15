@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using BagelCode.ClientModels;
-using Com.TheFallenGames.OSA.Core;
+using Com.ForbiddenByte.OSA.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -47,7 +47,7 @@ namespace BagelCode.OSA_Scroll
         protected override CountryViewHolder CreateViewsHolder(int itemIndex)
         {
             CountryViewHolder viewHolder = new CountryViewHolder();
-            viewHolder.Init( _Params.GetPrefab(transform), itemIndex);
+            viewHolder.Init( _Params.GetPrefab(transform), _Params.Content, itemIndex);
 
             return viewHolder;
         }

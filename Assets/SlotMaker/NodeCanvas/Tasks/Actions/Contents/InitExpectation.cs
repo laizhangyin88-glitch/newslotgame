@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NodeCanvas.Framework;
@@ -27,7 +27,10 @@ public class InitExpectation : ActionTask
 
         ContentCustomData.GetSlotData(slotIndex.value).expectation = newExpectation;
 
-        EndAction();
+#if UNITY_EDITOR
+            Debug.LogWarning("【test】 ：InitExpectation");
+#endif
+            EndAction();
     }
 }
 

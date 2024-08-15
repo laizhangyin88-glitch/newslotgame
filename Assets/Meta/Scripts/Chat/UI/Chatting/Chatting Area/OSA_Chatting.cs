@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using BagelCode.ClientModels;
-using Com.TheFallenGames.OSA.Core;
+using Com.ForbiddenByte.OSA.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -35,7 +35,7 @@ namespace BagelCode.Chat
             {
                 var chatData = owner.ChatDataList[itemIndex];
                 BalloonViewHolder viewHolder = new BalloonViewHolder();
-                viewHolder.Init(FindPrefab(chatData.GetAssetName()), itemIndex);
+                viewHolder.Init(FindPrefab(chatData.GetAssetName()), _Params.Content,itemIndex);
                 viewHolder.textBalloon.gameObject.name = chatData.GetAssetName();
                 viewHolder.textBalloon.Init(owner);
 

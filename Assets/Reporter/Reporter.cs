@@ -1737,7 +1737,12 @@ public class Reporter : MonoBehaviour
 		return false;
 	}
 
-	float lastClickTime = -1;
+    bool isKeyDown()
+    {
+        return Input.GetKeyDown(KeyCode.R);
+    }
+
+    float lastClickTime = -1;
 	bool isDoubleClickDone()
 	{
 		if (Application.platform == RuntimePlatform.Android ||
@@ -1877,8 +1882,29 @@ public class Reporter : MonoBehaviour
 			doShow();
 		}
 
+        if (isKeyDown())
+        {
+            if (show)
+            {
+                show = false;
+                ReporterGUI gui = gameObject.GetComponent<ReporterGUI>();
+                DestroyImmediate(gui);
 
-		if (threadedLogs.Count > 0) {
+                try
+                {
+                    gameObject.SendMessage("OnHideReporter");
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
+            else
+                doShow();
+        }
+
+
+        if (threadedLogs.Count > 0) {
 			lock (threadedLogs) {
 				for (int i = 0; i < threadedLogs.Count; i++) {
 					Log l = threadedLogs[i];

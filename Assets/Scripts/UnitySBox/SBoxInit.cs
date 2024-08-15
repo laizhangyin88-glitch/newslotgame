@@ -25,7 +25,7 @@ public class SBoxInit : MonoSingleton<SBoxInit>
 
     private void AddEventListener()
     {
-        BlizzEvent.EventCenter.Instance.AddEventListener<int>(EventHandle.CHECK_SBOX_READY, OnSBoxReady);
+        BlizzEvent.EventCenter.Instance.AddEventListener<int>(EventHandle.CHECK_SBOX_SANBOX_READY, OnSBoxReady);
         BlizzEvent.EventCenter.Instance.AddEventListener<int>(SBoxEventHandle.SBOX_SADNBOX_RESET, OnSBoxSandboxReset);
     }
 
@@ -50,7 +50,7 @@ public class SBoxInit : MonoSingleton<SBoxInit>
         while (!SBoxModel.Instance.isReady)
         {
 #if UNITY_EDITOR
-            MatchDebugManager.Instance.SendUdpMessage(EventHandle.CHECK_SBOX_READY, BlizzUtils.Utils.LocalIP());
+            MatchDebugManager.Instance.SendUdpMessage(EventHandle.CHECK_SBOX_SANBOX_READY, BlizzUtils.Utils.LocalIP());
 #else
             SBoxModel.Instance.isReady = SBoxSandbox.Ready();
 #endif

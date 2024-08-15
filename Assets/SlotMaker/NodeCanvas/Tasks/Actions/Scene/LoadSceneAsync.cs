@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using ParadoxNotion.Design;
 using NodeCanvas.Framework;
@@ -56,7 +56,6 @@ public class LoadSceneAsync : ActionTask<Transform>
 				}
 
 				var sceneInfo = loadSceneInfoOperation.GetAsset<SceneInfoObject>().GetSceneInfo();
-
 				sceneLoadOperation = SceneManager.LoadSceneAsync(root, sceneInfo, constraintSceneActivation.value);
 			}
 
