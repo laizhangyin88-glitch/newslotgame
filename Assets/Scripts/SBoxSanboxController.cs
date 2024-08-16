@@ -309,7 +309,8 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
 
 #if UNITY_EDITOR
-        Debug.LogError("KeyDown " + sBOX_SWITCH);
+        //Debug.LogError("KeyDown " + sBOX_SWITCH);
+        Debug.LogWarning("KeyDown " + sBOX_SWITCH);
 #endif
 
 
@@ -467,7 +468,8 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     private void OnKeyUp(SBOX_SWITCH sBOX_SWITCH)
     {
 #if UNITY_EDITOR
-        Debug.LogError("KeyUp " + sBOX_SWITCH);
+        //Debug.LogError("KeyUp " + sBOX_SWITCH);
+        Debug.LogWarning("KeyUp " + sBOX_SWITCH);
 #endif
 
 
@@ -853,6 +855,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                         ErrorPopupInfo info = new ErrorPopupInfo();
                         info.text = $"<size=32>{msg}</size>";
                         info.type = ErrorPopupType.OK;
+                        info.buttonText1 = "OK";
                         ErrorPopupHandler.Instance.OpenError(info);
                     }
                 }
@@ -1780,6 +1783,15 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     int cointOutRate = 0;
 
 
+    public bool isRegularCoinOuting
+    {
+        get
+        {
+            return isTask("isCoinOuting") || isTask("CoinOutOutTime");
+        }
+    }
+
+
     public bool isTicketError = false;
 
     public void StartCoinOut()
@@ -1904,13 +1916,17 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         if (coinOutNum01 <= 0)
             return;
 
+        if (!isRegularCoinOuting)//非正规退票被调用
+            return;
+
         DoTask("isCoinOuting", () => { }, 4001);
 
 
         finishCoinOutNum += coinOutNum01;
 
         if (finishCoinOutNum > this.coinOutNum)
-        {       
+        {
+            Debug.LogError($"[Error] currCointOut = {coinOutNum01} targetCointOut = {this.coinOutNum} finishCointOut = {finishCoinOutNum}");
             isTicketError = true;
             StopCoinOut();
             ShowTicketErrorTip();
@@ -1952,6 +1968,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                 ErrorPopupInfo info = new ErrorPopupInfo();
                 info.text = $"<size=32>{msg}</size>";
                 info.type = ErrorPopupType.OK;
+                info.buttonText1 = "OK";
                 ErrorPopupHandler.Instance.OpenError(info);
             }
 
@@ -2141,15 +2158,13 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
             yield return new WaitUntil(() => globalStore.gameState == GameState.Hall || globalStore.gameState == GameState.Game);
 
-
             if (initStamp != _initStamp)
             {
-                Debug.Log($"退出订单补发循环 {_initStamp}");
+                Debug.Log($"【重启订单补发】：退出订单补发循环 {_initStamp}");
                 yield break;
             }
 
-
-            Debug.Log($"@【查询订单缓存】{_initStamp}");
+            Debug.Log($"【重启订单补发】：查询订单缓存 {_initStamp}");
 
             /*
             while (true)
@@ -2170,10 +2185,24 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                 }
             }*/
 
+            while (true)
+            {
+                //if (!isRegularCoinOuting && "XXXXX")
+                if (!isRegularCoinOuting)
+                {
+                    break;
+                }
+                else
+                {
+                    if(isRegularCoinOuting)
+                        Debug.Log($"【重启订单补发】：正规流程-退票，暂停订单补发");
+                }
+
+                yield return new WaitForSeconds(3);
+            }
 
             long nowTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             bool isChange = false;
-
 
             if (!NetManager.Instance.isHasRequest(RPCName.creatAddCoinOrder))
             {
