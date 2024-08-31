@@ -126,21 +126,24 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         // if (!eventData.name.Equals("SkipWin", StringComparison.Ordinal))
         //     return;
 
-        if (eventData.name == "SkipWin" || eventData.name == "NoWin") { 
+        //if (eventData.name == "SkipWin" || eventData.name == "NoWin") { 
 
-            globalStore.isPlay = false;
+        //    globalStore.isPlay = false;
 
-            long oldCredit = (long)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value ?? 0);
-            if (oldCredit != globalStore.newCredit)
-            {
-                Debug.LogWarning($"@ 玩家金币发生改变  oldCredit = {oldCredit} ，newCredit = {globalStore.newCredit}");
+        //    long oldCredit = (long)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value ?? 0);
+        //    if (oldCredit != globalStore.newCredit)
+        //    {
+        //        Debug.LogWarning($"@ 玩家金币发生改变  oldCredit = {oldCredit} ，newCredit = {globalStore.newCredit}");
 
-                BlackboardQueryUtils.SetMyCredit(globalStore.newCredit);
-                //Debug.LogError($"Refresh {BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value}");
-                MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
-                //EventSender.SendGlobalEvent("OnCreditEvent", "UpdateNaviCredit");
-            }
-        }
+        //        BlackboardQueryUtils.SetMyCredit(globalStore.newCredit);
+        //        //Debug.LogError($"Refresh {BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value}");
+        //        MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
+        //        //EventSender.SendGlobalEvent("OnCreditEvent", "UpdateNaviCredit");
+        //    }
+        //}
+
+        if (!isChangeCreditAnimation)
+            SetMyCredit();
     }
 
 
