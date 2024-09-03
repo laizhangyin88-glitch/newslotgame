@@ -35,10 +35,10 @@ public class JackpotCanvasView : MonoBehaviour
         var titleTrans = winTips.transform.Find("Title");
         for (int i = 0; i < titleTrans.childCount; i++)
             titleList.Add(titleTrans.GetChild(i).gameObject);
+        titleList.Reverse();
         content = winTips.transform.Find("content").GetComponent<TextMeshProUGUI>();
         MessageDispatcher.Register("SetJackpot", OnSetJackpot);
         MessageDispatcher.Register("UpdateJackpot", OnUpdateJackpot);
-        MessageDispatcher.Register(RPCName.winGameBonus, OnWinGameBounus);
         assetName = new List<string>
         {
             "Grand Jackpot Trigger Popup Scene",
@@ -52,12 +52,15 @@ public class JackpotCanvasView : MonoBehaviour
     {
         MessageDispatcher.UnRegister("SetJackpot", OnSetJackpot);
         MessageDispatcher.UnRegister("UpdateJackpot", OnUpdateJackpot);
-        MessageDispatcher.UnRegister(RPCName.winGameBonus, OnWinGameBounus);
     }
 
     private void OnSetJackpot(EventData data)
     {
-        List<Jackpot> jackpots = JsonConvert.DeserializeObject<List<Jackpot>>(data.value.ToString());
+        var dataList = data.value as List<int>;
+        List<Jackpot> jackpots = new List<Jackpot>();
+        for (int i = 0; i < dataList.Count; i++)
+            jackpots.Add(new Jackpot { total_bonus_count = dataList[i] }); 
+        jackpots.Reverse();
         BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "LobbyJackpot", jackpots);
         for (int i = 0; i < jackpotViews.Count; i++)
             jackpotViews[i].SetJackpot(jackpots[i].total_bonus_count);
@@ -66,9 +69,48 @@ public class JackpotCanvasView : MonoBehaviour
     private void OnUpdateJackpot(EventData data)
     {
         if (!canUpdate) return;
-        List<Jackpot> jackpots = JsonConvert.DeserializeObject<List<Jackpot>>(data.value.ToString());
+        var jsonData = data.value as JSONNode;
+
+        List<int> jacks = new List<int>();
+        for (int i = 0; i < jsonData["remain_jackpot_list"].Count; i++)
+        {
+            var temp = (float)jsonData["remain_jackpot_list"][i];
+            jacks.Add(int.Parse((temp * 100).ToString()));
+        }
+
+        List<Jackpot> jackpots = new List<Jackpot>();
+        jacks.ForEach(j =>
+        {
+            jackpots.Add(new Jackpot { total_bonus_count = j });
+        });
+        jackpots.Reverse();
+
         BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "LobbyJackpot", jackpots);
         UpdateJackpot(jackpots);
+
+        if (jsonData.HasKey("winner_user_id"))
+        {
+            string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
+            var winnerId = jsonData["winner_user_id"];
+            WinResult winResult = new WinResult
+            {
+                user_id = winnerId.ToString(),
+                nick_name = jsonData["winner_nick_name"],
+                single_reward = (int) ((float)jsonData["earn_money"] * 100 ),
+                bonus_id = jsonData["jackpot_id"]
+            };
+
+            if (winnerId != 0)
+            {
+
+                tempJakcpot = jackpots;
+                ShowEffect();
+                if (winnerId == userId)
+                    ShowWinJackpot(winResult);
+                else
+                    DispatchWinJackpot(winResult);
+            }
+        }
     }
 
     private void UpdateJackpot(List<Jackpot> jackpots)
@@ -77,30 +119,11 @@ public class JackpotCanvasView : MonoBehaviour
             jackpotViews[i].ScrollTo(jackpots[i].total_bonus_count);
     }
 
-    private void OnWinGameBounus(EventData eventData)
-    {
-        var data = eventData.value as JSONNode;
-        if(!data.HasKey("win_result_list")) return;
-        canUpdate = false;
-        var winResultList = JsonConvert.DeserializeObject<List<WinResult>>(data["win_result_list"].ToString());
-        tempJakcpot = JsonConvert.DeserializeObject<List<Jackpot>>(data["bonus_list"].ToString());
-        string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
-        ShowEffect();
-        for (int i = 0; i < winResultList.Count; i++)
-        {
-            var winResult = winResultList[i];
-            if (winResult.user_id == userId)
-                ShowWinJackpot(winResult);
-            else
-                DispatchWinJackpot(winResult);
-        }
-    }
-
     private void ShowWinJackpot(WinResult winResult)
     {
         var mgr = GSManager.Instance;
         if (mgr != null) mgr.GetHandler("SFX_Coin_Drop").Play();
-        var jackpotView = jackpotViews[winResult.bonus_id - 1];
+        var jackpotView = jackpotViews[winResult.bonus_id];
         jackpotView.jackpot = jackpotView.jackpot - winResult.single_reward > 0 ? jackpotView.jackpot - winResult.single_reward : 0;
         jackpotView.SetJackpot(jackpotView.jackpot);
         ShowAnnounce(winResult);
@@ -151,7 +174,7 @@ public class JackpotCanvasView : MonoBehaviour
             var mgr = GSManager.Instance;
             if (mgr != null) mgr.GetHandler("SFX_Coin_Drop").Play();
         }
-        var jackpotView = jackpotViews[winResult.bonus_id - 1];
+        var jackpotView = jackpotViews[winResult.bonus_id];
         jackpotView.jackpot = jackpotView.jackpot - winResult.single_reward > 0 ? jackpotView.jackpot - winResult.single_reward : 0;
         jackpotView.SetJackpot(jackpotView.jackpot);
         ShowAnnounce(winResult);
@@ -160,13 +183,13 @@ public class JackpotCanvasView : MonoBehaviour
     private void ShowAnnounce(WinResult winResult)
     {
         string titleStr = "";
-        int index = winResult.bonus_id - 1;
+        int index = winResult.bonus_id;
         switch (index)
         {
-            case 0: titleStr = "grand"; break;
-            case 1: titleStr = "mega"; break;
-            case 2: titleStr = "minor"; break;
-            case 3: titleStr = "mini"; break;
+            case 3: titleStr = "grand"; break;
+            case 2: titleStr = "mega"; break;
+            case 1: titleStr = "minor"; break;
+            case 0: titleStr = "mini"; break;
         }
         string str = $"{winResult.nick_name} win {titleStr} jackpot $";
         str += GetNumStr(winResult.single_reward);
@@ -176,18 +199,18 @@ public class JackpotCanvasView : MonoBehaviour
     private void ShowWinTips(WinResult winResult)
     {
         titleList.ForEach(t => t.SetActive(false));
-        int index = winResult.bonus_id - 1;
+        int index = winResult.bonus_id;
         winTips.SetActive(true);
         titleList[index].SetActive(true);
         string titleStr = "";
         switch (index)
         {
-            case 0: titleStr = "grand"; break;
-            case 1: titleStr = "mega"; break;
-            case 2: titleStr = "minor"; break;
-            case 3: titleStr = "mini"; break;
+            case 3: titleStr = "grand"; break;
+            case 2: titleStr = "mega"; break;
+            case 1: titleStr = "minor"; break;
+            case 0: titleStr = "mini"; break;
         }
-        content.text = $"{winResult.nick_name} win {titleStr} jackpot $";
+        content.text = $"{winResult.nick_name} win {titleStr} jackpot ";
         content.text += GetNumStr(winResult.single_reward);
     }
 

@@ -21,17 +21,13 @@ public class Popup_ProfileChange_ScrollController : MonoBehaviour
 
     private void Start()
     {
-        
-
         _leftBtn.onClick.AddListener(() =>
         {
-            //_scroll.NextPage(false);
             _scroll.ScrollNextPage(false);
         });
 
         _rightBtn.onClick.AddListener(() =>
         {
-            //_scroll.NextPage(true);
             _scroll.ScrollNextPage(true);
         });
 
@@ -39,11 +35,6 @@ public class Popup_ProfileChange_ScrollController : MonoBehaviour
         {
             _pageInfoController.SetCur(page);
         };
-
-        //_scroll.onPageChangedToNext.AddListener((isForward) =>
-        //{
-        //    _pageInfoController.SetCur(_scroll.pageIndex);
-        //});
     }
 
     public void Init(List<Tuple<int, string, string>> profileDatas)
@@ -65,9 +56,6 @@ public class Popup_ProfileChange_ScrollController : MonoBehaviour
             CreateProfileSelectItem(item.Item2);
         }
 
-        //_scroll.RebuildContentBounds();
-        //_scroll.Rebuild(CanvasUpdate.PostLayout);
-        //_sizeFitter.SetLayoutHorizontal();
         LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollContentNode as RectTransform);
         _scroll.Init();
     }
@@ -106,5 +94,4 @@ public class Popup_ProfileChange_ScrollController : MonoBehaviour
 
         return null;
     }
-
 }

@@ -4,6 +4,7 @@ using ParadoxNotion;
 using SlotMaker;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,9 +34,12 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
     public int numIndex;
     [HideInInspector]
     public string flag;
+    [HideInInspector]
+    public bool sleep;
 
     public Coroutine scrollCoroutine = null;
     public int sendCount;
+    
 
     protected override void Start()
     {
@@ -64,6 +68,19 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         base.ScrollTo(itemIndex, normalizedOffsetFromViewportStart, normalizedPositionOfItemPivotToUse);
     }
 
+    public int StopSimulation()
+    {
+        int data = -1;
+        if (StopScorllCoroutine())
+            data = GetCurrentItem().ItemIndex;
+        return data;
+    }
+
+    public int GetCurrentItemValue()
+    {
+        return GetCurrentItem().ItemIndex;
+    }
+
     /// <summary>
     /// 滚动到指定位置
     /// </summary>
@@ -72,7 +89,6 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
     /// <param name="loopCount"></param>
     public void Simulation(int targetIndex, float animationTime, int loopCount)
     {
-        StopScorllCoroutine();
         scrollCoroutine = StartCoroutine(SimulationCoroutine(targetIndex, animationTime, loopCount));
     }
 
@@ -98,7 +114,8 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
             UpdateVelocity(velocityMultiplier * curve.Evaluate(deltaTime / animationTime) * 1.0f);
 
             currentItem = GetCurrentItem();
-            
+            if (currentItem != null)
+                currentItem.image.color = new Color(1, 1, 1, 1);
             if (currentItem != null && currentItem.ItemIndex != lastItemIndex)
             {
                 // tick
@@ -148,8 +165,6 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
         {
             if (_VisibleItems[i].IsCurrentItem(middleY))
                 return _VisibleItems[i];
-            {
-            }
         }
         return null;
     }
@@ -206,6 +221,17 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
     private bool CheckItemIsTarget(JackpotNumItemViewsHolder checkItem, int targetIndex)
     {
         return checkItem != null && checkItem.ItemIndex == targetIndex;
+    }
+
+    public void WakeUp()
+    {
+    }
+
+    public void Sleep()
+    {
+        base.ScrollTo(0, 0, 0);
+        sleep = true;
+        GetCurrentItem().image.color = new Color(1, 1, 1, 0);
     }
 }
 

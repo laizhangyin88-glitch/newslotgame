@@ -46,7 +46,6 @@ public class PageScrollView : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     // Update is called once per frame
     protected virtual void Update()
     {
-
         ListenerMove();
         ListenerAutoScroll();
     }
@@ -63,23 +62,6 @@ public class PageScrollView : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         }
 
         InitPage();
-        //if (pageCount == 1) return;
-        //pageCount = content.childCount;
-        //pages = new float[pageCount];
-        ////设好每个页面的刻度
-        //for (int i = 0; i < pages.Length; i++)
-        //{
-        //    switch (pageScrollType)
-        //    {
-        //        case PageScrollType.Horizontal:
-        //            pages[i] = i * (1 / (float)(pageCount - 1));
-        //            break;
-        //        case PageScrollType.Vertical:
-        //            pages[i] = 1 - i * (1 / (float)(pageCount - 1));
-        //            break;
-        //    }
-
-        //}
     }
 
     public void InitPage()
@@ -89,12 +71,24 @@ public class PageScrollView : MonoBehaviour, IBeginDragHandler, IEndDragHandler
             case PageScrollType.Horizontal:
                 float viewportWidth = rect.viewport.rect.width;
                 float contentWidth = rect.content.rect.width;
+
+                if(contentWidth < viewportWidth)
+                {
+                    pageCount = 1;
+                    pages = new float[] { 0f };
+                    break;
+                }
+
                 pageCount = (int)Math.Ceiling(contentWidth / viewportWidth);
                 pages = new float[pageCount];
+                float z = contentWidth - viewportWidth;
+
                 //设好每个页面的刻度
                 for (int i = 0; i < pages.Length; i++)
                 {
-                    pages[i] = (viewportWidth * i) / contentWidth;
+                    float scale = (viewportWidth * i) / z;
+                    scale = Mathf.Clamp(scale, 0f, 1f);
+                    pages[i] = scale;
                     //pages[i] = i * (1 / (float)(pageCount - 1));
                 }
                 break;

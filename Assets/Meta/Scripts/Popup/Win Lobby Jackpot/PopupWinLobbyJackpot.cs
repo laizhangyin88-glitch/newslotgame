@@ -14,6 +14,7 @@ public class PopupWinLobbyJackpot : MonoBehaviour
         var title = transform.Find("Title");
         for (int i = 0; i < title.childCount; i++)
             titleList.Add(title.GetChild(i).gameObject);
+        titleList.Reverse();
         content = transform.Find("content").GetComponent<TextMeshProUGUI>();
 
         var winResult = BlackboardUtils.FindVariable<WinResult>(MainBlackboard.Get(), "winLobbyJackpotResult").value;
@@ -31,15 +32,15 @@ public class PopupWinLobbyJackpot : MonoBehaviour
     private void ShowWinTips(WinResult winResult)
     {
         titleList.ForEach(t => t.SetActive(false));
-        int index = winResult.bonus_id - 1;
+        int index = winResult.bonus_id;
         titleList[index].SetActive(true);
         string titleStr = "";
         switch (index)
         {
-            case 0: titleStr = "grand"; break;
-            case 1: titleStr = "mega"; break;
-            case 2: titleStr = "minor"; break;
-            case 3: titleStr = "mini"; break;
+            case 3: titleStr = "grand"; break;
+            case 2: titleStr = "mega"; break;
+            case 1: titleStr = "minor"; break;
+            case 0: titleStr = "mini"; break;
         }
         content.text = $"{winResult.nick_name} win {titleStr} jackpot $";
         content.text += GetNumStr(winResult.single_reward);

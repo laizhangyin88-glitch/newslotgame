@@ -44,6 +44,8 @@ public class RPCName
     /// <summary>HAPPY DOLLARS</summary>
     public const string claimBonus = "claim_bonus";
 
+    /// <summary>踢出玩家</summary>
+    public const string kickUser = "kick_user";
 
     /// <summary>免费游戏历史记录</summary>
     public const string freeSpinHistory = "slot_spin_history";
