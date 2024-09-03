@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using SimpleJSON;
 
 public class LobbyTimeBonus : MonoBehaviour
 {
@@ -41,7 +42,20 @@ public class LobbyTimeBonus : MonoBehaviour
 
     private void OnUpdateJackpot(EventData data)
     {
-        jackpots = JsonConvert.DeserializeObject<List<Jackpot>>(data.value.ToString());
+        var jsonData = data.value as JSONNode;
+        List<int> jacks = new List<int>();
+        for (int i = 0; i < jsonData["remain_jackpot_list"].Count; i++)
+        {
+            var temp = (float)jsonData["remain_jackpot_list"][i];
+            jacks.Add(int.Parse((temp * 100).ToString()));
+        }
+
+        jackpots = new List<Jackpot>();
+        jacks.ForEach(j =>
+        {
+            jackpots.Add(new Jackpot { total_bonus_count = j });
+        });
+        jackpots.Reverse();
     }
 
     private IEnumerator JackpotChangeTimers()

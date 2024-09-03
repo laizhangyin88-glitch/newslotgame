@@ -65,16 +65,6 @@ public class NewJackpotDialog : MonoBehaviour
         return str;
     }
 
-    private void OnEnable()
-    {
-        
-    }
-
-    private void OnDisable()
-    {
-        
-    }
-
     private void OnBackBtnClick(ContextElement context)
     {
 
