@@ -1065,10 +1065,10 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             case RPCName.jacksDraw:
             case RPCName.jacksGambleStart:
             case RPCName.jacksGambleDeal:
+            case RPCName.jacksGambleTake:
+                break;
             case RPCName.kickUser:
                 ReturnToLoginPage(data["msg"] ?? "");
-                break;
-            case RPCName.jacksGambleTake:
                 break;
             case RPCName.metaInfo:
                 break;
