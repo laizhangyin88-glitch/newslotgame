@@ -1066,7 +1066,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             case RPCName.jacksGambleStart:
             case RPCName.jacksGambleDeal:
             case RPCName.kickUser:
-
+                ReturnToLoginPage(data["msg"] ?? "");
                 break;
             case RPCName.jacksGambleTake:
                 break;
