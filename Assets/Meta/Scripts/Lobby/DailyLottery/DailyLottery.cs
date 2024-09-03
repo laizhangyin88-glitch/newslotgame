@@ -3,6 +3,7 @@ using BlizzUtils;
 using ParadoxNotion;
 using SimpleJSON;
 using SlotMaker;
+using SlotMaker.Slots;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,10 +12,16 @@ public class DailyLottery : MonoBehaviour
 {
     private Transform lottery;
     private PIDButton spinBtn;
+    private Animator spinBtnAni;
     private PIDButton closeBtn;
-    private TextMeshProUGUI jackpotText;
+    private BigWheel bigWheel;
+    private GameObject winObj;
+    private TextMeshProUGUI winText;
+    private List<GameObject> rewardObjs = new List<GameObject>();
+    private GameObject rollingEffect;
     private List<TextMeshProUGUI> jackpotList = new List<TextMeshProUGUI>();
     private List<int> creditList = new List<int>();
+    private Animator animator;
     private bool canSpin;
 
     private float targetZ;
@@ -28,6 +35,7 @@ public class DailyLottery : MonoBehaviour
     private float rotateTimer;
     private float rotateSpeed;
     private int balance;
+    private int winIdex;
 
     private readonly float rotateTime = 6;
     private readonly float originSlowOffset = 180f;
@@ -45,18 +53,24 @@ public class DailyLottery : MonoBehaviour
     private void Awake()
     {
         lottery = transform.Find("Lottery/Lottery");
+        bigWheel = lottery.GetComponent<BigWheel>();
         spinBtn = transform.Find("Lottery/SpinBtn").GetComponent<PIDButton>();
+        spinBtnAni = spinBtn.GetComponent<Animator>();
         closeBtn = transform.Find("CloseBtn").GetComponent<PIDButton>();
-        jackpotText = transform.Find("Jackpot/Text").GetComponent<TextMeshProUGUI>();
+        winObj = transform.Find("Win").gameObject;
+        winText = transform.Find("Win/Text").GetComponent<TextMeshProUGUI>();
         for (int i = 0; i < lottery.childCount; i++)
-            jackpotList.Add(lottery.GetChild(i).GetComponent<TextMeshProUGUI>());
+            rewardObjs.Add(lottery.GetChild(i).Find("Effect").gameObject);
+        for (int i = 0; i < lottery.childCount - 1; i++)
+            jackpotList.Add(lottery.GetChild(i).Find("Text").GetComponent<TextMeshProUGUI>());
+        rollingEffect = transform.Find("effect").gameObject;
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
     {
         spinBtn.interactable = false;
         NetManager.Instance.SendMsg(RPCName.queryDailyLottery, null);
-        //NetManager.Instance.SendMsg(RPCName.tryDailyLottery, null);
     }
 
     private void OnEnable()
@@ -77,13 +91,12 @@ public class DailyLottery : MonoBehaviour
         var jsonData = data.value as JSONNode;
         canSpin = jsonData["is_daily_sign"] != 1;
         spinBtn.interactable = canSpin;
+        spinBtnAni.SetInteger("enable", canSpin ? 1 : 0);
         var tempList = jsonData["credit_list"];
         for (int i = 0; i < tempList.Count; i++)
             creditList.Add(tempList[i]);
         for (int i = 0; i < jackpotList.Count; i++)
-            jackpotList[i].text = GetLotteryNumStr(creditList[i]);
-        int jackpot = tempList[tempList.Count - 1];
-        jackpotText.text = GetJackpotNumStr(jackpot);
+            jackpotList[i].text = creditList[i] > 999 ? GetLotteryNumStr(creditList[i]) : creditList[i].ToString();
         state = State.Ready;
     }
 
@@ -117,7 +130,30 @@ public class DailyLottery : MonoBehaviour
         int reward = jsonData["reward_credit"];
         balance = jsonData["balance"];
         targetZ = (index + 1) * 36f;
-        StartRoll();
+        winIdex = index;
+        winText.text = GetJackpotNumStr(reward);
+        //StartRoll();
+        NewStartRoll();
+
+
+    }
+
+    private void NewStartRoll()
+    {
+        animator.SetInteger("roll", 1);
+        rollingEffect.SetActive(true);
+        bigWheel.Simulation(1, targetZ, 5);
+    }
+
+    public void OnStoppedRoll()
+    {
+        animator.SetInteger("roll", 0);
+        rollingEffect.SetActive(false);
+        rewardObjs[winIdex].SetActive(true);
+        winObj.SetActive(true);
+        BlackboardQueryUtils.SetMyCredit(balance);
+        MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
+        closeBtn.interactable = true;
     }
 
     private void StartRoll()
@@ -231,6 +267,7 @@ public class DailyLottery : MonoBehaviour
         NetManager.Instance.SendMsg(RPCName.tryDailyLottery, null);
         canSpin = false;
         spinBtn.interactable = canSpin;
+        spinBtnAni.SetInteger("enable", canSpin ? 1 : 0);
         closeBtn.interactable = false;
     }
 

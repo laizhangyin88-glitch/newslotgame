@@ -16,7 +16,7 @@ public class NewJackpotRecord : MonoBehaviour
         root.UpdateContext(false);
         InitContext();
         InitClickEvents();
-        GetJackpotRecord(0);
+        GetJackpotRecord(4);
     }
 
     private void InitContext()
@@ -27,6 +27,7 @@ public class NewJackpotRecord : MonoBehaviour
             toggles.Add(toggelGroup.GetChild(i).GetComponent<Toggle>());
             toggles[i].onValueChanged.AddListener(OnToggleValueChange);
         }
+        toggles.Reverse();
     }
 
     private void OnToggleValueChange(bool value)
@@ -53,7 +54,8 @@ public class NewJackpotRecord : MonoBehaviour
         if (curTimeStamp - timeStamp > 60000)
         {
             NetManager.Instance.SendMsg(RPCName.queryJackpotRanking, new Dictionary<string, object> {
-                {"jackpot_id",type},
+                {"jackpot_id",type == 4 ? 0 : type},
+                { "is_all", type == 4 ? 1 : 0}
             });
         }
         else

@@ -17,6 +17,8 @@ using Action = System.Action;
 using Sirenix.OdinInspector;
 using EventData = ParadoxNotion.EventData;
 using Newtonsoft.Json;
+using com.adjust.sdk;
+
 public class RequestType {
 
     public RequestType(object buffer, string rpcName, long time, bool force =false)
@@ -845,8 +847,20 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 }
 
                 //彩金
-                if (data.HasKey("bonus_result"))
-                    MessageDispatcher.Dispatch("SetJackpot", new EventData<string>("SetJackpot", data["bonus_result"].ToString()));
+                if (data.HasKey("remain_jackpot_list"))
+                {
+                    List<int> jackpots = new List<int>();
+                    //for (int i = data["remain_jackpot_list"].Count - 1; i >= 0; i--)
+                    //    jackpots.Add(data["remain_jackpot_list"][i] * 100);
+
+                    for (int i = 0; i < data["remain_jackpot_list"].Count; i++)
+                    {
+                        var tempData = (float)data["remain_jackpot_list"][i] * 100;
+                        jackpots.Add((int)tempData);
+                    }
+
+                    MessageDispatcher.Dispatch("SetJackpot", new EventData<List<int>>("SetJackpot", jackpots));
+                }
 
                 if (data.HasKey("level"))
                     NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserLevel, data["level"].AsInt);
@@ -1051,42 +1065,76 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             case RPCName.jacksDraw:
             case RPCName.jacksGambleStart:
             case RPCName.jacksGambleDeal:
+            case RPCName.kickUser:
+
+                break;
             case RPCName.jacksGambleTake:
                 break;
             case RPCName.metaInfo:
                 break;
             case RPCName.gameBonusResult:
-                MessageDispatcher.Dispatch("UpdateJackpot", new EventData<string>("UpdateJackpot", data["data"]["bonus_list"].ToString()));
+                MessageDispatcher.Dispatch("UpdateJackpot", new EventData<JSONNode>("UpdateJackpot", data["data"]));
+                string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
+                if (data["data"].HasKey("winner_user_id"))
+                {
+                    var winnerId = data["data"]["winner_user_id"];
+                    if (winnerId != 0)
+                    {
+
+                        WinResult winResult = new WinResult
+                        {
+                            user_id = winnerId.ToString(),
+                            nick_name = data["data"]["winner_nick_name"],
+                            single_reward = (int)((float)data["data"]["earn_money"] * 100),
+                            bonus_id = data["data"]["jackpot_id"]
+                        };
+                        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "winLobbyJackpotResult", winResult);
+                    }
+
+                    if (winnerId == userId)
+                    {
+                        if (BlackboardQueryUtils.IsSpin())
+                            BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isWinLobbyJackpot", true);
+                        else
+                        {
+                            var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>(MetaStringDefine.LOBBY_BUNDLE_NAME, "Popup Win Lobby Jackpot Scene").GetSceneInfo();
+                            var parent = GameObject.Find("Popup Manager/Area");
+                            var sceneObj = SceneManager.LoadScene(parent.transform, sceneInfo);
+                            PopupManager.Instance.Open(sceneObj);
+                            sceneObj.SetActive(true);
+                        }
+                    }
+                }
                 break;
             case RPCName.winGameBonus:
-                if (!data.HasKey("win_result_list")) return;
-                bool isWin = false;
-                var winResultList = JsonConvert.DeserializeObject<List<WinResult>>(data["win_result_list"].ToString());
-                string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
-                for (int i = 0; i < winResultList.Count; i++)
-                {
-                    var winResult = winResultList[i];
-                    if (winResult.user_id == userId)
-                    {
-                        isWin = true;
+                //if (!data.HasKey("win_result_list")) return;
+                //bool isWin = false;
+                //var winResultList = JsonConvert.DeserializeObject<List<WinResult>>(data["win_result_list"].ToString());
+                //string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
+                //for (int i = 0; i < winResultList.Count; i++)
+                //{
+                //    var winResult = winResultList[i];
+                //    if (winResult.user_id == userId)
+                //    {
+                //        isWin = true;
                         
-                        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "winLobbyJackpotResult", winResult);
-                        break;
-                    }
-                }
-                if (isWin)
-                {
-                    if (BlackboardQueryUtils.IsSpin())
-                        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isWinLobbyJackpot", isWin);
-                    else
-                    {
-                        var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>(MetaStringDefine.LOBBY_BUNDLE_NAME, "Popup Win Lobby Jackpot Scene").GetSceneInfo();
-                        var parent = GameObject.Find("Popup Manager/Area");
-                        var sceneObj = SceneManager.LoadScene(parent.transform, sceneInfo);
-                        PopupManager.Instance.Open(sceneObj);
-                        sceneObj.SetActive(true);
-                    }
-                }
+                //        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "winLobbyJackpotResult", winResult);
+                //        break;
+                //    }
+                //}
+                //if (isWin)
+                //{
+                //    if (BlackboardQueryUtils.IsSpin())
+                //        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isWinLobbyJackpot", isWin);
+                //    else
+                //    {
+                //        var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>(MetaStringDefine.LOBBY_BUNDLE_NAME, "Popup Win Lobby Jackpot Scene").GetSceneInfo();
+                //        var parent = GameObject.Find("Popup Manager/Area");
+                //        var sceneObj = SceneManager.LoadScene(parent.transform, sceneInfo);
+                //        PopupManager.Instance.Open(sceneObj);
+                //        sceneObj.SetActive(true);
+                //    }
+                //}
                 break;
             case RPCName.ping:
             case RPCName.confirmAddCoinOrder:
