@@ -104,6 +104,32 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
     private void Update()
     {
 
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            if (MachineSelectManager.Instance.isPopCommon())
+            {
+                DoTask(() =>
+                {
+                    //ConfirmPopCommon();
+
+                    if (!MachineSelectManager.Instance.isPopCommon())
+                        return;
+                    MachineSelectManager.Instance.ConfirmPopCommon();
+                }, 1000);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            if (MachineSelectManager.Instance.isPopCommon())
+                Debug.LogError("PopCommon");
+            if (MachineSelectManager.Instance.isPopFreeGameTimeSelect())
+                Debug.LogError("PopFreeGameTimeSelect");
+            if (MachineSelectManager.Instance.isNodeMiniGame())
+                Debug.LogError("NodeMiniGame");
+        }
+
+
         if (globalStore.nowGameID != -1 &&  _isLastGameSpin)
         {
 

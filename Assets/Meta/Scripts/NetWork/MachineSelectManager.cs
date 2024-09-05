@@ -916,9 +916,13 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
         //ID:37
         //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect")); //Free Game Result Popup（免费游戏结算确认界面）
 
+        //ID:132 - 奢侈精品店  LUXURY_BOUTIQUE
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickStartButton"));
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickCollectButton"));
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickExtraSale"));
+
         //ID:142  mini game result
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnFinishBonus")); //Double Jackpot Major Popup FIJ（免费游戏结算确认界面）
-
 
         //ID:149 - 白虎  mini game result
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnButtonClicked")); //Double Jackpot Major Popup FIJ（免费游戏开始界面）
@@ -927,7 +931,8 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
         //ID:144 - 狮子  mini game result
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickButton")); //免费游戏开始界面、免费游戏结算界面
 
-
+        //ID:171 - 恶魔之心  HEART_OF_DEMONESS
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartReSpin")); //免费游戏开始界面、免费游戏结算界面
 
         // ID:103 -  奖励弹窗
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnTicketRegularWin")); // 奖励弹窗
