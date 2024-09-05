@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Popup_BonusGameWelcome_FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-3885.0,"y":-3304.0},"zoomFactor":0.7500085,"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"isForceUpdate":{"_value":true},"$type":"SlotMaker.Tasks.Actions.UpdateContext"},{"id":{"_value":"Vox
+    Free Game Pop Up"},"_isDisabled":true,"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"valueA":{"_value":"./customData/bonusGameType"},"saveAs":{"_name":"_bonusGameType","_targetVariableID":"e82bf706-6596-41f1-bc82-8e4026c20e28"},"$type":"SlotMaker.Tasks.Actions.GetBlackboardValue`1[[System.Int32,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}]},"_position":{"x":5235.0,"y":4500.0},"_name":"Entry","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"Bonus
+    Super Intro"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":5745.0,"y":4605.0},"_name":"Special
+    Sound","_comment":"","$type":"NodeCanvas.StateMachines.ActionState","$id":"12"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"elementName":{"_value":"Animator"},"saveAs":{"_name":"animator"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"elementName":{"_value":"Button
+    scale anchor"},"searchingType":"ChildrenDeepSearch","saveAs":{"_name":"startButton"},"$type":"SlotMaker.Tasks.Actions.GetContextElement"},{"eventName":{"_value":"OnBonusGameStart"},"ignoreReset":{},"overrideAgent":{"_name":"startButton"},"$type":"SlotMaker.Tasks.Actions.SetContextClickable"}]},"_position":{"x":5805.0,"y":4755.0},"_name":"Set
+    Text","$type":"NodeCanvas.StateMachines.ActionState","$id":"17"},{"_actionList":{"actions":[{"id":{"_value":"Button"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"},{"parameter":{"_value":"Disappear"},"parameterHashID":{},"overrideAgent":{"_name":"animator"},"$type":"NodeCanvas.Tasks.Actions.MecanimSetTrigger"},{"waitTime":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.Wait"},{"eventName":{"_value":"ClosedPopup"},"delay":{},"overrideAgent":{"_name":"caller","_targetVariableID":"59d030f7-44bd-44b4-a77d-922400ed5203"},"$type":"NodeCanvas.Tasks.Actions.SendEvent"},{"$type":"SlotMaker.Task.Actions.ClosePopup"},{"$type":"NodeCanvas.Tasks.Actions.DestroyGameObject"}]},"_position":{"x":6270.0,"y":4905.0},"_name":"Finalize","$type":"NodeCanvas.StateMachines.ActionState","$id":"30"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"id":{"_value":"Bonus
+    Regular Intro"},"$type":"SlotMaker.Tasks.Actions.SimplePlayGameSound"}]},"_position":{"x":5610.0,"y":4695.0},"_name":"Regular
+    Sound","$type":"NodeCanvas.StateMachines.ActionState","$id":"47"}],"connections":[{"_condition":{"valueA":{"_value":"_bonusGameType"},"checkType":"GreaterThan","valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_value":"_bonusGameType"},"valueB":{},"$type":"SlotMaker.Tasks.Condition.CheckInt32"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"47"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"OnBonusGameStart"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},{"$type":"SlotMaker.Task.Conditions.TestSuite.TestSuiteContentsEventSolver"}],"$type":"NodeCanvas.Framework.ConditionList"},"_sourceNode":{"$ref":"17"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"47"},"_targetNode":{"$ref":"17"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0
