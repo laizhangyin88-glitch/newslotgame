@@ -2,6 +2,7 @@ using BagelCode;
 using BagelCode.ClientModels;
 using Dreamteck.Splines.Primitives;
 using Newtonsoft.Json.Bson;
+using NodeCanvas.Framework;
 using ParadoxNotion;
 using PlayFab;
 using SimpleJSON;
@@ -202,7 +203,6 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
             yield break;
         }
 
-
         // 设置押注倍数
         InGameBetController IGBC = null;
         while (IGBC == null)
@@ -210,11 +210,18 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
             IGBC = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Bet")?.GetComponent<InGameBetController>();
             yield return new WaitForSeconds(0.5f);
         }
+        ///计算额外下注的值
+        var extraBetRatioIndex = BlackboardUtils.FindVariable<int>("./extraBetRatioIndex").value;
+        var extraBetRatioList = BlackboardUtils.FindVariable<List<Blackboard>>("./game/extraBetRatioList").value;
+        var extraBetNumerator = extraBetRatioList[extraBetRatioIndex].GetValue<int>("numerator");
+        var extraBetDenominator = extraBetRatioList[extraBetRatioIndex].GetValue<int>("denominator");
 
         int index = 0;
         for (int i = 0; i < IGBC.BetList.Count; i++)
         {
-            if (firstSpinInfo.betCredit == IGBC.BetList[i])
+            var temp = IGBC.BetList[i] * extraBetNumerator / extraBetDenominator;
+            temp += IGBC.BetList[i];
+            if (firstSpinInfo.betCredit == temp)
             {
                 index = i; break;
             }
