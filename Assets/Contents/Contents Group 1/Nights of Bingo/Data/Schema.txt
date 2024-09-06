@@ -1,0 +1,126 @@
+public class CustomData103
+{
+    // Room Join Response
+    public List<Ticket> defaultBingo = new List<Ticket>();
+    public Dictionary<long,BingoData> bingoPerTotalBet;
+    
+    public int hitNumber;
+}
+
+public class BingoData
+{
+    public List<Ticket> tickets = new List<Ticket>();
+}
+
+public class Ticket
+{
+    /// <summary>
+    /// 0 - regular
+    /// 1 - bronze
+    /// 2 - silver
+    /// 3 - gold
+    /// </summary>
+    public int type;
+
+    /// <summary>
+    /// 0-marked
+    /// 1-non marked regular
+    /// 2-collectable
+    /// 3-spread
+    /// 4-instant bingo
+    /// </summary>
+    public List<int> cells = new List<int>();
+
+    /// <summary>
+    /// List(25)
+    /// </summary>
+    public List<int> cellNumbers = new List<int>();
+    
+    /// <summary>
+    /// Mult * averageBet
+    /// </summary>
+    public long prize;
+
+    public int collectedItems = 0;
+
+    public List<int> specialCombination = new List<int>();
+}
+
+public class BonusInfo103
+{
+    public List<long> scatterPay = new List<long>();
+    public List<int> freeSpinCounts = new List<int>();
+    public List<int> bingoReels = new List<int>();
+}
+
+// NOBFreeSpin
+public class BonusResult10300
+{
+    public int type = 0;
+    public long betCredit = 0;
+    public int addedSpinCount = 0;
+}
+
+// NOBFreeSpinWilds
+public class BonusResult10301
+{
+    public List<int> reelsCurrent = new List<int>();
+}
+
+// NOBTicketedFreeSpinBonus
+public class BonusResult10350
+{
+    public int type = 0;
+    public long betCredit = 0;
+    public int addedSpinCount = 0;
+}
+
+// Marked Cell Win Bonus
+public class BonusResult10310
+{
+    public int cellIndex;
+    public int hitNumber;
+    public Ticket ticket;
+    public int type;    // CellType
+    public List<int> cells = new List<int>();
+}
+
+// Special Feature Triggered (before spin end)
+public class BonusResult10311
+{
+    public int type = 0;    // FeatureType
+    public Ticket ticket;
+    public List<int> cells = new List<int>();
+}
+
+// TICKET WIN
+public class BonusResult10312
+{
+    public Ticket ticket;
+}
+
+// TICKET JP WIN
+public class BonusResult10313
+{
+    public bool isJackpot = true;
+    public int jackpotIndex = 0;
+    public long jackpotAwardAmount = 0;
+}
+
+public class BonusGameStage
+{
+    public bool isKey;
+    public long value;
+}
+
+// BG REGULAR
+public class BonusResult10314
+{
+    public List<BonusGameStage> sequence;
+}
+
+// BG Special
+public class BonusResult10315
+{
+    public List<BonusGameStage> sequence;
+}
