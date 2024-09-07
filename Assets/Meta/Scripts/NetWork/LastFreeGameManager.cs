@@ -126,7 +126,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
                 Debug.LogError("PopCommon");
             if (MachineSelectManager.Instance.isPopFreeGameTimeSelect())
                 Debug.LogError("PopFreeGameTimeSelect");
-            if (MachineSelectManager.Instance.isNodeMiniGame())
+            if (MachineSelectManager.Instance.IsNodeMiniGame())
                 Debug.LogError("NodeMiniGame");
         }
 
@@ -156,12 +156,11 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
                   else if (MachineSelectManager.Instance.isNodeMiniGameSelect()){
 
                 }*/
-                  
-                else if (MachineSelectManager.Instance.isNodeMiniGame())
+                else if (MachineSelectManager.Instance.IsNodeMiniGame())
                 {
                     DoTask(() =>
                     {
-                        if (!MachineSelectManager.Instance.isNodeMiniGame())
+                        if (!MachineSelectManager.Instance.IsNodeMiniGame())
                             return;
                         MachineSelectManager.Instance.ConfirmNodeMiniGameSpin();
                     }, 1000);

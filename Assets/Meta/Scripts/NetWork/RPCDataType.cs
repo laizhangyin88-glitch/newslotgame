@@ -226,3 +226,19 @@ public struct AccountLoginRespone
     public string token_id;
     public string logic_ip;
 }
+
+public class EVTType
+{
+    public const string ON_CONTENT_UI_EVENT = "OnContentUIEvent";
+    public const string ON_CONTENT_EVENT = "OnContentEvent";
+    public const string MACHINE_BUTTON_SELECT = "MachineBtnEvent"; //MachineBtnEvent
+    public const string ON_CUSTOM_EVENT = "OnCustomEvent";
+    public const string MACHINE_BUTTON_SELECT_UI_EVTTYPE = "MachineBtnUIEVTType"; //MachineBtnEvent
+    public const string ON_SPIN_BUTTON_EVENT = "OnSpinButtonEvent";
+    public const string ON_USER_CONFIG = "OnUserConfig";
+    public const string ON_WIN_EVENT = "OnWinEvent";
+    public const string ON_SYMBOL_EVENT = "OnSymbolEvent";
+    public const string ON_CREDIT_EVENT = "OnCreditEvent";
+
+    //public const string SINGLE_WIN = "SingleWin";
+}
