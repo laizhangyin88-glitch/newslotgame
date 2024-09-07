@@ -403,9 +403,9 @@ namespace BagelCode
             }
             str = str.Remove(str.Length - 2);
 
-            if (value[1] == '.' || value[1] == ',')
+            if (value.Length >= 2 && (value[1] == '.' || value[1] == ','))
                 str = str.Insert(0, " ");
-            else if(value[2] == '.')
+            else if(value.Length >= 3 && value[2] == '.')
                 str = str.Insert(3, " ");
 
             return str;
