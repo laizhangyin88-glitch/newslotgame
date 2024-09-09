@@ -868,6 +868,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         //ID:171 - 恶魔之心  HEART_OF_DEMONESS
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartReSpin")); //免费游戏开始界面、免费游戏结算界面
 
+        //ID:151，戈斯银行 ，免费游戏选择界面，免费游戏确认界面，MR_GOOSES_BANK
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickEventLeft"));
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickEvent"));
+
     }
 
     /// <summary>“小游戏选择弹窗”是否可见 </summary>
@@ -1370,6 +1374,12 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 153:
                 obj = GameObject.Find("Anchor/Midground/Quick Change Bouns");
                 break;
+            case 152:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Bonus game");
+                break;
+            case 154:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Hot Bonus Panel");
+                break;
             case 183:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Slot Frame/Wheel Bonus");
                 break;
@@ -1389,8 +1399,16 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 123:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClickOnWheel"));
                 break;
+            case 152:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartWheel"));
+                EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("StageEnd")); 
+                break;
             case 153:
                 Debug.LogError("待完成。。。");
+                break;
+            case 154:
+                EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("FreeSpinIntro"));
+                EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("EndHotBonus"));
                 break;
             case 183:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData<int>("OnBigWheelClick", _curSelectNumb));
