@@ -31,6 +31,7 @@ using UnityEngine.UIElements;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Linq;
+using SlotMaker.Task.Actions;
 
 public enum SceneBtnType
 {
@@ -813,13 +814,11 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Return"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Finalize"));
 
-
-        ///
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClose"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnCollect"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnPointerClick"));
-
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartBonusGame"));
 
         /**
          * Big Win Text Event Mega Win
@@ -842,6 +841,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         //ID:93 mini game result
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Clicked")); //Free Game Select Popup（免费游戏结算确认界面）
 
+        //ID:100 - 旋转闪电战  SPIN BLITZ
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("StartClosePopup"));
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClosedPopup"));
+
         //ID:107 - 旋转闪电战  SPIN BLITZ
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClick"));
 
@@ -850,6 +853,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnBonusGameStart"));  // mini game start
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnBackClicked"));  // mini game result
 
+        //ID:122 -  甜心赢了
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("GiftLeftClicked")); //选择窗,暂时这样跳过重连
+        
         //ID:132 - 奢侈精品店  LUXURY_BOUTIQUE
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickStartButton"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickCollectButton"));
@@ -860,7 +866,6 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
         //ID:149 - 白虎  mini game result
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnButtonClicked")); //Double Jackpot Major Popup FIJ（免费游戏开始界面）
-
 
         //ID:144 - 狮子  mini game result
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickButton")); //免费游戏开始界面、免费游戏结算界面
@@ -1362,10 +1367,16 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 37:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Pick Bonus/Animator/Base");
                 break;
+            case 118:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Map Bonus");
+                break;
             case 123:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator");
                 if (obj != null)
                     return (obj.GetComponent<Animator>().GetBool("Blue wheel") || obj.GetComponent<Animator>().GetBool("Green wheel"));
+                break;
+            case 130:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Main Wheel");
                 break;
             case 153:
                 obj = GameObject.Find("Anchor/Midground/Quick Change Bouns");
@@ -1386,8 +1397,14 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     {
         switch (globalStore.nowGameID)
         {
+            case 118:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("SpinCompass"));
+                break;
             case 123:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClickOnWheel"));
+                break;
+            case 130:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Touch"));
                 break;
             case 153:
                 Debug.LogError("待完成。。。");
