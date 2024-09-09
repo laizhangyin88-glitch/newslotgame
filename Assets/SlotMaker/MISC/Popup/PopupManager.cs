@@ -127,7 +127,6 @@ namespace SlotMaker
 
             popup.UpdateSortingLayer(lastSortingOrder * sortingOrderSpace);
             Push(popup);
-
             CameraManager.Get().GetComponent<Animator>().SetInteger("Popup Count", popupCount);
     	}
 
@@ -185,7 +184,6 @@ namespace SlotMaker
     	public void Close()
     	{
     		var popup = Pop();
-
             if(!InternalEventRouter.Instance.IsEmpty)
                 InternalEventRouter.Instance.Invoke( new EventRouterData("PopupClose", popup) );
 
