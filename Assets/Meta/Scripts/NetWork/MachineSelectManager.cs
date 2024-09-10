@@ -1382,15 +1382,15 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 130:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Main Wheel");
                 break;
+			case 152:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Bonus game");
+                break
             case 153:
                 obj = GameObject.Find("Anchor/Midground/Quick Change Bouns");
                 break;
-            case 152:
-                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Bonus game");
-                break;
             case 154:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Hot Bonus Panel");
-                break;
+                break;;
             case 183:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Slot Frame/Wheel Bonus");
                 break;
@@ -1407,6 +1407,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     {
         switch (globalStore.nowGameID)
         {
+            case 21:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("collectEvent"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
+                break;
             case 118:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("SpinCompass"));
                 break;
@@ -1423,11 +1427,11 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 Debug.LogError("待完成。。。");
                 break;
             case 154:
-                EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("FreeSpinIntro"));
-                EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("EndHotBonus"));
+                StartCoroutine(ConfirmNodeMiniGameSelect154());
                 break;
             case 183:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData<int>("OnBigWheelClick", _curSelectNumb));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
                 break;
             case 3004:
                 MessageDispatcher.Dispatch("OnCustomEvent", new EventData("MachineSpinClick"));
@@ -1435,6 +1439,19 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             default:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
                 break;
+        }
+    }
+
+    private IEnumerator ConfirmNodeMiniGameSelect154()
+    {
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClosedPopup"));
+        var btns = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Hot Bonus Panel/Anchor/Board/Buttons").transform;
+        for (int i = 0; i < btns.childCount; i++)
+        {
+            var ani = btns.GetChild(i).GetComponent<Animator>();
+            MessageDispatcher.Dispatch("OnContentUIDetailEvent", new EventData<Animator>("UpdateMatchCard", ani));
+            //OnContentUIDetailEvent
+            yield return new WaitForSeconds(1);
         }
     }
 

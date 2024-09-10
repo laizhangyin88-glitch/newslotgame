@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -154,6 +154,8 @@ namespace ParadoxNotion
             var allTypes = GetAllTypes(true);
             for ( var i = 0; i < allTypes.Length; i++ ) {
                 var t = allTypes[i];
+                if (t.FullName.Contains("Unity.Plastic.Antlr3.Runtime"))
+                    continue;
                 var att = t.RTGetAttribute<Serialization.DeserializeFromAttribute>(false);
                 if ( att != null && att.previousTypeFullName == typeName ) {
                     return t;
@@ -725,6 +727,7 @@ namespace ParadoxNotion
         public static T RTGetAttribute<T>(this Type type, bool inherited) where T : Attribute {
             // return (T)type.GetCustomAttributes(typeof(T), inherited).FirstOrDefault();
             object[] attributes;
+            
             if ( !_typeAttributes.TryGetValue(type, out attributes) ) {
                 attributes = type.GetCustomAttributes(true);
                 _typeAttributes[type] = attributes;
