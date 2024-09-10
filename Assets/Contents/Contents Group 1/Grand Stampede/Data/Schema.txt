@@ -1,0 +1,110 @@
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SlotMaker.Contents.Internal.Gsp
+{
+  
+    public class BonusInfo164
+    {
+        public List<int> betScaleRange; // bet_scale_range
+        public List<int> diamondsTable;
+        public List<int> ladderTable;
+    }
+    
+    public class CustomData164
+    {
+        public int expectationType;
+    }
+    
+    // FreeSpin
+    public class BonusResult16400
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int extraBetIndex = 0;
+    }
+
+    // FREE_SPIN_RETRIGGER
+    public class BonusResult16401
+    {
+       public int addedSpinCount = 0;
+    }
+
+    // OneRespinBonus
+    public class BonusResult16402
+    {
+       public List<int> reelOutputList = new List<int>();
+       public List<LockedSymbol> lockedLinkPositionListBefore = new List<LockedSymbol>();
+       public List<LockedSymbol> lockedLinkPositionListAfter = new List<LockedSymbol>();
+    }
+
+    // TenRespinBonus
+    public class BonusResult16403
+    {
+       public List<int> initialDiamondsValuesNoSeparatedReels = new List<int>();
+       public List<int> initialMultiplierValuesNoSeparatedReels = new List<int>();
+       public List<RespinResultConfig> respinsConfigPack = new List<RespinResultConfig>();
+       public int finalLadderLevel = 0;
+       public int totalMultiplier = 0;
+    }
+
+    // JP
+    public class BonusResult16404
+    {
+        public bool isJackpot = true;
+        public int jackpotIndex = 0;
+        public long jackpotAwardAmount = 0;
+    }
+    
+    // MULTIPLIERS_INFO
+    public class BonusResult16405
+    {
+        public List<MultiplierInfo> multiplierInfoPerSymbol;
+    }
+    
+    // INS FreeSpin
+    public class BonusResult16450
+    {
+        public int type = 0;
+        public long betCredit = 0;
+        public int addedSpinCount = 0;
+        public int extraBetIndex = 0;
+    }
+    
+    public class LockedSymbol
+    {
+      public int cellIndex = 0;
+      public int iconType = 0;
+    }
+
+    public class MultiplierInfo
+    {
+      public int cellIndex = 0;
+      public int multiplier = 0;
+    }
+
+    public class RespinResultConfig
+    {
+      public int totalDiamondsCountAfterUpdate = 0;
+      public int ladderIndexAfterUpdate = 0;
+      public int ladderIndexBeforeUpdate = 0;
+      public int totalMultiplier = 0;
+      public List<int> reelOutputList = new List<int>();
+      public List<int> iconsPositionOnSeparatedReels = new List<int>();
+      public List<int> iconsTypes = new List<int>();
+      public List<int> diamondsValuePerSymbol = new List<int>();
+      public List<int> diamondsValuePerSymbolBeforeUpdate = new List<int>();
+      public List<int> multiplierValuesPerSymbol = new List<int>();
+      public List<RespinUpdateConfig> updateConfig;
+    }
+
+    public class RespinUpdateConfig
+    {
+      public int supplySymbol = 0;
+      public int probableIncrease = 0;
+      public List<int> diamondsValuesPerSymbol = new List<int>();
+      public List<int> increaseValuesPerSymbol = new List<int>();
+    }
+    
+}
