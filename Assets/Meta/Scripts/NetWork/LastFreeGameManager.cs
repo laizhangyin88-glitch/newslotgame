@@ -177,9 +177,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
                     }, 1000);
                 }
             }
-
         }
-        
     }
 
 
@@ -219,7 +217,18 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
         for (int i = 0; i < IGBC.BetList.Count; i++)
         {
             var temp = IGBC.BetList[i] * extraBetNumerator / extraBetDenominator;
-            temp += IGBC.BetList[i];
+            if (globalStore.nowGameID == 142)
+            {
+                if(firstSpinInfo.extraBet > 0)
+                {
+                    temp += firstSpinInfo.extraBet;
+                }
+            }
+            else
+            {
+                temp += IGBC.BetList[i];
+            }
+
             if (firstSpinInfo.betCredit == temp)
             {
                 index = i; break;
@@ -258,7 +267,10 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
     {
         // 正则表达式，匹配bet_credit后面的数字  
         string pattern = "\"total_count\":\\s*(\\d+)";
-
+        if(globalStore.nowGameID == 142)
+        {
+            pattern = "\"extra_bet\":\\s*(\\d+)";
+        }
 
         for (int i = 0; i< historyRes.Count; i++)
         {
@@ -350,8 +362,9 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
         {
             //(已经给定选择结果，选那个都一样)
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>("MachineSelectEvent", _curSelectNumb));
+            EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("BonusCardClicked")); 
         }
-
+         
         if (globalStore.nowGameID == 149) //白虎 
         {
             List<int> select = new List<int>() { 32, 16, 8,  4 };
@@ -361,6 +374,11 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
             }
             name = $"OnSelection{_curSelectNumb}";
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData(name));
+        }
+        if(globalStore.nowGameID == 142)////丛林火焰
+        {
+            int index = (int)(totalCount / (firstSpinInfo.betCredit - totalCount)) - 1;
+            EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>("Change", index));
         }
     }
 
@@ -542,6 +560,11 @@ public class FirstSpinInfo
     /// </summary>
     public long betCredit = 0;
 
+    /// <summary>
+    /// 额外下注金额
+    /// </summary>
+    public long extraBet = 0;
+
     public void GetFirstSpinInfo(string spin)
     {
         // 正则表达式，匹配bet_credit后面的数字  
@@ -584,5 +607,22 @@ public class FirstSpinInfo
                 Debug.LogError("triggered_type_index is not find");
             }
         }
+        ///丛林火焰，获得额外下注的金额
+        if (globalStore.nowGameID == 142)
+        {
+            pattern = "\"extra_bet\":\\s*(\\d+)";
+            match = Regex.Match(spin, pattern);
+
+            if (match.Success)
+            {
+                string str = match.Groups[1].Value;
+                extraBet = long.Parse(str);
+            }
+            else
+            {
+                Debug.LogError("triggered_type_index is not find");
+            }
+        }
+
     }
 }

@@ -726,6 +726,14 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 return true;
             }
         }
+        if(globalStore.nowGameID == 142)///丛林火焰 --选择额外押注
+        {
+            GameObject Pick = GameObject.Find("Popup Manager/Contents/Denomination Popup FIJ");
+            if (Pick != null && Pick.activeSelf)
+            {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -752,7 +760,6 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData(name));
             _curSelectNumb = 0;
         }
-
         if (globalStore.nowGameID == 93)
         {
             name = $"OnSelection{_curSelectNumb}";
@@ -785,6 +792,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
         if (globalStore.nowGameID == 149) //白虎 
         {
+
             name = $"OnSelection{_curSelectNumb}";
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData(name));
             _curSelectNumb = 0;
@@ -858,7 +866,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         //ID:142  mini game result
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnFinishBonus")); //Double Jackpot Major Popup FIJ（免费游戏结算确认界面）
 
-        //ID:149 - 白虎  mini game result
+        //ID:149 - 白虎  mini game result，幸运符免费游戏
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnButtonClicked")); //Double Jackpot Major Popup FIJ（免费游戏开始界面）
 
 
@@ -871,7 +879,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         //ID:151，戈斯银行 ，免费游戏选择界面，免费游戏确认界面，MR_GOOSES_BANK
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickEventLeft"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickEvent"));
-
+         
+        //IDD：149 魔术师
+        EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("BonusCardClicked"));
     }
 
     /// <summary>“小游戏选择弹窗”是否可见 </summary>
