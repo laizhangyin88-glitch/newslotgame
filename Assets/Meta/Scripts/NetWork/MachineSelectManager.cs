@@ -678,6 +678,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     }
 
     /// <summary>“免费游戏选择弹窗”是否可见 </summary>
+    /// <remarks>
+    /// 有些游戏进入免费游戏前会存在选择弹窗，将代码加入这里，用于断线重连和机台按钮的逻辑
+    /// </remarks>
     public bool isPopFreeGameTimeSelect()
     {
 
@@ -726,6 +729,21 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 return true;
             }
         }
+
+        //神秘宝石这款游戏的免费游戏弹窗最开始是需要点击符号，然后才会有弹窗
+        if(globalStore.nowGameID == 73)
+        {
+            //散射是否可以被点击
+            var scatterClickable = BlackboardUtils.FindVariable<bool>("./scatterClickable");
+            if (scatterClickable != null && scatterClickable.value == true)
+                return true;
+
+            //弹窗是否存在
+            var panel = GameObject.Find("Popup Manager/Contents/Free Game Trigger Popup");
+            if (panel != null && panel.activeSelf)
+                return true;
+        }
+
         return false;
     }
 

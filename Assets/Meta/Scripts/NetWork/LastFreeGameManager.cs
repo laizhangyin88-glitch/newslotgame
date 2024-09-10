@@ -355,6 +355,14 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
             name = $"OnSelection{_curSelectNumb}";
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData(name));
         }
+
+        if (globalStore.nowGameID == 73)
+        {
+            EventSender.SendGlobalEvent("OnContentUIDetailEvent", new ParadoxNotion.EventData("ScatterClicked"));
+            //与免费游戏重连窗口的关闭事件名冲突了，这里加上1
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("StartClosePopup"));
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClosePopup1"));
+        }
     }
 
 
