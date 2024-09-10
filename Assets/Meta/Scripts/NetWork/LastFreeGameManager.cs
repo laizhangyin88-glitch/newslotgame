@@ -1,5 +1,6 @@
 using BagelCode;
 using BagelCode.ClientModels;
+using BagelCode.Tasks.Actions.ClientAPI;
 using Dreamteck.Splines.Primitives;
 using Newtonsoft.Json.Bson;
 using NodeCanvas.Framework;
@@ -389,6 +390,25 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
         {
             int index = (int)(totalCount / (firstSpinInfo.betCredit - totalCount)) - 1;
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>("Change", index));
+        }
+        if(globalStore.nowGameID == 10)  ////幸运财富
+        {
+            string data = historyRes[0];
+            string pattern = "\"selected_index\":\\s*(\\d+)";
+            Match match = Regex.Match(data, pattern);
+            if(match.Success)
+            {
+                string str = match.Groups[1].Value;
+                int value = int.Parse(str);
+                if (value == 0)
+                {
+                    EventSender.SendGlobalEvent(EVTType.ON_CUSTOM_EVENT, new EventData("OnRoyalFreeSpinClick")); 
+                }
+                else
+                {
+                    EventSender.SendGlobalEvent(EVTType.ON_CUSTOM_EVENT, new EventData("OnMultiplierFreeSpinClick"));
+                }
+            }
         }
     }
 
