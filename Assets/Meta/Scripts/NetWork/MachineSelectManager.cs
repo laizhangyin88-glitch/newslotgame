@@ -735,6 +735,14 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 return true;
             }
         }
+        if(globalStore.nowGameID == 10)  ////幸运财富
+        {
+            GameObject Pick = GameObject.Find("Game Contents/Animator/Anchor/Effect Midground/Free Spins Select");
+            if (Pick != null && Pick.activeSelf)
+            {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -1375,6 +1383,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 7:
                 obj = GameObject.Find("Game Contents/Animator/Anchor/Effect Midground/Dice Game");
                 break;
+            case 10:
+                obj = GameObject.Find("Game Contents/Animator/Anchor/Effect Midground/Free Spins Select");
+                break;
             case 21:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Wheel Bonus");
                 break;
@@ -1394,7 +1405,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
 			case 152:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Bonus game");
-                break
+                break;
             case 153:
                 obj = GameObject.Find("Anchor/Midground/Quick Change Bouns");
                 break;
@@ -1417,6 +1428,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     {
         switch (globalStore.nowGameID)
         {
+            case 10:
+                
+                //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnRoyalFreeSpinClick"));
+                break;
             case 21:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("collectEvent"));
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
