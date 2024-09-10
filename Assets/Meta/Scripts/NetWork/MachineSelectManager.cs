@@ -1394,7 +1394,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
 			case 152:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Bonus game");
-                break
+                break;
             case 153:
                 obj = GameObject.Find("Anchor/Midground/Quick Change Bouns");
                 break;
