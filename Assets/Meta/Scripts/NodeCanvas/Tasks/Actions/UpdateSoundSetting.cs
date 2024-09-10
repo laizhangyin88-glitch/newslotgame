@@ -18,8 +18,8 @@ namespace BagelCode.Tasks.Actions
 
         protected override void OnExecute()
         {
-            SlotMaker.GSManager.Instance.MusicVolume = (float)PlayerPrefs.GetInt("MUTE_MUSIC", 1);
-            SlotMaker.GSManager.Instance.SfxVolume = (float)PlayerPrefs.GetInt("MUTE_SFX", 1);
+            SlotMaker.GSManager.Instance.MusicVolume = PlayerPrefs.GetFloat("MUTE_MUSIC", 1);
+            SlotMaker.GSManager.Instance.SfxVolume = PlayerPrefs.GetFloat("MUTE_SFX", 1);
             EndAction();
         }
     }
