@@ -117,6 +117,16 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
                     MachineSelectManager.Instance.ConfirmPopCommon();
                 }, 1000);
             }
+            if (MachineSelectManager.Instance.IsNodeMiniGame())
+            {
+                DoTask(() =>
+                {
+                    if (!MachineSelectManager.Instance.IsNodeMiniGame())
+                        return;
+                    MachineSelectManager.Instance.ConfirmNodeMiniGameSpin();
+                }, 1000);
+            }
+
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
@@ -448,6 +458,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
             else
             {
                 Time.timeScale = 10;
+                //Time.timeScale = 1;
             }
             responseCallback(dataDict["data"]);
         }
