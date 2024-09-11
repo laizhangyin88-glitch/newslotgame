@@ -802,7 +802,7 @@ public enum GameFilter
     SLOT_MACHINE = 1,
     VIDEO_POKER = 2,
     KENO = 3,
-    FISH = 4,
+    FAV = 4,
     BINGO = 5,
 }
 
@@ -5949,6 +5949,8 @@ public partial class GameInfo
     public string longImageUrl = "";
     public int minClientVersion = 0;
     public int gameFilter = 0;
+    public int gameOrder = 0;
+    public int isLong = 0;
 }
 
 [System.Serializable]

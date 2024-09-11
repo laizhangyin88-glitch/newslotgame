@@ -341,6 +341,12 @@ namespace SlotMaker
 
         public static AssetBundleLoadAssetOperation LoadAssetAsync<T>(string bundleName, string assetName) where T : UnityEngine.Object
         {
+#if UNITY_EDITOR
+            if (typeof(T) == typeof(SceneInfoObject))
+            {
+                Debug.Log($"【SceneInfoObject】{bundleName} - {assetName}");
+            }
+#endif
             return LoadAssetAsync(bundleName, assetName, typeof(T));
         }
 

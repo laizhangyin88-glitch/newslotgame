@@ -20,9 +20,8 @@ namespace BagelCode.Tasks.Actions.ClientAPI
         protected override void OnExecute()
         {
 
-#if NEW_NET
-
-            NetManager.Instance.Post(RPCName.lobby, null,
+#if NEW_NET      
+            NetManager.Instance.Post(RPCName.lobby, new Dictionary<string, object>(),
             (res) =>
             {
                 string resStr = res.ToString();
@@ -82,7 +81,7 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                         response.bigwinRankList.Add(tmp01);
                     }*/
 
-                    for (int i = 0; i < res["bigwin_rank_list"].Count; i++)
+                    for (int i = 0; i < res["bigwin_rank_list"].Count; i++)  //排行榜
                     {
                         BigwinRankInfo br = new BigwinRankInfo();
                         br.rankList = new List<BigwinRankEntry>();
@@ -113,10 +112,16 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                 }
 
                 //globalStore.gameInfoList = res["game_info_list"]?? res["gameInfoList"]; 不可用，因为是JSONNode对象
-                globalStore.gameInfoList = res.HasKey("game_info_list")? res["game_info_list"]:res["gameInfoList"];
+                globalStore.gameInfoList = res.HasKey("game_info_list")? res["game_info_list"]:res["gameInfoList"];  //大厅图标
                 globalStore.gameInfoList = JSONNode.Parse(NetManager.ChangeJsonKeyToCameCase(globalStore.gameInfoList.ToString()));
 
                 string resStr2 = globalStore.gameInfoList.ToString();
+
+                JSONNode excUI = null;
+                if (ApplicationSettings.Instance.isExchangeUI)
+                {
+                    excUI = JSONNode.Parse(TestManager.Instance.getExcUIConfig());
+                }
 
                 Dictionary<string, string> slotWebImageURL = new Dictionary<string, string>();
 
@@ -131,7 +136,10 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                 var j = 0;
                 while (j < response.gameInfoList.Count)
                 {
-                    if (gameIds.Contains(response.gameInfoList[j].gameId))
+                    int id = response.gameInfoList[j].gameId;
+                    if ((excUI != null && excUI.HasKey(id.ToString()) && gameIds.Contains(id))
+                    || (excUI == null && gameIds.Contains(id))
+                    )
                     {
                         j++;
                     }
@@ -143,7 +151,11 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                 j = 0;
                 while (j < response.slotList.Count)
                 {
-                    if (gameIds.Contains(response.slotList[j].gameId))
+                    int id = response.slotList[j].gameId;
+                    //if (gameIds.Contains(id))
+                    if ((excUI != null && excUI.HasKey(id.ToString()) && gameIds.Contains(id))
+                    || (excUI == null && gameIds.Contains(id))
+                    )
                     {
                         j++;
                     }
@@ -160,16 +172,38 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     response.gameInfoList[i].shortImageUrl = temp["shortImageUrl"];
                     response.gameInfoList[i].gameTitle = temp["gameTitle"];
                     response.gameInfoList[i].gameFilter = temp["gameFilter"];
+                    response.gameInfoList[i].gameOrder = temp["gameOrder"];
+                    response.gameInfoList[i].isLong = temp["isLong"];
 
                     //int type = temp["gameType"] ? temp["gameType"].AsInt : (int)GameType.UNKNOWN;
                     int type = temp["gameType"].AsInt;
                     response.gameInfoList[i].gameType = (BagelCode.ClientModels.GameType)type;
                 }
 
+                List<Slot> tempSlotList = new List<Slot>();
+                response.gameInfoList.Sort((a, b) => a.gameOrder.CompareTo(b.gameOrder));
+
+                for (int i = 0; i < response.gameInfoList.Count; i++)
+                {
+                    var gameId = response.gameInfoList[i].gameId;
+                    for (int k = 0; k < response.slotList.Count; k++)
+                    {
+                        if (gameId == response.slotList[k].gameId)
+                        {
+                            tempSlotList.Add(response.slotList[k]);
+                        }
+                    }
+                }
+                response.slotList = tempSlotList;
 
                 string oldJson = SlotSimpleJson.SerializeObject(response.gameInfoList);
                 //;  JsonUtility.ToJson(response.gameInfoList);
 
+                //for (int i = 0; i < response.gameInfoList.Count; i++)
+                //{
+                //    Debug.LogError($"response.gameInfoList[i].gameId: {response.gameInfoList[i].gameId}");
+                //    Debug.LogError($"response.gameInfoList[i].gameOrder: {response.gameInfoList[i].gameOrder}");
+                //}
 
                 ClientAPI2Blackboard.Serialize(MainBlackboard.Get(), response);
                 BlackboardUtils.GetOrCreateBlackboard(MainBlackboard.Get(), "shortcut");

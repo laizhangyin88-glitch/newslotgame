@@ -29,8 +29,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Sirenix.OdinInspector;
-
-
+using System.Collections;
 
 public enum SceneBtnType
 {
@@ -105,11 +104,51 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
     private void Start()
     {
+
+#if !UNITY_EDITOR
+        if (!ApplicationSettings.Instance.isMachine)
+            return; 
+#endif
+
         MessageDispatcher.Register(MetaEventDefine.ON_META_UI_EVENT, OnChangeGameListShowMode);
 
         MessageDispatcher.Register(MACHINE_BTN_EVENT, OnMachineBtnEvent);  //"ShowLightSelectTip"
 
+
+        ResetSceneBtn();
     }
+
+    [Button]
+    public void ResetSceneBtn()
+    {
+        StartCoroutine(_ForceSetBtn());
+    }
+    private IEnumerator _ForceSetBtn()
+    {
+        isRuning = true;
+        yield return new WaitForSeconds(1);
+        OpenAllSceneBtn();
+       // yield return new WaitForSeconds(2);
+       // CloseAllSceneBtn();
+        yield return new WaitForSeconds(2);
+        Debug.Log("强制刷新按钮");
+        lastSceneBtnType = SceneBtnType.None;
+        ReflashSceneBtn();
+        isRuning = false;
+    }
+
+    [Button]
+    public void CloseAllBtn()
+    {
+        StartCoroutine(_ForceSetBtn9());
+    }
+    private IEnumerator _ForceSetBtn9()
+    {
+        isRuning = true;
+        yield return new WaitForSeconds(3);
+        CloseAllSceneBtn();
+    }
+
 
 
     protected override void OnDestroy()
@@ -164,6 +203,11 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
     int lastGameID = -99;
     private void Update()
     {
+#if !UNITY_EDITOR
+        if (!ApplicationSettings.Instance.isMachine)
+            return;
+#endif
+
         if (!isRuning)
         {
             isRuning = true;
@@ -187,10 +231,12 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
 
 
+
+
     //DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString();
     bool isSpinLight = true;
     SpinButton SpinBtn = null;
-    public void ChangeSpinLightInGame()
+    private void ChangeSpinLightInGame()
     {
 
         if (globalStore.nowGameID == -1)
@@ -219,7 +265,7 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
                     _isSpinLight = true;
                     break;
                 case NextSpinState.ToStop:
-                //case NextSpinState.ToStopAuto:
+                    //case NextSpinState.ToStopAuto:
                     _isSpinLight = false;
                     break;
             }
@@ -303,7 +349,7 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
 
     [Button]
-    public void test_ShowInfo()
+    void test_ShowInfo()
     {
         Debug.Log($"【machine select mgr】 _curSelectNumb = {_curSelectNumb} _curSelectMark = {_curSelectMark}  hc = {hallMarkStack.Count} gc = {gameMarkStack.Count}");
     }
@@ -711,7 +757,7 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
             }
         }
 
-        if (globalStore.nowGameID == 105)
+        if (globalStore.nowGameID == 105) //SUNSET_SAFARI 狮子-斑马
         {
             GameObject Pick = GameObject.Find("Popup Manager/Contents/Select a Feature Popup");
             if (Pick != null && Pick.active)
@@ -841,6 +887,8 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
          * Big Win Text Event Mega Win
          * Big Win Text Event Super Mega Win
          * Big Win Text Event Big Win
+         * id-153-MULTIPLIER_MAN  "Free Game Trigger Popup"
+         * id-153-MULTIPLIER_MAN  "Quick Change Trigger Popupp"
          */
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
 
@@ -1307,6 +1355,15 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
             }
         }
 
+        if (globalStore.nowGameID == 153) //MULTIPLIER_MAN
+        {
+            GameObject Base = GameObject.Find("Anchor/Midground/Quick Change Bouns");
+
+            if (Base != null && Base.active)
+            {
+                return true;
+            }
+        }
 
         return false;
 
@@ -1323,16 +1380,24 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
             name = "OnBigWheelClick";
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>(name, _curSelectNumb));
         }
+       else if (globalStore.nowGameID == 153)
+        {
+
+            Debug.LogError("待完成。。。");
+            //name = "MachineSpinClick";
+            //EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData("MachineSpinClick"));
+        }
         else
         {
             name = "MachineSpinClick";
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData("MachineSpinClick"));
         }
+
         Debug.Log($"【machine】: mini game spin click  {name}  {_curSelectNumb}");
     }
 
 
-    public bool isSpecialButtonShow()
+    /*public bool isSpecialButtonShow()
     {
         if (globalStore.nowGameID == 100003) //jack
         {
@@ -1346,7 +1411,7 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
         }
 
         return false;
-    }
+    }*/
 
 
 
@@ -1474,7 +1539,7 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
 
 
-    public List<MachineSelectBorder> GetAllRegionItem()
+    private List<MachineSelectBorder> GetAllRegionItem()
     {
         List<string> marks = GetVisableButtonRegionLst();
 
@@ -1515,6 +1580,9 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
 
 
+    /// <summary>
+    /// 除了Spin外的按钮，统一成一个集合，且“是否选择了并确定该按钮”
+    /// </summary>
     Dictionary<int, bool> allRegionRegionAndConfirm = new Dictionary<int, bool>
     {
         //{ 200002,false},
@@ -1522,14 +1590,29 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
         { 43, true}
     };
 
+    /// <summary>
+    /// 某些游戏将除了Spin按钮外的所有其他区域的按钮统一到一个集合中，进行切换。
+    /// 此时spin按钮，switch切换的队列中，所有不显示边框。
+    /// </summary>
+    /// <returns></returns>
     public bool isCloseSpinBorder()
     {
         return allRegionRegionAndConfirm.ContainsKey(globalStore.nowGameID) && allRegionRegionAndConfirm[globalStore.nowGameID];
     }
+
+    /// <summary>
+    /// 游戏中除了Spin按钮外的所有其他区域的按钮统一到一个集合中，进行切换并且进行确认。
+    /// </summary>
+    /// <returns></returns>
     public bool isNodeGameSwitchAllRegionNextButtonAndConfirm()
     {
         return isNodeGameSwitchAllRegionNextButton() && allRegionRegionAndConfirm[globalStore.nowGameID];
     }
+
+    /// <summary>
+    /// 游戏所有按钮区域，统一成同个集合，且用switch按钮进行切换
+    /// </summary>
+    /// <returns></returns>
     public bool isNodeGameSwitchAllRegionNextButton()
     {
         if (globalStore.nowGameID == -1)  // 大厅
@@ -1992,39 +2075,11 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
     }
 
 
-    public void PurchaseCreditRequest(int operateType, long purchase, Action onsuccess = null)
-    {
-        string rpcName = operateType == 1 ? RPCName.addCredit : RPCName.decreaseCredit;
-        Dictionary<string, object> req = new Dictionary<string, object>
-        {
-            {"balance",purchase},
-        };
-
-        NetManager.Instance.Post(rpcName, req,
-        (res) =>
-        {
-            globalStore.newCredit = res["balance"].AsLong;
-            BlackboardQueryUtils.SetMyCredit(globalStore.newCredit);
-            MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
-
-            if (onsuccess != null)
-                onsuccess();
-        },
-        (error) =>
-        {
-            switch (error.errorCode)
-            {
-                default:
-                    GlobalErrorHandler.GlobalError(error);
-                    break;
-            }
-        });
-    }
-
 
     bool isLightBtnSelect = false;
     public bool isLightBtnSelectInGame()
     {
+        //return false;
         if (isPopFreeGameTimeSelect())
         {
             if (!isLightBtnSelect)
@@ -2055,6 +2110,62 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
     }
 
 
+
+
+
+    /// <summary>
+    /// 弹窗出现选择框时，压入mark堆栈，的mark值
+    /// 默认mark = ""
+    /// </summary>
+    Dictionary<int, String> markPopGameConfigSelect = new Dictionary<int, String>() {
+        //{142,"" },
+    };
+    Dictionary<int, String> markPopFreeGameTimeSelect = new Dictionary<int, String>(){
+        //{37,"" },
+        //{93,"" },
+        //{105,"" },
+        //{116,"" },
+        //{149,"" },
+    };
+
+    
+
+    /// <summary>
+    /// 选择框改用机台灯闪烁选择，而不是选择框
+    /// 筛选出要屏蔽的选择框
+    /// </summary>
+    /// <returns></returns>
+    public KeyValuePair<bool,string> GetIgonreBorderWhenUseLightBtnSelect()
+    {
+        if (isLightBtnSelectInGame())  //使用了机台灯闪烁选择
+        {
+            if (isPopFreeGameTimeSelect())
+            {
+                if (markPopFreeGameTimeSelect.ContainsKey(globalStore.nowGameID ))
+                {
+                    return new KeyValuePair<bool, string>(true, markPopFreeGameTimeSelect[globalStore.nowGameID]);
+                }
+                else
+                {
+                    return new KeyValuePair<bool, string>(true, "");
+                }
+            }
+            else if (isPopGameConfigSelect())
+            {
+                if (markPopGameConfigSelect.ContainsKey(globalStore.nowGameID))
+                {
+                    return new KeyValuePair<bool, string>(true, markPopGameConfigSelect[globalStore.nowGameID]);
+                }
+                else
+                {
+                    return new KeyValuePair<bool, string>(true, "");
+                }
+            }
+        }
+        return new KeyValuePair<bool, string>(false, "");
+    }
+
+
     public void ConfirmLightBtnSelectInGame(int index)
     {
         if (isPopFreeGameTimeSelect())
@@ -2069,6 +2180,26 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
     SceneBtnType lastSceneBtnType = SceneBtnType.None;
 
+
+    private void OpenAllSceneBtn()
+    {
+                MessageDispatcher.Dispatch("MachineBtnEvent", new EventData<string[]>("ChangeSceneBtnLight", new string[] {
+                    "BtnSpin",
+                    "BtnPre",
+                    "BtnNext",
+                    "BtnExit",
+                    "BtnSwitch",
+                    "BtnBetUp",
+                    "BtnBetDown",
+                    "BtnBetMax", 
+                    "BtnHelp",
+
+                }));
+    }
+    private void CloseAllSceneBtn()
+    {
+        MessageDispatcher.Dispatch("MachineBtnEvent", new EventData<string[]>("ChangeSceneBtnLight", new string[] { }));
+    }
     public void ReflashSceneBtn()
     {
 
@@ -2402,7 +2533,7 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
         PlaySound();
     }
 
-    bool isAllRegionSwitch = true;
+   // bool isAllRegionSwitch = true;
 
 
 
@@ -2592,26 +2723,6 @@ public class MachineSelectManager : MonoSingleton<MachineSelectManager>
         if (isPre)
             PlaySound();
         return isPre;
-    }
-
-    public void BtnAddCoin()
-    {
-#if !UNITY_EDITOR
-        if (!ApplicationSettings.Instance.isMachine)
-            return;
-#endif
-        PurchaseCreditRequest(1, 100);//加分
-
-    }
-
-    public void BtnMinusCoin()
-    {
-#if !UNITY_EDITOR
-        if (!ApplicationSettings.Instance.isMachine)
-            return;
-#endif
-
-        PurchaseCreditRequest(2, 100); //减分
     }
 
 

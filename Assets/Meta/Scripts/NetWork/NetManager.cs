@@ -14,8 +14,11 @@ using JSONNode = SimpleJSON.JSONNode;
 using System.Text.RegularExpressions;
 using BagelCode.ClientModels;
 using Action = System.Action;
-using System.Collections;
 using Sirenix.OdinInspector;
+using EventData = ParadoxNotion.EventData;
+using Newtonsoft.Json;
+using Spine;
+using static UnityEngine.PlayerLoop.PreUpdate;
 
 public class RequestType {
 
@@ -106,7 +109,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
     }
 
 
-
     private const string ON_SYSTEM_EVENT = "OnSystemEvent";
     private void Start()
     {
@@ -144,23 +146,92 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         }
     }
 
+
+    bool isTestCloseNet = false;
     [Button]
-    void test_timeEq10()
+    void test_CloseNet()
     {
-        Time.timeScale = 10;
+        isTestCloseNet = true;
+        this._socket.Close();
     }
 
     [Button]
-    void test_timeEq5()
+    void test_RecoveryNet()
     {
-        Time.timeScale = 5;
+        isTestCloseNet = false;
+        this.onClosed("test recovery net");
     }
 
     [Button]
-    void test_timeEq1()
+    void test_OpenWinReturn2Login(string msg)
     {
-        Time.timeScale = 1;
+        ReturnToLoginPage("Return to Login");
     }
+
+
+    [Button]
+    void test_ShowSeqID()
+    {
+        for (int i = 0; i<10;i++)
+        {
+            JSONNode data = JSONNode.Parse("{}");
+            data.Add("cur_time", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
+            Post(RPCName.ping, data,
+            (res) => {
+                Debug.Log($"========= seq_id = {res["seq_id"]}  {this._onceEventHandlerLst[RPCName.ping].Count}");
+                foreach (var item in this._onceEventHandlerLst[RPCName.ping])
+                {
+                    Debug.Log($"==seq_id = {item.seqID}");
+                }
+            },
+            (err) =>
+            {
+                JSONNode res = JSONNode.Parse(err.response);
+   
+                Debug.Log($"=========Err seq_id = {res["seq_id"]}  {this._onceEventHandlerLst[RPCName.ping].Count}");
+                foreach (var item in this._onceEventHandlerLst[RPCName.ping])
+                {
+                    Debug.Log($"==seq_id = {item.seqID}");
+                }
+            });
+        }
+
+        JSONNode jsonNode = JSONNode.Parse(string.Format("{{\"err\":408,\"msg\":\"请求超时\",\"seq_id\":{0}}}", -1));
+        this._Emit(RPCName.ping, jsonNode);
+
+    }
+
+
+    void ReturnToLoginPage(string msg = "")
+    {
+
+        if (msg.Length >= 2 && msg[0] == '"' && msg[msg.Length - 1] == '"')
+        {
+            msg = msg.Substring(1, msg.Length - 2);
+            msg = msg ?? "";
+        }
+
+
+
+        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "sessionAlive", false);
+        this._autoReconnect = 0;
+        this._socket.Close();
+
+        ErrorPopupInfo info = new ErrorPopupInfo();
+        info.text = $"<size=32>{msg}</size>";
+        info.type = ErrorPopupType.SystemReset;
+        info.buttonText1 = "OK";
+        info.callback1 = delegate
+        {
+            //this._autoReconnect = 0;
+            //this._socket.Close();
+        };
+        ErrorPopupHandler.Instance.OpenError(info);
+    }
+
+
+
+
     public void Init(ISocket socket)
     {
         // Debug.Log("【NetManager】i am init~~~~~");
@@ -170,7 +241,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         this.Clear();
         this._socket = socket;
     }
-
 
     private void Clear()
     {
@@ -262,12 +332,8 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             else
             {
                 //返回到登录界面
-               /* BagelCodeHTTPError errMsg = new BagelCodeHTTPError();
-                errMsg.url = "";
-                errMsg.responseCode = 0;
-                errMsg.errorCode = Error.UNKNOWN;
-                errMsg.error = "token is null";
-                GlobalErrorHandler.GlobalError(errMsg);*/
+                ReturnToLoginPage($"token is error");
+                return;
             }
         }
         else if (this._state == NetNodeState.Working)
@@ -283,10 +349,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
     {
         List<RequestType> lst = this._requests.Where(item => item.force == false).ToList();
         RequestType last = lst.Count >0 ? lst[lst.Count - 1] : null;
-        /*if (last != null)
-        {
-            lst.RemoveAt(lst.Count - 1);
-        }*/
         this._requests.Clear();
         if (last != null)
         {
@@ -295,21 +357,18 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 lst.RemoveAt(lst.Count - 1);  //删除last
                 this._Send(last.rpcName, last.buffer as string, false);  //最后一条重发
             }
-           /*else
-            {
-                lst.Add(last);
-            }*/
         }
         foreach (var item in lst)
         {
-            JSONNode jsonNode = JSONNode.Parse(@"{""err"":408,""msg"":""请求超时""}");
+            JSONNode jsonNode = JSONNode.Parse(@"{""err"":408,""msg"":""请求超时"",""seq_id"":-1}");
 
             this._Emit(item.rpcName, jsonNode);
-        }  
-
+        }
+        MessageDispatcher.Dispatch("NetManagerEvent", new EventData("isChecked"));
     }
 
-    private int _Send(string rpcName, string buf , bool  force = false){
+    private int _Send(string rpcName, string buf, bool force = false)
+    {
 
         var res = 1;
 
@@ -373,7 +432,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
         if (res == 1 || res == 0)
         {
-
             this._requests.RemoveAll(item => item.rpcName == rpcName);
             this._requests.Add(new RequestType(
                 buf,
@@ -381,11 +439,24 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                 force
                 ));
-
         }
         else if (res == -1)
         {
-            JSONNode jsonNode = JSONNode.Parse(@"{""err"":408,""msg"":""请求超时""}");
+            int seq_id = -1;
+            Match match = Regex.Match(buf, "\"seq_id\":\\s*(\\d+)");
+            if (match.Success)
+            {
+                string str = match.Groups[1].Value;// 提取数字  
+                seq_id = int.Parse(str);
+            }
+
+            /*string.Format(
+                          "UpdateCollectingGameLevelLocked failure. " +
+                          "eventInfo != null:{0}, isLockedFeature:{1}, IsMetaEventLevelLock:{2}",
+                          metaGameEnterInfo != null, isLockedFeature, MetaGameUtils.IsMetaEventLevelLock())*/
+
+            //JSONNode jsonNode = JSONNode.Parse(@"{""err"":408,""msg"":""请求超时""}");
+            JSONNode jsonNode = JSONNode.Parse(string.Format("{{\"err\":408,\"msg\":\"请求超时\",\"seq_id\":{0}}}", seq_id));
             this._Emit(rpcName, jsonNode);
         }
 
@@ -393,6 +464,14 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
     }
 
 
+    public void On(string rpcName, MessageDispatcher.EventDelegate del)
+    {
+        MessageDispatcher.Register(rpcName, del);
+    }
+    public void Off(string rpcName, MessageDispatcher.EventDelegate del)
+    {
+        MessageDispatcher.UnRegister(rpcName, del);
+    }
     private void _Emit(string rpcName, JSONNode data)
     {
         // json数据监听
@@ -400,19 +479,59 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
        // (data as JSONNode ).ToString();
 
         var eventData = new EventData<JSONNode>(rpcName, data as JSONNode);
-        //EventSender.SendGlobalEvent(eventData);
-        //MessageDispatcher
-        //EventSender.SendGlobalEvent
-        //MessageDispatcher.Dispatch(eventType, new EventData<T>(eventName, eventData));
         MessageDispatcher.Dispatch(rpcName, eventData);
 
         if (this._onceEventHandlerLst.ContainsKey(rpcName))
         {
             //List<EventHandlerInfo> ehs = new List<EventHandlerInfo>(this._EventHandlerLst[rpcName]);
-            EventHandlerInfo[] ehs = this._onceEventHandlerLst[rpcName].ToArray();
-            this._onceEventHandlerLst[rpcName].Clear();
 
-            if (data["err"] == 0) //Convert.ToInt32(dat["err"])
+            EventHandlerInfo[] ehs = new EventHandlerInfo[] { };
+
+            if (data.HasKey("seq_id"))
+             {
+                 int seqID = data["seq_id"];
+                 if (seqID == -1)
+                 {
+                     RequestType req = this._requests.Find(item => item.rpcName == rpcName);
+                     EventHandlerInfo eh = null;
+                     if (req != null)
+                     {
+                         Match match = Regex.Match((string)req.buffer, "\"seq_id\":\\s*(\\d+)");
+                         if (match.Success)
+                         {
+                             string str = match.Groups[1].Value;
+                             int seq_id = int.Parse(str);
+                             eh = this._onceEventHandlerLst[rpcName].Find(item => item.seqID == seq_id);
+                         }
+                     }
+
+                     if (eh != null)
+                         this._onceEventHandlerLst[rpcName].Remove(eh);
+
+                     ehs = this._onceEventHandlerLst[rpcName].ToArray();
+                     this._onceEventHandlerLst[rpcName].Clear();
+
+                     if (eh != null)
+                         this._onceEventHandlerLst[rpcName].Add(eh);
+                 }
+                 else
+                 {
+                     EventHandlerInfo eh = this._onceEventHandlerLst[rpcName].Find(item => item.seqID == seqID);
+                     if (eh != null)
+                     {
+                         this._onceEventHandlerLst[rpcName].Remove(eh);
+                         ehs = new EventHandlerInfo[] { eh };
+                     }
+                 }
+             }
+             else
+             {
+                 ehs = this._onceEventHandlerLst[rpcName].ToArray();
+                 this._onceEventHandlerLst[rpcName].Clear();
+             }
+
+
+            if ((int)data["err"] == 0) 
             {
                 foreach (var eh in ehs)
                 {
@@ -436,13 +555,22 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 }
                 foreach (var eh in ehs)
                 {
+                    if (data.HasKey("seq_id"))  //把"seq_id" = -1 替换为对应id
+                    {
+                        data["seq_id"] = eh.seqID;
+                    }
+                    errMsg.response = data.ToString();
                     eh.errorCallback(errMsg);
                 }
             }
         }
-
     }
 
+
+    public void SendMsg(string rpcName, object data)
+    {
+        SendMsg(rpcName,data,-1);
+    }
 
     /// <summary>
     /// 发送数据
@@ -450,8 +578,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
     /// <param name="rpcName">协议名称</param>
     /// <param name="data">Dictionary&lt;string,object> / List&lt;object> / 类 如：RPCKenoClassic.ReqKenoSpin </param>
     /// <returns>void</returns>
-    public void SendMsg(string rpcName,object data)
+    private void SendMsg(string rpcName, object data ,int seq_id = -1)
     {
+
         string buffer = null;
         if (data is JSONNode)
         {
@@ -463,12 +592,26 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         else
         {
             Dictionary<string, object> jsonNode = new Dictionary<string, object>
-                {
-                    { "protocol_key", rpcName},
-                    { "data", data},
-                };
+            {
+                { "protocol_key", rpcName},
+                { "data", data},
+            };
             buffer = SlotSimpleJson.SerializeObject(jsonNode);
         }
+
+        JSONNode nd = JSONNode.Parse(buffer);
+        if(seq_id == -1)
+            seq_id = CreatSeqID();
+        if (!(rpcName == RPCName.login))
+        {
+            nd["data"].Add("seq_id", seq_id);
+        }
+        else
+        {
+            nd["data"].Add(seq_id);
+        }
+        buffer = nd.ToString();
+
         this._Send(rpcName, buffer);
     }
 
@@ -478,11 +621,15 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
     /// <param name="rpcName">协议名称</param>
     /// <param name="data">Dictionary&lt;string,object> / List&lt;object> / 类 如：RPCKenoClassic.ReqKenoSpin </param>
     /// <returns>void</returns>
-    private void SendMsgForce(string rpcName, object data)
+    private void SendMsgForce(string rpcName, object data, int seq_id = -1)
     {
         string buffer = null;
         if (data is JSONNode)
         {
+
+            //if (!(data as JSONNode).IsArray && !(data as JSONNode).HasKey("seq_id"))
+            //    (data as JSONNode).Add("seq_id", CreatSeqID());
+
             JSONNode node = JSONNode.Parse("{}");
             node.Add("protocol_key", rpcName);
             node.Add("data", (JSONNode)data);
@@ -490,6 +637,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         }
         else
         {
+            //if ((data is Dictionary<string, object>) && !(data as Dictionary<string, object>).ContainsKey("seq_id"))
+            //    (data as Dictionary<string, object>).Add("seq_id", CreatSeqID());
+
             Dictionary<string, object> jsonNode = new Dictionary<string, object>
                 {
                     { "protocol_key", rpcName},
@@ -497,9 +647,35 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 };
             buffer = SlotSimpleJson.SerializeObject(jsonNode);
         }
+
+        if (!(rpcName == RPCName.login))
+        {
+            JSONNode node = JSONNode.Parse(buffer);
+            if (seq_id == -1)
+                seq_id = CreatSeqID();
+            node["data"].Add("seq_id", seq_id);
+            buffer = node.ToString();
+        }
         this._Send(rpcName, buffer , true);
     }
 
+   
+
+    string test_protocol_key = "";
+    [Button]
+    void test_SengMsg(string buf)
+    {
+       
+        Match match = Regex.Match(buf, "\"protocol_key\":\\s*\"([a-zA-Z_]+)\"");
+        if (match.Success)
+        {
+            test_protocol_key = match.Groups[1].Value;// 提取数字
+            Debug.Log($" test_protocol_key = {test_protocol_key} ");
+        }
+        Debug.Log($"==@【发送测试数据】：{buf}");
+        string aesBuf = AesManager.Instance.TryEncrypt(buf);
+        this._socket.Send(aesBuf);
+    }
 
     private void _SendHeartbeat()
     {
@@ -525,20 +701,73 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         };
         //this._keepAliveTimer.Enabled = true; //开始执行
         this._keepAliveTimer.Start();
-
     }
 
 
+    private bool isJson(string str)
+    {
+        try
+        {
+            SimpleJSON.JSONNode temp = SimpleJSON.JSONNode.Parse(str);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+            // 抛出了异常，所以jsonString不是有效的JSON  
+        }
+    }
+
     private void OnMessage(object aesEvt)
     {
+        //{"protocol_key":"login","data":{"err":11,"msg":"login token is over time"}}
+        string evt = ""; //= AesManager.Instance.TryDecrypt(aesEvt as string);
+        SimpleJSON.JSONNode dataDict = null;
+        try
+        {
+            evt = AesManager.Instance.TryDecrypt(aesEvt as string);
+            dataDict = SimpleJSON.JSONNode.Parse(evt as string);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"@ ERROR :{ex}");
+            Debug.LogError($"@ 服务器数据没加密 : evt = {aesEvt}");
 
-        string evt = AesManager.Instance.TryDecrypt(aesEvt as string);
+            if (isJson(aesEvt as string))
+            {
+                evt = aesEvt as string;  //这包数据服务器没有加密
+                dataDict = SimpleJSON.JSONNode.Parse(evt as string);
+
+                string msg = evt;
+
+                if (!dataDict["data"].HasKey("msg"))
+                {
+                    Debug.LogError($"服务器下行数据，没有data.msg字段 ：{evt}");
+                }
+                else
+                {
+                    msg = dataDict["data"]["msg"];
+                }
+                ReturnToLoginPage(msg);
+                return;
+                /*if (dataDict["data"].HasKey("err") && dataDict["data"]["err"] != 0){
+                    ReturnToLoginPage($"{msg}");
+                    return;
+                }*/
+            }
+            else
+            {
+                ReturnToLoginPage(aesEvt as string);
+                return;
+                //弹回登录界面
+            }
+        }
+
+
         try
         {
 
-            SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(evt as string);
-
-
+           // SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(evt as string);
 
             if (!dataDict.HasKey("protocol_key"))
             {
@@ -572,12 +801,19 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             }
 
 
+            if (test_protocol_key != "")
+            {
+                test_protocol_key = "";
+                return;
+            }
+
             this.OnWebSocketMessage((string)dataDict["protocol_key"], dataDict["data"]);
 
         }
         catch (Exception ex)
         {
             Debug.LogError($"@【报错】: {ex}\n{evt}");
+            //ReturnToLoginPage($"Error {ex}   evt = {evt}");
         }
 
     }
@@ -590,10 +826,14 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         long err = data["err"].AsLong;
 
 
+
         // 实时刷新金钱
         if (err == 0 && data.HasKey("balance"))
         {
             globalStore.newCredit = data["balance"].AsLong;
+        }else if (err == 0 && data.HasKey("after_credit"))
+        {
+            globalStore.newCredit = data["after_credit"].AsLong;
         }
 
         //添加检测code 和msg 的逻辑
@@ -605,23 +845,21 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     AesManager.Instance.initAesIv(data["aes_iv"]);
                 }
 
+                //彩金
+                if (data.HasKey("bonus_result"))
+                    MessageDispatcher.Dispatch("SetJackpot", new EventData<string>("SetJackpot", data["bonus_result"].ToString()));
+
                 if (this._state == NetNodeState.Checking) //断线重连
                 {
 
                     if (err != 0)
                     {
-                        /*
                         //返回到登录界面
-                        BagelCodeHTTPError errMsg = new BagelCodeHTTPError();
-                       // errMsg.url = RPCName.login;
-                       // errMsg.responseCode = err;
-                        errMsg.errorCode = Error.UNKNOWN;
-                       // errMsg.error = data["msg"].ToString() ?? "";
-                        GlobalErrorHandler.GlobalError(errMsg);
-                        */
-
+                        /*
                         this._autoReconnect = 0;
                         this._socket.Close();
+                        */
+                        ReturnToLoginPage(data["msg"]??"");
                     }
                     else if ((globalStore.gameState == GameState.Game && globalStore.nowGameID != -1)|| globalStore.gameState == GameState.Hall)//断线重链
                     {
@@ -631,12 +869,10 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     {
                         //返回到登录界面
                         /*
-                        BagelCodeHTTPError errMsg = new BagelCodeHTTPError();
-                        errMsg.errorCode = Error.UNKNOWN;
-                        GlobalErrorHandler.GlobalError(errMsg);
-                        */
                         this._autoReconnect = 0;
                         this._socket.Close();
+                        */
+                        ReturnToLoginPage(data["msg"]??"");
                     }
                     return;
                 }
@@ -650,15 +886,10 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     {
                         //返回到登录界面
                         /*
-                        BagelCodeHTTPError errMsg = new BagelCodeHTTPError();
-                        errMsg.url = RPCName.lobby;
-                        errMsg.responseCode = err;
-                        errMsg.errorCode = Error.UNKNOWN;
-                        errMsg.error = data["msg"].ToString() ?? "";
-                        GlobalErrorHandler.GlobalError(errMsg);
-                        */
                         this._autoReconnect = 0;
                         this._socket.Close();
+                        */
+                        ReturnToLoginPage(data["msg"]??"");
                     }
                     else if (globalStore.gameState == GameState.Hall) //重连大厅
                     {
@@ -676,11 +907,10 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     else //踢回登录
                     {
                         //返回到登录界面
-                        /*BagelCodeHTTPError errMsg = new BagelCodeHTTPError();
-                        errMsg.errorCode = Error.UNKNOWN;
-                        GlobalErrorHandler.GlobalError(errMsg);*/
-                        this._autoReconnect = 0;
-                        this._socket.Close();
+                        /*this._autoReconnect = 0;
+                        this._socket.Close();*/
+
+                        ReturnToLoginPage(data["msg"]??"");
                     }
                     return;
                 }
@@ -688,8 +918,86 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 globalStore.gameState = GameState.Hall;
                 globalStore.nowGameID = -1;
 
-                break;
+                //广告
+                if (data.HasKey("l_ads"))
+                {
+                    var adJson = data["l_ads"];
+                    List<ADSData> adsDatas = new List<ADSData>();
+                    for (int i = 0; i < adJson.Count; i++)
+                    {
+                        ADSData adsData = new ADSData
+                        {
+                            imageUrl = adJson[i]["image_url"],
+                            linkUrl = adJson[i]["page_url"],
+                            showTime = adJson[i]["show_long"],
+                            status = adJson[i]["status"],
+                            sort = adJson[i]["sort"]
+                        };
+                        
+                        if (adsData.status != 0)
+                            adsDatas.Add(adsData);
+                    }
 
+                    adsDatas.Sort((a, b) => -a.sort.CompareTo(b.sort));
+
+                    MainBlackboard.Get().SetValue("slotADurls", adsDatas);
+                }
+
+                //收藏
+                if (data.HasKey("user_cache"))
+                {
+                    string res = (string)data["user_cache"];
+                    var cacheJsonNode = JSONNode.Parse(res);
+                    List<int> collectList = new List<int>();
+                    if (cacheJsonNode.HasKey("userCollect"))
+                    {
+                        JSONNode res1 = JSONNode.Parse((string)cacheJsonNode["userCollect"]);
+                        for (int i = 0; i < res1.Count; i++)
+                            collectList.Add(res1[i]);
+                    }
+                    else
+                    {
+                        collectList = new List<int>();
+                        cacheJsonNode.Add("userCollect", JsonConvert.SerializeObject(collectList));
+                    }
+
+                    MainBlackboard.Get().SetValue("userCache", cacheJsonNode);
+                    MainBlackboard.Get().SetValue("collectList", collectList);
+                }
+
+                if (data.HasKey("agent_notice"))
+                {
+                    var noticeNode = data["agent_notice"];
+                    if (noticeNode.IsArray)
+                    {
+                        List<NoticeData> noticeList = new List<NoticeData>();
+
+                        foreach (var item in noticeNode)
+                        {
+                            var node = item.Value;
+                            NoticeData noticeData = new NoticeData()
+                            {
+                                id = node["id"],
+                                agent_id = node["agent_id"],
+                                title = node["title"],
+                                content = node["content"],
+                                start_time = node["start_time"],
+                                end_time = node["end_time"],
+                                status = node["status"],
+                                is_system = node["is_system"],
+                                created_at = node["created_at"],
+                                updated_at = node["updated_at"],
+                                deleted_at = node["deleted_at"]
+                            };
+
+                            noticeList.Add(noticeData);
+                        }
+
+                        MainBlackboard.Get().SetValue("notices", noticeList);
+                    }
+                }
+
+                break;
             case RPCName.enterGame://进入子游戏
 
                 //断线重链子游戏
@@ -699,14 +1007,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     if (err != 0)
                     {
                         //返回到登录界面
-                        /*BagelCodeHTTPError errMsg = new BagelCodeHTTPError();
-                        errMsg.url = RPCName.enterGame;
-                        errMsg.responseCode = err;
-                        errMsg.errorCode = Error.UNKNOWN;
-                        errMsg.error = data["msg"].ToString() ?? "";
-                        GlobalErrorHandler.GlobalError(errMsg);*/
-                        this._autoReconnect = 0;
-                        this._socket.Close();
+                        /*this._autoReconnect = 0;
+                        this._socket.Close();*/
+                        ReturnToLoginPage(data["msg"]??"");
                     }
                     else { 
 
@@ -728,16 +1031,11 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
             case RPCName.serverClose:  //顶号
                 //返回到登录界面
-                this._autoReconnect = 0;
+                /*this._autoReconnect = 0;
                 this._socket.Close();
-                /* 
-                BagelCodeHTTPError errMsg = new BagelCodeHTTPError();
-                errMsg.url = RPCName.serverClose;
-                errMsg.responseCode = err;
-                errMsg.errorCode = Error.REPEAT_LOGIN_ANOTHER_DEVICE;
-                errMsg.error = data["msg"].ToString() ?? "";
-                GlobalErrorHandler.GlobalError(errMsg);
                 */
+
+                ReturnToLoginPage(data["msg"]?? "your account has been login on another device,please login again");
                 return;
             case RPCName.kenoSpin:
             case RPCName.slotSpin:
@@ -749,31 +1047,55 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 break;
             case RPCName.metaInfo:
                 break;
+            case RPCName.gameBonusResult:
+                MessageDispatcher.Dispatch("UpdateJackpot", new EventData<string>("UpdateJackpot", data["data"]["bonus_list"].ToString()));
+                break;
+            case RPCName.winGameBonus:
+                if (!data.HasKey("win_result_list")) return;
+                bool isWin = false;
+                var winResultList = JsonConvert.DeserializeObject<List<WinResult>>(data["win_result_list"].ToString());
+                string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
+                for (int i = 0; i < winResultList.Count; i++)
+                {
+                    var winResult = winResultList[i];
+                    if (winResult.user_id == userId)
+                    {
+                        isWin = true;
+                        
+                        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "winLobbyJackpotResult", winResult);
+                        break;
+                    }
+                }
+                if (isWin)
+                {
+                    if (BlackboardQueryUtils.IsSpin())
+                        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isWinLobbyJackpot", isWin);
+                    else
+                    {
+                        var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>(MetaStringDefine.LOBBY_BUNDLE_NAME, "Popup Win Lobby Jackpot Scene").GetSceneInfo();
+                        var parent = GameObject.Find("Popup Manager/Area");
+                        var sceneObj = SceneManager.LoadScene(parent.transform, sceneInfo);
+                        PopupManager.Instance.Open(sceneObj);
+                        sceneObj.SetActive(true);
+                    }
+                }
+                break;
             case RPCName.ping:
+            case RPCName.confirmAddCoinOrder:
             case RPCName.confirmCoinOutOrder:
             case RPCName.confirmPrintOrder:
-            case RPCName.addMoney:
+            case RPCName.confirmAddMoneyOrder:
             case RPCName.addCredit:
             case RPCName.decreaseCredit:
 
-                long oldCredit = (long)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value ?? 0);
-                //globalStore.newCredit = data["balance"].AsLong;
-                if (oldCredit != globalStore.newCredit)
-                {
-                    if (globalStore.nowGameID == -1 || globalStore.isPlay == false) // 在大厅 或没有玩游戏
-                    {
-                        Debug.LogWarning($"@ 玩家金币发生改变  oldCredit = {oldCredit} ，newCredit = {globalStore.newCredit}");
-                        BlackboardQueryUtils.SetMyCredit(globalStore.newCredit);
-                        //Debug.LogError($"Refresh {BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value}");
-                        MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
-                        //EventSender.SendGlobalEvent("OnCreditEvent", "UpdateNaviCredit");
-                    }
-                }
+                if(!isChangeCreditAnimation)
+                    SetMyCredit();
 
-                if (rpcName == RPCName.ping && data.HasKey("cur_time"))
+                if (rpcName == RPCName.ping)
                 {
-                    MessageDispatcher.Dispatch("OnContentEvent01", new EventData<string>("ShowInfo", data.ToString()));
-                }
+                    if (data.HasKey("cur_time"))
+                        MessageDispatcher.Dispatch("OnPing", new EventData<string>("ShowInfo", data.ToString()));
+                }       
 
                 break;
             default:
@@ -784,44 +1106,33 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
     }
 
-    [Button]
-    void test_openWin()
+    public bool isChangeCreditAnimation = false;
+    public void SetMyCredit(long credit = -1)
     {
+        int updateCreditState = (int)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "updateCreditState")?.value ?? 1);
 
-        ErrorPopupInfo info = new ErrorPopupInfo();
-        bool stringError = false;
-        info.text = StringTableUtils.GetString(StringTable.StringTableType.Global, "ERROR_BANNED_USER_PERMANENT", out stringError);
-        //info.buttonAutoClose2 = false;
-        info.type = ErrorPopupType.YesNo;
-        info.buttonText1 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_CLOSE", out stringError);
-        info.buttonText2 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_CUSTOMER_SUPPORT", out stringError);
+        if (updateCreditState != 1)return;
 
-        /*
-        info.text = "44";
-        info.type = ErrorPopupType.YesNo; //ErrorPopupType.YesNo;
-        info.buttonText1 = "55";
-        info.buttonText2 = "66";*/
-        info.callback1 = delegate
+        long oldCredit = (long)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value ?? 0);
+
+        long newCredit = credit < 0? globalStore.newCredit : credit;
+
+        Debug.LogWarning($"@ 玩家金币发生改变1  oldCredit = {oldCredit} ，newCredit = {newCredit}");
+
+        if (oldCredit != newCredit)
         {
-            Debug.Log("i am here1");
-        };
-
-        info.callback2 = delegate
-        {
-            Debug.Log("i am here2");
-            //ErrorPopupHandler.Instance.CloseErrorPopup();  不能关闭弹窗
-            //Application.Quit();  不能关闭弹窗
-            //EventSender.SendGlobalEvent("OnClose"); //关闭弹窗
-        };
-
-        ErrorPopupHandler.Instance.OpenError(info);
+            //if (globalStore.nowGameID == -1 || globalStore.isPlay == false) // 在大厅 或没有玩游戏
+            if (globalStore.nowGameID == -1 || !BlackboardQueryUtils.IsSpin()) // 在大厅 或没有玩游戏
+            {
+                Debug.LogWarning($"@ 玩家金币发生改变2  oldCredit = {oldCredit} ，newCredit = {newCredit}");
+                BlackboardQueryUtils.SetMyCredit(newCredit);
+                //Debug.LogError($"Refresh {BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value}");
+                MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
+                //EventSender.SendGlobalEvent("OnCreditEvent", "UpdateNaviCredit");
+            }
+        }
     }
-    [Button]
-    void test_closeWin()
-    {
-        EventSender.SendGlobalEvent("OnClose"); //关闭弹窗
-        //ErrorPopupHandler.Instance.CloseErrorPopup();  不能用
-    }
+
 
     private void OnError(object evt)
     {
@@ -837,7 +1148,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         this._state = NetNodeState.Closed;
 
         // 自动重连
-        if (this._autoReconnect != 0) {
+        if (this._autoReconnect != 0  && !isTestCloseNet) {
 
             this._reconnectTimer = new System.Timers.Timer(this._reconnetTimeOut);
             this._reconnectTimer.AutoReset = false; // 是否重复执行
@@ -865,10 +1176,12 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             this._requests.Clear();
             foreach (var item in lst)
             {
-                JSONNode jsonNode = JSONNode.Parse(@"{""err"":408,""msg"":""请求超时""}");
+                JSONNode jsonNode = JSONNode.Parse(@"{""err"":408,""msg"":""请求超时"",""seq_id"":-1}");
 
                 this._Emit(item.rpcName, jsonNode);
             }
+
+            MessageDispatcher.Dispatch("NetManagerEvent", new EventData("isClosed"));
         }
     }
 
@@ -944,22 +1257,82 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         {
             this._onceEventHandlerLst.Add(url, new List<EventHandlerInfo>());
         }
-        int mark = CreatMark();
-        this._onceEventHandlerLst[url].Add(new EventHandlerInfo(url, data, responseCallback, errorCallback, mark));
-        this.SendMsg(url, data);
-        return mark;
+
+        int _seqID = CreatSeqID();
+
+        this._onceEventHandlerLst[url].Add(new EventHandlerInfo(url, data, responseCallback, errorCallback, _seqID));
+        this.SendMsg(url, data, _seqID);
+        return _seqID;
     }
 
 
 
-    private int mark = 0;
-    private int CreatMark()
+    private List<EventHandlerInfo> RemoveEventHandlerByID(List<int> seqIDs)
     {
-        if (++this.mark > 1000)
-        {
-            this.mark = 1;
+        List<EventHandlerInfo> targets = new List<EventHandlerInfo>();
+        int i = 0;
+        while(i < this._onceEventHandlerLst.Keys.Count) {
+
+            if (seqIDs.Count == 0)
+            {
+                break;
+            }
+            string key = this._onceEventHandlerLst.Keys.ElementAt(i);
+            var lst = this._onceEventHandlerLst[key];
+            int j = 0;
+            while (j < lst.Count && seqIDs.Count >0)
+            {
+                if (seqIDs.Contains(lst[j].seqID))
+                {
+                    targets.Add(lst[j]);
+                    seqIDs.Remove(lst[j].seqID);
+                    lst.RemoveAt(j);
+                }
+                else
+                {
+                    j++;
+                }
+            }
+            i++;
         }
-        return this.mark;
+        return targets;
+    }
+
+
+    private List<EventHandlerInfo> RemoveEventHandlerByRpcname(string name)
+    {
+
+        if (this._onceEventHandlerLst.ContainsKey(name))
+        {
+            List<EventHandlerInfo> targets = this._onceEventHandlerLst[name];
+            this._onceEventHandlerLst.Remove(name);
+            return targets;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private int seqID = 0;
+
+    //List<int> existSeqIDs = new List<int>();
+    private int CreatSeqID()
+    {
+        List<int> temp = new List<int>();
+        foreach (KeyValuePair<string, List<EventHandlerInfo>> kv in this._onceEventHandlerLst)
+        {
+            foreach (EventHandlerInfo item in kv.Value)
+            {
+                temp.Add(item.seqID);
+            }
+        }
+        while (temp.Contains(seqID))
+        {
+            if (++this.seqID > 10000)
+                this.seqID = 1;
+        }
+        return seqID;
     }
 
     public int Get(string url, Action<JSONNode> responseCallback, HTTPErrorCallback errorCallback)
@@ -988,7 +1361,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             int i = 0;
             while (i < this._onceEventHandlerLst[kv.Key].Count)
             {
-                if (this._onceEventHandlerLst[kv.Key][i].mark == mark)
+                if (this._onceEventHandlerLst[kv.Key][i].seqID == mark)
                 {
                     this._onceEventHandlerLst[kv.Key].RemoveAt(i);
                 }
@@ -1001,6 +1374,27 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
     }
 
 
+    public bool isHasRequest(string rpcName)
+    {
+        if (this._requests.Count>0)
+        {
+            return this._requests.Find(item => item.rpcName == rpcName) != null;
+        }
+        return false;
+    }
+
+
+
+    [Button]
+    void test_ShowRpc()
+    {
+
+        foreach(var item in this._requests)
+        {
+            Debug.Log($"_requests = {item.rpcName}");
+        }
+        
+    }
 
 
     public static String toCamelCase(string key)
@@ -1047,16 +1441,16 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 class EventHandlerInfo
 {
 
-    public EventHandlerInfo(string rpcName, object data, Action<JSONNode> responseCallback, HTTPErrorCallback errorCallback,int mark)
+    public EventHandlerInfo(string rpcName, object data, Action<JSONNode> responseCallback, HTTPErrorCallback errorCallback, int seqID)
     {
         this.rpcName = rpcName;
         this.data = data;
         this.responseCallback = responseCallback;
         this.errorCallback = errorCallback;
-        this.mark = mark;
+        this.seqID = seqID;
     }
 
-    public int mark;
+    public int seqID;
     public string rpcName;
     public object data;
     public Action<JSONNode> responseCallback;
@@ -1195,7 +1589,7 @@ public class WebSock : ISocket
         try
         {
             this.webSocket = new ClientWebSocket();
-            Debug.LogWarning($"@【WS】： ws 初始化并开始链接");
+            Debug.LogWarning($"@【WS】： ws 初始化并开始链接  {url}");
             await this.webSocket.ConnectAsync(new Uri(url), this.cancellationTokenSource.Token);
 
             // _StartListeningForMessages();

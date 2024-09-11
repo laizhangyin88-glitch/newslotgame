@@ -7,6 +7,9 @@ using BagelCode.ClientModels;
 using ParadoxNotion;
 using ParadoxNotion.Services;
 using NodeCanvas.Framework;
+using UnityEngine.UI;
+using Newtonsoft.Json;
+using SimpleJSON;
 
 namespace BagelCode
 {
@@ -18,6 +21,7 @@ namespace BagelCode
         public Transform badgeArea;
         public Transform lockArea;
         public Transform tagArea;
+        public Toggle isCollect;
 
         public bool isLong;
 
@@ -63,9 +67,16 @@ namespace BagelCode
         public Blackboard gameInfoBB;
         public Blackboard bonusIAMBB;
 
+        public List<int> collectList;
+
         private const string LOCK_ANI_PARAMETER_NAME = "Appear";
 
         private Dictionary<string, GameObject> slotThumbDict = new Dictionary<string, GameObject>();
+
+        private void Awake()
+        {
+            isCollect.onValueChanged.AddListener(OnCollectChange);
+        }
 
         private void OnEnable()
         {
@@ -164,6 +175,8 @@ namespace BagelCode
 
             enterGameInfo.gameId = 0;
             enterGameInfo.slotStatus = 0;
+            collectList = MainBlackboard.Get().GetValue<List<int>>("collectList");
+            isCollect.isOn = collectList.Contains(gameID);
         }
 
         private void SetSlotImage(bool isRefresh)
@@ -566,6 +579,37 @@ namespace BagelCode
                 enterGameInfo.SetEnterGameInfo();
                 gameObject.GetComponent<SendEvent>().SendNow("ClickedSlot");
             }
+        }
+
+        private void OnCollectChange(bool collect)
+        {
+            if (!collect)
+            {
+                if (collectList.Contains(gameID))
+                {
+                    collectList.Remove(gameID);
+                    SendUserCache();
+                }
+
+            }
+            else
+            {
+                if (!collectList.Contains(gameID))
+                {
+                    collectList.Add(gameID);
+                    SendUserCache();
+                }
+            }
+
+        }
+
+        private void SendUserCache()
+        {
+            var userCache = MainBlackboard.Get().GetValue<JSONNode>("userCache");
+            userCache["userCollect"] = JsonConvert.SerializeObject(collectList);
+            var tempNode = JSONNode.Parse("{}");
+            tempNode.Add("user_cache", userCache);
+            NetManager.Instance.SendMsg(RPCName.updateUserCache, tempNode);
         }
     }
 }

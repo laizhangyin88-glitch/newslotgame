@@ -1,6 +1,7 @@
 using UnityEngine;
 using SlotMaker;
 using NodeCanvas.Framework;
+using TMPro;
 
 namespace BagelCode
 {
@@ -40,15 +41,26 @@ namespace BagelCode
             statusMatchButtonElement = ContextUtils.FindElement(root, "Button Status Match", CHILDREN);
 
             // Clickable
-            MetaContextElementUtils.SetClickable(onLineButtonElement, gameObject, MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_ONLINE_PLAYERS, true, true);
-            MetaContextElementUtils.SetClickable(rankingButtonElement, gameObject, MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_LEADERBOARD, true, true);
+            MetaContextElementUtils.SetClickable(onLineButtonElement, gameObject, MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_ONLINE_PLAYERS, false, false);
+
+            //原代码
+            //MetaContextElementUtils.SetClickable(rankingButtonElement, gameObject, MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_LEADERBOARD, true, true);
+            //EditByYeep
+            MetaContextElementUtils.SetClickable(rankingButtonElement, gameObject, MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_REFUND_DIALOG, true, true);
+
             MetaContextElementUtils.SetClickable(wallofEpicButtonElement, gameObject, MetaEventDefine.ON_META_UI_EVENT,  MetaEventDefine.ON_ENTER_WOE, true, true);
             MetaContextElementUtils.SetClickable(couponButtonElement, gameObject, MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_COUPON, true, true);
             MetaContextElementUtils.SetClickable(customerSupportButtonElement, gameObject, MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_CUSTOMER_SUPPORT, true, true);
 
-            // Text
-            MetaContextElementUtils.SimpleSetTextGlobal(onLineButtonElement, "Text", "BUTTON_ONLINE_PLAYERS", CHILDREN);
-            MetaContextElementUtils.SimpleSetTextGlobal(rankingButtonElement, "Text", "BUTTON_LEADERBOARD", CHILDREN);
+            //原代码
+            //MetaContextElementUtils.SimpleSetTextGlobal(onLineButtonElement, "Text", "BUTTON_ONLINE_PLAYERS", CHILDREN);
+            //EditByYeep
+            ContextUtils.FindElement(onLineButtonElement, "Text", ContextSearchingType.ChildrenSearch).GetComponent<TextMeshProUGUI>().text = "VERSION: "+ ApplicationSettings.Instance.clientVersion;
+            //原代码
+            //MetaContextElementUtils.SimpleSetTextGlobal(rankingButtonElement, "Text", "BUTTON_LEADERBOARD", CHILDREN);
+            //EditByYeep
+            ContextUtils.FindElement(rankingButtonElement, "Text", ContextSearchingType.ChildrenSearch).GetComponent<TextMeshProUGUI>().text = "REFUND";
+
             MetaContextElementUtils.SimpleSetTextGlobal(wallofEpicButtonElement, "Text", "BUTTON_WALL_OF_EPICS", CHILDREN);
             MetaContextElementUtils.SimpleSetTextGlobal(couponButtonElement, "Text", "BUTTON_COUPON", CHILDREN);
             MetaContextElementUtils.SimpleSetTextGlobal(customerSupportButtonElement, "Text", "BUTTON_CS", CHILDREN);
@@ -84,8 +96,11 @@ namespace BagelCode
 #if NEW_NET
 
             Debug.Log("【close】:关闭大厅抬头右侧按钮列表");
-            MetaContextElementUtils.SetActive(onLineButtonElement, false);
-            MetaContextElementUtils.SetActive(rankingButtonElement, false);
+            //MetaContextElementUtils.SetActive(onLineButtonElement, false);
+            //MetaContextElementUtils.SetActive(rankingButtonElement, false);
+
+            MetaContextElementUtils.SetActive(rankingButtonElement, ApplicationSettings.Instance.isMachine);
+
             MetaContextElementUtils.SetActive(wallofEpicButtonElement, false);
             MetaContextElementUtils.SetActive(couponButtonElement, false);
             MetaContextElementUtils.SetActive(customerSupportButtonElement, false);

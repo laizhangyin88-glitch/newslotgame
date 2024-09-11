@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BagelCode.ClientModels;
 using BagelCode.VegasDreams;
-using Com.TheFallenGames.OSA.Core;
+using Com.ForbiddenByte.OSA.Core;
 using NodeCanvas.Framework;
 using SlotMaker;
 using UnityEngine;
@@ -58,7 +58,7 @@ namespace BagelCode.OSA_Scroll
             ExhibitionItem item = new Exhibition_Normal();
             
             if (item != null)
-                item.Init(_Params.prefabs[0], itemIndex);
+                item.Init(_Params.prefabs[0], _Params.Content, itemIndex);
 
             return item;
         }

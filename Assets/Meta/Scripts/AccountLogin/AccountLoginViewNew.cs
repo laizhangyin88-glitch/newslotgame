@@ -2,6 +2,7 @@ using BagelCode;
 using BagelCode.OSA_Scroll;
 using BagelCode.Protobuf;
 using com.adjust.sdk;
+using Sirenix.OdinInspector;
 using SlotMaker;
 using SlotMaker.Json;
 using System;
@@ -144,15 +145,46 @@ public class AccountLoginViewNew : MonoBehaviour
 
     private void MechineAutoConnect()
     {
+            /*
             Dictionary<string, string> loginDict = new Dictionary<string, string>();
-            loginDict["user_name"] = "device1";
+            loginDict["user_name"] = "device2";
             loginDict["user_pwd"] =  "123456";
+            string url = ApplicationSettings.Instance.newLoginUrlMechine;
+            Debug.LogWarning($"@ connect : {url} user_name {loginDict["user_name"]} ");
+            StartCoroutine(HttpPost(url, "/passwd_login", loginDict, HandleLoginUserResponse));*/
+
+            Dictionary<string, string> loginDict = new Dictionary<string, string>();
+            loginDict["device_id"] = NativeHelper.Instance.GetDeviceID();
+            string url = ApplicationSettings.Instance.newLoginUrlMechine;
+            Debug.LogWarning($"@ get device account : {url}/device_login  device_id = {loginDict["device_id"]} ");
+            StartCoroutine(HttpPost(url, "/device_login", loginDict, HandleGetDeviceAccountResponse));
+    }
+
+    void HandleGetDeviceAccountResponse(string response)
+    {
+        if (string.IsNullOrEmpty(response))
+            return;
+
+        DeviceAccountRespone deviceAccount = JsonUtility.FromJson<DeviceAccountRespone>(response);
+        if (deviceAccount.err == 0)
+        {
+            Dictionary<string, string> loginDict = new Dictionary<string, string>();
+            loginDict["user_name"] = deviceAccount.user_name;
+            loginDict["user_pwd"] = deviceAccount.user_pwd;
             //accountInput.text = loginDict["user_name"];
             //passwordInput.text = loginDict["user_pwd"];
             string url = ApplicationSettings.Instance.newLoginUrlMechine;
-            Debug.LogWarning($"@ connect : {url} user_name {loginDict["user_name"]} ");
+            Debug.LogWarning($"@ connect : {url}/passwd_login  user_name = {loginDict["user_name"]} ");
             StartCoroutine(HttpPost(url, "/passwd_login", loginDict, HandleLoginUserResponse));
+        }
+        else
+        {
+            Debug.LogError($"{deviceAccount.msg}");
+            StartCoroutine(ShowTips($"{deviceAccount.msg}"));
+        }
     }
+
+
 
     private void Start()
     {
@@ -203,6 +235,7 @@ public class AccountLoginViewNew : MonoBehaviour
         bool getTargetUrl = false;
         //string finalStr = "http://8.138.117.128:9981/get_config?key=myApplication.new_login_url";
         //string finalStr = "http://8.138.117.128:9981/get_config?key=myApplication.xigua_login_url";
+        //http://8.138.117.128:9981/get_config?key=myApplication.haicao_logic_url
 
         string finalStr = TestManager.Instance.getAutoUrl();
         if (finalStr == "") {
@@ -234,17 +267,19 @@ public class AccountLoginViewNew : MonoBehaviour
 
     }
 
-  
-    public IEnumerator WWW_Get02(Action<string, string> cb)
+    //device_login
+
+    public IEnumerator WWW_Get02(string url,Action<string, string> cb)
     {
-        string finalStr = TestManager.Instance.getAutoUrl();
+        /*string finalStr = TestManager.Instance.getAutoUrl();
         if (finalStr == "")
         {
             finalStr = ApplicationSettings.Instance.autoUrl;
         }
 
         Debug.LogWarning(finalStr);
-        using (UnityWebRequest www = UnityWebRequest.Get(finalStr))
+        */
+        using (UnityWebRequest www = UnityWebRequest.Get(url))
         {
             //yield return www.Send();
             yield return www.SendWebRequest();
@@ -258,7 +293,8 @@ public class AccountLoginViewNew : MonoBehaviour
             }
             else
             {
-                addr = "http://" + www.downloadHandler.text;
+                //addr = "http://" + www.downloadHandler.text;
+                addr = www.downloadHandler.text;
             }
             if (cb != null) cb(addr, err);
         }
@@ -315,7 +351,15 @@ public class AccountLoginViewNew : MonoBehaviour
         }
         else if (_isAutoSever || string.IsNullOrEmpty(_serverAddress)) //自动获取地址
         {
+            string autoUrl = TestManager.Instance.getAutoUrl();
+            if (autoUrl == "")
+            {
+                autoUrl = ApplicationSettings.Instance.autoUrl;
+            }
+            Debug.LogWarning(autoUrl);
+
             StartCoroutine(WWW_Get02(
+                autoUrl,
                 (addr1,err) =>
                 {
                     if (addr1 == null)
@@ -325,7 +369,8 @@ public class AccountLoginViewNew : MonoBehaviour
                         Debug.LogError(errMsg);
                         return;
                     }
-                    _serverAddress = addr1;
+                    _serverAddress = "http://" +addr1;
+                    //_serverAddress = addr1;
 
                     Dictionary<string, string> loginDict = new Dictionary<string, string>();
                     loginDict["user_name"] = accountInput.text;
@@ -383,7 +428,7 @@ public class AccountLoginViewNew : MonoBehaviour
             if (!NetManager.Instance.isConnect())
             {
                 string logicUrl = string.Format("ws://{0}", accountLoginRespone.logic_ip);
-                NetManager.Instance.Connect(new NetConnectOptions(logicUrl,8));
+                NetManager.Instance.Connect(new NetConnectOptions(logicUrl,99));
             }
             globalStore.gToken = accountLoginRespone.token_id;
 
@@ -454,7 +499,7 @@ public class AccountLoginViewNew : MonoBehaviour
         Dictionary<string, string> registerDict = new Dictionary<string, string>();
         registerDict["user_name"] = registAccountInput.text;
         registerDict["user_pwd"] = registPasswordtInput[0].text;
-        registerDict["user_code"] = registCodeInput.text;
+        registerDict["invite_code"] = registCodeInput.text;
         account = registAccountInput.text;
         password = registPasswordtInput[0].text;
         StartCoroutine(HttpPost(_serverAddress, "/register_user", registerDict, HandleRegisterUserResponse));
@@ -470,17 +515,19 @@ public class AccountLoginViewNew : MonoBehaviour
     {
         if (string.IsNullOrEmpty(response))
             return;
-        AccountLoginRespone accountLoginRespone = JsonUtility.FromJson<AccountLoginRespone>(response);
-        if (accountLoginRespone.err == 0)
+        AccountLoginRegistRespone accountLoginRegistRespone = JsonUtility.FromJson<AccountLoginRegistRespone>(response);
+        if (accountLoginRegistRespone.err == 0)
         {
             //succeed
             accountInput.text = account;
             loginPage.SetActive(true);
             registPage.SetActive(false);
             Debug.LogError("AccountRegistSucceed");
+            StartCoroutine(ShowTips("Account registration successful, please log in."));
         }
         else
         {
+            StartCoroutine(ShowTips($"{accountLoginRegistRespone.msg}"));
             //error
             password = "";
             registPasswordtInput[0].text = password;
@@ -506,7 +553,9 @@ public class AccountLoginViewNew : MonoBehaviour
     IEnumerator HttpPost(string url, string method, Dictionary<string, string> post_param, System.Action<string> callback)
     {
         url = url.Trim();
-        
+
+        TestManager.Instance.SetTextServer(url);
+
         // 创建一个表单
         JSONNode jsonNode = JSONNode.Parse("{}");
 
@@ -561,13 +610,25 @@ public class AccountLoginViewNew : MonoBehaviour
         public string login_token;
     }
 
-    //token_id
+    public struct AccountLoginRegistRespone
+    {
+        public int err;
+        public string msg;
+    }
     public struct AccountLoginRespone
     {
         public int err;
         public string msg;
         public string token_id;
         public string logic_ip;
+    }
+
+    public struct DeviceAccountRespone
+    {
+        public int err;
+        public string msg;
+        public string user_name;
+        public string user_pwd;
     }
 
 }

@@ -1,10 +1,12 @@
-﻿using System.Linq;
+using System.Linq;
 using NodeCanvas.Framework;
 using ParadoxNotion;
 using ParadoxNotion.Design;
 using UnityEngine;
 using ParadoxNotion.Services;
 using Logger = ParadoxNotion.Services.Logger;
+using SlotMaker;
+using System;
 
 namespace NodeCanvas.Tasks.Conditions
 {
@@ -24,11 +26,20 @@ namespace NodeCanvas.Tasks.Conditions
             /// BAGELCODE
             // if ( isActive && receivedEvent.name.ToUpper() == eventName.value.ToUpper() ) {
             if (isActive && receivedEvent.name.Equals(eventName.value, System.StringComparison.Ordinal)){
-            /// BAGELCODE
+                /// BAGELCODE
 
 #if UNITY_EDITOR
                 if ( NodeCanvas.Editor.Prefs.logEvents ) {
                     Logger.Log(string.Format("Event Received from ({0}): '{1}'", agent.gameObject.name, receivedEvent.name), "Event", this);
+                }
+
+                try
+                {
+                    ContextElement cel = ((EventData<ContextElement>)receivedEvent).value;
+                    Debug.Log($"【?】OnCustomEvent-{receivedEvent.name} {receivedEvent.value}  [receiver]: {agent.gameObject.name} [sender]: {cel.transform.name}");
+                }
+                catch(Exception e){
+                    Debug.Log($"【?】OnCustomEvent-{receivedEvent.name} {receivedEvent.value}  [receiver]: {agent.gameObject.name}");
                 }
 #endif
 

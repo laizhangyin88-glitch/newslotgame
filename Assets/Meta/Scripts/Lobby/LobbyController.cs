@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using SlotMaker;
 using ParadoxNotion.Services;
+using ParadoxNotion;
 
 namespace BagelCode
 {
@@ -87,6 +88,25 @@ namespace BagelCode
             MonoManager.current.StartCoroutine(
                 SceneUtils.LoadSceneAsync(bundle, asset, parent, true,
                 (result) => { result.SetActive(true); tempScene = result; }));
+        }
+
+        public void OnEnterRefundDialog()
+        {
+            ErrorPopupInfo info = new ErrorPopupInfo();
+            info.text = $"<size=32>Confirm Refund</size>";
+            info.type = ErrorPopupType.YesNo;
+            info.buttonText1 = "Confirm";
+            info.buttonText2 = "Cancle";
+            info.callback1 = delegate
+            {
+                SBoxSanboxController.Instance.PrintMoneyOrder();
+            };
+            info.callback2 = delegate
+            {
+                EventSender.SendGlobalEvent(MetaEventDefine.ON_META_UI_EVENT, new EventData(MetaEventDefine.ON_Leave_REFUND_DIALOG));
+                ErrorPopupHandler.Instance.ClosePopup(MetaEventDefine.ON_Leave_REFUND_DIALOG);
+            };
+            ErrorPopupHandler.Instance.OpenError(info);
         }
 
         private void OnOpenCustomerSupport()

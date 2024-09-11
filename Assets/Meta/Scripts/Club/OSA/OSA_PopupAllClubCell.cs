@@ -1,13 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BagelCode.ClientModels;
-using Com.TheFallenGames.OSA.Core;
 using NodeCanvas.Framework;
 using SlotMaker;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using BagelCode;
+using Com.ForbiddenByte.OSA.Core;
 
 namespace BagelCode.OSA_Scroll
 {
@@ -47,7 +47,7 @@ namespace BagelCode.OSA_Scroll
         protected override PopupAllClubCellItemViewHolder CreateViewsHolder(int itemIndex)
         {
             PopupAllClubCellItemViewHolder viewHolder = new PopupAllClubCellItemViewHolder();
-            viewHolder.Init(_Params.GetPrefab(transform), itemIndex);
+            viewHolder.Init(_Params.GetPrefab(transform), _Params.Content, itemIndex);
             return viewHolder;
         }
 
