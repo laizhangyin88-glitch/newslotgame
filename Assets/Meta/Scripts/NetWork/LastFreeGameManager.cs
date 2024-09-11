@@ -383,7 +383,11 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         {
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("StartClosePopup"));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClosedPopup"));
-
+        }
+        else if(globalStore.nowGameID == 99)
+        {
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("StartClosePopup"));
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClosedPopup"));
         }
     }
 
