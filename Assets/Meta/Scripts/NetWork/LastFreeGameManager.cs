@@ -17,7 +17,8 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using Action = System.Action;
 
-public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
+public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
+{
 
     /*
     private static LastFreeGameManager instance;
@@ -130,7 +131,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
         }
 
 
-        if (globalStore.nowGameID != -1 &&  _isLastGameSpin)
+        if (globalStore.nowGameID != -1 && _isLastGameSpin)
         {
 
             if (isStartLastFreeSpin == false)
@@ -178,7 +179,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
             }
 
         }
-        
+
     }
 
 
@@ -253,7 +254,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
         string pattern = "\"total_count\":\\s*(\\d+)";
 
 
-        for (int i = 0; i< historyRes.Count; i++)
+        for (int i = 0; i < historyRes.Count; i++)
         {
             // 搜索匹配项  
             Match match = Regex.Match(historyRes[i], pattern);
@@ -275,25 +276,25 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
         if (!MachineSelectManager.Instance.isPopFreeGameTimeSelect())
             return;
 
-        int totalCount =  GetTotalCount();
+        int totalCount = GetTotalCount();
         int _curSelectNumb = 0;
         string name = "";
 
         Debug.Log($"【LastFreeSpin】 ： totalCount = {totalCount}");
         if (globalStore.nowGameID == 37)  //GOLDEN_PICTURES
         {
-           /* switch (_curSelectNumb)
-            {
-                case 0:
-                    name = "OnClick1";
-                    break;
-                case 1:
-                    name = "OnClick2";
-                    break;
-                case 2:
-                    name = "OnClick3";
-                    break;
-            }*/
+            /* switch (_curSelectNumb)
+             {
+                 case 0:
+                     name = "OnClick1";
+                     break;
+                 case 1:
+                     name = "OnClick2";
+                     break;
+                 case 2:
+                     name = "OnClick3";
+                     break;
+             }*/
             //Debug.Log($"EVT = OnSelection{_curSelectNumb}");
             //"bet": 1000,
             name = "OnClick1"; //(已经给定选择结果，选那个都一样)
@@ -302,12 +303,12 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
 
         if (globalStore.nowGameID == 93)  // Happy Dollars
         {
-            List<int> temp = new List<int>() { 6, 5, 4, 3, 2 }; 
-            List<int> select = new List<int>() {12,10,8,6,4 }; // 0
+            List<int> temp = new List<int>() { 6, 5, 4, 3, 2 };
+            List<int> select = new List<int>() { 12, 10, 8, 6, 4 }; // 0
             //List<int> select = new List<int>() {18,15,12,9,6 };  // 1
             //List<int> select = new List<int>() {24, 20, 16,12, 8 };  // 2
 
-            for (int i = 0; i<temp.Count;i++)
+            for (int i = 0; i < temp.Count; i++)
             {
                 select[i] += temp[i] * firstSpinInfo.triggeredTypeIndex_id93;
             }
@@ -322,7 +323,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
         }
 
 
-       if (globalStore.nowGameID == 105) //SUNSET_SAFARI 狮子斑马
+        if (globalStore.nowGameID == 105) //SUNSET_SAFARI 狮子斑马
         {
 
             /*switch (_curSelectNumb)
@@ -347,7 +348,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
 
         if (globalStore.nowGameID == 149) //白虎 
         {
-            List<int> select = new List<int>() { 32, 16, 8,  4 };
+            List<int> select = new List<int>() { 32, 16, 8, 4 };
             if (select.Contains(totalCount))
             {
                 _curSelectNumb = select.IndexOf(totalCount);
@@ -363,6 +364,15 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("StartClosePopup"));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClosePopup1"));
         }
+        //else if(globalStore.nowGameID == 62)
+        //{
+        //    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Click1"));
+        //}
+        else if (globalStore.nowGameID == 54)
+        {
+            EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("OnClick", 0, 1));
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
+        }
     }
 
 
@@ -377,7 +387,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
 
         historyRes = new List<string>();
 
-        for (int i =0; i< test_his[id].Count; i++)
+        for (int i = 0; i < test_his[id].Count; i++)
         {
             TextAsset jsn8 = Resources.Load<TextAsset>(test_his[id][i]);
             if (jsn8 != null && jsn8.text != null)
@@ -416,18 +426,20 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
     bool _isLastGameSpin = false;
     public bool isLastGameSpin
     {
-        get {
+        get
+        {
             _isLastGameSpin = BlackboardUtils.GetOrCreateVariable<bool>(MainBlackboard.Get(), "isLastGameSpin").value;
             return _isLastGameSpin;
         }
-        set {
+        set
+        {
             _isLastGameSpin = value;
             BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isLastGameSpin", _isLastGameSpin);
         }
     }
 
 
-    public  void getResponseData(string rpc,Action<JSONNode> responseCallback)
+    public void getResponseData(string rpc, Action<JSONNode> responseCallback)
     {
         StartCoroutine(_getResponseData(rpc, responseCallback));
     }
@@ -436,7 +448,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
     private IEnumerator _getResponseData(string rpc, Action<JSONNode> responseCallback)
     {
         yield return new WaitForSeconds(0.2f);
-      
+
         if (responseCallback != null)
         {
             string res = historyRes[0];
@@ -498,7 +510,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
         {
             Debug.Log($"【history】: Next");
             isNext = false;
-            NetManager.Instance.Post(RPCName.freeSpinHistory, new Dictionary<string, object>{{ "step_index", i} },
+            NetManager.Instance.Post(RPCName.freeSpinHistory, new Dictionary<string, object> { { "step_index", i } },
             (res) =>
             {
                 //string resStr = res.ToString();
@@ -520,7 +532,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
                 isFinish = true;
             });
             i++;
-            yield return new WaitUntil(()=> isNext);
+            yield return new WaitUntil(() => isNext);
         }
         isLastGameSpin = true;
     }
@@ -536,7 +548,7 @@ public class FirstSpinInfo
     /// <summary>
     /// 选择游戏的类型
     /// </summary>
-    public int triggeredTypeIndex_id93 = 0;   
+    public int triggeredTypeIndex_id93 = 0;
 
     /// <summary>
     /// 下注金额

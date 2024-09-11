@@ -135,8 +135,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         isRuning = true;
         yield return new WaitForSeconds(1);
         OpenAllSceneBtn();
-       // yield return new WaitForSeconds(2);
-       // CloseAllSceneBtn();
+        // yield return new WaitForSeconds(2);
+        // CloseAllSceneBtn();
         yield return new WaitForSeconds(2);
         Debug.Log("强制刷新按钮");
         lastSceneBtnType = SceneBtnType.None;
@@ -731,7 +731,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         }
 
         //神秘宝石这款游戏的免费游戏弹窗最开始是需要点击符号，然后才会有弹窗
-        if(globalStore.nowGameID == 73)
+        if (globalStore.nowGameID == 73)
         {
             //散射是否可以被点击
             var scatterClickable = BlackboardUtils.FindVariable<bool>("./scatterClickable");
@@ -743,6 +743,24 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             if (panel != null && panel.activeSelf)
                 return true;
         }
+        //else if (globalStore.nowGameID == 62)
+        //{
+        //    var panel = GameObject.Find("Popup Manager/Contents/Choose Your Bet Level Popup");
+        //    if (panel != null && panel.activeSelf)
+        //        return true;
+        //}
+        else if (globalStore.nowGameID == 54)
+        {
+            var panel = GameObject.Find("Popup Manager/Contents/Choose Your Bonus Popup");
+            if (panel != null && panel.activeSelf)
+                return true;
+
+            var panel2 = GameObject.Find("Popup Manager/Contents/Free Game Trigger Popup");
+            if (panel2 != null && panel2.activeSelf)
+                return true;
+        }
+
+
 
         return false;
     }
@@ -1339,7 +1357,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                     parent?.GetComponent<ContextButton>()?.DoClick();
 
                     //选框会被游戏打乱顺序排列，要重新复位index
-                    _AddTack(() => {
+                    _AddTack(() =>
+                    {
                         MachineSelectBorder.ResetAutoIndex("JacksCard");
                         Debug.Log("【Task】: JacksCard ");
                     }, 1000);
@@ -2162,10 +2181,12 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     /// 弹窗出现选择框时，压入mark堆栈，的mark值
     /// 默认mark = ""
     /// </summary>
-    Dictionary<int, String> markPopGameConfigSelect = new Dictionary<int, String>() {
+    Dictionary<int, String> markPopGameConfigSelect = new Dictionary<int, String>()
+    {
         //{142,"" },
     };
-    Dictionary<int, String> markPopFreeGameTimeSelect = new Dictionary<int, String>(){
+    Dictionary<int, String> markPopFreeGameTimeSelect = new Dictionary<int, String>()
+    {
         //{37,"" },
         //{93,"" },
         //{105,"" },
@@ -2178,13 +2199,13 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     /// 筛选出要屏蔽的选择框
     /// </summary>
     /// <returns></returns>
-    public KeyValuePair<bool,string> GetIgonreBorderWhenUseLightBtnSelect()
+    public KeyValuePair<bool, string> GetIgonreBorderWhenUseLightBtnSelect()
     {
         if (isLightBtnSelectInGame())  //使用了机台灯闪烁选择
         {
             if (isPopFreeGameTimeSelect())
             {
-                if (markPopFreeGameTimeSelect.ContainsKey(globalStore.nowGameID ))
+                if (markPopFreeGameTimeSelect.ContainsKey(globalStore.nowGameID))
                 {
                     return new KeyValuePair<bool, string>(true, markPopFreeGameTimeSelect[globalStore.nowGameID]);
                 }
@@ -2224,7 +2245,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
     private void OpenAllSceneBtn()
     {
-                MessageDispatcher.Dispatch("MachineBtnEvent", new EventData<string[]>("ChangeSceneBtnLight", new string[] {
+        MessageDispatcher.Dispatch("MachineBtnEvent", new EventData<string[]>("ChangeSceneBtnLight", new string[] {
                     "BtnSpin",
                     "BtnPre",
                     "BtnNext",
@@ -2232,7 +2253,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                     "BtnSwitch",
                     "BtnBetUp",
                     "BtnBetDown",
-                    "BtnBetMax", 
+                    "BtnBetMax",
                     "BtnHelp",
 
                 }));
