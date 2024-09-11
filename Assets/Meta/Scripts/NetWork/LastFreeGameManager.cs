@@ -379,6 +379,12 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinishFirebolt"));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
         }
+        else if(globalStore.nowGameID == 128)
+        {
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("StartClosePopup"));
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClosedPopup"));
+
+        }
     }
 
 

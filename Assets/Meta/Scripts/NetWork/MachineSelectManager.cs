@@ -765,8 +765,12 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             if (panel != null && panel.activeSelf)
                 return true;
         }
-
-
+        else if(globalStore.nowGameID == 128)
+        {
+            var panel = GameObject.Find("Popup Manager/Contents/Free Game Trigger Popup");
+            if (panel != null && panel.activeSelf)
+                return true;
+        }
 
         return false;
     }
