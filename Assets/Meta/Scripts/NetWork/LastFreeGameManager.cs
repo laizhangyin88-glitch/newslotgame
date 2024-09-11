@@ -409,6 +409,13 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         {
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData($"Click{firstSpinInfo.SelectedIndex + 1}"));
         }
+        else if(globalStore.nowGameID == 31)
+        {
+            EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("FinishedShowTTS"));
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("TapScreen"));
+            
+            EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("TrySpinWheel"));
+        }
     }
 
 

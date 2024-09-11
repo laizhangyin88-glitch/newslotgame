@@ -790,6 +790,16 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             if (panel != null && panel.activeSelf)
                 return true;
         }
+        else if(globalStore.nowGameID == 31)
+        {
+            var panel = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Wheel Bonus");
+            if (panel != null && panel.activeSelf)
+                return true;
+
+            var panel1 = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Wheel Result");
+            if(panel1 != null && panel1.activeSelf)
+                return true;
+        }
 
         return false;
     }
