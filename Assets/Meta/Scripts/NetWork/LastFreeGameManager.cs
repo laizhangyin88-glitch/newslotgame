@@ -373,6 +373,12 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("OnClick", 0, 1));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
         }
+        else if (globalStore.nowGameID == 35)
+        {
+            EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("GemClicked"));
+            EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinishFirebolt"));
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
+        }
     }
 
 
