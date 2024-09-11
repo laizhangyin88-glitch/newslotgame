@@ -136,8 +136,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         isRuning = true;
         yield return new WaitForSeconds(1);
         OpenAllSceneBtn();
-       // yield return new WaitForSeconds(2);
-       // CloseAllSceneBtn();
+        // yield return new WaitForSeconds(2);
+        // CloseAllSceneBtn();
         yield return new WaitForSeconds(2);
         Debug.Log("强制刷新按钮");
         lastSceneBtnType = SceneBtnType.None;
@@ -727,7 +727,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 return true;
             }
         }
-        if(globalStore.nowGameID == 142)///丛林火焰 --选择额外押注
+        if (globalStore.nowGameID == 142)///丛林火焰 --选择额外押注
         {
             GameObject Pick = GameObject.Find("Popup Manager/Contents/Denomination Popup FIJ");
             if (Pick != null && Pick.activeSelf)
@@ -735,7 +735,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 return true;
             }
         }
-        if(globalStore.nowGameID == 10)  ////幸运财富
+        if (globalStore.nowGameID == 10)  ////幸运财富
         {
             GameObject Pick = GameObject.Find("Game Contents/Animator/Anchor/Effect Midground/Free Spins Select");
             if (Pick != null && Pick.activeSelf)
@@ -871,7 +871,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
         //ID:122 -  甜心赢了
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("GiftLeftClicked")); //选择窗,暂时这样跳过重连
-        
+
         //ID:132 - 奢侈精品店  LUXURY_BOUTIQUE
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickStartButton"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickCollectButton"));
@@ -892,9 +892,11 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         //ID:151，戈斯银行 ，免费游戏选择界面，免费游戏确认界面，MR_GOOSES_BANK
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickEventLeft"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickEvent"));
-         
+
         //IDD：149 魔术师
         EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("BonusCardClicked"));
+        ///152  猫咪抢劫案
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartJackpot"));
     }
 
     /// <summary>“小游戏选择弹窗”是否可见 </summary>
@@ -1403,7 +1405,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 130:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Main Wheel");
                 break;
-			case 152:
+            case 152:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Bonus game");
                 break;
             case 153:
@@ -1411,7 +1413,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 154:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Hot Bonus Panel");
-                break;;
+                break; ;
             case 183:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Slot Frame/Wheel Bonus");
                 break;
@@ -1429,7 +1431,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         switch (globalStore.nowGameID)
         {
             case 10:
-                
+
                 //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnRoyalFreeSpinClick"));
                 break;
             case 21:
@@ -1442,12 +1444,13 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 123:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClickOnWheel"));
                 break;
-			case 130:
+            case 130:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Touch"));
-                break;			case 152:
-			                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartWheel"));
-			                EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("StageEnd")); 
-			                break;
+                break;
+            case 152:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartWheel"));
+                EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("StageEnd"));
+                break;
             case 153:
                 Debug.LogError("待完成。。。");
                 break;
@@ -1465,7 +1468,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
                 break;
         }
-    }
+    } 
 
     private IEnumerator ConfirmNodeMiniGameSelect154()
     {
