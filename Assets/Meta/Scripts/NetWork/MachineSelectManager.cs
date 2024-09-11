@@ -759,21 +759,33 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             if (panel2 != null && panel2.activeSelf)
                 return true;
         }
-        else if(globalStore.nowGameID == 35)
+        else if (globalStore.nowGameID == 35)
         {
             var panel = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Pick Bonus");
             if (panel != null && panel.activeSelf)
                 return true;
         }
-        else if(globalStore.nowGameID == 128)
+        else if (globalStore.nowGameID == 128)
         {
             var panel = GameObject.Find("Popup Manager/Contents/Free Game Trigger Popup");
             if (panel != null && panel.activeSelf)
                 return true;
         }
-        else if(globalStore.nowGameID == 99)
+        else if (globalStore.nowGameID == 99)
         {
             var panel = GameObject.Find("Popup Manager/Contents/Free Game Trigger Popup");
+            if (panel != null && panel.activeSelf)
+                return true;
+        }
+        else if (globalStore.nowGameID == 83)
+        {
+            var panel = GameObject.Find("Popup Manager/Contents/Choose Your Bet Level Popup");
+            if (panel != null && panel.activeSelf)
+                return true;
+        }
+        else if(globalStore.nowGameID == 62)
+        {
+            var panel = GameObject.Find("Popup Manager/Contents/Choose Your Bet Level Popup");
             if (panel != null && panel.activeSelf)
                 return true;
         }

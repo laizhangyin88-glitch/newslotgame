@@ -1,5 +1,6 @@
 using BagelCode;
 using BagelCode.ClientModels;
+using BagelCode.Tasks.Actions.ClientAPI;
 using Dreamteck.Splines.Primitives;
 using Newtonsoft.Json.Bson;
 using ParadoxNotion;
@@ -195,6 +196,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         // 获取第一包spin的数据
         firstSpinInfo = new FirstSpinInfo();
         firstSpinInfo.GetFirstSpinInfo(historyRes[0]);
+        firstSpinInfo.GetSecondClaimInfo(historyRes[1]);
 
         if (firstSpinInfo.betCredit == 0)
         {
@@ -379,15 +381,23 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinishFirebolt"));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
         }
-        else if(globalStore.nowGameID == 128)
+        else if (globalStore.nowGameID == 128)
         {
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("StartClosePopup"));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClosedPopup"));
         }
-        else if(globalStore.nowGameID == 99)
+        else if (globalStore.nowGameID == 99)
         {
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("StartClosePopup"));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClosedPopup"));
+        }
+        else if (globalStore.nowGameID == 83)
+        {
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData($"Click{5 - firstSpinInfo.SelectedIndex}"));
+        }
+        else if(globalStore.nowGameID == 62)
+        {
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData($"Click{firstSpinInfo.SelectedIndex + 1}"));
         }
     }
 
@@ -571,6 +581,11 @@ public class FirstSpinInfo
     /// </summary>
     public long betCredit = 0;
 
+    /// <summary>
+    /// 免费游戏前的选择索引（可通用）
+    /// </summary>
+    public int SelectedIndex { get; private set; }
+
     public void GetFirstSpinInfo(string spin)
     {
         // 正则表达式，匹配bet_credit后面的数字  
@@ -597,7 +612,6 @@ public class FirstSpinInfo
             Debug.LogError("bet_credit is not find");
         }
 
-
         if (globalStore.nowGameID == 93)
         {
             pattern = "\"triggered_type_index\":\\s*(\\d+)";
@@ -612,6 +626,16 @@ public class FirstSpinInfo
             {
                 Debug.LogError("triggered_type_index is not find");
             }
+        }
+    }
+    public void GetSecondClaimInfo(string claim)
+    {
+        string pattern = "\"selected_index\":\\s*(\\d+)";
+        Match match = Regex.Match(claim, pattern);
+        if (match.Success)
+        {
+            string str = match.Groups[1].Value;
+            SelectedIndex = int.Parse(str);
         }
     }
 }
