@@ -679,6 +679,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     }
 
     /// <summary>“免费游戏选择弹窗”是否可见 </summary>
+    /// <remarks>
+    /// 有些游戏进入免费游戏前会存在选择弹窗，将代码加入这里，用于断线重连和机台按钮的逻辑
+    /// </remarks>
     public bool isPopFreeGameTimeSelect()
     {
 
@@ -743,6 +746,77 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 return true;
             }
         }
+
+        //神秘宝石这款游戏的免费游戏弹窗最开始是需要点击符号，然后才会有弹窗
+        if (globalStore.nowGameID == 73)
+        {
+            //散射是否可以被点击
+            var scatterClickable = BlackboardUtils.FindVariable<bool>("./scatterClickable");
+            if (scatterClickable != null && scatterClickable.value == true)
+                return true;
+
+            //弹窗是否存在
+            var panel = GameObject.Find("Popup Manager/Contents/Free Game Trigger Popup");
+            if (panel != null && panel.activeSelf)
+                return true;
+        }
+        //else if (globalStore.nowGameID == 62)
+        //{
+        //    var panel = GameObject.Find("Popup Manager/Contents/Choose Your Bet Level Popup");
+        //    if (panel != null && panel.activeSelf)
+        //        return true;
+        //}
+        else if (globalStore.nowGameID == 54)
+        {
+            var panel = GameObject.Find("Popup Manager/Contents/Choose Your Bonus Popup");
+            if (panel != null && panel.activeSelf)
+                return true;
+
+            var panel2 = GameObject.Find("Popup Manager/Contents/Free Game Trigger Popup");
+            if (panel2 != null && panel2.activeSelf)
+                return true;
+        }
+        else if (globalStore.nowGameID == 35)
+        {
+            var panel = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Pick Bonus");
+            if (panel != null && panel.activeSelf)
+                return true;
+        }
+        else if (globalStore.nowGameID == 128)
+        {
+            var panel = GameObject.Find("Popup Manager/Contents/Free Game Trigger Popup");
+            if (panel != null && panel.activeSelf)
+                return true;
+        }
+        else if (globalStore.nowGameID == 99)
+        {
+            var panel = GameObject.Find("Popup Manager/Contents/Free Game Trigger Popup");
+            if (panel != null && panel.activeSelf)
+                return true;
+        }
+        else if (globalStore.nowGameID == 83)
+        {
+            var panel = GameObject.Find("Popup Manager/Contents/Choose Your Bet Level Popup");
+            if (panel != null && panel.activeSelf)
+                return true;
+        }
+        else if(globalStore.nowGameID == 62)
+        {
+            var panel = GameObject.Find("Popup Manager/Contents/Choose Your Bet Level Popup");
+            if (panel != null && panel.activeSelf)
+                return true;
+        }
+        else if(globalStore.nowGameID == 31)
+        {
+            var panel = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Wheel Bonus");
+            if (panel != null && panel.activeSelf)
+                return true;
+
+            var panel1 = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Wheel Result");
+            if(panel1 != null && panel1.activeSelf)
+                return true;
+        }
+
         return false;
     }
 
@@ -1350,7 +1424,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                     parent?.GetComponent<ContextButton>()?.DoClick();
 
                     //选框会被游戏打乱顺序排列，要重新复位index
-                    _AddTack(() => {
+                    _AddTack(() =>
+                    {
                         MachineSelectBorder.ResetAutoIndex("JacksCard");
                         Debug.Log("【Task】: JacksCard ");
                     }, 1000);
@@ -2223,10 +2298,12 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     /// 弹窗出现选择框时，压入mark堆栈，的mark值
     /// 默认mark = ""
     /// </summary>
-    Dictionary<int, String> markPopGameConfigSelect = new Dictionary<int, String>() {
+    Dictionary<int, String> markPopGameConfigSelect = new Dictionary<int, String>()
+    {
         //{142,"" },
     };
-    Dictionary<int, String> markPopFreeGameTimeSelect = new Dictionary<int, String>(){
+    Dictionary<int, String> markPopFreeGameTimeSelect = new Dictionary<int, String>()
+    {
         //{37,"" },
         //{93,"" },
         //{105,"" },
@@ -2239,13 +2316,13 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     /// 筛选出要屏蔽的选择框
     /// </summary>
     /// <returns></returns>
-    public KeyValuePair<bool,string> GetIgonreBorderWhenUseLightBtnSelect()
+    public KeyValuePair<bool, string> GetIgonreBorderWhenUseLightBtnSelect()
     {
         if (isLightBtnSelectInGame())  //使用了机台灯闪烁选择
         {
             if (isPopFreeGameTimeSelect())
             {
-                if (markPopFreeGameTimeSelect.ContainsKey(globalStore.nowGameID ))
+                if (markPopFreeGameTimeSelect.ContainsKey(globalStore.nowGameID))
                 {
                     return new KeyValuePair<bool, string>(true, markPopFreeGameTimeSelect[globalStore.nowGameID]);
                 }
@@ -2285,7 +2362,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
     private void OpenAllSceneBtn()
     {
-                MessageDispatcher.Dispatch("MachineBtnEvent", new EventData<string[]>("ChangeSceneBtnLight", new string[] {
+        MessageDispatcher.Dispatch("MachineBtnEvent", new EventData<string[]>("ChangeSceneBtnLight", new string[] {
                     "BtnSpin",
                     "BtnPre",
                     "BtnNext",
@@ -2293,7 +2370,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                     "BtnSwitch",
                     "BtnBetUp",
                     "BtnBetDown",
-                    "BtnBetMax", 
+                    "BtnBetMax",
                     "BtnHelp",
 
                 }));
