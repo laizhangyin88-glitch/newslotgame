@@ -743,12 +743,6 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             if (panel != null && panel.activeSelf)
                 return true;
         }
-        //else if (globalStore.nowGameID == 62)
-        //{
-        //    var panel = GameObject.Find("Popup Manager/Contents/Choose Your Bet Level Popup");
-        //    if (panel != null && panel.activeSelf)
-        //        return true;
-        //}
         else if (globalStore.nowGameID == 54)
         {
             var panel = GameObject.Find("Popup Manager/Contents/Choose Your Bonus Popup");
@@ -781,6 +775,12 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         {
             var panel = GameObject.Find("Popup Manager/Contents/Choose Your Bet Level Popup");
             if (panel != null && panel.activeSelf)
+                return true;
+
+            //From:whh - 2024年9月12日
+            //补充免费游戏中弹出小游戏的断线重连逻辑
+            var panel1 = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Jackpot Bonus");
+            if(panel1 != null && panel1.activeSelf)
                 return true;
         }
         else if(globalStore.nowGameID == 62)

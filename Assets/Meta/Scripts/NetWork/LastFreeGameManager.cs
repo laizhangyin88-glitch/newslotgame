@@ -366,10 +366,6 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("StartClosePopup"));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClosePopup1"));
         }
-        //else if(globalStore.nowGameID == 62)
-        //{
-        //    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Click1"));
-        //}
         else if (globalStore.nowGameID == 54)
         {
             EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("OnClick", 0, 1));
@@ -394,6 +390,11 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         else if (globalStore.nowGameID == 83)
         {
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData($"Click{5 - firstSpinInfo.SelectedIndex}"));
+
+            //From:whh - 2024年9月12日
+            //补充免费游戏中弹出小游戏的断线重连逻辑
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClick"));
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("collectEvent"));
         }
         else if(globalStore.nowGameID == 62)
         {
