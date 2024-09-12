@@ -1455,6 +1455,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     public bool IsNodeMiniGame()
     {
         GameObject obj = null;
+        ChameleonBonusScript chameleonBonusScript = null; ////游戏名：AZTEC_CHARMS,阿兹特克魅力   id：11 特殊判断
         switch (globalStore.nowGameID)
         {
             case 7:
@@ -1462,6 +1463,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 10:
                 obj = GameObject.Find("Game Contents/Animator/Anchor/Effect Midground/Free Spins Select");
+                break;
+            case 11:
+                chameleonBonusScript = GameObject.FindObjectOfType<ChameleonBonusScript>();
                 break;
             case 21:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Wheel Bonus");
@@ -1498,6 +1502,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         }
         if (obj != null && obj.activeSelf)
             return true;
+        if (chameleonBonusScript != null && chameleonBonusScript.gameObject.activeSelf)
+            return true;
         return false;
     }
 
@@ -1508,6 +1514,11 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 10:
 
                 //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnRoyalFreeSpinClick"));
+                break;
+            case 11:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ChameleonAttackStart"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ChameleonAttack"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("FinishedChameleonAnimation"));
                 break;
             case 21:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("collectEvent"));
