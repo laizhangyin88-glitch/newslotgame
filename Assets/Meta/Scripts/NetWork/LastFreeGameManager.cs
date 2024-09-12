@@ -503,7 +503,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager> {
             else
             {
                 Time.timeScale = 10;
-                //Time.timeScale = 1;
+                // Time.timeScale = 1; 
             }
             responseCallback(dataDict["data"]);
         }
