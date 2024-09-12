@@ -2073,6 +2073,43 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             }
         }
+
+
+
+        index--;
+        if (index < 0)
+            index = comps.Length - 1;
+
+        int y = 0;
+        while (!isFind && ++y < 200)
+        {
+            for (int i = 0; i < comps.Length; i++)
+            {
+                //comps[i].selectBorder.SetActive(false);
+                comps[i].isSelected = false;
+                if (comps[i].index == comps.Length - 1)
+                {
+                    compLast = comps[i];
+                }
+                if (comps[i].index == index && !comps[i].isIgnore)
+                {
+                    //comps[i].selectBorder.SetActive(true);
+                    comps[i].isSelected = true;
+                    _curSelectNumb = index;
+                    isFind = true;
+                }
+            }
+            index--;
+            if (index < 0)
+                index = comps.Length - 1;
+        }
+
+        if (!isFind)
+        {
+            Debug.LogError("==@找不到下一个对象");
+        }
+
+        /*
         index--;
         for (int i = 0; i < comps.Length; i++)
         {
@@ -2096,8 +2133,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             _curSelectNumb = compLast.index;
             //compLast.selectBorder.SetActive(true);
             compLast.isSelected = true;
-        }
-
+        }*/
         setMark(_curSelectMark, _curSelectNumb);
     }
 
@@ -2106,10 +2142,21 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         MachineSelectBorder[] comps = GameObject.FindObjectsOfType<MachineSelectBorder>();
 
 
+        /*
         bool isExist = false;
         for (int i = 0; i < comps.Length; i++)
         {
             if (comps[i].mark == _curSelectMark)
+            {
+                isExist = true;
+                break;
+            }
+        }*/
+
+        bool isExist = false;
+        for (int i = 0; i < comps.Length; i++)
+        {
+            if (comps[i].mark == _curSelectMark && !comps[i].isIgnore)
             {
                 isExist = true;
                 break;
@@ -2148,9 +2195,38 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         }
 
         index++;
+        int y = 0;
+        while (!isFind && ++y < 200)
+        {
+            for (int i = 0; i < comps.Length; i++)
+            {
+                comps[i].isSelected = false;
+                if (comps[i].index == 0)
+                {
+                    compFirst = comps[i];
+                }
+                if (comps[i].index == index && !comps[i].isIgnore)
+                {
+                    comps[i].isSelected = true;
+                    _curSelectNumb = index;
+                    isFind = true;
+                }
+            }
+            index++;
+            if (index >= comps.Length)
+                index = 0;
+        }
+
+        if (!isFind)
+        {
+            Debug.LogError("==@ Unable to find the next MachineSelect item");
+        }
+
+
+        /*
+        index++;
         for (int i = 0; i < comps.Length; i++)
         {
-            //comps[i].selectBorder.SetActive(false);
             comps[i].isSelected = false;
             if (comps[i].index == 0)
             {
@@ -2159,19 +2235,15 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             if (comps[i].index == index)
             {
                 comps[i].isSelected = true;
-                //comps[i].selectBorder.SetActive(true);
                 _curSelectNumb = index;
                 isFind = true;
             }
         }
-
         if (!isFind && compFirst != null)
         {
-            //_curSelectNumb = compFirst.index;
             _curSelectNumb = 0;
-            // compFirst.selectBorder.SetActive(true);
             compFirst.isSelected = true;
-        }
+        }*/
 
         setMark(_curSelectMark, _curSelectNumb);
     }
@@ -2193,11 +2265,30 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         },
     };
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="isTest"></param>
-    /// <returns></returns>
+    /*
+    public void ForeChangeLightBtn(bool toOpen)
+    {
+        //bool _islightBtnSelect = isPopGameConfigSelect();
+        if (toOpen)
+        {
+            isLightBtnSelect = false;
+            isPopGameConfigSelect();
+        }
+        else
+        {
+            MessageDispatcher.Dispatch(MACHINE_BTN_EVENT, new EventData("LightBtnSelectShowTipOff"));
+            MessageDispatcher.Dispatch("MachineBtnEvent", new EventData<string[]>("ChangeSceneBtnLight", new string[] { }));
+        }
+    }*/
+
+    [Button]
+    void test_ShowIsLightBtnSelectInGame()
+    {
+        isLightBtnSelectInGame(true);
+    }
+
+
+
     public bool isLightBtnSelectInGame(bool isTest = false)
     {
         //return false;
@@ -2317,6 +2408,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         else if (isPopGameConfigSelect())
         {
             ConfirmPopGameConfigSelect(index);
+        }
+        else if (dicNodeMiniGameLightBtnSelect.ContainsKey(globalStore.nowGameID))
+        {
+            MessageDispatcher.Dispatch(EVTType.MACHINE_BUTTON_SELECT_UI_EVTTYPE, new EventData<int>("DoorSelect", index));
         }
     }
 
@@ -2851,6 +2946,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         {
             NextSelectItem();
         }
+        else if (isGameApostarSelect()) //apostar
+        {
+            ConfirmNewGameApostarSelect();
+        }
         else if (globalStore.nowGameID == -1 && _curSelectMark != "")
         {
             NextSelectItem();
@@ -2920,6 +3019,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         else if (!isNodeGameSwitchAllRegionNextButton() && isNodeGameButtonSelect())
         {
             PreviousSelectItem();
+        }
+        else if (isGameLineSelect()) //line
+        {
+            ConfirmNewGameLineSelect();
         }
         else if (globalStore.nowGameID == -1 && _curSelectMark != "")
         {
@@ -3056,5 +3159,50 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     void test_ShowSpinButtonState()
     {
         Debug.Log($"==@ Spin Button State: {BtnSpinDown()}");
+    }
+}
+
+
+
+/// <summary>
+/// 新游戏选线
+/// </summary>
+public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
+{
+
+
+    bool isGameLineSelect()
+    {
+        if (globalStore.nowGameID >= 3000 && globalStore.nowGameID <= 3999)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    bool isGameApostarSelect()
+    {
+        if (globalStore.nowGameID >= 3000 && globalStore.nowGameID <= 3999)
+        {
+            return true;
+        }
+        return false;
+    }
+    public void ConfirmNewGameLineSelect()
+    {
+        if (BlackboardQueryUtils.IsSpin())
+            return;
+
+        GameObject Base = GameObject.Find("In Game Bottom/Anchor/Layout/Line");
+        Base.GetComponent<ContextButton>().DoClick();
+    }
+
+    public void ConfirmNewGameApostarSelect()
+    {
+        if (BlackboardQueryUtils.IsSpin())
+            return;
+
+        GameObject Base = GameObject.Find("In Game Bottom/Anchor/Layout/Apostar");
+        Base.GetComponent<ContextButton>().DoClick();
     }
 }

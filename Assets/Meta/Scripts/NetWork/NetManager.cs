@@ -123,26 +123,8 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
     private void tmp_GameEnd(ParadoxNotion.EventData eventData)
     {
 
-        //Debug.Log($"@@i am GameEnd {eventData.name} {eventData.value}");
-
-        // if (!eventData.name.Equals("SkipWin", StringComparison.Ordinal))
-        //     return;
-
-        if (eventData.name == "SkipWin" || eventData.name == "NoWin") { 
-
-            globalStore.isPlay = false;
-
-            long oldCredit = (long)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value ?? 0);
-            if (oldCredit != globalStore.newCredit)
-            {
-                Debug.LogWarning($"@ 玩家金币发生改变  oldCredit = {oldCredit} ，newCredit = {globalStore.newCredit}");
-
-                BlackboardQueryUtils.SetMyCredit(globalStore.newCredit);
-                //Debug.LogError($"Refresh {BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value}");
-                MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
-                //EventSender.SendGlobalEvent("OnCreditEvent", "UpdateNaviCredit");
-            }
-        }
+        if (!isChangeCreditAnimation)
+            SetMyCredit();
     }
 
 
@@ -921,7 +903,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     else if (globalStore.gameState == GameState.Game && globalStore.nowGameID != -1)//断线重链子游戏
                     {
                         Dictionary<string, object> req = new Dictionary<string, object> { { "game_id",globalStore.nowGameID} };
-                        this.SendMsgForce(RPCName.enterGame, req);
+
+                        string enterGame = globalStore.nowGameID >= 3000 && globalStore.nowGameID <= 3999 ? RPCName.newEnterGame : RPCName.enterGame;
+                        this.SendMsgForce(enterGame, req);
                     }
                     else //踢回登录
                     {
@@ -1021,6 +1005,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
                 break;
             case RPCName.enterGame://进入子游戏
+            case RPCName.newEnterGame://进入子游戏
 
                 //断线重链子游戏
                 if (this._state == NetNodeState.Checking && globalStore.gameState == GameState.Game)
@@ -1044,7 +1029,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 }
 
                 globalStore.gameState = GameState.Game;
-                globalStore.nowGameID = data["contents"]["game_info"]["game_id"].AsInt;
+                globalStore.nowGameID = rpcName == RPCName.newEnterGame ?
+                    data["game_id"].AsInt : data["contents"]["game_info"]["game_id"].AsInt;
+
 
                 Debug.LogWarning("@ 进入游戏 id = "+ globalStore.nowGameID);
 
@@ -1168,6 +1155,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         int updateCreditState = (int)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "updateCreditState")?.value ?? 1);
 
         if (updateCreditState != 1)return;
+
+        if (!TestManager.Instance.isCheckCredit)
+            return;
 
         long oldCredit = (long)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value ?? 0);
 
