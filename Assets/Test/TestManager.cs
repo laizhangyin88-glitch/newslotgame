@@ -428,21 +428,6 @@ public class TestManager : MonoSingleton<TestManager>
 
 
 
-
-    [Button]
-    void test_timeEq10()
-    {
-        Time.timeScale = 10;
-    }
-
-
-    [Button]
-    void test_timeEq1()
-    {
-        Time.timeScale = 1;
-    }
-
-
     [Button]
     void test_GetCoinOutOrder()
     {
@@ -994,5 +979,21 @@ public class TestManager : MonoSingleton<TestManager>
             return LobbyJackpot.isOn;
         }
         return false;
+    }
+
+    [Button]
+    public void SpeedX10()
+    {
+        Time.timeScale = 10;
+    }
+    [Button]
+    public void SpeedX2()
+    {
+        Time.timeScale = 2;
+    }
+    [Button]
+    public void SpeedX1()
+    {
+        Time.timeScale = 1;
     }
 }
