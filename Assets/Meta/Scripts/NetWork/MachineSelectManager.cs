@@ -1454,10 +1454,16 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Main Wheel");
                 break;
             case 153:
-                obj = GameObject.Find("Anchor/Midground/Quick Change Bouns");
+                obj = GameObject.Find("Game Canvas/Game Contents/Anchor/Midground/Quick Change Bouns");
+                if (obj != null && obj.activeSelf)
+                    return true;
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Xray Bonus");
                 break;
             case 154:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Hot Bonus Panel");
+                break;
+            case 175:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Bonus Game");
                 break;
             case 183:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Slot Frame/Wheel Bonus");
@@ -1489,10 +1495,15 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Touch"));
                 break;
             case 153:
-                Debug.LogError("待完成。。。");
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Click"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("0Clicked"));
                 break;
             case 154:
                 StartCoroutine(ConfirmNodeMiniGameSelect154());
+                break;
+            case 175:
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("StageEnd"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));
                 break;
             case 183:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData<int>("OnBigWheelClick", _curSelectNumb));
