@@ -125,7 +125,8 @@ public class RPCName
 namespace RPCBase
 {
     [System.Serializable]
-    public class ReqBase{
+    public class ReqBase
+    {
         public string protocol_key;
         public Dictionary<string, object> data;
     }
@@ -240,9 +241,10 @@ public class EVTType
 {
     public const string ON_CONTENT_UI_EVENT = "OnContentUIEvent";
     public const string ON_CONTENT_EVENT = "OnContentEvent";
-    public const string MACHINE_BUTTON_SELECT = "MachineBtnEvent"; //MachineBtnEvent
+    public const string MACHINE_BUTTON_SELECT = "MachineBtnEvent";
     public const string ON_CUSTOM_EVENT = "OnCustomEvent";
-    public const string MACHINE_BUTTON_SELECT_UI_EVTTYPE = "MachineBtnUIEVTType"; //MachineBtnEvent
+    public const string MACHINE_BUTTON_SELECT_UI_EVTTYPE = "OnMachineButtonEvent"; //"MachineBtnUIEVTType";
+    public const string ON_MACHINE_BUTTON_EVENT = "OnMachineButtonEvent";
     public const string ON_SPIN_BUTTON_EVENT = "OnSpinButtonEvent";
     public const string ON_USER_CONFIG = "OnUserConfig";
     public const string ON_WIN_EVENT = "OnWinEvent";
