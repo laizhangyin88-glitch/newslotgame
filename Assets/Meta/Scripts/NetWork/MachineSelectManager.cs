@@ -1473,6 +1473,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 37:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Pick Bonus/Animator/Base");
                 break;
+            case 52:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Toy Crane Bonus/Toy Crane Bonus Anchor");
+                break;
             case 118:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Map Bonus");
                 break;
@@ -1529,6 +1532,22 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 21:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("collectEvent"));
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
+                break;
+            case 52:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClick"));
+                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("BlueReady", 0));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("PickUpBlue"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("PickSuccess")); 
+                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("EndToyCrane", 0));
+                var obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Toy Crane Bonus");
+                if (obj != null)
+                {
+                    var animator = obj.GetComponent<Animator>();
+                    animator.SetBool("ToStart", true);
+                    //animator.SetTrigger("Start");
+                    animator.SetTrigger("Pick");
+                    animator.SetBool("Fail", false);
+                }
                 break;
             case 118:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("SpinCompass"));
