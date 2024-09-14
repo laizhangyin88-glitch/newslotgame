@@ -974,6 +974,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("BonusCardClicked"));
         ///152  猫咪抢劫案
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartJackpot"));
+
+        ///130 金星珍珠
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Click"));
     }
 
     /// <summary>“小游戏选择弹窗”是否可见 </summary>
