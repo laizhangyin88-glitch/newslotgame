@@ -25,12 +25,25 @@ public enum SortType
     ByIndex = 12,
 }
 
+public abstract class MachineSelectBorderState : MonoBehaviour
+{
+    public virtual void SetBtnSelected() { }
+    public virtual void SetBtnHighlight() { }
+    public virtual void SetBtnNormal() { }
+    public virtual void SetBtnDisable() { }
+    public virtual void SetBtnEnable() { }
+    public virtual void SetBtnPressed() { }
+}
+
 public class MachineSelectBorder : MonoBehaviour
 {
     // Start is called before the first frame update
     //public string name = "";
 
-    private GameObject selectBorder;
+    public GameObject selectBorder;
+
+    private MachineSelectBorderState state => selectBorder?.GetComponent<MachineSelectBorderState>();
+  
 
     public int index = -1;
 
@@ -48,6 +61,9 @@ public class MachineSelectBorder : MonoBehaviour
     static bool isVisibleReflashRegion = false;
 
 
+
+    public bool isIgnore = false;
+
     bool _isSelected = false;
     public bool isSelected
     {
@@ -64,7 +80,8 @@ public class MachineSelectBorder : MonoBehaviour
             // 非机台不显示边框
             if (!ApplicationSettings.Instance.isMachine)
             {
-                selectBorder?.SetActive(false);
+                //selectBorder?.SetActive(false);
+                SetSelectBorderEnable(false);
                 return;
             }    
 #endif
@@ -73,16 +90,45 @@ public class MachineSelectBorder : MonoBehaviour
 
             if (kv.Key && kv.Value == mark)
             {
-                selectBorder?.SetActive(false);
+                //selectBorder?.SetActive(false);
+                SetSelectBorderEnable(false);
             }
             else
             {
-                selectBorder?.SetActive(value);
+                //selectBorder?.SetActive(value);
+                SetSelectBorderSelected(value);
             }
         }
     }
 
-
+    public void SetSelectBorderSelected(bool value)
+    {
+        if (state != null)
+        {
+            if (value)
+                state.SetBtnSelected();
+            else
+                state.SetBtnNormal();
+        }
+        else
+        {
+            selectBorder?.SetActive(value);
+        }
+    }
+    public void SetSelectBorderEnable(bool value)
+    {
+        if (state != null)
+        {
+            if (value)
+                state.SetBtnEnable();
+            else
+                state.SetBtnDisable();
+        }
+        else
+        {
+            selectBorder?.SetActive(value);
+        }
+    }
 
     private Transform[] _FindParent(List<MachineSelectBorder> _comps, int index)
     {
@@ -627,6 +673,74 @@ public class MachineSelectBorder : MonoBehaviour
     {
     }
 
+    public static void ShowBorder(string mark)
+    {
+
+#if !UNITY_EDITOR
+        // 非机台不显示边框
+        if (!ApplicationSettings.Instance.isMachine)
+            return;
+#endif
+
+        MachineSelectBorder[] comps = GameObject.FindObjectsOfType<MachineSelectBorder>();
+
+        for (int i = 0; i < comps.Length; i++)
+        {
+            if (comps[i].mark == mark && comps[i].gameObject.active && comps[i]._isSelected)
+            {
+                //comps[i].selectBorder?.SetActive(true);
+                comps[i].SetSelectBorderEnable(true);
+            }
+        }
+    }
+    public static void DisShowBorder(string mark)
+    {
+#if !UNITY_EDITOR
+        // 非机台不显示边框
+        if (!ApplicationSettings.Instance.isMachine)
+            return;
+#endif
+
+        MachineSelectBorder[] comps = GameObject.FindObjectsOfType<MachineSelectBorder>();
+
+        for (int i = 0; i < comps.Length; i++)
+        {
+            if (comps[i].mark == mark && comps[i].gameObject.active)
+            {
+                //comps[i].selectBorder?.SetActive(false);
+                comps[i].SetSelectBorderEnable(false);
+            }
+        }
+    }
+
+    public static void IgnoreBorder(string mark, int index)
+    {
+        MachineSelectBorder[] comps = GameObject.FindObjectsOfType<MachineSelectBorder>();
+
+        for (int i = 0; i < comps.Length; i++)
+        {
+            if (comps[i].mark == mark && comps[i].index == index)
+            {
+                comps[i].isIgnore = true;
+            }
+        }
+    }
+    public static void ClearAllIgnoreBorder(string mark)
+    {
+        MachineSelectBorder[] comps = GameObject.FindObjectsOfType<MachineSelectBorder>();
+
+        for (int i = 0; i < comps.Length; i++)
+        {
+            if (comps[i].mark == mark)
+            {
+                comps[i].isIgnore = false;
+            }
+        }
+    }
+
+
+
+
     public static void ResetAutoIndex(string mark)
     {
         MachineSelectBorder[] comps = GameObject.FindObjectsOfType<MachineSelectBorder>();
@@ -654,7 +768,7 @@ public class MachineSelectBorder : MonoBehaviour
     {
 
 
-       // Debug.Log("【show】: on enable");
+        // Debug.Log("【show】: on enable");
 
         //已经时初始化过了，隐藏按钮重新可见时，
         if ((MachineSelectManager.Instance.isInitGameBtnRegion && globalStore.nowGameID != -1)
