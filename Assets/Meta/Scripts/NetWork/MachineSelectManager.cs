@@ -1510,6 +1510,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 52:
                 obj = GameObject.Find("Game Canvas/Game Contents/LogoActive");
                 break;
+            case 111:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Map Bonus Popup/Anchor");
+                //obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/LogoActive");
+                break;
             case 118:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Map Bonus");
                 break;
@@ -1574,6 +1578,12 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 52:
                 EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("EndToyCrane", 0));
+                break;
+            case 111:
+                EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("OnOpenMapBonusPopup"));
+                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("OnClickMap0"));
+                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("OnBeginMegaFreeSpinMap"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClick"));
                 break;
             case 118:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("SpinCompass"));
