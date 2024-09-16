@@ -974,6 +974,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("BonusCardClicked"));
         ///152  猫咪抢劫案
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartJackpot"));
+
+        ///130 金星珍珠
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Click"));
     }
 
     /// <summary>“小游戏选择弹窗”是否可见 </summary>
@@ -1486,6 +1489,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     public bool IsNodeMiniGame()
     {
         GameObject obj = null;
+        ChameleonBonusScript chameleonBonusScript = null; ////游戏名：AZTEC_CHARMS,阿兹特克魅力   id：11 特殊判断
         switch (globalStore.nowGameID)
         {
             case 7:
@@ -1494,11 +1498,17 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 10:
                 obj = GameObject.Find("Game Contents/Animator/Anchor/Effect Midground/Free Spins Select");
                 break;
+            case 11:
+                chameleonBonusScript = GameObject.FindObjectOfType<ChameleonBonusScript>();
+                break;
             case 21:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Wheel Bonus");
                 break;
             case 37:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Pick Bonus/Animator/Base");
+                break;
+            case 52:
+                obj = GameObject.Find("Game Canvas/Game Contents/LogoActive");
                 break;
             case 118:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Map Bonus");
@@ -1522,14 +1532,12 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 154:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Hot Bonus Panel");
-<<<<<<< HEAD
-                break; ;
-=======
+
+
                 break;
             case 175:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Bonus Game");
                 break;
->>>>>>> SlotClientMain
             case 183:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Slot Frame/Wheel Bonus");
                 break;
@@ -1542,6 +1550,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         }
         if (obj != null && obj.activeSelf)
             return true;
+        if (chameleonBonusScript != null && chameleonBonusScript.gameObject.activeSelf)
+            return true;
         return false;
     }
 
@@ -1553,9 +1563,17 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
                 //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnRoyalFreeSpinClick"));
                 break;
+            case 11:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ChameleonAttackStart"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ChameleonAttack"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("FinishedChameleonAnimation"));
+                break;
             case 21:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("collectEvent"));
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
+                break;
+            case 52:
+                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("EndToyCrane", 0));
                 break;
             case 118:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("SpinCompass"));
