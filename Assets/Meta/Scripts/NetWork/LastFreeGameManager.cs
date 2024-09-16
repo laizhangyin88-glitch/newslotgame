@@ -659,7 +659,7 @@ public class FirstSpinInfo
         // 正则表达式，匹配bet_credit后面的数字  
         string pattern;
         if (globalStore.nowGameID == 37
-            || globalStore.nowGameID == 156)
+            || globalStore.nowGameID == 156
             || globalStore.nowGameID == 180)
         {
             pattern = "\"bet\":\\s*(\\d+)";
