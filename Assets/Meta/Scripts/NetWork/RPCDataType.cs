@@ -16,6 +16,15 @@ using System.Runtime.CompilerServices;
 
 public class RPCName
 {
+    /// <summary>新的进入子游戏</summary>
+    public const string newEnterGame = "new_enter_game";
+    /// <summary>新拉霸机 开玩</summary>
+    public const string newSlotSpin = "new_slot_spin";
+    public const string newClaimBonus = "new_slot_spin";
+    /// <summary> 比大小小游戏协议 /// </summary>
+    public const string new_high_low_game = "new_high_low_game";
+    public const string newGameRecord = "new_game_record";
+
     /// <summary>登录</summary>
     public const string login = "login";
     /// <summary>进入大厅</summary>
@@ -116,7 +125,8 @@ public class RPCName
 namespace RPCBase
 {
     [System.Serializable]
-    public class ReqBase{
+    public class ReqBase
+    {
         public string protocol_key;
         public Dictionary<string, object> data;
     }
@@ -231,9 +241,10 @@ public class EVTType
 {
     public const string ON_CONTENT_UI_EVENT = "OnContentUIEvent";
     public const string ON_CONTENT_EVENT = "OnContentEvent";
-    public const string MACHINE_BUTTON_SELECT = "MachineBtnEvent"; //MachineBtnEvent
+    public const string MACHINE_BUTTON_SELECT = "MachineBtnEvent";
     public const string ON_CUSTOM_EVENT = "OnCustomEvent";
-    public const string MACHINE_BUTTON_SELECT_UI_EVTTYPE = "MachineBtnUIEVTType"; //MachineBtnEvent
+    public const string MACHINE_BUTTON_SELECT_UI_EVTTYPE = "OnMachineButtonEvent"; //"MachineBtnUIEVTType";
+    public const string ON_MACHINE_BUTTON_EVENT = "OnMachineButtonEvent";
     public const string ON_SPIN_BUTTON_EVENT = "OnSpinButtonEvent";
     public const string ON_USER_CONFIG = "OnUserConfig";
     public const string ON_WIN_EVENT = "OnWinEvent";
@@ -242,3 +253,5 @@ public class EVTType
 
     //public const string SINGLE_WIN = "SingleWin";
 }
+
+

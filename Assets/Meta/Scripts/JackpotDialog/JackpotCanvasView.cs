@@ -75,7 +75,10 @@ public class JackpotCanvasView : MonoBehaviour
         for (int i = 0; i < jsonData["remain_jackpot_list"].Count; i++)
         {
             var temp = (float)jsonData["remain_jackpot_list"][i];
-            jacks.Add(int.Parse((temp * 100).ToString()));
+            temp *= 100;
+            var str = temp.ToString();
+            str = str.Split('.')[0];
+            jacks.Add(int.Parse(str));
         }
 
         List<Jackpot> jackpots = new List<Jackpot>();

@@ -119,6 +119,16 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                     MachineSelectManager.Instance.ConfirmPopCommon();
                 }, 1000);
             }
+            if (MachineSelectManager.Instance.IsNodeMiniGame())
+            {
+                DoTask(() =>
+                {
+                    if (!MachineSelectManager.Instance.IsNodeMiniGame())
+                        return;
+                    MachineSelectManager.Instance.ConfirmNodeMiniGameSpin();
+                }, 1000);
+            }
+
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
@@ -496,12 +506,13 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                 EventSender.SendGlobalEvent("OnCloseLoginMaskPop");
 
                 //恢复声音
-                GSManager.Instance.MusicVolume = (float)PlayerPrefs.GetInt("MUTE_MUSIC", 1);
-                GSManager.Instance.SfxVolume = (float)PlayerPrefs.GetInt("MUTE_SFX", 1);
+                GSManager.Instance.MusicVolume = PlayerPrefs.GetFloat("MUTE_MUSIC", 1);
+                GSManager.Instance.SfxVolume = PlayerPrefs.GetFloat("MUTE_SFX", 1);
             }
             else
             {
                 Time.timeScale = 10;
+                Time.timeScale = 1;
             }
             responseCallback(dataDict["data"]);
         }
@@ -600,6 +611,7 @@ public class FirstSpinInfo
         string pattern;
         if (globalStore.nowGameID == 37
             || globalStore.nowGameID == 156)
+            || globalStore.nowGameID == 180)
         {
             pattern = "\"bet\":\\s*(\\d+)";
         }
