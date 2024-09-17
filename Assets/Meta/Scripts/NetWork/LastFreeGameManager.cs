@@ -272,10 +272,6 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             yield return new WaitForSeconds(1f);
         }
     }
-
-
-
-
     int GetTotalCount()
     {
         // 正则表达式，匹配bet_credit后面的数字  
@@ -461,9 +457,26 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             
             EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("TrySpinWheel"));
         }
+        else if(globalStore.nowGameID == 175)
+        {
+            
+        }
     }
 
-
+    public int Get175GameExtraBetIndex()
+    {
+        int result = 0;
+        string data = historyRes[0];
+        string pattern = "\"extra_bet_index\":\\s*(\\d+)";
+        Match match = Regex.Match(data, pattern);
+        if (match.Success)
+        {
+            string str = match.Groups[1].Value;
+            int value = int.Parse(str);
+            result = value;
+        }
+        return result;
+    }
 
 
     public List<string> historyRes = new List<string>();
@@ -639,11 +652,16 @@ public class FirstSpinInfo
     /// </summary>
     public int triggeredTypeIndex_id93 = 0;
 
+    private long _betCredit;
+
     /// <summary>
     /// 下注金额
     /// </summary>
-    public long betCredit = 0;
-
+    public long betCredit 
+    {
+        get { return globalStore.nowGameID == 142 ? _betCredit : _betCredit - extraBet; }
+    }
+     
     /// <summary>
     /// 额外下注金额
     /// </summary>
@@ -676,7 +694,7 @@ public class FirstSpinInfo
         {
             // 提取数字  
             string str = match.Groups[1].Value;
-            betCredit = long.Parse(str);
+            _betCredit = long.Parse(str);
         }
         else
         {
@@ -699,7 +717,7 @@ public class FirstSpinInfo
             }
         }
         ///丛林火焰，获得额外下注的金额
-        if (globalStore.nowGameID == 142)
+        if (globalStore.nowGameID == 142 || globalStore.nowGameID == 175)
         {
             pattern = "\"extra_bet\":\\s*(\\d+)";
             match = Regex.Match(spin, pattern);
