@@ -912,6 +912,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnCollect"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnPointerClick"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartBonusGame"));
+        EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinalizeBigWin"));
+         
 
         /**
          * Big Win Text Event Mega Win
@@ -1536,8 +1538,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 154:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Hot Bonus Panel");
-
-
+                break;
+            case 172:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Bonus game");
                 break;
             case 175:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Bonus Game");
@@ -1604,6 +1607,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 154:
                 StartCoroutine(ConfirmNodeMiniGameSelect154());
+                break;
+            case 172:
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("PickBonusEndStage")); 
                 break;
             case 175:
                 EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("StageEnd"));
