@@ -107,29 +107,37 @@ public class ShowInfo : MonoBehaviour
     {
 
         /*
-1、1~30ms：极快，几乎察觉不出有延迟，玩任何游戏速度都特别顺畅。
-2、31~50ms：良好，可以正常游戏，没有明显的延迟情况。
-3、51~100ms：普通，对抗类游戏能感觉出明显延迟，稍有停顿。
-4、100ms：差，无法正常游戏，有卡顿，丢包并掉线现象。
+        1--30ms：极快，几乎察觉不出有延迟，玩任何游戏速度都特别顺畅。
+        31--50ms：良好，可以正常游戏，没有明显的延迟情况。
+        51--100ms：普通，对抗类游戏能感觉出明显延迟，稍有停顿。
+        100ms：差，无法正常游戏，有卡顿，丢包并掉线现象。
+
+        改为：
+
+        1--100ms：极快
+        101--500ms：良好
+        501--1000ms：普通
+        1001--2000ms：差
+        >= 2001ms：极差
         */
 
         List<Sprite> temp = singleImgs;
-        if (speedMS <= 30)
+        if (speedMS <= 100)
         {
             signalImg.sprite = temp[0];
             signalImg.color = Color.green;
         }
-        else if (speedMS <= 50)
+        else if (speedMS <= 500)
         {
             signalImg.sprite = temp[1];
             signalImg.color = Color.green;
         }
-        else if (speedMS <= 100)
+        else if (speedMS <= 1000)
         {
             signalImg.sprite = temp[2];
             signalImg.color = Color.yellow;
         }
-        else if (speedMS <= 500)
+        else if (speedMS <= 2000)
         {
             signalImg.sprite = temp[3];
             signalImg.color = Color.red;
