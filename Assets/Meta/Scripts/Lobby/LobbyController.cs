@@ -101,6 +101,8 @@ namespace BagelCode
             info.callback1 = delegate
             {
                 SBoxSanboxController.Instance.PrintMoneyOrder();
+                EventSender.SendGlobalEvent(MetaEventDefine.ON_META_UI_EVENT, new EventData(MetaEventDefine.ON_LEAVE_REFUND_DIALOG));
+                ErrorPopupHandler.Instance.ClosePopup(MetaEventDefine.ON_LEAVE_REFUND_DIALOG);
             };
             info.callback2 = delegate
             {
