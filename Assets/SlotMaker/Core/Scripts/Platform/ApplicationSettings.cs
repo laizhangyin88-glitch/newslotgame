@@ -230,6 +230,20 @@ namespace SlotMaker
     		return returnValue;
     	}
 
+        public static List<string> GetMachineStreamingAssets()
+        {
+            List<string> returnValue = new List<string>();
+
+            for (int i = 0; i < Instance.staticMachineStreamingAssets.Count; ++i)
+            {
+                returnValue.Add(string.Format("{0}{1}", Instance.staticMachineStreamingAssets[i], Instance.applicationType).ToLower());
+            }
+
+            returnValue.AddRange(Instance.staticMachineStreamingAssets);
+
+            return returnValue;
+        }
+
         public static string GetDeviceModel()
         {
             string deviceModel = SystemInfo.deviceModel;
