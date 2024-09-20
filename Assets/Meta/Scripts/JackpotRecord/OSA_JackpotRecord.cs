@@ -85,7 +85,7 @@ public class OSA_JackpotRecord : OSA<BaseParamsWithPrefab, JackpotRecordItemView
         newOrRecycled.id.text = jackpotRecordInfo.user_id;
         newOrRecycled.title.sprite = titleSprites[jackpotRecordInfos[newOrRecycled.ItemIndex].jackpot_id];
         newOrRecycled.time.text = MetaSystem.TimeStampToLocalDateTime(jackpotRecordInfo.accept_time * 1000).ToString("MM/dd HH:mm");
-        newOrRecycled.bonus.text = $"${jackpotRecordInfo.earn_money}";
+        newOrRecycled.bonus.text = $"{jackpotRecordInfo.earn_money}";
     }
 
 
