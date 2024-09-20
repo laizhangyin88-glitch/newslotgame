@@ -607,32 +607,36 @@ public class FirstSpinInfo
 
     public void GetFirstSpinInfo(string spin)
     {
-        // 正则表达式，匹配bet_credit后面的数字  
-        string pattern;
-        if (globalStore.nowGameID == 37
-            || globalStore.nowGameID == 123
-            || globalStore.nowGameID == 156
-            || globalStore.nowGameID == 180)
+        //From:whh - 2024年9月19日
+        //有些游戏用的是bet，有些游戏用的是bet_credit
+        //之前的逻辑是根据游戏id来做逻辑分支
+        //为免以后再出现类似问题，直接优化逻辑如下
+
+        string pattern = "\"bet_credit\":\\s*(\\d+)";
+        Match match = Regex.Match(spin, pattern);
+        long bet = 0;
+
+        while (match.Success && bet <= 0)
+        {
+            string str = match.Groups[1].Value;
+            bet = long.Parse(str);
+            match = match.NextMatch();
+        }
+
+        if(bet <= 0)
         {
             pattern = "\"bet\":\\s*(\\d+)";
-        }
-        else
-        {
-            pattern = "\"bet_credit\":\\s*(\\d+)";
-        }
-        // 搜索匹配项  
-        Match match = Regex.Match(spin, pattern);
+            match = Regex.Match(spin, pattern);
 
-        if (match.Success)
-        {
-            // 提取数字  
-            string str = match.Groups[1].Value;
-            betCredit = long.Parse(str);
+            while (match.Success && bet <= 0)
+            {
+                string str = match.Groups[1].Value;
+                bet = long.Parse(str);
+                match = match.NextMatch();
+            }
         }
-        else
-        {
-            Debug.LogError("bet_credit is not find");
-        }
+
+        betCredit = bet;
 
         if (globalStore.nowGameID == 93)
         {
