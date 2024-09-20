@@ -50,33 +50,31 @@ namespace BagelCode
             get { return spinType.value; }
         }
 
-        Transform elemSpinText;
-        Transform elemStopText;
-        Transform elemAutoSpinText;
+        private NextSpinState nextSpinState = NextSpinState.None;
+        //Transform elemSpinText;
+        //Transform elemStopText;
+        //Transform elemAutoSpinText;
         [Button]
         public NextSpinState GetSpinButtonState()
         {
-            //var elemSpinText = ContextUtils.FindElement(root, "", ContextSearchingType.ChildrenSearch);
-            //var elemStopText = ContextUtils.FindElement(root, "Stop Text", ContextSearchingType.ChildrenSearch);
-            //var elemAutoSpinText = ContextUtils.FindElement(root, "Auto Spin Text", ContextSearchingType.ChildrenSearch);
-            //Debug.Log($"【SpinButtonState】elemStopText = {elemStopText.gameObject.active} elemAutoSpinText = {elemAutoSpinText.gameObject.active}");
+            ///Seaweed 写的, 反面教材
+            //if (elemSpinText != null && elemSpinText.gameObject.active)
+            //{
+            //    //Debug.Log($"【SpinButtonState】 to play");
+            //    return NextSpinState.ToPlay;
+            //}
+            //else if (elemStopText != null && elemStopText.gameObject.active)
+            //{
+            //    //Debug.Log($"【SpinButtonState】 to stop  ");
+            //    return NextSpinState.ToStop;
+            //} 
+            //else if (elemAutoSpinText != null && elemAutoSpinText.gameObject.active)
+            //{
+            //    //Debug.Log($"【SpinButtonState】 to stop auto ");
+            //    return NextSpinState.ToStopAuto;
+            //}
 
-            if (elemSpinText != null && elemSpinText.gameObject.active)
-            {
-                //Debug.Log($"【SpinButtonState】 to play");
-                return NextSpinState.ToPlay;
-            }
-            else if (elemStopText != null && elemStopText.gameObject.active)
-            {
-                //Debug.Log($"【SpinButtonState】 to stop  ");
-                return NextSpinState.ToStop;
-            }
-            else if (elemAutoSpinText != null && elemAutoSpinText.gameObject.active)
-            {
-                //Debug.Log($"【SpinButtonState】 to stop auto ");
-                return NextSpinState.ToStopAuto;
-            }
-            return NextSpinState.None;
+            return nextSpinState;
         }
 
 
@@ -124,6 +122,7 @@ namespace BagelCode
                 button.interactable = false;
 
             animator.SetBool(ANI_IS_STOP, true);
+            nextSpinState = NextSpinState.ToStop;
         }
 
         public void StopSlotMachine()
@@ -134,6 +133,7 @@ namespace BagelCode
         public void StoppedSlotMachine()
         {
             animator.SetBool(ANI_IS_STOP, false);
+            nextSpinState = NextSpinState.ToPlay;
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -223,9 +223,11 @@ namespace BagelCode
 
         private void UpdateAutoSpin(string name, object value)
         {
-
             animator.SetBool(ANI_IS_AUTO, AutoSpin);
-
+            if (AutoSpin)
+                nextSpinState = NextSpinState.ToStopAuto;
+            else
+                nextSpinState = NextSpinState.ToPlay;
             PIPManager.Instance.SetPipState("AutoSpin", (bool)value);
         }
 
@@ -268,9 +270,9 @@ namespace BagelCode
             Register(MetaEventDefine.ON_META_UI_EVENT, MachineEventDefine.ON_KEY_START, OnMachinePoint);
 
 
-            elemSpinText = transform.Find("Anchor/Info/Spin Text");
-            elemStopText = transform.Find("Anchor/Info/Stop Text");
-            elemAutoSpinText = transform.Find("Anchor/Info/Auto Spin Text");
+            //elemSpinText = transform.Find("Anchor/Info/Spin Text");
+            //elemStopText = transform.Find("Anchor/Info/Stop Text");
+            //elemAutoSpinText = transform.Find("Anchor/Info/Auto Spin Text");
         }
 
         private void OnMachinePoint(EventData data)

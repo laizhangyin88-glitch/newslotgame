@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using SlotMaker;
 
 /// <summary>
 /// 当toggle的值改变时，同步改变背景，文字材质和文字颜色
@@ -31,6 +32,9 @@ public class Popup_Announcement_Toggle : MonoBehaviour
     [SerializeField] private Image _imageCom;
     [SerializeField] private TextMeshProUGUI _textCom;
 
+    [Space]
+
+    [SerializeField] private GameSoundPlayer _gameSoundPlayer;
 
     protected void OnEnable()
     {
@@ -43,11 +47,19 @@ public class Popup_Announcement_Toggle : MonoBehaviour
 
     private void OnToggleValueChangeHandle(bool value)
     {
-        _imageCom.sprite = value ? _selectedSprite : _normalSprite;
-        _textCom.fontMaterial = value ? _selectedFontMaterial : _normalFontMaterial;
-        _textCom.color = value ? _selectedFontColor : _normalFontColor;
-        _relationObj.SetActive(value);
-        
+        if (value && _gameSoundPlayer) _gameSoundPlayer.PlayGameSound("UI_Button_Normal");
+        if (_imageCom) _imageCom.sprite = value ? _selectedSprite : _normalSprite;
+
+        if (_textCom)
+        {
+            if (_selectedFontMaterial != null && _normalFontMaterial)
+                _textCom.fontMaterial = value ? _selectedFontMaterial : _normalFontMaterial;
+
+            if (_selectedFontColor != null && _normalFontColor != null)
+                _textCom.color = value ? _selectedFontColor : _normalFontColor;
+        }
+
+        if (_relationObj) _relationObj.SetActive(value);
     }
 
 }

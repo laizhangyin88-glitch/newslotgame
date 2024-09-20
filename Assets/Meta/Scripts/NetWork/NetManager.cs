@@ -17,8 +17,7 @@ using Action = System.Action;
 using Sirenix.OdinInspector;
 using EventData = ParadoxNotion.EventData;
 using Newtonsoft.Json;
-using Spine;
-using static UnityEngine.PlayerLoop.PreUpdate;
+using com.adjust.sdk;
 
 public class RequestType {
 
@@ -124,26 +123,8 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
     private void tmp_GameEnd(ParadoxNotion.EventData eventData)
     {
 
-        //Debug.Log($"@@i am GameEnd {eventData.name} {eventData.value}");
-
-        // if (!eventData.name.Equals("SkipWin", StringComparison.Ordinal))
-        //     return;
-
-        if (eventData.name == "SkipWin" || eventData.name == "NoWin") { 
-
-            globalStore.isPlay = false;
-
-            long oldCredit = (long)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value ?? 0);
-            if (oldCredit != globalStore.newCredit)
-            {
-                Debug.LogWarning($"@ 玩家金币发生改变  oldCredit = {oldCredit} ，newCredit = {globalStore.newCredit}");
-
-                BlackboardQueryUtils.SetMyCredit(globalStore.newCredit);
-                //Debug.LogError($"Refresh {BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value}");
-                MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
-                //EventSender.SendGlobalEvent("OnCreditEvent", "UpdateNaviCredit");
-            }
-        }
+        if (!isChangeCreditAnimation)
+            SetMyCredit();
     }
 
 
@@ -830,10 +811,12 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         // 实时刷新金钱
         if (err == 0 && data.HasKey("balance"))
         {
-            globalStore.newCredit = data["balance"].AsLong;
+            long credit = data["balance"].AsLong;
+            globalStore.newCredit = credit;
         }else if (err == 0 && data.HasKey("after_credit"))
         {
-            globalStore.newCredit = data["after_credit"].AsLong;
+            long credit = data["after_credit"].AsLong;
+            globalStore.newCredit = credit;
         }
 
         //添加检测code 和msg 的逻辑
@@ -846,8 +829,26 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 }
 
                 //彩金
-                if (data.HasKey("bonus_result"))
-                    MessageDispatcher.Dispatch("SetJackpot", new EventData<string>("SetJackpot", data["bonus_result"].ToString()));
+                if (data.HasKey("remain_jackpot_list"))
+                {
+                    List<int> jackpots = new List<int>();
+                    //for (int i = data["remain_jackpot_list"].Count - 1; i >= 0; i--)
+                    //    jackpots.Add(data["remain_jackpot_list"][i] * 100);
+
+                    for (int i = 0; i < data["remain_jackpot_list"].Count; i++)
+                    {
+                        var tempData = (float)data["remain_jackpot_list"][i] * 100;
+                        jackpots.Add((int)tempData);
+                    }
+
+                    MessageDispatcher.Dispatch("SetJackpot", new EventData<List<int>>("SetJackpot", jackpots));
+                }
+
+                if (data.HasKey("level"))
+                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserLevel, data["level"].AsInt);
+
+                if (data.HasKey("profile_url"))
+                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserProfileUrl, data["profile_url"].Value);
 
                 if (this._state == NetNodeState.Checking) //断线重连
                 {
@@ -902,7 +903,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     else if (globalStore.gameState == GameState.Game && globalStore.nowGameID != -1)//断线重链子游戏
                     {
                         Dictionary<string, object> req = new Dictionary<string, object> { { "game_id",globalStore.nowGameID} };
-                        this.SendMsgForce(RPCName.enterGame, req);
+
+                        string enterGame = globalStore.nowGameID >= 3000 && globalStore.nowGameID <= 3999 ? RPCName.newEnterGame : RPCName.enterGame;
+                        this.SendMsgForce(enterGame, req);
                     }
                     else //踢回登录
                     {
@@ -997,8 +1000,12 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     }
                 }
 
+                if (data.HasKey("profile_pictures"))
+                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_ProfilePictures, data["profile_pictures"]);
+
                 break;
             case RPCName.enterGame://进入子游戏
+            case RPCName.newEnterGame://进入子游戏
 
                 //断线重链子游戏
                 if (this._state == NetNodeState.Checking && globalStore.gameState == GameState.Game)
@@ -1022,7 +1029,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 }
 
                 globalStore.gameState = GameState.Game;
-                globalStore.nowGameID = data["contents"]["game_info"]["game_id"].AsInt;
+                globalStore.nowGameID = rpcName == RPCName.newEnterGame ?
+                    data["game_id"].AsInt : data["contents"]["game_info"]["game_id"].AsInt;
+
 
                 Debug.LogWarning("@ 进入游戏 id = "+ globalStore.nowGameID);
 
@@ -1045,40 +1054,74 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             case RPCName.jacksGambleDeal:
             case RPCName.jacksGambleTake:
                 break;
+            case RPCName.kickUser:
+                ReturnToLoginPage(data["msg"] ?? "");
+                break;
             case RPCName.metaInfo:
                 break;
             case RPCName.gameBonusResult:
-                MessageDispatcher.Dispatch("UpdateJackpot", new EventData<string>("UpdateJackpot", data["data"]["bonus_list"].ToString()));
+                MessageDispatcher.Dispatch("UpdateJackpot", new EventData<JSONNode>("UpdateJackpot", data["data"]));
+                string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
+                if (data["data"].HasKey("winner_user_id"))
+                {
+                    var winnerId = data["data"]["winner_user_id"];
+                    if (winnerId != 0)
+                    {
+
+                        WinResult winResult = new WinResult
+                        {
+                            user_id = winnerId.ToString(),
+                            nick_name = data["data"]["winner_nick_name"],
+                            single_reward = (int)((float)data["data"]["earn_money"] * 100),
+                            bonus_id = data["data"]["jackpot_id"]
+                        };
+                        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "winLobbyJackpotResult", winResult);
+                    }
+
+                    if (winnerId == userId)
+                    {
+                        if (BlackboardQueryUtils.IsSpin())
+                            BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isWinLobbyJackpot", true);
+                        else
+                        {
+                            var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>(MetaStringDefine.LOBBY_BUNDLE_NAME, "Popup Win Lobby Jackpot Scene").GetSceneInfo();
+                            var parent = GameObject.Find("Popup Manager/Area");
+                            var sceneObj = SceneManager.LoadScene(parent.transform, sceneInfo);
+                            PopupManager.Instance.Open(sceneObj);
+                            sceneObj.SetActive(true);
+                        }
+                    }
+                }
                 break;
             case RPCName.winGameBonus:
-                if (!data.HasKey("win_result_list")) return;
-                bool isWin = false;
-                var winResultList = JsonConvert.DeserializeObject<List<WinResult>>(data["win_result_list"].ToString());
-                string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
-                for (int i = 0; i < winResultList.Count; i++)
-                {
-                    var winResult = winResultList[i];
-                    if (winResult.user_id == userId)
-                    {
-                        isWin = true;
+                //if (!data.HasKey("win_result_list")) return;
+                //bool isWin = false;
+                //var winResultList = JsonConvert.DeserializeObject<List<WinResult>>(data["win_result_list"].ToString());
+                //string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
+                //for (int i = 0; i < winResultList.Count; i++)
+                //{
+                //    var winResult = winResultList[i];
+                //    if (winResult.user_id == userId)
+                //    {
+                //        isWin = true;
                         
-                        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "winLobbyJackpotResult", winResult);
-                        break;
-                    }
-                }
-                if (isWin)
-                {
-                    if (BlackboardQueryUtils.IsSpin())
-                        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isWinLobbyJackpot", isWin);
-                    else
-                    {
-                        var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>(MetaStringDefine.LOBBY_BUNDLE_NAME, "Popup Win Lobby Jackpot Scene").GetSceneInfo();
-                        var parent = GameObject.Find("Popup Manager/Area");
-                        var sceneObj = SceneManager.LoadScene(parent.transform, sceneInfo);
-                        PopupManager.Instance.Open(sceneObj);
-                        sceneObj.SetActive(true);
-                    }
-                }
+                //        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "winLobbyJackpotResult", winResult);
+                //        break;
+                //    }
+                //}
+                //if (isWin)
+                //{
+                //    if (BlackboardQueryUtils.IsSpin())
+                //        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isWinLobbyJackpot", isWin);
+                //    else
+                //    {
+                //        var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>(MetaStringDefine.LOBBY_BUNDLE_NAME, "Popup Win Lobby Jackpot Scene").GetSceneInfo();
+                //        var parent = GameObject.Find("Popup Manager/Area");
+                //        var sceneObj = SceneManager.LoadScene(parent.transform, sceneInfo);
+                //        PopupManager.Instance.Open(sceneObj);
+                //        sceneObj.SetActive(true);
+                //    }
+                //}
                 break;
             case RPCName.ping:
             case RPCName.confirmAddCoinOrder:
@@ -1113,6 +1156,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
         if (updateCreditState != 1)return;
 
+        if (!TestManager.Instance.isCheckCredit)
+            return;
+
         long oldCredit = (long)(BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value ?? 0);
 
         long newCredit = credit < 0? globalStore.newCredit : credit;
@@ -1129,6 +1175,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 //Debug.LogError($"Refresh {BlackboardUtils.FindVariable(MainBlackboard.Get(), "me/credit").value}");
                 MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
                 //EventSender.SendGlobalEvent("OnCreditEvent", "UpdateNaviCredit");
+                NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserCredit, newCredit);
             }
         }
     }

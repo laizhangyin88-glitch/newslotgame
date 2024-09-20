@@ -92,6 +92,7 @@ namespace BagelCode
 
         public void OnEnterRefundDialog()
         {
+            EventSender.SendGlobalEvent("OnDisableMenu");
             ErrorPopupInfo info = new ErrorPopupInfo();
             info.text = $"<size=32>Confirm Refund</size>";
             info.type = ErrorPopupType.YesNo;
@@ -100,13 +101,36 @@ namespace BagelCode
             info.callback1 = delegate
             {
                 SBoxSanboxController.Instance.PrintMoneyOrder();
+                EventSender.SendGlobalEvent(MetaEventDefine.ON_META_UI_EVENT, new EventData(MetaEventDefine.ON_LEAVE_REFUND_DIALOG));
+                ErrorPopupHandler.Instance.ClosePopup(MetaEventDefine.ON_LEAVE_REFUND_DIALOG);
             };
             info.callback2 = delegate
             {
-                EventSender.SendGlobalEvent(MetaEventDefine.ON_META_UI_EVENT, new EventData(MetaEventDefine.ON_Leave_REFUND_DIALOG));
-                ErrorPopupHandler.Instance.ClosePopup(MetaEventDefine.ON_Leave_REFUND_DIALOG);
+                EventSender.SendGlobalEvent(MetaEventDefine.ON_META_UI_EVENT, new EventData(MetaEventDefine.ON_LEAVE_REFUND_DIALOG));
+                ErrorPopupHandler.Instance.ClosePopup(MetaEventDefine.ON_LEAVE_REFUND_DIALOG);
             };
             ErrorPopupHandler.Instance.OpenError(info);
+        }
+
+        public void OnEnterJackpotRecord()
+        {
+            string bundle = MetaStringDefine.LOBBY_BUNDLE_NAME;
+            string asset = "New Jackpot Record Scene";
+            Transform parent = MetaPopupUtils.PopupManagerAreaTransform;
+
+            var popupObj = MetaObjectUtils.MakeScene(bundle, asset, parent, useAssetName: false);
+            MetaObjectUtils.SetCalleeCaller(popupObj, gameObject);
+            MetaPopupUtils.OpenPopup(popupObj);
+        }
+
+        public void OnEnterLottery()
+        {
+            string bundle = MetaStringDefine.LOBBY_BUNDLE_NAME;
+            string asset = "Daily Lottery Scene";
+            Transform parent = MetaPopupUtils.PopupManagerAreaTransform;
+            var popupObj = MetaObjectUtils.MakeScene(bundle, asset, parent, useAssetName: false);
+            MetaObjectUtils.SetCalleeCaller(popupObj, gameObject);
+            MetaPopupUtils.OpenPopup(popupObj);
         }
 
         private void OnOpenCustomerSupport()

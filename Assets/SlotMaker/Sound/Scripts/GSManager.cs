@@ -26,9 +26,9 @@ namespace SlotMaker
         public Blackboard easeCurves;
         public List<Blackboard> handlers;
         public ObjectPool pool; // 每个pool的子对象有GSSource组件
-
+         
         public float clipLifeTime = 60f;
-        public const float volumeOfMute = -80f;
+        public const float volumeOfMute = -40;
 
 
         private bool isRun = false;
@@ -50,8 +50,8 @@ namespace SlotMaker
 
         protected void Awake()
         {
-            MusicVolume = (float)PlayerPrefs.GetFloat("MUTE_MUSIC", 1);
-            SfxVolume = (float)PlayerPrefs.GetFloat("MUTE_SFX", 1);
+            MusicVolume = PlayerPrefs.GetFloat("MUTE_MUSIC", 1);
+            SfxVolume = PlayerPrefs.GetFloat("MUTE_SFX", 1);
 
             StartCoroutine(ClearUnusedClipsCoroutine());
 
@@ -325,7 +325,7 @@ namespace SlotMaker
                 //Debug.LogError($"MusicVolume = {value}");
                 musicMixer.SetFloat("musicVol", (1f - value) * volumeOfMute);
                 if (metaMusicMixer != null)
-                    metaMusicMixer.SetFloat("musicVol", (1f - value) * volumeOfMute);
+                    metaMusicMixer.SetFloat("musicVol", (1f - value) * volumeOfMute); 
             }
         }
 

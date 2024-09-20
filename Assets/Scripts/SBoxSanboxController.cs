@@ -32,7 +32,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         DoTaskRepeat("InitBill", () =>
         {
             GetBillLst();
-        },3000);
+        }, 3000);
 
 
         DoTaskRepeat("InitPrint", () =>
@@ -309,10 +309,11 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
 
 #if UNITY_EDITOR
-        Debug.LogError("KeyDown " + sBOX_SWITCH);
+        //Debug.LogError("KeyDown " + sBOX_SWITCH);
+        Debug.LogWarning("KeyDown " + sBOX_SWITCH);
 #endif
 
-
+        /*
         if (isLightBtnSelectShowTip && !lightBtn.Contains(sBOX_SWITCH))
         {
             return;
@@ -323,7 +324,15 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             CloseLightTip();
             MessageDispatcher.Dispatch("MachineBtnEvent", new EventData<int>("LightBtnSelect", lightBtn.IndexOf(sBOX_SWITCH)));
             return;
+        }*/
+
+
+        if (isLightBtnSelectShowTip && lightBtn.Contains(sBOX_SWITCH))
+        {
+            MessageDispatcher.Dispatch("MachineBtnEvent", new EventData<int>("LightBtnSelect", lightBtn.IndexOf(sBOX_SWITCH)));
+            return;
         }
+
 
 
         switch (sBOX_SWITCH)
@@ -369,7 +378,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                     MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 1));
                */
 
-                MachineSelectManager.Instance.BtnSpinDown();
+                MachineSelectManager.Instance.BtnSpinDOWN();
 
                 /*if (this._taskTimer != null && sandBoxBillList == null)
                 {
@@ -380,7 +389,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                 /*if (PopupManager.Instance.popupCount == 0)
                     EventSender.SendGlobalEvent("OpenPaytable");
                 */
-                MachineSelectManager.Instance.BtnHelp();
+                MachineSelectManager.Instance.BtnHelpDOWN();
                 break;
             case SBOX_SWITCH.SWITCH_SWITCH:
                 /*//最大下注
@@ -388,7 +397,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                 //炮升级
                 //EventSender.SendGlobalEvent(MetaEventDefine.ON_MACHINE, new EventData<int>(MachineEventDefine.ON_KEY_MAX_BET, data));
                 */
-                MachineSelectManager.Instance.BtnReturn();
+                MachineSelectManager.Instance.BtnReturnDOWN();
                 break;
             case SBOX_SWITCH.SWITCH_SCORE_UP:
                 //MachineSelectManager.Instance.BtnAddCoin();
@@ -403,7 +412,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                     id = 2,
                     value = 1,
                 });
-                
+
                 break;
             case SBOX_SWITCH.SWITCH_SCORE_DOWN:
                 /*int credit = (int)(BlackboardUtils.FindVariable<long>(null, "/me/credit").value / RATE) * RATE;
@@ -416,16 +425,16 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                     });//减分
                 }*/
 
-               // MachineSelectManager.Instance.PurchaseCreditRequest(2, 10);//加分*/
+                // MachineSelectManager.Instance.PurchaseCreditRequest(2, 10);//加分*/
 
                 PrintMoneyOrder();
 
                 break;
             case SBOX_SWITCH.SWITCH_RED:
-                MachineSelectManager.Instance.BtnBetUp();
+                MachineSelectManager.Instance.BtnBetUpDOWN();
                 break;
             case SBOX_SWITCH.SWITCH_GREEN:
-                MachineSelectManager.Instance.BtnBetDown();
+                MachineSelectManager.Instance.BtnBetDownDOWN();
                 break;
             case SBOX_SWITCH.SWITCH_YELLOW:
                 /*//选择框左移
@@ -433,7 +442,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                 //降低押注
                 MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetDown"));
                 */
-                MachineSelectManager.Instance.BtnPre();
+                MachineSelectManager.Instance.BtnPreDOWN();
                 break;
             case SBOX_SWITCH.SWITCH_BET4:
                 /*//选择框右移
@@ -441,7 +450,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                 //提高押注
                 MessageDispatcher.Dispatch(MetaEventDefine.ON_CREDIT_EVENT, new EventData("BetUp"));
                 */
-                MachineSelectManager.Instance.BtnNext();
+                MachineSelectManager.Instance.BtnNextDOWN();
                 break;
             case SBOX_SWITCH.SWITCH_BET5:
                 /*if (BlackboardQueryUtils.IsSpin()
@@ -454,10 +463,10 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                 //鱼机 退出
                 MessageDispatcher.Dispatch(MetaEventDefine.ON_MACHINE, new EventData(MachineEventDefine.ON_KEY_BET5));
                 */
-                MachineSelectManager.Instance.BtnSwitch();
+                MachineSelectManager.Instance.BtnSwitchDOWN();
                 break;
             case SBOX_SWITCH.SWITCH_AUTO:
-                MachineSelectManager.Instance.BtnBetMax();
+                MachineSelectManager.Instance.BtnBetMaxDOWN();
                 break;
             default:
                 break;
@@ -467,7 +476,8 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     private void OnKeyUp(SBOX_SWITCH sBOX_SWITCH)
     {
 #if UNITY_EDITOR
-        Debug.LogError("KeyUp " + sBOX_SWITCH);
+        //Debug.LogError("KeyUp " + sBOX_SWITCH);
+        Debug.LogWarning("KeyUp " + sBOX_SWITCH);
 #endif
 
 
@@ -496,7 +506,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             case SBOX_SWITCH.SWITCH_PAYOUT:
                 break;
             case SBOX_SWITCH.SWITCH_ENTER:
-                MachineSelectManager.Instance.BtnSpinUp();
+                MachineSelectManager.Instance.BtnSpinUP();
                 //MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 0));
                 break;
             case SBOX_SWITCH.SWITCH_ESC:
@@ -512,8 +522,10 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             case SBOX_SWITCH.SWITCH_GREEN:
                 break;
             case SBOX_SWITCH.SWITCH_YELLOW:
+                MachineSelectManager.Instance.BtnPreUP();
                 break;
             case SBOX_SWITCH.SWITCH_BET4:
+                MachineSelectManager.Instance.BtnNextUP();
                 break;
             case SBOX_SWITCH.SWITCH_BET5:
                 break;
@@ -823,7 +835,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
             foreach (var item in deviceState)
             {
-               if (item.Value.state != -3)
+                if (item.Value.state != -3)
                 {
                     switch (item.Key)
                     {
@@ -853,11 +865,12 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                         ErrorPopupInfo info = new ErrorPopupInfo();
                         info.text = $"<size=32>{msg}</size>";
                         info.type = ErrorPopupType.OK;
+                        info.buttonText1 = "OK";
                         ErrorPopupHandler.Instance.OpenError(info);
                     }
                 }
             }
-        },10000);
+        }, 10000);
     }
 
 }
@@ -870,10 +883,10 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
 
 
-    /// <summary>
-    /// ## 纸钞机
-    /// </summary>
-    public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
+/// <summary>
+/// ## 纸钞机
+/// </summary>
+public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 {
     public void GetBillLst()
     {
@@ -977,15 +990,16 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
     JSONNode remainAddMoneyOrders
     {
-        get {
-            if(_remainAddMoneyOrders == null)
+        get
+        {
+            if (_remainAddMoneyOrders == null)
             {
                 string str = MachineGetString("Server_RemainAddMoneyOrders", "{}");
                 _remainAddMoneyOrders = JSONNode.Parse(str);
             }
             return _remainAddMoneyOrders;
         }
-        set {  _remainAddMoneyOrders = value; }
+        set { _remainAddMoneyOrders = value; }
     }
 
 
@@ -994,11 +1008,11 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     {
 
         // 发订单号
-        if (credit != 0 && addMoneyOrder!= "" && addMoneyOrder != null)
+        if (credit != 0 && addMoneyOrder != "" && addMoneyOrder != null)
         {
 
             // 0 待处理，1正在处理
-            JSONNode nd = JSONNode.Parse(string.Format("{{\"stamp\":{0},\"count\":{1},\"device_index\":{2}}}", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),credit,0));
+            JSONNode nd = JSONNode.Parse(string.Format("{{\"stamp\":{0},\"count\":{1},\"device_index\":{2}}}", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), credit, 0));
             remainAddMoneyOrders.Add(addMoneyOrder, nd);
             MachineSetString("Server_RemainAddMoneyOrders", remainAddMoneyOrders.ToString());
 
@@ -1147,7 +1161,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
     void OnPrinterCutPaper(int result)
     {
-        
+
         if (result == 0)
         {
             Debug.Log("【printer】: cut paper succeed");
@@ -1178,7 +1192,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     public void test_PrinterMessage(int credit = 10000)
     {
         //Debug.Log($"【printer】: All dollar = {BlackboardUtils.FindVariable<long>(null, "/me/credit").value / 1000}");
-        int dollar = credit/ 1000;
+        int dollar = credit / 1000;
         string testMsg = "        K3K\r\n" +
             $"${dollar}\r\n" +
             $"Order number: {123456}\r\n" +
@@ -1207,12 +1221,12 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
         if (isTask("StartPrint"))
             return;
-        DoTask("StartPrint",() => { }, 5000); //延时避免重复触发
+        DoTask("StartPrint", () => { }, 5000); //延时避免重复触发
 
         printFunc = CreatPrint();
         printFunc();
     }
-    
+
     private void OnCreatePrintOrder(ParadoxNotion.EventData eventData)
     {
 
@@ -1251,7 +1265,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
         agent_name = "";
 
-        FUNC  = () =>{
+        FUNC = () => {
 
             if (!isPrinterInit)
             {
@@ -1337,7 +1351,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                     (res) =>
                     {
                         string orderID = (string)res["order_id"];
-                        remainPrinterOrders.Remove(orderID); 
+                        remainPrinterOrders.Remove(orderID);
                         MachineSetString("Server_RemainPrinterOrders", remainPrinterOrders.ToString());
                     },
                     (error) =>
@@ -1513,7 +1527,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
     void OnPrinterFontsize(int result)
     {
-        if (result == 0 )
+        if (result == 0)
         {
             if (printFunc != null)
                 printFunc();
@@ -1531,7 +1545,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         if (result == 0)
         {
 
-            if (printFunc != null &&  printOrderId != "" && printOrderId != null)
+            if (printFunc != null && printOrderId != "" && printOrderId != null)
             {
                 JSONNode node = JSONNode.Parse(string.Format("{{\"stamp\":{0},\"count\":{1}}}", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), printMoney));
                 remainPrinterOrders.Add(printOrderId, node);
@@ -1619,13 +1633,13 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         get
         {
             if (_remainCoinInNumLst == null)
-            {     
+            {
                 string str = MachineGetString("Server_RemainCoinInNum", DEFINE_COIN_IN_NUM);
                 _remainCoinInNumLst = JSONNode.Parse(str);
             }
             return _remainCoinInNumLst;
         }
-        set {_remainCoinInOrders = value;}
+        set { _remainCoinInOrders = value; }
     }
 
 
@@ -1641,7 +1655,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             }
             return _remainCoinInOrders;
         }
-        set {_remainCoinInOrders = value;}
+        set { _remainCoinInOrders = value; }
     }
 
     private void OnCoinIn(CoinInData coinInData)
@@ -1659,7 +1673,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         remainCoinInNumLst[$"{coinInData.id}"]["count"] += coinInData.value;
         remainCoinInNumLst[$"{coinInData.id}"]["stamp"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         MachineSetString("Server_RemainCoinInNum", remainCoinInNumLst.ToString());
-      
+
 
         if (lastCoinInId != -1 && lastCoinInId != coinInData.id)
         {
@@ -1676,48 +1690,48 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             AddCoin(lastCoinInId);
             lastCoinInId = -1;
         }, 301);
-        
+
     }
 
 
     private void AddCoin(int id)//,int count)
     {
-       NetManager.Instance.Post(RPCName.creatAddCoinOrder, new Dictionary<string, object>(),
-      (res) =>
-      {
+        NetManager.Instance.Post(RPCName.creatAddCoinOrder, new Dictionary<string, object>(),
+       (res) =>
+       {
 
-          if (res.HasKey("order_id"))
-          {
+           if (res.HasKey("order_id"))
+           {
 
-              string order = res["order_id"];
-              int count = remainCoinInNumLst[$"{id}"]["count"];
-              remainCoinInNumLst[$"{id}"]["count"] = 0;
-              remainCoinInNumLst[$"{id}"]["stamp"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-              MachineSetString("Server_RemainCoinInNum", remainCoinInNumLst.ToString());
+               string order = res["order_id"];
+               int count = remainCoinInNumLst[$"{id}"]["count"];
+               remainCoinInNumLst[$"{id}"]["count"] = 0;
+               remainCoinInNumLst[$"{id}"]["stamp"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+               MachineSetString("Server_RemainCoinInNum", remainCoinInNumLst.ToString());
 
-              JSONNode nd = SimpleJSON.JSONNode.Parse(string.Format("{{\"stamp\":{0},\"id\":{1},\"count\":{2}}}", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), id, count));
-              //Debug.LogWarning($"order_id  =  {nd.ToString()}");
+               JSONNode nd = SimpleJSON.JSONNode.Parse(string.Format("{{\"stamp\":{0},\"id\":{1},\"count\":{2}}}", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), id, count));
+               //Debug.LogWarning($"order_id  =  {nd.ToString()}");
 
-              //Debug.LogWarning($" remainCoinInOrders = {remainCoinInOrders.ToString()}   res.order_id = {order}");
-              remainCoinInOrders.Add(order, nd);
-              MachineSetString("Server_RemainCoinInOrders", remainCoinInOrders.ToString());
+               //Debug.LogWarning($" remainCoinInOrders = {remainCoinInOrders.ToString()}   res.order_id = {order}");
+               remainCoinInOrders.Add(order, nd);
+               MachineSetString("Server_RemainCoinInOrders", remainCoinInOrders.ToString());
 
-              //Debug.LogWarning($" remainCoinInOrders = {remainCoinInOrders.ToString()}   res.order_id = {order}");
+               //Debug.LogWarning($" remainCoinInOrders = {remainCoinInOrders.ToString()}   res.order_id = {order}");
 
-              Dictionary<string, object> req = new Dictionary<string, object>
-                {
+               Dictionary<string, object> req = new Dictionary<string, object>
+                 {
                     {"device_index",id},
                     {"order_id",order},
                     {"money",count}
-                };
-              NetManager.Instance.SendMsg(RPCName.confirmAddCoinOrder, req);
-          }
-      },
-      (error) =>
-      {
-          CloseMask();
-          Debug.LogError(" 查询退票个数失败");
-      });
+                 };
+               NetManager.Instance.SendMsg(RPCName.confirmAddCoinOrder, req);
+           }
+       },
+       (error) =>
+       {
+           CloseMask();
+           Debug.LogError(" 查询退票个数失败");
+       });
 
     }
 
@@ -1780,6 +1794,15 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     int cointOutRate = 0;
 
 
+    public bool isRegularCoinOuting
+    {
+        get
+        {
+            return isTask("isCoinOuting") || isTask("CoinOutOutTime");
+        }
+    }
+
+
     public bool isTicketError = false;
 
     public void StartCoinOut()
@@ -1801,7 +1824,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
         if (isTask("isCoinOuting"))
             return;
-        DoTask("isCoinOuting", () =>{ }, 4001);
+        DoTask("isCoinOuting", () => { }, 4001);
 
         if (isTicketError)
         {
@@ -1869,13 +1892,13 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     [Button]
     void OpenMask()
     {
-       // 打开遮罩
+        // 打开遮罩
     }
 
     [Button]
     void CloseMask()
     {
-       // 关闭遮罩
+        // 关闭遮罩
     }
 
 
@@ -1904,13 +1927,17 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         if (coinOutNum01 <= 0)
             return;
 
+        if (!isRegularCoinOuting)//非正规退票被调用
+            return;
+
         DoTask("isCoinOuting", () => { }, 4001);
 
 
         finishCoinOutNum += coinOutNum01;
 
         if (finishCoinOutNum > this.coinOutNum)
-        {       
+        {
+            Debug.LogError($"[Error] currCointOut = {coinOutNum01} targetCointOut = {this.coinOutNum} finishCointOut = {finishCoinOutNum}");
             isTicketError = true;
             StopCoinOut();
             ShowTicketErrorTip();
@@ -1952,6 +1979,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                 ErrorPopupInfo info = new ErrorPopupInfo();
                 info.text = $"<size=32>{msg}</size>";
                 info.type = ErrorPopupType.OK;
+                info.buttonText1 = "OK";
                 ErrorPopupHandler.Instance.OpenError(info);
             }
 
@@ -1988,7 +2016,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     }
 
 
-    
+
     void ShowErrorWin()
     {
         if (!isTicketError)
@@ -2004,7 +2032,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
         }
     }
-    
+
 
     void OnConfirmCoinOutOrder(EventData eventData)
     {
@@ -2123,7 +2151,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         yield return new WaitUntil(() => globalStore.gameState == GameState.Hall || globalStore.gameState == GameState.Game);
 
 
-        yield return new WaitUntil(() =>SQLiteManager.Instance.isReady);
+        yield return new WaitUntil(() => SQLiteManager.Instance.isReady);
 
 #if !UNITY_EDITOR
         if (!ApplicationSettings.Instance.isMachine)
@@ -2141,15 +2169,13 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
             yield return new WaitUntil(() => globalStore.gameState == GameState.Hall || globalStore.gameState == GameState.Game);
 
-
             if (initStamp != _initStamp)
             {
-                Debug.Log($"退出订单补发循环 {_initStamp}");
+                Debug.Log($"【重启订单补发】：退出订单补发循环 {_initStamp}");
                 yield break;
             }
 
-
-            Debug.Log($"@【查询订单缓存】{_initStamp}");
+            Debug.Log($"【重启订单补发】：查询订单缓存 {_initStamp}");
 
             /*
             while (true)
@@ -2170,10 +2196,24 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                 }
             }*/
 
+            while (true)
+            {
+                //if (!isRegularCoinOuting && "XXXXX")
+                if (!isRegularCoinOuting)
+                {
+                    break;
+                }
+                else
+                {
+                    if (isRegularCoinOuting)
+                        Debug.Log($"【重启订单补发】：正规流程-退票，暂停订单补发");
+                }
+
+                yield return new WaitForSeconds(3);
+            }
 
             long nowTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             bool isChange = false;
-
 
             if (!NetManager.Instance.isHasRequest(RPCName.creatAddCoinOrder))
             {
@@ -2184,7 +2224,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                     int id = int.Parse(node.Key);
                     int count = (int)node.Value["count"];
                     //Debug.Log($"@【补发 - 投币余量??】{node.Key} count = {count} time =  {nowTime} - {orderTime} ==  {nowTime - orderTime} ");
-                    if (count > 0 && (nowTime - orderTime > 10000  || isFirst)) 
+                    if (count > 0 && (nowTime - orderTime > 10000 || isFirst))
                     {
 
                         Debug.Log($"@【补发 - 投币余量】{node.Key} = {count}");
@@ -2241,7 +2281,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                 long orderTime = node.Value["stamp"].AsLong;
                 long coinOutNum = node.Value["count"].AsLong;
 
-                if (coinOutNum > 0  && (nowTime - orderTime > 10000 || isFirst))
+                if (coinOutNum > 0 && (nowTime - orderTime > 10000 || isFirst))
                 {
                     isChange = true;
                     node.Value["stamp"] = nowTime;
@@ -2440,7 +2480,8 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     [Button]
     void SendRemain()
     {
-        if (_CorSendRemain != null) { 
+        if (_CorSendRemain != null)
+        {
             StopCoroutine(_CorSendRemain);
             _CorSendRemain = null;
         }
@@ -2470,7 +2511,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         MachineSetString("Server_RemainCoinOutOrders", "{}");
         remainCoinOutOrders = null;
 
-        MachineSetString("Server_RemainCoinInOrders","{}");
+        MachineSetString("Server_RemainCoinInOrders", "{}");
         remainCoinInOrders = null;
 
         MachineSetString("Server_RemainCoinInNum", DEFINE_COIN_IN_NUM);
@@ -2492,7 +2533,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         Debug.Log($"RemainCoinInOrders = {MachineGetString("Server_RemainCoinInOrders", "{}")}");
 
         Debug.Log($"RemainCoinInNumLst = {MachineGetString("Server_RemainCoinInNum", DEFINE_COIN_IN_NUM)}");
-       
+
 
         /*
         Debug.Log($"RemainPrinterOrders = {remainPrinterOrders.ToString()}");

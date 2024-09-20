@@ -5956,9 +5956,10 @@ GameObject:
   - component: {fileID: 3073759536258471067}
   - component: {fileID: 6977958020738180975}
   - component: {fileID: 3525452304823281083}
-  - component: {fileID: 1796694048390462298}
+  - component: {fileID: 8120286991203292288}
+  - component: {fileID: 5097095638540863554}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ForgotBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6022,7 +6023,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1796694048390462298
+--- !u!114 &8120286991203292288
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6031,7 +6032,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8618369163170633386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 7580885f99789472993e883bba0de1ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -6065,7 +6066,54 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3525452304823281083}
   m_OnClick:
     m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5667717314354363309}
+        m_TargetAssemblyTypeName: AccountLoginViewNew, Assembly-CSharp
+        m_MethodName: OnForgotClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5097095638540863554}
+        m_TargetAssemblyTypeName: SlotMaker.GameSoundPlayer, Assembly-CSharp
+        m_MethodName: PlayGameSound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: UI_Button_Normal
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDisable: 1
+  scaleFactor: 0.8
+  frequency: 10
+  damping: 1
+  scaleTarget: {fileID: 3073759536258471067}
+  disableCover: {fileID: 0}
+  onInteractableChanged:
+    m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5097095638540863554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8618369163170633386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67f4e056ff54144a6a3c86d8f28336fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playOnEnable: 0
+  soundName: 
 --- !u!1 &9038399794212697596
 GameObject:
   m_ObjectHideFlags: 0
@@ -6130,6 +6178,7 @@ GameObject:
   - component: {fileID: 5705841990364838817}
   - component: {fileID: 4547380549520751907}
   - component: {fileID: 4582110142393120878}
+  - component: {fileID: 7533410606368450269}
   m_Layer: 5
   m_Name: LoginBtn
   m_TagString: Untagged
@@ -6251,6 +6300,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7533410606368450269}
+        m_TargetAssemblyTypeName: SlotMaker.GameSoundPlayer, Assembly-CSharp
+        m_MethodName: PlayGameSound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: UI_Button_Normal
+          m_BoolArgument: 0
+        m_CallState: 2
   onDisable: 1
   scaleFactor: 0.8
   frequency: 10
@@ -6260,6 +6321,20 @@ MonoBehaviour:
   onInteractableChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7533410606368450269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068078269629623686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67f4e056ff54144a6a3c86d8f28336fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playOnEnable: 0
+  soundName: 
 --- !u!1 &9113099194214855662
 GameObject:
   m_ObjectHideFlags: 0

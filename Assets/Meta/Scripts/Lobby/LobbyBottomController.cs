@@ -16,6 +16,7 @@ namespace BagelCode
         private Animator anim;
 
         private const ContextSearchingType CHILDREN = ContextSearchingType.ChildrenSearch;
+        private const ContextSearchingType CHILDRENDEEP = ContextSearchingType.ChildrenDeepSearch;
         private const ContextSearchingType FULL = ContextSearchingType.FullNameSearch;
 
         private bool isInit = false;
@@ -30,6 +31,8 @@ namespace BagelCode
         private ContextElement leftIconArea;
         private ContextElement rightIconArea;
         private ContextElement badgeIcon;
+        private ContextElement BonusButtonElement;
+        private ContextElement LotteryButtonElement;
 
         public void Init()
         {
@@ -40,6 +43,9 @@ namespace BagelCode
             anim = GetComponent<Animator>();
 
             root.UpdateContext(false);
+
+            NewInitContext();
+            NewInitClickEvents();
 
             bottomIconList = BlackboardUtils.FindVariable<List<Blackboard>>("/bottomIconList")?.value;
             if (bottomIconList.Count == 0) return;
@@ -66,6 +72,14 @@ namespace BagelCode
             rightIconArea = ContextUtils.FindElement(root, "Button Daily Spin Area", CHILDREN);
 
             badgeIcon = ContextUtils.FindElement(root, "Badge", CHILDREN);
+
+            
+        }
+
+        private void NewInitContext()
+        {
+            BonusButtonElement = ContextUtils.FindElement(root, "Right/Button Area/Button Lobby Bonus", ContextSearchingType.FullNameSearch);
+            LotteryButtonElement = ContextUtils.FindElement(root, "Right/Button Area/Button Lobby Lottery", ContextSearchingType.FullNameSearch);
         }
 
         private void InitClickEvents()
@@ -83,6 +97,13 @@ namespace BagelCode
                     BIClientClickButtonLobbyBottom("lobby_bottom_area_closed", contextID);
                     UpdateBadge();
                 }, true, FULL);
+            
+        }
+
+        private void NewInitClickEvents()
+        {
+            MetaContextElementUtils.SetClickable(BonusButtonElement, gameObject, MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_JACKPOT_RECORD, true, true);
+            MetaContextElementUtils.SetClickable(LotteryButtonElement, gameObject, MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_LOTTERY, true, true);
         }
 
         private void CreateSideLobbyIcons()

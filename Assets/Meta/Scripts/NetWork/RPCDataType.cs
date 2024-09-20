@@ -16,6 +16,15 @@ using System.Runtime.CompilerServices;
 
 public class RPCName
 {
+    /// <summary>新的进入子游戏</summary>
+    public const string newEnterGame = "new_enter_game";
+    /// <summary>新拉霸机 开玩</summary>
+    public const string newSlotSpin = "new_slot_spin";
+    public const string newClaimBonus = "new_slot_spin";
+    /// <summary> 比大小小游戏协议 /// </summary>
+    public const string new_high_low_game = "new_high_low_game";
+    public const string newGameRecord = "new_game_record";
+
     /// <summary>登录</summary>
     public const string login = "login";
     /// <summary>进入大厅</summary>
@@ -44,6 +53,8 @@ public class RPCName
     /// <summary>HAPPY DOLLARS</summary>
     public const string claimBonus = "claim_bonus";
 
+    /// <summary>踢出玩家</summary>
+    public const string kickUser = "kick_user";
 
     /// <summary>免费游戏历史记录</summary>
     public const string freeSpinHistory = "slot_spin_history";
@@ -53,7 +64,7 @@ public class RPCName
     /// <summary>心跳</summary>
     public const string ping = "ping";
 
-    /// <summary>上分</summary>
+    /// <summary>上分</summary><remarks>实体机专用协议，Editor环境下会报err:12</remarks>
     /// {"balance", 1000}, //上分1000
     public const string addCredit = "agent_incredit_exchange";
     /// <summary>下分</summary>
@@ -94,12 +105,28 @@ public class RPCName
 
     /// <summary> 押注彩金返回 </summary>
     public const string gameBonusResult = "game_bonus_result";
+
+    /// <summary> 更改名称 </summary>
+    public const string resetNickName = "reset_nick_name";
+
+    /// <summary> 更改头像 </summary>
+    public const string resetUserProfile = "reset_user_profile";
+
+    /// <summary> 彩金排行返回 </summary>
+    public const string queryJackpotRanking = "query_jackpot_ranking";
+
+    /// <summary> 查询每日转盘次数 </summary>
+    public const string queryDailyLottery = "query_daily_lottery";
+
+    /// <summary> 每日转盘 </summary>
+    public const string tryDailyLottery = "try_daily_lottery";
 }
 
 namespace RPCBase
 {
     [System.Serializable]
-    public class ReqBase{
+    public class ReqBase
+    {
         public string protocol_key;
         public Dictionary<string, object> data;
     }
@@ -209,3 +236,22 @@ public struct AccountLoginRespone
     public string token_id;
     public string logic_ip;
 }
+
+public class EVTType
+{
+    public const string ON_CONTENT_UI_EVENT = "OnContentUIEvent";
+    public const string ON_CONTENT_EVENT = "OnContentEvent";
+    public const string MACHINE_BUTTON_SELECT = "MachineBtnEvent";
+    public const string ON_CUSTOM_EVENT = "OnCustomEvent";
+    public const string MACHINE_BUTTON_SELECT_UI_EVTTYPE = "OnMachineButtonEvent"; //"MachineBtnUIEVTType";
+    public const string ON_MACHINE_BUTTON_EVENT = "OnMachineButtonEvent";
+    public const string ON_SPIN_BUTTON_EVENT = "OnSpinButtonEvent";
+    public const string ON_USER_CONFIG = "OnUserConfig";
+    public const string ON_WIN_EVENT = "OnWinEvent";
+    public const string ON_SYMBOL_EVENT = "OnSymbolEvent";
+    public const string ON_CREDIT_EVENT = "OnCreditEvent";
+
+    //public const string SINGLE_WIN = "SingleWin";
+}
+
+

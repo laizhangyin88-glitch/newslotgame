@@ -4,6 +4,7 @@ using Dreamteck.Splines.Primitives;
 using JetBrains.Annotations;
 using Newtonsoft.Json.Linq;
 using NodeCanvas.Framework;
+using ParadoxNotion;
 using SimpleJSON;
 using Sirenix.OdinInspector;
 using SlotMaker;
@@ -11,6 +12,7 @@ using Spine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
@@ -38,6 +40,11 @@ public class TestManager : MonoSingleton<TestManager>
 
     public GameObject inputExcUI;
 
+    public Toggle toggleCheckCredit;
+
+    public GameObject inputCustomFlag; //k1:2#k2:3#k3:4
+
+    public Toggle LobbyJackpot;
     private void Start()
     {
         if (inputAutoUrl != null)
@@ -49,7 +56,97 @@ public class TestManager : MonoSingleton<TestManager>
         {
             Debug.Log($"【TestAutoUrl】2 = {PlayerPrefs.GetString("TestAutoUrl", "")}");
         }
+
+        if (toggleCheckCredit != null)
+            toggleCheckCredit.isOn = true;
+
+        StartCoroutine(CheckFlag());
     }
+
+    Dictionary<string, string> flags = new Dictionary<string, string>();
+    IEnumerator CheckFlag()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2);
+            string agrs = inputCustomFlag.GetComponent<InputField>().text ?? "";
+            inputCustomFlag.GetComponent<InputField>().text = "";
+            if (!string.IsNullOrEmpty(agrs))
+            {
+                string[] itemsStrs = agrs.Split('#') ?? new string[] { };  //k1:2#k2:3#k3:4
+
+                foreach (string item in itemsStrs)
+                {
+                    string[] kv = item.Split(':') ?? new string[] { };
+                    string key = kv[0];
+                    string value = kv.Length > 1 ? kv[1] : "";
+
+                    if (!flags.ContainsKey(key))
+                    {
+                        flags.Add(key, value);
+                    }
+                    else
+                    {
+                        flags[key] = value;
+                    }
+                }
+
+                string res = "==@ [flags]";
+                foreach (KeyValuePair<string, string> item in flags)
+                {
+                    res += $" {item.Key} : {item.Value};";
+                }
+                Debug.Log(res);
+            }
+        }
+    }
+
+    public bool HasFlag(string key)
+    {
+        return flags.ContainsKey(key);
+    }
+
+    public bool HasFlagOnce(string key)
+    {
+        bool isHas = flags.ContainsKey(key);
+        flags.Remove(key);
+        return isHas;
+    }
+
+    public string GetFlag(string key)
+    {
+        if (!flags.ContainsKey(key))
+        {
+            return "";
+        }
+        return flags[key];
+    }
+    public string GetFlagOnce(string key)
+    {
+        string res = "";
+        if (flags.ContainsKey(key))
+        {
+            res = flags[key];
+            //flags[key] = "";
+            flags.Remove(key);
+        }
+        return res;
+    }
+
+
+
+    bool isAllOpen = true;
+
+    public void OnTotalBtnClick()
+    {
+        isAllOpen = !isAllOpen;
+        foreach (Transform chd in this.transform)
+        {
+            chd.gameObject.SetActive(isAllOpen);
+        }
+        transform.Find("TOTAL BTN").gameObject.SetActive(true);
+    }
+
     public string getSpin()
     {
         if (inputSpin == null)
@@ -179,23 +276,57 @@ public class TestManager : MonoSingleton<TestManager>
         }
     }
 
-    [HideInInspector]
-    public string customReelsSpinRes;
+
+    private string _customReelsSpinRes;
+    public string customReelsSpinRes
+    {
+        get
+        {
+            return _customReelsSpinRes;
+        }
+        set
+        {
+            _customReelsSpinRes = value;
+            if (!string.IsNullOrEmpty(value))
+            {
+                SpinDataManager.Instance.OnAdvanceSpinRes(value);
+            }
+        }
+    }
+
+
+    public bool isCheckCredit
+    {
+        get
+        {
+#if !UNITY_EDITOR
+            return true;
+#endif
+            if (toggleCheckCredit == null)
+            {
+                return true;
+            }
+            return toggleCheckCredit.isOn;
+        }
+    }
+
+
 
     public bool isCustomReelsSpinRes
     {
         get
         {
-            return customReelsSpinRes != null && customReelsSpinRes != "";
+            return _customReelsSpinRes != null && _customReelsSpinRes != "";
         }
     }
 
     public void getCustomReelsSpinRes(Action<JSONNode> responseCallback)
     {
-        string res = customReelsSpinRes;
-        customReelsSpinRes = "";
+        string res = _customReelsSpinRes;
+        _customReelsSpinRes = "";
         StartCoroutine(_getResponseData(res, responseCallback));
     }
+
 
 
     public bool isTestSpin
@@ -238,12 +369,25 @@ public class TestManager : MonoSingleton<TestManager>
         //string spinRes = TestManager.Instance.getSpin();
         yield return new WaitForSeconds(0.2f);
 
-        SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(resStr as string);
-        SimpleJSON.JSONNode res = dataDict.HasKey("protocol_key") ? dataDict["data"] : dataDict;
-        if (responseCallback != null)
+        try
         {
-            responseCallback(res);
+            SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(resStr as string);
+            SimpleJSON.JSONNode res = dataDict.HasKey("protocol_key") ? dataDict["data"] : dataDict;
+            //res.Add("is_custom_reels",true);
+            JSONNode node = JSON.Parse("{}");
+            node.Add("is_custom_reels", true);
+            res.Add("user_config", node);
+            if (responseCallback != null)
+            {
+                responseCallback(res);
+            }
         }
+        catch (Exception e)
+        {
+            Debug.LogError($"【ERR】 data = {resStr}");
+            Debug.LogException(e);
+        }
+
     }
 
     public void SetTextServer(string text)
@@ -282,21 +426,6 @@ public class TestManager : MonoSingleton<TestManager>
         EventSender.SendGlobalEvent("OnCloseLoginMaskPop");
     }*/
 
-
-
-
-    [Button]
-    void test_timeEq10()
-    {
-        Time.timeScale = 10;
-    }
-
-
-    [Button]
-    void test_timeEq1()
-    {
-        Time.timeScale = 1;
-    }
 
 
     [Button]
@@ -822,5 +951,49 @@ public class TestManager : MonoSingleton<TestManager>
             Debug.Log($" @@2 = {variableA.value}");
     }
 
+    [Button]
+    void test_ShowDoor()
+    {
+        Animator anim = GameObject.Find("Game Contents/Animator").GetComponent<Animator>();
+        anim.SetTrigger("Door Appear");
 
+        //MessageDispatcher.Dispatch("OnContentUIEvent", new EventData("Start Door"));
+    }
+
+
+    [Button]
+    void test_ShowUI()
+    {
+        MessageDispatcher.Dispatch("OnContentUIEvent", new EventData("ShowUI"));
+    }
+    [Button]
+    void test_HideUI()
+    {
+        MessageDispatcher.Dispatch("OnContentUIEvent", new EventData("HideUI"));
+    }
+
+    public bool GetLobbyJackpot()
+    {
+        if (LobbyJackpot != null)
+        {
+            return LobbyJackpot.isOn;
+        }
+        return false;
+    }
+
+    [Button]
+    public void SpeedX10()
+    {
+        Time.timeScale = 10;
+    }
+    [Button]
+    public void SpeedX2()
+    {
+        Time.timeScale = 2;
+    }
+    [Button]
+    public void SpeedX1()
+    {
+        Time.timeScale = 1;
+    }
 }
