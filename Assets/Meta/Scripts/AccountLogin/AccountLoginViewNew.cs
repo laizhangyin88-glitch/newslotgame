@@ -512,6 +512,11 @@ public class AccountLoginViewNew : MonoBehaviour
         registPage.SetActive(false);
     }
 
+    public void OnCloseClick()
+    {
+        Application.Quit();
+    }
+
     void HandleRegisterUserResponse(string response)
     {
         if (string.IsNullOrEmpty(response))
