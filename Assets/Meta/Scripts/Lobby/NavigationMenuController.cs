@@ -2,6 +2,7 @@ using UnityEngine;
 using SlotMaker;
 using NodeCanvas.Framework;
 using TMPro;
+using UnityEngine.UI;
 
 namespace BagelCode
 {
@@ -19,6 +20,9 @@ namespace BagelCode
         private ContextElement couponButtonElement;
         private ContextElement customerSupportButtonElement;
         private ContextElement statusMatchButtonElement;
+
+        //新增退出按钮
+        private ContextElement quitButtonElement;
 
         private const ContextSearchingType CHILDREN = ContextSearchingType.ChildrenSearch;
         private const ContextSearchingType FULL = ContextSearchingType.FullNameSearch;
@@ -39,6 +43,10 @@ namespace BagelCode
             couponButtonElement = ContextUtils.FindElement(root, "Button Coupon", CHILDREN);
             customerSupportButtonElement = ContextUtils.FindElement(root, "Button Customer Support", CHILDREN);
             statusMatchButtonElement = ContextUtils.FindElement(root, "Button Status Match", CHILDREN);
+
+            quitButtonElement = ContextUtils.FindElement(root, "Button Quit", CHILDREN);
+            MetaContextElementUtils.SetClickable(quitButtonElement, gameObject, MetaEventDefine.ON_SYSTEM_EVENT, MetaEventDefine.SYSTEM_RESET, true, true);
+            MetaContextElementUtils.SetActive(quitButtonElement, ApplicationSettings.Instance.isMachine == false);
 
             // Clickable
             MetaContextElementUtils.SetClickable(onLineButtonElement, gameObject, MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_ONLINE_PLAYERS, false, false);
