@@ -74,7 +74,7 @@ public class LobbyTimeBonus : MonoBehaviour
 
     private string GetNumStr(int num)
     {
-        string str = "$";
+        string str = "";
         string temp = (num % 10).ToString();
         num /= 10;
         temp = (num % 10).ToString() + temp;

@@ -37,7 +37,7 @@ public class Popup_Profile : MonoBehaviour
         _nameInputField.OnInputFieldConfirm += OnInputFieldDeselectHandle;
         NetData_Login.Instance.AddNetDataChangeEvent(NetData_Login.Path_UserName, OnUserNameChangeHandle);
 
-        _goldTextCom.text = NetData_Login.Instance.NetData_UserCredit.ToString("###,###");
+        UpdateUserCreditDisplay(NetData_Login.Instance.NetData_UserCredit);
         NetData_Login.Instance.AddNetDataChangeEvent(NetData_Login.Path_UserCredit, OnUserCreditChangeHandle);
 
         _iconCom.SetWebImage(NetData_Login.Instance.UserProfileUrl, false);
@@ -63,7 +63,15 @@ public class Popup_Profile : MonoBehaviour
 
     private void OnUserCreditChangeHandle(string k, object v)
     {
-        _goldTextCom.text = ((long)v).ToString("###,###");
+        UpdateUserCreditDisplay((long)v);
+    }
+
+    public void UpdateUserCreditDisplay(long credit)
+    {
+        if (credit == 0)
+            _goldTextCom.text = "0";
+        else
+            _goldTextCom.text = credit.ToString("###,###");
     }
 
     private void OnInputFieldDeselectHandle(string obj)
@@ -74,7 +82,7 @@ public class Popup_Profile : MonoBehaviour
             Popup_Tips.OpenTips(this.gameObject, "Name format error");
             return;
         }
-            
+
         if (string.Equals(obj, NetData_Login.Instance.NetData_UserName))
         {
             return;

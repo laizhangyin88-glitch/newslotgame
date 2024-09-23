@@ -405,7 +405,8 @@ namespace BagelCode
                 long userCredit = BlackboardUtils.FindVariable<long>("/me/credit").value;
 
                 bool isHighLevel = (Level >= AutoBetSelectHighLevelStart);
-                choosedBetIndex = ChooseBetIndex(userCredit, userCredit / (long)(isHighLevel ? AutoBetSelectMultiplierHighLevel : AutoBetSelectMultiplierLowLevel));
+                //choosedBetIndex = ChooseBetIndex(userCredit, userCredit / (long)(isHighLevel ? AutoBetSelectMultiplierHighLevel : AutoBetSelectMultiplierLowLevel));
+                
                 if (isHighLevel)
                 {
                     long lastBetCredit = System.Convert.ToInt64(PlayerPrefs.GetString("LAST_BET_CREDIT", "0"));
@@ -413,6 +414,7 @@ namespace BagelCode
                     if (choosedBetIndex < lastBetIndex)
                         choosedBetIndex = lastBetIndex;
                 }
+                choosedBetIndex = 0;
             }
 
             MessageDispatcher.Dispatch("OnCreditEvent", new EventData<int>("UpdateBetIndex", choosedBetIndex));
