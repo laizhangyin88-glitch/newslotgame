@@ -60,8 +60,6 @@ public class JackpotCanvasView : MonoBehaviour
         List<Jackpot> jackpots = new List<Jackpot>();
         for (int i = 0; i < dataList.Count; i++)
             jackpots.Add(new Jackpot { total_bonus_count = dataList[i] }); 
-        jackpots.Reverse();
-        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "LobbyJackpot", jackpots);
         for (int i = 0; i < jackpotViews.Count; i++)
             jackpotViews[i].SetJackpot(jackpots[i].total_bonus_count);
     }
@@ -88,7 +86,6 @@ public class JackpotCanvasView : MonoBehaviour
         });
         jackpots.Reverse();
 
-        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "LobbyJackpot", jackpots);
         UpdateJackpot(jackpots);
 
         if (jsonData.HasKey("winner_user_id"))
