@@ -1569,6 +1569,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 175:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Bonus Game");
                 break;
+            case 179:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Bonus game anchor");
+                break;
             case 183:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Slot Frame/Wheel Bonus");
                 break;
@@ -1646,6 +1649,12 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 175:
                 EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("StageEnd"));
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));
+                break;
+            case 179:
+                EventSender.SendGlobalEvent("OnSlotEvent", new EventData("InitializeGameBoard"));
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("PickFinished"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect")); 
+                //EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("BonusGameEnd"));
                 break;
             case 183:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData<int>("OnBigWheelClick", _curSelectNumb));
