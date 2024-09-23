@@ -1,4 +1,3 @@
-
 using BagelCode.ClientModels;
 using Dreamteck.Splines.Primitives;
 using JetBrains.Annotations;
@@ -13,8 +12,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using Action = System.Action;
@@ -62,6 +63,30 @@ public class TestManager : MonoSingleton<TestManager>
 
         StartCoroutine(CheckFlag());
     }
+    private void OnEnable()
+    {
+        MessageDispatcher.Register(RPCName.enterGame, OnReceivedEnterGameHandle);
+    }
+    private void OnDisable()
+    {
+        MessageDispatcher.UnRegister(RPCName.enterGame, OnReceivedEnterGameHandle);
+    }
+
+    private void OnReceivedEnterGameHandle(EventData eventData)
+    {
+        EventData<JSONNode> jsonEventData = eventData as EventData<JSONNode>;
+        JSONNode gmConfigNode = jsonEventData.value["gm_config"];
+
+        CurGameGmConfig = gmConfigNode;
+
+        GameObject commandBtnPageObj = GetPageObjByIndex(2);
+        if (commandBtnPageObj == null || commandBtnPageObj.activeSelf == false)
+            return;
+
+        var pageCom = commandBtnPageObj.GetComponentInChildren<ButtonCommandPage>();
+        pageCom.UpdateCommand(CurGameGmConfig);
+    }
+
 
     Dictionary<string, string> flags = new Dictionary<string, string>();
     IEnumerator CheckFlag()
@@ -134,17 +159,59 @@ public class TestManager : MonoSingleton<TestManager>
     }
 
 
+    //-----------------------page添加说明
+    //1.在TestMgr添加新的对象，将其命名为page+页面索引,页面内容在对象节点下添加即可
+    //2.改动maxPageIndex变量
+    //-----------------------
+    //page0是不存在的，表示隐藏
+    //page1 -- 输入指令窗口
+    //page2 -- 按钮指令窗口
 
-    bool isAllOpen = true;
-
+    /// <summary>
+    /// 当前页面索引
+    /// </summary>
+    private int curPageIndex = 1;
+    /// <summary>
+    /// 最大页面索引
+    /// </summary>
+    private readonly int maxPageIndex = 2;
+    /// <summary>
+    /// 当前页面对象
+    /// </summary>
+    public GameObject CurPageGameObject => GetPageObjByIndex(curPageIndex);
+    /// <summary>
+    /// 当前游戏gm配置数据
+    /// </summary>
+    public JSONNode CurGameGmConfig { get; private set; }
+    public GameObject GetPageObjByIndex(int index)
+    {
+        Transform findTrans = transform.Find($"page{index}");
+        return findTrans != null ? findTrans.gameObject : null;
+    }
     public void OnTotalBtnClick()
     {
-        isAllOpen = !isAllOpen;
+        if(++curPageIndex > maxPageIndex)
+            curPageIndex = 0;
+
         foreach (Transform chd in this.transform)
         {
-            chd.gameObject.SetActive(isAllOpen);
+            if (chd.name == "TOTAL BTN")
+                continue;
+
+            if (chd.name.StartsWith("page") == false)
+                continue;
+
+            Regex ex = new Regex(@"(\d+)$");
+            Match match = ex.Match(chd.name);
+            if(match.Success == false)
+                continue;
+
+            string pageIndexStr = match.Groups[0].Value;
+            if (int.TryParse(pageIndexStr, out int pageIndex) == false)
+                continue;
+
+            chd.gameObject.SetActive(curPageIndex == pageIndex);
         }
-        transform.Find("TOTAL BTN").gameObject.SetActive(true);
     }
 
     public string getSpin()
@@ -170,6 +237,22 @@ public class TestManager : MonoSingleton<TestManager>
     }
 
 
+    public void SetCode(int code)
+    {
+        inputCode.GetComponent<InputField>().text = code.ToString();
+    }
+    public void SetCode(string codeStr)
+    {
+        inputCode.GetComponent<InputField>().text = codeStr;
+    }
+    public void SetList(int[] list)
+    {
+        inputList.GetComponent<InputField>().text = string.Join(",", list);
+    }
+    public void SetList(string listStr)
+    {
+        inputList.GetComponent<InputField>().text = listStr;
+    }
 
     public int getCode()
     {
@@ -181,7 +264,14 @@ public class TestManager : MonoSingleton<TestManager>
 
         if (res == "")
             return 0;
-        return int.Parse(res);
+
+        if(int.TryParse(res, out int result) == false)
+        {
+            Debug.Log("【TestManager】code格式错误,必须为数字");
+            return 0;
+        }
+
+        return result;
     }
     public int[] getList()
     {
@@ -195,9 +285,19 @@ public class TestManager : MonoSingleton<TestManager>
         List<int> temp = new List<int>();
         for (int i = 0; i < lstStrs.Length; i++)
         {
-            if (lstStrs[i] != "" && lstStrs[i] != null)
+            string cur = lstStrs[i];
+            if (cur == "" || cur == null)
+                continue;
+
+            if(int.TryParse(cur, out int result) == true)
             {
-                temp.Add(int.Parse(lstStrs[i]));
+                temp.Add(result);
+            }
+            else
+            {
+                Debug.Log("【TestManager】list格式错误");
+                temp.Clear();
+                break;
             }
         }
 
