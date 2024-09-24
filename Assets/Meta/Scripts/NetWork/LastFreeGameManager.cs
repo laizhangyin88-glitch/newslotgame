@@ -465,6 +465,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
 
     public int Get175GameExtraBetIndex()
     {
+
         int result = 0;
         string data = historyRes[0];
         string pattern = "\"extra_bet_index\":\\s*(\\d+)";
@@ -569,7 +570,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             else
             {
                 Time.timeScale = 10;
-                //Time.timeScale = 1;
+                //Time.timeScale = 1; 
             }
             responseCallback(dataDict["data"]);
         }
