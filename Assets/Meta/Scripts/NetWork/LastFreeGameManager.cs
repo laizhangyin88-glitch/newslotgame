@@ -156,7 +156,6 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
 
             if (_task == null)
             {
-
                 if (MachineSelectManager.Instance.isPopFreeGameTimeSelect())
                 {
                     DoTask(() =>
@@ -265,6 +264,10 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         // 正则表达式，匹配bet_credit后面的数字  
         string pattern = "\"total_count\":\\s*(\\d+)";
 
+        if (globalStore.nowGameID == 142)
+        {
+            pattern = "\"extra_bet\":\\s*(\\d+)";
+        }
 
         for (int i = 0; i < historyRes.Count; i++)
         {
@@ -415,7 +418,12 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("FinishedShowTTS"));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("TapScreen"));
             
-            EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("TrySpinWheel"));
+            EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("TrySpinWheel")); 
+        }
+        if (globalStore.nowGameID == 142)////丛林火焰
+        {
+            int index = (int)(totalCount / (firstSpinInfo.betCredit - totalCount)) - 1;
+            EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>("Change", index));
         }
     }
 
