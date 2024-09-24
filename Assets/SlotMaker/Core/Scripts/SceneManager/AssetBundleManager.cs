@@ -184,10 +184,6 @@ namespace SlotMaker
         {
             if (ApplicationSettings.LogBundle())
                 Debug.Log("[AssetBundleManager] Loading AssetBundle: " + bundleName);
-            //if (bundleName.StartsWith("fish_boss_0"))
-            //{
-            //    Debug.LogError(bundleName);
-            //}
 
 #if USE_ASSETBUNDLE
             if (Manifest == null)
@@ -218,30 +214,10 @@ namespace SlotMaker
 #if UNITY_WEBGL || USE_ASSETBUNDLE_FILECACHE
                     operation = new AssetBundleLoadWWWBundle(bundleName, false);
 #else
-                if (bundleName == "fish_boss_01"
-                    || bundleName == "fish_boss_02"
-                    || bundleName == "fish_boss_03"
-                    || bundleName == "fish_boss_04"
-                    || bundleName == "fishingaudio"
-                    || bundleName == "fishingeffect"
-                    || bundleName == "fishinggold"
-                    || bundleName == "fishinglighteffect"
-                    || bundleName == "fishingnet"
-                    || bundleName == "fishingscore"
-                    || bundleName == "fishingspecialdeclare"
-                    || bundleName == "fishingtips"
-                    || bundleName == "fishingplustips"
-                    || bundleName == "fishingbg")
-                    operation = new AssetBundleLoadWWWBundle(bundleName);
-                else
                     operation = new AssetBundleLoadFileBundle(bundleName);
 #endif
             else
             {
-                if (bundleName == "fishingpanel"
-                    ||bundleName == "fishing")
-                    operation = new AssetBundleLoadFileBundle(bundleName);
-                else
                     operation = new AssetBundleLoadWWWBundle(bundleName);
             }
 #else

@@ -18,7 +18,6 @@ using Sirenix.OdinInspector;
 using EventData = ParadoxNotion.EventData;
 using Newtonsoft.Json;
 using com.adjust.sdk;
-
 public class RequestType {
 
     public RequestType(object buffer, string rpcName, long time, bool force =false)
@@ -832,16 +831,24 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 if (data.HasKey("remain_jackpot_list"))
                 {
                     List<int> jackpots = new List<int>();
-                    //for (int i = data["remain_jackpot_list"].Count - 1; i >= 0; i--)
-                    //    jackpots.Add(data["remain_jackpot_list"][i] * 100);
 
                     for (int i = 0; i < data["remain_jackpot_list"].Count; i++)
                     {
                         var tempData = (float)data["remain_jackpot_list"][i] * 100;
                         jackpots.Add((int)tempData);
                     }
-
+                    jackpots.Reverse();
                     MessageDispatcher.Dispatch("SetJackpot", new EventData<List<int>>("SetJackpot", jackpots));
+
+                    if (data.HasKey("outcredit_rate_of_exchange"))
+                    {
+                        float outCreditRate = (float)data["outcredit_rate_of_exchange"];
+                        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "OutCreditRate", outCreditRate);
+                        List<int> jackpotsScore = new List<int> ();
+                        for (int i = 0; i < jackpots.Count; i++)
+                            jackpotsScore.Add((int)(jackpots[i] * (outCreditRate / 100)));
+                        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "LobbyJackpotScore", jackpotsScore);
+                    }
                 }
 
                 if (data.HasKey("level"))
@@ -1060,6 +1067,21 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             case RPCName.metaInfo:
                 break;
             case RPCName.gameBonusResult:
+                float offset = MainBlackboard.Get().GetValue<float>("OutCreditRate");
+                if (data["data"].HasKey("remain_jackpot_list"))
+                {
+                    List<int> jackpotsScore = new List<int>();
+                    for (int i = 0; i < data["data"]["remain_jackpot_list"].Count; i++)
+                    {
+                        double tempData = (double)data["data"]["remain_jackpot_list"][i] * offset;
+                        string str = tempData.ToString();
+                        str = str.Split('.')[0];
+                        jackpotsScore.Add(int.Parse(str));
+                    }
+                    jackpotsScore.Reverse();
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "LobbyJackpotScore", jackpotsScore);
+                }
+
                 MessageDispatcher.Dispatch("UpdateJackpot", new EventData<JSONNode>("UpdateJackpot", data["data"]));
                 string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
                 if (data["data"].HasKey("winner_user_id"))
@@ -1067,7 +1089,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     var winnerId = data["data"]["winner_user_id"];
                     if (winnerId != 0)
                     {
-
                         WinResult winResult = new WinResult
                         {
                             user_id = winnerId.ToString(),
@@ -1092,36 +1113,6 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                         }
                     }
                 }
-                break;
-            case RPCName.winGameBonus:
-                //if (!data.HasKey("win_result_list")) return;
-                //bool isWin = false;
-                //var winResultList = JsonConvert.DeserializeObject<List<WinResult>>(data["win_result_list"].ToString());
-                //string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
-                //for (int i = 0; i < winResultList.Count; i++)
-                //{
-                //    var winResult = winResultList[i];
-                //    if (winResult.user_id == userId)
-                //    {
-                //        isWin = true;
-                        
-                //        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "winLobbyJackpotResult", winResult);
-                //        break;
-                //    }
-                //}
-                //if (isWin)
-                //{
-                //    if (BlackboardQueryUtils.IsSpin())
-                //        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isWinLobbyJackpot", isWin);
-                //    else
-                //    {
-                //        var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>(MetaStringDefine.LOBBY_BUNDLE_NAME, "Popup Win Lobby Jackpot Scene").GetSceneInfo();
-                //        var parent = GameObject.Find("Popup Manager/Area");
-                //        var sceneObj = SceneManager.LoadScene(parent.transform, sceneInfo);
-                //        PopupManager.Instance.Open(sceneObj);
-                //        sceneObj.SetActive(true);
-                //    }
-                //}
                 break;
             case RPCName.ping:
             case RPCName.confirmAddCoinOrder:

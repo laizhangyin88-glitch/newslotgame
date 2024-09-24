@@ -36,6 +36,7 @@ namespace BagelCode
         public GameObject slotTagEventObject;
         public GameObject backgroundObject;
         public GameObject selected;
+        public GameObject randomEff;
 
         // Set Inspector Values
         public List<string> tagString;
@@ -73,6 +74,8 @@ namespace BagelCode
 
         private Dictionary<string, GameObject> slotThumbDict = new Dictionary<string, GameObject>();
 
+        private Coroutine randomEffCoroutine;
+
         private void Awake()
         {
             isCollect.onValueChanged.AddListener(OnCollectChange);
@@ -84,6 +87,23 @@ namespace BagelCode
             {
                 SetGameSpin();
             }
+            randomEffCoroutine = StartCoroutine(SetRandomEff());
+        }
+
+        private IEnumerator SetRandomEff()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(UnityEngine.Random.Range(0, 10f));
+                randomEff.SetActive(false);
+                randomEff.SetActive(true);
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (randomEffCoroutine != null)
+                StopCoroutine(randomEffCoroutine);
         }
 
         public void UpdateSlotInfo(Blackboard newSlotInfoBB, Blackboard newGameInfoBB, Blackboard buyABonusIAMBB, bool isUnlock = false)
