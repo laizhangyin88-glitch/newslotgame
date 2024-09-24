@@ -1555,7 +1555,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Bonus game");
                 break;
             case 153:
-                obj = GameObject.Find("Game Canvas/Game Contents/Anchor/Midground/Quick Change Bouns");
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Quick Change Bouns");
                 if (obj != null && obj.activeSelf)
                     return true;
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Xray Bonus");
@@ -1639,6 +1639,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 153:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Click"));
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("0Clicked"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("HighClicked")); 
+                //EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("QuickChangeEnd")); 
                 break;
             case 154:
                 StartCoroutine(ConfirmNodeMiniGameSelect154());

@@ -419,6 +419,21 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
     }
 
+    public int Get175GameExtraBetIndex()
+    {
+
+        int result = 0;
+        string data = historyRes[0];
+        string pattern = "\"extra_bet_index\":\\s*(\\d+)";
+        Match match = Regex.Match(data, pattern);
+        if (match.Success)
+        {
+            string str = match.Groups[1].Value;
+            int value = int.Parse(str);
+            result = value;
+        }
+        return result;
+    }
 
 
 
@@ -512,6 +527,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             else
             {
                 Time.timeScale = 10;
+                //Time.timeScale = 1; 
                 Time.timeScale = 1;
             }
             responseCallback(dataDict["data"]);
