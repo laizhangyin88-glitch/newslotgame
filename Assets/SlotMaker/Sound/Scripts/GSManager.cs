@@ -281,6 +281,10 @@ namespace SlotMaker
                     for (int i = 1; i < kv.Value.Count; i++)
                     {
                         GSSource gss = kv.Value[i];
+
+                        if (gss.IsPlaying)
+                            continue;
+
                         if (nowTime - gss.startUseTime > 8000)
                         {
                             //Debug.Log($"@clear: {kv.Key} {i} - {kv.Value[i].startUseTime}");
