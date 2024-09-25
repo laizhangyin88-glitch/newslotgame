@@ -842,7 +842,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
                     if (data.HasKey("outcredit_rate_of_exchange"))
                     {
-                        float outCreditRate = (float)data["outcredit_rate_of_exchange"];
+                        int outCreditRate = (int)data["outcredit_rate_of_exchange"];
                         BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "OutCreditRate", outCreditRate);
                         List<int> jackpotsScore = new List<int> ();
                         for (int i = 0; i < jackpots.Count; i++)

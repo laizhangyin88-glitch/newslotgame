@@ -97,9 +97,11 @@ public class DailyLottery : MonoBehaviour
         for (int i = 0; i < tempList.Count; i++)
         {
             creditList.Add(tempList[i]);
-            showList.Add(tempList[i]);
+            if (i < tempList.Count - 1)
+                showList.Add(tempList[i]);
         }
         Shuffle(showList);
+        showList.Add(tempList[tempList.Count - 1]);
         for (int i = 0; i < jackpotList.Count; i++)
             jackpotList[i].text = showList[i] > 999 ? GetLotteryNumStr(creditList[i]) : showList[i].ToString();
         state = State.Ready;
