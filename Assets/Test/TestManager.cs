@@ -170,11 +170,11 @@ public class TestManager : MonoSingleton<TestManager>
     /// <summary>
     /// 当前页面索引
     /// </summary>
-    private int curPageIndex = 1;
+    private int curPageIndex = 0;
     /// <summary>
     /// 最大页面索引
     /// </summary>
-    private readonly int maxPageIndex = 2;
+    private int maxPageIndex = 1;
     /// <summary>
     /// 当前页面对象
     /// </summary>
@@ -183,6 +183,21 @@ public class TestManager : MonoSingleton<TestManager>
     /// 当前游戏gm配置数据
     /// </summary>
     public JSONNode CurGameGmConfig { get; private set; }
+    /// <summary>
+    /// 设置最大页面索引
+    /// </summary>
+    /// <remarks>
+    /// 意味着会在0到<paramref name="maxPageIndex"/>页面间切换
+    /// </remarks>
+    /// <param name="maxPageIndex"></param>
+    public void SetMaxPageIndex(int maxPageIndex)
+    {
+        this.maxPageIndex = maxPageIndex;
+    }
+    public void SetAutoUrlEnable(bool enable)
+    {
+        inputAutoUrl.GetComponent<InputField>().interactable = enable;
+    }
     public GameObject GetPageObjByIndex(int index)
     {
         Transform findTrans = transform.Find($"page{index}");
