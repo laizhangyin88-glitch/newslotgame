@@ -1067,7 +1067,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             case RPCName.metaInfo:
                 break;
             case RPCName.gameBonusResult:
-                float offset = MainBlackboard.Get().GetValue<float>("OutCreditRate");
+                int offset = MainBlackboard.Get().GetValue<int>("OutCreditRate");
                 if (data["data"].HasKey("remain_jackpot_list"))
                 {
                     List<int> jackpotsScore = new List<int>();
