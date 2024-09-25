@@ -146,11 +146,34 @@ public class AccountLoginViewNew : MonoBehaviour
             Debug.LogWarning($"@ connect : {url} user_name {loginDict["user_name"]} ");
             StartCoroutine(HttpPost(url, "/passwd_login", loginDict, HandleLoginUserResponse));*/
 
-            Dictionary<string, string> loginDict = new Dictionary<string, string>();
-            loginDict["device_id"] = NativeHelper.Instance.GetDeviceID();
-            string url = ApplicationSettings.Instance.newLoginUrlMechine;
-            Debug.LogWarning($"@ get device account : {url}/device_login  device_id = {loginDict["device_id"]} ");
-            StartCoroutine(HttpPost(url, "/device_login", loginDict, HandleGetDeviceAccountResponse));
+            //Dictionary<string, string> loginDict = new Dictionary<string, string>();
+            //loginDict["device_id"] = NativeHelper.Instance.GetDeviceID();
+            //string url = ApplicationSettings.Instance.newLoginUrlMechine;
+            //Debug.LogWarning($"@ get device account : {url}/device_login  device_id = {loginDict["device_id"]} ");
+            //StartCoroutine(HttpPost(url, "/device_login", loginDict, HandleGetDeviceAccountResponse));
+
+
+
+
+            StartCoroutine(WWW_Get02(
+                ApplicationSettings.Instance.autoUrl,
+                (addr1, err) =>
+                {
+                    if (addr1 == null)
+                    {
+                        string errMsg = $"【ERR】：自动获取网络地址失败：{err}";
+                        StartCoroutine(ShowTips(errMsg));
+                        Debug.LogError(errMsg);
+                        return;
+                    }
+                    _serverAddress = "http://" + addr1;
+                    Dictionary<string, string> loginDict = new Dictionary<string, string>();
+                    ApplicationSettings.Instance.newLoginUrlMechine = _serverAddress;
+                    loginDict["device_id"] = NativeHelper.Instance.GetDeviceID();
+                    StartCoroutine(HttpPost(_serverAddress, "/device_login", loginDict, HandleGetDeviceAccountResponse));
+                }
+            ));
+
     }
 
     void HandleGetDeviceAccountResponse(string response)
@@ -164,8 +187,6 @@ public class AccountLoginViewNew : MonoBehaviour
             Dictionary<string, string> loginDict = new Dictionary<string, string>();
             loginDict["user_name"] = deviceAccount.user_name;
             loginDict["user_pwd"] = deviceAccount.user_pwd;
-            //accountInput.text = loginDict["user_name"];
-            //passwordInput.text = loginDict["user_pwd"];
             string url = ApplicationSettings.Instance.newLoginUrlMechine;
             Debug.LogWarning($"@ connect : {url}/passwd_login  user_name = {loginDict["user_name"]} ");
             StartCoroutine(HttpPost(url, "/passwd_login", loginDict, HandleLoginUserResponse));
