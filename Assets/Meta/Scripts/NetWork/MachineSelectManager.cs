@@ -721,6 +721,14 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 return true;
             }
         }
+        if (globalStore.nowGameID == 142)///丛林火焰 --选择额外押注
+        {
+            GameObject Pick = GameObject.Find("Popup Manager/Contents/Denomination Popup FIJ");
+            if (Pick != null && Pick.activeSelf)
+            {
+                return true;
+            }
+        }
 
         if (globalStore.nowGameID == 149) //白虎 - 选免费游戏
         {

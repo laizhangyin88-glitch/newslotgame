@@ -842,7 +842,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
                     if (data.HasKey("outcredit_rate_of_exchange"))
                     {
-                        float outCreditRate = (float)data["outcredit_rate_of_exchange"];
+                        int outCreditRate = (int)data["outcredit_rate_of_exchange"];
                         BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "OutCreditRate", outCreditRate);
                         List<int> jackpotsScore = new List<int> ();
                         for (int i = 0; i < jackpots.Count; i++)
@@ -1067,7 +1067,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
             case RPCName.metaInfo:
                 break;
             case RPCName.gameBonusResult:
-                float offset = MainBlackboard.Get().GetValue<float>("OutCreditRate");
+                int offset = MainBlackboard.Get().GetValue<int>("OutCreditRate");
                 if (data["data"].HasKey("remain_jackpot_list"))
                 {
                     List<int> jackpotsScore = new List<int>();
