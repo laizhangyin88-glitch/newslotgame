@@ -816,6 +816,14 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             if (panel1 != null && panel1.activeSelf)
                 return true;
         }
+        else if (globalStore.nowGameID == 10)  ////幸运财富
+        {
+            GameObject Pick = GameObject.Find("Game Contents/Animator/Anchor/Effect Midground/Free Spins Select");
+            if (Pick != null && Pick.activeSelf)
+            {
+                return true;
+            }
+        }
 
         return false;
     }

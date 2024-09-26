@@ -1,3 +1,4 @@
+using BagelCode;
 using ParadoxNotion;
 using SimpleJSON;
 using SlotMaker;
@@ -13,29 +14,38 @@ public class TestDisplayManager : MonoBehaviour
 
     void Start()
     {
-        //如果非测试包，则关闭页面3(AutoUrl)
-#if K3K_TEST || MARS_FORTUNE_TEST
-        TestManager.Instance.SetAutoUrlEnable(true);
-        SetTestManagerEnable(true);
-#else
+        //默认显示指令页面和按钮指令页面
+        TestManager.Instance.SetMaxPageIndex(2);
+
+        //如果是展示包，则关闭AutoUrl
+#if MARS_FORTUNE_REALSE || K3K_REALSE
         TestManager.Instance.SetAutoUrlEnable(false);
         SetTestManagerEnable(false);
+#else
+        TestManager.Instance.SetAutoUrlEnable(true);
+        SetTestManagerEnable(true);
 #endif
     }
 
     public void SetTestManagerEnable(bool enable)
     {
+        //如果是展示包，则允许启用/禁用TestManager功能
+        //默认启用TestManager
+#if MARS_FORTUNE_REALSE || K3K_REALSE
         _testObj.SetActive(enable);
+#endif
     }
 
     private void OnEnable()
     {
         MessageDispatcher.Register(RPCName.login, OnReceiveLoginHandle);
+        MessageDispatcher.Register(MetaEventDefine.ON_SYSTEM_EVENT, OnReceiveSystemEventHandle);
     }
 
     private void OnDisable()
     {
         MessageDispatcher.UnRegister(RPCName.login, OnReceiveLoginHandle);
+        MessageDispatcher.UnRegister(MetaEventDefine.ON_SYSTEM_EVENT, OnReceiveSystemEventHandle);
     }
 
     private void OnReceiveLoginHandle(EventData eventData)
@@ -49,7 +59,13 @@ public class TestDisplayManager : MonoBehaviour
         }
 
         SetTestManagerEnable(isGM);
-        if (isGM)
-            TestManager.Instance.SetMaxPageIndex(2);
+    }
+    private void OnReceiveSystemEventHandle(EventData eventData)
+    {
+        if (eventData.name != MetaEventDefine.SYSTEM_RESET)
+            return;
+
+        //接收到系统重置事件
+        SetTestManagerEnable(false);
     }
 }
