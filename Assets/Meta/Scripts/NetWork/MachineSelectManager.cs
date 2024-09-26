@@ -1543,7 +1543,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 if (obj != null && obj.activeSelf) 
                     return true;
 
-                obj = GameObject.Find("Game Canvas/Game Contents/Animator"); 
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator");
                 if (obj != null)
                     return (obj.GetComponent<Animator>().GetBool("Blue wheel") || obj.GetComponent<Animator>().GetBool("Green wheel"));
                 break;
