@@ -846,7 +846,6 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
             _curSelectNumb = 0;
         }
-
         if (globalStore.nowGameID == 93)
         {
             name = $"OnSelection{_curSelectNumb}";
@@ -912,6 +911,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnCollect"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnPointerClick"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartBonusGame"));
+        EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinalizeBigWin"));
+         
 
         /**
          * Big Win Text Event Mega Win
@@ -957,7 +958,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         //ID:142  mini game result
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnFinishBonus")); //Double Jackpot Major Popup FIJ（免费游戏结算确认界面）
 
-        //ID:149 - 白虎  mini game result
+        //ID:149 - 白虎  mini game result，幸运符免费游戏
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnButtonClicked")); //Double Jackpot Major Popup FIJ（免费游戏开始界面）
 
         //ID:144 - 狮子  mini game result
@@ -966,6 +967,26 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         //ID:171 - 恶魔之心  HEART_OF_DEMONESS
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartReSpin")); //免费游戏开始界面、免费游戏结算界面
 
+        //ID:151，戈斯银行 ，免费游戏选择界面，免费游戏确认界面，MR_GOOSES_BANK
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickEventLeft"));
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickEvent"));
+
+        //IDD：149 魔术师
+        EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("BonusCardClicked"));
+        ///152  猫咪抢劫案
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartJackpot"));
+
+        
+        ///130 金星珍珠
+        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Click"));
+
+        switch (globalStore.nowGameID)
+        {
+            case 175:
+                int value = LastFreeGameManager.Instance.Get175GameExtraBetIndex();
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData<int>("Change", value));
+                break;
+        }
     }
 
     /// <summary>“小游戏选择弹窗”是否可见 </summary>
@@ -1478,10 +1499,17 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     public bool IsNodeMiniGame()
     {
         GameObject obj = null;
+        ChameleonBonusScript chameleonBonusScript = null; ////游戏名：AZTEC_CHARMS,阿兹特克魅力   id：11 特殊判断
         switch (globalStore.nowGameID)
         {
             case 7:
                 obj = GameObject.Find("Game Contents/Animator/Anchor/Effect Midground/Dice Game");
+                break;
+            case 10:
+                obj = GameObject.Find("Game Contents/Animator/Anchor/Effect Midground/Free Spins Select");
+                break;
+            case 11:
+                chameleonBonusScript = GameObject.FindObjectOfType<ChameleonBonusScript>();
                 break;
             case 21:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Wheel Bonus");
@@ -1489,10 +1517,32 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 37:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Pick Bonus/Animator/Base");
                 break;
+            case 52:
+                obj = GameObject.Find("Game Canvas/Game Contents/LogoActive");
+                break;
+            case 86:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Slot Machine/Overlay");
+                if(obj != null && obj.activeSelf)
+                {
+                    return obj.transform.childCount > 0;
+                }
+                break;
+            case 111:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Map Bonus Popup/Anchor");
+                //obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/LogoActive");
+                break;
             case 118:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Map Bonus");
                 break;
             case 123:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Bonus pick game 2");
+                if (obj != null && obj.activeSelf)
+                    return true;
+
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Wheels/Wheel neutral");
+                if (obj != null && obj.activeSelf) 
+                    return true;
+
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator");
                 if (obj != null)
                     return (obj.GetComponent<Animator>().GetBool("Blue wheel") || obj.GetComponent<Animator>().GetBool("Green wheel"));
@@ -1500,8 +1550,11 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 130:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Main Wheel");
                 break;
+            case 152:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Bonus game");
+                break;
             case 153:
-                obj = GameObject.Find("Game Canvas/Game Contents/Anchor/Midground/Quick Change Bouns");
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Quick Change Bouns");
                 if (obj != null && obj.activeSelf)
                     return true;
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Xray Bonus");
@@ -1509,8 +1562,14 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 154:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Hot Bonus Panel");
                 break;
+            case 172:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Bonus game");
+                break;
             case 175:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Bonus Game");
+                break;
+            case 179:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Bonus game anchor");
                 break;
             case 183:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Slot Frame/Wheel Bonus");
@@ -1524,6 +1583,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         }
         if (obj != null && obj.activeSelf)
             return true;
+        if (chameleonBonusScript != null && chameleonBonusScript.gameObject.activeSelf)
+            return true;
         return false;
     }
 
@@ -1531,29 +1592,70 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     {
         switch (globalStore.nowGameID)
         {
+            case 10:
+
+                //EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnRoyalFreeSpinClick"));
+                break;
+            case 11:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ChameleonAttackStart"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ChameleonAttack"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("FinishedChameleonAnimation"));
+                break;
             case 21:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("collectEvent"));
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
+                break;
+            case 52:
+                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("EndToyCrane", 0));
+                break;
+            case 86:
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("OnClickBonus"));
+                break;
+            case 111:
+                EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("OnOpenMapBonusPopup"));
+                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("OnClickMap0"));
+                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("OnBeginMegaFreeSpinMap"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClick"));
                 break;
             case 118:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("SpinCompass"));
                 break;
             case 123:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartBonusGame"));
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClickOnWheel"));
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("PickFinished"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnFinishBonus"));
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("WheelStopped")); 
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
                 break;
             case 130:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Touch"));
                 break;
+            case 152:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartWheel"));
+                EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("StageEnd"));
+                break;
             case 153:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Click"));
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("0Clicked"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("HighClicked")); 
+                //EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("QuickChangeEnd")); 
                 break;
             case 154:
                 StartCoroutine(ConfirmNodeMiniGameSelect154());
                 break;
+            case 172:
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("PickBonusEndStage")); 
+                break;
             case 175:
                 EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("StageEnd"));
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));
+                break;
+            case 179:
+                EventSender.SendGlobalEvent("OnSlotEvent", new EventData("InitializeGameBoard"));
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("PickFinished"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect")); 
+                //EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("BonusGameEnd"));
                 break;
             case 183:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData<int>("OnBigWheelClick", _curSelectNumb));
@@ -1568,7 +1670,6 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
         }
     }
-
     private IEnumerator ConfirmNodeMiniGameSelect154()
     {
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClosedPopup"));
