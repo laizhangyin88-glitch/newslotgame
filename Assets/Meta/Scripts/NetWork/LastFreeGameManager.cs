@@ -20,7 +20,6 @@ using Action = System.Action;
 
 public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
 {
-
     /*
     private static LastFreeGameManager instance;
     public static LastFreeGameManager Instance
@@ -420,13 +419,47 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             
             EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("TrySpinWheel")); 
         }
-        if (globalStore.nowGameID == 142)////丛林火焰
+        else if (globalStore.nowGameID == 142)////丛林火焰
         {
             int index = (int)(totalCount / (firstSpinInfo.betCredit - totalCount)) - 1;
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>("Change", index));
         }
+        else if (globalStore.nowGameID == 10)  ////幸运财富
+        {
+            string data = historyRes[0];
+            string pattern = "\"selected_index\":\\s*(\\d+)";
+            Match match = Regex.Match(data, pattern);
+            if (match.Success)
+            {
+                string str = match.Groups[1].Value;
+                int value = int.Parse(str);
+                if (value == 0)
+                {
+                    EventSender.SendGlobalEvent(EVTType.ON_CUSTOM_EVENT, new EventData("OnRoyalFreeSpinClick"));
+                }
+                else
+                {
+                    EventSender.SendGlobalEvent(EVTType.ON_CUSTOM_EVENT, new EventData("OnMultiplierFreeSpinClick"));
+                }
+            }
+        }
     }
 
+    public int Get175GameExtraBetIndex()
+    {
+
+        int result = 0;
+        string data = historyRes[0];
+        string pattern = "\"extra_bet_index\":\\s*(\\d+)";
+        Match match = Regex.Match(data, pattern);
+        if (match.Success)
+        {
+            string str = match.Groups[1].Value;
+            int value = int.Parse(str);
+            result = value;
+        }
+        return result;
+    }
 
 
 
@@ -520,6 +553,8 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             else
             {
                 Time.timeScale = 10;
+                //Time.timeScale = 1; 
+                Time.timeScale = 1;
             }
             responseCallback(dataDict["data"]);
         }
