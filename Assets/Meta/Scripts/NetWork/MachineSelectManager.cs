@@ -746,14 +746,6 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 return true;
             }
         }
-        if (globalStore.nowGameID == 10)  ////幸运财富
-        {
-            GameObject Pick = GameObject.Find("Game Contents/Animator/Anchor/Effect Midground/Free Spins Select");
-            if (Pick != null && Pick.activeSelf)
-            {
-                return true;
-            }
-        }
 
         //神秘宝石这款游戏的免费游戏弹窗最开始是需要点击符号，然后才会有弹窗
         if (globalStore.nowGameID == 73)
