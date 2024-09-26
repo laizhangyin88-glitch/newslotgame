@@ -51,7 +51,7 @@ public class ButtonCommandPage : MonoBehaviour
         //不论有没有数据都先清除显示
         transform.RemoveAllChildren();
 
-        if(gmConfig == null || gmConfig.IsNull)
+        if(gmConfig == null || gmConfig.IsNull || gmConfig.Count <= 0)
         {
             var titleCom = Instantiate(_titleRef, transform);
             titleCom.color = Color.white;
