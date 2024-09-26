@@ -738,14 +738,6 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 return true;
             }
         }
-        if (globalStore.nowGameID == 142)///丛林火焰 --选择额外押注
-        {
-            GameObject Pick = GameObject.Find("Popup Manager/Contents/Denomination Popup FIJ");
-            if (Pick != null && Pick.activeSelf)
-            {
-                return true;
-            }
-        }
 
         //神秘宝石这款游戏的免费游戏弹窗最开始是需要点击符号，然后才会有弹窗
         if (globalStore.nowGameID == 73)
@@ -886,7 +878,6 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
         if (globalStore.nowGameID == 149) //白虎 
         {
-
             name = $"OnSelection{_curSelectNumb}";
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData(name));
             _curSelectNumb = 0;
