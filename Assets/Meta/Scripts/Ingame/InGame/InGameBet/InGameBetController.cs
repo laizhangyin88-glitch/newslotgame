@@ -298,7 +298,8 @@ namespace BagelCode
 
         public void UpdateBetIndex(int index)
         {
-            if (index < 0 || index >= BetList.Count) index = 0;
+            if (index < 0) index = 0;
+            if (index >= BetList.Count) index = BetList.Count - 1;
 
             UpdateGameSpin(BetList[index]);
 

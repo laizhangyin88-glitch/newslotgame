@@ -407,7 +407,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
         for (int i = 0; i < comps.Length; i++)
         {
-            if (comps[i].transform.parent.gameObject.active && !markLst.Contains(comps[i].mark))
+            if (comps[i].transform.parent.gameObject.activeSelf && !markLst.Contains(comps[i].mark))
                 markLst.Add(comps[i].mark);
         }
 
@@ -524,7 +524,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 }
             }
             GameObject Base = GameObject.Find("Lobby/Anchor/Lobby Pages/Anchor/Slots Area/ScrollView Slots");
-            if (Base != null && Base.active)
+            if (Base != null && Base.activeSelf)
             {
                 if (hallMarkStack[0].name == "")
                     Base.GetComponent<OSA_LobbySlots>().SetCurSelect(hallMarkStack[0].index);
@@ -621,7 +621,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         {
             GameObject Pick = GameObject.Find("Popup Manager/Contents/Denomination Popup FIJ");
 
-            if (Pick != null && Pick.active)
+            if (Pick != null && Pick.activeSelf)
             {
                 return true;
             }
@@ -689,8 +689,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         {
             GameObject Pick = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Pick Bonus/Animator/Base/Base/Pick");
 
-            // Debug.LogError($"active = {Pick.active} activeSelf = {Pick.active}");
-            if (Pick != null && Pick.active)
+            if (Pick != null && Pick.activeSelf)
             {
                 return true;
             }
@@ -699,7 +698,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         if (globalStore.nowGameID == 93) //HAPPY_DOLLARS 
         {
             GameObject Pick = GameObject.Find("Popup Manager/Contents/Free Game Select Popup");
-            if (Pick != null && Pick.active)
+            if (Pick != null && Pick.activeSelf)
             {
                 return true;
             }
@@ -708,7 +707,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         if (globalStore.nowGameID == 105) //SUNSET_SAFARI 狮子-斑马
         {
             GameObject Pick = GameObject.Find("Popup Manager/Contents/Select a Feature Popup");
-            if (Pick != null && Pick.active)
+            if (Pick != null && Pick.activeSelf)
             {
                 return true;
             }
@@ -717,15 +716,15 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         if (globalStore.nowGameID == 116) //魔术师 - 选牌
         {
             GameObject Pick = GameObject.Find("Popup Manager/Contents/Bonus Trigger Popup");
-            if (Pick != null && Pick.active)
+            if (Pick != null && Pick.activeSelf)
             {
                 return true;
             }
         }
         if (globalStore.nowGameID == 142)///丛林火焰 --选择额外押注
         {
-            GameObject Pick = GameObject.Find("Popup Manager/Contents/Denomination Popup FIJ");
-            if (Pick != null && Pick.active)
+            GameObject Pick = GameObject.Find("Popup Manager/Contents/FG trigger Popup FIJ");
+            if (Pick != null && Pick.activeSelf)
             {
                 return true;
             }
@@ -734,7 +733,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         if (globalStore.nowGameID == 149) //白虎 - 选免费游戏
         {
             GameObject Pick = GameObject.Find("Popup Manager/Contents/Free Game Select Popup");
-            if (Pick != null && Pick.active)
+            if (Pick != null && Pick.activeSelf)
             {
                 return true;
             }
@@ -750,69 +749,69 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
             //弹窗是否存在
             var panel = GameObject.Find("Popup Manager/Contents/Free Game Trigger Popup");
-            if (panel != null && panel.active)
+            if (panel != null && panel.activeSelf)
                 return true;
         }
         else if (globalStore.nowGameID == 54)
         {
             var panel = GameObject.Find("Popup Manager/Contents/Choose Your Bonus Popup");
-            if (panel != null && panel.active)
+            if (panel != null && panel.activeSelf)
                 return true;
 
             var panel2 = GameObject.Find("Popup Manager/Contents/Free Game Trigger Popup");
-            if (panel2 != null && panel2.active)
+            if (panel2 != null && panel2.activeSelf)
                 return true;
         }
         else if (globalStore.nowGameID == 35)
         {
             var panel = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Pick Bonus");
-            if (panel != null && panel.active)
+            if (panel != null && panel.activeSelf)
                 return true;
         }
         else if (globalStore.nowGameID == 128)
         {
             var panel = GameObject.Find("Popup Manager/Contents/Free Game Trigger Popup");
-            if (panel != null && panel.active)
+            if (panel != null && panel.activeSelf)
                 return true;
         }
         else if (globalStore.nowGameID == 99)
         {
             var panel = GameObject.Find("Popup Manager/Contents/Free Game Trigger Popup");
-            if (panel != null && panel.active)
+            if (panel != null && panel.activeSelf)
                 return true;
         }
         else if (globalStore.nowGameID == 83)
         {
             var panel = GameObject.Find("Popup Manager/Contents/Choose Your Bet Level Popup");
-            if (panel != null && panel.active)
+            if (panel != null && panel.activeSelf)
                 return true;
 
             //From:whh - 2024年9月12日
             //补充免费游戏中弹出小游戏的断线重连逻辑
             var panel1 = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Jackpot Bonus");
-            if(panel1 != null && panel1.active)
+            if(panel1 != null && panel1.activeSelf)
                 return true;
         }
         else if (globalStore.nowGameID == 62)
         {
             var panel = GameObject.Find("Popup Manager/Contents/Choose Your Bet Level Popup");
-            if (panel != null && panel.active)
+            if (panel != null && panel.activeSelf)
                 return true;
         }
         else if (globalStore.nowGameID == 31)
         {
             var panel = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Wheel Bonus");
-            if (panel != null && panel.active)
+            if (panel != null && panel.activeSelf)
                 return true;
 
             var panel1 = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Wheel Result");
-            if (panel1 != null && panel1.active)
+            if (panel1 != null && panel1.activeSelf)
                 return true;
         }
         else if (globalStore.nowGameID == 10)  ////幸运财富
         {
             GameObject Pick = GameObject.Find("Game Contents/Animator/Anchor/Effect Midground/Free Spins Select");
-            if (Pick != null && Pick.active)
+            if (Pick != null && Pick.activeSelf)
             {
                 return true;
             }
@@ -987,6 +986,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 int value = LastFreeGameManager.Instance.Get175GameExtraBetIndex();
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData<int>("Change", value));
                 break;
+            case 142:
+                int index = LastFreeGameManager.Instance.Get142GameExtraBetIndex();
+                EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>("Change", index));
+                break;
         }
     }
 
@@ -999,7 +1002,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
             GameObject Base = GameObject.Find("Popup Manager/Contents/Red Or Black");
 
-            if (Base != null && Base.active)
+            if (Base != null && Base.activeSelf)
             {
                 if (_curSelectMark != "RedOrBlack")  //首次打开进行赋值
                 {
@@ -1523,7 +1526,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 86:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Slot Machine/Overlay");
-                if(obj != null && obj.active)
+                if(obj != null && obj.activeSelf)
                 {
                     return obj.transform.childCount > 0;
                 }
@@ -1537,11 +1540,11 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 123:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Bonus pick game 2");
-                if (obj != null && obj.active)
+                if (obj != null && obj.activeSelf)
                     return true;
 
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Wheels/Wheel neutral");
-                if (obj != null && obj.active) 
+                if (obj != null && obj.activeSelf) 
                     return true;
 
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator");
@@ -1556,7 +1559,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 153:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Quick Change Bouns");
-                if (obj != null && obj.active)
+                if (obj != null && obj.activeSelf)
                     return true;
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Xray Bonus");
                 break;
@@ -1582,9 +1585,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 obj = GameObject.Find("Effect Midground/Mini Game Bonus/Mini Game0");
                 break;
         }
-        if (obj != null && obj.active)
+        if (obj != null && obj.activeSelf)
             return true;
-        if (chameleonBonusScript != null && chameleonBonusScript.gameObject.active)
+        if (chameleonBonusScript != null && chameleonBonusScript.gameObject.activeSelf)
             return true;
         return false;
     }
@@ -1999,7 +2002,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
             GameObject Base = GameObject.Find("Lobby/Anchor/Lobby Pages/Anchor/Slots Area/ScrollView Slots");
 
-            if (Base != null && Base.active)
+            if (Base != null && Base.activeSelf)
             {
                 if (_curSelectMark == "")
                 {
@@ -2022,7 +2025,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         {
             GameObject Base = GameObject.Find("Lobby/Anchor/Navigation Bar/Anchor/Layout/Right/Menu/Dropdown Menu/Anchor");
 
-            if (Base != null && Base.active)
+            if (Base != null && Base.activeSelf)
             {
                 if (_curSelectMark != "MenuHall")
                 {
@@ -2038,7 +2041,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         {
             GameObject Base = GameObject.Find("In Game/Anchor/Navigation Bar/Anchor/Layout/Right/Menu In Game/Dropdown Menu/Anchor");
 
-            if (Base != null && Base.active)
+            if (Base != null && Base.activeSelf)
             {
                 if (_curSelectMark != "MenuGame")
                 {
@@ -2099,7 +2102,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     {
         GameObject Base = GameObject.Find("Popup Manager/Area/Popup Settings");
 
-        if (Base != null && Base.active)
+        if (Base != null && Base.activeSelf)
         {
             if (_curSelectMark != "SettingsCell")  //首次打开进行赋值
             {
@@ -2172,7 +2175,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     {
         GameObject Base = GameObject.Find("Popup Manager/Contents/Pay Table");
 
-        if (Base != null && Base.active)
+        if (Base != null && Base.activeSelf)
         {
             return true;
         }
@@ -2501,7 +2504,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             {
                 GameObject Base = GameObject.Find(lst[i].nodePath); //door
 
-                if (Base != null && Base.active)
+                if (Base != null && Base.activeSelf)
                 {
                     if (!isLightBtnSelect)
                     {
@@ -2769,12 +2772,12 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         // 弹窗: Popup Manager/Overlay/Popup Common Ok
 
         GameObject Base = GameObject.Find("Popup Manager/Area/Loading");
-        if (Base != null && Base.active)
+        if (Base != null && Base.activeSelf)
         {
             return true;
         }
         Base = GameObject.Find("Popup Manager/Area/Loading To Lobby");
-        if (Base != null && Base.active)
+        if (Base != null && Base.activeSelf)
         {
             return true;
         }
