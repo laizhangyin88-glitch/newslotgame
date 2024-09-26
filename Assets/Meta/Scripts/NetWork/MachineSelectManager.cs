@@ -723,7 +723,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         }
         if (globalStore.nowGameID == 142)///丛林火焰 --选择额外押注
         {
-            GameObject Pick = GameObject.Find("Popup Manager/Contents/Denomination Popup FIJ");
+            GameObject Pick = GameObject.Find("Popup Manager/Contents/FG trigger Popup FIJ");
             if (Pick != null && Pick.activeSelf)
             {
                 return true;
@@ -985,6 +985,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 175:
                 int value = LastFreeGameManager.Instance.Get175GameExtraBetIndex();
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData<int>("Change", value));
+                break;
+            case 142:
+                int index = LastFreeGameManager.Instance.Get142GameExtraBetIndex();
+                EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>("Change", index));
                 break;
         }
     }
