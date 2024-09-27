@@ -233,6 +233,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 ChangeSpinLightInGame();
 
             }
+            TestAsMachineClickButton();
             isRuning = false;
         }
     }
@@ -1393,6 +1394,23 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
         }
 
+        if (globalStore.nowGameID == 93)
+        {
+            switch (_curSelectNumb)
+            {
+                case 2:
+                    name = "OnCursorTop";
+                    break;
+                case 0:
+                    name = "OnCursorMiddle";
+                    break;
+                case 1:
+                    name = "OnCursorBottom";
+                    break;
+            }
+            //EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData(name));
+            MessageDispatcher.Dispatch("OnContentUIDetailEvent", new ParadoxNotion.EventData(name));
+        }
 
         if (globalStore.nowGameID == 200002)
         {
@@ -1761,6 +1779,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     {
         return globalStore.nowGameID == -1
             || globalStore.nowGameID == 43
+            || globalStore.nowGameID == 93
             || globalStore.nowGameID == 200002
         || globalStore.nowGameID == 100003;
     }
@@ -1771,7 +1790,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         //{ -1, new string[] {"",} },
         { 200002,new string[] { "SPIN", "SideUI", "ButtonUI", "Spot", }},
         { 100003, new string[] { "SPIN", "JacksGamble", "JacksHands", "JacksCard" }},
-        { 43, new string[] { "SPIN", "GameGonfig", }}
+        { 43, new string[] { "SPIN", "GameGonfig", }},
+        { 93, new string[] { "SPIN", "GameGonfig", }}
     };
 
     public List<string> GetButtonRegionLst()
@@ -1864,7 +1884,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     {
         //{ 200002,false},
         //{ 100003, false},
-        { 43, true}
+        { 43, true}, //VEGAS_NIGHT
+        { 93,true} //HAPPY_DOLLARS
     };
 
     /// <summary>
@@ -2738,6 +2759,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 {
                     common.AddRange(new List<string>() { "BtnSwitch", });
                 }
+                if (globalStore.nowGameID == 93)
+                {
+                    common.AddRange(new List<string>() { "BtnSwitch", });
+                }
 
                 if (globalStore.nowGameID >= 3000 && globalStore.nowGameID <= 3999)
                 {
@@ -3458,11 +3483,77 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         Base.GetComponent<ContextButton>().DoClick();
     }
 }
+public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
+{
+    public bool isTestButton = false;
+
+    void TestAsMachineClickButton()
+    {
+        if (!isTestButton)
+            return;
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            BtnPreDOWN();
+        }else if (Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            BtnPreUP();
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            BtnNextDOWN();
+        }
+        else if (Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            BtnNextUP();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            BtnSpinDOWN();
+        }
+        else if (Input.GetKeyUp(KeyCode.S))
+        {
+            BtnSpinUP();
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            BtnHelpDOWN();
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            BtnBetMaxDOWN();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Plus))
+        {
+            BtnBetUpDOWN();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Menu))
+        {
+            BtnBetDownDOWN();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            BtnSwitchDOWN();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            BtnReturnDOWN();
+        }
+    }
+
+}
 
 
 /// <summary>
-/// 自定义按钮
-/// </summary>
+ /// 自定义按钮
+ /// </summary>
 public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 {
     GameCustomsButton gcb;
@@ -3570,3 +3661,6 @@ public class GameCustomsButton
         return dic;
     }
 }
+
+
+
