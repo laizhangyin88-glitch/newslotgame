@@ -423,6 +423,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         {
             int index = (int)(totalCount / (firstSpinInfo.betCredit - totalCount)) - 1;
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>("Change", index));
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
         }
         else if (globalStore.nowGameID == 10)  ////幸运财富
         {
@@ -443,6 +444,13 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                 }
             }
         }
+    }
+
+    public int Get142GameExtraBetIndex()
+    {
+        int totalCount = GetTotalCount();
+        int index = (int)(totalCount / (firstSpinInfo.betCredit - totalCount)) - 1;
+        return index;
     }
 
     public int Get175GameExtraBetIndex()
@@ -553,8 +561,6 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             else
             {
                 Time.timeScale = 10;
-                //Time.timeScale = 1; 
-                Time.timeScale = 1;
             }
             responseCallback(dataDict["data"]);
         }
