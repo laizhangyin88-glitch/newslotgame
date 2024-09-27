@@ -138,23 +138,29 @@ public class AccountLoginViewNew : MonoBehaviour
 
     private void MechineAutoConnect()
     {
-            /*
+        /*
+        Dictionary<string, string> loginDict = new Dictionary<string, string>();
+        loginDict["user_name"] = "device2";
+        loginDict["user_pwd"] =  "123456";
+        string url = ApplicationSettings.Instance.newLoginUrlMechine;
+        Debug.LogWarning($"@ connect : {url} user_name {loginDict["user_name"]} ");
+        StartCoroutine(HttpPost(url, "/passwd_login", loginDict, HandleLoginUserResponse));*/
+
+        //Dictionary<string, string> loginDict = new Dictionary<string, string>();
+        //loginDict["device_id"] = NativeHelper.Instance.GetDeviceID();
+        //string url = ApplicationSettings.Instance.newLoginUrlMechine;
+        //Debug.LogWarning($"@ get device account : {url}/device_login  device_id = {loginDict["device_id"]} ");
+        //StartCoroutine(HttpPost(url, "/device_login", loginDict, HandleGetDeviceAccountResponse));
+
+        if (_serverAddress!= null)
+        {
             Dictionary<string, string> loginDict = new Dictionary<string, string>();
-            loginDict["user_name"] = "device2";
-            loginDict["user_pwd"] =  "123456";
-            string url = ApplicationSettings.Instance.newLoginUrlMechine;
-            Debug.LogWarning($"@ connect : {url} user_name {loginDict["user_name"]} ");
-            StartCoroutine(HttpPost(url, "/passwd_login", loginDict, HandleLoginUserResponse));*/
-
-            //Dictionary<string, string> loginDict = new Dictionary<string, string>();
-            //loginDict["device_id"] = NativeHelper.Instance.GetDeviceID();
-            //string url = ApplicationSettings.Instance.newLoginUrlMechine;
-            //Debug.LogWarning($"@ get device account : {url}/device_login  device_id = {loginDict["device_id"]} ");
-            //StartCoroutine(HttpPost(url, "/device_login", loginDict, HandleGetDeviceAccountResponse));
-
-
-
-
+            ApplicationSettings.Instance.newLoginUrlMechine = _serverAddress;
+            loginDict["device_id"] = NativeHelper.Instance.GetDeviceID();
+            StartCoroutine(HttpPost(_serverAddress, "/device_login", loginDict, HandleGetDeviceAccountResponse));
+        }
+        else
+        {
             StartCoroutine(WWW_Get02(
                 ApplicationSettings.Instance.autoUrl,
                 (addr1, err) =>
@@ -173,7 +179,7 @@ public class AccountLoginViewNew : MonoBehaviour
                     StartCoroutine(HttpPost(_serverAddress, "/device_login", loginDict, HandleGetDeviceAccountResponse));
                 }
             ));
-
+        }
     }
 
     void HandleGetDeviceAccountResponse(string response)
@@ -340,10 +346,7 @@ public class AccountLoginViewNew : MonoBehaviour
         if (!string.IsNullOrEmpty(inpNetWork.text))
             inpNetWork.text = inpNetWork.text.Trim();
 
-
-
-        //string addr = PlayerPrefs.GetString("serverAddress", "");
-       // _serverAddress = !string.IsNullOrEmpty(addr) ? addr : ApplicationSettings.Instance.newLoginUrl;
+        
 
         if (!string.IsNullOrEmpty(inpNetWork.text) && !_isAutoSever)
         {
@@ -363,6 +366,7 @@ public class AccountLoginViewNew : MonoBehaviour
         }
         else if (_isAutoSever || string.IsNullOrEmpty(_serverAddress)) //自动获取地址
         {
+
             string autoUrl = TestManager.Instance.getAutoUrl();
             if (string.IsNullOrEmpty(autoUrl))
                 autoUrl = ApplicationSettings.Instance.autoUrl;
@@ -371,7 +375,7 @@ public class AccountLoginViewNew : MonoBehaviour
 
             StartCoroutine(WWW_Get02(
                 autoUrl,
-                (addr1,err) =>
+                (addr1, err) =>
                 {
                     if (addr1 == null)
                     {
@@ -380,7 +384,7 @@ public class AccountLoginViewNew : MonoBehaviour
                         Debug.LogError(errMsg);
                         return;
                     }
-                    _serverAddress = "http://" +addr1;
+                    _serverAddress = "http://" + addr1;
                     //_serverAddress = addr1;
 
                     Dictionary<string, string> loginDict = new Dictionary<string, string>();
