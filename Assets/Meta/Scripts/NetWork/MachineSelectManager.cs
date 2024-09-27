@@ -3048,7 +3048,11 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         if (!ApplicationSettings.Instance.isMachine)
             return;
 #endif
-
+        if (IsSystemCustomsButton())
+        {
+            sound = ConfirmGameCustomsButton("BtnSwitch_DOWN");
+            return;
+        }
         if (isMenuOpen()
             || isPopCommon())
         {
@@ -3493,6 +3497,20 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
     bool IsGameCustomsButton()
     {
+        if (!GameCustomsButton.isEnableGameCustomsButton && this.gcb != null)
+        {
+            this.gcb = null;
+        }
+        return this.gcb != null;
+    }
+
+    bool IsSystemCustomsButton()
+    {
+        GameObject go = GameObject.Find("Popup Manager/Area");
+        if (go == null || !go.active)
+        {
+            return false;
+        }
         if (!GameCustomsButton.isEnableGameCustomsButton && this.gcb != null)
         {
             this.gcb = null;
