@@ -816,6 +816,14 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 return true;
             }
         }
+        else if (globalStore.nowGameID == 105)
+        {
+            GameObject Pick = GameObject.Find("Popup Manager/Contents/Select a Feature Popup Over 11");
+            if (Pick != null && Pick.active)
+            {
+                return true;
+            }
+        }
 
         return false;
     }
