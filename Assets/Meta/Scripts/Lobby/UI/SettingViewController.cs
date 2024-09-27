@@ -39,7 +39,7 @@ public class SettingViewController : MonoBehaviour
         currentValue = 0;
         if (ApplicationSettings.Instance.isMachine)
         {
-            selected.gameObject.SetActive(true);
+            selected?.gameObject.SetActive(true);
             posVectors = new Vector3[2] { new Vector3(0, 10, 0), new Vector3(0, -85, 0)};
             settingType = SettingType.Music;
             MachineSelectManager.Instance.SetCustomsButton(
