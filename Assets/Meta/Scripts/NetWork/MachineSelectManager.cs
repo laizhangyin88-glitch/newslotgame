@@ -586,7 +586,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
         List<string> marks = GetVisableButtonRegionLst();
 
-        if (marks != null)
+        if (marks != null && marks.Count > 0)
         {
             if (!marks.Contains(gameMarkStack[0].name))
             {
@@ -1394,6 +1394,15 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
         }
 
+        if (globalStore.nowGameID == 142)
+        {
+            if (!BlackboardQueryUtils.IsSpin()
+                && !BlackboardQueryUtils.IsAutoSpin())
+            {
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("OpenExtraBetPopup"));
+            }
+        }
+
         if (globalStore.nowGameID == 93)
         {
             switch (_curSelectNumb)
@@ -1780,6 +1789,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         return globalStore.nowGameID == -1
             || globalStore.nowGameID == 43
             || globalStore.nowGameID == 93
+            || globalStore.nowGameID == 142
             || globalStore.nowGameID == 200002
         || globalStore.nowGameID == 100003;
     }
@@ -1791,7 +1801,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         { 200002,new string[] { "SPIN", "SideUI", "ButtonUI", "Spot", }},
         { 100003, new string[] { "SPIN", "JacksGamble", "JacksHands", "JacksCard" }},
         { 43, new string[] { "SPIN", "GameGonfig", }},
-        { 93, new string[] { "SPIN", "GameGonfig", }}
+        { 93, new string[] { "SPIN", "GameGonfig", }},
+        { 142, new string[] { "SPIN", "GameGonfig", }},
     };
 
     public List<string> GetButtonRegionLst()
@@ -1885,7 +1896,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         //{ 200002,false},
         //{ 100003, false},
         { 43, true}, //VEGAS_NIGHT
-        { 93,true} //HAPPY_DOLLARS
+        { 93, true}, //HAPPY_DOLLARS
+        { 142, true}
     };
 
     /// <summary>
@@ -2755,7 +2767,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                     common.AddRange(new List<string>() { "BtnSwitch", "BtnPre", "BtnNext" });
                 }
 
-                if (globalStore.nowGameID == 43)
+                if (globalStore.nowGameID == 43 || globalStore.nowGameID == 142)
                 {
                     common.AddRange(new List<string>() { "BtnSwitch", });
                 }
