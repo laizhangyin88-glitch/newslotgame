@@ -1849,7 +1849,7 @@ public class Reporter : MonoBehaviour
 	void doShow()
 	{
 
-#if MARS_FORTUNE_REALSE || K3K_REALSE
+#if !MARS_FORTUNE_TEST && !K3K_TEST && !UNITY_EDITOR
         if (TestDisplayManager.Instance.IsGM == false)
             return;
 #endif
