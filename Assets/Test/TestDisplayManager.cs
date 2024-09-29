@@ -22,8 +22,8 @@ public class TestDisplayManager : MonoSingleton<TestDisplayManager>
         //默认显示指令页面和按钮指令页面
         TestManager.Instance.SetMaxPageIndex(2);
 
-        //如果是展示包，则关闭AutoUrl
-#if MARS_FORTUNE_REALSE || K3K_REALSE
+        //如果不是测试包并且不是编辑器环境，则关闭AutoUrl
+#if !MARS_FORTUNE_TEST && !K3K_TEST && !UNITY_EDITOR
         TestManager.Instance.SetAutoUrlEnable(false);
         SetTestManagerEnable(false);
 #else
@@ -36,7 +36,7 @@ public class TestDisplayManager : MonoSingleton<TestDisplayManager>
     {
         //如果是展示包，则允许启用/禁用TestManager功能
         //默认启用TestManager
-#if MARS_FORTUNE_REALSE || K3K_REALSE
+#if !MARS_FORTUNE_TEST && !K3K_TEST && !UNITY_EDITOR
         _testObj.SetActive(enable);
 #endif
     }
