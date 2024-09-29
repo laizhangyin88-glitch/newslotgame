@@ -208,6 +208,9 @@ public class AccountLoginViewNew : MonoBehaviour
 
     private void Start()
     {
+        string addr = PlayerPrefs.GetString("serverAddress", "");
+        _serverAddress = !string.IsNullOrEmpty(addr) ? addr : ApplicationSettings.Instance.newLoginUrlApp;
+
         transform.Find("Anchor").gameObject.SetActive(!ApplicationSettings.Instance.isMachine);
         //transform.Find("Anchor").gameObject.SetActive(false);
         if (ApplicationSettings.Instance.isMachine)
@@ -236,8 +239,7 @@ public class AccountLoginViewNew : MonoBehaviour
             _isAutoSever = PlayerPrefs.GetInt("isAutoSever", 0) == 1;
             tglAutoSever.isOn = _isAutoSever;
 
-            string addr = PlayerPrefs.GetString("serverAddress", "");
-            _serverAddress = !string.IsNullOrEmpty(addr) ? addr : ApplicationSettings.Instance.newLoginUrlApp;
+            
             txtNetWorkPlaceholder.text = _serverAddress;
 
         }
