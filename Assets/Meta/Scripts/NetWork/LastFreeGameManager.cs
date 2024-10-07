@@ -174,6 +174,16 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                         MachineSelectManager.Instance.ConfirmNodeMiniGameSpin();
                     }, 1000);
                 }
+                else if (MachineSelectManager.Instance.isNodeMiniGameSelect())
+                {
+                    DoTask(() =>
+                    {
+                        if (!MachineSelectManager.Instance.isNodeMiniGameSelect())
+                            return;
+
+                        NodeMiniGameAutoSelect();
+                    }, 1000);
+                }
                 else if (MachineSelectManager.Instance.isPopCommon())
                 {
                     DoTask(() =>
@@ -283,7 +293,24 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         return 0;
     }
 
-
+    /// <summary>
+    /// 小游戏节点的自动选择写在这里
+    /// </summary>
+    /// <remarks>
+    /// 通常在断线重连时调用
+    /// </remarks>
+    public void NodeMiniGameAutoSelect()
+    {
+        switch (globalStore.nowGameID)
+        {
+            case 92://金猪
+                EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData("LastCoinPick"));
+                EventSender.SendGlobalEvent("OnContentUIEvent", new ParadoxNotion.EventData("EndCoinPick"));
+                break;
+            default:
+                break;
+        }
+    }
 
     public void ConfirmPopFreeGameSelect()
     {
