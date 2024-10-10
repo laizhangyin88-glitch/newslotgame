@@ -152,7 +152,7 @@ public class AccountLoginViewNew : MonoBehaviour
         //Debug.LogWarning($"@ get device account : {url}/device_login  device_id = {loginDict["device_id"]} ");
         //StartCoroutine(HttpPost(url, "/device_login", loginDict, HandleGetDeviceAccountResponse));
 
-        if (_serverAddress!= null)
+        if (!string.IsNullOrEmpty(_serverAddress))
         {
             Dictionary<string, string> loginDict = new Dictionary<string, string>();
             ApplicationSettings.Instance.newLoginUrlMechine = _serverAddress;
