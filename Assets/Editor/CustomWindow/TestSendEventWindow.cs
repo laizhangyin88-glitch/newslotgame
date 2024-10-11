@@ -18,7 +18,7 @@ public class TestSendEventWindow : OdinEditorWindow
     }
     
     [InfoBox("使用EventSender.SendGlobalEvent发送全局事件\n支持事件值（空，数字，字符串）")]
-    [PropertySpace]
+    [ValueDropdown("EventTypeList", AppendNextDrawer = true)]
     public string eventType;
     public string eventName;
 
@@ -27,6 +27,10 @@ public class TestSendEventWindow : OdinEditorWindow
     public string eventValue;
 
     private bool DisplayFieldEventValue=> valueType != ValueType.None;
+    private string[] EventTypeList => new string[]{
+        "OnCustomEvent",
+        "OnContentUIEvent",
+    };
 
     [Button]
     public void SendEvent()
@@ -35,6 +39,9 @@ public class TestSendEventWindow : OdinEditorWindow
             return;
 
         if (string.IsNullOrEmpty(eventName))
+            return;
+
+        if (Application.isPlaying == false)
             return;
 
         switch (valueType)
