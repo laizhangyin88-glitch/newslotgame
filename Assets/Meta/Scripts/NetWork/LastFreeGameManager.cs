@@ -3,6 +3,7 @@ using BagelCode.ClientModels;
 using BagelCode.Tasks.Actions.ClientAPI;
 using Dreamteck.Splines.Primitives;
 using Newtonsoft.Json.Bson;
+using NodeCanvas.Framework;
 using ParadoxNotion;
 using PlayFab;
 using SimpleJSON;
@@ -589,6 +590,10 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             if (historyRes.Count == 0) //最后一局不放慢
             {
                 Time.timeScale = 1;
+
+                //From:whh - 2024年10月11日
+                //断线重连后恢复autoSpin，避免进行非玩家意愿的spin
+                BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", false);
                 isLastGameSpin = false;
                 EventSender.SendGlobalEvent("OnCloseLoginMaskPop");
 
