@@ -1848,7 +1848,13 @@ public class Reporter : MonoBehaviour
 
 	void doShow()
 	{
-		show = true;
+
+#if !MARS_FORTUNE_TEST && !K3K_TEST && !UNITY_EDITOR
+        if (TestDisplayManager.Instance.IsGM == false)
+            return;
+#endif
+
+        show = true;
 		currentView = ReportView.Logs;
 		gameObject.AddComponent<ReporterGUI>();
 
