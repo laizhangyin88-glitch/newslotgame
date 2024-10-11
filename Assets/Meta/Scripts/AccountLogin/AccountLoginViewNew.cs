@@ -152,7 +152,7 @@ public class AccountLoginViewNew : MonoBehaviour
         //Debug.LogWarning($"@ get device account : {url}/device_login  device_id = {loginDict["device_id"]} ");
         //StartCoroutine(HttpPost(url, "/device_login", loginDict, HandleGetDeviceAccountResponse));
 
-        if (_serverAddress!= null)
+        if (!string.IsNullOrEmpty(_serverAddress))
         {
             Dictionary<string, string> loginDict = new Dictionary<string, string>();
             ApplicationSettings.Instance.newLoginUrlMechine = _serverAddress;
@@ -208,6 +208,9 @@ public class AccountLoginViewNew : MonoBehaviour
 
     private void Start()
     {
+        string addr = PlayerPrefs.GetString("serverAddress", "");
+        _serverAddress = !string.IsNullOrEmpty(addr) ? addr : ApplicationSettings.Instance.newLoginUrlApp;
+
         transform.Find("Anchor").gameObject.SetActive(!ApplicationSettings.Instance.isMachine);
         //transform.Find("Anchor").gameObject.SetActive(false);
         if (ApplicationSettings.Instance.isMachine)
@@ -236,8 +239,7 @@ public class AccountLoginViewNew : MonoBehaviour
             _isAutoSever = PlayerPrefs.GetInt("isAutoSever", 0) == 1;
             tglAutoSever.isOn = _isAutoSever;
 
-            string addr = PlayerPrefs.GetString("serverAddress", "");
-            _serverAddress = !string.IsNullOrEmpty(addr) ? addr : ApplicationSettings.Instance.newLoginUrlApp;
+            
             txtNetWorkPlaceholder.text = _serverAddress;
 
         }

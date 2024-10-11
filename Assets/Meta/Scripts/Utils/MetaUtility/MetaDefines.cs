@@ -233,6 +233,8 @@ namespace BagelCode
         public const string ON_LEAVE_RESET_PASSWORD = "OnLeaveResetPassword";
         public const string ON_ENTER_LOTTERY = "OnEnterLottery";
         public const string ON_LEAVE_LOTTERY = "OnLeaveLottery";
+        public const string ON_ENTER_RANKING = "OnEnterRanking";
+        public const string ON_LEAVE_RANKING = "OnLeaveRanking";
 
         public const string REDEEM_COUPON = "RedeemCoupon";
         public const string ON_COUPON_REDEEM_SUCCESS = "OnRedeemSuccess";

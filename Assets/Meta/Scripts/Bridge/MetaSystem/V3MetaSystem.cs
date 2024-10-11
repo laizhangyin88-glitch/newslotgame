@@ -21,18 +21,18 @@ using BagelCode.Protobuf;
 
 namespace BagelCode
 {
-	public class V3MetaSystem : IMetaSystem
-	{
-		public void SelectGame(int gameId)
-		{
-			var gameInfo = BlackboardQueryUtils.GetGameInfo(gameId);
-			BlackboardQueryUtils.SetEnterGameInfo(gameId, "EnterGame", "default");
-		}
+    public class V3MetaSystem : IMetaSystem
+    {
+        public void SelectGame(int gameId)
+        {
+            var gameInfo = BlackboardQueryUtils.GetGameInfo(gameId);
+            BlackboardQueryUtils.SetEnterGameInfo(gameId, "EnterGame", "default");
+        }
 
-		public void EnterGame()
-		{
+        public void EnterGame()
+        {
             EventSender.SendGlobalEvent("OnEnterGame");
-		}
+        }
 
         public void ClearContentData()
         {
@@ -50,11 +50,11 @@ namespace BagelCode
             bb.AddVariable("bonusIamInfo", typeof(Blackboard));
         }
 
-		public void SlotSpin(long betCredit, long extraBetCredit, object customData, Action successCallback, Action errorCallback)
-		{
+        public void SlotSpin(long betCredit, long extraBetCredit, object customData, Action successCallback, Action errorCallback)
+        {
             int metaGameEventID = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "metaGameEventID").value;
             int collectingGameChestDropRateMultiplyEventId = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "collectingGameChestDropRateMultiplyEventId").value;
-		    // int collectingGameEventID = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "collectingGameEventID").value;
+            // int collectingGameEventID = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "collectingGameEventID").value;
             string roomID = BlackboardUtils.GetOrCreateVariable<string>(null, "./room/roomId").value;
 
             SpinType spinType = BlackboardUtils.GetOrCreateVariable<SpinType>(ContentBlackboard.Get(), "spinType").value;
@@ -171,7 +171,7 @@ namespace BagelCode
             }
 
             Dictionary<string, object> req = new Dictionary<string, object>
-            { 
+            {
                 {"bet",betCredit},
                 {"extra_bet",extraBetCredit },
                 {"game_id",gameId },
@@ -185,7 +185,7 @@ namespace BagelCode
 
             Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
 
-            
+
             NetManager.Instance.Post(RPCName.slotSpin, req,
             (res) =>
             {
@@ -214,28 +214,28 @@ namespace BagelCode
 
             BagelCodeClientAPI.SlotSpin(betCredit, extraBetCredit, roomID, isGameSpin, isBonusSpin, metaGameEventID, gameId, collectingGameChestDropRateMultiplyEventId, customData, isAutoSpin, expEventIdList, isHighRollerBet, seasonPassEventId,
             (response) =>
-        	{
+            {
                 string oldJson = JsonUtility.ToJson(response);
                 Debug.Log($"@A SlotSpinResponseV3 = {oldJson}");
 
                 SlotSpinSuccess(response, betCredit, extraBetCredit, spinType);
 
-        		if (successCallback != null)
-        			successCallback();
-    		},
-    		(error) =>
-    		{
-    			CommonError(error);
+                if (successCallback != null)
+                    successCallback();
+            },
+            (error) =>
+            {
+                CommonError(error);
 
-    			if (errorCallback != null)
-    				errorCallback();
-    		});
-		}
+                if (errorCallback != null)
+                    errorCallback();
+            });
+        }
 
-		public void SlotSpinSuccess(ClientModels.SlotSpinResponseV3 response, long betCredit, long extraBetCredit, SpinType spinType)
-		{
+        public void SlotSpinSuccess(ClientModels.SlotSpinResponseV3 response, long betCredit, long extraBetCredit, SpinType spinType)
+        {
             var spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-            if(spinBB == null || spinBB.value == null) return;
+            if (spinBB == null || spinBB.value == null) return;
 
             var bb = BlackboardUtils.GetOrCreateBlackboard(spinBB.value, "response");
             ClientAPI2Blackboard.Serialize(bb, response);
@@ -245,7 +245,7 @@ namespace BagelCode
             BlackboardQueryUtils.UpdateTournament(response.tournamentInfo);
             BlackboardQueryUtils.UpdatePotOfGold(response.userSyncInfo.piggyCredit);
             BlackboardQueryUtils.UpdateUnlockFeature(response.featureUnlockList);
-		    BlackboardQueryUtils.UpdateMetaGameInfo(response.metaGameInfo, response.serverTime);
+            BlackboardQueryUtils.UpdateMetaGameInfo(response.metaGameInfo, response.serverTime);
             BlackboardQueryUtils.UpdateBonusSpinCountPerBet(betCredit, response.gameSpinCount, "./gameSpinCountPerBet");
             BlackboardQueryUtils.UpdateBonusSpinCountPerBet(betCredit, response.bonusSpinCount, "./bonusSpinCountPerBet");
             BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
@@ -362,12 +362,18 @@ namespace BagelCode
             req.Add("isBonusSpin", isBonusSpin);
             req.Add("metaGameEventId", metaGameEventID);
             req.Add("seasonPassEventId", seasonPassEventId);
-
+            var clientbonusData = BlackboardUtils.GetOrCreateVariable<string>("./ClientClaimData");
+            if (String.IsNullOrEmpty(clientbonusData.value) == false)
+            {
+                req.Add("clientBonusData", JSONNode.Parse(clientbonusData.value));
+                clientbonusData.value = "";
+            }
+            req.Add("seasonPassEventId", seasonPassEventId);
 
             NetManager.Instance.Post(RPCName.claimBonus, req,
             (res) =>
             {
-                 string resStr = res.ToString();
+                string resStr = res.ToString();
 
                 //string oldJson = JsonUtility.ToJson(response);
                 //Debug.Log($"@A KenoPlayResponseV1 = {oldJson}");
@@ -387,7 +393,7 @@ namespace BagelCode
                 // BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
 
                 if (successCallback != null)
-                        successCallback();
+                    successCallback();
             },
             (error) =>
             {
@@ -583,7 +589,7 @@ namespace BagelCode
         void VideoPokerDealSuccess(ClientModels.VideoPokerDealResponseV3 response, long betCredit)
         {
             var spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-            if(spinBB == null || spinBB.value == null) return;
+            if (spinBB == null || spinBB.value == null) return;
 
             var bb = BlackboardUtils.GetOrCreateBlackboard(spinBB.value, "response");
             ClientAPI2Blackboard.Serialize(bb, response);
@@ -822,10 +828,10 @@ namespace BagelCode
 
 
 
-           // string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
+            // string debug_param = "{\"is_free_spin\":" + globalStore.test_is_free_spin + "}";
             string debug_param = "{\"is_free_spin\":" + TestManager.Instance.getCode() + "}";
 
-            Dictionary<string,object> req = new Dictionary<string, object>
+            Dictionary<string, object> req = new Dictionary<string, object>
             {
                 {"bet_per_ticket",betPerTicket },
                 { "pick_info_list",pickInfoList},
@@ -924,7 +930,7 @@ namespace BagelCode
 
 
             var spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
-            if(spinBB == null || spinBB.value == null) return;
+            if (spinBB == null || spinBB.value == null) return;
 
             var bb = BlackboardUtils.GetOrCreateBlackboard(spinBB.value, "response");
             ClientAPI2Blackboard.Serialize(bb, response);
@@ -1039,7 +1045,7 @@ namespace BagelCode
 
 
                 var gamble = BlackboardUtils.FindVariable<Blackboard>("./turn/gamble");
-                if(gamble != null)
+                if (gamble != null)
                 {
                     var bb = BlackboardUtils.GetOrCreateBlackboard(gamble.value, "response");
                     ClientAPI2Blackboard.Serialize(bb, response);
@@ -1119,7 +1125,7 @@ namespace BagelCode
                 Debug.Log($"@A GambleDealResponseV2 = {oldJson}");
 
                 var gamble = BlackboardUtils.FindVariable<Blackboard>("./turn/gamble");
-                if(gamble != null)
+                if (gamble != null)
                 {
                     var bb = BlackboardUtils.GetOrCreateBlackboard(gamble.value, "response");
                     ClientAPI2Blackboard.Serialize(bb, response);
@@ -1206,7 +1212,7 @@ namespace BagelCode
                 Debug.Log($"@A GambleTakeResponseV2 = {oldJson}");
 
                 var gamble = BlackboardUtils.FindVariable<Blackboard>("./turn/gamble");
-                if(gamble != null)
+                if (gamble != null)
                 {
                     var bb = BlackboardUtils.GetOrCreateBlackboard(gamble.value, "response");
                     ClientAPI2Blackboard.Serialize(bb, response);
@@ -1236,25 +1242,25 @@ namespace BagelCode
 
             switch (error.errorCode)
             {
-            case ClientModels.Error.NOT_IN_ROOM_ERROR:
-                {
-                    bool stringError = false;
-                    ErrorPopupInfo info = new ErrorPopupInfo();
-                    info.type = ErrorPopupType.OK;
-                    info.text = StringTableUtils.GetString(StringTable.StringTableType.Global, "ERROR_NOT_EXIST_ROOM", out stringError);
-                    info.buttonText1 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_OKAY", out stringError);
-
-                    info.callback1 = delegate
+                case ClientModels.Error.NOT_IN_ROOM_ERROR:
                     {
-                        MessageDispatcher.Dispatch("OnContentEvent", new EventData("LeaveGame"));
-                    };
+                        bool stringError = false;
+                        ErrorPopupInfo info = new ErrorPopupInfo();
+                        info.type = ErrorPopupType.OK;
+                        info.text = StringTableUtils.GetString(StringTable.StringTableType.Global, "ERROR_NOT_EXIST_ROOM", out stringError);
+                        info.buttonText1 = StringTableUtils.GetString(StringTable.StringTableType.Global, "BUTTON_OKAY", out stringError);
 
-                    ErrorPopupHandler.Instance.OpenError(info);
-                }
-                break;
-            default:
-                GlobalErrorHandler.GlobalError(error);
-                break;
+                        info.callback1 = delegate
+                        {
+                            MessageDispatcher.Dispatch("OnContentEvent", new EventData("LeaveGame"));
+                        };
+
+                        ErrorPopupHandler.Instance.OpenError(info);
+                    }
+                    break;
+                default:
+                    GlobalErrorHandler.GlobalError(error);
+                    break;
             }
         }
 
@@ -1280,15 +1286,15 @@ namespace BagelCode
             });
         }
 
-		public bool IsIgnoredUser(string userId, int reportCount)
-		{
-			return BlackboardQueryUtils.IsIgnoredUser(userId, reportCount);
-		}
+        public bool IsIgnoredUser(string userId, int reportCount)
+        {
+            return BlackboardQueryUtils.IsIgnoredUser(userId, reportCount);
+        }
 
-		public void SpentCredit(long spentCredit)
-		{
-			BlackboardQueryUtils.SpentCredit(spentCredit);
-		}
+        public void SpentCredit(long spentCredit)
+        {
+            BlackboardQueryUtils.SpentCredit(spentCredit);
+        }
 
         public void BackupUserSyncInfo()
         {
@@ -1300,10 +1306,10 @@ namespace BagelCode
             BlackboardQueryUtils.ApplyUserSyncInfo(isApply);
         }
 
-		public long GetTimeStamp()
-		{
-			return TimeUtils.GetTimeStamp();
-		}
+        public long GetTimeStamp()
+        {
+            return TimeUtils.GetTimeStamp();
+        }
 
         public long GetLocalTimeStamp()
         {
@@ -1337,14 +1343,14 @@ namespace BagelCode
 
         public void SubscribeBackButton(int id, Action callback)
         {
-            if(BackButtonManager.Instance != null)
+            if (BackButtonManager.Instance != null)
                 BackButtonManager.Instance.SubscribeBackButton(callback, id);
         }
 
         public void UnSubscribeBackButton(int id)
         {
-            if(BackButtonManager.Instance != null)
+            if (BackButtonManager.Instance != null)
                 BackButtonManager.Instance.UnSubscribeBackButton(id);
         }
-	}
+    }
 }
