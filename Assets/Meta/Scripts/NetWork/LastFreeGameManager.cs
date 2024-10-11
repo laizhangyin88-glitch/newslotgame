@@ -231,6 +231,8 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             yield return new WaitForSeconds(0.5f);
         }
 
+        firstSpinInfo.betCredit -= GetExtraBet(historyRes[0]);
+
         int index = 0;
         for (int i = 0; i < IGBC.BetList.Count; i++)
         {
@@ -264,8 +266,24 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             yield return new WaitForSeconds(1f);
         }
     }
+    /// <summary>
+    /// 获取额外押注的金额
+    /// </summary>
+    private long GetExtraBet(string spin)
+    {
+        string pattern = "\"extra_bet\":\\s*(\\d+)";
+        Match match = Regex.Match(spin, pattern);
+        long bet = 0;
 
-
+        while (match.Success && bet <= 0)
+        {
+            string str = match.Groups[1].Value;
+            bet = long.Parse(str);
+            match = match.NextMatch();
+            return bet; 
+        }
+        return 0;
+    }
 
 
     int GetTotalCount()
