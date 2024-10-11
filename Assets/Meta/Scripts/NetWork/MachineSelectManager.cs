@@ -790,7 +790,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             //From:whh - 2024年9月12日
             //补充免费游戏中弹出小游戏的断线重连逻辑
             var panel1 = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Jackpot Bonus");
-            if(panel1 != null && panel1.active)
+            if (panel1 != null && panel1.active)
                 return true;
         }
         else if (globalStore.nowGameID == 62)
@@ -921,7 +921,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnPointerClick"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartBonusGame"));
         EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinalizeBigWin"));
-         
+
 
         /**
          * Big Win Text Event Mega Win
@@ -985,7 +985,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         ///152  猫咪抢劫案
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartJackpot"));
 
-        
+
         ///130 金星珍珠
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Click"));
 
@@ -1003,6 +1003,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     }
 
     /// <summary>“小游戏选择弹窗”是否可见 </summary>
+    /// <remarks>
+    /// popManager中的弹窗，需要左右选择和spin按钮
+    /// </remarks>
     public bool isPopMiniGameSelect()
     {
 
@@ -1071,6 +1074,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     }
 
     /// <summary>“小游戏选择节点”是否可见 </summary>
+    /// <remarks>
+    /// 存在于GameContent中的小游戏节点，需要左右选择和spin按钮
+    /// </remarks>
     public bool isNodeMiniGameSelect()
     {
 
@@ -1225,6 +1231,14 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                     return true;
                 }
             }
+        }
+        if (globalStore.nowGameID == 153)
+        {
+            GameObject obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Quick Change Bouns");
+            if (obj != null && obj.activeSelf)
+                return true;
+            obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Xray Bonus");
+            return obj != null && obj.activeSelf;
         }
 
         List<string> marks = new List<string>()
@@ -1535,6 +1549,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
     }
 
     /// <summary>“小游戏节点”是否可见 </summary>
+    /// <remarks>
+    /// 存在于GameContent中的小游戏节点，spin按钮即可确认，不需要选择
+    /// </remarks>
     public bool IsNodeMiniGame()
     {
         GameObject obj = null;
@@ -1561,7 +1578,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 86:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Slot Machine/Overlay");
-                if(obj != null && obj.active)
+                if (obj != null && obj.active)
                 {
                     return obj.transform.childCount > 0;
                 }
@@ -1579,7 +1596,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                     return true;
 
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Wheels/Wheel neutral");
-                if (obj != null && obj.active) 
+                if (obj != null && obj.active)
                     return true;
 
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator");
@@ -1591,12 +1608,6 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 152:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Bonus game");
-                break;
-            case 153:
-                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Quick Change Bouns");
-                if (obj != null && obj.active)
-                    return true;
-                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Xray Bonus");
                 break;
             case 154:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Hot Bonus Panel");
@@ -1627,6 +1638,14 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         return false;
     }
 
+    /// <summary>
+    /// 确认小游戏节点（spin按钮按下时调用）
+    /// 当spin按钮按下时，可以跳过的小游戏节点事件可以写在这里
+    /// </summary>
+    /// <remarks>
+    /// 当断线重连时，也可调用此方法，模拟spin按下来跳过确认/跳过小游戏节点
+    /// </remarks>
+    /// <param name="btnName"></param>
     public void ConfirmNodeMiniGameSpin(string btnName = "BtnSpin_DOWN")
     {
         switch (globalStore.nowGameID)
@@ -1664,7 +1683,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("ClickOnWheel"));
                 EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("PickFinished"));
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnFinishBonus"));
-                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("WheelStopped")); 
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("WheelStopped"));
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
                 break;
             case 130:
@@ -1674,17 +1693,11 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartWheel"));
                 EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("StageEnd"));
                 break;
-            case 153:
-                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Click"));
-                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("0Clicked"));
-                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("HighClicked")); 
-                //EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("QuickChangeEnd")); 
-                break;
             case 154:
                 StartCoroutine(ConfirmNodeMiniGameSelect154());
                 break;
             case 172:
-                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("PickBonusEndStage")); 
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("PickBonusEndStage"));
                 break;
             case 175:
                 EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("StageEnd"));
@@ -1693,7 +1706,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 179:
                 EventSender.SendGlobalEvent("OnSlotEvent", new EventData("InitializeGameBoard"));
                 EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("PickFinished"));
-                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect")); 
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));
                 //EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("BonusGameEnd"));
                 break;
             case 183:
@@ -3518,7 +3531,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             BtnPreDOWN();
-        }else if (Input.GetKeyUp(KeyCode.LeftArrow))
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftArrow))
         {
             BtnPreUP();
         }
@@ -3576,8 +3590,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
 
 /// <summary>
- /// 自定义按钮
- /// </summary>
+/// 自定义按钮
+/// </summary>
 public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 {
     GameCustomsButton gcb;

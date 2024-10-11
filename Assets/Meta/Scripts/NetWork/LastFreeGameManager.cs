@@ -13,6 +13,7 @@ using SlotMaker.Slots.Tasks.Actions.Game;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -202,7 +203,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
     }
 
 
-    FirstSpinInfo firstSpinInfo;
+    public FirstSpinInfo FreeSpinInfo { get; private set; }
 
 
     bool isStartLastFreeSpin = false;
@@ -212,11 +213,9 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
 
 
         // 获取第一包spin的数据
-        firstSpinInfo = new FirstSpinInfo();
-        firstSpinInfo.GetFirstSpinInfo(historyRes[0]);
-        firstSpinInfo.GetSecondClaimInfo(historyRes[1]);
+        FreeSpinInfo = new FirstSpinInfo(historyRes);
 
-        if (firstSpinInfo.betCredit == 0)
+        if (FreeSpinInfo.betCredit == 0)
         {
             Debug.LogError($"找不到bet_credit  数据 = {historyRes[0]}");
             yield break;
@@ -234,7 +233,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         int index = 0;
         for (int i = 0; i < IGBC.BetList.Count; i++)
         {
-            if (firstSpinInfo.betCredit == IGBC.BetList[i])
+            if (FreeSpinInfo.betCredit == IGBC.BetList[i])
             {
                 index = i; break;
             }
@@ -307,6 +306,18 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                 EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData("LastCoinPick"));
                 EventSender.SendGlobalEvent("OnContentUIEvent", new ParadoxNotion.EventData("EndCoinPick"));
                 break;
+            case 153://超人
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Click"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("0Clicked"));
+                List<int> selectIndexList = LastFreeGameManager.Instance.FreeSpinInfo.SelectTypeList;
+                int currentSelectCount = BlackboardUtils.GetOrCreateVariable<int>("./bonusSelectCount").value;
+                int selectTypeCurrentIndex = currentSelectCount - currentSelectCount / 4 - 1;
+                if (selectTypeCurrentIndex >= selectIndexList.Count || selectTypeCurrentIndex < 0)
+                    break;
+                int selectType = selectIndexList[selectTypeCurrentIndex] % 52;
+                string eventName = selectType >= 26 ? "HighClicked" : "LowClicked";
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData(eventName));
+                break;
             default:
                 break;
         }
@@ -351,7 +362,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
 
             for (int i = 0; i < temp.Count; i++)
             {
-                select[i] += temp[i] * firstSpinInfo.triggeredTypeIndex_id93;
+                select[i] += temp[i] * FreeSpinInfo.triggeredTypeIndex_id93;
             }
 
             if (select.Contains(totalCount))
@@ -428,27 +439,27 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
         else if (globalStore.nowGameID == 83)
         {
-            EventSender.SendGlobalEvent("OnCustomEvent", new EventData($"Click{5 - firstSpinInfo.SelectedIndex}"));
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData($"Click{5 - FreeSpinInfo.SelectedIndex}"));
 
             //From:whh - 2024年9月12日
             //补充免费游戏中弹出小游戏的断线重连逻辑
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClick"));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("collectEvent"));
         }
-        else if(globalStore.nowGameID == 62)
+        else if (globalStore.nowGameID == 62)
         {
-            EventSender.SendGlobalEvent("OnCustomEvent", new EventData($"Click{firstSpinInfo.SelectedIndex + 1}"));
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData($"Click{FreeSpinInfo.SelectedIndex + 1}"));
         }
-        else if(globalStore.nowGameID == 31)
+        else if (globalStore.nowGameID == 31)
         {
             EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("FinishedShowTTS"));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("TapScreen"));
-            
-            EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("TrySpinWheel")); 
+
+            EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("TrySpinWheel"));
         }
         else if (globalStore.nowGameID == 142)////丛林火焰
         {
-            int index = (int)(totalCount / (firstSpinInfo.betCredit - totalCount)) - 1;
+            int index = (int)(totalCount / (FreeSpinInfo.betCredit - totalCount)) - 1;
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>("Change", index));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
         }
@@ -476,7 +487,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
     public int Get142GameExtraBetIndex()
     {
         int totalCount = GetTotalCount();
-        int index = (int)(totalCount / (firstSpinInfo.betCredit - totalCount)) - 1;
+        int index = (int)(totalCount / (FreeSpinInfo.betCredit - totalCount)) - 1;
         return index;
     }
 
@@ -573,7 +584,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         {
             string res = historyRes[0];
             Debug.Log($"【LastFreeSpin】 : {rpc} = {res}");
-            SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(res as string);
+            SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(res);
             historyRes.RemoveAt(0);
             if (historyRes.Count == 0) //最后一局不放慢
             {
@@ -665,6 +676,16 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
 /// </summary>
 public class FirstSpinInfo
 {
+    public FirstSpinInfo(List<string> historyRes)
+    {
+        historyJsonRes = ParseHistory(historyRes);
+        GetFirstSpinInfo(historyRes[0]);
+        GetSecondClaimInfo(historyRes[1]);
+        SelectTypeList = GetSelectIndexList(historyJsonRes);
+    }
+
+    public List<JSONNode> historyJsonRes;
+
     /// <summary>
     /// 选择游戏的类型
     /// </summary>
@@ -680,7 +701,27 @@ public class FirstSpinInfo
     /// </summary>
     public int SelectedIndex { get; private set; }
 
-    public void GetFirstSpinInfo(string spin)
+    public List<int> SelectTypeList { get; private set; }
+
+    /// <summary>
+    /// 解析history字符串为json格式
+    /// </summary>
+    /// <param name="historyRes"></param>
+    private List<JSONNode> ParseHistory(List<string> historyRes)
+    {
+        if (historyRes == null || historyRes.Count <= 0)
+            return null;
+
+        var ret = new List<JSONNode>();
+        foreach (var item in historyRes)
+        {
+            JSONNode jsonRes = JSONNode.Parse(item);
+            ret.Add(jsonRes);
+        }
+
+        return ret;
+    }
+    private void GetFirstSpinInfo(string spin)
     {
         //From:whh - 2024年9月19日
         //有些游戏用的是bet，有些游戏用的是bet_credit
@@ -698,7 +739,7 @@ public class FirstSpinInfo
             match = match.NextMatch();
         }
 
-        if(bet <= 0)
+        if (bet <= 0)
         {
             pattern = "\"bet\":\\s*(\\d+)";
             match = Regex.Match(spin, pattern);
@@ -729,7 +770,7 @@ public class FirstSpinInfo
             }
         }
     }
-    public void GetSecondClaimInfo(string claim)
+    private void GetSecondClaimInfo(string claim)
     {
         string pattern = "\"selected_index\":\\s*(\\d+)";
         Match match = Regex.Match(claim, pattern);
@@ -738,5 +779,38 @@ public class FirstSpinInfo
             string str = match.Groups[1].Value;
             SelectedIndex = int.Parse(str);
         }
+    }
+    /// <summary>
+    /// 获取所有Cliaim中的SelectIndex数据，顺序存储到list中
+    /// </summary>
+    /// <remarks>
+    /// 用于断线重连中还原用户操作
+    /// </remarks>
+    /// <param name="historyJson"></param>
+    /// <returns></returns>
+    private List<int> GetSelectIndexList(List<JSONNode> historyJson)
+    {
+        if (historyJson == null || historyJson.Count <= 0)
+            return null;
+
+        List<int> ret = new List<int>();
+        foreach (var item in historyJson)
+        {
+            if (item["protocol_key"] != "claim_bonus")
+                continue;
+
+            if (item.HasKey("client_data") == false)
+                continue;
+
+            JSONNode clientDataNode = item["client_data"];
+            if (clientDataNode.HasKey("decision_info") == false)
+                continue;
+
+            JSONNode decisionInfoNode = clientDataNode["decision_info"];
+            int selectIndex = decisionInfoNode["selected_index"].AsInt;
+            ret.Add(selectIndex);
+        }
+
+        return ret;
     }
 }
