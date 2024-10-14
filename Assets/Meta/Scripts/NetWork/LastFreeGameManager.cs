@@ -231,7 +231,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             yield return new WaitForSeconds(0.5f);
         }
 
-        firstSpinInfo.betCredit -= GetExtraBet(historyRes[0]);
+        FreeSpinInfo.betCredit -= GetExtraBet(historyRes[0]);
 
         int index = 0;
         for (int i = 0; i < IGBC.BetList.Count; i++)
