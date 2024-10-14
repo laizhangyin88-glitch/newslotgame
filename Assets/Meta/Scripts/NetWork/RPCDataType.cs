@@ -120,6 +120,26 @@ public class RPCName
 
     /// <summary> 每日转盘 </summary>
     public const string tryDailyLottery = "try_daily_lottery";
+
+    /// <summary>
+    ///  ###输入支付二维码金额###
+    /// </summary>
+    public const string agent_build_qr_code = "agent_build_qr_code";
+
+    /// <summary>
+    /// ###验证支付二维码###
+    /// </summary>
+    public const string agent_check_qr_code_print_order = "agent_check_qr_code_print_order";
+
+    /// <summary>
+    /// ###验证银行凭证###
+    /// </summary>
+    public const string agent_check_bank_order = "agent_check_bank_order";
+
+    /// <summary>
+    /// 刷新玩家金额数据
+    /// </summary>
+    public const string refresh_credit = "refresh_credit";
 }
 
 namespace RPCBase
