@@ -228,6 +228,10 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         while (IGBC == null)
         {
             IGBC = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Bet")?.GetComponent<InGameBetController>();
+            if (IGBC == null) 
+            {
+                IGBC = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Left/Bet")?.GetComponent<InGameBetController>();///竖屏游戏的bet路径
+            }
             yield return new WaitForSeconds(0.5f);
         }
 
@@ -249,6 +253,10 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         while (SpinBtn == null)
         {
             SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Button Spin")?.GetComponent<SpinButton>();
+            if (SpinBtn == null)
+            {
+                SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Center/Button Spin")?.GetComponent<SpinButton>();///竖屏游戏的spinbutton路径
+            }
             yield return new WaitForSeconds(0.5f);
         }
         /*if (SpinBtn == null)
