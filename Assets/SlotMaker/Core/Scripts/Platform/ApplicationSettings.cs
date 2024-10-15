@@ -159,7 +159,10 @@ namespace SlotMaker
             url += "MarsFortune/Test/";
 #elif MARS_FORTUNE_REALSE
             url += "MarsFortune/Realse/";
+#elif SLOTCLIENT_TEST
+            url += "SlotClientMain/Test"; 
 #endif
+
             return url;
         }
         public static string GetStreamingBundlePath()
