@@ -58,6 +58,15 @@ public class EnterGame : ActionTask <Blackboard>
                     response.betList = betList;
                     response.contents = res["contents"].ToString();
 
+                    if (res["use_forced_extra_bet_ratio"] != null)
+                    {
+                        response.useForcedExtraBetRatio = res["use_forced_extra_bet_ratio"].AsBool;
+                    }
+
+                    if (res["forced_extra_bet_ratio_index_list"] != null) 
+                    {
+                        response.forcedExtraBetRatioIndexList = res["forced_extra_bet_ratio_index_list"].AsStringList.Select(s => int.Parse(s)).ToList();
+                    }
 
                     var bb = ContentBlackboard.Get();
 
