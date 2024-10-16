@@ -22,12 +22,8 @@ namespace SlotMaker
 
         public Sprite GetSprite(int groupId, int spriteId)
         {
-            if (groupId <= 0 && spriteId <= 0)
-            {
-                var asset = assets[groupId] as ISymbolSprite;
-                return asset?.Sprites[spriteId];
-            }
-            return null;
+            var asset = assets[groupId] as ISymbolSprite;
+            return asset?.Sprites[spriteId];
         }
 
         public Material GetMaterial(int groupId, int materialId)
