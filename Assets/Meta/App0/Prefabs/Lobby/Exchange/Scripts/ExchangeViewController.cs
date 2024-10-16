@@ -237,7 +237,7 @@ public class ExchangeViewController : MonoBehaviour
             };
             NetManager.Instance.Post(RPCName.agent_build_qr_code, req, (res) =>
             {
-                QRCodeInfo = res["qr_code_key"].ToString();
+                QRCodeInfo = res["qr_code_key"];
                 DrawQRCode(QRCodeInfo);
                 QRCodeRawImage.transform.parent.gameObject.SetActive(true);
             },

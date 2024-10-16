@@ -228,10 +228,14 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         while (IGBC == null)
         {
             IGBC = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Bet")?.GetComponent<InGameBetController>();
+            if (IGBC == null) 
+            {
+                IGBC = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Left/Bet")?.GetComponent<InGameBetController>();///竖屏游戏的bet路径
+            }
             yield return new WaitForSeconds(0.5f);
         }
 
-        FreeSpinInfo.betCredit -= GetExtraBet(historyRes[0]);
+        ///FreeSpinInfo.betCredit -= GetExtraBet(historyRes[0]);
 
         int index = 0;
         for (int i = 0; i < IGBC.BetList.Count; i++)
@@ -249,6 +253,10 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         while (SpinBtn == null)
         {
             SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Button Spin")?.GetComponent<SpinButton>();
+            if (SpinBtn == null)
+            {
+                SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Center/Button Spin")?.GetComponent<SpinButton>();///竖屏游戏的spinbutton路径
+            }
             yield return new WaitForSeconds(0.5f);
         }
         /*if (SpinBtn == null)
@@ -478,7 +486,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
         else if (globalStore.nowGameID == 142)////丛林火焰
         {
-            int index = (int)(totalCount / (FreeSpinInfo.betCredit - totalCount)) - 1;
+            int index = (int)(FreeSpinInfo.extraBetCredit / (FreeSpinInfo.betCredit)) - 1; 
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>("Change", index));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
         }
@@ -505,8 +513,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
 
     public int Get142GameExtraBetIndex()
     {
-        int totalCount = GetTotalCount();
-        int index = (int)(totalCount / (FreeSpinInfo.betCredit - totalCount)) - 1;
+        int index = (int)(FreeSpinInfo.extraBetCredit / (FreeSpinInfo.betCredit)) - 1;
         return index;
     }
 
@@ -720,6 +727,11 @@ public class FirstSpinInfo
     public long betCredit = 0;
 
     /// <summary>
+    /// 额外下注金额
+    /// </summary>
+    public long extraBetCredit = 0;
+
+    /// <summary>
     /// 免费游戏前的选择索引（可通用）
     /// </summary>
     public int SelectedIndex { get; private set; }
@@ -751,31 +763,25 @@ public class FirstSpinInfo
         //之前的逻辑是根据游戏id来做逻辑分支
         //为免以后再出现类似问题，直接优化逻辑如下
 
-        string pattern = "\"bet_credit\":\\s*(\\d+)";
+        ///string pattern = "\"bet_credit\":\\s*(\\d+)";
+        ///获取下注金额统一使用  bet  来识别，因为 bet_credit 这个数值会包含 额外下注的金额，数值不正确的
+        string pattern = "\"bet\":\\s*(\\d+)";
         Match match = Regex.Match(spin, pattern);
-        long bet = 0;
-
-        while (match.Success && bet <= 0)
+        while (match.Success)
         {
             string str = match.Groups[1].Value;
-            bet = long.Parse(str);
+            betCredit = long.Parse(str);
             match = match.NextMatch();
         }
-
-        if (bet <= 0)
+        ////获取额外下注金额 
+        pattern = "\"extra_bet\":\\s*(\\d+)";
+        match = Regex.Match(spin, pattern);
+        while (match.Success)
         {
-            pattern = "\"bet\":\\s*(\\d+)";
-            match = Regex.Match(spin, pattern);
-
-            while (match.Success && bet <= 0)
-            {
-                string str = match.Groups[1].Value;
-                bet = long.Parse(str);
-                match = match.NextMatch();
-            }
+            string str = match.Groups[1].Value;
+            extraBetCredit = long.Parse(str);
+            match = match.NextMatch();
         }
-
-        betCredit = bet;
 
         if (globalStore.nowGameID == 93)
         {
