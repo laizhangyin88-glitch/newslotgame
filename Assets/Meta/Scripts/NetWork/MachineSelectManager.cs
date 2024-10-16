@@ -1606,6 +1606,18 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 130:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Main Wheel");
                 break;
+            case 142:
+                ContextAnimator[] ContextAnimators = GameObject.FindObjectsOfType<ContextAnimator>();
+                for (int i = 0;i < ContextAnimators.Length; i++)
+                {
+                    ContextAnimator temp = ContextAnimators[i];
+                    if(temp.gameObject.name == "Respin symbol win")
+                    {
+                        obj = temp.gameObject;
+                        break;
+                    }
+                }
+                break;
             case 152:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Bonus game");
                 break;
@@ -1695,6 +1707,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 130:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Touch"));
+                break;
+            case 142:
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FlySymbolEnroute"));
                 break;
             case 152:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartWheel"));
