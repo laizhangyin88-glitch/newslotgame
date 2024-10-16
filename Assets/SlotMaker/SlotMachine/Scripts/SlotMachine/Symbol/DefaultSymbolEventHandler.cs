@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,7 +102,7 @@ namespace SlotMaker
                 symbolPresets.Add(
                     new SymbolRendererList()
                     {
-                        texture = symbolAssets.GetSpriteCount(i) == 0 ? null : symbolAssets.GetSprite(i, 0).texture,
+                        texture = symbolAssets.GetSpriteCount(i) == 0 ? null : symbolAssets.GetSprite(i, 0)?.texture,
                         index = i,
                         name = symbolAssets.GetSymbolBehaviour(i).name,
                         value = new List<SymbolRenderer>() { new SymbolRenderer() },

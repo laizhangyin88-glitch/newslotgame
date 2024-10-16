@@ -1606,6 +1606,18 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 130:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Main Wheel");
                 break;
+            case 142:
+                ContextAnimator[] ContextAnimators = GameObject.FindObjectsOfType<ContextAnimator>();
+                for (int i = 0;i < ContextAnimators.Length; i++)
+                {
+                    ContextAnimator temp = ContextAnimators[i];
+                    if(temp.gameObject.name == "Respin symbol win")
+                    {
+                        obj = temp.gameObject;
+                        break;
+                    }
+                }
+                break;
             case 152:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Bonus game");
                 break;
@@ -1620,6 +1632,13 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 179:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Bonus game anchor");
+                break;
+            case 182:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Foreground/Main Wheel/Animator/Anchor/Wheel Bonus Popup");
+                if (obj != null && !obj.active)
+                {
+                    obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Jimmy Character Migic Hand");
+                }
                 break;
             case 183:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Slot Frame/Wheel Bonus");
@@ -1689,6 +1708,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 130:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Touch"));
                 break;
+            case 142:
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FlySymbolEnroute"));
+                break;
             case 152:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartWheel"));
                 EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("StageEnd"));
@@ -1708,6 +1730,11 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("PickFinished"));
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));
                 //EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("BonusGameEnd"));
+                break;
+            case 182:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Touch"));
+                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("BingoFrameEndResetBingo"));
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("JimmyMagicOutro"));
                 break;
             case 183:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData<int>("OnBigWheelClick", _curSelectNumb));
