@@ -7,7 +7,6 @@ using UnityEngine.UI;
 using ZXing.QrCode.Internal;
 using ZXing;
 using BagelCode;
-using System.Runtime.Remoting.Contexts;
 using GameUtil;
 
 public class ExchangeViewController : MonoBehaviour
