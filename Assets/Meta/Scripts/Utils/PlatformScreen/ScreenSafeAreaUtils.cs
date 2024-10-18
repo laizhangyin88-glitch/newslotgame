@@ -37,10 +37,10 @@ namespace BagelCode
                 case DeviceGeneration.iPhone12:
                 case DeviceGeneration.iPhone12Pro:
                 case DeviceGeneration.iPhone12ProMax:
-                case DeviceGeneration.iPhone13:
-                case DeviceGeneration.iPhone13Mini:
-                case DeviceGeneration.iPhone13Pro:
-                case DeviceGeneration.iPhone13ProMax:
+                //case DeviceGeneration.iPhone13:
+                //case DeviceGeneration.iPhone13Mini:
+                //case DeviceGeneration.iPhone13Pro:
+                //case DeviceGeneration.iPhone13ProMax:
                     return true;
                 case DeviceGeneration.iPhoneUnknown:
                     //return IsUknowniPhoneX();

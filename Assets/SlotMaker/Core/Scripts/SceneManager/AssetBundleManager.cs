@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using BagelCode.Tasks.Actions;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -214,11 +216,11 @@ namespace SlotMaker
 #if UNITY_WEBGL || USE_ASSETBUNDLE_FILECACHE
                     operation = new AssetBundleLoadWWWBundle(bundleName, false);
 #else
-                    operation = new AssetBundleLoadFileBundle(bundleName);
+                operation = new AssetBundleLoadFileBundle(bundleName);
 #endif
             else
             {
-                    operation = new AssetBundleLoadWWWBundle(bundleName);
+                operation = new AssetBundleLoadWWWBundle(bundleName);
             }
 #else
             operation = new AssetBundleLoadBundleSimulation();
@@ -336,7 +338,7 @@ namespace SlotMaker
                 return asset.asset;
 
 #if USE_ASSETBUNDLE
-            if (bundleName == "Android")
+            if (bundleName == ApplicationSettings.GetPlatformName())
                 Debug.Log("[AssetBundleManager] There is no asset with name \"" + assetName + "\" in " + bundleName);
             LoadedAssetBundle bundle = AssetBundleManager.GetLoadedAssetBundle(bundleName);
             if (bundle != null)
@@ -348,7 +350,7 @@ namespace SlotMaker
             else
                 return null;
 #elif UNITY_EDITOR
-            if ( bundleName == "Android")
+            if ( bundleName == ApplicationSettings.GetPlatformName())
                 Debug.Log("[AssetBundleManager] There is no asset with name \"" + assetName + "\" in " + bundleName);
             string[] assetPaths = AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(bundleName, assetName);
             if (assetPaths.Length > 0)
