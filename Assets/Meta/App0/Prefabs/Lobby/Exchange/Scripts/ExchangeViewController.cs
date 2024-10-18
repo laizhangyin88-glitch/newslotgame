@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using ZXing.QrCode.Internal;
 using ZXing;
 using BagelCode;
-using System.Runtime.Remoting.Contexts;
+//using System.Runtime.Remoting.Contexts;
 using GameUtil;
 
 public class ExchangeViewController : MonoBehaviour
@@ -26,7 +26,7 @@ public class ExchangeViewController : MonoBehaviour
     private Button ButtonQR;
     private BarcodeWriter barcodeWriter;
 
-    private TMP_InputField QRInputField; 
+    private TMP_InputField QRInputField;
 
     private float waitTime = 5.0f;
 
@@ -59,7 +59,7 @@ public class ExchangeViewController : MonoBehaviour
         QRCodeRawImage = transform.Find("content/QR/RawImage").GetComponent<RawImage>();
         ButtonQR = QRCodeRawImage.transform.GetChild(0).GetComponent<Button>();
         ButtonQR.onClick.AddListener(() => { QRCodeRawImage.transform.parent.gameObject.SetActive(false); });
-        QRCodeRawImage.transform.parent.gameObject.SetActive(false); 
+        QRCodeRawImage.transform.parent.gameObject.SetActive(false);
         Transform btnParent = transform.Find("content/btns");
         value_txt = transform.Find("content/Image/value_txt").GetComponent<TextMeshProUGUI>();
         value_txt.text = "";
@@ -151,7 +151,7 @@ public class ExchangeViewController : MonoBehaviour
         {
             Button button = parent.GetChild(i).GetComponent<Button>();
             TextMeshProUGUI text = button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            
+
             if(i == 9)
             {
                 text.text = "X";
@@ -182,7 +182,7 @@ public class ExchangeViewController : MonoBehaviour
                 int temp = i + 1;
                 button.onClick.AddListener(() =>
                 {
-                    OnClickBtn(temp); 
+                    OnClickBtn(temp);
                 });
             }
         }
@@ -214,12 +214,12 @@ public class ExchangeViewController : MonoBehaviour
                 break;
         }
     }
-     
+
     private void OnClickZero()
     {
         if (string.IsNullOrEmpty(value_txt.text))
         {
-           
+
         }
         else
         {
@@ -250,7 +250,7 @@ public class ExchangeViewController : MonoBehaviour
 
     private void OnClickTestBtn()
     {
-        QRInputField.gameObject.SetActive(true); 
+        QRInputField.gameObject.SetActive(true);
         QRInputField.text = "";
         QRInputField.ActivateInputField();
         InputFieldChange();
@@ -258,7 +258,7 @@ public class ExchangeViewController : MonoBehaviour
 
     private IEnumerator UseBankQRCode(string code)
     {
-        yield return new WaitForSeconds(1); 
+        yield return new WaitForSeconds(1);
         Dictionary<string, object> req = new Dictionary<string, object>
         {
             {"bank_order_id", code},
@@ -266,7 +266,7 @@ public class ExchangeViewController : MonoBehaviour
         NetManager.Instance.Post(RPCName.agent_check_bank_order, req, (res) =>
         {
             Debug.LogError(res.ToString());
-            Debug.LogError("上分成功.........................."); 
+            Debug.LogError("上分成功..........................");
         },
         (error) =>
         {
@@ -280,7 +280,7 @@ public class ExchangeViewController : MonoBehaviour
         value_txt.text += (index).ToString();
     }
 
-    private void DeletedNumber() 
+    private void DeletedNumber()
     {
         if (value_txt.text.Length > 0)
         {
