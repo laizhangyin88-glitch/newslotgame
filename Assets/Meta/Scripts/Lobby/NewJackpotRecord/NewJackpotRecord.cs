@@ -47,6 +47,7 @@ public class NewJackpotRecord : MonoBehaviour
 
     private void GetJackpotRecord(int type)
     {
+        gameObject.GetComponent<GameSoundPlayer>().PlayGameSound("UI_Button_Normal");
         string bbTimerStr = $"jackpotRecordTimer{type}";
         string bbJackpotRecordStr = $"jackpotRecordType{type}";
         long timeStamp = MainBlackboard.Get().GetVariable<long>(bbTimerStr) != null ? MainBlackboard.Get().GetValue<long>(bbTimerStr) : 0;

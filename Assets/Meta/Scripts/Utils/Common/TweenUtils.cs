@@ -51,7 +51,10 @@ namespace BagelCode
         {
             return Color.Lerp(from, to, TweenInQuad(t));
         }
-
+        public static Vector3 VectorTweenEaseInExpo(Vector3 from, Vector3 to, float t)
+        {
+            return Vector3.Lerp(from, to, easeInExpo(t));
+        }
         #endregion
 
         #region Tween Float
@@ -105,6 +108,11 @@ namespace BagelCode
         public static float TweenInQuint(float t)
         {
             return t * t * t * t * t;
+        }
+
+        public static float easeInExpo(float t)
+        {
+            return (float)(t == 0 ? 0 : Math.Pow(2, 10 * t - 10));
         }
 
         #endregion

@@ -9,7 +9,7 @@ public class NewJackpotDialog : MonoBehaviour
 {
     private ContextButton backBtn;
     private ContextButton recordBtn;
-    private List<Jackpot> jackpots;
+    private List<int> jackpots;
     private List<TextMeshProUGUI> jackpotTxtList = new List<TextMeshProUGUI>();
 
     void Start()
@@ -33,14 +33,14 @@ public class NewJackpotDialog : MonoBehaviour
 
     private void InitJackpot()
     {
-        jackpots = MainBlackboard.Get().GetValue<List<Jackpot>>("LobbyJackpot");
+        jackpots = MainBlackboard.Get().GetValue<List<int>>("LobbyJackpotScore");
         for (int i = 0; i < jackpots.Count; i++)
-            jackpotTxtList[i].text = GetNumStr(jackpots[i].total_bonus_count);
+            jackpotTxtList[i].text = jackpots[i].ToString();
     }
 
     private string GetNumStr(int num)
     {
-        string str = "$";
+        string str = "";
         string temp = (num % 10).ToString();
         num /= 10;
         temp = (num % 10).ToString() + temp;

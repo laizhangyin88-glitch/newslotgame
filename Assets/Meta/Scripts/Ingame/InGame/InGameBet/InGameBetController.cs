@@ -298,7 +298,8 @@ namespace BagelCode
 
         public void UpdateBetIndex(int index)
         {
-            if (index < 0 || index >= BetList.Count) index = 0;
+            if (index < 0) index = 0;
+            if (index >= BetList.Count) index = BetList.Count - 1;
 
             UpdateGameSpin(BetList[index]);
 
@@ -405,7 +406,8 @@ namespace BagelCode
                 long userCredit = BlackboardUtils.FindVariable<long>("/me/credit").value;
 
                 bool isHighLevel = (Level >= AutoBetSelectHighLevelStart);
-                choosedBetIndex = ChooseBetIndex(userCredit, userCredit / (long)(isHighLevel ? AutoBetSelectMultiplierHighLevel : AutoBetSelectMultiplierLowLevel));
+                //choosedBetIndex = ChooseBetIndex(userCredit, userCredit / (long)(isHighLevel ? AutoBetSelectMultiplierHighLevel : AutoBetSelectMultiplierLowLevel));
+                
                 if (isHighLevel)
                 {
                     long lastBetCredit = System.Convert.ToInt64(PlayerPrefs.GetString("LAST_BET_CREDIT", "0"));
@@ -413,6 +415,7 @@ namespace BagelCode
                     if (choosedBetIndex < lastBetIndex)
                         choosedBetIndex = lastBetIndex;
                 }
+                choosedBetIndex = 0;
             }
 
             MessageDispatcher.Dispatch("OnCreditEvent", new EventData<int>("UpdateBetIndex", choosedBetIndex));

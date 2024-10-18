@@ -29,44 +29,44 @@ namespace BagelCode.EpicAlbum
             bool gameExistInEpicAlbum = BlackboardQueryUtils.CheckIfGameExistInEpicAlbum(gameId.value);
             Blackboard earlyAccessSlotInfo = BlackboardQueryUtils.GetEarlyAccessSlotInfo(gameId.value);
             
-            if (enableEpicAlbum && earlyAccessSlotInfo == null && gameExistInEpicAlbum)
-            {
-                MetaContextElementUtils.SetActive(myEpicWinRecord, true);
-                // MetaContextElementUtils.SetActive(myLeaderboardCell, true);
+            //if (enableEpicAlbum && earlyAccessSlotInfo == null && gameExistInEpicAlbum)
+            //{
+            //    MetaContextElementUtils.SetActive(myEpicWinRecord, true);
+            //    // MetaContextElementUtils.SetActive(myLeaderboardCell, true);
 
-                // MetaContextElementUtils.SimpleSetText(myLeaderboardCell, "Text Name", BlackboardUtils.FindVariable<string>(null, "/me/name").value);
+            //    // MetaContextElementUtils.SimpleSetText(myLeaderboardCell, "Text Name", BlackboardUtils.FindVariable<string>(null, "/me/name").value);
                 
-                // long winCredit = BlackboardQueryUtils.GetWinCreditOfGame(gameId.value);
+            //    // long winCredit = BlackboardQueryUtils.GetWinCreditOfGame(gameId.value);
 
-                // if (winCredit > 0)
-                // {
-                //     var winCoinText = StringTableUtils.GetString(tableType, "LEADER_BOARD_COIN_FORMAT", winCredit);
-                //     MetaContextElementUtils.SimpleSetText(myLeaderboardCell, "Text Coin", winCoinText);
-                // }
-                // else
-                // {
-                //     MetaContextElementUtils.SimpleSetText(myLeaderboardCell, "Text Coin", "0");
-                // }
+            //    // if (winCredit > 0)
+            //    // {
+            //    //     var winCoinText = StringTableUtils.GetString(tableType, "LEADER_BOARD_COIN_FORMAT", winCredit);
+            //    //     MetaContextElementUtils.SimpleSetText(myLeaderboardCell, "Text Coin", winCoinText);
+            //    // }
+            //    // else
+            //    // {
+            //    //     MetaContextElementUtils.SimpleSetText(myLeaderboardCell, "Text Coin", "0");
+            //    // }
 
-                int starCount = BlackboardQueryUtils.GetStarCountOfGame(gameId.value);
+            //    int starCount = BlackboardQueryUtils.GetStarCountOfGame(gameId.value);
 
-                for(int i=0; i<STAR_COUNT; ++i)
-                {
-                    MetaContextElementUtils.SimpleSetActive(myEpicWinRecord, string.Format("Star On {0}", i+1), starCount > i);
-                }
+            //    for(int i=0; i<STAR_COUNT; ++i)
+            //    {
+            //        MetaContextElementUtils.SimpleSetActive(myEpicWinRecord, string.Format("Star On {0}", i+1), starCount > i);
+            //    }
 
-                // var profileUrl = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/profileUrl");
-                // var tierGroup = TierUtils.GetTierGroup(TierUtils.GetMeTier());
+            //    // var profileUrl = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/profileUrl");
+            //    // var tierGroup = TierUtils.GetTierGroup(TierUtils.GetMeTier());
 
-                // ContextElement pictureElement = ContextUtils.FindElement(myPictureArea, "Image", ContextSearchingType.ChildrenSearch);
-                // if(profileUrl != null && !string.IsNullOrEmpty(profileUrl.value))
-                //     MetaContextElementUtils.SetWebImage(pictureElement, profileUrl.value, CacheType.FileCache, false, null);
+            //    // ContextElement pictureElement = ContextUtils.FindElement(myPictureArea, "Image", ContextSearchingType.ChildrenSearch);
+            //    // if(profileUrl != null && !string.IsNullOrEmpty(profileUrl.value))
+            //    //     MetaContextElementUtils.SetWebImage(pictureElement, profileUrl.value, CacheType.FileCache, false, null);
 
-                // MetaContextElementUtils.SetIntProperty(myPictureArea, tierGroup);
+            //    // MetaContextElementUtils.SetIntProperty(myPictureArea, tierGroup);
 
-                // saveAsIsUsable.value = true;
-            }
-            else
+            //    // saveAsIsUsable.value = true;
+            //}
+            //else
             {
                 // MetaContextElementUtils.SetActive(myLeaderboardCell, false);
                 MetaContextElementUtils.SetActive(myEpicWinRecord, false);

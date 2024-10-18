@@ -159,7 +159,10 @@ namespace SlotMaker
             url += "MarsFortune/Test/";
 #elif MARS_FORTUNE_REALSE
             url += "MarsFortune/Realse/";
+#elif SLOTCLIENT_TEST
+            url += "SlotClientMain/Test"; 
 #endif
+
             return url;
         }
         public static string GetStreamingBundlePath()
@@ -229,6 +232,20 @@ namespace SlotMaker
 
     		return returnValue;
     	}
+
+        public static List<string> GetMachineStreamingAssets()
+        {
+            List<string> returnValue = new List<string>();
+
+            for (int i = 0; i < Instance.staticMachineStreamingAssets.Count; ++i)
+            {
+                returnValue.Add(string.Format("{0}{1}", Instance.staticMachineStreamingAssets[i], Instance.applicationType).ToLower());
+            }
+
+            returnValue.AddRange(Instance.staticMachineStreamingAssets);
+
+            return returnValue;
+        }
 
         public static string GetDeviceModel()
         {

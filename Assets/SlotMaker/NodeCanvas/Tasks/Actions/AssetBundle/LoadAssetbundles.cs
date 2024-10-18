@@ -21,24 +21,19 @@ namespace SlotMaker.Tasks.Actions
         protected override void OnExecute()
         {
             loadOperations = new List<AssetBundleLoadOperation>();
-            if (bundleList.value[0] == "fishing")
-            {
-                bundleList.value.Add("fishingaudio");
-                bundleList.value.Add("fishingpanel");
-                bundleList.value.Add("fishingeffect");
-                bundleList.value.Add("fishinggold");
-                bundleList.value.Add("fishinglighteffect");
-                bundleList.value.Add("fishingnet");
-                bundleList.value.Add("fishingscore");
-                bundleList.value.Add("fishingskill");
-                bundleList.value.Add("fishingspecialdeclare");
-                bundleList.value.Add("fishingtips");
-                bundleList.value.Add("fishingbg");
-                bundleList.value.Add("fishingplustips");
-            }
+            List<string> strings = ApplicationSettings.GetMachineStreamingAssets();
             for (int i = 0; i < bundleList.value.Count; ++i)
             {
-                if (forceDLC) AssetBundleManager.AddDLC(bundleList.value[i]);
+                if (forceDLC)
+                {
+                    if (ApplicationSettings.Instance.isMachine)
+                    {
+                        if (!strings.Contains(bundleList.value[i]))
+                            AssetBundleManager.AddDLC(bundleList.value[i]);
+                    }
+                    else
+                        AssetBundleManager.AddDLC(bundleList.value[i]);
+                }
                 loadOperations.AddRange(AssetBundleManager.LoadDependencies(bundleList.value[i]));
                 loadOperations.Add(AssetBundleManager.LoadAssetBundle(bundleList.value[i]));
             }

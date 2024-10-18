@@ -21,6 +21,7 @@ public class DailyLottery : MonoBehaviour
     private GameObject rollingEffect;
     private List<TextMeshProUGUI> jackpotList = new List<TextMeshProUGUI>();
     private List<int> creditList = new List<int>();
+    private List<int> showList = new List<int>();
     private Animator animator;
     private bool canSpin;
 
@@ -94,11 +95,35 @@ public class DailyLottery : MonoBehaviour
         spinBtnAni.SetInteger("enable", canSpin ? 1 : 0);
         var tempList = jsonData["credit_list"];
         for (int i = 0; i < tempList.Count; i++)
+        {
             creditList.Add(tempList[i]);
+            if (i < tempList.Count - 1)
+                showList.Add(tempList[i]);
+        }
+        Shuffle(showList);
+        showList.Add(tempList[tempList.Count - 1]);
         for (int i = 0; i < jackpotList.Count; i++)
-            jackpotList[i].text = creditList[i] > 999 ? GetLotteryNumStr(creditList[i]) : creditList[i].ToString();
+            jackpotList[i].text = showList[i] > 999 ? GetLotteryNumStr(creditList[i]) : showList[i].ToString();
         state = State.Ready;
     }
+
+    public List<T> Shuffle<T>(List<T> original)
+    {
+        System.Random randomNum = new System.Random();
+        T temp;
+        for (int i = 0; i < original.Count; i++)
+        {
+            int index = randomNum.Next(0, original.Count - 1);
+            if (index != i)
+            {
+                temp = original[i];
+                original[i] = original[index];
+                original[index] = temp;
+            }
+        }
+        return original;
+    }
+
 
     private string GetLotteryNumStr(float num)
     {
@@ -129,8 +154,9 @@ public class DailyLottery : MonoBehaviour
         int index = jsonData["index"];
         int reward = jsonData["reward_credit"];
         balance = jsonData["balance"];
-        targetZ = (index + 1) * 36f;
-        winIdex = index;
+        int trueIndex = showList.IndexOf(creditList[index]);
+        targetZ = (trueIndex + 1) * 36f;
+        winIdex = trueIndex;
         winText.text = GetJackpotNumStr(reward);
         //StartRoll();
         NewStartRoll();
