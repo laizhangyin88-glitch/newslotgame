@@ -45,30 +45,30 @@ namespace BagelCode
 
         private void UpdateScaleFactor()
         {
-            float scaleFactor = 1f;
+
+            transform.localScale = Vector3.one;
             if (OrientationUtils.Instance.contentOrientation == ScreenOrientation.LandscapeLeft) return;
             //if (OrientationUtils.Instance.contentOrientation == ScreenOrientation.LandscapeLeft)
             //{
             //    transform.localScale = Vector3.one;
             //}
             //else
-            {
-                var targetSize = OrientationUtils.Instance.PossibleChangeOrientation() ? vertical : verticalLandscape;
+            float scaleFactor = 1f;
+            var targetSize = OrientationUtils.Instance.PossibleChangeOrientation() ? vertical : verticalLandscape;
 
-                scaleFactor = Mathf.Min(pivotRect.sizeDelta.x / targetSize.x, pivotRect.sizeDelta.y / targetSize.y);
+            scaleFactor = Mathf.Min(pivotRect.sizeDelta.x / targetSize.x, pivotRect.sizeDelta.y / targetSize.y);
 
-                transform.localScale = Vector3.one * scaleFactor;
-            }
+            transform.localScale = Vector3.one * scaleFactor;
 
-            if (pivotRect != null)
-            {
-                if (scaleFactor != 1f)
-                    rect.sizeDelta = pivotRect.sizeDelta * (1f / scaleFactor);
-                else
-                    rect.sizeDelta = pivotRect.sizeDelta;
+            //if (pivotRect != null)
+            //{
+            //    if (scaleFactor != 1f)
+            //        rect.sizeDelta = pivotRect.sizeDelta * (1f / scaleFactor);
+            //    else
+            //        rect.sizeDelta = pivotRect.sizeDelta;
 
-                prevSizeDelta = pivotRect.sizeDelta;
-            }
+            //    prevSizeDelta = pivotRect.sizeDelta;
+            //}
         }
     }
 }
