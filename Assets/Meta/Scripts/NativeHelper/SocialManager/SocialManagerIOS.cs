@@ -9,95 +9,98 @@ using System.Collections.Generic;
 namespace BagelCode
 {
 
-public class SocialManagerIOS : ISocialManager
-{
-    [DllImport ("__Internal")]
-    private static extern void _initializeFacebookController(string name);
-    public void Initialize(string name)
+    public class SocialManagerIOS : ISocialManager
     {
-        _initializeFacebookController(name);
-    }
+        //[DllImport ("__Internal")]
+        //private static extern void _initializeFacebookController(string name);
+        public void Initialize(string name)
+        {
+            //_initializeFacebookController(name);
+        }
 
-    [DllImport ("__Internal")]
-    private static extern void _FBLogin(string callback);
-    public void LoginFB(string callback)
-    {
-        _FBLogin(callback);
-    }
+        //[DllImport ("__Internal")]
+        //private static extern void _FBLogin(string callback);
+        public void LoginFB(string callback)
+        {
+            //_FBLogin(callback);
+        }
 
-    [DllImport ("__Internal")]
-    private static extern void _FBLogout();
-    public void LogoutFB()
-    {
-        _FBLogout();
+        //[DllImport ("__Internal")]
+        //private static extern void _FBLogout();
+        public void LogoutFB()
+        {
+            //_FBLogout();
 
-        NativeHelper.Instance.RemoveExternalUserId();
-    }
+            //NativeHelper.Instance.RemoveExternalUserId();
+        }
 
-    [DllImport ("__Internal")]
-    private static extern void _FBShare(string linkUrl, string title, string description, string imageUrl, string encodedAction, string callback);
-    public void ShareFB(string linkUrl, string title, string description, string imageUrl, string encodedAction, string callback)
-    {
-        _FBShare(linkUrl, title, description, imageUrl, encodedAction, callback);
-    }
+        //[DllImport ("__Internal")]
+        //private static extern void _FBShare(string linkUrl, string title, string description, string imageUrl, string encodedAction, string callback);
+        public void ShareFB(string linkUrl, string title, string description, string imageUrl, string encodedAction, string callback)
+        {
+            //_FBShare(linkUrl, title, description, imageUrl, encodedAction, callback);
+        }
 
-    [DllImport ("__Internal")]
-    private static extern void _FBGameRequest(string message, string title, string callback);
-    public void InviteFB(string message, string title, string callback)
-    {
-        _FBGameRequest(message, title, callback);
-    }
+        //[DllImport ("__Internal")]
+        //private static extern void _FBGameRequest(string message, string title, string callback);
+        public void InviteFB(string message, string title, string callback)
+        {
+            //_FBGameRequest(message, title, callback);
+        }
 
-    public string GetFacebookId()
-    {
-        // not implemented
-        return "";
-    }
-    
-    [DllImport ("__Internal")]
-    private static extern string _FBGetAccessToken();
-    public string GetFacebookAccessToken()
-    {
-        string token = _FBGetAccessToken();
+        public string GetFacebookId()
+        {
+            // not implemented
+            return "";
+        }
 
-        if (token == null) token = "";
+        //[DllImport ("__Internal")]
+        //private static extern string _FBGetAccessToken();
+        public string GetFacebookAccessToken()
+        {
+            //string token = _FBGetAccessToken();
 
-        return token;
-    }
+            //if (token == null) token = "";
 
-    public void ShowFBLikePopup()
-    {
-        // no need to implement (just for canvas)
-    }
+            //return token;
+            return "";
+        }
 
-    [DllImport ("__Internal")]
-    private static extern bool _FBHasPermission(string permission);
-    public bool HasPermission(string permission)
-    {
-        return _FBHasPermission(permission);
-    }
+        public void ShowFBLikePopup()
+        {
+            // no need to implement (just for canvas)
+        }
 
-    [DllImport ("__Internal")]
-    private static extern void _FBGetPublishPermission(string callback);
-    public void GetPublishPermission(string callback)
-    {
-        _FBGetPublishPermission(callback);
+        //[DllImport ("__Internal")]
+        //private static extern bool _FBHasPermission(string permission);
+        public bool HasPermission(string permission)
+        {
+            //return _FBHasPermission(permission);
+            return false;
+        }
+
+        //[DllImport ("__Internal")]
+        //private static extern void _FBGetPublishPermission(string callback);
+        public void GetPublishPermission(string callback)
+        {
+            //_FBGetPublishPermission(callback);
+        }
+
+        //[DllImport ("__Internal")]
+        //private static extern void _FBShareMessenger(string linkUrl, string callback);
+        public void ShareMessengerFB(string linkUrl, string callback)
+        {
+            //_FBShareMessenger(linkUrl, callback);
+        }
+
+        //[DllImport ("__Internal")]
+        //private static extern bool _FBGetAvailableFacebookMessenger(string linkUrl);
+        public bool GetAvailableFacebookMessenger(string linkUrl)
+        {
+            //return _FBGetAvailableFacebookMessenger(linkUrl);
+            return true;
+        }
     }
-    
-    [DllImport ("__Internal")]
-    private static extern void _FBShareMessenger(string linkUrl, string callback);
-    public void ShareMessengerFB(string linkUrl, string callback)
-    {
-        _FBShareMessenger(linkUrl, callback);
-    }
-    
-    [DllImport ("__Internal")]
-    private static extern bool _FBGetAvailableFacebookMessenger(string linkUrl);
-    public bool GetAvailableFacebookMessenger(string linkUrl)
-    {
-        return _FBGetAvailableFacebookMessenger(linkUrl);
-    }
-}
 
 }
 
