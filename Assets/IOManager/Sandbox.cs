@@ -30,7 +30,7 @@ namespace SandboxApi
 {
 
     /*
-	 * SandboxPacketÀà
+	 * SandboxPacketç±»
 	 */
     [Serializable]
     public class SandboxPacket
@@ -43,81 +43,89 @@ namespace SandboxApi
 
 
     /*
-	 * SandboxÀà£¬Ö»ÄÜ´æÔÚÒ»¸öÈ«¾Ö¶ÔÏó
+	 * Sandboxç±»ï¼Œåªèƒ½å­˜åœ¨ä¸€ä¸ªå…¨å±€å¯¹è±¡
 	 */
     public class Sandbox
     {
 
         /*
-		 * ÒıÈëandroid plugin
+		 * å¼•å…¥android plugin
 		 */
         //private static AndroidJavaClass m_jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         //private static AndroidJavaObject m_jo = m_jc.GetStatic<AndroidJavaObject>("currentActivity");
         //private static AndroidJavaObject m_jo = new AndroidJavaObject("com.unity3d.player.UnityPlayer");	
 
-#if UNITY_EDITOR//ÔÚunity±à¼­Ä£Ê½ÏÂ
+#if UNITY_EDITOR//åœ¨unityç¼–è¾‘æ¨¡å¼ä¸‹
         private static AndroidJavaClass m_jc = null;
         private static AndroidJavaObject m_jo = null;
-#elif UNITY_ANDROID//ANDROIDÆ½Ì¨
+#elif UNITY_ANDROID//ANDROIDå¹³å°
         private static AndroidJavaClass m_jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         private static AndroidJavaObject m_jo = m_jc.GetStatic<AndroidJavaObject>("currentActivity");
 #endif
 
         /**
-		 *  @brief          ³õÊ¼»¯SandboxÄ£¿é
-		 *  @param          ÎŞ
+		 *  @brief          åˆå§‹åŒ–Sandboxæ¨¡å—
+		 *  @param          æ— 
 		 *  @return         true or false
 		 *  @details        
 		 */
         public static bool init()
         {
-            // µ÷ÓÃjavaº¯ÊısandboxInit³õÊ¼»¯
-            bool result = m_jo.Call<bool>("sandboxInit");
+            bool result = false;
+#if UNITY_ANDROID
+            // è°ƒç”¨javaå‡½æ•°sandboxInitåˆå§‹åŒ–
+            result = m_jo.Call<bool>("sandboxInit");
+#endif
             return result;
         }
 
         /**
-		 *  @brief          ÍË³öSandboxÄ£¿é
-		 *  @param          ÎŞ
-		 *  @return         ÎŞ
+		 *  @brief          é€€å‡ºSandboxæ¨¡å—
+		 *  @param          æ— 
+		 *  @return         æ— 
 		 *  @details        
 		 */
         public static void exit()
         {
-            if (Application.platform != RuntimePlatform.Android) return;
+#if UNITY_ANDROID
             m_jo.Call("sandboxExit");
+#endif
         }
 
         /**
-		 *  @brief          »ñÈ¡sandbox·şÎñÄ£¿éµÄ°æ±¾ºÅ
-		 *  @param          ÎŞ
-		 *  @return         ·µ»Ø°æ±¾ºÅ×Ö·û´®£¬Èç£º1.0.0
+		 *  @brief          è·å–sandboxæœåŠ¡æ¨¡å—çš„ç‰ˆæœ¬å·
+		 *  @param          æ— 
+		 *  @return         è¿”å›ç‰ˆæœ¬å·å­—ç¬¦ä¸²ï¼Œå¦‚ï¼š1.0.0
 		 *  @details        
 		 */
         public static string version()
         {
-            string version = m_jo.Call<string>("sandboxVersion");
-
+            string version = null;
+#if UNITY_ANDROID
+            version = m_jo.Call<string>("sandboxVersion");
+#endif
             return version;
         }
 
         /**
-		 *  @brief          Éè±¸ÊÇ·ñÒÑÁ¬½Ó
-		 *  @param[in]      address Éè±¸µØÖ·
-		 *  @return         ÒÑÁ¬½Ó£ºtrue£¬Î´Á¬½Ó£ºfalse
+		 *  @brief          è®¾å¤‡æ˜¯å¦å·²è¿æ¥
+		 *  @param[in]      address è®¾å¤‡åœ°å€
+		 *  @return         å·²è¿æ¥ï¼štrueï¼Œæœªè¿æ¥ï¼šfalse
 		 *  @details        
 		 */
         public static bool connected(int address)
         {
-            bool result = m_jo.Call<bool>("sandboxConnected", address);
-
+            bool result = false;
+#if UNITY_ANDROID
+            result = m_jo.Call<bool>("sandboxConnected", address);
+#endif
             return result;
         }
 
         /**
-		 *  @brief          ĞèÒªÖÜÆÚĞÔµ÷ÓÃ
-		 *  @param          ÎŞ
-		 *  @return         ÎŞ
+		 *  @brief          éœ€è¦å‘¨æœŸæ€§è°ƒç”¨
+		 *  @param          æ— 
+		 *  @return         æ— 
 		 *  @details        
 		 */
         public static void exec()
@@ -126,33 +134,37 @@ namespace SandboxApi
         }
 
         /**
-		 *  @brief          ¶ÁÈ¡Êı¾İ°ü
-		 *  @param          ÎŞ
-		 *  @return         Êı¾İ°ü¶ÔÏó»ònull
+		 *  @brief          è¯»å–æ•°æ®åŒ…
+		 *  @param          æ— 
+		 *  @return         æ•°æ®åŒ…å¯¹è±¡æˆ–null
 		 *  @details        
 		 */
         public static SandboxPacket read()
         {
+#if UNITY_ANDROID
             string json = m_jo.Call<string>("sandboxRead");
 
             if (json != null)
             {
                 return JsonUtility.FromJson<SandboxPacket>(json);
             }
+#endif
             return null;
         }
 
         /**
-		 *  @brief          ·¢ËÍÊı¾İ°ü
-		 *  @param          packet SandboxPacket¶ÔÏó
+		 *  @brief          å‘é€æ•°æ®åŒ…
+		 *  @param          packet SandboxPacketå¯¹è±¡
 		 *  @return         true or false
 		 *  @details        
 		 */
         public static bool write(SandboxPacket packet)
         {
+            bool result = false;
+#if UNITY_ANDROID
             string json = JsonUtility.ToJson(packet, false);
-            bool result = m_jo.Call<bool>("sandboxWrite", json);
-
+            result = m_jo.Call<bool>("sandboxWrite", json);
+#endif
             return result;
         }
     }

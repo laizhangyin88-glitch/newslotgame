@@ -734,6 +734,9 @@ public class FirstSpinInfo
     /// <summary>
     /// 免费游戏前的选择索引（可通用）
     /// </summary>
+    /// <remarks>
+    /// 断线重连中第二条协议，claim中ClientDataD的SelectedIndex
+    /// </remarks>
     public int SelectedIndex { get; private set; }
 
     public List<int> SelectTypeList { get; private set; }
