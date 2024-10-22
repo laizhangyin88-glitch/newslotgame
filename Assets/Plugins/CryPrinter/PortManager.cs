@@ -2,13 +2,16 @@ using Microsoft.Win32;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+#if !UNITY_ANDROID
 using System.IO.Ports;
+#endif
 using System.Text;
 using System.Threading;
 using UnityEngine;
 
 namespace CryPrinter
 {
+#if !UNITY_ANDROID
     public class PortManager
     {
         private SerialPort sp;
@@ -206,6 +209,7 @@ namespace CryPrinter
         }
         #endregion
     }
+#endif
 }
 
 

@@ -1,6 +1,7 @@
 ﻿
 namespace CryPrinter
 {
+#if !UNITY_ANDROID
     using System;
     using System.IO.Ports;
     using System.Threading;
@@ -206,4 +207,5 @@ namespace CryPrinter
         }
         #endregion
     }
+#endif
 }

@@ -23,7 +23,6 @@ namespace CryPrinter
             Form = 1;
             BarcodeDotHeight = 100;
             BarcodeWidthMultiplier = 2;
-            BarcodeSize = 3;
             HriPosition = HRIPositions.NotPrinted;
             BarcodeFont = ThermalFonts.A;
         }
@@ -39,9 +38,6 @@ namespace CryPrinter
 
         /// <inheritdoc />
         public byte BarcodeWidthMultiplier { get; set; }
-
-        /// <inheritdoc />
-        public byte BarcodeSize { get; set; }
 
         /// <inheritdoc />
         public HRIPositions HriPosition { get; set; }

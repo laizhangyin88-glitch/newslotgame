@@ -10,6 +10,8 @@ using GameUtil;
 using CryPrinter;
 using SimpleJSON;
 using ParadoxNotion;
+using BmpSharp;
+using SkiaSharp;
 
 public class QRCodeInfo
 {
@@ -25,7 +27,7 @@ public class BankInfo
 public class ExchangeViewController : MonoBehaviour
 {
     private const string TEST_PORT = "COM3";
-    private static string PORT = "/dev/ttyS1";
+    private const string PORT = "/dev/ttyS1";
     public RawImage QRCodeRawImage; // 绘制好的二维码
     private string CurrentQRCodeInfo = "";
     private string CurrentBankInfo = "";
@@ -174,27 +176,62 @@ public class ExchangeViewController : MonoBehaviour
     }
     private void PrintQRCodeInfo()
     {
-        if(Application.isEditor)
+        PhoenixPrinter printer = null;
+        if (Application.isEditor)
         {
-            PORT = TEST_PORT;
+            printer = new PhoenixPrinter(TEST_PORT);
         }
-        var printer = new PhoenixPrinter(PORT);
+        else
+        {
+            printer = new PhoenixPrinter(PORT);
+        }
         printer.Reinitialize();
-        for (int i = 0; i < emptyLine; i++)
+        //printer.SetFont(ThermalFonts.C);
+        //printer.SetScalars(FontWidthScalar.w8, FontHeighScalar.h5);
+        //printer.AddEffect(FontEffects.Bold);
+        //printer.PrintASCIIString("CurrentBankInfo QRCode");
+        //printer.PrintNewline();
+        //printer.Print2DBarcode(CurrentBankInfo);
+        var document = new StandardDocument
         {
-            printer.PrintNewline();
-        }
-        printer.SetFont(ThermalFonts.C);
-        printer.SetScalars(FontWidthScalar.w8, FontHeighScalar.h5);
-        printer.AddEffect(FontEffects.Bold);
-        printer.PrintASCIIString("CurrentBankInfo QRCode");
-        printer.PrintNewline();
-        printer.Print2DBarcode(CurrentBankInfo);
-        for (int i = 0; i < emptyLine; i++)
+            CodePage = CodePages.CPSPACE,
+        };
+
+        var headerSection = new StandardSection
         {
-            printer.PrintNewline();
-        }
+            Content = "Header",
+            Justification = FontJustification.JustifyCenter,
+            HeightScalar = FontHeighScalar.h2,
+            WidthScalar = FontWidthScalar.w2,
+            Effects = FontEffects.Bold,
+            Font = ThermalFonts.A,
+            AutoNewline = true,
+        };
+
+        var storeIdSection = new StandardSection
+        {
+            Content = "# STORE: 1234",
+            Justification = FontJustification.JustifyCenter,
+            HeightScalar = FontHeighScalar.h2,
+            WidthScalar = FontWidthScalar.w2,
+            Effects = FontEffects.Bold,
+            Font = ThermalFonts.A,
+            AutoNewline = true,
+        };
+
+        document.Sections.Add(headerSection);
+        Texture2D tex = CryPrinter.ZXingQrCode.GenerateQRImageWithColor(CurrentBankInfo, 256, 256, Color.black);
+
+        using var qrCodeBitmap = SKBitmap.Decode(tex.EncodeToPNG());
+        using var printerImage = new PrinterImage(qrCodeBitmap);
+        printer.SetImage(printerImage, document, 1);
+        document.Sections.Add(storeIdSection);
+        printer.PrintDocument(document);
         printer.FormFeed();
+        BankInfoList.Remove(CurrentBankInfo);
+        SaveInfo();
+        content2.gameObject.SetActive(false);
+        content1.gameObject.SetActive(false); 
     }
 
     private void InputFieldChange() 
@@ -432,6 +469,8 @@ public class ExchangeViewController : MonoBehaviour
             ShowPopup(error.error);
             content2.gameObject.SetActive(false);
             content1.gameObject.SetActive(false);
+            BankInfoList.Remove(CurrentBankInfo);
+            SaveInfo();
         });
     }
 
@@ -517,6 +556,7 @@ public class ExchangeViewController : MonoBehaviour
         {
             temp2 += BankInfoList[i] + "###";
         }
+        Debug.LogError(" save success : temp1" + temp1 +"\n temp2" + temp2 );
         SQLiteManager.Instance.SetString(userId + "QRCODEINFOLIST", temp1);
         SQLiteManager.Instance.SetString(userId + "BANKINFOLIST", temp2);
     }
