@@ -103,7 +103,7 @@ namespace CryPrinter
         /// <returns>JSON string</returns>
         public string ToJSON(bool prettyPrint = false)
         {
-            JsonConvert.SerializeObject(this);
+
             return JsonConvert.SerializeObject(this); //Json.Serialize(this, prettyPrint);
         }
 

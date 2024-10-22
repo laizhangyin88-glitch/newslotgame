@@ -141,12 +141,12 @@ namespace CryPrinter
         /// encoded. The rest of the characters to be encoded will be printed as regular ESC/POS characters on a new line.
         /// </summary>
         /// <param name="encodeThis">String to encode, max length = 154 bytes</param>
-        public override ReturnCode Print2DBarcode(string encodeThis,byte size = 3)
+        public override ReturnCode Print2DBarcode(string encodeThis)
         {
            Debug.Log("Encoding the following string as a barcode: " + encodeThis);
 
             // Use all default values for barcode
-            var barcode = new TwoDBarcode(TwoDBarcode.Flavor.Phoenix,size)
+            var barcode = new TwoDBarcode(TwoDBarcode.Flavor.Phoenix)
             {
                 EncodeThis = encodeThis
             };
@@ -192,20 +192,20 @@ namespace CryPrinter
         }
 
         /// <inheridoc/>
-        //public override ReturnCode SetImage(PrinterImage image, IDocument doc, int index)
-        //{
-        //    while (index >= doc.Sections.Count)
-        //    {
-        //        doc.Sections.Add(new Placeholder());
-        //    }
+        public override ReturnCode SetImage(PrinterImage image, IDocument doc, int index)
+        {
+            while (index >= doc.Sections.Count)
+            {
+                doc.Sections.Add(new Placeholder());
+            }
 
-        //    doc.Sections[index] = new PhoenixImageSection()
-        //    {
-        //        Image = image,
-        //    };
+            doc.Sections[index] = new PhoenixImageSection()
+            {
+                Image = image,
+            };
 
-        //    return ReturnCode.Success;
-        //}
+            return ReturnCode.Success;
+        }
 
         /// <summary>
         /// Phoenix support normal and double scalars. All other scalar values will
@@ -340,7 +340,9 @@ namespace CryPrinter
                 System.Threading.Thread.Sleep(250);
 
                 // Collect the response
+#if !UNITY_ANDROID
                 data = Connection.Read(respLen);
+#endif
             }
             catch (Exception e)
             {
@@ -356,6 +358,7 @@ namespace CryPrinter
             }
 
             // Invalid response
+#if !UNITY_ANDROID
             if (data.Length != respLen)
             {
                 Debug.Log("Data received is the incorrect length, returning execution failure . . . ");
@@ -396,7 +399,7 @@ namespace CryPrinter
                     rts.IsInvalidReport = true;
                     break;
             }
-
+#endif
             return ReturnCode.Success;
         }
     }

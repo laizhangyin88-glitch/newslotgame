@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 namespace CryPrinter
 {
     #region BaseStatus for JSONify
-   // [JsonConverter(typeof(ToStringJsonConverter))]  
+   //[JsonConverter(typeof(ToStringJsonConverter))]  
     public class BaseVal
     {
         protected bool m_value;

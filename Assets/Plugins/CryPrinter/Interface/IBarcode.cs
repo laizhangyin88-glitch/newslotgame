@@ -21,12 +21,6 @@ namespace CryPrinter
         byte BarcodeDotHeight { get; set; }
 
         /// <summary>
-        /// 2D Barcode Size
-        /// 3 ≤ k ≤ 8
-        /// </summary>
-        byte BarcodeSize { get; set; }
-
-        /// <summary>
         /// Barcode width multiplier
         /// This multiplies the entire width of the barcode.
         /// An unscaled barcode at it thinnest is 1 dot wide (1/8mm)

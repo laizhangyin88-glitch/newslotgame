@@ -33,18 +33,9 @@
         /// so you must specify the flavor parameter.
         /// </summary>
         /// <param name="flavor">Printer flavor</param>
-        public TwoDBarcode(Flavor flavor,byte size = 3)
+        public TwoDBarcode(Flavor flavor)
         {
             _flavor = flavor;
-
-            if (BarcodeSize >= 3 && BarcodeSize <= 8)
-            {
-                BarcodeSize = size;
-            }
-            else
-            {
-                BarcodeSize = 3;
-            }
         }
 
         /// <inheritdoc />
@@ -58,9 +49,6 @@
 
         /// <inheritdoc />
         public byte BarcodeWidthMultiplier { get; set; }
-
-        /// <inheritdoc />
-        public byte BarcodeSize { get; set; }
 
         /// <inheritdoc />
         public HRIPositions HriPosition { get; set; }
@@ -89,6 +77,7 @@
         private byte[] BuildPhoenixFlavor()
         {
             var len = EncodeThis.Length > 32 ? 32 : EncodeThis.Length;
+            //var len = EncodeThis.Length > 154 ? 154 : EncodeThis.Length;
             var pL = len + 3;
             
             var setup = new byte[] 
@@ -98,8 +87,10 @@
                 0x00, // pH
                 0x31, // cn 
                 0x50, // fn
-                0x31
+                0x31,
             };
+
+
             var printIt = new byte[]
             {
                 0x1D, 0x28, 0x6B, 
@@ -110,11 +101,11 @@
                 0x31
             };
 
-            var payload = new byte[] { 0x1C, 0x7D, BarcodeSize };
+           // var payload = new byte[] { 0x31,0x1C, 0x7D, 0x74, BarcodeSize ,0x31};
 
             var toEncode = EncodeThis.Take(len).ToArray();
             
-            var fullCmd = Extensions.Concat(setup, payload, Encoding.ASCII.GetBytes(toEncode), printIt);
+            var fullCmd = Extensions.Concat(setup, Encoding.ASCII.GetBytes(toEncode), printIt);
             return fullCmd;
         }
 

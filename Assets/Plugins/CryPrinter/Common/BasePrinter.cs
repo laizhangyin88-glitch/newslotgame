@@ -130,7 +130,7 @@ namespace CryPrinter
         /// This 2D barcode is compliant with the QR Code® specicification and can be read by all 2D barcode readers.
         /// </summary>
         /// <param name="encodeThis">String to encode</param>
-        public abstract ReturnCode Print2DBarcode(string encodeThis,byte size = 3);    
+        public abstract ReturnCode Print2DBarcode(string encodeThis);    
 
         /// <inheritdoc />
         /// <summary>
@@ -367,7 +367,7 @@ namespace CryPrinter
         }
 
         /// <inheritdoc />
-       // public abstract ReturnCode SetImage(PrinterImage image, IDocument doc, int index);
+        public abstract ReturnCode SetImage(PrinterImage image, IDocument doc, int index);
 
         /// <inheritdoc />
         public ReturnCode SetBarcode(IBarcode barcode, IDocument doc, int index)
