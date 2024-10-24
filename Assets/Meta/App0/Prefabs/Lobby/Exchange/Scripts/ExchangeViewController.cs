@@ -229,7 +229,7 @@ public class ExchangeViewController : MonoBehaviour
         printer.PrintDocument(document);
         printer.FormFeed();
         BankInfoList.Remove(CurrentBankInfo);
-        SaveInfo();
+        //SaveInfo();
         content2.gameObject.SetActive(false);
         content1.gameObject.SetActive(false); 
     }
@@ -290,7 +290,7 @@ public class ExchangeViewController : MonoBehaviour
         {
             QRCodeInfoList.Add(input);
         }
-        SaveInfo();
+        //SaveInfo();
         content2.gameObject.SetActive(true);
         string temp = input.Replace("\"", "");
         Dictionary<string, object> req = new Dictionary<string, object>
@@ -306,7 +306,7 @@ public class ExchangeViewController : MonoBehaviour
                 QRCodeInfoList.Remove(input);
                 BankInfoList.Add(CurrentBankInfo);
             }
-            SaveInfo();
+            //SaveInfo();
             content2.gameObject.SetActive(false);
             Debug.LogError("bank order  " + CurrentBankInfo);
             QRInputField.gameObject.SetActive(false);
@@ -319,7 +319,7 @@ public class ExchangeViewController : MonoBehaviour
             QRCodeInfoList.Remove(input);
             Debug.LogError("have error");
             ShowPopup(error.error);
-            SaveInfo();
+            //SaveInfo();
             content2.gameObject.SetActive(false);
         });
     }
@@ -457,7 +457,7 @@ public class ExchangeViewController : MonoBehaviour
             Debug.LogError(res.ToString());
             globalStore.newCredit = res["balance"].AsLong;
             BankInfoList.Remove(CurrentBankInfo);
-            SaveInfo();
+            //SaveInfo();
             Debug.LogError("上分成功..........................");
             content2.gameObject.SetActive(false);
             content1.gameObject.SetActive(false);
@@ -470,7 +470,7 @@ public class ExchangeViewController : MonoBehaviour
             content2.gameObject.SetActive(false);
             content1.gameObject.SetActive(false);
             BankInfoList.Remove(CurrentBankInfo);
-            SaveInfo();
+            //SaveInfo();
         });
     }
 
