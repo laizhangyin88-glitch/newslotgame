@@ -146,7 +146,7 @@ namespace CryPrinter
             {
                 nativeObject.Call<bool>("Open");
             }
-            Debug.Log("###########" + nativeObject.Call<AndroidJavaObject>("getClass").Call<string>("getName"));
+            //Debug.Log("###########" + nativeObject.Call<AndroidJavaObject>("getClass").Call<string>("getName"));
            //string strPrint = Encoding.UTF8.GetString(payload);
             nativeObject.Call<int>("Write", payload);
             return payload.Length;

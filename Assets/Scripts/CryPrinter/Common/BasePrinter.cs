@@ -418,7 +418,9 @@ namespace CryPrinter
                 Debug.Log("############   " + Connection.GetType().ToString());
                 Connection.Open();
                 Debug.Log(Connection.GetType().ToString());
-                Connection.Write(payload);
+                //Connection.Write(payload);
+                
+                Connection.Write(BitConverter.GetBytes(111));
                 Debug.Log(Connection.GetType().ToString());
                 return ReturnCode.Success;
             }
