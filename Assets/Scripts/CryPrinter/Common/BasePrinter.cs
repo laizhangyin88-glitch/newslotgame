@@ -1,6 +1,7 @@
-﻿
+
 namespace CryPrinter
 {
+    using NodeCanvas.Framework;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -414,10 +415,11 @@ namespace CryPrinter
             try
             {
                 Debug.Log("Attempting to open connection");
+                Debug.Log("############   " + Connection.GetType().ToString());
                 Connection.Open();
-
+                Debug.Log(Connection.GetType().ToString());
                 Connection.Write(payload);
-                
+                Debug.Log(Connection.GetType().ToString());
                 return ReturnCode.Success;
             }
             catch(Exception e)

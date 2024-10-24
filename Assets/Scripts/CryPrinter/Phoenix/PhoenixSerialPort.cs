@@ -1,4 +1,4 @@
-﻿#region Copyright & License
+#region Copyright & License
 /*
 MIT License
 
@@ -24,6 +24,7 @@ SOFTWARE.
  */
 #endregion
 using System;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -145,6 +146,7 @@ namespace CryPrinter
             {
                 nativeObject.Call<bool>("Open");
             }
+            Debug.Log("###########" + nativeObject.Call<AndroidJavaObject>("getClass").Call<string>("getName"));
            //string strPrint = Encoding.UTF8.GetString(payload);
             nativeObject.Call<int>("Write", payload);
             return payload.Length;
