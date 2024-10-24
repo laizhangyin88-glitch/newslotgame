@@ -43,6 +43,7 @@ public class ExchangeViewController : MonoBehaviour
     private Button TestBtn1;
     private Button buttonUp;
     private Button buttonPrint;
+    private Button clearBtn;
     private Transform content1;
     private Transform content2;
     private LoopTimer _loopTimer;
@@ -88,7 +89,11 @@ public class ExchangeViewController : MonoBehaviour
         testInput = transform.Find("content/TestInputField").GetComponent<TMP_InputField>();
 
         TestBtn1 = transform.Find("content/TestBtn1").GetComponent<Button>();
+
+        clearBtn = transform.Find("content/ClearBtn").GetComponent<Button>();
+
         TestBtn1.onClick.AddListener(OnClickTestBtn1);
+
 
         if (ButtonUse != null)
         {
@@ -153,6 +158,11 @@ public class ExchangeViewController : MonoBehaviour
     private void OnClickTestBtn1()
     {
         JudeUseInputField(testInput.text); 
+    }
+
+    private void OnClickClearBtn()
+    {
+        SBoxSanboxController.Instance.StopScrpitAllCoroutines(); 
     }
 
     private void CheckQRCodeInfo()
