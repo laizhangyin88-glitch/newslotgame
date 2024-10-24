@@ -53,6 +53,8 @@ public class ExchangeViewController : MonoBehaviour
     private List<string> BankInfoList = new List<string>();
     private TMP_InputField testInput;
 
+    PhoenixPrinter printer = null;
+
     private float interval = 10;
     private float tempInterval = 0;
 
@@ -99,12 +101,19 @@ public class ExchangeViewController : MonoBehaviour
         InitSQLiteData();
         CheckQRCodeInfo();
         CheckBankInfo();
+
+        if (Application.isEditor)
+        {
+            printer = new PhoenixPrinter(TEST_PORT);
+        }
+        else
+        {
+            printer = new PhoenixPrinter(PORT);
+        }
     }
 
     private void InitSQLiteData()
     {
-        //SQLiteManager.Instance.SetString(userId + "QRCODEINFOLIST", node1.ToString());
-        //SQLiteManager.Instance.SetString(userId + "BANKINFOLIST", node2.ToString());
         string qrCode = SQLiteManager.Instance.GetString(userId + "QRCODEINFOLIST", "");
         string bankCode = SQLiteManager.Instance.GetString(userId + "BANKINFOLIST", "");
         Debug.LogError(qrCode);
@@ -176,15 +185,6 @@ public class ExchangeViewController : MonoBehaviour
     }
     private void PrintQRCodeInfo()
     {
-        PhoenixPrinter printer = null;
-        if (Application.isEditor)
-        {
-            printer = new PhoenixPrinter(TEST_PORT);
-        }
-        else
-        {
-            printer = new PhoenixPrinter(PORT);
-        }
         printer.Reinitialize();
         //printer.SetFont(ThermalFonts.C);
         //printer.SetScalars(FontWidthScalar.w8, FontHeighScalar.h5);
