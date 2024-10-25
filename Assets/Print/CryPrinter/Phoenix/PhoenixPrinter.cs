@@ -340,9 +340,7 @@ namespace CryPrinter
                 System.Threading.Thread.Sleep(250);
 
                 // Collect the response
-#if !UNITY_ANDROID
                 data = Connection.Read(respLen);
-#endif
             }
             catch (Exception e)
             {
@@ -352,16 +350,16 @@ namespace CryPrinter
 
                 return ReturnCode.ExecutionFailure;
             }
-            finally
-            {
-                Connection.Close();
-            }
+           // finally
+           // {
+           //     Connection.Close();
+          //  }
 
             // Invalid response
-#if !UNITY_ANDROID
             if (data.Length != respLen)
             {
                 Debug.Log("Data received is the incorrect length, returning execution failure . . . ");
+                Connection.Close();
                 return ReturnCode.ExecutionFailure;
             }
 
@@ -376,7 +374,7 @@ namespace CryPrinter
 
                     // bit 6: 0- no error, 1- error        
                     rts.HasError = (data[0] & 0x40) != 0;
-
+                    Connection.Close();
                     break;
 
                 case PhoenixStatusRequests.ErrorStatus:
@@ -388,18 +386,19 @@ namespace CryPrinter
 
                     // bit 6: 0- No recoverable error, 1- Recoverable error        
                     rts.HasRecoverableError = (data[0] & 0x40) == 1;
+                    Connection.Close();
                     break;
 
                 case PhoenixStatusRequests.PaperRollStatus:
                     // bit 5,6: 0- okay, 96- Not okay
                     rts.IsPaperPresent = (data[0] & 0x60) == 0;
+                    Connection.Close();
                     break;
 
                 default:
                     rts.IsInvalidReport = true;
                     break;
             }
-#endif
             return ReturnCode.Success;
         }
     }

@@ -15,6 +15,7 @@ public class TesterPrinter : MonoBehaviour
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(OnClickPrinter);
+
         if (Application.isEditor)
         {
             printer = new PhoenixPrinter(TEST_PORT);

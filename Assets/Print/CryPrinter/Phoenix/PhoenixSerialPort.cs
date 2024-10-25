@@ -1,4 +1,4 @@
-#region Copyright & License
+﻿#region Copyright & License
 /*
 MIT License
 
@@ -24,7 +24,6 @@ SOFTWARE.
  */
 #endregion
 using System;
-using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -111,6 +110,11 @@ namespace CryPrinter
         {
             nativeObject = new AndroidJavaObject("com.cryfx.game.libserialport.SerialPortPlugin");
             nativeObject.Call("CreateSerialPort", portName, baud, DefaultParity, DefaultDatabits, DefaultStopbits);
+            if (nativeObject != null)
+            {
+                Debug.Log(" CreateSerialPort Success");
+  
+            }
         }
 
         public ReturnCode Open()
@@ -124,7 +128,17 @@ namespace CryPrinter
             }
             try
             {
-                nativeObject.Call<bool>("Open");
+                isOpen = nativeObject.Call<bool>("Open");
+
+                if (isOpen)
+                {
+                    Debug.Log(" Serial Port is Opened");
+                    //return ReturnCode.Success;
+                }
+                else
+                {
+                    Debug.Log(" Serial Port is not Opened");
+                }
                 //isOpen = nativeObject.Call<bool>("isOpen");
                 return ReturnCode.Success;
             }
@@ -146,17 +160,15 @@ namespace CryPrinter
             {
                 nativeObject.Call<bool>("Open");
             }
-            Debug.Log("###########" + nativeObject.Call<AndroidJavaObject>("getClass").Call<string>("getName"));
            //string strPrint = Encoding.UTF8.GetString(payload);
-           
-            nativeObject.Call<int>("Write", payload);
-            return payload.Length;
+            bool bRet =  nativeObject.Call<bool>("WriteByte", payload);
+            return bRet? payload.Length : 0;
             // return WritePort(payload);
         }
 
         public byte[] Read(int n)
         {
-            return null;
+            return nativeObject.Call<byte[]>("Read",n);
         }
 
         public ReturnCode Close()
