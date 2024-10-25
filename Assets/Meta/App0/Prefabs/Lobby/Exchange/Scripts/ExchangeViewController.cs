@@ -12,6 +12,7 @@ using SimpleJSON;
 using ParadoxNotion;
 using BmpSharp;
 using SkiaSharp;
+using System.Text.RegularExpressions;
 
 public class QRCodeInfo
 {
@@ -248,37 +249,29 @@ public class ExchangeViewController : MonoBehaviour
     {
         if(_loopTimer == null)
         {
-            float temp = 0.2f;
-            int length = -1;
             _loopTimer = this.LoopAction(Time.deltaTime, (interval) =>
             {
-                if (QRInputField.text.Length > 0)
+                if(QRInputField.text.Length > 0)
                 {
-                    if (length < 0)
-                    {
-                        length = QRInputField.text.Length;
-                    }
-                    if ((temp -= Time.deltaTime) < 0)
-                    {
-                        temp = 0.2f;
-                        if (length == QRInputField.text.Length)
-                        {
-                            //UseExchangeQRCodeInfo(QRInputField.text);
-                            QRInputField.DeactivateInputField(true);
-                            JudeUseInputField(QRInputField.text);
-                            _loopTimer?.Cancel();
-                            _loopTimer = null;
-                        }
-                        length = -1;
-                    }
+                    Debug.Log(QRInputField.text);
+                }
+                if (QRInputField.text.Contains("&QRCodeEnd&"))
+                { 
+                    QRInputField.DeactivateInputField(true);
+                    Debug.Log("input end....." +  QRInputField.text);
+                    _loopTimer?.Cancel();
+                    _loopTimer = null;
+                    string[] strings = Regex.Split(QRInputField.text, "&QRCodeEnd&");
+                    JudeUseInputField(strings[0]);
                 }
             });
+            QRInputField.ActivateInputField();
         }
     }
 
-
     private void JudeUseInputField(string input)
     {
+        Debug.Log(input);
         string[] splits = input.Split(':');
         if (splits[0] == "qr_code")
         {
@@ -451,7 +444,7 @@ public class ExchangeViewController : MonoBehaviour
     {
         QRInputField.gameObject.SetActive(true); 
         QRInputField.text = "";
-        QRInputField.ActivateInputField();
+        QRInputField.ActivateInputField(); 
         InputFieldChange();
     }
 
@@ -510,6 +503,8 @@ public class ExchangeViewController : MonoBehaviour
             btnsList.Clear();
         }
         btnClose.onClick.RemoveAllListeners();
+        printer.Dispose();
+        printer = null;
     }
     private Color32[] GenerateQRCode(string formatStr, int width, int height)
     {
@@ -540,7 +535,7 @@ public class ExchangeViewController : MonoBehaviour
 
     private void DrawQRCode(string formatStr)
     {
-        Texture2D texture = ShowQRCode(formatStr, 256, 256);
+        Texture2D texture = ShowQRCode(formatStr + "&QRCodeEnd&", 256, 256);
         QRCodeRawImage.texture = texture;
     }
 
