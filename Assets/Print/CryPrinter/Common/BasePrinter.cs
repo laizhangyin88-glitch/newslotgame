@@ -1,7 +1,6 @@
-
+﻿
 namespace CryPrinter
 {
-    //using NodeCanvas.Framework;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -415,13 +414,10 @@ namespace CryPrinter
             try
             {
                 Debug.Log("Attempting to open connection");
-                Debug.Log("############   " + Connection.GetType().ToString());
                 Connection.Open();
-                Debug.Log(Connection.GetType().ToString());
-                //Connection.Write(payload);
+
+                Connection.Write(payload);
                 
-                Connection.Write(BitConverter.GetBytes(111));
-                Debug.Log(Connection.GetType().ToString());
                 return ReturnCode.Success;
             }
             catch(Exception e)
@@ -429,7 +425,12 @@ namespace CryPrinter
                 Debug.LogError("The following exception was thrown while attempting to write the status:");
                 Debug.LogError(e.Message);
                 Debug.LogError(e.StackTrace);
+                _docBuffer.Dispose();
+                _stream = new MemoryStream();
+                _docBuffer = new BinaryWriter(_stream);
 
+                Debug.Log("Closing connection");
+                Connection.Close();
                 return ReturnCode.ExecutionFailure;
             }
             finally
@@ -438,9 +439,9 @@ namespace CryPrinter
                 _docBuffer.Dispose();
                 _stream = new MemoryStream();
                 _docBuffer = new BinaryWriter(_stream);
-                
-                Debug.Log("Closing connection");
-                Connection.Close();
+
+               // Debug.Log("Closing connection");
+                //Connection.Close();
             }
         }
 
@@ -466,6 +467,7 @@ namespace CryPrinter
         /// <param name="disposing">True to close connection</param>
         protected virtual void Dispose(bool disposing)
         {
+            Connection.Close();
             Connection?.Dispose();
             _docBuffer.Dispose();
         }
