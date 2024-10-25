@@ -1739,7 +1739,7 @@ public class Reporter : MonoBehaviour
 
     bool isKeyDown()
     {
-        return Input.GetKeyDown(KeyCode.R);
+        return Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.R);
     }
 
     float lastClickTime = -1;
