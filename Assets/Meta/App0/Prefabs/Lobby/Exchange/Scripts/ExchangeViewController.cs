@@ -231,7 +231,7 @@ public class ExchangeViewController : MonoBehaviour
         };
 
         document.Sections.Add(headerSection);
-        Texture2D tex = CryPrinter.ZXingQrCode.GenerateQRImageWithColor(CurrentBankInfo, 256, 256, Color.black);
+        Texture2D tex = CryPrinter.ZXingQrCode.GenerateQRImageWithColor(CurrentBankInfo + "&QRCodeEnd&", 256, 256, Color.black);
 
         using var qrCodeBitmap = SKBitmap.Decode(tex.EncodeToPNG());
         using var printerImage = new PrinterImage(qrCodeBitmap);
