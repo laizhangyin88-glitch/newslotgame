@@ -356,7 +356,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
             if (rpcName == "ping" || rpcName == "meta_info")
             {
-                Debug.Log($"== 发送上行数据 ：{buf}");
+                //Debug.Log($"== 发送上行数据 ：{buf}");
             }
             else
             {
@@ -767,7 +767,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
             if (dataDict["protocol_key"] == "ping" || dataDict["protocol_key"] == "meta_info")
             {
-                Debug.Log($"== 接受收到下行数据 ：{evt}");
+                //Debug.Log($"== 接受收到下行数据 ：{evt}");
             }
             else
             {
@@ -850,7 +850,35 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                         BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "LobbyJackpotScore", jackpotsScore);
                     }
                 }
-
+                #region 添加打印凭证信息缓存
+                if (data.HasKey("amounts_preset_list"))
+                {
+                    var list = data["amounts_preset_list"];
+                    List<long> temp = new List<long>();
+                    for (global::System.Int32 i = 0; i < list.Count; i++)
+                    {
+                        long t = long.Parse(list[i]);
+                        temp.Add(t);
+                    }
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "AmountsPresetList", temp);
+                }
+                if (data.HasKey("company_name"))
+                {
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "CompanyName", data["company_name"].ToString().Replace("\"", ""));
+                }
+                if (data.HasKey("company_address"))
+                {
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "CompanyAddress", data["company_address"].ToString().Replace("\"", ""));
+                }
+                if (data.HasKey("company_email"))
+                {
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "CompanyEmail", data["company_email"].ToString().Replace("\"", ""));
+                }
+                if (data.HasKey("telephone"))
+                {
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "telephone", data["telephone"].ToString().Replace("\"", ""));
+                }
+                #endregion
                 if (data.HasKey("level"))
                     NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserLevel, data["level"].AsInt);
 

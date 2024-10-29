@@ -82,22 +82,22 @@ public class RPCName
     /// <summary>查询是否可以充美刀</summary>
     public const string creatAddMoneyOrder = "agent_create_incredit_inbanknote_order";
     /// <summary>充美元</summary>
-    /// {"money", 100}, //充100美元
+    /// {"Money", 100}, //充100美元
     public const string confirmAddMoneyOrder = "agent_confirm_incredit_inbanknote_order";
 
 
     /// <summary>查询是否可以退币</summary>
     public const string createCoinOutOrder = "agent_create_outcredit_ticket_order";
     /// <summary>退币</summary>
-    /// {"money", 100}, //退票 100 
+    /// {"Money", 100}, //退票 100 
     public const string confirmCoinOutOrder = "agent_confirm_outcredit_ticket_order";
 
 
     /// <summary>创建“打印订单”</summary>
-    /// {"money", 100}, 
+    /// {"Money", 100}, 
     public const string createPrintOrder = "agent_create_outcredit_print_order";
     /// <summary>确认“打印订单”</summary>
-    /// {"money", 100},
+    /// {"Money", 100},
     public const string confirmPrintOrder = "agent_confirm_outcredit_print_order";
 
     /// <summary> 赢得大厅彩金 </summary>
@@ -140,6 +140,16 @@ public class RPCName
     /// 刷新玩家金额数据
     /// </summary>
     public const string refresh_credit = "refresh_credit";
+
+    /// <summary>
+    /// 查询银行凭证
+    /// </summary>
+    public const string agent_query_bank_order = "agent_query_bank_order";
+
+    /// <summary>
+    /// 查询下分二维码
+    /// </summary>
+    public const string agent_query_qr_code = "agent_query_qr_code";
 }
 
 namespace RPCBase
