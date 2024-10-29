@@ -29,7 +29,7 @@ public class CheckInputStrings : MonoBehaviour
     private int outCreditRate;
     private Event _Event;
 
-    private InputField _InputField;
+    //
 
     private float _interval;
     private bool startInput = false;
@@ -38,10 +38,9 @@ public class CheckInputStrings : MonoBehaviour
 
     private void Start()
     {
-        _interval = 2;
+        _interval = 3;
         inputValue = "";
         outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
-        _InputField = GameObject.FindObjectOfType<CheckInputField>().transform.GetComponent<InputField>();
         startInput = false;
         if(outCreditRate <= 0)
         {
@@ -89,7 +88,7 @@ public class CheckInputStrings : MonoBehaviour
         {
             if((_interval -= Time.deltaTime) < 0)
             {
-                _interval = 2;
+                _interval = 3;
                 startInput = false;
                 MatchInput(inputValue);
             }
