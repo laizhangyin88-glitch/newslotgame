@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Contexts;
+using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,49 +27,57 @@ public class CheckInputStrings : MonoBehaviour
 
     private bool isInUse = false;
     private int outCreditRate;
+    private Event _Event;
+
+    private InputField _InputField;
+
+    private float _interval;
+    private bool startInput = false;
+
+    private string inputValue = "";
+
     private void Start()
     {
+        _interval = 2;
+        inputValue = "";
         outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
+        _InputField = GameObject.FindObjectOfType<CheckInputField>().transform.GetComponent<InputField>();
+        startInput = false;
         if(outCreditRate <= 0)
         {
             outCreditRate = 100;///暂时写死
+            
         }
         isInUse = false;
         _clearInterval = clearInterval;
     }
 
-    private void Update()
+    private void OnGUI()
+    {
+        CheckInput();
+    }
+     
+    private void CheckInput()
     {
         AccountLoginViewNew accountLoginViewNew = GameObject.FindObjectOfType<AccountLoginViewNew>();
         if(accountLoginViewNew != null)
         {
             isInUse = false;
+            checkStringsList.Clear();
             return;
         }
-        if (!string.IsNullOrEmpty(Input.inputString))
+        _Event = Event.current;
+        if (_Event != null && _Event.isKey && Input.anyKeyDown && _Event.keyCode != KeyCode.None)
         {
-            inputStrings = Input.inputString;
+            startInput = true;
+            inputStrings = "" + _Event.keyCode.ToString().ToLower();
             checkStringsList.Add(inputStrings);
-            string temp = String.Join("", checkStringsList);
-            Match match = Regex.Match(temp, patternBank);
-            if (match.Success)
-            {
-                string result = match.Groups[1].Value;
-                Debug.LogError("bank:" + result);
-                ShowBankPopup("bank:" + result);
-                checkStringsList.Clear();
-                _clearInterval = clearInterval;
-            }
-            match = Regex.Match(temp, patternQRCode);
-            if (match.Success)
-            {
-                string result = match.Groups[1].Value;
-                Debug.LogError("qr_code:" + result);
-                //ShowQRCodePopup("qr_code:" + result);
-                CheckQRCode("qr_code:" + result);
-                checkStringsList.Clear();
-                _clearInterval = clearInterval;
-            }
+            inputValue = String.Join("", checkStringsList);
+            //temp = temp.Replace("rightshiftsemicolon", ":");
+            //temp = temp.Replace("alpha", "");
+            //temp = temp.Replace("minus", "-");
+            //temp = temp.Replace("rightshift7", "&");
+            //temp = temp.Replace("&qrcodeend&", "&QRCodeEnd&");
         }
         if ((_clearInterval -= Time.deltaTime) <= 0 && checkStringsList.Count > 0)
         {
@@ -76,6 +85,84 @@ public class CheckInputStrings : MonoBehaviour
             _clearInterval = clearInterval;
             isInUse = false;
         }
+        if (startInput)
+        {
+            if((_interval -= Time.deltaTime) < 0)
+            {
+                _interval = 2;
+                startInput = false;
+                MatchInput(inputValue);
+            }
+        }
+    }
+
+    private void MatchInput(string input)
+    {
+        input = input.Replace("rightshiftsemicolon", ":");
+        input = input.Replace("rightshiftminus", "_");
+        input = input.Replace("alpha", "");
+        input = input.Replace("minus", "-");
+        input = input.Replace("rightshift7rightshift7rightshiftqrightshiftqrightshiftrrightshiftrrightshiftcrightshiftcooddeerightshifterightshiftennddrightshift7rightshift7", "&QRCodeEnd&");
+        Debug.LogError(input);
+        input = RemoveConsecutiveDuplicates(input);
+        Debug.LogError(input);
+        Match match = Regex.Match(input, patternBank);
+        if (match.Success)
+        {
+            string result = match.Groups[1].Value;
+            Debug.LogError("bank:" + result);
+            ShowBankPopup("bank:" + result);
+            checkStringsList.Clear();
+            _clearInterval = clearInterval;
+        }
+        match = Regex.Match(input, patternQRCode);
+        if (match.Success)
+        {
+            string result = match.Groups[1].Value;
+            Debug.LogError("qr_code:" + result);
+            //ShowQRCodePopup("qr_code:" + result);
+            CheckQRCode("qr_code:" + result);
+            checkStringsList.Clear();
+            _clearInterval = clearInterval;
+        }
+        input = "";
+        inputValue = "";
+    }
+
+    static string RemoveConsecutiveDuplicates(string input)
+    {
+        if (string.IsNullOrEmpty(input))
+        {
+            return input;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        char currentChar = input[0];
+        int consecutiveCount = 1;
+
+        sb.Append(currentChar); // 添加第一个字符  
+
+        for (int i = 1; i < input.Length; i++)
+        {
+            if (input[i] == currentChar)
+            {
+                consecutiveCount++;
+
+                // 仅在计数为奇数时添加字符，以跳过每对中的第二个字符  
+                if (consecutiveCount % 2 != 0)
+                {
+                    sb.Append(input[i]);
+                }
+            }
+            else
+            {
+                currentChar = input[i];
+                consecutiveCount = 1;
+                sb.Append(currentChar); // 添加新字符  
+            }
+        }
+
+        return sb.ToString();
     }
 
     #region  使用银行凭证代码
