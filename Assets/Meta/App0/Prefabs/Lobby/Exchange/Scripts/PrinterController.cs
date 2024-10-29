@@ -78,7 +78,7 @@ public class PrinterController
 
         var StoreNameSection = new StandardSection
         {
-            Content = companyName,//ticketInfo.storeName,
+            Content = "Store Name:" + companyName,//ticketInfo.storeName,
             Justification = FontJustification.JustifyLeft,
             HeightScalar = FontHeighScalar.h1,
             WidthScalar = FontWidthScalar.w1,
@@ -163,7 +163,7 @@ public class PrinterController
 
         var StoreAddressSection = new StandardSection
         {
-            Content = companyAddress,//ticketInfo.StoreAddr,
+            Content = "Address : " + companyAddress,//ticketInfo.StoreAddr,
             Justification = FontJustification.JustifyLeft,
             HeightScalar = FontHeighScalar.h1,
             WidthScalar = FontWidthScalar.w1,
@@ -174,7 +174,7 @@ public class PrinterController
 
         var StoreEmailSection = new StandardSection
         {
-            Content = companyEmail,//ticketInfo.StoreEmail,
+            Content = "Email :" + companyEmail,//ticketInfo.StoreEmail,
             Justification = FontJustification.JustifyLeft,
             HeightScalar = FontHeighScalar.h1,
             WidthScalar = FontWidthScalar.w1,
@@ -185,7 +185,7 @@ public class PrinterController
 
         var StoreTelephoneSection = new StandardSection
         {
-            Content = telephone,//ticketInfo.StoreTel,
+            Content = "Telephone:" + telephone,//ticketInfo.StoreTel,
             Justification = FontJustification.JustifyLeft,
             HeightScalar = FontHeighScalar.h1,
             WidthScalar = FontWidthScalar.w1,
