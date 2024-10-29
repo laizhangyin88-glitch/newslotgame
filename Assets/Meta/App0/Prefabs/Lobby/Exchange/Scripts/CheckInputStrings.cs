@@ -40,10 +40,21 @@ public class CheckInputStrings : MonoBehaviour
 
     private LobbyController lobbyController;
 
+    private bool isShowWaitView = false;
+
     private void Start()
     {
-        _interval = 2;
+#if !UNITY_EDITOR
+        if (!ApplicationSettings.Instance.isMachine)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+#endif
+
+        _interval = 2; 
         inputValue = "";
+        isShowWaitView = false;
         isCheckInput = true;
         outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
         _InputField = FindObjectOfType<CheckInputField>().GetComponent<InputField>();
@@ -64,12 +75,11 @@ public class CheckInputStrings : MonoBehaviour
         {
             return;
         }
-        if(_InputField != null)
+        if (_InputField != null)
         {
             if (!string.IsNullOrEmpty(_InputField.text))
             {
                 isCheckInput = false;
-                //startInput = true;
                 bool result = MatchInput(_InputField.text);
                 if (result)
                 {
@@ -423,7 +433,7 @@ public class CheckInputStrings : MonoBehaviour
     {
         ErrorPopupInfo info = new ErrorPopupInfo();
         info.type = ErrorPopupType.YesNo;
-        info.text = $"<size=32>Do do you want to Add {score} Score to account ?</size>";
+        info.text = $"<size=32>Do you want to Add {score} Score to account ?</size>";
         info.buttonText1 = "Confirm";
         info.buttonText2 = "Cancle";
         info.callback1 = delegate
@@ -464,6 +474,7 @@ public class CheckInputStrings : MonoBehaviour
 
     private void ShowWaitView()
     {
+        isShowWaitView = true;
         var prefab = AssetBundleManager.LoadAsset<GameObject>("lobby0", "WaitForView");
         GameObject temp = Instantiate(prefab) as GameObject;
         temp.transform.SetParent(PopupManager.Instance.transform, false);
@@ -472,6 +483,7 @@ public class CheckInputStrings : MonoBehaviour
 
     private void CloseWaitView()
     {
+        isShowWaitView= false;
         WaitForViewController.Instance.Close();
     } 
 
