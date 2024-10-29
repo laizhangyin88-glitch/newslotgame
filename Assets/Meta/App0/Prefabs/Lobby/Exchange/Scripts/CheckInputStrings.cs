@@ -29,18 +29,24 @@ public class CheckInputStrings : MonoBehaviour
     private int outCreditRate;
     private Event _Event;
 
-    //
+    private InputField _InputField;
 
     private float _interval;
     private bool startInput = false;
 
     private string inputValue = "";
 
+    private bool isCheckInput = false;
+
+    private LobbyController lobbyController;
+
     private void Start()
     {
-        _interval = 3;
+        _interval = 2;
         inputValue = "";
+        isCheckInput = true;
         outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
+        _InputField = FindObjectOfType<CheckInputField>().GetComponent<InputField>();
         startInput = false;
         if(outCreditRate <= 0)
         {
@@ -51,11 +57,38 @@ public class CheckInputStrings : MonoBehaviour
         _clearInterval = clearInterval;
     }
 
-    private void OnGUI()
+    private void Update()
     {
-        CheckInput();
+        lobbyController = FindObjectOfType<LobbyController>();
+        if(lobbyController == null)
+        {
+            return;
+        }
+        if(_InputField != null)
+        {
+            if (!string.IsNullOrEmpty(_InputField.text))
+            {
+                isCheckInput = false;
+                //startInput = true;
+                bool result = MatchInput(_InputField.text);
+                if (result)
+                {
+                    _InputField.text = "";
+                    isCheckInput = true;
+                }
+            }
+            if (isCheckInput)
+            {
+                _InputField.ActivateInputField();
+            }
+        }
     }
-     
+
+    //private void OnGUI()
+    //{
+    //    CheckInput();
+    //}
+
     private void CheckInput()
     {
         AccountLoginViewNew accountLoginViewNew = GameObject.FindObjectOfType<AccountLoginViewNew>();
@@ -95,16 +128,17 @@ public class CheckInputStrings : MonoBehaviour
         }
     }
 
-    private void MatchInput(string input)
+    private bool MatchInput(string input)
     {
-        input = input.Replace("rightshiftsemicolon", ":");
-        input = input.Replace("rightshiftminus", "_");
-        input = input.Replace("alpha", "");
-        input = input.Replace("minus", "-");
-        input = input.Replace("rightshift7rightshift7rightshiftqrightshiftqrightshiftrrightshiftrrightshiftcrightshiftcooddeerightshifterightshiftennddrightshift7rightshift7", "&QRCodeEnd&");
-        Debug.LogError(input);
-        input = RemoveConsecutiveDuplicates(input);
-        Debug.LogError(input);
+
+        //input = input.Replace("rightshiftsemicolon", ":");
+        //input = input.Replace("rightshiftminus", "_");
+        //input = input.Replace("alpha", "");
+        //input = input.Replace("minus", "-");
+        //input = input.Replace("rightshift7rightshift7rightshiftqrightshiftqrightshiftrrightshiftrrightshiftcrightshiftcooddeerightshifterightshiftennddrightshift7rightshift7", "&QRCodeEnd&");
+        //Debug.LogError(input);
+        //input = RemoveConsecutiveDuplicates(input);
+        //Debug.LogError(input);
         Match match = Regex.Match(input, patternBank);
         if (match.Success)
         {
@@ -113,6 +147,7 @@ public class CheckInputStrings : MonoBehaviour
             ShowBankPopup("bank:" + result);
             checkStringsList.Clear();
             _clearInterval = clearInterval;
+            return true;
         }
         match = Regex.Match(input, patternQRCode);
         if (match.Success)
@@ -123,9 +158,11 @@ public class CheckInputStrings : MonoBehaviour
             CheckQRCode("qr_code:" + result);
             checkStringsList.Clear();
             _clearInterval = clearInterval;
+            return true;
         }
         input = "";
         inputValue = "";
+        return false;
     }
 
     static string RemoveConsecutiveDuplicates(string input)
@@ -427,7 +464,7 @@ public class CheckInputStrings : MonoBehaviour
 
     private void ShowWaitView()
     {
-        var prefab = AssetBundleManager.LoadAsset<GameObject>("excv", "WaitForView");
+        var prefab = AssetBundleManager.LoadAsset<GameObject>("lobby0", "WaitForView");
         GameObject temp = Instantiate(prefab) as GameObject;
         temp.transform.SetParent(PopupManager.Instance.transform, false);
         PopupManager.Instance.Open(temp);
