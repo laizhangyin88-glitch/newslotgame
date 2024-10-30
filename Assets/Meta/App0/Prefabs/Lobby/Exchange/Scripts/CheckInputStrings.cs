@@ -214,8 +214,8 @@ public class CheckInputStrings : MonoBehaviour
     #region  使用银行凭证代码
     private void ShowBankPopup(string bankInfo)
     {
-        if (isInUse) return;
-        isInUse = true;
+        //if (isInUse) return;
+        //isInUse = true;
         ErrorPopupInfo info = new ErrorPopupInfo();
         info.type = ErrorPopupType.YesNo;
         info.text = "<size=32>Do you want to use this QR Bank Code?</size>";
@@ -313,8 +313,8 @@ public class CheckInputStrings : MonoBehaviour
 
     private void CheckQRCode(string QRCodeInfo)
     {
-        if (isInUse) return;
-        isInUse = true;
+        //if (isInUse) return;
+        //isInUse = true;
         ShowWaitView();
         Dictionary<string, object> req = new Dictionary<string, object>
         {
@@ -383,7 +383,7 @@ public class CheckInputStrings : MonoBehaviour
     {
         ErrorPopupInfo info = new ErrorPopupInfo();
         info.type = ErrorPopupType.YesNo;
-        info.text = $"<size=32>Do you want to print {score} score Bank QR Code ?</size>";
+        info.text = $"<size=32>Do you want to print {score.ToString("N0")} score Bank QR Code ?</size>";
         info.buttonText1 = "Confirm";
         info.buttonText2 = "Cancle";
         info.callback1 = delegate
@@ -433,7 +433,7 @@ public class CheckInputStrings : MonoBehaviour
     {
         ErrorPopupInfo info = new ErrorPopupInfo();
         info.type = ErrorPopupType.YesNo;
-        info.text = $"<size=32>Do you want to Add {score} Score to account ?</size>";
+        info.text = $"<size=32>Do you want to Add {score.ToString("N0")} Score to account ?</size>";
         info.buttonText1 = "Confirm";
         info.buttonText2 = "Cancle";
         info.callback1 = delegate

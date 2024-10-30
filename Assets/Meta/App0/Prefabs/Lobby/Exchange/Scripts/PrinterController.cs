@@ -78,7 +78,7 @@ public class PrinterController
 
         var StoreNameSection = new StandardSection
         {
-            Content = "Store Name:" + companyName,//ticketInfo.storeName,
+            Content = companyName,//ticketInfo.storeName,
             Justification = FontJustification.JustifyLeft,
             HeightScalar = FontHeighScalar.h1,
             WidthScalar = FontWidthScalar.w1,
@@ -163,7 +163,7 @@ public class PrinterController
 
         var StoreAddressSection = new StandardSection
         {
-            Content = "Address : " + companyAddress,//ticketInfo.StoreAddr,
+            Content = companyAddress,//ticketInfo.StoreAddr,
             Justification = FontJustification.JustifyLeft,
             HeightScalar = FontHeighScalar.h1,
             WidthScalar = FontWidthScalar.w1,
@@ -174,7 +174,7 @@ public class PrinterController
 
         var StoreEmailSection = new StandardSection
         {
-            Content = "Email :" + companyEmail,//ticketInfo.StoreEmail,
+            Content = companyEmail,//ticketInfo.StoreEmail,
             Justification = FontJustification.JustifyLeft,
             HeightScalar = FontHeighScalar.h1,
             WidthScalar = FontWidthScalar.w1,
@@ -185,7 +185,7 @@ public class PrinterController
 
         var StoreTelephoneSection = new StandardSection
         {
-            Content = "Telephone:" + telephone,//ticketInfo.StoreTel,
+            Content = telephone,//ticketInfo.StoreTel,
             Justification = FontJustification.JustifyLeft,
             HeightScalar = FontHeighScalar.h1,
             WidthScalar = FontWidthScalar.w1,
@@ -198,7 +198,6 @@ public class PrinterController
         document.Sections.Add(TicketTypeSection);
         document.Sections.Add(MoneyAmountSection);
         document.Sections.Add(MoneyAmountEnSection);
-
         //生成二维码
         Texture2D tex = ZXingQrCode.GenerateQRImageWithColor(ticketInfo.BankInfo + "&QRCodeEnd&", 256, 256, Color.black);
         using var qrCodeBitmap = SKBitmap.Decode(tex.EncodeToPNG());
