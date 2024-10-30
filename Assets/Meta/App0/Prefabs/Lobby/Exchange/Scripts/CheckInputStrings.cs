@@ -75,6 +75,8 @@ public class CheckInputStrings : MonoBehaviour
         lobbyController = FindObjectOfType<LobbyController>();
         if(lobbyController == null)
         {
+            _InputField.text = "";
+            isCheckInput = true;
             return;
         }
         if (_InputField != null)
@@ -92,15 +94,9 @@ public class CheckInputStrings : MonoBehaviour
             if (isCheckInput)
             {
                 _InputField.ActivateInputField();
-                
             }
         }
     }
-
-    //private void OnGUI()
-    //{
-    //    CheckInput();
-    //}
 
     private void CheckInput()
     {
