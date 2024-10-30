@@ -346,7 +346,7 @@ public class ExchangeViewController : MonoBehaviour
 
     private void OnClickZero()
     {
-        if (string.IsNullOrEmpty(value_txt.text))
+        if (string.IsNullOrEmpty(soft_value_txt.text))
         {
 
         }
