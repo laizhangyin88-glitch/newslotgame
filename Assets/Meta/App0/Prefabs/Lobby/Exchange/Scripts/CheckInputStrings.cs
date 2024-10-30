@@ -9,13 +9,15 @@ using System.Collections.Generic;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CheckInputStrings : MonoBehaviour
 {
     private string inputStrings;
-
+    private List<string> QRCodeInfoList = new List<string>();
+    private List<string> BankInfoList = new List<string>();
     private List<string> checkStringsList = new List<string>();
 
 
@@ -29,7 +31,7 @@ public class CheckInputStrings : MonoBehaviour
     private int outCreditRate;
     private Event _Event;
 
-    private InputField _InputField;
+    private TMP_InputField _InputField;
 
     private float _interval;
     private bool startInput = false;
@@ -41,7 +43,7 @@ public class CheckInputStrings : MonoBehaviour
     private LobbyController lobbyController;
 
     private bool isShowWaitView = false;
-
+    private string userId;
     private void Start()
     {
 #if !UNITY_EDITOR
@@ -51,18 +53,17 @@ public class CheckInputStrings : MonoBehaviour
             return;
         }
 #endif
-
+       
         _interval = 2; 
         inputValue = "";
         isShowWaitView = false;
         isCheckInput = true;
         outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
-        _InputField = FindObjectOfType<CheckInputField>().GetComponent<InputField>();
+        _InputField = FindObjectOfType<CheckInputField>().GetComponent<TMP_InputField>();
         startInput = false;
         if(outCreditRate <= 0)
         {
             outCreditRate = 100;///暂时写死
-            
         }
         isInUse = false;
         _clearInterval = clearInterval;
@@ -90,6 +91,7 @@ public class CheckInputStrings : MonoBehaviour
             if (isCheckInput)
             {
                 _InputField.ActivateInputField();
+                
             }
         }
     }
@@ -214,8 +216,8 @@ public class CheckInputStrings : MonoBehaviour
     #region  使用银行凭证代码
     private void ShowBankPopup(string bankInfo)
     {
-        //if (isInUse) return;
-        //isInUse = true;
+        if (isInUse) return;
+        isInUse = true;
         ErrorPopupInfo info = new ErrorPopupInfo();
         info.type = ErrorPopupType.YesNo;
         info.text = "<size=32>Do you want to use this QR Bank Code?</size>";
@@ -313,8 +315,8 @@ public class CheckInputStrings : MonoBehaviour
 
     private void CheckQRCode(string QRCodeInfo)
     {
-        //if (isInUse) return;
-        //isInUse = true;
+        if (isInUse) return;
+        isInUse = true;
         ShowWaitView();
         Dictionary<string, object> req = new Dictionary<string, object>
         {
@@ -506,5 +508,24 @@ public class CheckInputStrings : MonoBehaviour
         info.buttonText1 = "OK";
         ErrorPopupHandler.Instance.OpenError(info);
     }
-
+    private void SaveInfo()
+    {
+        string temp1 = "";
+        for (int i = 0; i < QRCodeInfoList.Count; i++)
+        {
+            temp1 += QRCodeInfoList[i] + "###";
+        }
+        string temp2 = "";
+        for (int i = 0; i < BankInfoList.Count; i++)
+        {
+            temp2 += BankInfoList[i] + "###";
+        }
+        Debug.LogError(" save success : temp1" + temp1 + "\n temp2" + temp2);
+        if (string.IsNullOrEmpty(userId))
+        {
+            userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "/me/userId").value;
+        }
+        SQLiteManager.Instance.SetString(userId + "QRCODEINFOLIST", temp1);
+        SQLiteManager.Instance.SetString(userId + "BANKINFOLIST", temp2);
+    }
 }
