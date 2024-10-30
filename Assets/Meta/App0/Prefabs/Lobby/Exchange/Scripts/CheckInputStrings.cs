@@ -1,6 +1,7 @@
 using BagelCode;
 using GameUtil;
 using ParadoxNotion;
+using SBoxApi;
 using SlotMaker;
 using SlotMaker.Keno;
 using System;
@@ -31,7 +32,7 @@ public class CheckInputStrings : MonoBehaviour
     private int outCreditRate;
     private Event _Event;
 
-    private TMP_InputField _InputField;
+    private InputField _InputField;
 
     private float _interval;
     private bool startInput = false;
@@ -59,7 +60,7 @@ public class CheckInputStrings : MonoBehaviour
         isShowWaitView = false;
         isCheckInput = true;
         outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
-        _InputField = FindObjectOfType<CheckInputField>().GetComponent<TMP_InputField>();
+        _InputField = FindObjectOfType<CheckInputField>().GetComponent<InputField>();
         startInput = false;
         if(outCreditRate <= 0)
         {
@@ -419,6 +420,10 @@ public class CheckInputStrings : MonoBehaviour
                 TicketType = "Money Type",
             };
             PrinterController.Instance.PrintTicket(ticketInfo);
+#if UNITY_EDITOR
+            string data = bankCode + ":" + outCredite;
+            MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_PRINT_BANK_INFO, data);
+#endif
             CloseWaitView();
             ShowSuccessResult("Success !");
             /////打印银行凭证
