@@ -132,13 +132,16 @@ public class ExchangeViewController : MonoBehaviour
 
     private void OnClickSureBtn()
     {
-        if(isMachine)
+        if (!string.IsNullOrEmpty(value_txt.text))
         {
-            ConfirmPrintBankPopup(long.Parse(value_txt.text));
-        }
-        else
-        {
-            CreateQRCode(long.Parse(value_txt.text));
+            if (isMachine)
+            {
+                ConfirmPrintBankPopup(long.Parse(value_txt.text));
+            }
+            else
+            {
+                CreateQRCode(long.Parse(value_txt.text));
+            }
         }
     }
 
