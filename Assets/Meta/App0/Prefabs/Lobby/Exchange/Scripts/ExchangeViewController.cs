@@ -218,7 +218,7 @@ public class ExchangeViewController : MonoBehaviour
         {
             QRCodeInfoList.Add(input);
         }
-        //SaveInfo();
+        SaveInfo();
         content2.gameObject.SetActive(true);
         string temp = input.Replace("\"", "");
         Dictionary<string, object> req = new Dictionary<string, object>
@@ -234,6 +234,7 @@ public class ExchangeViewController : MonoBehaviour
                 QRCodeInfoList.Remove(input);
                 BankInfoList.Add(CurrentBankInfo);
             }
+            SaveInfo();
             this.DelayAction(2, () =>
             {
                 ShowPopup("Success !");
@@ -244,7 +245,7 @@ public class ExchangeViewController : MonoBehaviour
         {
             QRCodeInfoList.Remove(input);
             ShowPopup(error.error);
-            //SaveInfo();
+            SaveInfo();
             content2.gameObject.SetActive(false);
         });
     }
