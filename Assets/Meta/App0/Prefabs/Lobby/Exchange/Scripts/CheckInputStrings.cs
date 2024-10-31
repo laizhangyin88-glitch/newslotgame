@@ -19,7 +19,6 @@ public class CheckInputStrings : MonoBehaviour
     private string inputStrings;
     private List<string> QRCodeInfoList = new List<string>();
     private List<string> BankInfoList = new List<string>();
-    private List<string> checkStringsList = new List<string>();
 
 
     public float clearInterval = 60;
@@ -61,6 +60,8 @@ public class CheckInputStrings : MonoBehaviour
         isCheckInput = true;
         outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
         _InputField = FindObjectOfType<CheckInputField>().GetComponent<InputField>();
+        Debug.LogError(_InputField.name);
+        MessageDispatcher.Register("OnCustomEvent", OnListenerCloseXEvent);
         startInput = false;
         if(outCreditRate <= 0)
         {
@@ -70,6 +71,17 @@ public class CheckInputStrings : MonoBehaviour
         _clearInterval = clearInterval;
     }
 
+    private void OnListenerCloseXEvent(EventData eventData)
+    {
+        if(eventData.name == "OnResetIsInUse")
+        {
+            if(eventData.value != null)
+            {
+                isInUse = (bool)eventData.value;
+            }
+        }
+    }
+
     private void Update()
     {
         lobbyController = FindObjectOfType<LobbyController>();
@@ -77,6 +89,14 @@ public class CheckInputStrings : MonoBehaviour
         {
             _InputField.text = "";
             isCheckInput = true;
+            isInUse = false;
+            _InputField.DeactivateInputField();
+            return;
+        }
+        if (isInUse)
+        {
+            _InputField.text = "";
+            _InputField.DeactivateInputField();
             return;
         }
         if (_InputField != null)
@@ -88,6 +108,7 @@ public class CheckInputStrings : MonoBehaviour
                 if (result)
                 {
                     _InputField.text = "";
+                    _InputField.DeactivateInputField();
                     isCheckInput = true;
                 }
             }
@@ -98,63 +119,19 @@ public class CheckInputStrings : MonoBehaviour
         }
     }
 
-    private void CheckInput()
-    {
-        AccountLoginViewNew accountLoginViewNew = GameObject.FindObjectOfType<AccountLoginViewNew>();
-        if(accountLoginViewNew != null)
-        {
-            isInUse = false;
-            checkStringsList.Clear();
-            return;
-        }
-        _Event = Event.current;
-        if (_Event != null && _Event.isKey && Input.anyKeyDown && _Event.keyCode != KeyCode.None)
-        {
-            startInput = true;
-            inputStrings = "" + _Event.keyCode.ToString().ToLower();
-            checkStringsList.Add(inputStrings);
-            inputValue = String.Join("", checkStringsList);
-            //temp = temp.Replace("rightshiftsemicolon", ":");
-            //temp = temp.Replace("alpha", "");
-            //temp = temp.Replace("minus", "-");
-            //temp = temp.Replace("rightshift7", "&");
-            //temp = temp.Replace("&qrcodeend&", "&QRCodeEnd&");
-        }
-        if ((_clearInterval -= Time.deltaTime) <= 0 && checkStringsList.Count > 0)
-        {
-            checkStringsList.Clear();
-            _clearInterval = clearInterval;
-            isInUse = false;
-        }
-        if (startInput)
-        {
-            if((_interval -= Time.deltaTime) < 0)
-            {
-                _interval = 3;
-                startInput = false;
-                MatchInput(inputValue);
-            }
-        }
-    }
-
     private bool MatchInput(string input)
     {
-
-        //input = input.Replace("rightshiftsemicolon", ":");
-        //input = input.Replace("rightshiftminus", "_");
-        //input = input.Replace("alpha", "");
-        //input = input.Replace("minus", "-");
-        //input = input.Replace("rightshift7rightshift7rightshiftqrightshiftqrightshiftrrightshiftrrightshiftcrightshiftcooddeerightshifterightshiftennddrightshift7rightshift7", "&QRCodeEnd&");
-        //Debug.LogError(input);
-        //input = RemoveConsecutiveDuplicates(input);
-        //Debug.LogError(input);
         Match match = Regex.Match(input, patternBank);
         if (match.Success)
         {
             string result = match.Groups[1].Value;
-            Debug.LogError("bank:" + result);
+            //正在加载界面，不弹窗
+            GameLoadingSceneController gameLoadingSceneController = FindObjectOfType<GameLoadingSceneController>();
+            if(gameLoadingSceneController != null)
+            {
+                return false;
+            }
             ShowBankPopup("bank:" + result);
-            checkStringsList.Clear();
             _clearInterval = clearInterval;
             return true;
         }
@@ -163,9 +140,12 @@ public class CheckInputStrings : MonoBehaviour
         {
             string result = match.Groups[1].Value;
             Debug.LogError("qr_code:" + result);
-            //ShowQRCodePopup("qr_code:" + result);
+            GameLoadingSceneController gameLoadingSceneController = FindObjectOfType<GameLoadingSceneController>();
+            if (gameLoadingSceneController != null)
+            {
+                return false;
+            }
             CheckQRCode("qr_code:" + result);
-            checkStringsList.Clear();
             _clearInterval = clearInterval;
             return true;
         }
@@ -174,61 +154,17 @@ public class CheckInputStrings : MonoBehaviour
         return false;
     }
 
-    static string RemoveConsecutiveDuplicates(string input)
-    {
-        if (string.IsNullOrEmpty(input))
-        {
-            return input;
-        }
-
-        StringBuilder sb = new StringBuilder();
-        char currentChar = input[0];
-        int consecutiveCount = 1;
-
-        sb.Append(currentChar); // 添加第一个字符  
-
-        for (int i = 1; i < input.Length; i++)
-        {
-            if (input[i] == currentChar)
-            {
-                consecutiveCount++;
-
-                // 仅在计数为奇数时添加字符，以跳过每对中的第二个字符  
-                if (consecutiveCount % 2 != 0)
-                {
-                    sb.Append(input[i]);
-                }
-            }
-            else
-            {
-                currentChar = input[i];
-                consecutiveCount = 1;
-                sb.Append(currentChar); // 添加新字符  
-            }
-        }
-
-        return sb.ToString();
-    }
-
     #region  使用银行凭证代码
     private void ShowBankPopup(string bankInfo)
     {
-        if (isInUse) return;
+        if (isInUse)
+        {
+            _InputField.text = "";
+            _InputField.DeactivateInputField();
+            return;
+        }
         isInUse = true;
-        ErrorPopupInfo info = new ErrorPopupInfo();
-        info.type = ErrorPopupType.YesNo;
-        info.text = "<size=32>Do you want to use this QR Bank Code?</size>";
-        info.buttonText1 = "Confirm";
-        info.buttonText2 = "Cancle";
-        info.callback1 = delegate
-        {
-            ConfirmBankInfo(bankInfo);
-        };
-        info.callback2 += delegate
-        {
-            isInUse = false;
-        };
-        ErrorPopupHandler.Instance.OpenError(info);
+        ConfirmBankInfo(bankInfo);
     }
 
     private void ConfirmBankInfo(string bankInfo)
@@ -250,14 +186,12 @@ public class CheckInputStrings : MonoBehaviour
             }
             else
             {
-                isInUse = false;
                 ShowErrorPopup("Bank Code has been use");
             }
         },
         (error) =>
         {
             CloseWaitView();
-            isInUse = false;
             ShowErrorPopup(error.error);
         });
     }
@@ -271,6 +205,7 @@ public class CheckInputStrings : MonoBehaviour
         info.buttonText2 = "Cancle";
         info.callback1 = delegate
         {
+            ShowWaitView();
             UseBankInfo(bankInfo);
         };
         info.callback2 += delegate
@@ -282,7 +217,6 @@ public class CheckInputStrings : MonoBehaviour
 
     private void UseBankInfo(string bankInfo)
     {
-        ShowWaitView();
         Dictionary<string, object> req = new Dictionary<string, object>
         {
             {"bank_order_id", bankInfo},
@@ -292,7 +226,6 @@ public class CheckInputStrings : MonoBehaviour
             globalStore.newCredit = res["balance"].AsLong;
             BlackboardQueryUtils.SetMyCredit(globalStore.newCredit);
             MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
-            isInUse = false;
             this.DelayAction(2f, () =>
             {
                 CloseWaitView();
@@ -302,17 +235,20 @@ public class CheckInputStrings : MonoBehaviour
         (error) =>
         {
             CloseWaitView();
-            
             ShowErrorPopup(error.error);
         });
     }
     #endregion
 
     #region  使用积分兑换码
-
     private void CheckQRCode(string QRCodeInfo)
     {
-        if (isInUse) return;
+        if (isInUse)
+        {
+            _InputField.text = "";
+            _InputField.DeactivateInputField();
+            return;
+        }
         isInUse = true;
         ShowWaitView();
         Dictionary<string, object> req = new Dictionary<string, object>
@@ -328,7 +264,6 @@ public class CheckInputStrings : MonoBehaviour
         (error) =>
         {
             CloseWaitView();
-            isInUse = false;
             ShowErrorPopup(error.error);
         });
     }
@@ -336,20 +271,7 @@ public class CheckInputStrings : MonoBehaviour
 
     private void ShowQRCodePopup(string QRCodeInfo, long score)
     {
-        ErrorPopupInfo info = new ErrorPopupInfo();
-        info.type = ErrorPopupType.YesNo;
-        info.text = "<size=32>Do you want to use this QR code?</size>";
-        info.buttonText1 = "Confirm";
-        info.buttonText2 = "Cancle";
-        info.callback1 = delegate
-        {
-            ConfirmQRCodeInfo(QRCodeInfo, score);
-        };
-        info.callback2 += delegate
-        {
-            isInUse = false;
-        };
-        ErrorPopupHandler.Instance.OpenError(info);
+        ConfirmQRCodeInfo(QRCodeInfo, score);
     }
     
     private void ConfirmQRCodeInfo(string QRCodeInfo, long score)
@@ -363,37 +285,24 @@ public class CheckInputStrings : MonoBehaviour
         info.useXButton = true;
         info.callback1 = delegate
         {
-            Debug.LogError("print .................");
+            QRCodeInfoList.Add(QRCodeInfo);
+            SaveInfo();
             ConfirmPrintBankPopup(QRCodeInfo, score);
         };
         info.callback2 = delegate
         {
-            Debug.LogError("add score.................");
             ConfirmAddScore(QRCodeInfo, score);
         };
         info.callbackX += delegate
         {
-            isInUse = false;
+            MessageDispatcher.Dispatch("OnCustomEvent", new EventData<bool>("OnResetIsInUse", false));
         };
         ErrorPopupHandler.Instance.OpenError(info);
     }
 
     private void ConfirmPrintBankPopup(string QRCodeInfo, long score)
     {
-        ErrorPopupInfo info = new ErrorPopupInfo();
-        info.type = ErrorPopupType.YesNo;
-        info.text = $"<size=32>Do you want to print {score.ToString("N0")} score Bank QR Code ?</size>";
-        info.buttonText1 = "Confirm";
-        info.buttonText2 = "Cancle";
-        info.callback1 = delegate
-        {
-            PrintBankQRCode(QRCodeInfo, score);
-        };
-        info.callback2 = delegate
-        {
-            isInUse=false;
-        };
-        ErrorPopupHandler.Instance.OpenError(info);
+        PrintBankQRCode(QRCodeInfo, score);
     }
 
     private void PrintBankQRCode(string QRCodeInfo, long score)
@@ -406,8 +315,10 @@ public class CheckInputStrings : MonoBehaviour
         NetManager.Instance.Post(RPCName.agent_check_qr_code_print_order, req, (res) =>
         {
             string bankCode = res["bank_order_id"];
-            isInUse = false;
-            long outCredite = score / outCreditRate; 
+            
+            long outCredite = score / outCreditRate;
+            BankInfoList.Add(bankCode);
+            SaveInfo();
             TicketInfo ticketInfo = new TicketInfo()
             {
                 BankInfo = bankCode,
@@ -420,34 +331,21 @@ public class CheckInputStrings : MonoBehaviour
             string data = bankCode + ":" + outCredite;
             MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_PRINT_BANK_INFO, data);
 #endif
-            CloseWaitView();
-            ShowSuccessResult("Success !");
-            /////打印银行凭证
+            this.DelayAction(10, () => {
+                CloseWaitView();
+                ShowSuccessResult("Success !");
+            });
         },
         (error) =>
         {
-            isInUse = false;
             ShowErrorPopup(error.error);
-            //SaveInfo();
+            SaveInfo();
         });
     }
 
     private void ConfirmAddScore(string QRCodeInfo, long score)
     {
-        ErrorPopupInfo info = new ErrorPopupInfo();
-        info.type = ErrorPopupType.YesNo;
-        info.text = $"<size=32>Do you want to Add {score.ToString("N0")} Score to account ?</size>";
-        info.buttonText1 = "Confirm";
-        info.buttonText2 = "Cancle";
-        info.callback1 = delegate
-        {
-            UseQRCodeAddScore(QRCodeInfo);
-        };
-        info.callback2 = delegate
-        {
-            isInUse = false;
-        };
-        ErrorPopupHandler.Instance.OpenError(info);
+        UseQRCodeAddScore(QRCodeInfo);
     }
 
     private void UseQRCodeAddScore(string QRCodeInfo)
@@ -460,16 +358,14 @@ public class CheckInputStrings : MonoBehaviour
         NetManager.Instance.Post(RPCName.agent_check_qr_code_print_order, req, (res) =>
         {
             string bankCode = res["bank_order_id"];
-            CloseWaitView();
             UseBankInfo(bankCode);
         },
         (error) =>
         {
             ShowErrorPopup(error.error);
-            //SaveInfo();
+            SaveInfo();
         });
     }
-
     #endregion
 
 
@@ -486,27 +382,40 @@ public class CheckInputStrings : MonoBehaviour
 
     private void CloseWaitView()
     {
-        isShowWaitView= false;
-        WaitForViewController.Instance.Close();
-    } 
+        isShowWaitView = false;
+        StartCoroutine(CheckWaitView());
+    }
+
+    private IEnumerator CheckWaitView()
+    {
+        WaitForViewController controller = FindObjectOfType<WaitForViewController>();
+        yield return controller != null;
+        MessageDispatcher.Dispatch(EVTType.ON_CONTENT_EVENT, new EventData("CloseWaitForView"));
+    }
 
     private void ShowErrorPopup(string error)
     {
-        isInUse = false;
         error = error.Replace("\"", "");
         ErrorPopupInfo info = new ErrorPopupInfo();
         info.type = ErrorPopupType.OK;
         info.text = $"<size=32>{error}</size>";
         info.buttonText1 = "OK";
+        info.callback1 += delegate
+        {
+            isInUse = false;
+        };
         ErrorPopupHandler.Instance.OpenError(info);
     }
     private void ShowSuccessResult(string value)
     {
-        isInUse = false;
         ErrorPopupInfo info = new ErrorPopupInfo();
         info.type = ErrorPopupType.OK;
         info.text = "<size=32>" + value + "</size>";
         info.buttonText1 = "OK";
+        info.callback1 += delegate
+        {
+            isInUse = false;
+        };
         ErrorPopupHandler.Instance.OpenError(info);
     }
     private void SaveInfo()
@@ -528,5 +437,11 @@ public class CheckInputStrings : MonoBehaviour
         }
         SQLiteManager.Instance.SetString(userId + "QRCODEINFOLIST", temp1);
         SQLiteManager.Instance.SetString(userId + "BANKINFOLIST", temp2);
+    }
+
+
+    private void OnDestroy()
+    {
+        MessageDispatcher.UnRegister("OnCustomEvent", OnListenerCloseXEvent);
     }
 }
