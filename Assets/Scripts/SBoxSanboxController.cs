@@ -2149,7 +2149,6 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     long initStamp = 0;
     private IEnumerator _SendRemain(long _initStamp)
     {
-        yield break;
         bool isFirst = true;  //重连网络或上电时，将缓存立马发给服务器同步。
 
         yield return new WaitUntil(() => globalStore.gameState == GameState.Hall || globalStore.gameState == GameState.Game);
