@@ -36,7 +36,6 @@ public class ExchangeViewController : MonoBehaviour
     private int outCreditRate;
     private string userId;
     private Dictionary<string, long> QRCodeInfoDicti = new Dictionary<string, long>();
-    private Dictionary<string, long> BankInfoDicti = new Dictionary<string, long>();
     private float tempInterval = 0;
     private Transform ContentQRCode;
     private Transform ContentPrint;
@@ -86,12 +85,7 @@ public class ExchangeViewController : MonoBehaviour
         QuickButton.gameObject.SetActive(false);
         ContentQRCode = transform.Find("content/ScrollViewQRCode/GameObject/ContentQRCode");
         ScrollViewQRCode = transform.Find("content/parent/ScrollViewQRCode");
-        
         InitQuickQRCodeList();
-
-        InitSQLiteData();
-        CheckQRCodeInfo();
-        CheckBankInfo();
     }
 
     private void InitQuickQRCodeList()
@@ -114,12 +108,13 @@ public class ExchangeViewController : MonoBehaviour
                     {
                         OnClickQuickPrint(index);
                     });
-
                     quickExchangeList.Add(go);
                 }
             }
         }
     }
+
+
 
     private void OnClickValueBtn()
     {
@@ -129,7 +124,9 @@ public class ExchangeViewController : MonoBehaviour
     private void OnClickQuickPrint(int index)
     {
         long credit = quickExchanges[index - 1];
-        value_txt.text = credit.ToString("N0");
+        string temp = (credit / outCreditRate).ToString("D");
+        long result = long.Parse(temp) * outCreditRate;
+        value_txt.text = result.ToString("N0");
     }
 
     private void OnClickSureBtn()
@@ -146,58 +143,6 @@ public class ExchangeViewController : MonoBehaviour
             {
                 CreateQRCode(result);
             }
-        }
-    }
-
-    private void InitSQLiteData()
-    {
-        string qrCode = SQLiteManager.Instance.GetString(userId + "QRCODEINFOLIST", "");
-        string bankCode = SQLiteManager.Instance.GetString(userId + "BANKINFOLIST", "");
-        Debug.LogError(qrCode);
-        Debug.LogError(bankCode);
-        if (!string.IsNullOrEmpty(qrCode))
-        {
-            string[] node = qrCode.Split("###".ToCharArray());
-            for (global::System.Int32 i = 0; i < node.Length; i++)
-            {
-
-                string temp = node[i];
-                if (!string.IsNullOrEmpty(temp))
-                {
-                    string[] result = Regex.Split(temp, "credit:");
-                    QRCodeInfoDicti.Add(result[0], long.Parse(result[1]));
-                }
-            }
-        }
-        if (!string.IsNullOrEmpty(bankCode))
-        {
-            string[] node = bankCode.Split("###".ToCharArray());
-            for (global::System.Int32 i = 0; i < node.Length; i++)
-            {
-                string temp = node[i];
-                if (!string.IsNullOrEmpty(temp))
-                {
-                    string[] result = Regex.Split(temp, "credit:");
-                    BankInfoDicti.Add(result[0], long.Parse(result[1]));
-                }
-            }
-        }
-    }
-    private void CheckQRCodeInfo()
-    {
-        if (QRCodeInfoDicti.Count > 0)
-        {
-            //CurrentQRCodeInfo = QRCodeInfoDicti[QRCodeInfoDicti.Count - 1];
-            var temp = QRCodeInfoDicti.First();
-            value_txt.text = temp.Value.ToString("N0");
-            UseExchangeQRCodeInfo(temp.Key, temp.Value);
-        }
-    }
-    private void CheckBankInfo()
-    {
-        if (BankInfoDicti.Count > 0)
-        {
-            //CurrentBankInfo = BankInfoDicti[BankInfoDicti.Count - 1];
         }
     }
 
@@ -227,7 +172,6 @@ public class ExchangeViewController : MonoBehaviour
         {
             QRCodeInfoDicti.Add(input, credit);
         }
-        SaveInfo();
         content2.gameObject.SetActive(true);
         string temp = input.Replace("\"", "");
         Dictionary<string, object> req = new Dictionary<string, object>
@@ -238,23 +182,17 @@ public class ExchangeViewController : MonoBehaviour
         {
             CurrentBankInfo = res["bank_order_id"];
             PrintQRCodeInfo(CurrentBankInfo);
-            if (!BankInfoDicti.TryGetValue(CurrentBankInfo, out long value))
-            {
-                //QRCodeInfoDicti.Remove(input);
-                BankInfoDicti.Add(CurrentBankInfo, credit);
-            }
-            SaveInfo();
-            this.DelayAction(10, () =>
+            this.DelayAction(15, () =>
             {
                 ShowPopup("Success !");
+                RemoveDictiElement();
                 content2.gameObject.SetActive(false);
             });
         },
         (error) =>
         {
-            //QRCodeInfoDicti.Remove(input);
+            RemoveDictiElement();
             ShowPopup(error.error);
-            SaveInfo();
             content2.gameObject.SetActive(false);
         });
     }
@@ -325,7 +263,18 @@ public class ExchangeViewController : MonoBehaviour
 
     private void OnClickConfirm()
     {
-        value_txt.text = soft_value_txt.text;
+        string temp = soft_value_txt.text.Replace(",", "");
+        long value = long.Parse(temp);
+        long result = long.Parse((value / outCreditRate).ToString("D"));
+        if(result == 0)
+        {
+            value_txt.text = "";
+        }
+        else
+        {
+            value_txt.text = (result * outCreditRate).ToString("N0");
+        }
+        
         SoftKeyboard.gameObject.SetActive(false);
     }
 
@@ -392,6 +341,11 @@ public class ExchangeViewController : MonoBehaviour
                 }
                 else
                 {
+                    if (!QRCodeInfoDicti.ContainsKey(CurrentQRCodeInfo))
+                    {
+                        QRCodeInfoDicti.Add(CurrentQRCodeInfo, credit);
+                        SaveInfo();
+                    } 
                     UseExchangeQRCodeInfo(CurrentQRCodeInfo, credit);
                 }
 
@@ -466,7 +420,6 @@ public class ExchangeViewController : MonoBehaviour
         }
         btnClose.onClick.RemoveAllListeners();
         QRCodeInfoDicti.Clear();
-        BankInfoDicti.Clear();
     }
     private Color32[] GenerateQRCode(string formatStr, int width, int height)
     {
@@ -507,6 +460,10 @@ public class ExchangeViewController : MonoBehaviour
         info.type = ErrorPopupType.OK;
         info.text = $"<size=32>{error}</size>";
         info.buttonText1 = "OK";
+        info.callback1 += delegate
+        {
+            content2.gameObject.SetActive(false);
+        };
         ErrorPopupHandler.Instance.OpenError(info);
     }
 
@@ -518,15 +475,8 @@ public class ExchangeViewController : MonoBehaviour
             string result = item.Key + "credit:" + item.Value + "####";
             temp1 += result;
         }
-        string temp2 = "";
-        foreach (var item in BankInfoDicti)
-        {
-            string result = item.Key + "credit:" + item.Value + "####";
-            temp2 += result;
-        }
-        Debug.LogError(" save success : temp1" + temp1 + "\n temp2" + temp2);
+        Debug.LogError(" save success : temp1" + temp1);
         SQLiteManager.Instance.SetString(userId + "QRCODEINFOLIST", temp1);
-        SQLiteManager.Instance.SetString(userId + "BANKINFOLIST", temp2);
     }
 
     private void ConfirmPrintBankPopup(long score)
@@ -548,6 +498,15 @@ public class ExchangeViewController : MonoBehaviour
             content2.gameObject.SetActive(false);
         };
         ErrorPopupHandler.Instance.OpenError(info);
+    }
+    private void RemoveDictiElement()
+    {
+        if (QRCodeInfoDicti.Count > 0)
+        {
+            var temp = QRCodeInfoDicti.First();
+            QRCodeInfoDicti.Remove(temp.Key);
+            SaveInfo();
+        }
     }
 
 }
