@@ -135,13 +135,21 @@ public class ExchangeViewController : MonoBehaviour
         {
             string temp = value_txt.text.Replace(",", "");
             long result = long.Parse(temp);
-            if (isMachine)
+            long myCredit = BlackboardUtils.FindVariable<long>(null, "/me/credit").value;
+            if (result <= myCredit)
             {
-                ConfirmPrintBankPopup(result);
+                if (isMachine)
+                {
+                    ConfirmPrintBankPopup(result);
+                }
+                else
+                {
+                    CreateQRCode(result);
+                }
             }
             else
             {
-                CreateQRCode(result);
+                ShowPopup("not enough money");
             }
         }
     }
@@ -322,45 +330,37 @@ public class ExchangeViewController : MonoBehaviour
     /// </summary>
     private void CreateQRCode(long credit, bool isPrint = false)
     {
-        long myCredit = BlackboardUtils.FindVariable<long>(null, "/me/credit").value;
         content2.gameObject.SetActive(true);
-        if (credit <= myCredit)
-        {
-            Dictionary<string, object> req = new Dictionary<string, object>
+        Dictionary<string, object> req = new Dictionary<string, object>
             {
                 {"outcredit", credit},
             };
-            NetManager.Instance.Post(RPCName.agent_build_qr_code, req, (res) =>
-            {
-                CurrentQRCodeInfo = res["qr_code_key"];
-                if (!isPrint)
-                {
-                    DrawQRCode(CurrentQRCodeInfo);
-                    QRCodeRawImage.transform.parent.gameObject.SetActive(true);
-                    content2.gameObject.SetActive(false);
-                }
-                else
-                {
-                    if (!QRCodeInfoDicti.ContainsKey(CurrentQRCodeInfo))
-                    {
-                        QRCodeInfoDicti.Add(CurrentQRCodeInfo, credit);
-                        SaveInfo();
-                    } 
-                    UseExchangeQRCodeInfo(CurrentQRCodeInfo, credit);
-                }
-
-            },
-            (error) =>
-            {
-                Debug.LogError(error);
-                ShowPopup(error.error);
-            });
-        }
-        else
+        NetManager.Instance.Post(RPCName.agent_build_qr_code, req, (res) =>
         {
-            ShowPopup("not enough money");
-            content2.gameObject.SetActive(false);
-        }
+            CurrentQRCodeInfo = res["qr_code_key"];
+            if (!isPrint)
+            {
+                DrawQRCode(CurrentQRCodeInfo);
+                QRCodeRawImage.transform.parent.gameObject.SetActive(true);
+                content2.gameObject.SetActive(false);
+            }
+            else
+            {
+                if (!QRCodeInfoDicti.ContainsKey(CurrentQRCodeInfo))
+                {
+                    QRCodeInfoDicti.Add(CurrentQRCodeInfo, credit);
+                    SaveInfo();
+                }
+                UseExchangeQRCodeInfo(CurrentQRCodeInfo, credit);
+            }
+
+        },
+        (error) =>
+        {
+            Debug.LogError(error);
+            ShowPopup(error.error);
+        });
+
     }
 
     private void OnClickNumber(int index)
