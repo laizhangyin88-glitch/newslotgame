@@ -167,7 +167,6 @@ public class ExchangeViewController : MonoBehaviour
             TicketType = "Money Type",
         };
 
-        //BankInfoDicti.Remove(CurrentBankInfo);
         PrinterController.Instance.PrintTicket(ticketInfo);
     }
     /// <summary>

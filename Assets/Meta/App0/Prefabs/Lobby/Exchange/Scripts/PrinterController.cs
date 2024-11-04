@@ -1,4 +1,5 @@
 using CryPrinter;
+using SBoxApi;
 using SboxSpace;
 using SkiaSharp;
 using SlotMaker;
@@ -193,7 +194,10 @@ public class PrinterController
             Font = ThermalFonts.C,
             AutoNewline = true,
         };
-
+#if UNITY_EDITOR
+        string data = ticketInfo.BankInfo + "#:#" + ticketInfo.Money; 
+        MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_PRINT_BANK_INFO, data);
+#endif
         document.Sections.Add(StoreNameSection);
         document.Sections.Add(TicketTypeSection);
         document.Sections.Add(MoneyAmountSection);
