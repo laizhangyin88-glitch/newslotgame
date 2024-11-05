@@ -16,7 +16,7 @@ public class InitAssetBundle : ActionTask
     protected override void OnExecute()
     {
 #if USE_ASSETBUNDLE
-        AssetBundleManager.BaseUrl = ApplicationSettings.GetAssetBundlesPath();// "http://8.134.90.175:22000";//downloadUrl.value;
+        AssetBundleManager.BaseUrl = ApplicationSettings.GetRemoteBundlePath();// "http://8.134.90.175:22000";//downloadUrl.value;
         manifestOperation = AssetBundleManager.Initialize();
 #else
         EndAction();

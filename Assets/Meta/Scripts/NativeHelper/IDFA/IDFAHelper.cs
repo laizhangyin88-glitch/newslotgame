@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SlotMaker;
+using System;
 
 namespace BagelCode
 {
@@ -28,9 +29,14 @@ namespace BagelCode
         {
             _bicontextID = contextID;
             if(string.IsNullOrEmpty(_bicontextID))
-                _bicontextID = BiEventUtils.GenerateContextID();
+                _bicontextID = GenerateContextID();
 
             delegator?.RequestIDFA();
+        }
+
+        public static string GenerateContextID()
+        {
+            return Guid.NewGuid().ToString();
         }
 
         public bool IsEligibleToSeeIDFAConsentPopup()
