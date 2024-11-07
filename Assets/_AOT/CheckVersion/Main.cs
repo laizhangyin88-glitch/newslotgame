@@ -99,6 +99,7 @@ public class Main : MonoBehaviour
     private IEnumerator CheckVersion()
     {
         string versionUrl = ApplicationSettings.GetRemoteVersionPath();
+        Debug.Log($"读取远程版本文件：{versionUrl}");
         //string versionUrl = StartUpConfig.url + "/Version.txt";
         www = UnityWebRequest.Get(versionUrl);
         yield return www.SendWebRequest();
