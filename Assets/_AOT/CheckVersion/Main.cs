@@ -236,7 +236,7 @@ public class Main : MonoBehaviour
             string path = StartUpConfig.DllPath + "/" + dllList[i];
             if (!File.Exists(path))
             {
-                StartUpUtils.GetFromStreamingAssets("Lib/" + dllList[i], (data) =>
+                StartUpUtils.GetFromStreamingAssets($"{ApplicationSettings.Instance.libPath}/" + dllList[i], (data) =>
                 {
                     File.WriteAllBytes(path, data);
                     Assembly.Load(data);
@@ -252,7 +252,7 @@ public class Main : MonoBehaviour
         for (int i = 0; i < dllList.Count; i++)
         {
             string path = StartUpConfig.DllPath + "/" + dllList[i];
-            StartUpUtils.GetFromStreamingAssets("Lib/" + dllList[i], (data) =>
+            StartUpUtils.GetFromStreamingAssets($"{ApplicationSettings.Instance.libPath}/" + dllList[i], (data) =>
             {
                 File.WriteAllBytes(path, data);
             });

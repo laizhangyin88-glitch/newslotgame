@@ -29,6 +29,9 @@ public static class StartUpUtils
             localPath = Application.streamingAssetsPath + "/" + path;
         else
             localPath = "file:///" + Application.streamingAssetsPath + "/" + path;
+
+        Debug.Log($"GetFromStreamingAssets:{localPath}");
+
         UnityWebRequest www = UnityWebRequest.Get(localPath);
         var operation = www.SendWebRequest();
         while (!operation.isDone)
