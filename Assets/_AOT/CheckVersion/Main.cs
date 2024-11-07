@@ -47,7 +47,7 @@ public class Main : MonoBehaviour
     private void Awake()
     {
         //loadSlider = transform.Find("slider").GetComponent<LoadSlider>();
-        versionText = transform.Find("VersionText").GetComponent<Text>();
+        //versionText = transform.Find("VersionText").GetComponent<Text>();
     }
 
     private IEnumerator Start()
@@ -91,7 +91,7 @@ public class Main : MonoBehaviour
             string versionJson = File.ReadAllText(StartUpConfig.VersionPath);
             curVersionData = JsonConvert.DeserializeObject<VersionData>(versionJson);
             PlayerPrefs.SetString("CurVersion", curVersionData.Version);
-            versionText.text = $"Version: {curVersionData.Version}";
+            //versionText.text = $"Version: {curVersionData.Version}";
             Debug.Log($"CurVersion:{curVersionData.Version}");
         }
     }
