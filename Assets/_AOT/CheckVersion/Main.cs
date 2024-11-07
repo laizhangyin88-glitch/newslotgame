@@ -143,7 +143,7 @@ public class Main : MonoBehaviour
     /// </summary>
     private void GetLocalVersion()
     {
-        StartUpUtils.GetFromStreamingAssets("Version.txt", (data) =>
+        StartUpUtils.GetFromStreamingAssets("Lib/Version.txt", (data) =>
         {
             string versionJson = System.Text.Encoding.UTF8.GetString(data);
             localVersionData = JsonConvert.DeserializeObject<VersionData>(versionJson);
