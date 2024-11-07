@@ -109,7 +109,8 @@ namespace BagelCode
             AssetDatabase.Refresh();
 
             PlayerSettings.bundleVersion = ProductSettings.Instance.productVersion;
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, flags);
+            if(string.IsNullOrEmpty(flags) == false)
+                PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, flags);
 
             PlayerSettings.stripEngineCode = true;
 
@@ -342,9 +343,11 @@ namespace BagelCode
         /// <param name="isDevBuild">开发构建</param>
         /// <param name="ignoreAssetbundleDependency">忽略ab包依赖</param>
         /// <param name="flags">要设置的预编译指令（使用分号分隔的字符串）</param>
-        private static void Build_Assetbundle(BuildTarget buildTarget, BuildTargetGroup buildTargetGroup, string path, bool isDevBuild, bool ignoreAssetbundleDependency, string flags)
+        public static void Build_Assetbundle(BuildTarget buildTarget, BuildTargetGroup buildTargetGroup, string path, bool isDevBuild, bool ignoreAssetbundleDependency, string flags)
         {
+
             AssetDatabase.Refresh();
+
 
             if (string.IsNullOrEmpty(path))
             {
@@ -372,7 +375,8 @@ namespace BagelCode
             //    path = Path.Combine(desktopPath, "Assetbundles" + buildTarget);
             //}
 
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, flags);
+            if (flags != null)
+                PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, flags);
             // Build_Assetbundles(path, BuildAssetBundleOptions.None, buildTarget, isDevBuild);
             Build_Assetbundles(path, BuildAssetBundleOptions.ChunkBasedCompression, buildTarget, isDevBuild, ignoreAssetbundleDependency);
         }

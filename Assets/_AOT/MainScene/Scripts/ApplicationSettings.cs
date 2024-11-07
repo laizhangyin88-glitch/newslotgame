@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using System.Security.Policy;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -77,7 +76,7 @@ namespace SlotMaker
         [Tooltip("webImage同时加载的数量限制")]
         public int asyncLoadWebImageLimit;
 
-        [Tooltip("预处理指令，会在打ab时覆盖PlayerSetting中的设置")]
+        [Tooltip("预处理指令，会在打ab时覆盖PlayerSetting中的设置\n(慎用)现在打ab包的位置根据预处理指令来的，设置完后要重新编译代码才能生效，这里改了打ab包时使用的还是之前的预处理指令")]
         public string defineFlags;
 
         [Tooltip("启用登录认证")]
@@ -108,11 +107,11 @@ namespace SlotMaker
             {
 #if K3K_TEST
                 return "K3K";
-#elif K3K_REALSE
+#elif K3K_RELEASE
                 return "K3K";
 #elif MARS_FORTUNE_TEST
                 return "MarsFortune";
-#elif MARS_FORTUNE_REALSE
+#elif MARS_FORTUNE_RELEASE
                 return "MarsFortune";
 #else
                 return "SlotClientMain";
@@ -129,10 +128,10 @@ namespace SlotMaker
             {
 #if K3K_TEST || MARS_FORTUNE_TEST
                 return "Test";
-#elif K3K_REALSE || MARS_FORTUNE_REALSE
-                return "Relaese";
+#elif K3K_RELEASE || MARS_FORTUNE_RELEASE
+                return "Release";
 #else
-                return "Relaese";
+                return "Release";
 #endif
             }
         }

@@ -1322,11 +1322,11 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                     string printTitle = "\t\tK3K\r\n";
 #if K3K_TEST
                     printTitle = "\t\tK3K\r\n";
-#elif K3K_REALSE
+#elif K3K_RELEASE
                     printTitle = "\t\tK3K\r\n";
 #elif MARS_FORTUNE_TEST
                     printTitle = "\t\tMarsFortune\r\n";
-#elif MARS_FORTUNE_REALSE
+#elif MARS_FORTUNE_RELEASE
                     printTitle = "\t\tMarsFortune\r\n";
 #endif
                     testMsg = printTitle +
