@@ -150,6 +150,15 @@ public class RPCName
     /// 查询下分二维码
     /// </summary>
     public const string agent_query_qr_code = "agent_query_qr_code";
+
+    /// <summary>
+    /// 查询数据总页数
+    /// </summary>
+    public const string agent_query_round_log_page_count = "agent_query_round_log_page_count";
+    /// <summary>
+    /// 查询一页的数据内容和数量
+    /// </summary>
+    public const string agent_query_round_log_page_info = "agent_query_round_log_page_info";
 }
 
 namespace RPCBase

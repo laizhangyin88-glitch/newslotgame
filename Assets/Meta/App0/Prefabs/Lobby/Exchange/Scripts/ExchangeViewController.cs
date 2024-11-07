@@ -9,6 +9,7 @@ using BagelCode;
 using GameUtil;
 using System.Text.RegularExpressions;
 using System.Linq;
+using ParadoxNotion;
 
 public class QRCodeInfo
 {
@@ -23,7 +24,7 @@ public class BankInfo
 
 public class ExchangeViewController : MonoBehaviour
 {
-    public RawImage QRCodeRawImage; // 绘制好的二维码
+    private RawImage QRCodeRawImage; // 绘制好的二维码
     private string CurrentQRCodeInfo = "";
     private string CurrentBankInfo = "";
     private List<GameObject> btnsList = new List<GameObject>();
@@ -40,6 +41,7 @@ public class ExchangeViewController : MonoBehaviour
     private Transform ContentQRCode;
     private Transform ContentPrint;
     private Transform ScrollViewQRCode;
+    private TextMeshProUGUI coinValueTxt;
 
     private List<Button> quickExchangeList = new List<Button>();
     private List<long> quickExchanges = new List<long>();
@@ -53,10 +55,13 @@ public class ExchangeViewController : MonoBehaviour
     private Button SoftBtnClose;
 
     private TextMeshProUGUI soft_value_txt;
+    private TextMeshProUGUI RateTxt;
 
     private void Start()
     {
         isMachine = ApplicationSettings.Instance.isMachine;
+
+        MessageDispatcher.Register(EVTType.ON_CREDIT_EVENT, UpdateCredit);
 
         SureBtn = transform.Find("content/SureBtn").GetComponent<Button>();
         SureBtn.onClick.AddListener(OnClickSureBtn);
@@ -85,7 +90,22 @@ public class ExchangeViewController : MonoBehaviour
         QuickButton.gameObject.SetActive(false);
         ContentQRCode = transform.Find("content/ScrollViewQRCode/GameObject/ContentQRCode");
         ScrollViewQRCode = transform.Find("content/parent/ScrollViewQRCode");
+        coinValueTxt = transform.Find("content/coin/coinValue").GetComponent<TextMeshProUGUI>();
+
+        coinValueTxt.text = BlackboardUtils.FindVariable<long>(null, "/me/credit").value.ToString("N0");
+        RateTxt = transform.Find("content/RateTxt").GetComponent<TextMeshProUGUI>();
+        RateTxt.text = string.Format("Redeem Rate : 1:{0}", outCreditRate);
+
         InitQuickQRCodeList();
+
+    }
+
+    private void UpdateCredit(EventData eventData)
+    {
+        if(eventData != null && eventData.name == "UpdateNaviCredit")
+        {
+            coinValueTxt.text = BlackboardUtils.FindVariable<long>(null, "/me/credit").value.ToString("N0");
+        }
     }
 
     private void InitQuickQRCodeList()
@@ -154,7 +174,7 @@ public class ExchangeViewController : MonoBehaviour
         }
     }
 
-    private void PrintQRCodeInfo(string info)
+    private void PrintQRCodeInfo(string info, string orderInfo)
     {
         string temp = value_txt.text.Replace(",", "");
         long result = long.Parse(temp);
@@ -163,7 +183,7 @@ public class ExchangeViewController : MonoBehaviour
         {
             BankInfo = info,
             Money = outCredite,
-            OrderText = "Test Order",
+            OrderText = orderInfo,
             TicketType = "Money Type",
         };
 
@@ -188,7 +208,8 @@ public class ExchangeViewController : MonoBehaviour
         NetManager.Instance.Post(RPCName.agent_check_qr_code_print_order, req, (res) =>
         {
             CurrentBankInfo = res["bank_order_id"];
-            PrintQRCodeInfo(CurrentBankInfo);
+            string orderInfo = res["show_order_id"];
+            PrintQRCodeInfo(CurrentBankInfo, orderInfo);
             this.DelayAction(15, () =>
             {
                 ShowPopup("Success !");
