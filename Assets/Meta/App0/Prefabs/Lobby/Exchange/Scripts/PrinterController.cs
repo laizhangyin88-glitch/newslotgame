@@ -111,7 +111,7 @@ public class PrinterController
         };
         var MoneyAmountEnSection = new StandardSection
         {
-            Content = NumberToEnglishString(ticketInfo.Money),
+            Content = NumberToEnglishString(ticketInfo.Money).ToUpper(),
             Justification = FontJustification.JustifyCenter,
             HeightScalar = FontHeighScalar.h1,
             WidthScalar = FontWidthScalar.w1,
@@ -195,7 +195,7 @@ public class PrinterController
             AutoNewline = true,
         };
 #if UNITY_EDITOR
-        string data = ticketInfo.BankInfo + "#:#" + ticketInfo.Money; 
+        string data = ticketInfo.BankInfo + "#:#" + ticketInfo.Money + "#:#" + ticketInfo.OrderText; 
         MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_PRINT_BANK_INFO, data);
 #endif
         document.Sections.Add(StoreNameSection);

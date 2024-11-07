@@ -319,7 +319,7 @@ public class CheckInputStrings : MonoBehaviour
             string bankCode = res["bank_order_id"];
             
             long outCredite = score / outCreditRate;
-
+            string orderInfo = res["show_order_id"];
             if (isMoneyValue)
             {
                 outCredite = score;
@@ -329,7 +329,7 @@ public class CheckInputStrings : MonoBehaviour
             {
                 BankInfo = bankCode,
                 Money = outCredite,
-                OrderText = "Test Order",
+                OrderText = orderInfo,
                 TicketType = "Money Type",
             };
             PrinterController.Instance.PrintTicket(ticketInfo);
