@@ -879,6 +879,17 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "telephone", data["telephone"].ToString().Replace("\"", ""));
                 }
                 #endregion
+
+                #region 添加时区信息
+                if (data.HasKey("timezone"))
+                {
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "timezone", data["timezone"].ToString());
+                }
+                if (data.HasKey("timezone_offset"))
+                {
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "timezone_offset", data["timezone_offset"].AsInt);
+                }
+                #endregion
                 if (data.HasKey("level"))
                     NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserLevel, data["level"].AsInt);
 

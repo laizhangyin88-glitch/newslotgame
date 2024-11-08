@@ -1,16 +1,19 @@
+using BagelCode.ClientModels;
 using Com.ForbiddenByte.OSA.Core;
+using GameUtil;
 using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class GameHistroyRecordItem : BaseItemViewsHolder
+public class GameHistroyRecordItem : MonoBehaviour
 {
     private TextMeshProUGUI ID;
     private TextMeshProUGUI BuildTime;
-    private TextMeshProUGUI Account;
+    //private TextMeshProUGUI Account;
     private TextMeshProUGUI GameName;
     private TextMeshProUGUI StartCredit;
     private TextMeshProUGUI Bet;
@@ -18,26 +21,40 @@ public class GameHistroyRecordItem : BaseItemViewsHolder
     private TextMeshProUGUI Total_Bet;
     private TextMeshProUGUI Total_Win;
     private TextMeshProUGUI EndCredit;
+    private Image imageBg;
+    public GameHistroyRecordController controller;
+    private Button moreBtn;
 
-    public override void CollectViews()
+    private GameHistroyRecordItemData gameHistroyRecordItemData;
+
+    private void Start()
     {
-        base.CollectViews();
-        ID = root.transform.Find("ScrollView/Viewport/Content/Index").GetComponent<TextMeshProUGUI>();
-        BuildTime = root.transform.Find("ScrollView/Viewport/Content/BuildTime").GetComponent<TextMeshProUGUI>();
-        Account = root.transform.Find("ScrollView/Viewport/Content/Account").GetComponent<TextMeshProUGUI>();
-        GameName = root.transform.Find("ScrollView/Viewport/Content/GameName").GetComponent<TextMeshProUGUI>();
-        StartCredit = root.transform.Find("ScrollView/Viewport/Content/StartCredit").GetComponent<TextMeshProUGUI>();
-        Bet = root.transform.Find("ScrollView/Viewport/Content/Bet").GetComponent<TextMeshProUGUI>();
-        Line = root.transform.Find("ScrollView/Viewport/Content/Line").GetComponent<TextMeshProUGUI>();
-        Total_Bet = root.transform.Find("ScrollView/Viewport/Content/Total_Bet").GetComponent<TextMeshProUGUI>();
-        Total_Win = root.transform.Find("ScrollView/Viewport/Content/Total_Win").GetComponent<TextMeshProUGUI>();
-        EndCredit = root.transform.Find("ScrollView/Viewport/Content/EndCredit").GetComponent<TextMeshProUGUI>();
-
-        Account.text = BlackboardUtils.FindValue<string>(MainBlackboard.Get(), "me/name");
+        ID = transform.Find("Index").GetComponent<TextMeshProUGUI>();
+        BuildTime = transform.Find("BuildTime").GetComponent<TextMeshProUGUI>();
+        //Account = transform.Find("Account").GetComponent<TextMeshProUGUI>();
+        GameName = transform.Find("GameName").GetComponent<TextMeshProUGUI>();
+        StartCredit = transform.Find("StartCredit").GetComponent<TextMeshProUGUI>();
+        Bet = transform.Find("Bet").GetComponent<TextMeshProUGUI>();
+        Line = transform.Find("Line").GetComponent<TextMeshProUGUI>();
+        Total_Bet = transform.Find("Total_Bet").GetComponent<TextMeshProUGUI>();
+        Total_Win = transform.Find("Total_Win").GetComponent<TextMeshProUGUI>();
+        EndCredit = transform.Find("EndCredit").GetComponent<TextMeshProUGUI>();
+        imageBg = GetComponent<Image>();
+        moreBtn = transform.GetComponent<Button>();
+        moreBtn.onClick.AddListener(OnClickMoreBtn);
     }
 
-    public void UpdateView(GameHistroyRecordItemData data)
+    private void OnClickMoreBtn()
     {
+        if(gameHistroyRecordItemData != null)
+        {
+            controller.ShowMoreView(gameHistroyRecordItemData);
+        }
+    }
+
+    public void UpdateView(GameHistroyRecordItemData data, int index)
+    {
+        gameHistroyRecordItemData = data;
         ID.text = data.sn.ToString();
         BuildTime.text = FormatTime(data.game_time);
         GameName.text = GetGameName(data.game_id);
@@ -47,12 +64,22 @@ public class GameHistroyRecordItem : BaseItemViewsHolder
         Total_Bet.text = data.total_bet.ToString("N0");
         Total_Win.text = data.total_win.ToString("N0");
         EndCredit.text = data.end_cent.ToString("N0");
-    }
 
+        if(index % 2 == 1)
+        {
+            imageBg.color = Color.white;
+        }
+        else
+        {
+            imageBg.color = new Color(0, 1, 1, 1);
+        }
+    }
     private string FormatTime(long time)
     {
-        DateTime dateTime = DateTimeOffset.FromUnixTimeSeconds(time).DateTime;
-        return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
+        long unixTimestamp = time; 
+        int timeOffset = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "timezone_offset").value;
+        DateTimeOffset dateTimeOffsetUtc = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp + timeOffset);
+        return dateTimeOffsetUtc.ToString("yyyy-MM-dd HH:mm:ss");
     }
 
     private string GetGameName(int gameId)
