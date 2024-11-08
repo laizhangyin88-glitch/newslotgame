@@ -441,7 +441,6 @@ public class CheckInputStrings : MonoBehaviour
             userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "/me/userId").value;
         }
         string qrCode = SQLiteManager.Instance.GetString(userId + "QRCODEINFOLIST", "");
-        Debug.LogError(qrCode);
         if (!string.IsNullOrEmpty(qrCode))
         {
             string[] node = qrCode.Split("###".ToCharArray());

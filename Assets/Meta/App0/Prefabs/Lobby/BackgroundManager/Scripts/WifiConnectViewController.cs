@@ -11,6 +11,7 @@ public class WifiConnectViewController : MonoBehaviour
 {
     private Keyboard keyboard;
     private TextMeshProUGUI wifiName;
+    private string wifiNameValue;
     private KeyboardParam KeyboardPara = new KeyboardParam("");  //键盘参数
     private TextMeshProUGUI password;
     private Button ConnectButton;
@@ -40,7 +41,8 @@ public class WifiConnectViewController : MonoBehaviour
 
     private void OnClickConnectBtn()
     {
-
+        WifiMgr.Instance.connectToWifi(wifiNameValue, passwordValue);
+        Destroy(gameObject);
     }
 
     private IEnumerator InitKeyboardEvent()
@@ -63,6 +65,7 @@ public class WifiConnectViewController : MonoBehaviour
         if(eventData.name == "OpenSoftKeyboard")
         {
             wifiName.text = "Wifi Name:  " + eventData.value.ToString();
+            wifiNameValue = eventData.value.ToString();
         }
     }
 }
