@@ -64,12 +64,51 @@ public class Main : MonoBehaviour
         
         Debug.Log("加载初场景资源...");
         string abName_mainscene = ApplicationSettings.MakeApplicationBundleName("mainscene");
-        yield return AssetBundleManager.LoadAssetBundleAndDep(abName_mainscene, true);
+        var abOperation = AssetBundleManager.LoadAssetBundleAndDep(abName_mainscene, false);
 
+        if(abOperation == null || abOperation.Count <= 0)
+        {
+            Debug.Log("读取初始场景资源失败");
+            yield break;
+        }
+
+        float totalProgress = abOperation.Count;
+        while(OperationListIsDone(abOperation) == false)
+        {
+            float curProgress = GetOperationListTotalProgress(abOperation);
+            string progress = (curProgress / totalProgress).ToString("P2");
+            Debug.Log(progress);
+
+            yield return new WaitForSeconds(0.5f);
+
+        }
+
+        Debug.Log("加载完成");
         Debug.Log("進入場景...");
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
 
         yield return null;
+    }
+
+    private bool OperationListIsDone(List<AssetBundleLoadOperation> operations)
+    {
+        foreach (var item in operations)
+        {
+            if (item.IsDone() == false)
+                return false;
+        }
+
+        return true;
+    }
+    private float GetOperationListTotalProgress(List<AssetBundleLoadOperation> operations)
+    {
+        float progress = 0f;
+        foreach (var item in operations)
+        {
+            progress += item.Progress();
+        }
+
+        return progress;
     }
 
     private bool GetBitValue(byte value, byte bit)
