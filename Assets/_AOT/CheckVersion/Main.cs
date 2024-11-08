@@ -252,7 +252,7 @@ public class Main : MonoBehaviour
         for (int i = 0; i < dllList.Count; i++)
         {
             string path = StartUpConfig.DllPath + "/" + dllList[i];
-            StartUpUtils.GetFromStreamingAssets($"{ApplicationSettings.Instance.libPath}/" + dllList[i], (data) =>
+            StartUpUtils.GetFromStreamingAssets($"{ApplicationSettings.Instance.libPath}/" + dllList[i] + ".bytes", (data) =>
             {
                 File.WriteAllBytes(path, data);
             });
