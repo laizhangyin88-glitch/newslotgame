@@ -161,6 +161,7 @@ public class Main : MonoBehaviour
     {
         GetCurVersion();
         GetLocalVersion();
+        Debug.Log($"NetVersion:{netVersionData.Version}");
         needUpdateNet = StartUpUtils.ParseVersion(netVersionData.Version) > StartUpUtils.ParseVersion(curVersionData.Version);
         if (needUpdateNet)
         {
@@ -194,6 +195,8 @@ public class Main : MonoBehaviour
 
     private IEnumerator UpdateFromNet()
     {
+        Debug.Log("UpdateFormNet");
+
         File.WriteAllText(StartUpConfig.VersionPath, JsonConvert.SerializeObject(netVersionData));
         curVersionData = netVersionData;
         PlayerPrefs.SetString("CurVersion", curVersionData.Version);
@@ -207,7 +210,11 @@ public class Main : MonoBehaviour
             || www.result == UnityWebRequest.Result.ProtocolError)
                 Debug.LogError(www.error);
             else if (www.isDone)
+            {
+                Debug.Log($"下载远程dll完成：{dllUrl}");
                 File.WriteAllBytes(StartUpConfig.DllPath + "/" + dllList[i], www.downloadHandler.data);
+            }
+                
         }
         LoadDllFromMemory();
         //StartCoroutine(LoadAssetBundleFromNet());
