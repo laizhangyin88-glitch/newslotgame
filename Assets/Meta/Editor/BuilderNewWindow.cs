@@ -16,16 +16,16 @@ using System.Reflection;
 public class BuilderNewWindow : OdinEditorWindow
 {
     [InfoBox("这里确认正确即可，不是必须要操作")]
-    [LabelText("平台"), ValueDropdown("GetBuildTargetArray"), InlineButton("SwitchPlatform", "切换"), BoxGroup(GroupID = "1")]
+    [LabelText("平台"), ValueDropdown("GetBuildTargetArray"), InlineButton("SwitchPlatform", "切换"), BoxGroup("打包环境", ShowLabel = false)]
     public BuildTarget TargetPlaform = BuildTarget.Android;
 
-    [BoxGroup(GroupID = "1"), LabelText("渠道")]
+    [BoxGroup("打包环境", ShowLabel = false), LabelText("渠道")]
     public ChannelType Channel = ChannelType.K3K;
 
-    [LabelText("软件版本"), BoxGroup(GroupID = "1")]
+    [LabelText("软件版本"), BoxGroup("打包环境", ShowLabel = false)]
     public SoftwareType Software = SoftwareType.Test;
 
-    [Button("Apply Symbol", Style = ButtonStyle.Box), BoxGroup(GroupID = "1"), GUIColor(0.3f, 0.8f, 0.8f)]
+    [Button("Apply Symbol", Style = ButtonStyle.Box), BoxGroup("打包环境", ShowLabel = false), GUIColor(0.3f, 0.8f, 0.8f)]
     private void SwitchChannelAndSoftware()
     {
         var cs = GetChannelAndSoftware(TargetPlaform);
