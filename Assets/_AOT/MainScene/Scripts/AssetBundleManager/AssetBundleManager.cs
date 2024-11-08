@@ -210,6 +210,13 @@ namespace SlotMaker
             var operation = LoadAssetBundleInternal(bundleName);
             return operation;
         }
+        public static AssetBundleLoadOperation LoadAssetBundle(string bundleName, bool isDLC)
+        {
+            if (isDLC)
+                AddDLC(bundleName);
+
+            return LoadAssetBundle(bundleName);
+        }
 
         public static AssetBundleLoadOperation LoadAssetBundleInternal(string bundleName)
         {
@@ -268,6 +275,42 @@ namespace SlotMaker
             }
 #endif
             return depOps;
+        }
+        public static List<AssetBundleLoadOperation> LoadDependencies(string bundleName, bool isDLC)
+        {
+            var depOps = new List<AssetBundleLoadOperation>();
+
+#if USE_ASSETBUNDLE
+            string[] deps = Manifest.GetAllDependencies(bundleName);
+            if (deps.Length == 0)
+                return depOps;
+
+            if (!dependencies.ContainsKey(bundleName))
+                dependencies.Add(bundleName, deps);
+
+            for (int i = 0; i < deps.Length; ++i)
+            {
+                if (isDLC) AddDLC(deps[i]);
+                depOps.Add(LoadAssetBundleInternal(deps[i]));
+            }
+#endif
+            return depOps;
+        }
+
+        public static List<AssetBundleLoadOperation> LoadAssetBundleAndDep(string bundleName, bool isDLC)
+        {
+            List<AssetBundleLoadOperation> ret = new List<AssetBundleLoadOperation>();
+            var depOperation = LoadDependencies(bundleName, isDLC);
+            var abOperation = LoadAssetBundle(bundleName, isDLC);
+
+            if (depOperation != null)
+                ret.AddRange(depOperation);
+
+            if (abOperation == null)
+                return null;
+
+            ret.Add(abOperation);
+            return ret;
         }
 
         public static void UnloadAssetBundle(string bundleName, bool unloadAllLoadedObjects)
