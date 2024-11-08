@@ -127,7 +127,10 @@ public class Main : MonoBehaviour
     /// </summary>
     private void GetCurVersion()
     {
-        if (File.Exists(StartUpConfig.VersionPath))
+        Debug.Log($"获取持久化目录中的版本号:{StartUpConfig.VersionPath}");
+        bool exists = File.Exists(StartUpConfig.VersionPath);
+        Debug.Log($"持久化目录是否存在Version.txt:{exists}");
+        if (exists)
         {
             string versionJson = File.ReadAllText(StartUpConfig.VersionPath);
             curVersionData = JsonConvert.DeserializeObject<VersionData>(versionJson);
