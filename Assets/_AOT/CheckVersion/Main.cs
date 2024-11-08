@@ -58,12 +58,13 @@ public class Main : MonoBehaviour
 
         AssetBundleManager.BaseUrl = ApplicationSettings.GetRemoteBundlePath();
         AssetBundleManager.BaseFilePath = ApplicationSettings.GetStreamingBundlePath();
+        Debug.Log("初始化Manifest...");
         yield return AssetBundleManager.Initialize();
         string abName_mainscene = ApplicationSettings.MakeApplicationBundleName("mainscene");
+        Debug.Log("加载初场景资源依赖...");
         yield return AssetBundleManager.LoadDependencies(abName_mainscene);
-        Debug.Log("加載初始包依賴完成");
+        Debug.Log("加载初场景资源...");
         yield return AssetBundleManager.LoadAssetBundle(abName_mainscene);
-        Debug.Log("加載初始包完成");
         Debug.Log("進入場景...");
         
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
