@@ -236,7 +236,7 @@ public class Main : MonoBehaviour
             string path = StartUpConfig.DllPath + "/" + dllList[i];
             if (!File.Exists(path))
             {
-                StartUpUtils.GetFromStreamingAssets($"{ApplicationSettings.Instance.libPath}/" + dllList[i], (data) =>
+                StartUpUtils.GetFromStreamingAssets($"{ApplicationSettings.Instance.libPath}/" + dllList[i] + ".bytes", (data) =>
                 {
                     File.WriteAllBytes(path, data);
                     Assembly.Load(data);
