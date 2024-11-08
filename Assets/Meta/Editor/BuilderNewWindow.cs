@@ -38,8 +38,8 @@ public class BuilderNewWindow : OdinEditorWindow
         UnityEditor.Compilation.CompilationPipeline.RequestScriptCompilation();
     }
 
-    [PropertySpace(10), LabelText("当前ab生成路径"), ShowInInspector]
-    public string AbBuildPath => GetAbBuildPath();
+    [PropertySpace(10), LabelText("当前ab生成路径"), ReadOnly]
+    public string AbBuildPath;
 
 
     [Button("打开ab路径"), HorizontalGroup("btnRow1"), PropertyOrder(20)]
@@ -99,6 +99,7 @@ public class BuilderNewWindow : OdinEditorWindow
         base.OnEnable();
 
         TargetPlaform = EditorUserBuildSettings.activeBuildTarget;
+        AbBuildPath = GetAbBuildPath();
         var cs = GetChannelAndSoftware(TargetPlaform);
         Channel = cs.Item1;
         Software = cs.Item2;
