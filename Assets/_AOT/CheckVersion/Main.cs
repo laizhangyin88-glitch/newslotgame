@@ -151,7 +151,7 @@ public class Main : MonoBehaviour
            || www.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.LogError(www.error);
-            CompareVersion();
+            //CompareVersion();
         }
         else if (www.isDone)
         {
@@ -168,6 +168,8 @@ public class Main : MonoBehaviour
         needUpdateNet = StartUpUtils.ParseVersion(netVersionData.Version) > StartUpUtils.ParseVersion(curVersionData.Version);
         if (needUpdateNet)
         {
+            Debug.Log("需要更新");
+
             //如果網絡版本大於Streaming版本
             if (StartUpUtils.ParseVersion(netVersionData.Version) > StartUpUtils.ParseVersion(localVersionData.Version))
                 StartCoroutine(UpdateFromNet());

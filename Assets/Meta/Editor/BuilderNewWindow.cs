@@ -12,7 +12,7 @@ using HybridCLR.Editor.Commands;
 using System.IO;
 using System.Reflection;
 
-[TypeInfoBox("<color=yellow>unity内的打包流程已封装在此窗口\n按顺序一一确认/操作\n有任何问题请滴滴whh</color>")]
+//[TypeInfoBox("<color=yellow>unity内的打包流程已封装在此窗口\n按顺序一一确认/操作\n有任何问题请滴滴whh</color>")]
 public class BuilderNewWindow : OdinEditorWindow
 {
     [InfoBox("这里确认正确即可，不是必须要操作")]
@@ -38,52 +38,38 @@ public class BuilderNewWindow : OdinEditorWindow
         UnityEditor.Compilation.CompilationPipeline.RequestScriptCompilation();
     }
 
-    [PropertySpace(10), LabelText("当前ab生成路径"), ReadOnly]
-    public string AbBuildPath;
+
+    [PropertySpace(20), LabelText("ab生成路径"), ShowInInspector, Sirenix.OdinInspector.FilePath(), ReadOnly]
+    protected string AbBuildPath;
 
 
-    [Button("打开ab路径"), HorizontalGroup("btnRow1")]
-    public void OpenAbBuildPath()
-    {
-        if (Directory.Exists(AbBuildPath) == false)
-            Directory.CreateDirectory(AbBuildPath);
+    //[Button("打开ab路径"), HorizontalGroup("btnRow1")]
+    //public void OpenAbBuildPath()
+    //{
+    //    if (Directory.Exists(AbBuildPath) == false)
+    //        Directory.CreateDirectory(AbBuildPath);
 
-        OpenDirectoryInExplorer(AbBuildPath);
-    }
-    [Button("打ab包"), HorizontalGroup("btnRow1"), PropertyTooltip("没有资源变动可不打")]
+    //    OpenDirectoryInExplorer(AbBuildPath);
+    //}
+    [Button("打ab包"), PropertyTooltip("没有资源变动可不打")]
     public void BuildAb()
     {
         BuildTargetGroup group = BuilderNew.ConvertBuildTarget(TargetPlaform);
         Builder.Build_Assetbundle(TargetPlaform, group, null, true, true, null);
     }
 
-    [PropertySpace(10), LabelText("(HybridCLR)生成linkXml"), Button]
+    [LabelText("(HybridCLR)生成linkXml"), Button]
     public void GenerateLinkXml()
     {
         LinkGeneratorCommand.GenerateLinkXml();
     }
 
 
-    [LabelText("生成路径"), FolderPath(AbsolutePath =true, RequireExistingPath = true), InlineButton("BuildProject", "导出工程"), OnValueChanged("SaveBuildPath"), Delayed]
+    [LabelText("项目生成路径"), FolderPath(AbsolutePath =true, RequireExistingPath = true), InlineButton("BuildProject", "导出工程"), OnValueChanged("SaveBuildPath"), Delayed]
     public string BuildPath;
-    private void SaveBuildPath()
-    {
-        if (string.IsNullOrEmpty(BuildPath))
-            return;
-
-        EditorPrefs.SetString("lastBuildProjectPath", BuildPath);
-    }
-
-    //[PropertySpace, Button("开始打包")]
     
-    private void Btn()
-    {
-        Il2CppDefGeneratorCommand.GenerateIl2CppDef();
-        MethodBridgeGeneratorCommand.GenerateMethodBridgeAndReversePInvokeWrapper();
-        //todo
-        //将 {proj}\HybridCLRData\LocalIl2CppData-{platform}\il2cpp\libil2cpp\hybridclr\generated目录 替换导出工程中的此目录。
-        //在导出工程上执行build
-    }
+
+    
 
     [MenuItem("Tools/Build/全平台出包")]
     public static void OpenWindow()
@@ -102,6 +88,25 @@ public class BuilderNewWindow : OdinEditorWindow
         Software = cs.Item2;
         string lastBuildProjectPath = EditorPrefs.GetString("lastBuildProjectPath", "");
         BuildPath = lastBuildProjectPath;
+    }
+
+    //[PropertySpace, Button("开始打包")]
+
+    private void Btn()
+    {
+        Il2CppDefGeneratorCommand.GenerateIl2CppDef();
+        MethodBridgeGeneratorCommand.GenerateMethodBridgeAndReversePInvokeWrapper();
+        //todo
+        //将 {proj}\HybridCLRData\LocalIl2CppData-{platform}\il2cpp\libil2cpp\hybridclr\generated目录 替换导出工程中的此目录。
+        //在导出工程上执行build
+    }
+
+    private void SaveBuildPath()
+    {
+        if (string.IsNullOrEmpty(BuildPath))
+            return;
+
+        EditorPrefs.SetString("lastBuildProjectPath", BuildPath);
     }
 
     private void BuildProject()
