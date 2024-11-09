@@ -42,7 +42,7 @@ public class BuilderNewWindow : OdinEditorWindow
     public string AbBuildPath;
 
 
-    [Button("打开ab路径"), HorizontalGroup("btnRow1"), PropertyOrder(20)]
+    [Button("打开ab路径"), HorizontalGroup("btnRow1")]
     public void OpenAbBuildPath()
     {
         if (Directory.Exists(AbBuildPath) == false)
@@ -50,21 +50,21 @@ public class BuilderNewWindow : OdinEditorWindow
 
         OpenDirectoryInExplorer(AbBuildPath);
     }
-    [Button("打ab包"), HorizontalGroup("btnRow1"), PropertyOrder(21), PropertyTooltip("没有资源变动可不打")]
+    [Button("打ab包"), HorizontalGroup("btnRow1"), PropertyTooltip("没有资源变动可不打")]
     public void BuildAb()
     {
         BuildTargetGroup group = BuilderNew.ConvertBuildTarget(TargetPlaform);
         Builder.Build_Assetbundle(TargetPlaform, group, null, true, true, null);
     }
 
-    [PropertySpace(10), LabelText("(HybridCLR)生成linkXml"), Button, PropertyOrder(22)]
+    [PropertySpace(10), LabelText("(HybridCLR)生成linkXml"), Button]
     public void GenerateLinkXml()
     {
         LinkGeneratorCommand.GenerateLinkXml();
     }
 
 
-    [LabelText("生成路径"), FolderPath(AbsolutePath =true, RequireExistingPath = true), InlineButton("BuildProject", "导出工程"), OnValueChanged("SaveBuildPath"), Delayed, PropertyOrder(23)]
+    [LabelText("生成路径"), FolderPath(AbsolutePath =true, RequireExistingPath = true), InlineButton("BuildProject", "导出工程"), OnValueChanged("SaveBuildPath"), Delayed]
     public string BuildPath;
     private void SaveBuildPath()
     {
@@ -84,9 +84,6 @@ public class BuilderNewWindow : OdinEditorWindow
         //将 {proj}\HybridCLRData\LocalIl2CppData-{platform}\il2cpp\libil2cpp\hybridclr\generated目录 替换导出工程中的此目录。
         //在导出工程上执行build
     }
-
-
-
 
     [MenuItem("Tools/Build/全平台出包")]
     public static void OpenWindow()
@@ -112,8 +109,11 @@ public class BuilderNewWindow : OdinEditorWindow
         if (string.IsNullOrEmpty(BuildPath))
             return;
 
-        if (File.Exists(BuildPath) == false)
+        if (Directory.Exists(BuildPath) == false)
+        {
+            EditorUtility.DisplayDialog("警告", "导出目录不存在", "ok");
             return;
+        }
 
         if (EditorUtility.DisplayDialog("确认", "导出前是否清空导出目录?", "yes", "no"))
         {
