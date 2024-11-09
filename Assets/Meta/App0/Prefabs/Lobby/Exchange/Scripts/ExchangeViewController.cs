@@ -34,7 +34,7 @@ public class ExchangeViewController : MonoBehaviour
     private BarcodeWriter barcodeWriter;
     private Button QuickButton;
     private Transform content2;
-    private int outCreditRate;
+    public int outCreditRate;
     private string userId;
     private Dictionary<string, long> QRCodeInfoDicti = new Dictionary<string, long>();
     private float tempInterval = 0;
@@ -293,7 +293,7 @@ public class ExchangeViewController : MonoBehaviour
     {
         string temp = soft_value_txt.text.Replace(",", "");
         long value = long.Parse(temp);
-        long result = long.Parse((value / outCreditRate).ToString("D"));
+        long result = long.Parse((value / outCreditRate).ToString("D")); 
         if(result == 0)
         {
             value_txt.text = "";

@@ -77,7 +77,8 @@ public class GameListContent
         btnList = new List<GameObject>();
         nameList = new List<string>();
         idList = new List<int>();
-        foreach (var item in GameHistroyRecordController.gameNameDicti)
+        var dicti = GameHistroyRecordController.gameNameDicti.OrderBy(kvp => kvp.Value);
+        foreach (var item in dicti)
         {
             nameList.Add(item.Value);
             idList.Add(item.Key);

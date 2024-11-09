@@ -517,6 +517,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             case SBOX_SWITCH.SWITCH_SCORE_DOWN:
                 break;
             case SBOX_SWITCH.SWITCH_RED:
+                MessageDispatcher.Dispatch(EVTType.ON_CUSTOM_EVENT, new EventData("OnOpenBackground"));
                 break;
             case SBOX_SWITCH.SWITCH_GREEN:
                 break;
