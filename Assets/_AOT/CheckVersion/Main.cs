@@ -200,6 +200,9 @@ public class Main : MonoBehaviour
     {
         Debug.Log("UpdateFormNet");
 
+        if (Directory.Exists(StartUpConfig.VersionPath))
+            Directory.CreateDirectory(StartUpConfig.VersionPath);
+
         File.WriteAllText(StartUpConfig.VersionPath, JsonConvert.SerializeObject(netVersionData));
         curVersionData = netVersionData;
         PlayerPrefs.SetString("CurVersion", curVersionData.Version);
@@ -265,6 +268,11 @@ public class Main : MonoBehaviour
 
     private void UpdateFromLocal()
     {
+        Debug.Log("UpdateFromLocal");
+
+        if (Directory.Exists(StartUpConfig.VersionPath))
+            Directory.CreateDirectory(StartUpConfig.VersionPath);
+
         File.WriteAllText(StartUpConfig.VersionPath, JsonConvert.SerializeObject(localVersionData));
         curVersionData = localVersionData;
         PlayerPrefs.SetString("CurVersion", curVersionData.Version);

@@ -112,6 +112,16 @@ public class BuilderNewWindow : OdinEditorWindow
         if (string.IsNullOrEmpty(BuildPath))
             return;
 
+        if (File.Exists(BuildPath) == false)
+            return;
+
+        if (EditorUtility.DisplayDialog("确认", "导出前是否清空导出目录?", "yes", "no"))
+        {
+            Debug.Log($"清空导出目录:{BuildPath}");
+            Directory.Delete(BuildPath);
+            Directory.CreateDirectory(BuildPath);
+        }
+
         BuildTargetGroup group = BuilderNew.ConvertBuildTarget(TargetPlaform);
         Builder.BuildPlayer(TargetPlaform, group, BuildPath, null, BuildOptions.None);
     }
