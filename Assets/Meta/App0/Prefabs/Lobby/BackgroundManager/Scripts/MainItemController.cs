@@ -20,6 +20,8 @@ public class MainItemController : MonoBehaviour
         name.text = AddSpaceBeforeUppercase(buttonType.ToString());
     }
 
+
+
     private void OnClickIconBtn()
     {
         switch (buttonType)

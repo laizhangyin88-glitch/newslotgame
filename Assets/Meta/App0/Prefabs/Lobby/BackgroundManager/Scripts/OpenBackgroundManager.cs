@@ -1,3 +1,5 @@
+using BagelCode;
+using ParadoxNotion;
 using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,17 +7,42 @@ using UnityEngine;
 
 public class OpenBackgroundManager : MonoBehaviour
 {
+    private void Start()
+    {
+        MessageDispatcher.Register(EVTType.ON_CUSTOM_EVENT, OnListenerOpenEvent);
+    }
+
+    private void OnDestroy()
+    {
+        MessageDispatcher.UnRegister(EVTType.ON_CUSTOM_EVENT, OnListenerOpenEvent);
+    }
+
+    private void OnListenerOpenEvent(EventData eventData)
+    {
+        if(eventData.name == "OnOpenBackground")
+        {
+            OpenBackgroundManagerMainView();
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Q)) 
         {
-            BackgroundManagerMainViewController backgroundManagerMainViewController = FindObjectOfType<BackgroundManagerMainViewController>();
-            if(backgroundManagerMainViewController != null)
-            {
-                return;
-            }
-            OpenView("lobby0", "BackgroundManagerMainView", PopupManager.Instance.BackgroundSetting);
+            OpenBackgroundManagerMainView();
         }
+    }
+
+    private void OpenBackgroundManagerMainView()
+    {
+        var lobbyController = FindObjectOfType<LobbyController>();
+        if (lobbyController == null) { return; }
+        BackgroundManagerMainViewController backgroundManagerMainViewController = FindObjectOfType<BackgroundManagerMainViewController>();
+        if (backgroundManagerMainViewController != null)
+        {
+            return;
+        }
+        OpenView("lobby0", "BackgroundManagerMainView", PopupManager.Instance.BackgroundSetting);
     }
 
     public static GameObject OpenView(string bundleName, string assetName, Transform parent = null)

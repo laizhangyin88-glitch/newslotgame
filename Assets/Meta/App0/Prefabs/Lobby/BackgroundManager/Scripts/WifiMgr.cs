@@ -28,7 +28,7 @@ public class WifiMgr : MonoSingleton<WifiMgr>
         if(nativeObject == null) return list;
 
         int len = nativeObject.Call<int>("getWifiListSize");
-        Debug.Log("the getWifiListSize is " + len);
+        Debug.LogError("the getWifiListSize is " + len);
 
 #if UNITY_EDITOR
         for (int i = 0; i < 15; i++)
@@ -40,6 +40,7 @@ public class WifiMgr : MonoSingleton<WifiMgr>
         for (int i = 0;i < len;i++)
         {
             string txt = nativeObject.Call<string>("getWifiName", i);
+            Debug.LogError("find wifi:" +  txt);
             list.Add(txt);
         }
 
@@ -48,7 +49,7 @@ public class WifiMgr : MonoSingleton<WifiMgr>
 
     public void connectToWifi(string ssid,string pwd) {
         if (nativeObject == null) return;
-
+        Debug.LogError("connect wifi :" + ssid + "pwd:" + pwd);
         nativeObject.Call("connectToWifi",ssid,pwd);
     }
 

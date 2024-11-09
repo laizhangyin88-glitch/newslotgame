@@ -1,3 +1,4 @@
+using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ public class BackgroundManagerMainViewController : MonoBehaviour
         content = transform.Find("ScrollView/Viewport/Content");
         selectItem = transform.Find("SelectItem").gameObject;
         InitMainItemList();
+
     }
 
     private void InitMainItemList()
