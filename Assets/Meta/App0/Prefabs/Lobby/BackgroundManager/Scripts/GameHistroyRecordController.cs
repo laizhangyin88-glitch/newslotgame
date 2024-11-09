@@ -82,20 +82,13 @@ public class GameHistroyRecordController : MonoBehaviour
         {
             one_page_count = 18;
         }
-        InitGameNameDicti();
-
         searchGameId = -100;
-
         ClearStart = transform.Find("content/Selecter/ClearStart").GetComponent<Button>();
         ClearStart.onClick.AddListener(() => { StartTxt.text = ""; });
-
         ClearEnd = transform.Find("content/Selecter/ClearEnd").GetComponent<Button>();
         ClearEnd.onClick.AddListener(() => { EndTxt.text = ""; });
-
         AllBtn = transform.Find("content/Selecter/AllBtn").GetComponent<Button>();
         AllBtn.onClick.AddListener(() => { searchGameNameTxt.text = "All"; searchGameId = -100; });
-
-
         Item = transform.Find("content/Item").gameObject;
         ButtonNext = transform.Find("content/Info/bg/ButtonNext").GetComponent<Button>();
         ButtonClose = transform.Find("content/ButtonClose").GetComponent<Button>();
@@ -123,6 +116,8 @@ public class GameHistroyRecordController : MonoBehaviour
         searchGameNameTxt = GameButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         StartTxt = StartButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         EndTxt = EndButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+
+        InitGameNameDicti();
         GetTotalPageCount();
         currentPage = 0;
         GetPageData(currentPage);
