@@ -115,10 +115,9 @@ public class BuilderNewWindow : OdinEditorWindow
             return;
         }
 
-        if (EditorUtility.DisplayDialog("确认", "导出前是否清空导出目录?", "yes", "no"))
+        if (EditorUtility.DisplayDialog("确认", $"导出前是否清空导出目录?\n{BuildPath}", "yes", "no"))
         {
-            Debug.Log($"清空导出目录:{BuildPath}");
-            Directory.Delete(BuildPath);
+            Directory.Delete(BuildPath, true);
             Directory.CreateDirectory(BuildPath);
         }
 
