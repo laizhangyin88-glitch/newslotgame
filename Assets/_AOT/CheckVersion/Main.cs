@@ -202,7 +202,7 @@ public class Main : MonoBehaviour
     {
         Debug.Log("UpdateFormNet");
 
-        if (Directory.Exists(StartUpConfig.VersionPath))
+        if (Directory.Exists(StartUpConfig.VersionPath) == false)
             Directory.CreateDirectory(StartUpConfig.VersionPath);
 
         File.WriteAllText(StartUpConfig.VersionPath, JsonConvert.SerializeObject(netVersionData));
@@ -272,7 +272,7 @@ public class Main : MonoBehaviour
     {
         Debug.Log("UpdateFromLocal");
 
-        if (Directory.Exists(StartUpConfig.VersionPath))
+        if (Directory.Exists(StartUpConfig.VersionPath) == false)
             Directory.CreateDirectory(StartUpConfig.VersionPath);
 
         File.WriteAllText(StartUpConfig.VersionPath, JsonConvert.SerializeObject(localVersionData));

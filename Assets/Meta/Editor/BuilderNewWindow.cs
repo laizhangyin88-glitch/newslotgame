@@ -15,18 +15,21 @@ using System.Reflection;
 //[TypeInfoBox("<color=yellow>unity内的打包流程已封装在此窗口\n按顺序一一确认/操作\n有任何问题请滴滴whh</color>")]
 public class BuilderNewWindow : OdinEditorWindow
 {
-    [InfoBox("这里确认正确即可，不是必须要操作")]
-    [LabelText("平台"), ValueDropdown("GetBuildTargetArray"), InlineButton("SwitchPlatform", "切换"), BoxGroup("打包环境", ShowLabel = false)]
+    [PropertySpace(SpaceBefore = 20)]
+
+
+    [Title("环境配置(这里确认正确即可，不是必须要操作)")]
+    [LabelText("平台"), ValueDropdown("GetBuildTargetArray"), InlineButton("SwitchPlatform", "切换")]
     public BuildTarget TargetPlaform = BuildTarget.Android;
 
-    [BoxGroup("打包环境", ShowLabel = false), LabelText("渠道")]
+    [LabelText("渠道")]
     public ChannelType Channel = ChannelType.K3K;
 
-    [LabelText("软件版本"), BoxGroup("打包环境", ShowLabel = false)]
+    [LabelText("软件版本")]
     public SoftwareType Software = SoftwareType.Test;
 
-    [Button("Apply Symbol", Style = ButtonStyle.Box), BoxGroup("打包环境", ShowLabel = false), GUIColor(0.3f, 0.8f, 0.8f)]
-    private void SwitchChannelAndSoftware()
+    [Button("Apply Symbol", Style = ButtonStyle.Box), GUIColor(0.3f, 0.8f, 0.8f)]
+    public void SwitchChannelAndSoftware()
     {
         var cs = GetChannelAndSoftware(TargetPlaform);
         if (cs.Item1 == Channel && cs.Item2 == Software)
@@ -39,24 +42,21 @@ public class BuilderNewWindow : OdinEditorWindow
     }
 
 
-    [PropertySpace(20), LabelText("ab生成路径"), ShowInInspector, Sirenix.OdinInspector.FilePath(), ReadOnly]
-    protected string AbBuildPath;
+    [PropertySpace(SpaceBefore = 20)]
 
+    [Title("项目导出")]
+    public string ClientVersion;
+    
+    [LabelText("ab生成路径"), ShowInInspector, Sirenix.OdinInspector.FilePath(), ReadOnly, HorizontalGroup("abBuild")]
+    public string AbBuildPath;
 
-    //[Button("打开ab路径"), HorizontalGroup("btnRow1")]
-    //public void OpenAbBuildPath()
-    //{
-    //    if (Directory.Exists(AbBuildPath) == false)
-    //        Directory.CreateDirectory(AbBuildPath);
-
-    //    OpenDirectoryInExplorer(AbBuildPath);
-    //}
-    [Button("打ab包"), PropertyTooltip("没有资源变动可不打")]
+    [Button("打ab包"), PropertyTooltip("没有资源变动可不打"), HorizontalGroup("abBuild")]
     public void BuildAb()
     {
         BuildTargetGroup group = BuilderNew.ConvertBuildTarget(TargetPlaform);
         Builder.Build_Assetbundle(TargetPlaform, group, null, true, true, null);
     }
+
 
     [LabelText("(HybridCLR)生成linkXml"), Button]
     public void GenerateLinkXml()
@@ -64,12 +64,33 @@ public class BuilderNewWindow : OdinEditorWindow
         LinkGeneratorCommand.GenerateLinkXml();
     }
 
-
-    [LabelText("项目生成路径"), FolderPath(AbsolutePath =true, RequireExistingPath = true), InlineButton("BuildProject", "导出工程"), OnValueChanged("SaveBuildPath"), Delayed]
+    [LabelText("项目生成路径"), FolderPath(AbsolutePath =true, RequireExistingPath = true), OnValueChanged("SaveBuildPath"), Delayed, HorizontalGroup("build")]
     public string BuildPath;
-    
 
-    
+    [Button("导出工程"), HorizontalGroup("build"), LabelWidth(40f)]
+    public void BuildProject()
+    {
+        if (string.IsNullOrEmpty(BuildPath))
+            return;
+
+        if (Directory.Exists(BuildPath) == false)
+        {
+            EditorUtility.DisplayDialog("警告", "导出目录不存在", "ok");
+            return;
+        }
+
+        if (EditorUtility.DisplayDialog("确认", $"导出前是否清空导出目录?\n{BuildPath}", "yes", "no"))
+        {
+            Directory.Delete(BuildPath, true);
+            Directory.CreateDirectory(BuildPath);
+        }
+
+        BuildTargetGroup group = BuilderNew.ConvertBuildTarget(TargetPlaform);
+        Builder.BuildPlayer(TargetPlaform, group, BuildPath, null, BuildOptions.None);
+    }
+
+
+
 
     [MenuItem("Tools/Build/全平台出包")]
     public static void OpenWindow()
@@ -109,26 +130,7 @@ public class BuilderNewWindow : OdinEditorWindow
         EditorPrefs.SetString("lastBuildProjectPath", BuildPath);
     }
 
-    private void BuildProject()
-    {
-        if (string.IsNullOrEmpty(BuildPath))
-            return;
-
-        if (Directory.Exists(BuildPath) == false)
-        {
-            EditorUtility.DisplayDialog("警告", "导出目录不存在", "ok");
-            return;
-        }
-
-        if (EditorUtility.DisplayDialog("确认", $"导出前是否清空导出目录?\n{BuildPath}", "yes", "no"))
-        {
-            Directory.Delete(BuildPath, true);
-            Directory.CreateDirectory(BuildPath);
-        }
-
-        BuildTargetGroup group = BuilderNew.ConvertBuildTarget(TargetPlaform);
-        Builder.BuildPlayer(TargetPlaform, group, BuildPath, null, BuildOptions.None);
-    }
+    
 
     private void SwitchPlatform()
     {
