@@ -65,10 +65,10 @@ public class BuilderNewWindow : OdinEditorWindow
         LinkGeneratorCommand.GenerateLinkXml();
     }
 
-    [PropertyOrder(9), LabelText("项目生成路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), OnValueChanged("SaveBuildPath"), Delayed, HorizontalGroup("build")]
+    [PropertyOrder(9), LabelText("项目生成路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), OnValueChanged("SaveBuildPath"), Delayed, HorizontalGroup("build"), InlineButton("BuildProject", "导出工程")]
     public string BuildPath;
 
-    [PropertyOrder(10), Button("导出工程"), HorizontalGroup("build"), LabelWidth(40f)]
+    //[PropertyOrder(10), Button("导出工程"), HorizontalGroup("build"), LabelWidth(40f)]
     public void BuildProject()
     {
         if (string.IsNullOrEmpty(BuildPath))
@@ -90,10 +90,10 @@ public class BuilderNewWindow : OdinEditorWindow
         Builder.BuildPlayer(TargetPlaform, group, BuildPath, null, BuildOptions.None);
     }
 
-    [LabelText("Android项目路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), PropertyTooltip("用于出包的Android Studio项目路径"), OnValueChanged("SaveAndroidStudioProjectPath"), Delayed, HorizontalGroup("android")]
+    [LabelText("Android项目路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), PropertyTooltip("定义出包的Android Studio项目路径\n通过“复制导入”将Unity导出的Android项目的必要部分复制到Android打包项目中\n避免了手动操作"), OnValueChanged("SaveAndroidStudioProjectPath"), Delayed, HorizontalGroup("android"), PropertyOrder(11), InlineButton("ImprotProject", "复制导入")]
     public string AndroidStudioProjectPath;
 
-    [Button("导入"), HorizontalGroup("android"), PropertyTooltip("将Unity导出的Android项目的必要部分复制到Android打包项目中")]
+    //[Button("导入"), HorizontalGroup("android"), PropertyTooltip("将Unity导出的Android项目的必要部分复制到Android打包项目中"), PropertyOrder(12)]
     public void ImprotProject()
     {
         if (Directory.Exists(AndroidStudioProjectPath) == false)

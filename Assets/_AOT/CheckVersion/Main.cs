@@ -323,8 +323,10 @@ public class Main : MonoBehaviour
     {
         Debug.Log("UpdateFromLocal");
 
-        if (Directory.Exists(StartUpConfig.VersionPath) == false)
-            Directory.CreateDirectory(StartUpConfig.VersionPath);
+        string perLibPath = ApplicationSettings.GetPerLibPath();
+        Debug.Log(perLibPath);
+        if (Directory.Exists(perLibPath) == false)
+            Directory.CreateDirectory(perLibPath);
 
         File.WriteAllText(StartUpConfig.VersionPath, JsonConvert.SerializeObject(localVersionData));
         curVersionData = localVersionData;
