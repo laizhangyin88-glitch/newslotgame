@@ -102,7 +102,7 @@ public class Main : MonoBehaviour
     {
 #if UNITY_ANDROID
         bool hasPermission = Permission.HasUserAuthorizedPermission(permissionKey);
-        Debug.Log($"是否拥有权限:{hasPermission}");
+        Debug.Log($"是否拥有{permissionKey}权限:{hasPermission}");
 
         if (hasPermission == false)
         {
