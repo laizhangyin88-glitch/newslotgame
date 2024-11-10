@@ -56,8 +56,8 @@ public class Main : MonoBehaviour
 
     private IEnumerator Start()
     {
-        yield return StartCoroutine(RequestUserPermissions(Permission.ExternalStorageRead));
-        yield return StartCoroutine(RequestUserPermissions(Permission.ExternalStorageWrite));
+        //yield return StartCoroutine(RequestUserPermissions(Permission.ExternalStorageRead));
+        //yield return StartCoroutine(RequestUserPermissions(Permission.ExternalStorageWrite));
 
         yield return StartCoroutine(RefTypes.LoadMetadataForAOTAssemblies());
         yield return StartCoroutine(CheckVersion());

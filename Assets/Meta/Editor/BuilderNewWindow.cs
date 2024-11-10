@@ -19,16 +19,16 @@ public class BuilderNewWindow : OdinEditorWindow
 
 
     [Title("环境配置(这里确认正确即可，不是必须要操作)")]
-    [LabelText("平台"), ValueDropdown("GetBuildTargetArray"), InlineButton("SwitchPlatform", "切换")]
+    [PropertyOrder(1), LabelText("平台"), ValueDropdown("GetBuildTargetArray"), InlineButton("SwitchPlatform", "切换")]
     public BuildTarget TargetPlaform = BuildTarget.Android;
 
-    [LabelText("渠道")]
+    [PropertyOrder(2), LabelText("渠道")]
     public ChannelType Channel = ChannelType.K3K;
 
-    [LabelText("软件版本")]
+    [PropertyOrder(3), LabelText("软件版本")]
     public SoftwareType Software = SoftwareType.Test;
 
-    [Button("Apply Symbol", Style = ButtonStyle.Box), GUIColor(0.3f, 0.8f, 0.8f)]
+    [PropertyOrder(4), Button("Apply Symbol", Style = ButtonStyle.Box), GUIColor(0.3f, 0.8f, 0.8f)]
     public void SwitchChannelAndSoftware()
     {
         var cs = GetChannelAndSoftware(TargetPlaform);
@@ -44,30 +44,31 @@ public class BuilderNewWindow : OdinEditorWindow
 
     [PropertySpace(SpaceBefore = 20)]
 
-    [Title("项目导出")]
+    [PropertyOrder(5), Title("项目导出")]
     public string ClientVersion;
     
-    [LabelText("ab生成路径"), ShowInInspector, Sirenix.OdinInspector.FilePath(), ReadOnly, HorizontalGroup("abBuild")]
+    [PropertyOrder(6), LabelText("ab生成路径"), ShowInInspector, Sirenix.OdinInspector.FilePath(), ReadOnly, HorizontalGroup("abBuild")]
     public string AbBuildPath;
 
-    [Button("打ab包"), PropertyTooltip("没有资源变动可不打"), HorizontalGroup("abBuild")]
+    [PropertyOrder(7), Button("打ab包"), PropertyTooltip("没有资源变动可不打"), HorizontalGroup("abBuild")]
     public void BuildAb()
     {
         BuildTargetGroup group = BuilderNew.ConvertBuildTarget(TargetPlaform);
         Builder.Build_Assetbundle(TargetPlaform, group, null, true, true, null);
+        AssetDatabase.Refresh();
     }
 
 
-    [LabelText("(HybridCLR)生成linkXml"), Button]
+    [PropertyOrder(8), LabelText("(HybridCLR)生成linkXml"), Button]
     public void GenerateLinkXml()
     {
         LinkGeneratorCommand.GenerateLinkXml();
     }
 
-    [LabelText("项目生成路径"), FolderPath(AbsolutePath =true, RequireExistingPath = true), OnValueChanged("SaveBuildPath"), Delayed, HorizontalGroup("build")]
+    [PropertyOrder(9), LabelText("项目生成路径"), FolderPath(AbsolutePath =true, RequireExistingPath = true), OnValueChanged("SaveBuildPath"), Delayed, HorizontalGroup("build")]
     public string BuildPath;
 
-    [Button("导出工程"), HorizontalGroup("build"), LabelWidth(40f)]
+    [PropertyOrder(10), Button("导出工程"), HorizontalGroup("build"), LabelWidth(40f)]
     public void BuildProject()
     {
         if (string.IsNullOrEmpty(BuildPath))
