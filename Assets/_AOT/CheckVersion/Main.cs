@@ -131,8 +131,8 @@ public class Main : MonoBehaviour
             yield return new WaitUntil(() => permissionState != 0);
             Debug.Log($"{permissionKey}.permissionState:{permissionState}");
 
-            if (permissionState < 0)//未授权，退出程序(后面可以跳过热更）
-                Application.Quit();
+            if (permissionState < 0)
+                Debug.Log($"权限申请失败：{permissionKey}, 将退出程序...");
         }
         else
         {
