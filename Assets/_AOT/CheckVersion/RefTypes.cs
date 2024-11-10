@@ -12,6 +12,7 @@ public static class RefTypes
         "mscorlib.dll",
         "System.dll",
         "System.Core.dll",
+        "MainScene.dll"
     };
 
     /// <summary>
