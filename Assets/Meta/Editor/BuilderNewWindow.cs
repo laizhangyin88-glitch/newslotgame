@@ -46,7 +46,7 @@ public class BuilderNewWindow : OdinEditorWindow
 
     [PropertyOrder(5), Title("项目导出")]
     public string ClientVersion;
-    
+
     [PropertyOrder(6), LabelText("ab生成路径"), ShowInInspector, Sirenix.OdinInspector.FilePath(), ReadOnly, HorizontalGroup("abBuild")]
     public string AbBuildPath;
 
@@ -65,7 +65,7 @@ public class BuilderNewWindow : OdinEditorWindow
         LinkGeneratorCommand.GenerateLinkXml();
     }
 
-    [PropertyOrder(9), LabelText("项目生成路径"), FolderPath(AbsolutePath =true, RequireExistingPath = true), OnValueChanged("SaveBuildPath"), Delayed, HorizontalGroup("build")]
+    [PropertyOrder(9), LabelText("项目生成路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), OnValueChanged("SaveBuildPath"), Delayed, HorizontalGroup("build")]
     public string BuildPath;
 
     [PropertyOrder(10), Button("导出工程"), HorizontalGroup("build"), LabelWidth(40f)]
@@ -90,8 +90,60 @@ public class BuilderNewWindow : OdinEditorWindow
         Builder.BuildPlayer(TargetPlaform, group, BuildPath, null, BuildOptions.None);
     }
 
+    [LabelText("Android项目路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), PropertyTooltip("用于出包的Android Studio项目路径"), OnValueChanged("SaveAndroidStudioProjectPath"), Delayed, HorizontalGroup("android")]
+    public string AndroidStudioProjectPath;
 
+    [Button("导入"), HorizontalGroup("android"), PropertyTooltip("将Unity导出的Android项目的必要部分复制到Android打包项目中")]
+    public void ImprotProject()
+    {
+        if (Directory.Exists(AndroidStudioProjectPath) == false)
+            return;
 
+        if (Directory.Exists(BuildPath) == false)
+            return;
+
+        string targetPath = Path.Combine(AndroidStudioProjectPath, "unityLibrary", "src", "main");
+        string targetAssetsPath = Path.Combine(targetPath, "assets");
+        string targetIl2CppPath = Path.Combine(targetPath, "Il2CppOutputProject");
+
+        if (Directory.Exists(targetAssetsPath) == false)
+        {
+            Debug.LogError($"不存在目录{targetAssetsPath}");
+            return;
+        }
+
+        if (Directory.Exists(targetIl2CppPath) == false)
+        {
+            Debug.LogError($"不存在目录{targetIl2CppPath}");
+            return;
+        }
+
+        string sourcePath = Path.Combine(BuildPath, "unityLibrary", "src", "main");
+        string sourceAssetsPath = Path.Combine(sourcePath, "assets");
+        string sourceIl2CppPath = Path.Combine(sourcePath, "Il2CppOutputProject");
+
+        if (Directory.Exists(sourceAssetsPath) == false)
+        {
+            Debug.LogError($"不存在目录{sourceAssetsPath}");
+            return;
+        }
+
+        if (Directory.Exists(sourceIl2CppPath) == false)
+        {
+            Debug.LogError($"不存在目录{sourceIl2CppPath}");
+            return;
+        }
+
+        Debug.Log("将生成的AndroidStudio项目文件导入到打包项目中...");
+        Directory.Delete(targetAssetsPath, true);
+        Directory.Delete(targetIl2CppPath, true);
+
+        Debug.Log($"{sourceAssetsPath} -> {targetAssetsPath}");
+        Debug.Log($"{sourceIl2CppPath} -> {targetIl2CppPath}");
+
+        CopyDirectory(sourceAssetsPath, targetAssetsPath, true);
+        CopyDirectory(sourceIl2CppPath, targetIl2CppPath, true);
+    }
 
     [MenuItem("Tools/Build/全平台出包")]
     public static void OpenWindow()
@@ -108,8 +160,8 @@ public class BuilderNewWindow : OdinEditorWindow
         var cs = GetChannelAndSoftware(TargetPlaform);
         Channel = cs.Item1;
         Software = cs.Item2;
-        string lastBuildProjectPath = EditorPrefs.GetString("lastBuildProjectPath", "");
-        BuildPath = lastBuildProjectPath;
+        BuildPath = EditorPrefs.GetString("lastBuildProjectPath", "");
+        AndroidStudioProjectPath = EditorPrefs.GetString("androidStudioProjectPath", "");
     }
 
     //[PropertySpace, Button("开始打包")]
@@ -131,7 +183,16 @@ public class BuilderNewWindow : OdinEditorWindow
         EditorPrefs.SetString("lastBuildProjectPath", BuildPath);
     }
 
-    
+    private void SaveAndroidStudioProjectPath()
+    {
+        if (string.IsNullOrEmpty(AndroidStudioProjectPath))
+            return;
+
+        EditorPrefs.SetString("androidStudioProjectPath", AndroidStudioProjectPath);
+    }
+
+
+
 
     private void SwitchPlatform()
     {
@@ -180,7 +241,7 @@ public class BuilderNewWindow : OdinEditorWindow
         return (channelEnum, softwareEnum);
     }
 
-    private void SwitchChannelAndSoftware(BuildTarget buildTarget,ChannelType channelType,  SoftwareType softwareType)
+    private void SwitchChannelAndSoftware(BuildTarget buildTarget, ChannelType channelType, SoftwareType softwareType)
     {
         BuildTargetGroup group = BuilderNew.ConvertBuildTarget(buildTarget);
         string symbols = PlayerSettings.GetScriptingDefineSymbolsForGroup(group);
@@ -211,7 +272,7 @@ public class BuilderNewWindow : OdinEditorWindow
 
         List<string> symbolListNew = new List<string>(symbolArrNew);
         symbolListNew.Add($"{channelKey}_{softwareKey}");
-        
+
         PlayerSettings.SetScriptingDefineSymbolsForGroup(group, symbolListNew.ToArray());
         Debug.Log($"调整Symbols，原：{symbols}， 现：{string.Join(";", symbolListNew)}");
     }
@@ -232,7 +293,7 @@ public class BuilderNewWindow : OdinEditorWindow
         path = Path.Combine(path, "Assetbundles");
         return ApplicationSettings.GetAbOrLibPath(path);
     }
-    
+
 
     private static void OpenDirectoryInExplorer(string directoryPath)
     {
@@ -257,6 +318,39 @@ public class BuilderNewWindow : OdinEditorWindow
         else
         {
             Debug.LogError("指定的目录不存在：" + directoryPath);
+        }
+    }
+
+    static void CopyDirectory(string sourceDir, string destinationDir, bool recursive)
+    {
+        // Get information about the source directory
+        var dir = new DirectoryInfo(sourceDir);
+
+        // Check if the source directory exists
+        if (!dir.Exists)
+            throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
+
+        // Cache directories before we start copying
+        DirectoryInfo[] dirs = dir.GetDirectories();
+
+        // Create the destination directory
+        Directory.CreateDirectory(destinationDir);
+
+        // Get the files in the source directory and copy to the destination directory
+        foreach (FileInfo file in dir.GetFiles())
+        {
+            string targetFilePath = Path.Combine(destinationDir, file.Name);
+            file.CopyTo(targetFilePath);
+        }
+
+        // If recursive and copying subdirectories, recursively call this method
+        if (recursive)
+        {
+            foreach (DirectoryInfo subDir in dirs)
+            {
+                string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
+                CopyDirectory(subDir.FullName, newDestinationDir, true);
+            }
         }
     }
 
