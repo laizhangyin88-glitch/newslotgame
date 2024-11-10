@@ -4,9 +4,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using UnityEngine;
+#if UNITY_ANDROID
 using UnityEngine.Android;
+#endif
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -53,43 +56,8 @@ public class Main : MonoBehaviour
 
     private IEnumerator Start()
     {
-        bool hasPermission = Permission.HasUserAuthorizedPermission("android.permission.WRITE_EXTERNAL_STORAGE");
-        Debug.Log($"是否拥有存储写权限:{hasPermission}");
-
-        if (hasPermission == false)
-        {
-            Debug.Log("开始请求存储读写权限");
-            int permissionState = 0;
-
-            PermissionCallbacks callback = new PermissionCallbacks();
-            callback.PermissionGranted += (msg) =>
-            {
-                Debug.Log($"授权成功：{msg}");
-                permissionState = 1;
-            };
-            callback.PermissionDenied += (msg) =>
-            {
-                Debug.Log($"授权失败：{msg}");
-                permissionState = -1;
-            };
-            callback.PermissionDeniedAndDontAskAgain += (msg) =>
-            {
-                Debug.Log($"授权失败并且不再询问：{msg}");
-                permissionState = -1;
-            };
-
-            Permission.RequestUserPermissions(new string[]
-            {
-                "android.permission.READ_EXTERNAL_STORAGE",
-                "android.permission.WRITE_EXTERNAL_STORAGE"
-            }, callback);
-
-            yield return new WaitUntil(() => permissionState != 0);
-            Debug.Log($"permissionState:{permissionState}");
-
-            if (permissionState < 0)//未授权，退出程序(后面可以跳过热更）
-                Application.Quit();
-        }
+        RequestUserPermissions(Permission.ExternalStorageRead);
+        RequestUserPermissions(Permission.ExternalStorageWrite);
 
         yield return StartCoroutine(RefTypes.LoadMetadataForAOTAssemblies());
         yield return StartCoroutine(CheckVersion());
@@ -127,6 +95,50 @@ public class Main : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
 
         yield return null;
+    }
+
+
+    private IEnumerator RequestUserPermissions(string permissionKey)
+    {
+#if UNITY_ANDROID
+        bool hasPermission = Permission.HasUserAuthorizedPermission(permissionKey);
+        Debug.Log($"是否拥有权限:{hasPermission}");
+
+        if (hasPermission == false)
+        {
+            Debug.Log($"开始请求权限{permissionKey}");
+            int permissionState = 0;
+
+            PermissionCallbacks callback = new PermissionCallbacks();
+            callback.PermissionGranted += (msg) =>
+            {
+                Debug.Log($"授权成功：{msg}");
+                permissionState = 1;
+            };
+            callback.PermissionDenied += (msg) =>
+            {
+                Debug.Log($"授权失败：{msg}");
+                permissionState = -1;
+            };
+            callback.PermissionDeniedAndDontAskAgain += (msg) =>
+            {
+                Debug.Log($"授权失败并且不再询问：{msg}");
+                permissionState = -1;
+            };
+
+            Permission.RequestUserPermission(permissionKey, callback);
+
+            yield return new WaitUntil(() => permissionState != 0);
+            Debug.Log($"{permissionKey}.permissionState:{permissionState}");
+
+            if (permissionState < 0)//未授权，退出程序(后面可以跳过热更）
+                Application.Quit();
+        }
+        else
+        {
+            yield return null;
+        }
+#endif
     }
 
     private bool OperationListIsDone(List<AssetBundleLoadOperation> operations)
