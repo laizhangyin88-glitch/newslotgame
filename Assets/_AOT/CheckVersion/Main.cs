@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -52,6 +53,44 @@ public class Main : MonoBehaviour
 
     private IEnumerator Start()
     {
+        bool hasPermission = Permission.HasUserAuthorizedPermission("android.permission.WRITE_EXTERNAL_STORAGE");
+        Debug.Log($"是否拥有存储写权限:{hasPermission}");
+
+        if (hasPermission == false)
+        {
+            Debug.Log("开始请求存储读写权限");
+            int permissionState = 0;
+
+            PermissionCallbacks callback = new PermissionCallbacks();
+            callback.PermissionGranted += (msg) =>
+            {
+                Debug.Log($"授权成功：{msg}");
+                permissionState = 1;
+            };
+            callback.PermissionDenied += (msg) =>
+            {
+                Debug.Log($"授权失败：{msg}");
+                permissionState = -1;
+            };
+            callback.PermissionDeniedAndDontAskAgain += (msg) =>
+            {
+                Debug.Log($"授权失败并且不再询问：{msg}");
+                permissionState = -1;
+            };
+
+            Permission.RequestUserPermissions(new string[]
+            {
+                "android.permission.READ_EXTERNAL_STORAGE",
+                "android.permission.WRITE_EXTERNAL_STORAGE"
+            }, callback);
+
+            yield return new WaitUntil(() => permissionState != 0);
+            Debug.Log($"permissionState:{permissionState}");
+
+            if (permissionState < 0)//未授权，退出程序(后面可以跳过热更）
+                Application.Quit();
+        }
+
         yield return StartCoroutine(RefTypes.LoadMetadataForAOTAssemblies());
         yield return StartCoroutine(CheckVersion());
         Debug.Log("The context is ready");
@@ -61,19 +100,19 @@ public class Main : MonoBehaviour
 
         Debug.Log("初始化Manifest...");
         yield return AssetBundleManager.Initialize();
-        
+
         Debug.Log("加载初场景资源...");
         string abName_mainscene = ApplicationSettings.MakeApplicationBundleName("mainscene");
         var abOperation = AssetBundleManager.LoadAssetBundleAndDep(abName_mainscene, false);
 
-        if(abOperation == null || abOperation.Count <= 0)
+        if (abOperation == null || abOperation.Count <= 0)
         {
             Debug.Log("读取初始场景资源失败");
             yield break;
         }
 
         float totalProgress = abOperation.Count;
-        while(OperationListIsDone(abOperation) == false)
+        while (OperationListIsDone(abOperation) == false)
         {
             float curProgress = GetOperationListTotalProgress(abOperation);
             string progress = (curProgress / totalProgress).ToString("P2");
@@ -222,7 +261,7 @@ public class Main : MonoBehaviour
                 Debug.Log($"下载远程dll完成：{dllUrl}");
                 File.WriteAllBytes(StartUpConfig.DllPath + "/" + dllList[i], www.downloadHandler.data);
             }
-                
+
         }
         LoadDllFromMemory();
         //StartCoroutine(LoadAssetBundleFromNet());
