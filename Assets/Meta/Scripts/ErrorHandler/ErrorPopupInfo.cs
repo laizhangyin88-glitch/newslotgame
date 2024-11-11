@@ -24,6 +24,7 @@ namespace BagelCode
         /// 显示title标题，text文本和btn1按钮
         /// </summary>
         OkWithTitle,
+
         YesNo,
         /// <summary>
         /// 显示text文本和btn1按钮
@@ -31,7 +32,11 @@ namespace BagelCode
         /// <remarks>
         /// 点击按钮会回到登录界面
         /// </remarks>
-        SystemReset
+        SystemReset,
+        /// <summary>
+        /// 三个按钮，取消，确认，关闭
+        /// </summary>
+        YesNoClose,
     }
 
     public class ErrorPopupInfo

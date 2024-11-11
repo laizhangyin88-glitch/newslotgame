@@ -14,6 +14,7 @@ namespace SlotMaker
     {
         public Transform contents;
         public Transform overlay;
+        public Transform BackgroundSetting;
 
         private int lastSortingOrder = 1;
         public int sortingOrderSpace = 10;

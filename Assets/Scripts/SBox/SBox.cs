@@ -66,6 +66,7 @@ namespace SBoxApi
 
 
 
+        public const string SBOX_PRINT_BANK_INFO = "SBOX_PRINT_BANK_INFO";
     }
 
 

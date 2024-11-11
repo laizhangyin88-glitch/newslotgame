@@ -46,12 +46,11 @@ public partial class SQLiteManager : MonoSingleton<SQLiteManager>
         if (!Directory.Exists(Application.persistentDataPath))
         {
             Directory.CreateDirectory(Application.persistentDataPath);
+            WWW loadWWW = new WWW(Path.Combine(Application.streamingAssetsPath, "SQLiteData.db"));
+            Debug.Log(Path.Combine(Application.streamingAssetsPath, "SQLiteData.db"));
+            yield return loadWWW;
+            File.WriteAllBytes(dataSandBoxPath, loadWWW.bytes);
         }
-
-        WWW loadWWW = new WWW(Path.Combine(Application.streamingAssetsPath, "SQLiteData.db"));
-        Debug.Log(Path.Combine(Application.streamingAssetsPath, "SQLiteData.db"));
-        yield return loadWWW;
-        File.WriteAllBytes(dataSandBoxPath, loadWWW.bytes);
         connectString = "URI=file:" + dataSandBoxPath;
         _isReady = true;
         Debug.Log($"db url = {connectString}");

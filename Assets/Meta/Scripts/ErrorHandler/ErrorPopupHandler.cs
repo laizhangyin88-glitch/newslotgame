@@ -50,24 +50,27 @@ public class ErrorPopupHandler : SlotMaker.MonoWeakSingleton<ErrorPopupHandler>
         BlackboardUtils.SetOrCreateValue(handlerBB, "buttonAutoClose1", errorList[0].buttonAutoClose1);
         BlackboardUtils.SetOrCreateValue(handlerBB, "buttonAutoClose2", errorList[0].buttonAutoClose2);
 
-        switch(errorList[0].type)
-        {
-            case ErrorPopupType.TextOnly:
-                handlerOwner.SendEvent("OnOpenText");
-                break;
-            case ErrorPopupType.OK:
-                handlerOwner.SendEvent("OnOpenOk");
-                break;
-            case ErrorPopupType.OkWithTitle:
-                handlerOwner.SendEvent("OnOpenOkWithTitle");
-                break;
-            case ErrorPopupType.YesNo:
-                handlerOwner.SendEvent("OnOpenYesNo");
-                break;
-            case ErrorPopupType.SystemReset:
-                handlerOwner.SendEvent("OnOpenSystemReset");
-                break;
-        }
+            switch (errorList[0].type)
+            {
+                case ErrorPopupType.TextOnly:
+                    handlerOwner.SendEvent("OnOpenText");
+                    break;
+                case ErrorPopupType.OK:
+                    handlerOwner.SendEvent("OnOpenOk");
+                    break;
+                case ErrorPopupType.OkWithTitle:
+                    handlerOwner.SendEvent("OnOpenOkWithTitle");
+                    break;
+                case ErrorPopupType.YesNo:
+                    handlerOwner.SendEvent("OnOpenYesNo");
+                    break;
+                case ErrorPopupType.SystemReset:
+                    handlerOwner.SendEvent("OnOpenSystemReset");
+                    break;
+                case ErrorPopupType.YesNoClose:
+                    handlerOwner.SendEvent("OnOpenYesNoClose");
+                    break;
+            }
     }
 
     public void ExecuteCallback(int buttonIndex)
