@@ -13,7 +13,8 @@ public static class RefTypes
         "System.dll",
         "System.Core.dll",
         "MainScene.dll",
-        "UnityEngine.JSONSerializeModule.dll"
+        "UnityEngine.JSONSerializeModule.dll",
+        "UnityEngine.AndroidJNIModule.dll"
     };
 
     /// <summary>
