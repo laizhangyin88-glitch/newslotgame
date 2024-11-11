@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ public class ConsoleToScreen : MonoBehaviour
     const int maxLineLength = 120;
     private string _logStr = "";
 
+    [ShowInInspector]
     private readonly List<string> _lines = new List<string>();
 
     public int fontSize = 15;
