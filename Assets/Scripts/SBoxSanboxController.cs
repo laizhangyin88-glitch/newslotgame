@@ -15,6 +15,12 @@ using EventData = ParadoxNotion.EventData;
 
 public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 {
+
+    /// <summary>
+    /// 标记是否进入了后台测试按钮界面
+    /// </summary>
+    public bool isEnterBackgroundTestView = false;
+
     void Start()
     {
 
@@ -305,7 +311,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
     private void OnKeyDown(SBOX_SWITCH sBOX_SWITCH)
     {
-
+        if (isEnterBackgroundTestView) return;
 
 #if UNITY_EDITOR
         //Debug.LogError("KeyDown " + sBOX_SWITCH);
@@ -474,6 +480,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
     private void OnKeyUp(SBOX_SWITCH sBOX_SWITCH)
     {
+        if (isEnterBackgroundTestView) return;
 #if UNITY_EDITOR
         //Debug.LogError("KeyUp " + sBOX_SWITCH);
         Debug.LogWarning("KeyUp " + sBOX_SWITCH);

@@ -189,10 +189,22 @@ public class SBoxSandboxListener : MonoSingleton<SBoxSandboxListener>
 
     }
 
+    public void RemoveButtonDown(SBOX_SWITCH sboxSwtich, UnityAction unityAction)
+    {
+        switchClassDic[sboxSwtich].onPointerDown.RemoveListener(unityAction);
+
+    }
+
     public void AddButtonUp(SBOX_SWITCH sboxSwtich, UnityAction unityAction)
     {
         switchClassDic[sboxSwtich].onPointerUp.AddListener(unityAction);
     }
+    public void RemoveButtonUp(SBOX_SWITCH sboxSwtich, UnityAction unityAction)
+    {
+        switchClassDic[sboxSwtich].onPointerUp.RemoveListener(unityAction);
+    }
+
+
     public void AddButtonClick(SBOX_SWITCH sboxSwtich, UnityAction unityAction)
     {
         switchClassDic[sboxSwtich].onClick.AddListener(unityAction);

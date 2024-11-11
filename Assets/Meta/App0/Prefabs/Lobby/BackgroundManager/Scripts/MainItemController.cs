@@ -40,8 +40,10 @@ public class MainItemController : MonoBehaviour
             case SettingButtonType.Settings:
                 break;
             case SettingButtonType.InputTest:
+                OpenBackgroundManager.OpenView("lobby0", "InputKeyTestView", PopupManager.Instance.BackgroundSetting);
                 break;
             case SettingButtonType.TouchCalibrate:
+                OpenBackgroundManager.OpenView("lobby0", "TouchTestView", PopupManager.Instance.BackgroundSetting);
                 break;
             case SettingButtonType.TimeAndDate:
                 break;

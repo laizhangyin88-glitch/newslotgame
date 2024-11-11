@@ -26,6 +26,11 @@ public class BackgroundManagerMainViewController : MonoBehaviour
     private List<MainItemController> mainItemControllers = new List<MainItemController>();
     private SettingButtonType settingButtonType;
 
+    private void Awake()
+    {
+        SBoxSanboxController.Instance.isEnterBackgroundTestView = true;
+    }
+
     private void Start()
     {
         settingButtonType = SettingButtonType.None;
@@ -50,5 +55,10 @@ public class BackgroundManagerMainViewController : MonoBehaviour
                 mainItemControllers.Add(controller);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        SBoxSanboxController.Instance.isEnterBackgroundTestView = false;
     }
 }
