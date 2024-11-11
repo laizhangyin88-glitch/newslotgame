@@ -31,7 +31,7 @@ public class PurchaseRecover : ActionTask <Blackboard>
     {
 #if !UNITY_EDITOR && UNITY_ANDROID && !PLATFORM_AMAZON
         if (ApplicationSettings.LogSystem())
-            Debug.LogError("Native Recover");
+            Debug.LogWarning("Native Recover");
         PurchaseManager.Instance.ConsumeUnclaimedPurchase(ConsumeCallback);
 #else
         PurchaseManager.Instance.LocalConsumeUnclaimedPurchase(ConsumeCallback);
