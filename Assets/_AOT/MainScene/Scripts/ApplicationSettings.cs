@@ -33,6 +33,8 @@ namespace SlotMaker
         public int applicationType;
         public string clientVersion;
         public string bundleVersion;
+        [Tooltip("热更lib版本，仅用于打热更包")]
+        public string libVersion;
 
         [Title("服务器&CDN")]
 
@@ -55,10 +57,6 @@ namespace SlotMaker
         public string libPath;
         [Tooltip("热更lib网络base地址, 示例http://8.138.140.180:8124/Lib/")]
         public string libUrl;
-#if UNITY_EDITOR
-        [Tooltip("热更lib版本，仅用于打热更包")]
-        public string libVersion;
-#endif
 
         [Title("网络设置")]
 

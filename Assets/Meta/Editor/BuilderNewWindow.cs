@@ -11,6 +11,9 @@ using SlotMaker;
 using HybridCLR.Editor.Commands;
 using System.IO;
 using System.Reflection;
+using Codice.Client.Common;
+using HybridCLR.Editor.MethodBridge;
+using HybridCLR.Editor.Settings;
 
 //[TypeInfoBox("<color=yellow>unity内的打包流程已封装在此窗口\n按顺序一一确认/操作\n有任何问题请滴滴whh</color>")]
 public class BuilderNewWindow : OdinEditorWindow
@@ -43,9 +46,9 @@ public class BuilderNewWindow : OdinEditorWindow
 
 
     [PropertySpace(SpaceBefore = 20)]
-
     [PropertyOrder(5), Title("项目导出")]
     public string ClientVersion;
+
 
     [PropertyOrder(6), LabelText("ab生成路径"), ShowInInspector, Sirenix.OdinInspector.FilePath(), ReadOnly, HorizontalGroup("abBuild")]
     public string AbBuildPath;
@@ -58,43 +61,40 @@ public class BuilderNewWindow : OdinEditorWindow
         AssetDatabase.Refresh();
     }
 
-
-    [PropertyOrder(8), LabelText("(HybridCLR)生成linkXml"), Button]
-    public void GenerateLinkXml()
-    {
-        LinkGeneratorCommand.GenerateLinkXml();
-    }
+    //[PropertyOrder(8), LabelText("(HybridCLR)生成linkXml"), Button]
+    //public void GenerateLinkXml()
+    //{
+    //    LinkGeneratorCommand.GenerateLinkXml();
+    //}
 
     [PropertyOrder(9), LabelText("项目生成路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), OnValueChanged("SaveBuildPath"), Delayed, HorizontalGroup("build"), InlineButton("BuildProject", "导出工程")]
     public string BuildPath;
 
-    //[PropertyOrder(10), Button("导出工程"), HorizontalGroup("build"), LabelWidth(40f)]
-    public void BuildProject()
-    {
-        if (string.IsNullOrEmpty(BuildPath))
-            return;
-
-        if (Directory.Exists(BuildPath) == false)
-        {
-            EditorUtility.DisplayDialog("警告", "导出目录不存在", "ok");
-            return;
-        }
-
-        if (EditorUtility.DisplayDialog("确认", $"导出前是否清空导出目录?\n{BuildPath}", "yes", "no"))
-        {
-            Directory.Delete(BuildPath, true);
-            Directory.CreateDirectory(BuildPath);
-        }
-
-        BuildTargetGroup group = BuilderNew.ConvertBuildTarget(TargetPlaform);
-        Builder.BuildPlayer(TargetPlaform, group, BuildPath, null, BuildOptions.None);
-    }
-
     [LabelText("Android项目路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), PropertyTooltip("定义出包的Android Studio项目路径\n通过“复制导入”将Unity导出的Android项目的必要部分复制到Android打包项目中\n避免了手动操作"), OnValueChanged("SaveAndroidStudioProjectPath"), Delayed, HorizontalGroup("android"), PropertyOrder(11), InlineButton("ImprotProject", "复制导入")]
     public string AndroidStudioProjectPath;
 
-    //[Button("导入"), HorizontalGroup("android"), PropertyTooltip("将Unity导出的Android项目的必要部分复制到Android打包项目中"), PropertyOrder(12)]
-    public void ImprotProject()
+    
+
+    [MenuItem("Tools/全平台出包")]
+    public static void OpenWindow()
+    {
+        GetWindow<BuilderNewWindow>().Show();
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        TargetPlaform = EditorUserBuildSettings.activeBuildTarget;
+        AbBuildPath = GetAbBuildPath();
+        var cs = GetChannelAndSoftware(TargetPlaform);
+        Channel = cs.Item1;
+        Software = cs.Item2;
+        BuildPath = EditorPrefs.GetString("lastBuildProjectPath", "");
+        AndroidStudioProjectPath = EditorPrefs.GetString("androidStudioProjectPath", "");
+    }
+
+    protected void ImprotProject()
     {
         if (Directory.Exists(AndroidStudioProjectPath) == false)
             return;
@@ -145,33 +145,73 @@ public class BuilderNewWindow : OdinEditorWindow
         CopyDirectory(sourceIl2CppPath, targetIl2CppPath, true);
     }
 
-    [MenuItem("Tools/Build/全平台出包")]
-    public static void OpenWindow()
+    private void CompileDll()
     {
-        GetWindow<BuilderNewWindow>().Show();
+
+        
+        CompileDllCommand.CompileDllActiveBuildTarget();
+        
     }
 
-    protected override void OnEnable()
+    #region HybridCLRHelper
+    /// <summary>
+    /// 获取HybridCLR生成的热更dll的绝对路径
+    /// </summary>
+    protected string GetHotUpdateOutputPath()
     {
-        base.OnEnable();
-
-        TargetPlaform = EditorUserBuildSettings.activeBuildTarget;
-        AbBuildPath = GetAbBuildPath();
-        var cs = GetChannelAndSoftware(TargetPlaform);
-        Channel = cs.Item1;
-        Software = cs.Item2;
-        BuildPath = EditorPrefs.GetString("lastBuildProjectPath", "");
-        AndroidStudioProjectPath = EditorPrefs.GetString("androidStudioProjectPath", "");
+        return Path.Combine(Application.dataPath, HybridCLRSettings.Instance.hotUpdateDllCompileOutputRootDir, ApplicationSettings.GetPlatformName());
     }
 
-    //[PropertySpace, Button("开始打包")]
-
-    private void Btn()
+    protected void ResetHotUpdateOutputPath()
     {
+        
+        //HybridCLRSettings.Instance.hotUpdateDllCompileOutputRootDir = 
+    }
+
+    #endregion
+
+    protected void BuildProject()
+    {
+        if (string.IsNullOrEmpty(BuildPath))
+            return;
+
+        if (Directory.Exists(BuildPath) == false)
+        {
+            EditorUtility.DisplayDialog("警告", "导出目录不存在", "ok");
+            return;
+        }
+
+        if (EditorUtility.DisplayDialog("确认", $"导出前是否清空导出目录?\n{BuildPath}", "yes", "no"))
+        {
+            Directory.Delete(BuildPath, true);
+            Directory.CreateDirectory(BuildPath);
+        }
+
+        //项目太大，正常打热更工程时间会增加一倍
+        //按HybridCLR推荐流程进行优化
+        //参见：https://hybridclr.doc.code-philosophy.com/docs/basic/buildpipeline#%E4%BC%98%E5%8C%96%E7%9A%84%E6%89%93%E5%8C%85%E6%B5%81%E7%A8%8B
+        CompileDllCommand.CompileDllActiveBuildTarget();
+
+        //运行 HybridCLR/ Generate / LinkXml
+        LinkGeneratorCommand.GenerateLinkXml();
+
+        //导出工程
+        BuildTargetGroup group = BuildPipeline.GetBuildTargetGroup(TargetPlaform);
+        Builder.BuildPlayer(TargetPlaform, group, BuildPath, null, BuildOptions.None);
+
+        //运行 HybridCLR / Generate / Il2cppDef
         Il2CppDefGeneratorCommand.GenerateIl2CppDef();
+
+        //运行 HybridCLR/ Generate / MethodBridge生成桥接函数
+        //运行 HybridCLR/ Generate / PReverseInvokeWrapper。 不需要与lua之类交互的项目可跳过此步。
         MethodBridgeGeneratorCommand.GenerateMethodBridgeAndReversePInvokeWrapper();
-        //todo
-        //将 {proj}\HybridCLRData\LocalIl2CppData-{platform}\il2cpp\libil2cpp\hybridclr\generated目录 替换导出工程中的此目录。
+
+        //将 { proj}\HybridCLRData\LocalIl2CppData -{ platform}\il2cpp\libil2cpp\hybridclr\generated目录 替换导出工程中的此目录。
+        string sourcePath = $"{Application.dataPath}/HybridCLRData/LocalIl2CppData-{ApplicationSettings.GetPlatformName()}Editor/il2cpp/libil2cpp/hybridclr/generated";
+        string targetPath = $"{BuildPath}/unityLibrary/src/main/Il2CppOutputProject/IL2CPP/libil2cpp/hybridclr/generated";
+        Directory.Delete(targetPath, true);
+        CopyDirectory(sourcePath, targetPath, true);
+
         //在导出工程上执行build
     }
 
@@ -190,9 +230,6 @@ public class BuilderNewWindow : OdinEditorWindow
 
         EditorPrefs.SetString("androidStudioProjectPath", AndroidStudioProjectPath);
     }
-
-
-
 
     private void SwitchPlatform()
     {
@@ -293,7 +330,6 @@ public class BuilderNewWindow : OdinEditorWindow
         path = Path.Combine(path, "Assetbundles");
         return ApplicationSettings.GetAbOrLibPath(path);
     }
-
 
     private static void OpenDirectoryInExplorer(string directoryPath)
     {
