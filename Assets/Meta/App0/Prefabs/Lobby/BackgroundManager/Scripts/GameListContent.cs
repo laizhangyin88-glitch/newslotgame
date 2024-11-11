@@ -134,7 +134,6 @@ public class GameListContent
             btn.onClick.AddListener(() =>
             {
                 gameObject.SetActive(false);
-                Debug.LogError(nameList[index] + idList[index].ToString());
                 controller.SetSearchGameInfo(nameList[index], idList[index]);
             });
         }

@@ -1,3 +1,4 @@
+using BagelCode;
 using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,15 +30,19 @@ public class MainItemController : MonoBehaviour
             case SettingButtonType.None:
                 break;
             case SettingButtonType.GameInformation:
+                ShowErrorPopup("Not Yet Open");
                 break;
             case SettingButtonType.BusinessRecord:
+                ShowErrorPopup("Not Yet Open");
                 break;
             case SettingButtonType.GameHistroy:
                 OpenBackgroundManager.OpenView("lobby0", "GameHistroyRecordView", PopupManager.Instance.BackgroundSetting);
                 break;
             case SettingButtonType.EventRecord:
+                ShowErrorPopup("Not Yet Open");
                 break;
             case SettingButtonType.Settings:
+                ShowErrorPopup("Not Yet Open");
                 break;
             case SettingButtonType.InputTest:
                 OpenBackgroundManager.OpenView("lobby0", "InputKeyTestView", PopupManager.Instance.BackgroundSetting);
@@ -46,6 +51,7 @@ public class MainItemController : MonoBehaviour
                 OpenBackgroundManager.OpenView("lobby0", "TouchTestView", PopupManager.Instance.BackgroundSetting);
                 break;
             case SettingButtonType.TimeAndDate:
+                OpenBackgroundManager.OpenView("lobby0", "SetDateView", PopupManager.Instance.BackgroundSetting);
                 break;
             case SettingButtonType.Wifi:
                 OpenBackgroundManager.OpenView("lobby0", "WifiView", PopupManager.Instance.BackgroundSetting);
@@ -56,11 +62,6 @@ public class MainItemController : MonoBehaviour
             default:
                 break;
         }
-    }
-
-    private void OnDestroy()
-    {
-        
     }
 
     string AddSpaceBeforeUppercase(string input)
@@ -83,5 +84,15 @@ public class MainItemController : MonoBehaviour
         }
 
         return sb.ToString();
+    }
+
+
+    private void ShowErrorPopup(string error)
+    {
+        ErrorPopupInfo info = new ErrorPopupInfo();
+        info.type = ErrorPopupType.OK;
+        info.text = $"<size=32>{error}</size>";
+        info.buttonText1 = "OK";
+        ErrorPopupHandler.Instance.OpenError(info);
     }
 }

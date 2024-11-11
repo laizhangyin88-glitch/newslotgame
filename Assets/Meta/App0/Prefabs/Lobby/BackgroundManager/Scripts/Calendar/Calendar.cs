@@ -21,7 +21,12 @@ namespace SpringGUI
     public class Calendar : UIBehaviour
     {
         private int hourValue;
+        public int HourValue { get => hourValue; set => hourValue = value; }
+
+
         private int minuteValue;
+
+        public int MinuteValue { get => minuteValue; set => minuteValue = value; }
 
         #region click events
         public class DayClickEvent : UnityEvent<DateTime>{}
@@ -110,8 +115,8 @@ namespace SpringGUI
         private void ResetShow()
         {
             var now = DateTime.Now;
-            hourValue = now.Hour;
-            minuteValue = now.Minute;
+            HourValue = now.Hour;
+            MinuteValue = now.Minute;
             hourTxt.text = now.Hour < 10 ? "0" + now.Hour : now.Hour.ToString();
             minuteTxt.text = now.Minute < 10 ? "0" + now.Minute : now.Minute.ToString();
             Refresh();
@@ -138,30 +143,30 @@ namespace SpringGUI
 
         private void SetHourTxt(int value)
         {
-            hourValue += value;
-            if(hourValue < 0)
+            HourValue += value;
+            if(HourValue < 0)
             {
-                hourValue = 23;
+                HourValue = 23;
             }
-            if(hourValue > 23)
+            if(HourValue > 23)
             {
-                hourValue = 0;
+                HourValue = 0;
             }
-            hourTxt.text = hourValue < 10 ? "0" + hourValue : hourValue.ToString();
+            hourTxt.text = HourValue < 10 ? "0" + HourValue : HourValue.ToString();
         }
 
         private void SetMinuteTxt(int value)
         {
-            minuteValue += value;
-            if (minuteValue < 0)
+            MinuteValue += value;
+            if (MinuteValue < 0)
             {
-                minuteValue = 59;
+                MinuteValue = 59;
             }
-            if (minuteValue > 59)
+            if (MinuteValue > 59)
             {
-                minuteValue = 0;
+                MinuteValue = 0;
             }
-            minuteTxt.text = minuteValue < 10 ? "0" + minuteValue : minuteValue.ToString();
+            minuteTxt.text = MinuteValue < 10 ? "0" + MinuteValue : MinuteValue.ToString();
         }
 
         private void OnClickConfirm()
