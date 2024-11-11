@@ -2,6 +2,7 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ConsoleToScreen : MonoBehaviour
@@ -9,6 +10,7 @@ public class ConsoleToScreen : MonoBehaviour
     const int maxLines = 50;
     const int maxLineLength = 120;
     private string _logStr = "";
+    [SerializeField] private TextMeshProUGUI _text;
 
     [ShowInInspector]
     private readonly List<string> _lines = new List<string>();
@@ -45,11 +47,14 @@ public class ConsoleToScreen : MonoBehaviour
             _lines.RemoveRange(0, _lines.Count - maxLines);
         }
         _logStr = string.Join("\n", _lines);
+
+        if (_text != null)
+            _text.text = _logStr;
     }
 
-    void OnGUI()
-    {
-        GUI.Label(new Rect(10, 10, 800, 370), _logStr, new GUIStyle() { fontSize = Math.Max(10, fontSize) });
-    }
+    //void OnGUI()
+    //{
+    //    GUI.Label(new Rect(10, 10, 800, 370), _logStr, new GUIStyle() { fontSize = Math.Max(10, fontSize) });
+    //}
 }
 

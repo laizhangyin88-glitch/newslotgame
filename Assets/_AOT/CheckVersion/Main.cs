@@ -91,10 +91,10 @@ public class Main : MonoBehaviour
         }
 
         Debug.Log("加载完成");
-        Debug.Log("進入場景...");
+        Debug.Log("进入场景...");
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
 
-        yield return null;
+        yield return new WaitForSeconds(1f);
     }
 
 
@@ -180,7 +180,7 @@ public class Main : MonoBehaviour
     {
         Debug.Log($"获取持久化目录中的版本号:{StartUpConfig.VersionPath}");
         bool exists = File.Exists(StartUpConfig.VersionPath);
-        Debug.Log($"持久化目录是否存在Version.txt:{exists}");
+        //Debug.Log($"持久化目录是否存在Version.txt:{exists}");
         if (exists)
         {
             string versionJson = File.ReadAllText(StartUpConfig.VersionPath);
@@ -219,7 +219,7 @@ public class Main : MonoBehaviour
         needUpdateNet = StartUpUtils.ParseVersion(netVersionData.Version) > StartUpUtils.ParseVersion(curVersionData.Version);
         if (needUpdateNet)
         {
-            Debug.Log("需要更新");
+            Debug.Log("检测到更新");
 
             //如果網絡版本大於Streaming版本
             if (StartUpUtils.ParseVersion(netVersionData.Version) > StartUpUtils.ParseVersion(localVersionData.Version))
