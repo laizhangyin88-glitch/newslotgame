@@ -26,6 +26,7 @@ namespace SlotMaker
         Event = (1 << 10)
     };
 
+    [Serializable]
     [CreateAssetMenu(fileName = "ApplicationSettings", menuName = "SlotMaker/ScriptableObject/ApplicationSettings")]
     public partial class ApplicationSettings : ScriptableObjectSingleton<ApplicationSettings>
     {
@@ -312,7 +313,12 @@ namespace SlotMaker
         {
             return Path.Combine(GetDesktopLibPath(), dllName);
         }
-
+        public static string GetDesktopAbPath()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            path = Path.Combine(path, "Assetbundles");
+            return GetAbOrLibPath(path);
+        }
 #endif
         #endregion
 

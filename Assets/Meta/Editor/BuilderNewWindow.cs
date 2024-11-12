@@ -15,9 +15,10 @@ using UnityEngine;
 public class BuilderNewWindow : OdinEditorWindow
 {
     [PropertySpace(SpaceBefore = 20)]
-
-
     [Title("环境配置(这里确认正确即可，不是必须要操作)")]
+
+
+
     [PropertyOrder(1), LabelText("平台"), ValueDropdown("GetBuildTargetArray"), InlineButton("SwitchPlatform", "切换")]
     public BuildTarget TargetPlaform = BuildTarget.Android;
 
@@ -42,22 +43,21 @@ public class BuilderNewWindow : OdinEditorWindow
 
 
     [PropertySpace(SpaceBefore = 20)]
-    [PropertyOrder(5), Title("项目导出")]
-    public string ClientVersion;
+    [Title("项目配置")]
 
 
-    [PropertyOrder(6), LabelText("ab生成路径"), ShowInInspector, Sirenix.OdinInspector.FilePath(), ReadOnly, HorizontalGroup("abBuild")]
-    public string AbBuildPath;
+    [PropertyOrder(51), LabelText("项目配置"), ReadOnly]
+    public ApplicationSettings Settings;
+    [PropertyOrder(52), LabelText("渠道配置(预留)"), ReadOnly]
+    public ApplicationSettings ChannelSettings;
 
-    [PropertyOrder(7), Button("打ab包"), PropertyTooltip("没有资源变动可不打"), HorizontalGroup("abBuild")]
-    public void BuildAb()
-    {
-        BuildTargetGroup group = BuilderNew.ConvertBuildTarget(TargetPlaform);
-        Builder.Build_Assetbundle(TargetPlaform, group, null, true, true, null);
-        AssetDatabase.Refresh();
-    }
 
-    [PropertyOrder(8), Button("生成Version文件"), PropertyTooltip("一份到StreamingAssets(随包打出)，一份到桌面(上传到cdn)")]
+    [PropertySpace(SpaceBefore = 20)]
+    [Title("项目导出")]
+
+
+
+    [PropertyOrder(104), Button("生成Version文件"), PropertyTooltip("一份到StreamingAssets(随包打出)，一份到桌面(上传到cdn)")]
     public void GenVersionFile()
     {
         Debug.Log("生成版本文件");
@@ -65,7 +65,22 @@ public class BuilderNewWindow : OdinEditorWindow
         AssetDatabase.Refresh();
     }
 
-    [PropertyOrder(9), Button("生成热更dll"), PropertyTooltip("一份到StreamingAssets(随包打出)，一份到桌面(上传到cdn)")]
+    [PropertyOrder(105), LabelWidth(100f), LabelText("ab生成路径"), Sirenix.OdinInspector.FilePath(), ReadOnly, HorizontalGroup("abBuild")]
+    public string AbBuildPath;
+
+    [PropertyOrder(106), Button("生成ab资源包"), PropertyTooltip("没有资源变动可不打"), HorizontalGroup("abBuild")]
+    public void BuildAb()
+    {
+        BuildTargetGroup group = BuilderNew.ConvertBuildTarget(TargetPlaform);
+        Builder.Build_Assetbundle(TargetPlaform, group, null, true, true, null);
+        AssetDatabase.Refresh();
+    }
+
+    
+    [PropertyOrder(108), LabelWidth(100f), LabelText("Lib生成路径"), Sirenix.OdinInspector.FilePath(), ReadOnly, HorizontalGroup("libBuild")]
+    public string LibBuildPath;
+
+    [PropertyOrder(109), Button("生成热更dll"), PropertyTooltip("没有代码变动可不打,一份到StreamingAssets(随包打出)，一份到桌面(上传到cdn)"), HorizontalGroup("libBuild")]
     public void GenHotUpdateDll()
     {
         Debug.Log("生成热更dll");
@@ -73,12 +88,14 @@ public class BuilderNewWindow : OdinEditorWindow
         AssetDatabase.Refresh();
     }
 
-    [PropertyOrder(10), LabelText("项目生成路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), OnValueChanged("SaveBuildPath"), Delayed, HorizontalGroup("build"), InlineButton("BuildProject", "导出工程")]
+    
+
+    [PropertyOrder(111), LabelWidth(100f), LabelText("项目生成路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), OnValueChanged("SaveBuildPath"), Delayed, HorizontalGroup("build"), InlineButton("BuildProject", "导出工程")]
     public string BuildPath;
 
     
 
-    [LabelText("Android项目路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), PropertyTooltip("定义出包的Android Studio项目路径\n通过“复制导入”将Unity导出的Android项目的必要部分复制到Android打包项目中\n避免了手动操作"), OnValueChanged("SaveAndroidStudioProjectPath"), Delayed, HorizontalGroup("android"), PropertyOrder(11), InlineButton("ImprotProject", "复制导入")]
+    [LabelText("Android项目路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), PropertyTooltip("定义出包的Android Studio项目路径\n通过“复制导入”将Unity导出的Android项目的必要部分复制到Android打包项目中\n避免了手动操作"), OnValueChanged("SaveAndroidStudioProjectPath"), Delayed, HorizontalGroup("android"), PropertyOrder(111), InlineButton("ImprotProject", "复制导入")]
     public string AndroidStudioProjectPath;
 
     
@@ -94,14 +111,16 @@ public class BuilderNewWindow : OdinEditorWindow
         base.OnEnable();
 
         TargetPlaform = EditorUserBuildSettings.activeBuildTarget;
-        AbBuildPath = GetAbBuildPath();
+        AbBuildPath = ApplicationSettings.GetDesktopAbPath();
+        LibBuildPath = ApplicationSettings.GetDesktopLibPath();
         var cs = GetChannelAndSoftware(TargetPlaform);
         Channel = cs.Item1;
         Software = cs.Item2;
         BuildPath = EditorPrefs.GetString("lastBuildProjectPath", "");
         AndroidStudioProjectPath = EditorPrefs.GetString("androidStudioProjectPath", "");
+        Settings = ApplicationSettings.Instance;
     }
-
+    
     protected void ImprotProject()
     {
         if (Directory.Exists(AndroidStudioProjectPath) == false)
@@ -381,13 +400,6 @@ public class BuilderNewWindow : OdinEditorWindow
             BuildTarget.iOS,
             BuildTarget.StandaloneWindows,
         };
-    }
-
-    private string GetAbBuildPath()
-    {
-        string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
-        path = Path.Combine(path, "Assetbundles");
-        return ApplicationSettings.GetAbOrLibPath(path);
     }
 
     private static void OpenDirectoryInExplorer(string directoryPath)
