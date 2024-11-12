@@ -14,10 +14,7 @@ using UnityEngine;
 //[TypeInfoBox("<color=yellow>unity内的打包流程已封装在此窗口\n按顺序一一确认/操作\n有任何问题请滴滴whh</color>")]
 public class BuilderNewWindow : OdinEditorWindow
 {
-    [PropertySpace(SpaceBefore = 20)]
-    [Title("环境配置(这里确认正确即可，不是必须要操作)")]
-
-
+    [Title("环境配置", Subtitle = "这里确认正确即可，不是必须要操作"), PropertySpace(SpaceBefore = 20)]
 
     [PropertyOrder(1), LabelText("平台"), ValueDropdown("GetBuildTargetArray"), InlineButton("SwitchPlatform", "切换")]
     public BuildTarget TargetPlaform = BuildTarget.Android;
@@ -42,20 +39,18 @@ public class BuilderNewWindow : OdinEditorWindow
     }
 
 
-    [PropertySpace(SpaceBefore = 20)]
-    [Title("项目配置")]
 
+    [Title("项目配置"), PropertySpace(SpaceBefore = 20)]
 
     [PropertyOrder(51), LabelText("项目配置"), ReadOnly]
     public ApplicationSettings Settings;
+
     [PropertyOrder(52), LabelText("渠道配置(预留)"), ReadOnly]
     public ApplicationSettings ChannelSettings;
 
 
-    [PropertySpace(SpaceBefore = 20)]
-    [Title("项目导出")]
 
-
+    [Title("项目导出"), PropertySpace(SpaceBefore = 20)]
 
     [PropertyOrder(104), Button("生成Version文件"), PropertyTooltip("一份到StreamingAssets(随包打出)，一份到桌面(上传到cdn)")]
     public void GenVersionFile()
@@ -76,7 +71,6 @@ public class BuilderNewWindow : OdinEditorWindow
         AssetDatabase.Refresh();
     }
 
-    
     [PropertyOrder(108), LabelWidth(100f), LabelText("Lib生成路径"), Sirenix.OdinInspector.FilePath(), ReadOnly, HorizontalGroup("libBuild")]
     public string LibBuildPath;
 
@@ -88,12 +82,8 @@ public class BuilderNewWindow : OdinEditorWindow
         AssetDatabase.Refresh();
     }
 
-    
-
     [PropertyOrder(111), LabelWidth(100f), LabelText("项目生成路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), OnValueChanged("SaveBuildPath"), Delayed, HorizontalGroup("build"), InlineButton("BuildProject", "导出工程")]
     public string BuildPath;
-
-    
 
     [LabelText("Android项目路径"), LabelWidth(100f), FolderPath(AbsolutePath = true, RequireExistingPath = true), PropertyTooltip("定义出包的Android Studio项目路径\n通过“复制导入”将Unity导出的Android项目的必要部分复制到Android打包项目中\n避免了手动操作"), OnValueChanged("SaveAndroidStudioProjectPath"), Delayed, HorizontalGroup("android"), PropertyOrder(111), InlineButton("ImprotProject", "复制导入")]
     public string AndroidStudioProjectPath;
@@ -120,7 +110,9 @@ public class BuilderNewWindow : OdinEditorWindow
         AndroidStudioProjectPath = EditorPrefs.GetString("androidStudioProjectPath", "");
         Settings = ApplicationSettings.Instance;
     }
-    
+
+    #region 打包流程实现
+
     protected void ImprotProject()
     {
         if (Directory.Exists(AndroidStudioProjectPath) == false)
@@ -190,7 +182,7 @@ public class BuilderNewWindow : OdinEditorWindow
         foreach (var dllName in Main.dllList)
         {
             string filePath = Path.Combine(hotUpdateDllSourcePath, dllName);
-            if(File.Exists(filePath) == false)
+            if (File.Exists(filePath) == false)
             {
                 Debug.LogError($"热更文件不存在：{filePath}");
                 continue;
@@ -200,21 +192,6 @@ public class BuilderNewWindow : OdinEditorWindow
             File.Copy(filePath, ApplicationSettings.GetStreamingDllPath(dllName + ".bytes"), true);
         }
     }
-
-    #region HybridCLRHelper
-
-    protected void ResetHotUpdateOutputPath()
-    {
-        GenVersionFileToStreamingAssetsAndDesktop();
-        //HybridCLRSettings.Instance.hotUpdateDllCompileOutputRootDir = 
-    }
-
-    private void CopyMetaAOTAndHotUpdateDllToProject(string projectPath)
-    {
-        SettingsUtil.GetAssembliesPostIl2CppStripDir(TargetPlaform);
-    }
-
-    #endregion
 
     /// <summary>
     /// 生成版本文件，一份到StreamingAssets(随包打出)，一份到桌面(上传到cdn)
@@ -290,8 +267,6 @@ public class BuilderNewWindow : OdinEditorWindow
         //在导出工程上执行build
 
     }
-
-    
 
     private void SaveBuildPath()
     {
@@ -460,6 +435,23 @@ public class BuilderNewWindow : OdinEditorWindow
             }
         }
     }
+
+    #endregion
+
+    #region HybridCLRHelper
+
+    protected void ResetHotUpdateOutputPath()
+    {
+        GenVersionFileToStreamingAssetsAndDesktop();
+        //HybridCLRSettings.Instance.hotUpdateDllCompileOutputRootDir = 
+    }
+
+    private void CopyMetaAOTAndHotUpdateDllToProject(string projectPath)
+    {
+        SettingsUtil.GetAssembliesPostIl2CppStripDir(TargetPlaform);
+    }
+
+    #endregion
 
     public enum ValueType
     {
