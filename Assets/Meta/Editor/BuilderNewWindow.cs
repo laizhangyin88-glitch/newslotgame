@@ -1,19 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using BagelCode;
+using HybridCLR.Editor;
+using HybridCLR.Editor.Commands;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
-using UnityEditor;
-using BagelCode;
-using System;
-using System.Linq;
 using SlotMaker;
-using HybridCLR.Editor.Commands;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
-using Codice.Client.Common;
-using HybridCLR.Editor.MethodBridge;
-using HybridCLR.Editor.Settings;
+using System.Linq;
+using UnityEditor;
+using UnityEngine;
 
 //[TypeInfoBox("<color=yellow>unity内的打包流程已封装在此窗口\n按顺序一一确认/操作\n有任何问题请滴滴whh</color>")]
 public class BuilderNewWindow : OdinEditorWindow
@@ -61,14 +57,26 @@ public class BuilderNewWindow : OdinEditorWindow
         AssetDatabase.Refresh();
     }
 
-    //[PropertyOrder(8), LabelText("(HybridCLR)生成linkXml"), Button]
-    //public void GenerateLinkXml()
-    //{
-    //    LinkGeneratorCommand.GenerateLinkXml();
-    //}
+    [PropertyOrder(8), Button("生成Version文件"), PropertyTooltip("一份到StreamingAssets(随包打出)，一份到桌面(上传到cdn)")]
+    public void GenVersionFile()
+    {
+        Debug.Log("生成版本文件");
+        GenVersionFileToStreamingAssetsAndDesktop();
+        AssetDatabase.Refresh();
+    }
 
-    [PropertyOrder(9), LabelText("项目生成路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), OnValueChanged("SaveBuildPath"), Delayed, HorizontalGroup("build"), InlineButton("BuildProject", "导出工程")]
+    [PropertyOrder(9), Button("生成热更dll"), PropertyTooltip("一份到StreamingAssets(随包打出)，一份到桌面(上传到cdn)")]
+    public void GenHotUpdateDll()
+    {
+        Debug.Log("生成热更dll");
+        CompileDll();
+        AssetDatabase.Refresh();
+    }
+
+    [PropertyOrder(10), LabelText("项目生成路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), OnValueChanged("SaveBuildPath"), Delayed, HorizontalGroup("build"), InlineButton("BuildProject", "导出工程")]
     public string BuildPath;
+
+    
 
     [LabelText("Android项目路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), PropertyTooltip("定义出包的Android Studio项目路径\n通过“复制导入”将Unity导出的Android项目的必要部分复制到Android打包项目中\n避免了手动操作"), OnValueChanged("SaveAndroidStudioProjectPath"), Delayed, HorizontalGroup("android"), PropertyOrder(11), InlineButton("ImprotProject", "复制导入")]
     public string AndroidStudioProjectPath;
@@ -145,30 +153,59 @@ public class BuilderNewWindow : OdinEditorWindow
         CopyDirectory(sourceIl2CppPath, targetIl2CppPath, true);
     }
 
+    /// <summary>
+    /// 生成热更dll，一份到StreamingAssets(随包打出)，一份到桌面(上传到cdn)
+    /// </summary>
     private void CompileDll()
     {
-
-        
         CompileDllCommand.CompileDllActiveBuildTarget();
-        
+        string hotUpdateDllSourcePath = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(TargetPlaform);
+
+        string deskLibPath = ApplicationSettings.GetDesktopLibPath();
+        if (Directory.Exists(deskLibPath) == false)
+            Directory.CreateDirectory(deskLibPath);
+
+        if (Directory.Exists(ApplicationSettings.GetStreamingLibPath()))
+            Directory.CreateDirectory(ApplicationSettings.GetStreamingLibPath());
+
+        foreach (var dllName in Main.dllList)
+        {
+            string filePath = Path.Combine(hotUpdateDllSourcePath, dllName);
+            if(File.Exists(filePath) == false)
+            {
+                Debug.LogError($"热更文件不存在：{filePath}");
+                continue;
+            }
+
+            File.Copy(filePath, ApplicationSettings.GetDesktopDllPath(dllName), true);
+            File.Copy(filePath, ApplicationSettings.GetStreamingDllPath(dllName + ".bytes"), true);
+        }
     }
 
     #region HybridCLRHelper
-    /// <summary>
-    /// 获取HybridCLR生成的热更dll的绝对路径
-    /// </summary>
-    protected string GetHotUpdateOutputPath()
-    {
-        return Path.Combine(Application.dataPath, HybridCLRSettings.Instance.hotUpdateDllCompileOutputRootDir, ApplicationSettings.GetPlatformName());
-    }
 
     protected void ResetHotUpdateOutputPath()
     {
-        
+        GenVersionFileToStreamingAssetsAndDesktop();
         //HybridCLRSettings.Instance.hotUpdateDllCompileOutputRootDir = 
     }
 
+    private void CopyMetaAOTAndHotUpdateDllToProject(string projectPath)
+    {
+        SettingsUtil.GetAssembliesPostIl2CppStripDir(TargetPlaform);
+    }
+
     #endregion
+
+    /// <summary>
+    /// 生成版本文件，一份到StreamingAssets(随包打出)，一份到桌面(上传到cdn)
+    /// </summary>
+    protected void GenVersionFileToStreamingAssetsAndDesktop()
+    {
+        VersionData vd = StartUpUtils.CreateVersionData(ApplicationSettings.Instance.libVersion);
+        StartUpUtils.SaveVersionData(vd, ApplicationSettings.GetStreamingLibPath());
+        StartUpUtils.SaveVersionData(vd, ApplicationSettings.GetDesktopLibPath());
+    }
 
     protected void BuildProject()
     {
@@ -190,7 +227,6 @@ public class BuilderNewWindow : OdinEditorWindow
         //项目太大，正常打热更工程时间会增加一倍
         //按HybridCLR推荐流程进行优化
         //参见：https://hybridclr.doc.code-philosophy.com/docs/basic/buildpipeline#%E4%BC%98%E5%8C%96%E7%9A%84%E6%89%93%E5%8C%85%E6%B5%81%E7%A8%8B
-        CompileDllCommand.CompileDllActiveBuildTarget();
 
         //运行 HybridCLR/ Generate / LinkXml
         LinkGeneratorCommand.GenerateLinkXml();
@@ -207,13 +243,36 @@ public class BuilderNewWindow : OdinEditorWindow
         MethodBridgeGeneratorCommand.GenerateMethodBridgeAndReversePInvokeWrapper();
 
         //将 { proj}\HybridCLRData\LocalIl2CppData -{ platform}\il2cpp\libil2cpp\hybridclr\generated目录 替换导出工程中的此目录。
-        string sourcePath = $"{Application.dataPath}/HybridCLRData/LocalIl2CppData-{ApplicationSettings.GetPlatformName()}Editor/il2cpp/libil2cpp/hybridclr/generated";
+        string sourcePath = SettingsUtil.GeneratedCppDir;
         string targetPath = $"{BuildPath}/unityLibrary/src/main/Il2CppOutputProject/IL2CPP/libil2cpp/hybridclr/generated";
         Directory.Delete(targetPath, true);
         CopyDirectory(sourcePath, targetPath, true);
 
+
+        //自动化流程：将AOT元数据程序集复制到导出工程的StreamingAssets中
+        string sourceAotPath = SettingsUtil.GetAssembliesPostIl2CppStripDir(TargetPlaform);
+        string targetAotPath = $"{BuildPath}/unityLibrary/src/main/assets/{ApplicationSettings.Instance.libPath}/AOT";
+        if (Directory.Exists(targetAotPath) == false)
+            Directory.CreateDirectory(targetAotPath);
+        foreach (var dllName in RefTypes.AOTMetaAssemblyFiles)
+        {
+            string sourceAOTDllPath = Path.Combine(sourceAotPath, dllName);
+            if(File.Exists(sourceAOTDllPath) == false)
+            {
+                Debug.LogError($"AOT程序集不存在：{sourceAOTDllPath}");
+                continue;
+            }
+
+            Debug.Log($"Copy AOT程序集: {sourceAOTDllPath} -> {targetAotPath}");
+            string targetAotDllPath = Path.Combine(targetAotPath, dllName + ".bytes");
+            File.Copy(sourceAOTDllPath, targetAotDllPath, true);
+        }
+
         //在导出工程上执行build
+
     }
+
+    
 
     private void SaveBuildPath()
     {

@@ -216,6 +216,8 @@ namespace SlotMaker
             }
         }
 
+        #region Path
+
         public static string GetRemoteVersionPath()
         {
             string path = Path.Combine(GetRemoteLibPath(), "Version.txt");
@@ -294,8 +296,25 @@ namespace SlotMaker
             return Path.Combine(GetPerLibPath(), name);
         }
 
-        
+#if UNITY_EDITOR
+        public static string GetDesktopLibPath()
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string libPath = Path.Combine(desktopPath, Instance.libPath);
+            libPath = GetAbOrLibPath(libPath);
+            return libPath;
+        }
+        public static string GetDesktopVersionPath()
+        {
+            return Path.Combine(GetDesktopLibPath(), "Version.txt");
+        }
+        public static string GetDesktopDllPath(string dllName)
+        {
+            return Path.Combine(GetDesktopLibPath(), dllName);
+        }
 
+#endif
+        #endregion
 
 #if UNITY_EDITOR
         /// <summary>

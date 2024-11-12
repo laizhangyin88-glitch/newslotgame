@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -12,6 +13,32 @@ public class VersionData
 
 public static class StartUpUtils
 {
+
+    public static VersionData CreateVersionData(string version)
+    {
+        if(Version.TryParse(version, out _) == false)
+        {
+            Debug.Log("版本号格式错误");
+            return null;
+        }
+
+        return new VersionData()
+        {
+            Version = version
+        };
+    }
+
+    public static void SaveVersionData(VersionData data, string path, string fileName = "Version.txt")
+    {
+        if (string.IsNullOrEmpty(fileName))
+            return;
+
+        if (Directory.Exists(path) == false)
+            Directory.CreateDirectory(path);
+
+        string filePath = Path.Combine(path, fileName);
+        File.WriteAllText(filePath, JsonConvert.SerializeObject(data));
+    }
 
     public static int ParseVersion(string version)
     {

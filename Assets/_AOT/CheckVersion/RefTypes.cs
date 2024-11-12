@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 public static class RefTypes
 {
-    private static List<string> AOTMetaAssemblyFiles { get; } = new List<string>()
+    public static List<string> AOTMetaAssemblyFiles { get; } = new List<string>()
     {
         "mscorlib.dll",
         "System.dll",

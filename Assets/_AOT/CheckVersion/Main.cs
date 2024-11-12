@@ -40,7 +40,7 @@ public class Main : MonoBehaviour
         Version = "0.0.0",
     };
 
-    private List<string> dllList = new List<string>
+    public static List<string> dllList => new List<string>
     {
         //"UnityWebSocket.Runtime.dll",
         //"Base.dll",
