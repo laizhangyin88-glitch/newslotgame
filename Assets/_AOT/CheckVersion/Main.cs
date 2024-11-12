@@ -167,12 +167,6 @@ public class Main : MonoBehaviour
         return (value & (byte)Math.Pow(2, bit)) > 0 ? true : false;
     }
 
-    private void Update()
-    {
-        //if (www != null)
-        //    loadSlider.SetSliderValue(www.downloadProgress);
-    }
-
     /// <summary>
     /// 獲取持久化目錄中版本號
     /// </summary>
@@ -207,14 +201,14 @@ public class Main : MonoBehaviour
         else if (www.isDone)
         {
             netVersionData = JsonConvert.DeserializeObject<VersionData>(www.downloadHandler.text);
-            CompareVersion();
+            yield return StartCoroutine(CompareVersion());
         }
     }
 
-    private void CompareVersion()
+    private IEnumerator CompareVersion()
     {
         GetCurVersion();
-        GetLocalVersion();
+        yield return StartCoroutine(GetLocalVersion());
         Debug.Log($"NetVersion:{netVersionData.Version}");
         needUpdateNet = StartUpUtils.ParseVersion(netVersionData.Version) > StartUpUtils.ParseVersion(curVersionData.Version);
         if (needUpdateNet)
@@ -223,30 +217,34 @@ public class Main : MonoBehaviour
 
             //如果網絡版本大於Streaming版本
             if (StartUpUtils.ParseVersion(netVersionData.Version) > StartUpUtils.ParseVersion(localVersionData.Version))
-                StartCoroutine(UpdateFromNet());
+                yield return StartCoroutine(UpdateFromNet());
             else
-                UpdateFromLocal();
+                yield return StartCoroutine(UpdateFromLocal());
         }
         else
         {
             if (StartUpUtils.ParseVersion(localVersionData.Version) > StartUpUtils.ParseVersion(curVersionData.Version))
-                UpdateFromLocal();
+                yield return StartCoroutine(UpdateFromLocal());
             else
-                LoadFromMemory();
+                yield return StartCoroutine(LoadDllFromMemory());
         }
     }
 
     /// <summary>
     /// 獲取StreamingAssets中的版本號
     /// </summary>
-    private void GetLocalVersion()
+    private IEnumerator GetLocalVersion()
     {
+        bool isDone = false;
         StartUpUtils.GetFromStreamingAssets("Lib/Version.txt", (data) =>
         {
             string versionJson = System.Text.Encoding.UTF8.GetString(data);
             localVersionData = JsonConvert.DeserializeObject<VersionData>(versionJson);
             Debug.Log($"LocalVersion:{localVersionData.Version}");
+            isDone = true;
         });
+
+        yield return new WaitUntil(() => isDone);
     }
 
     private IEnumerator UpdateFromNet()
@@ -265,6 +263,7 @@ public class Main : MonoBehaviour
         {
             //string dllUrl = StartUpConfig.url + "/Lib/" + dllList[i];
             string dllUrl = ApplicationSettings.GetRemoteDllPath(dllList[i]);
+            Debug.Log($"下载远程dll：{dllUrl}");
             www = UnityWebRequest.Get(dllUrl);
             yield return www.SendWebRequest();
             if (www.result == UnityWebRequest.Result.ConnectionError
@@ -272,12 +271,12 @@ public class Main : MonoBehaviour
                 Debug.LogError(www.error);
             else if (www.isDone)
             {
-                Debug.Log($"下载远程dll完成：{dllUrl}");
                 File.WriteAllBytes(StartUpConfig.DllPath + "/" + dllList[i], www.downloadHandler.data);
             }
 
         }
-        LoadDllFromMemory();
+
+        yield return StartCoroutine(LoadDllFromMemory());
         //StartCoroutine(LoadAssetBundleFromNet());
     }
 
@@ -321,7 +320,7 @@ public class Main : MonoBehaviour
         }
     }
 
-    private void UpdateFromLocal()
+    private IEnumerator UpdateFromLocal()
     {
         Debug.Log("UpdateFromLocal");
 
@@ -333,20 +332,16 @@ public class Main : MonoBehaviour
         File.WriteAllText(StartUpConfig.VersionPath, JsonConvert.SerializeObject(localVersionData));
         curVersionData = localVersionData;
         PlayerPrefs.SetString("CurVersion", curVersionData.Version);
-        CopyDllFromStreamingAssets();
-        LoadDllFromMemory();
+        yield return StartCoroutine(CopyDllFromStreamingAssets());
+        yield return StartCoroutine(LoadDllFromMemory());
         //StartCoroutine(CopyAssetBundleFromStreamingAssets());
         //StartCoroutine(LoadAssetBundleFromMemoryAsync());
     }
 
-    private void LoadFromMemory()
+    private IEnumerator LoadDllFromMemory()
     {
-        LoadDllFromMemory();
-        //StartCoroutine(LoadAssetBundleFromMemoryAsync());
-    }
+        int doneCount = 0;
 
-    private void LoadDllFromMemory()
-    {
         for (int i = 0; i < dllList.Count; i++)
         {
             string path = StartUpConfig.DllPath + "/" + dllList[i];
@@ -356,23 +351,33 @@ public class Main : MonoBehaviour
                 {
                     File.WriteAllBytes(path, data);
                     Assembly.Load(data);
+                    doneCount++;
                 });
             }
             else
+            {
                 Assembly.Load(File.ReadAllBytes(path));
+                doneCount++;
+            }
         }
+
+        yield return new WaitUntil(() => doneCount >= dllList.Count);
     }
 
-    private void CopyDllFromStreamingAssets()
+    private IEnumerator CopyDllFromStreamingAssets()
     {
+        int doneCount = 0;
         for (int i = 0; i < dllList.Count; i++)
         {
             string path = StartUpConfig.DllPath + "/" + dllList[i];
             StartUpUtils.GetFromStreamingAssets($"{ApplicationSettings.Instance.libPath}/" + dllList[i] + ".bytes", (data) =>
             {
                 File.WriteAllBytes(path, data);
+                doneCount++;
             });
         }
+
+        yield return new WaitUntil(() => doneCount >= dllList.Count);
     }
 
 

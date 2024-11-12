@@ -65,7 +65,10 @@ public static class StartUpUtils
         { }
         if (www.result == UnityWebRequest.Result.ConnectionError
             || www.result == UnityWebRequest.Result.ProtocolError)
+        {
             Debug.LogError(www.error);
+            action?.Invoke(null);
+        }
         else
         {
             action?.Invoke(www.downloadHandler.data);
