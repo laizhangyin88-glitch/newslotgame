@@ -7,12 +7,9 @@ using UnityEngine.UI;
 using ZXing;
 using BagelCode;
 using GameUtil;
-using CryPrinter;
-using SimpleJSON;
-using ParadoxNotion;
-using BmpSharp;
-using SkiaSharp;
 using System.Text.RegularExpressions;
+using System.Linq;
+using ParadoxNotion;
 
 public class QRCodeInfo
 {
@@ -27,273 +24,181 @@ public class BankInfo
 
 public class ExchangeViewController : MonoBehaviour
 {
-    private const string TEST_PORT = "COM3";
-    private const string PORT = "/dev/ttyS1";
-    public RawImage QRCodeRawImage; // 绘制好的二维码
+    private RawImage QRCodeRawImage; // 绘制好的二维码
     private string CurrentQRCodeInfo = "";
     private string CurrentBankInfo = "";
     private List<GameObject> btnsList = new List<GameObject>();
     private TextMeshProUGUI value_txt;
     private Button btnClose;
-    private Button ButtonQR;
+    private Button CloseButtonQR;
     private BarcodeWriter barcodeWriter;
-    private TMP_InputField QRInputField;
-    private float waitTime = 5.0f;
-    private Button ButtonUse;
-    private Button TestBtn;
-    private Button TestBtn1;
-    private Button buttonUp;
-    private Button buttonPrint;
-    private Button clearBtn;
-    private Transform content1;
+    private Button QuickButton;
     private Transform content2;
-    private LoopTimer _loopTimer;
-    private int outCreditRate;
-    private int emptyLine = 3;
+    public int outCreditRate;
     private string userId;
-    private List<string> QRCodeInfoList = new List<string>();
-    private List<string> BankInfoList = new List<string>();
-    private TMP_InputField testInput;
-
-    PhoenixPrinter printer = null;
-
-    private float interval = 10;
+    private Dictionary<string, long> QRCodeInfoDicti = new Dictionary<string, long>();
     private float tempInterval = 0;
+    private Transform ContentQRCode;
+    private Transform ContentPrint;
+    private Transform ScrollViewQRCode;
+    private TextMeshProUGUI coinValueTxt;
 
-    private Button CloseInputField;
+    private List<Button> quickExchangeList = new List<Button>();
+    private List<long> quickExchanges = new List<long>();
+
+    private Button SureBtn;
+    private Button valueBtn;
+
+    private Transform SoftKeyboard;
+
+    private bool isMachine = false;
+    private Button SoftBtnClose;
+
+    private TextMeshProUGUI soft_value_txt;
+    private TextMeshProUGUI RateTxt;
 
     private void Start()
     {
+        isMachine = ApplicationSettings.Instance.isMachine;
+
+        MessageDispatcher.Register(EVTType.ON_CREDIT_EVENT, UpdateCredit);
+
+        SureBtn = transform.Find("content/SureBtn").GetComponent<Button>();
+        SureBtn.onClick.AddListener(OnClickSureBtn);
         userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "/me/userId").value;
         outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
-        content1 = transform.Find("content1");
         content2 = transform.Find("content2");
-        content1.gameObject.SetActive(false);
         content2.gameObject.SetActive(false);
-        buttonUp = transform.Find("content1/ButtonUp").GetComponent<Button>();
-        buttonPrint = transform.Find("content1/ButtonPrint").GetComponent<Button>();
-        buttonPrint.onClick.AddListener(OnClickBtnPrint);
-        buttonUp.onClick.AddListener(OnClickBtnUp);
         QRCodeRawImage = transform.Find("content/QR/RawImage").GetComponent<RawImage>();
-        ButtonQR = QRCodeRawImage.transform.GetChild(0).GetComponent<Button>();
-        ButtonQR.onClick.AddListener(() => { QRCodeRawImage.transform.parent.gameObject.SetActive(false); });
-        QRCodeRawImage.transform.parent.gameObject.SetActive(false); 
-        Transform btnParent = transform.Find("content/btns");
+        CloseButtonQR = QRCodeRawImage.transform.GetChild(0).GetComponent<Button>();
+        CloseButtonQR.onClick.AddListener(() => { QRCodeRawImage.transform.parent.gameObject.SetActive(false); });
+        QRCodeRawImage.transform.parent.gameObject.SetActive(false);
+        SoftKeyboard = transform.Find("SoftKeyboard");
+        SoftKeyboard.gameObject.SetActive(false);
+        SoftBtnClose = SoftKeyboard.Find("SoftBtnClose").GetComponent<Button>();
+        SoftBtnClose.onClick.AddListener(() => {  SoftKeyboard.gameObject.SetActive(false); });
+        soft_value_txt = SoftKeyboard.transform.Find("Image/soft_value_txt").GetComponent<TextMeshProUGUI>();
+        Transform btnParent = transform.Find("SoftKeyboard/btns");
         value_txt = transform.Find("content/Image/value_txt").GetComponent<TextMeshProUGUI>();
+        valueBtn = transform.Find("content/Image").GetComponent<Button>();
+        valueBtn.onClick.AddListener(OnClickValueBtn);
         value_txt.text = "";
-        btnClose = transform.Find("BtnClose").GetComponent<Button>();
+        btnClose = transform.Find("Base/BtnClose").GetComponent<Button>();
         btnClose.onClick.AddListener(OnClickBtnClose);
         InitBtnsList(btnParent);
-        ButtonUse = transform.Find("content/ButtonUse").GetComponent<Button>();
-        TestBtn = transform.Find("content/TestBtn").GetComponent<Button>();
-        TestBtn.onClick.AddListener(OnClickTestBtn);
-        testInput = transform.Find("content/TestInputField").GetComponent<TMP_InputField>();
+        QuickButton = transform.Find("content/QuickButton").GetComponent<Button>();
+        QuickButton.gameObject.SetActive(false);
+        ContentQRCode = transform.Find("content/ScrollViewQRCode/GameObject/ContentQRCode");
+        ScrollViewQRCode = transform.Find("content/parent/ScrollViewQRCode");
+        coinValueTxt = transform.Find("content/coin/coinValue").GetComponent<TextMeshProUGUI>();
 
-        TestBtn1 = transform.Find("content/TestBtn1").GetComponent<Button>();
+        coinValueTxt.text = BlackboardUtils.FindVariable<long>(null, "/me/credit").value.ToString("N0");
+        RateTxt = transform.Find("content/RateTxt").GetComponent<TextMeshProUGUI>();
+        RateTxt.text = string.Format("Redeem Rate : 1:{0}", outCreditRate);
 
-        clearBtn = transform.Find("content/ClearBtn").GetComponent<Button>();
+        InitQuickQRCodeList();
 
-        TestBtn1.onClick.AddListener(OnClickTestBtn1);
+    }
 
-
-        if (ButtonUse != null)
+    private void UpdateCredit(EventData eventData)
+    {
+        if(eventData != null && eventData.name == "UpdateNaviCredit")
         {
-            ButtonUse.onClick.AddListener(OnClickUseBtn);
-        }
-        QRInputField = transform.Find("content/InputField").GetComponent<TMP_InputField>();
-        CloseInputField = QRInputField.transform.Find("CloseInputField").GetComponent<Button>();
-        CloseInputField.onClick.AddListener(() => { QRInputField.gameObject.SetActive(false); });
-        QRInputField.gameObject.SetActive(false);
-        InitSQLiteData();
-        CheckQRCodeInfo();
-        CheckBankInfo();
-
-        if (Application.isEditor)
-        {
-            printer = new PhoenixPrinter(TEST_PORT);
-        }
-        else
-        {
-            printer = new PhoenixPrinter(PORT);
+            coinValueTxt.text = BlackboardUtils.FindVariable<long>(null, "/me/credit").value.ToString("N0");
         }
     }
 
-    private void InitSQLiteData()
+    private void InitQuickQRCodeList()
     {
-        string qrCode = SQLiteManager.Instance.GetString(userId + "QRCODEINFOLIST", "");
-        string bankCode = SQLiteManager.Instance.GetString(userId + "BANKINFOLIST", "");
-        Debug.LogError(qrCode);
-        Debug.LogError(bankCode);
-        if (!string.IsNullOrEmpty(qrCode))
+        quickExchanges = BlackboardUtils.GetOrCreateVariable<List<long>>(MainBlackboard.Get(), "AmountsPresetList").value;
+        if (quickExchanges.Count > 0)
         {
-            string[] node = qrCode.Split("###".ToCharArray());
-            for (global::System.Int32 i = 0; i < node.Length; i++)
+            for (int i = 0; i < quickExchanges.Count; i++)
             {
-
-                string temp = node[i];
-                if (!string.IsNullOrEmpty(temp))
+                long value = quickExchanges[i];
+                if (value >= outCreditRate)
                 {
-                    QRCodeInfoList.Add(temp);
-                }
-            }
-        }
-        if (!string.IsNullOrEmpty(bankCode))
-        {
-            string[] node = bankCode.Split("###".ToCharArray());
-            for (global::System.Int32 i = 0; i < node.Length; i++)
-            {
-                string temp = node[i];
-                if (!string.IsNullOrEmpty(temp))
-                {
-                    BankInfoList.Add(temp);
+                    int index = i + 1;
+                    Button go = Instantiate(QuickButton) as Button;
+                    go.gameObject.SetActive(true);
+                    TextMeshProUGUI textMeshProUGUI = go.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+                    textMeshProUGUI.text = value.ToString();
+                    go.transform.SetParent(ContentQRCode.transform, false);
+                    go.onClick.AddListener(() =>
+                    {
+                        OnClickQuickPrint(index);
+                    });
+                    quickExchangeList.Add(go);
                 }
             }
         }
     }
 
-    private void OnClickTestBtn()
+
+
+    private void OnClickValueBtn()
     {
-        UseExchangeQRCodeInfo(CurrentQRCodeInfo);
+        SoftKeyboard.gameObject.SetActive(true);
+        soft_value_txt.text = value_txt.text;
+    }
+    private void OnClickQuickPrint(int index)
+    {
+        long credit = quickExchanges[index - 1];
+        string temp = (credit / outCreditRate).ToString("D");
+        long result = long.Parse(temp) * outCreditRate;
+        value_txt.text = result.ToString("N0");
     }
 
-    private void OnClickTestBtn1()
+    private void OnClickSureBtn()
     {
-        JudeUseInputField(testInput.text); 
-    }
-
-    private void OnClickClearBtn()
-    {
-        SBoxSanboxController.Instance.StopScrpitAllCoroutines(); 
-    }
-
-    private void CheckQRCodeInfo()
-    {
-        if(QRCodeInfoList.Count > 0)
+        if (!string.IsNullOrEmpty(value_txt.text))
         {
-            CurrentQRCodeInfo = QRCodeInfoList[QRCodeInfoList.Count - 1];
-            UseExchangeQRCodeInfo (CurrentQRCodeInfo);
-        }
-    }
-
-    private void CheckBankInfo()
-    {
-        if(BankInfoList.Count > 0)
-        {
-            CurrentBankInfo = BankInfoList[BankInfoList.Count - 1];
-            content1.gameObject.SetActive(true);
-        }
-    }
-    private void OnClickBtnUp()
-    {
-        UseBankQRCode(CurrentBankInfo);
-    }
-    private void OnClickBtnPrint()
-    {
-        if(!string.IsNullOrEmpty(CurrentBankInfo))
-        {
-            PrintQRCodeInfo();
-        }
-    }
-    private void PrintQRCodeInfo()
-    {
-        printer.Reinitialize();
-        //printer.SetFont(ThermalFonts.C);
-        //printer.SetScalars(FontWidthScalar.w8, FontHeighScalar.h5);
-        //printer.AddEffect(FontEffects.Bold);
-        //printer.PrintASCIIString("CurrentBankInfo QRCode");
-        //printer.PrintNewline();
-        //printer.Print2DBarcode(CurrentBankInfo);
-        var document = new StandardDocument
-        {
-            CodePage = CodePages.CPSPACE,
-        };
-
-        var headerSection = new StandardSection
-        {
-            Content = "Header",
-            Justification = FontJustification.JustifyCenter,
-            HeightScalar = FontHeighScalar.h2,
-            WidthScalar = FontWidthScalar.w2,
-            Effects = FontEffects.Bold,
-            Font = ThermalFonts.A,
-            AutoNewline = true,
-        };
-
-        var storeIdSection = new StandardSection
-        {
-            Content = "# STORE: 1234",
-            Justification = FontJustification.JustifyCenter,
-            HeightScalar = FontHeighScalar.h2,
-            WidthScalar = FontWidthScalar.w2,
-            Effects = FontEffects.Bold,
-            Font = ThermalFonts.A,
-            AutoNewline = true,
-        };
-
-        document.Sections.Add(headerSection);
-        Texture2D tex = CryPrinter.ZXingQrCode.GenerateQRImageWithColor(CurrentBankInfo + "&QRCodeEnd&", 256, 256, Color.black);
-
-        using var qrCodeBitmap = SKBitmap.Decode(tex.EncodeToPNG());
-        using var printerImage = new PrinterImage(qrCodeBitmap);
-        printer.SetImage(printerImage, document, 1);
-        document.Sections.Add(storeIdSection);
-        printer.PrintDocument(document);
-        printer.FormFeed();
-        BankInfoList.Remove(CurrentBankInfo);
-        //SaveInfo();
-        content2.gameObject.SetActive(false);
-        content1.gameObject.SetActive(false); 
-    }
-
-    private void InputFieldChange() 
-    {
-        if(_loopTimer == null)
-        {
-            _loopTimer = this.LoopAction(Time.deltaTime, (interval) =>
+            string temp = value_txt.text.Replace(",", "");
+            long result = long.Parse(temp);
+            long myCredit = BlackboardUtils.FindVariable<long>(null, "/me/credit").value;
+            if (result <= myCredit)
             {
-                if(QRInputField.text.Length > 0)
+                if (isMachine)
                 {
-                    Debug.Log(QRInputField.text);
+                    ConfirmPrintBankPopup(result);
                 }
-                if (QRInputField.text.Contains("&QRCodeEnd&"))
-                { 
-                    QRInputField.DeactivateInputField(true);
-                    Debug.Log("input end....." +  QRInputField.text);
-                    _loopTimer?.Cancel();
-                    _loopTimer = null;
-                    string[] strings = Regex.Split(QRInputField.text, "&QRCodeEnd&");
-                    JudeUseInputField(strings[0]);
+                else
+                {
+                    CreateQRCode(result);
                 }
-            });
-            QRInputField.ActivateInputField();
+            }
+            else
+            {
+                ShowPopup("not enough money");
+            }
         }
     }
 
-    private void JudeUseInputField(string input)
+    private void PrintQRCodeInfo(string info, string orderInfo)
     {
-        Debug.Log(input);
-        string[] splits = input.Split(':');
-        if (splits[0] == "qr_code")
+        string temp = value_txt.text.Replace(",", "");
+        long result = long.Parse(temp);
+        long outCredite = result / outCreditRate; 
+        TicketInfo ticketInfo = new TicketInfo()
         {
-            UseExchangeQRCodeInfo(input);
-        }
-        if (splits[0] == "bank")
-        {
-            UseBankQRCode(input);
-        }
-        content2.gameObject.SetActive(true);
+            BankInfo = info,
+            Money = outCredite,
+            OrderText = orderInfo,
+            TicketType = "Money Type",
+        };
+
+        PrinterController.Instance.PrintTicket(ticketInfo);
     }
     /// <summary>
     /// 使用兑换二维码
     /// </summary>
     /// <param name="input"></param>
-    private void UseExchangeQRCodeInfo(string input)
+    private void UseExchangeQRCodeInfo(string input, long credit = 0)
     {
-        if (!QRCodeInfoList.Contains(input))
+        if (!QRCodeInfoDicti.TryGetValue(input, out long value))
         {
-            QRCodeInfoList.Add(input);
+            QRCodeInfoDicti.Add(input, credit);
         }
-        //SaveInfo();
         content2.gameObject.SetActive(true);
         string temp = input.Replace("\"", "");
         Dictionary<string, object> req = new Dictionary<string, object>
@@ -302,27 +207,20 @@ public class ExchangeViewController : MonoBehaviour
         };
         NetManager.Instance.Post(RPCName.agent_check_qr_code_print_order, req, (res) =>
         {
-            Debug.LogError("###验证支付二维码###success");
             CurrentBankInfo = res["bank_order_id"];
-            if (!BankInfoList.Contains(CurrentBankInfo))
+            string orderInfo = res["show_order_id"];
+            PrintQRCodeInfo(CurrentBankInfo, orderInfo);
+            this.DelayAction(15, () =>
             {
-                QRCodeInfoList.Remove(input);
-                BankInfoList.Add(CurrentBankInfo);
-            }
-            //SaveInfo();
-            content2.gameObject.SetActive(false);
-            Debug.LogError("bank order  " + CurrentBankInfo);
-            QRInputField.gameObject.SetActive(false);
-            content1.gameObject.SetActive(true);
+                ShowPopup("Success !");
+                RemoveDictiElement();
+                content2.gameObject.SetActive(false);
+            });
         },
         (error) =>
         {
-            Debug.LogError(error);
-            //GlobalErrorHandler.GlobalError(error);
-            QRCodeInfoList.Remove(input);
-            Debug.LogError("have error");
+            RemoveDictiElement();
             ShowPopup(error.error);
-            //SaveInfo();
             content2.gameObject.SetActive(false);
         });
     }
@@ -337,42 +235,75 @@ public class ExchangeViewController : MonoBehaviour
         for (int i = 0; i < parent.childCount; i++)
         {
             Button button = parent.GetChild(i).GetComponent<Button>();
-            TextMeshProUGUI text = button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            
-            if(i == 9)
+            if (button != null)
             {
-                text.text = "X";
-                button.onClick.AddListener(() =>
+                TextMeshProUGUI text = button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+
+                if (i == 9)
                 {
-                    OnClickBtn(10);
-                });
-            }
-            else if(i == 10)
-            {
-                text.text = "0";
-                button.onClick.AddListener(() =>
+                    text.text = "Delete";
+                    button.onClick.AddListener(() =>
+                    {
+                        OnClickBtn(10);
+                    });
+                }
+                else if (i == 10)
                 {
-                    OnClickBtn(0);
-                });
-            }
-            else if (i == 11)
-            {
-                text.text = "OK";
-                button.onClick.AddListener(() =>
+                    text.text = "0";
+                    button.onClick.AddListener(() =>
+                    {
+                        OnClickBtn(0);
+                    });
+                }
+                else if (i == 11)
                 {
-                    OnClickBtn(11);
-                });
-            }
-            else
-            {
-                text.text = (i + 1).ToString();
-                int temp = i + 1;
-                button.onClick.AddListener(() =>
+                    text.text = "Clear All";
+                    button.onClick.AddListener(() =>
+                    {
+                        OnClickClearAll();
+                    });
+                }
+                else if(i == 12)
                 {
-                    OnClickBtn(temp); 
-                });
+                    text.text = "Confirm";
+                    button.onClick.AddListener(() =>
+                    {
+                        OnClickConfirm();
+                    });
+                }
+                else
+                {
+                    text.text = (i + 1).ToString();
+                    int temp = i + 1;
+                    button.onClick.AddListener(() =>
+                    {
+                        OnClickBtn(temp);
+                    });
+                }
             }
         }
+    }
+
+    private void OnClickClearAll()
+    {
+        soft_value_txt.text = "";
+    }
+
+    private void OnClickConfirm()
+    {
+        string temp = soft_value_txt.text.Replace(",", "");
+        long value = long.Parse(temp);
+        long result = long.Parse((value / outCreditRate).ToString("D")); 
+        if(result == 0)
+        {
+            value_txt.text = "";
+        }
+        else
+        {
+            value_txt.text = (result * outCreditRate).ToString("N0");
+        }
+        
+        SoftKeyboard.gameObject.SetActive(false);
     }
 
     private void OnClickBtn(int index)
@@ -396,104 +327,98 @@ public class ExchangeViewController : MonoBehaviour
             case 10:
                 DeletedNumber();
                 break;
-            case 11:
-                OnClickSure();
-                break;
         }
     }
-     
+
     private void OnClickZero()
     {
-        if (string.IsNullOrEmpty(value_txt.text))
+        if (string.IsNullOrEmpty(soft_value_txt.text))
         {
-           
+             
         }
         else
         {
-            OnClickNumber(0);
+            if (soft_value_txt.text.Length >= 23) return;
+            soft_value_txt.text += "0";
+            string temp = soft_value_txt.text.Replace(",", "");
+            long result = long.Parse(temp);
+            soft_value_txt.text = result.ToString("N0");
         }
     }
     /// <summary>
     /// 生成下分的二维码
     /// </summary>
-    private void OnClickSure()
-    {
-        if (!string.IsNullOrEmpty(value_txt.text))
-        {
-            Dictionary<string, object> req = new Dictionary<string, object>
-            {
-                {"outcredit", value_txt.text},
-            };
-            NetManager.Instance.Post(RPCName.agent_build_qr_code, req, (res) =>
-            {
-                CurrentQRCodeInfo = res["qr_code_key"];
-                DrawQRCode(CurrentQRCodeInfo);
-                QRCodeRawImage.transform.parent.gameObject.SetActive(true);
-            },
-            (error) =>
-            {
-                //GlobalErrorHandler.GlobalError(error);
-                Debug.LogError(error);
-                Debug.LogError("have error");
-                ShowPopup(error.error);
-            });
-        }
-    }
-
-    private void OnClickUseBtn()
-    {
-        QRInputField.gameObject.SetActive(true); 
-        QRInputField.text = "";
-        QRInputField.ActivateInputField(); 
-        InputFieldChange();
-    }
-
-    private void UseBankQRCode(string code)
+    private void CreateQRCode(long credit, bool isPrint = false)
     {
         content2.gameObject.SetActive(true);
         Dictionary<string, object> req = new Dictionary<string, object>
+            {
+                {"outcredit", credit},
+            };
+        NetManager.Instance.Post(RPCName.agent_build_qr_code, req, (res) =>
         {
-            {"bank_order_id", code},
-        };
-        NetManager.Instance.Post(RPCName.agent_check_bank_order, req, (res) =>
-        {
-            Debug.LogError(res.ToString());
-            globalStore.newCredit = res["balance"].AsLong;
-            BankInfoList.Remove(CurrentBankInfo);
-            //SaveInfo();
-            Debug.LogError("上分成功..........................");
-            content2.gameObject.SetActive(false);
-            content1.gameObject.SetActive(false);
+            CurrentQRCodeInfo = res["qr_code_key"];
+            if (!isPrint)
+            {
+                DrawQRCode(CurrentQRCodeInfo);
+                QRCodeRawImage.transform.parent.gameObject.SetActive(true);
+                content2.gameObject.SetActive(false);
+            }
+            else
+            {
+                if (!QRCodeInfoDicti.ContainsKey(CurrentQRCodeInfo))
+                {
+                    QRCodeInfoDicti.Add(CurrentQRCodeInfo, credit);
+                    SaveInfo();
+                }
+                UseExchangeQRCodeInfo(CurrentQRCodeInfo, credit);
+            }
+
         },
         (error) =>
         {
-            Debug.LogError(error.error);
-            Debug.LogError("have error");
+            Debug.LogError(error);
             ShowPopup(error.error);
-            content2.gameObject.SetActive(false);
-            content1.gameObject.SetActive(false);
-            BankInfoList.Remove(CurrentBankInfo);
-            //SaveInfo();
         });
+
     }
 
     private void OnClickNumber(int index)
     {
-        value_txt.text += (index).ToString();
-    }
-
-    private void DeletedNumber() 
-    {
-        if (value_txt.text.Length > 0)
+        if (soft_value_txt.text.Length >= 23) return; 
+        if (!string.IsNullOrEmpty(soft_value_txt.text))
         {
-            string temp = value_txt.text.Substring(0, value_txt.text.Length - 1);
-            value_txt.text = temp;
+            string value = soft_value_txt.text.Replace(",", "");
+            string result = value + index.ToString();
+            long longResult = long.Parse(result);
+            soft_value_txt.text = longResult.ToString("N0");
+        }
+        else
+        {
+            soft_value_txt.text += index.ToString();
+        }
+    }
+    private void DeletedNumber()
+    {
+        if (!string.IsNullOrEmpty(soft_value_txt.text))
+        {
+            if (soft_value_txt.text.Length == 1)
+            {
+                soft_value_txt.text = "";
+            }
+            else if (soft_value_txt.text.Length > 1)
+            {
+                string temp = soft_value_txt.text.Replace(",", "");
+                string temp1 = temp.Substring(0, temp.Length - 1);
+                long result = long.Parse(temp1);
+                soft_value_txt.text = result.ToString("N0");
+            }
         }
     }
 
     private void OnDestroy()
     {
-        if(btnsList != null && btnsList.Count > 0)
+        if (btnsList != null && btnsList.Count > 0)
         {
             for (int i = 0; i < btnsList.Count; i++)
             {
@@ -501,10 +426,20 @@ public class ExchangeViewController : MonoBehaviour
                 btn.onClick.RemoveAllListeners();
             }
             btnsList.Clear();
+            btnsList = null;
+        }
+        if (quickExchangeList != null && quickExchangeList.Count > 0)
+        {
+            for (int i = 0; i < quickExchangeList.Count; i++)
+            {
+                Button btn = quickExchangeList[i].GetComponent<Button>();
+                btn.onClick.RemoveAllListeners();
+            }
+            quickExchangeList.Clear();
+            quickExchangeList = null;
         }
         btnClose.onClick.RemoveAllListeners();
-        printer.Dispose();
-        printer = null;
+        QRCodeInfoDicti.Clear();
     }
     private Color32[] GenerateQRCode(string formatStr, int width, int height)
     {
@@ -539,50 +474,59 @@ public class ExchangeViewController : MonoBehaviour
         QRCodeRawImage.texture = texture;
     }
 
-
     private void ShowPopup(string error)
     {
         ErrorPopupInfo info = new ErrorPopupInfo();
         info.type = ErrorPopupType.OK;
         info.text = $"<size=32>{error}</size>";
         info.buttonText1 = "OK";
+        info.callback1 += delegate
+        {
+            content2.gameObject.SetActive(false);
+        };
         ErrorPopupHandler.Instance.OpenError(info);
     }
 
     private void SaveInfo()
     {
         string temp1 = "";
-        for (int i = 0; i < QRCodeInfoList.Count; i++)
+        foreach (var item in QRCodeInfoDicti)
         {
-            temp1 += QRCodeInfoList[i] + "###";
+            string result = item.Key + "credit:" + item.Value + "####";
+            temp1 += result;
         }
-        string temp2 = "";
-        for (int i = 0; i < BankInfoList.Count; i++)
-        {
-            temp2 += BankInfoList[i] + "###";
-        }
-        Debug.LogError(" save success : temp1" + temp1 +"\n temp2" + temp2 );
+        Debug.LogError(" save success : temp1" + temp1);
         SQLiteManager.Instance.SetString(userId + "QRCODEINFOLIST", temp1);
-        SQLiteManager.Instance.SetString(userId + "BANKINFOLIST", temp2);
     }
 
-    private IEnumerator LoopCheck()
+    private void ConfirmPrintBankPopup(long score)
     {
-        yield return new WaitUntil(() => globalStore.gameState == GameState.Hall);
-        while (true)
+        content2.gameObject.SetActive(true);
+        ErrorPopupInfo info = new ErrorPopupInfo();
+        info.type = ErrorPopupType.YesNo;
+        info.text = $"<size=32>Do you want to print {score.ToString("N0")} score Bank QR Code ?</size>";
+        info.buttonText1 = "Confirm";
+        info.buttonText2 = "Cancle";
+        info.callback1 = delegate
         {
-            if((tempInterval -= Time.deltaTime) < 0)
-            {
-                Debug.LogError("检测是否发送兑换协议.............");
-                if(QRCodeInfoList.Count > 0)
-                {
-
-                }
-                if(BankInfoList.Count > 0) 
-                {
-
-                }
-            }
+            string temp = value_txt.text.Replace(",", "");
+            long result = long.Parse(temp);
+            CreateQRCode(result, true);
+        };
+        info.callback2 += delegate
+        {
+            content2.gameObject.SetActive(false);
+        };
+        ErrorPopupHandler.Instance.OpenError(info);
+    }
+    private void RemoveDictiElement()
+    {
+        if (QRCodeInfoDicti.Count > 0)
+        {
+            var temp = QRCodeInfoDicti.First();
+            QRCodeInfoDicti.Remove(temp.Key);
+            SaveInfo();
         }
     }
+
 }

@@ -15,6 +15,12 @@ using EventData = ParadoxNotion.EventData;
 
 public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 {
+
+    /// <summary>
+    /// 标记是否进入了后台测试按钮界面
+    /// </summary>
+    public bool isEnterBackgroundTestView = false;
+
     void Start()
     {
 
@@ -305,7 +311,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
     private void OnKeyDown(SBOX_SWITCH sBOX_SWITCH)
     {
-
+        if (isEnterBackgroundTestView) return;
 
 #if UNITY_EDITOR
         //Debug.LogError("KeyDown " + sBOX_SWITCH);
@@ -474,6 +480,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
     private void OnKeyUp(SBOX_SWITCH sBOX_SWITCH)
     {
+        if (isEnterBackgroundTestView) return;
 #if UNITY_EDITOR
         //Debug.LogError("KeyUp " + sBOX_SWITCH);
         Debug.LogWarning("KeyUp " + sBOX_SWITCH);
@@ -517,6 +524,7 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             case SBOX_SWITCH.SWITCH_SCORE_DOWN:
                 break;
             case SBOX_SWITCH.SWITCH_RED:
+                MessageDispatcher.Dispatch(EVTType.ON_CUSTOM_EVENT, new EventData("OnOpenBackground"));
                 break;
             case SBOX_SWITCH.SWITCH_GREEN:
                 break;
@@ -2149,7 +2157,6 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     long initStamp = 0;
     private IEnumerator _SendRemain(long _initStamp)
     {
-        yield break;
         bool isFirst = true;  //重连网络或上电时，将缓存立马发给服务器同步。
 
         yield return new WaitUntil(() => globalStore.gameState == GameState.Hall || globalStore.gameState == GameState.Game);

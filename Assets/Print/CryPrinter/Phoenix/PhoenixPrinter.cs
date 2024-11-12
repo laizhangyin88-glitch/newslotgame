@@ -55,6 +55,44 @@ namespace CryPrinter
             if (string.IsNullOrEmpty(serialPortName))
                 return;
 
+            EnableCommands = new Dictionary<FontEffects, byte[]>()
+            {
+                { FontEffects.None, new byte[0] },
+                { FontEffects.Bold, new byte[] { 0x1B, 0x45, 0x1 } },
+                { FontEffects.Italic, new byte[] { 0x1B, 0x34, 0x1 } },
+                { FontEffects.Underline, new byte[] { 0x1B, 0x2D, 0x1 } },
+                { FontEffects.Rotated, new byte[] { 0x1B, 0x56, 0x1 } },
+                { FontEffects.Reversed, new byte[] { 0x1D, 0x42, 0x1 } },
+                { FontEffects.UpsideDown, new byte[] { 0x1B, 0x7B, 0x1 } },
+            };
+
+            DisableCommands = new Dictionary<FontEffects, byte[]>()
+            {
+                { FontEffects.None, new byte[0] },
+                { FontEffects.Bold, new byte[] { 0x1B, 0x45, 0x0 } },
+                { FontEffects.Italic, new byte[] { 0x1B, 0x34, 0x0 } },
+                { FontEffects.Underline, new byte[] { 0x1B, 0x2D, 0x0 } },
+                { FontEffects.Rotated, new byte[] { 0x1B, 0x56, 0x0 } },
+                { FontEffects.Reversed, new byte[] { 0x1D, 0x42, 0x0 } },
+                { FontEffects.UpsideDown, new byte[] { 0x1B, 0x7B, 0x0 } },
+            };
+
+            JustificationCommands = new Dictionary<FontJustification, byte[]>()
+            {
+                { FontJustification.NOP, new byte[0] },
+                { FontJustification.JustifyLeft, new byte[] { 0x1B, 0x61, 0x00 } },
+                { FontJustification.JustifyCenter, new byte[] { 0x1B, 0x61, 0x01 } },
+                { FontJustification.JustifyRight, new byte[] { 0x1B, 0x61, 0x02 } },
+            };
+
+            SetScalarCommand = new byte[] { 0x1D, 0x21, 0x00 }; // last byte set by tx func
+            FormFeedCommand = new byte[] { 0x1B, 0x64, 0x14, 0x1B, 0x6D };
+            NewLineCommand = new byte[] { 0x0A };
+            InitPrinterCommand = new byte[] { 0x1B, 0x40 };
+
+            PrintSerialReadTimeout = DefaultReadTimeout;
+            PrintSerialBaudRate = DefaultBaudRate;
+
             Debug.Log("Creating new instance of Phoenix Printer on port: " + serialPortName);
 
             // User wants a serial port
