@@ -601,17 +601,35 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         StartCoroutine(_getResponseData(rpc, responseCallback));
     }
 
-
+    /// <summary>
+    /// 标记是否是断线重连的第一条数据
+    /// </summary>
+    private bool isFirstData = true;
     private IEnumerator _getResponseData(string rpc, Action<JSONNode> responseCallback)
     {
         yield return new WaitForSeconds(0.2f);
 
-        if (responseCallback != null)
+        if (rpc == RPCName.jacksGambleStart && globalStore.nowGameID == 83) ////four god 游戏特殊处理 gamble_start 协议 
+        {
+            if (responseCallback != null)
+            {
+                string res = historyRes[0];
+                JSONNode dataDict = SimpleJSON.JSONNode.Parse(res);
+                JSONNode gambleStartData = dataDict["client_data"]["GambleStartData"];
+                responseCallback(gambleStartData);
+            } 
+        }
+        else if (responseCallback != null)
         {
             string res = historyRes[0];
-            Debug.Log($"【LastFreeSpin】 : {rpc} = {res}");
+            Debug.Log($"==@【LastFreeSpin】 : {rpc} = {res}");
             SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(res);
             historyRes.RemoveAt(0);
+            if (isFirstData && globalStore.nowGameID == 103)    ///NIGHTS_OF_BINGO     id：103 游戏断线重连的时候，需要设置滚轮表的序号
+            {
+                isFirstData = false;
+                GlobalReelStrips.Instance.index = dataDict["contents"]["reel_set_index"]["current_index"].AsInt;
+            }
             if (historyRes.Count == 0) //最后一局不放慢
             {
                 Time.timeScale = 1;
@@ -766,7 +784,7 @@ public class FirstSpinInfo
         //之前的逻辑是根据游戏id来做逻辑分支
         //为免以后再出现类似问题，直接优化逻辑如下
 
-        ///string pattern = "\"bet_credit\":\\s*(\\d+)";
+        ///string patternBank = "\"bet_credit\":\\s*(\\d+)";
         ///获取下注金额统一使用  bet  来识别，因为 bet_credit 这个数值会包含 额外下注的金额，数值不正确的
         string pattern = "\"bet\":\\s*(\\d+)";
         Match match = Regex.Match(spin, pattern);
