@@ -110,10 +110,10 @@ namespace BagelCode
             MetaContextElementUtils.SetActive(rankingButtonElement, ApplicationSettings.Instance.isMachine);
 
             //测试热更
-            MetaContextElementUtils.SetActive(wallofEpicButtonElement, false);
-            MetaContextElementUtils.SetActive(couponButtonElement, false);
-            MetaContextElementUtils.SetActive(customerSupportButtonElement, false);
-            MetaContextElementUtils.SetActive(statusMatchButtonElement, false);
+            MetaContextElementUtils.SetActive(wallofEpicButtonElement, true);
+            MetaContextElementUtils.SetActive(couponButtonElement, true);
+            MetaContextElementUtils.SetActive(customerSupportButtonElement, true);
+            MetaContextElementUtils.SetActive(statusMatchButtonElement, true);
 #endif
 
             RegisterHandleEventType(MetaEventDefine.ON_META_UI_EVENT);
