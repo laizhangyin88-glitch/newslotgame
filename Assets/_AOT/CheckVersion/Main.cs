@@ -253,8 +253,10 @@ public class Main : MonoBehaviour
     {
         Debug.Log("UpdateFormNet");
 
-        if (Directory.Exists(StartUpConfig.VersionPath) == false)
-            Directory.CreateDirectory(StartUpConfig.VersionPath);
+        string perLibPath = ApplicationSettings.GetPerLibPath();
+        Debug.Log(perLibPath);
+        if (Directory.Exists(perLibPath) == false)
+            Directory.CreateDirectory(perLibPath);
 
         File.WriteAllText(StartUpConfig.VersionPath, JsonConvert.SerializeObject(netVersionData));
         curVersionData = netVersionData;
