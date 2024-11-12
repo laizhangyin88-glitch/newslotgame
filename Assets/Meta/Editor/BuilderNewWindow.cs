@@ -11,9 +11,15 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-//[TypeInfoBox("<color=yellow>unity内的打包流程已封装在此窗口\n按顺序一一确认/操作\n有任何问题请滴滴whh</color>")]
+[TypeInfoBox("<color=yellow>unity内的打包流程已封装在此窗口\n按顺序一一确认/操作\n有任何问题请滴滴whh</color>")]
 public class BuilderNewWindow : OdinEditorWindow
 {
+    [Button("帮助文档")]
+    private void OpenHelper()
+    {
+        Application.OpenURL("https://docs.google.com/document/d/1IH5wVxmxNcG24v2Ohy7QlsWg7HwGNKeQJaKxlNPnoU8/edit?usp=sharing");
+    }
+
     [Title("环境配置", Subtitle = "这里确认正确即可，不是必须要操作"), PropertySpace(SpaceBefore = 20)]
 
     [PropertyOrder(1), LabelText("平台"), ValueDropdown("GetBuildTargetArray"), InlineButton("SwitchPlatform", "切换")]
@@ -38,7 +44,7 @@ public class BuilderNewWindow : OdinEditorWindow
         UnityEditor.Compilation.CompilationPipeline.RequestScriptCompilation();
     }
 
-
+    
 
     [Title("项目配置"), PropertySpace(SpaceBefore = 20)]
 
@@ -110,7 +116,7 @@ public class BuilderNewWindow : OdinEditorWindow
         AndroidStudioProjectPath = EditorPrefs.GetString("androidStudioProjectPath", "");
         Settings = ApplicationSettings.Instance;
     }
-
+    
     #region 打包流程实现
 
     protected void ImprotProject()
