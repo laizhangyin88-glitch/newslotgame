@@ -95,7 +95,7 @@ public class BuilderNewWindow : OdinEditorWindow
 
     
 
-    [LabelText("Android项目路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), PropertyTooltip("定义出包的Android Studio项目路径\n通过“复制导入”将Unity导出的Android项目的必要部分复制到Android打包项目中\n避免了手动操作"), OnValueChanged("SaveAndroidStudioProjectPath"), Delayed, HorizontalGroup("android"), PropertyOrder(111), InlineButton("ImprotProject", "复制导入")]
+    [LabelText("Android项目路径"), LabelWidth(100f), FolderPath(AbsolutePath = true, RequireExistingPath = true), PropertyTooltip("定义出包的Android Studio项目路径\n通过“复制导入”将Unity导出的Android项目的必要部分复制到Android打包项目中\n避免了手动操作"), OnValueChanged("SaveAndroidStudioProjectPath"), Delayed, HorizontalGroup("android"), PropertyOrder(111), InlineButton("ImprotProject", "复制导入")]
     public string AndroidStudioProjectPath;
 
     
