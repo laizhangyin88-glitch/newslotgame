@@ -187,7 +187,7 @@ public class BuilderNewWindow : OdinEditorWindow
         if (Directory.Exists(deskLibPath) == false)
             Directory.CreateDirectory(deskLibPath);
 
-        if (Directory.Exists(ApplicationSettings.GetStreamingLibPath()))
+        if (Directory.Exists(ApplicationSettings.GetStreamingLibPath()) == false)
             Directory.CreateDirectory(ApplicationSettings.GetStreamingLibPath());
 
         foreach (var dllName in Main.dllList)
