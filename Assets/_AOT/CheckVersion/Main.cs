@@ -139,6 +139,7 @@ public class Main : MonoBehaviour
             yield return null;
         }
 #endif
+        yield return null;
     }
 
     private bool OperationListIsDone(List<AssetBundleLoadOperation> operations)
