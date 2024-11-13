@@ -91,10 +91,9 @@ public class BuilderNewWindow : OdinEditorWindow
     [PropertyOrder(111), LabelWidth(100f), LabelText("项目生成路径"), FolderPath(AbsolutePath = true, RequireExistingPath = true), OnValueChanged("SaveBuildPath"), Delayed, HorizontalGroup("build"), InlineButton("BuildProject", "导出工程")]
     public string BuildPath;
 
-    [LabelText("Android项目路径"), LabelWidth(100f), FolderPath(AbsolutePath = true, RequireExistingPath = true), PropertyTooltip("定义出包的Android Studio项目路径\n通过“复制导入”将Unity导出的Android项目的必要部分复制到Android打包项目中\n避免了手动操作"), OnValueChanged("SaveAndroidStudioProjectPath"), Delayed, HorizontalGroup("android"), PropertyOrder(111), InlineButton("ImprotProject", "复制导入")]
-    public string AndroidStudioProjectPath;
+    [LabelText("Export工程路径"), LabelWidth(100f), FolderPath(AbsolutePath = true, RequireExistingPath = true), PropertyTooltip("定义用于出包的工程路径\n通过“复制导入”将Unity导出的项目的必要部分复制到用于出包的工程中\n避免了手动操作"), OnValueChanged("SaveExportProjectPath"), Delayed, PropertyOrder(111), InlineButton("ImprotProject", "复制导入")]
+    public string ExportProjectPath;
 
-    
 
     [MenuItem("Tools/全平台出包")]
     public static void OpenWindow()
@@ -113,7 +112,7 @@ public class BuilderNewWindow : OdinEditorWindow
         Channel = cs.Item1;
         Software = cs.Item2;
         BuildPath = EditorPrefs.GetString("lastBuildProjectPath", "");
-        AndroidStudioProjectPath = EditorPrefs.GetString("androidStudioProjectPath", "");
+        ExportProjectPath = EditorPrefs.GetString("androidStudioProjectPath", "");
         Settings = ApplicationSettings.Instance;
     }
     
@@ -121,13 +120,14 @@ public class BuilderNewWindow : OdinEditorWindow
 
     protected void ImprotProject()
     {
-        if (Directory.Exists(AndroidStudioProjectPath) == false)
+#if UNITY_ANDROID
+        if (Directory.Exists(ExportProjectPath) == false)
             return;
 
         if (Directory.Exists(BuildPath) == false)
             return;
 
-        string targetPath = Path.Combine(AndroidStudioProjectPath, "unityLibrary", "src", "main");
+        string targetPath = Path.Combine(ExportProjectPath, "unityLibrary", "src", "main");
         string targetAssetsPath = Path.Combine(targetPath, "assets");
         string targetIl2CppPath = Path.Combine(targetPath, "Il2CppOutputProject");
 
@@ -168,6 +168,11 @@ public class BuilderNewWindow : OdinEditorWindow
 
         CopyDirectory(sourceAssetsPath, targetAssetsPath, true);
         CopyDirectory(sourceIl2CppPath, targetIl2CppPath, true);
+#elif UNITY_IOS
+        Debug.Log("暂未实现ios平台的导入流程");
+#elif UNITY_STANDALONE
+        Debug.Log("暂未实现PC平台的导入流程");
+#endif
     }
 
     /// <summary>
@@ -282,12 +287,12 @@ public class BuilderNewWindow : OdinEditorWindow
         EditorPrefs.SetString("lastBuildProjectPath", BuildPath);
     }
 
-    private void SaveAndroidStudioProjectPath()
+    private void SaveExportProjectPath()
     {
-        if (string.IsNullOrEmpty(AndroidStudioProjectPath))
+        if (string.IsNullOrEmpty(ExportProjectPath))
             return;
 
-        EditorPrefs.SetString("androidStudioProjectPath", AndroidStudioProjectPath);
+        EditorPrefs.SetString("androidStudioProjectPath", ExportProjectPath);
     }
 
     private void SwitchPlatform()
@@ -442,7 +447,7 @@ public class BuilderNewWindow : OdinEditorWindow
         }
     }
 
-    #endregion
+#endregion
 
     #region HybridCLRHelper
 
