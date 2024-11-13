@@ -1624,6 +1624,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 154:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Hot Bonus Panel");
                 break;
+            case 171:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Base Separated SM");
+                break;
             case 172:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Bonus game");
                 break;
@@ -1717,6 +1720,11 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 154:
                 StartCoroutine(ConfirmNodeMiniGameSelect154());
+                break;
+            case 171:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartReSpin")); //免费游戏开始界面、免费游戏结算界面
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));
+                EventSender.SendGlobalEvent("OnSlotEvent", new EventData("StoppedSlotMachine"));
                 break;
             case 172:
                 EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("PickBonusEndStage"));
