@@ -19,6 +19,7 @@ using BagelCode;
 /// </remarks>
 public static class BuilderNew
 {
+
     /// <summary>
     /// 桌面/AssetBundles/{渠道名}/{平台名}
     /// </summary>
@@ -28,6 +29,12 @@ public static class BuilderNew
     {
         string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         return Path.Combine(desktopPath, "AssetBundles", channelType.ToString(), buildTarget.ToString());
+    }
+
+    public static void SwitchPlatform(BuildTarget buildTarget)
+    {
+        BuildTargetGroup buildTargetGroup = ConvertBuildTarget(buildTarget);
+        EditorUserBuildSettings.SwitchActiveBuildTarget(buildTargetGroup, buildTarget);
     }
 
     public static void AllPlatformsBuild(BuildTarget buildTarget, ChannelType channelType, string buildPath, bool isGenerateAB, BuildOptions buildOptions)
@@ -47,7 +54,7 @@ public static class BuilderNew
         Builder.BuildPlayer(buildTarget, buildTargetGroup, buildPath, ApplicationSettings.Instance.defineFlags, buildOptions);
     }
 
-    static BuildTargetGroup ConvertBuildTarget(BuildTarget buildTarget)
+    public static BuildTargetGroup ConvertBuildTarget(BuildTarget buildTarget)
     {
         switch (buildTarget)
         {
@@ -93,7 +100,15 @@ public static class BuilderNew
 
 public enum ChannelType
 {
+    None,
     K3K,
-    MarsFortune
+    Mars_Fortune
+}
+
+public enum SoftwareType
+{
+    None,
+    Test,
+    Release
 }
 

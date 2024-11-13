@@ -86,7 +86,6 @@ public class GameListContent
         CreateBtn(currentIndex, currentIndex + 20);
         currentIndex += 20;
         double temp = GameHistroyRecordController.gameNameDicti.Count / 20.0f;
-        Debug.LogError(temp);
         totatlPage = (int)Math.Ceiling(temp);
         currentPage = 1;
         SetPageInfo(currentPage);

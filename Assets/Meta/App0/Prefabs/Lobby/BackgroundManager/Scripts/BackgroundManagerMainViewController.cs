@@ -37,11 +37,11 @@ public class BackgroundManagerMainViewController : MonoBehaviour
         content = transform.Find("ScrollView/Viewport/Content");
         selectItem = transform.Find("SelectItem").gameObject;
         InitMainItemList();
-
     }
 
     private void InitMainItemList()
     {
+        int index = 0;
         foreach (SettingButtonType item in Enum.GetValues(typeof(SettingButtonType)))
         {
             if (item != SettingButtonType.None)
@@ -51,8 +51,10 @@ public class BackgroundManagerMainViewController : MonoBehaviour
                 go.transform.SetParent(content.transform, false);
                 MainItemController controller = go.GetComponent<MainItemController>();
                 controller.buttonType = item;
+                controller.index = index;
                 controller.backgroundManagerMainViewController = this;
                 mainItemControllers.Add(controller);
+                index++;
             }
         }
     }

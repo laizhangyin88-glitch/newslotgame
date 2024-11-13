@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using SlotMaker;
+using Sirenix.Serialization;
 
 namespace BagelCode
 {
@@ -19,10 +20,12 @@ namespace BagelCode
 
         const string projectSettingsPath = "ProjectSettings/ProjectSettings.asset";
 
+        [Title("ApplicationSettings")]
         public string clientVersion;
         public string apiUrl;
         public string chattingApiUrl;
 
+        [Title("ProductSettings")]
         public string productName;
         public string productVersion;
         public string deeplinkUriScheme;
