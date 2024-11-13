@@ -1576,6 +1576,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 52:
                 obj = GameObject.Find("Game Canvas/Game Contents/LogoActive");
                 break;
+            case 62:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Jackpot Bonus/Jackpot Coins");
+                break;
             case 86:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Slot Machine/Overlay");
                 if (obj != null && obj.active)
@@ -1687,6 +1690,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 52:
                 EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("EndToyCrane", 0));
+                break;
+            case 62:
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinishedJackpotSelection"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("collectEvent"));
                 break;
             case 86:
                 EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("OnClickBonus"));
