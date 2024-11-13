@@ -45,7 +45,7 @@ public class BiEventSender : MonoWeakSingleton<BiEventSender>
 
     public bool IsInitialized()
     {
-        return (accessKey != String.Empty && secretKey != String.Empty && addressFull != String.Empty && appName != String.Empty && env != String.Empty && addressHost != String.Empty && addressEnd != String.Empty);
+        return (accessKey != String.Empty && secretKey != String.Empty && addressFull != String.Empty && appName != String.Empty && env != String.Empty /*&& addressHost != String.Empty && addressEnd != String.Empty*/);
     }
 
     public void Initialize(string accessKey, string secretKey, string addressFull, string appName, string env)
@@ -80,7 +80,7 @@ public class BiEventSender : MonoWeakSingleton<BiEventSender>
         if (!Instance.IsInitialized())
         {
             if (ApplicationSettings.LogAnalytics())
-                Debug.LogError("[BiEventSender] Called before Initialization.");
+                Debug.LogWarning("[BiEventSender] Called before Initialization.");
 
             return;
         }

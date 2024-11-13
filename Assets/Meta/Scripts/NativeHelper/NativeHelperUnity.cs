@@ -101,7 +101,7 @@ namespace BagelCode
 
         public void OnApplicationPause(bool pauseStatus)
         {
-            BICustomEvents.FAS(pauseStatus);
+            //BICustomEvents.FAS(pauseStatus);
             // Nothing to do
         }
 

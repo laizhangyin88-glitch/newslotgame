@@ -223,7 +223,7 @@ namespace BagelCode
                 Debug.Log("EventSender.SendGlobalEvent: " + eventType + "." + eventData.name);
 
 #if UNITY_EDITOR
-            Debug.Log($"【 EventSender 发送消息】：eventName = {eventType} ， name = {eventData.name}  value = {eventData.value}");
+                Debug.Log($"【 EventSender 发送消息】：eventName = {eventType} ， name = {eventData.name}  value = {eventData.value}");
 #endif
 
             bool isCustomEvent = eventType == ON_CUSTOM_EVENT;

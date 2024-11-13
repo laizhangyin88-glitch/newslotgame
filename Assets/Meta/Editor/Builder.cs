@@ -109,7 +109,8 @@ namespace BagelCode
             AssetDatabase.Refresh();
 
             PlayerSettings.bundleVersion = ProductSettings.Instance.productVersion;
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, flags);
+            if(string.IsNullOrEmpty(flags) == false)
+                PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, flags);
 
             PlayerSettings.stripEngineCode = true;
 
@@ -212,6 +213,9 @@ namespace BagelCode
         //     return report;
         // }
 
+        /// <summary>
+        /// 加载依赖白名单文件
+        /// </summary>
         private static void RoadDependencyWhiteListDict()
         {
             TextAsset whiteListData = (TextAsset)AssetDatabase.LoadAssetAtPath(DEPENDENCY_WHITE_LIST_PATH, typeof(TextAsset));
@@ -242,6 +246,10 @@ namespace BagelCode
                 throw new System.InvalidOperationException("Build asset bundle failed");
             }
 
+            //From:whh - 2024年10月29日
+            //如果ignoreAssetbundleDependency为false，则ab间不能有依赖，除非在依赖白名单里定义了
+            //否则打ab会报错
+
             string[] allAssetBundles = assetBundleManifest.GetAllAssetBundles();
             bool assetBundleDependencyFound = false;
             foreach (string assetBundle in allAssetBundles)
@@ -262,6 +270,15 @@ namespace BagelCode
             CopySteamingAssets(path, isDevBuild);
         }
 
+        /// <summary>
+        /// 将ab包copy到StreamingAssets中
+        /// </summary>
+        /// <remarks>
+        /// 不会处理其依赖
+        /// </remarks>
+        /// <param name="path"></param>
+        /// <param name="isDevBuild"></param>
+        /// <exception cref="System.InvalidOperationException"></exception>
         public static void CopySteamingAssets(string path, bool isDevBuild)
         {
             if (!Directory.Exists(path))
@@ -326,23 +343,40 @@ namespace BagelCode
         /// <param name="isDevBuild">开发构建</param>
         /// <param name="ignoreAssetbundleDependency">忽略ab包依赖</param>
         /// <param name="flags">要设置的预编译指令（使用分号分隔的字符串）</param>
-        private static void Build_Assetbundle(BuildTarget buildTarget, BuildTargetGroup buildTargetGroup, string path, bool isDevBuild, bool ignoreAssetbundleDependency, string flags)
+        public static void Build_Assetbundle(BuildTarget buildTarget, BuildTargetGroup buildTargetGroup, string path, bool isDevBuild, bool ignoreAssetbundleDependency, string flags)
         {
+
             AssetDatabase.Refresh();
-            // Platform Change.
-            if (path == null)
+
+
+            if (string.IsNullOrEmpty(path))
             {
-                var specialFolderList = System.Enum.GetValues(typeof(System.Environment.SpecialFolder));
-                string desktopPath = System.Environment.GetFolderPath((System.Environment.SpecialFolder)specialFolderList.GetValue(0));
-
-                if (!System.IO.Directory.Exists(desktopPath))
-                {
-                    Directory.CreateDirectory(desktopPath);
-                }
-
-                path = Path.Combine(desktopPath, "" + buildTarget);
+                path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
+                path = Path.Combine(path, "Assetbundles");
             }
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, flags);
+
+            path = ApplicationSettings.GetAbOrLibPath(path, buildTarget);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            //// Platform Change.
+            //if (path == null)
+            //{
+            //    var specialFolderList = System.Enum.GetValues(typeof(System.Environment.SpecialFolder));
+            //    string desktopPath = System.Environment.GetFolderPath((System.Environment.SpecialFolder)specialFolderList.GetValue(0));
+
+            //    if (!System.IO.Directory.Exists(desktopPath))
+            //    {
+            //        Directory.CreateDirectory(desktopPath);
+            //    }
+
+            //    path = Path.Combine(desktopPath, "Assetbundles" + buildTarget);
+            //}
+
+            if (flags != null)
+                PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, flags);
             // Build_Assetbundles(path, BuildAssetBundleOptions.None, buildTarget, isDevBuild);
             Build_Assetbundles(path, BuildAssetBundleOptions.ChunkBasedCompression, buildTarget, isDevBuild, ignoreAssetbundleDependency);
         }
