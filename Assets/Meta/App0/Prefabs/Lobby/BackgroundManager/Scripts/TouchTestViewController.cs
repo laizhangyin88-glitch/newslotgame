@@ -12,6 +12,7 @@ public class TouchTestViewController : MonoBehaviour
     void Start()
     {
         point = transform.Find("point").GetComponent<RectTransform>();
+        point.gameObject.SetActive(false);
         closeButton = transform.Find("Button").GetComponent<Button>();
         closeButton.onClick.AddListener(() => { Destroy(gameObject); });
     }
@@ -19,11 +20,20 @@ public class TouchTestViewController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            point.gameObject.SetActive(true);
+        }
         if (Input.GetMouseButton(0))
         {
             var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var temp = transform.InverseTransformVector(pos);
             point.transform.localPosition = new Vector3(temp.x, temp.y, 0);
         }
+        if (Input.GetMouseButtonUp(0))
+        {
+            point.gameObject.SetActive(false);
+        }
+
     }
 }
