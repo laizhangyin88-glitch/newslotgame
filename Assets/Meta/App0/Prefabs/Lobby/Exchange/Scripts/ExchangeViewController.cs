@@ -291,18 +291,21 @@ public class ExchangeViewController : MonoBehaviour
 
     private void OnClickConfirm()
     {
-        string temp = soft_value_txt.text.Replace(",", "");
-        long value = long.Parse(temp);
-        long result = long.Parse((value / outCreditRate).ToString("D")); 
-        if(result == 0)
+        if (!string.IsNullOrEmpty(soft_value_txt.text))
         {
-            value_txt.text = "";
+            string temp = soft_value_txt.text.Replace(",", "");
+            long value = long.Parse(temp);
+            long result = long.Parse((value / outCreditRate).ToString("D"));
+            if (result == 0)
+            {
+                value_txt.text = "";
+            }
+            else
+            {
+                value_txt.text = (result * outCreditRate).ToString("N0");
+            }
         }
-        else
-        {
-            value_txt.text = (result * outCreditRate).ToString("N0");
-        }
-        
+
         SoftKeyboard.gameObject.SetActive(false);
     }
 
