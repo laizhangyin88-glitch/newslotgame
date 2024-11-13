@@ -34,7 +34,6 @@ public class WifiViewController : MonoBehaviour
             nameList = WifiMgr.Instance.getWifiNameList();
         }
         Transform content = transform.Find("list/ScrollView/Viewport/Content");
-        Debug.LogError(nameList.Count);
         if (nameList.Count > 0)
         {
             GameObject wifiItem = transform.Find("WifiItem").gameObject;

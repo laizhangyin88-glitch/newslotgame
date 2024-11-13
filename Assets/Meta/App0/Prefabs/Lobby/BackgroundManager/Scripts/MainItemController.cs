@@ -9,20 +9,24 @@ using UnityEngine.UI;
 
 public class MainItemController : MonoBehaviour
 {
+    public Sprite[] sprites;
     public SettingButtonType buttonType;
     private Button button;
     public BackgroundManagerMainViewController backgroundManagerMainViewController;
+    private Image icon;
+
+    public int index = 0;
 
     private void Start()
     {
         button = transform.Find("icon").GetComponent<Button>();
         button.onClick.AddListener(OnClickIconBtn);
-        TextMeshProUGUI name = transform.Find("name").GetComponent<TextMeshProUGUI>(); 
+        TextMeshProUGUI name = transform.Find("name").GetComponent<TextMeshProUGUI>();
+        icon = transform.Find("icon").GetComponent<Image>();
+        icon.sprite = sprites[index];
         name.text = AddSpaceBeforeUppercase(buttonType.ToString());
+
     }
-
-
-
     private void OnClickIconBtn()
     {
         switch (buttonType)
