@@ -309,7 +309,7 @@ public class BuilderNewWindow : OdinEditorWindow
         }
 
         string[] symbolArr = symbols.Split(';');
-        string targetSymbol = symbolArr.First((str) =>
+        string targetSymbol = symbolArr.FirstOrDefault((str) =>
         {
             foreach (var channelName in channelNames)
             {
