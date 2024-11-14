@@ -1,4 +1,6 @@
+#if UNITY_ANDROID
 using CryPrinter;
+#endif
 using SBoxApi;
 using SboxSpace;
 using SkiaSharp;
@@ -28,7 +30,9 @@ public class PrinterController
 
     private const string TEST_PORT = "COM3";
     private const string PORT = "/dev/ttyS1";
+#if UNITY_ANDROID
     PhoenixPrinter printer = null;
+#endif
 
     private static PrinterController _instance;
 
@@ -52,6 +56,7 @@ public class PrinterController
 
     private PrinterController()
     {
+#if UNITY_ANDROID
         if (Application.isEditor)
         {
             printer = new PhoenixPrinter(TEST_PORT);
@@ -64,12 +69,15 @@ public class PrinterController
         companyAddress = BlackboardUtils.GetOrCreateVariable<string>(MainBlackboard.Get(), "CompanyAddress").value;
         companyEmail = BlackboardUtils.GetOrCreateVariable<string>(MainBlackboard.Get(), "CompanyEmail").value;
         telephone = BlackboardUtils.GetOrCreateVariable<string>(MainBlackboard.Get(), "telephone").value;
+
+#endif
     }
 
 
     public void PrintTicket(TicketInfo ticketInfo)
     {
 
+#if UNITY_ANDROID
         printer.Reinitialize();
 
         var document = new StandardDocument
@@ -217,6 +225,7 @@ public class PrinterController
 
         printer.PrintDocument(document);
         printer.FormFeed();
+#endif
     }
 
     /// <summary>
