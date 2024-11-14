@@ -133,7 +133,10 @@ namespace BagelCode
                 PlayerSettings.SetApplicationIdentifier(buildTargetGroup, identifier);
 
                 // For Android, generate project folder. For iOS, modify skeleton proejct.
-                buildOptions |= BuildOptions.AcceptExternalModificationsToPlayer;
+                // 此项需要打包目录下存在一个xcode工程
+                // 否则会报错：The build cannot be appended
+                if(Directory.GetFiles(path).Length > 0)
+                    buildOptions |= BuildOptions.AcceptExternalModificationsToPlayer;
             }
             else if (buildTarget == BuildTarget.WSAPlayer)
             {
