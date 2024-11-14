@@ -63,7 +63,7 @@ namespace BagelCode
             //原代码
             //MetaContextElementUtils.SimpleSetTextGlobal(onLineButtonElement, "Text", "BUTTON_ONLINE_PLAYERS", CHILDREN);
             //EditByYeep
-            ContextUtils.FindElement(onLineButtonElement, "Text", ContextSearchingType.ChildrenSearch).GetComponent<TextMeshProUGUI>().text = "VERSION: "+ ApplicationSettings.Instance.clientVersion;
+            ContextUtils.FindElement(onLineButtonElement, "Text", ContextSearchingType.ChildrenSearch).GetComponent<TextMeshProUGUI>().text = $"C: {ApplicationSettings.Instance.clientVersion} , L: {PlayerPrefs.GetString("CurVersion")}";
             //原代码
             //MetaContextElementUtils.SimpleSetTextGlobal(rankingButtonElement, "Text", "BUTTON_LEADERBOARD", CHILDREN);
             //EditByYeep

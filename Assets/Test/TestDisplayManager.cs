@@ -40,8 +40,6 @@ public class TestDisplayManager : MonoSingleton<TestDisplayManager>
         TestManager.Instance.SetAutoUrlEnable(true);
         SetTestManagerEnable(true);
 #endif
-
-        Debug.Log("!!!!!热更测试预留位置");
     }
 
     public void SetTestManagerEnable(bool enable)

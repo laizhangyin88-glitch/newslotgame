@@ -7,15 +7,7 @@ using UnityEngine.Networking;
 
 public static class RefTypes
 {
-    public static List<string> AOTMetaAssemblyFiles { get; } = new List<string>()
-    {
-        "mscorlib.dll",
-        "System.dll",
-        "System.Core.dll",
-        "MainScene.dll",
-        "UnityEngine.JSONSerializeModule.dll",
-        "UnityEngine.AndroidJNIModule.dll"
-    };
+    public static IReadOnlyList<string> AOTMetaAssemblyFiles => AOTGenericReferences.PatchedAOTAssemblyList;
 
     /// <summary>
     /// com.code-philosophy.hybridclr插件会自动把元数据复制到

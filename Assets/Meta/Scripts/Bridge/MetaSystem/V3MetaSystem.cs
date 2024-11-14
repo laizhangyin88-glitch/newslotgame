@@ -182,8 +182,22 @@ namespace BagelCode
             };
             //globalStore.test_is_free_spin = 0;
 
-
-            Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
+            if(globalStore.nowGameID == 167) //游戏名：CASH_BILLIONAIRE_RICHES     id：62，保存一些断线重连的数据
+            {
+                string data = BlackboardUtils.GetOrCreateVariable<string>(ContentBlackboard.Get(), "slotSpinData").value;
+                if(!string.IsNullOrEmpty(data))
+                {
+                    JSONNode node = JSONNode.Parse(data);
+                    if(node != null)
+                    {
+                        JSONNode debug = JSONNode.Parse(debug_param);
+                        var result = node["contents"]["custom_data"]["collected_wild_list"];
+                        debug["slotSpinData"] = result;
+                        req["debug_param"] = debug.ToString();
+                    }
+                }
+            }
+               Debug.Log("@ SlotSpin is_free_spin : " + debug_param);
 
 
             NetManager.Instance.Post(RPCName.slotSpin, req,
@@ -191,6 +205,7 @@ namespace BagelCode
             {
 
                 string resStr = res.ToString();
+                BlackboardUtils.SetOrCreateValue<string>(ContentBlackboard.Get(), "slotSpinData", resStr);///保存拉霸数据
                 TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/slot_spin_response_v3");
                 ClientModels.SlotSpinResponseV3 response = JsonUtility.FromJson<ClientModels.SlotSpinResponseV3>(jsn8.text);
                 response.contents = res["contents"].ToString();
@@ -369,6 +384,22 @@ namespace BagelCode
                 clientbonusData.value = "";
             }
             req.Add("seasonPassEventId", seasonPassEventId);
+
+            if(globalStore.nowGameID == 83) ///four god 游戏向服务器发送保存 gamble_start 协议的数据【非常重要，不要删除！！！】
+            {
+                var value = BlackboardUtils.GetOrCreateVariable<string>(ContentBlackboard.Get(), "GambleStartData");
+                if (!string.IsNullOrEmpty(value.value))
+                {
+                    req.Add("GambleStartData", JSONNode.Parse(value.value));
+                    value.value = "";
+                }
+                var takeValue = BlackboardUtils.GetOrCreateVariable<string>(ContentBlackboard.Get(), "GambleTakeData");
+                if (!string.IsNullOrEmpty(takeValue.value))
+                {
+                    req.Add("GambleTakeData", JSONNode.Parse(takeValue.value));
+                    takeValue.value = "";
+                }
+            }
 
             NetManager.Instance.Post(RPCName.claimBonus, req,
             (res) =>
@@ -1001,10 +1032,47 @@ namespace BagelCode
                 {"ackMask", BagelCodeHTTP.GenerateAckBits()},
                 {"contents",ContentsSerializer.SerializeGambleStart(ticketId)},
             };
+
+            if (LastFreeGameManager.Instance.isLastGameSpin)
+            {
+                LastFreeGameManager.Instance.getResponseData(RPCName.jacksGambleStart, (res) =>
+                {
+                    string resStr = res.ToString();
+
+                    if (globalStore.nowGameID == 83)///four god 保存本地的 gamble_start 协议的数据【非常重要，不要删除！！！】
+                    {
+                        BlackboardUtils.SetOrCreateValue<string>(ContentBlackboard.Get(), "GambleStartData", resStr);
+                    }
+
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/gamble_start_response_v2");
+                    ClientModels.GambleStartResponseV2 response = JsonUtility.FromJson<ClientModels.GambleStartResponseV2>(jsn8.text);
+
+                    response.contents = res["contents"].ToString();
+
+                    var gamble = BlackboardUtils.FindVariable<Blackboard>("./turn/gamble");
+                    if (gamble != null)
+                    {
+                        var bb = BlackboardUtils.GetOrCreateBlackboard(gamble.value, "response");
+                        ClientAPI2Blackboard.Serialize(bb, response);
+                        BlackboardUtils.SetOrCreateValue<int>(bb, "requestType", (int)ContentsRequestType.GambleStart);
+                        ContentsSerializer.Deserialize(bb);
+                    }
+
+                    if (successCallback != null)
+                        successCallback();
+                });
+                return;
+            }
+
             NetManager.Instance.Post(RPCName.jacksGambleStart, req,
             (res) =>
             {
                 string resStr = res.ToString();
+
+                if (globalStore.nowGameID == 83)///four god 保存本地的 gamble_start 协议的数据【非常重要，不要删除！！！】
+                {
+                    BlackboardUtils.SetOrCreateValue<string>(ContentBlackboard.Get(), "GambleStartData", resStr);
+                }
 
                 TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/gamble_start_response_v2");
                 ClientModels.GambleStartResponseV2 response = JsonUtility.FromJson<ClientModels.GambleStartResponseV2>(jsn8.text);
@@ -1162,7 +1230,10 @@ namespace BagelCode
             (res) =>
             {
                 string resStr = res.ToString();
-
+                if(globalStore.nowGameID == 83)
+                {
+                    BlackboardUtils.SetOrCreateValue<string>(ContentBlackboard.Get(), "GambleTakeData", resStr);
+                }
                 TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/gamble_take_response_v2");
                 ClientModels.GambleTakeResponseV2 response = JsonUtility.FromJson<ClientModels.GambleTakeResponseV2>(jsn8.text);
 
