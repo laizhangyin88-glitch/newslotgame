@@ -9,6 +9,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class DetailInfoView
 {
     public GameObject gameObject;

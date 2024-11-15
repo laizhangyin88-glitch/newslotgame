@@ -921,7 +921,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnPointerClick"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartBonusGame"));
         EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinalizeBigWin"));
-
+        EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("ShowUI"));
 
         /**
          * Big Win Text Event Mega Win

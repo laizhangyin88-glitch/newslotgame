@@ -250,15 +250,23 @@ public class BuilderNewWindow : OdinEditorWindow
         MethodBridgeGeneratorCommand.GenerateMethodBridgeAndReversePInvokeWrapper();
 
         //将 { proj}\HybridCLRData\LocalIl2CppData -{ platform}\il2cpp\libil2cpp\hybridclr\generated目录 替换导出工程中的此目录。
+
         string sourcePath = SettingsUtil.GeneratedCppDir;
+#if UNITY_ANDROID
         string targetPath = $"{BuildPath}/unityLibrary/src/main/Il2CppOutputProject/IL2CPP/libil2cpp/hybridclr/generated";
+#elif UNITY_IOS
+        string targetPath = $"{BuildPath}/Libraries/libil2cpp/hybridclr/generated";
+#endif
         Directory.Delete(targetPath, true);
         CopyDirectory(sourcePath, targetPath, true);
 
-
         //自动化流程：将AOT元数据程序集复制到导出工程的StreamingAssets中
         string sourceAotPath = SettingsUtil.GetAssembliesPostIl2CppStripDir(TargetPlaform);
+#if UNITY_ANDROID
         string targetAotPath = $"{BuildPath}/unityLibrary/src/main/assets/{ApplicationSettings.Instance.libPath}/AOT";
+#elif UNITY_IOS
+        string targetAotPath = $"{BuildPath}/Data/Raw/{ApplicationSettings.Instance.libPath}/AOT";
+#endif
         if (Directory.Exists(targetAotPath) == false)
             Directory.CreateDirectory(targetAotPath);
         foreach (var dllName in RefTypes.AOTMetaAssemblyFiles)
