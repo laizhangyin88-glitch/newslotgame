@@ -54,7 +54,11 @@ namespace BagelCode.Tasks.Actions.ClientAPI
                     {
                         Debug.Log($"【last_regular_message】  = {res["last_regular_message"].ToString()} ");
                         LastFreeGameManager.Instance.GetFreeSpinHistory(res["last_regular_message"].ToString());
-                        res = ResetEnterGameData(resStr, res["last_regular_message"].ToString());
+                        var temp1 = ResetEnterGameData(resStr, res["last_regular_message"].ToString());
+                        if (temp1 != null)
+                        {
+                            res = temp1;
+                        }
                     }
                     else
                     {
