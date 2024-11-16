@@ -31,7 +31,7 @@ public static class RefTypes
             yield return req.SendWebRequest();
             if (req.isDone)
             {
-                Debug.Log($"加载AOT元数据：{aotDllName}, result：{req.result}");
+                Debug.Log($"加载AOT元数据：{metaDataPath}, result：{req.result}");
                 s_assetDatas[aotDllName] = req.downloadHandler.data;
             }
         }
