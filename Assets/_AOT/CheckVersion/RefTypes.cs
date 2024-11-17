@@ -24,16 +24,18 @@ public static class RefTypes
 
         foreach (var aotDllName in AOTMetaAssemblyFiles)
         {
-            string metaDataPath = ApplicationSettings.GetStreamingMetaDataPath(aotDllName);
-            metaDataPath += ".bytes";
-            UnityWebRequest req = UnityWebRequest.Get(metaDataPath);
-            //UnityWebRequest req = UnityWebRequest.Get(Application.streamingAssetsPath + "/Lib/AOT/" + aotDllName);
-            yield return req.SendWebRequest();
-            if (req.isDone)
+            string metaDataPath = $"{ApplicationSettings.Instance.libPath}/AOT/{aotDllName}.bytes";
+            yield return StartUpUtils.GetFromStreamingAssetsAsync(metaDataPath, (data) =>
             {
-                Debug.Log($"加载AOT元数据：{metaDataPath}, result：{req.result}");
-                s_assetDatas[aotDllName] = req.downloadHandler.data;
-            }
+                if (data == null)
+                {
+                    Debug.Log($"加载元数据程序集失败, {aotDllName}");
+                    return;
+                }
+
+                Debug.Log($"加载AOT元数据：{aotDllName}"); 
+                s_assetDatas[aotDllName] = data;
+            });
         }
 
         foreach (var aotDllName in AOTMetaAssemblyFiles)
