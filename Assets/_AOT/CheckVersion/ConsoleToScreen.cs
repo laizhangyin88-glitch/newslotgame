@@ -8,7 +8,7 @@ using UnityEngine;
 public class ConsoleToScreen : MonoBehaviour
 {
     const int maxLines = 50;
-    const int maxLineLength = 120;
+    const int maxLineLength = 240;
     private string _logStr = "";
     [SerializeField] private TextMeshProUGUI _text;
 

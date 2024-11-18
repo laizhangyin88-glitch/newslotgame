@@ -20,6 +20,7 @@ using BagelCode;
 using BagelCode.OSA_Scroll;
 //using Boo.Lang;
 using ParadoxNotion;
+using SimpleJSON;
 using Sirenix.OdinInspector;
 using SlotMaker;
 using SlotMaker.Cards;
@@ -908,9 +909,51 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         return PopupManager.Instance.popupCount > 0 || PopupManager.Instance.Exist();
     }
 
+    private void SendPickNumber()
+    {
+        List<long> valueList = BlackboardUtils.GetOrCreateVariable<List<long>>(null, "./gamble/response/gambleInfo/flagItemValueList").value;
+        if (LastFreeGameManager.Instance.historyRes.Count <= 0) return;
+        string nextResponse = LastFreeGameManager.Instance.historyRes[0];
+        if (nextResponse.Contains("claim_bonus"))
+        {
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Take"));
+        }
+        else
+        {
+            JSONNode node = JSONNode.Parse(nextResponse);
+            int target = node["data"]["contents"]["gamble_info"]["data"]["win_amount"].AsInt;
+            for (int i = 0; i < valueList.Count; i++)
+            {
+                Debug.LogError(valueList[i].ToString());
+                if (target == valueList[i])
+                {
+                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Pick " + (i + 1)));
+                    break;
+                }
+            }
+        }
+    }
+
     public void ConfirmPopCommon()
     {
         Debug.Log($"【machine】: Common Popup");
+
+        if(globalStore.nowGameID == 83)
+        {
+            var gameTicket = BlackboardUtils.FindVariable(ContentBlackboard.Get(), "./turn/gambleTicket");
+            if(gameTicket != null)
+            {
+                Popup popup = PopupManager.Instance.stack[PopupManager.Instance.stack.Count - 1];
+                if(popup != null)
+                {
+                    if(popup.name == "Gamble Popup")
+                    {
+                        SendPickNumber(); 
+                        return;
+                    }
+                }
+            }
+        }
 
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Return"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Finalize"));
@@ -921,7 +964,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnPointerClick"));
         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartBonusGame"));
         EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinalizeBigWin"));
-
+        EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("ShowUI"));
 
         /**
          * Big Win Text Event Mega Win
@@ -1627,6 +1670,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 154:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Hot Bonus Panel");
                 break;
+            case 160:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Popup/Free Game Trigger Popup");
+                break;
             case 171:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Base Separated SM");
                 break;
@@ -1727,6 +1773,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 154:
                 StartCoroutine(ConfirmNodeMiniGameSelect154());
+                break;
+            case 160:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClosedTriggerPopup"));
                 break;
             case 171:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartReSpin")); //免费游戏开始界面、免费游戏结算界面

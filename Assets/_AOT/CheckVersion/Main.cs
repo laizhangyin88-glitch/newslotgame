@@ -94,7 +94,7 @@ public class Main : MonoBehaviour
         Debug.Log("进入场景...");
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
 
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
     }
 
 
@@ -182,8 +182,9 @@ public class Main : MonoBehaviour
             curVersionData = JsonConvert.DeserializeObject<VersionData>(versionJson);
             PlayerPrefs.SetString("CurVersion", curVersionData.Version);
             //versionText.text = $"Version: {curVersionData.Version}";
-            Debug.Log($"CurVersion:{curVersionData.Version}");
         }
+
+        Debug.Log($"CurVersion:{curVersionData.Version}");
     }
 
     private IEnumerator CheckVersion()

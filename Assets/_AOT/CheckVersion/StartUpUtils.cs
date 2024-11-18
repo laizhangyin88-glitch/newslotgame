@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -63,6 +64,33 @@ public static class StartUpUtils
         var operation = www.SendWebRequest();
         while (!operation.isDone)
         { }
+        if (www.result == UnityWebRequest.Result.ConnectionError
+            || www.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError(www.error);
+            action?.Invoke(null);
+        }
+        else
+        {
+            action?.Invoke(www.downloadHandler.data);
+        }
+    }
+
+    public static IEnumerator GetFromStreamingAssetsAsync(string path, Action<byte[]> action)
+    {
+        string localPath = "";
+        if (Application.platform == RuntimePlatform.Android)
+            localPath = Application.streamingAssetsPath + "/" + path;
+        else
+            localPath = "file:///" + Application.streamingAssetsPath + "/" + path;
+
+        Debug.Log($"GetFromStreamingAssets:{localPath}");
+
+        UnityWebRequest www = UnityWebRequest.Get(localPath);
+        var operation = www.SendWebRequest();
+
+        yield return operation;
+
         if (www.result == UnityWebRequest.Result.ConnectionError
             || www.result == UnityWebRequest.Result.ProtocolError)
         {
