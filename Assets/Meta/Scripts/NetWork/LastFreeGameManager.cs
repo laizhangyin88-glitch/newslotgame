@@ -608,18 +608,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
     private IEnumerator _getResponseData(string rpc, Action<JSONNode> responseCallback)
     {
         yield return new WaitForSeconds(0.2f);
-
-        if (rpc == RPCName.jacksGambleStart && globalStore.nowGameID == 83) ////four god 游戏特殊处理 gamble_start 协议 
-        {
-            if (responseCallback != null)
-            {
-                string res = historyRes[0];
-                JSONNode dataDict = SimpleJSON.JSONNode.Parse(res);
-                JSONNode gambleStartData = dataDict["client_data"]["GambleStartData"];
-                responseCallback(gambleStartData);
-            } 
-        }
-        else if (responseCallback != null)
+        if (responseCallback != null)
         {
             string res = historyRes[0];
             Debug.Log($"==@【LastFreeSpin】 : {rpc} = {res}");

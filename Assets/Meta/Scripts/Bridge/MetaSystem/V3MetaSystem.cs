@@ -385,22 +385,6 @@ namespace BagelCode
             }
             req.Add("seasonPassEventId", seasonPassEventId);
 
-            if(globalStore.nowGameID == 83) ///four god 游戏向服务器发送保存 gamble_start 协议的数据【非常重要，不要删除！！！】
-            {
-                var value = BlackboardUtils.GetOrCreateVariable<string>(ContentBlackboard.Get(), "GambleStartData");
-                if (!string.IsNullOrEmpty(value.value))
-                {
-                    req.Add("GambleStartData", JSONNode.Parse(value.value));
-                    value.value = "";
-                }
-                var takeValue = BlackboardUtils.GetOrCreateVariable<string>(ContentBlackboard.Get(), "GambleTakeData");
-                if (!string.IsNullOrEmpty(takeValue.value))
-                {
-                    req.Add("GambleTakeData", JSONNode.Parse(takeValue.value));
-                    takeValue.value = "";
-                }
-            }
-
             NetManager.Instance.Post(RPCName.claimBonus, req,
             (res) =>
             {
@@ -1033,17 +1017,18 @@ namespace BagelCode
                 {"contents",ContentsSerializer.SerializeGambleStart(ticketId)},
             };
 
+            if(globalStore.nowGameID == 83)
+            {
+                req.Add("need_save_redis", 1);
+            }
+
             if (LastFreeGameManager.Instance.isLastGameSpin)
             {
                 LastFreeGameManager.Instance.getResponseData(RPCName.jacksGambleStart, (res) =>
                 {
                     string resStr = res.ToString();
 
-                    if (globalStore.nowGameID == 83)///four god 保存本地的 gamble_start 协议的数据【非常重要，不要删除！！！】
-                    {
-                        BlackboardUtils.SetOrCreateValue<string>(ContentBlackboard.Get(), "GambleStartData", resStr);
-                    }
-
+                    
                     TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/gamble_start_response_v2");
                     ClientModels.GambleStartResponseV2 response = JsonUtility.FromJson<ClientModels.GambleStartResponseV2>(jsn8.text);
 
@@ -1068,11 +1053,6 @@ namespace BagelCode
             (res) =>
             {
                 string resStr = res.ToString();
-
-                if (globalStore.nowGameID == 83)///four god 保存本地的 gamble_start 协议的数据【非常重要，不要删除！！！】
-                {
-                    BlackboardUtils.SetOrCreateValue<string>(ContentBlackboard.Get(), "GambleStartData", resStr);
-                }
 
                 TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/gamble_start_response_v2");
                 ClientModels.GambleStartResponseV2 response = JsonUtility.FromJson<ClientModels.GambleStartResponseV2>(jsn8.text);
@@ -1150,6 +1130,36 @@ namespace BagelCode
                 {"ackMask",BagelCodeHTTP.GenerateAckBits()},
                 {"contents",ContentsSerializer.SerializeGambleDeal(customData) }
             };
+            if (globalStore.nowGameID == 83)
+            {
+                req.Add("need_save_redis", 1);
+            }
+
+            if (LastFreeGameManager.Instance.isLastGameSpin)
+            {
+                LastFreeGameManager.Instance.getResponseData(RPCName.jacksGambleDeal, (res) =>
+                {
+                    string resStr = res.ToString();
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/gamble_deal_response_v2");
+                    ClientModels.GambleDealResponseV2 response = JsonUtility.FromJson<ClientModels.GambleDealResponseV2>(jsn8.text);
+
+                    response.contents = res["contents"].ToString();
+
+                    var gamble = BlackboardUtils.FindVariable<Blackboard>("./turn/gamble");
+                    if (gamble != null)
+                    {
+                        var bb = BlackboardUtils.GetOrCreateBlackboard(gamble.value, "response");
+                        ClientAPI2Blackboard.Serialize(bb, response);
+                        BlackboardUtils.SetOrCreateValue<int>(bb, "requestType", (int)ContentsRequestType.GambleDeal);
+                        ContentsSerializer.Deserialize(bb);
+                    }
+
+
+                    if (successCallback != null)
+                        successCallback();
+                });
+                return;
+            }
 
             NetManager.Instance.Post(RPCName.jacksGambleDeal, req,
             (res) =>
@@ -1215,8 +1225,6 @@ namespace BagelCode
 
         public void GambleTake(Action successCallback, Action errorCallback)
         {
-
-
 #if NEW_NET
 
             Dictionary<string, object> req = new Dictionary<string, object>
@@ -1225,15 +1233,54 @@ namespace BagelCode
                 {"ackMask",BagelCodeHTTP.GenerateAckBits()},
                 {"contents",ContentsSerializer.SerializeGambleTake() }
             };
+            if (globalStore.nowGameID == 83)
+            {
+                var type = BlackboardUtils.GetOrCreateVariable<int>(ContentBlackboard.Get(), "./gamble/response/gambleInfo/winType").value;
+                var value = BlackboardUtils.GetOrCreateVariable<long>(ContentBlackboard.Get(), "./gamble/response/gambleInfo/winAmount").value;
+                if (type != 0 && value > 0)
+                {
+                    req.Add("need_save_redis", 1);
+                }
+            }
+
+            if (LastFreeGameManager.Instance.isLastGameSpin)
+            {
+                LastFreeGameManager.Instance.getResponseData(RPCName.jacksGambleTake, (res) =>
+                {
+                    string resStr = res.ToString();
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/gamble_take_response_v2");
+                    ClientModels.GambleTakeResponseV2 response = JsonUtility.FromJson<ClientModels.GambleTakeResponseV2>(jsn8.text);
+
+                    response.contents = res["contents"].ToString();
+                    if (res.HasKey("userSyncInfo"))
+                    {
+                        string str1 = res["userSyncInfo"].ToString();
+                        response.userSyncInfo = JsonUtility.FromJson<UserSyncInfo>(str1);
+                    }
+
+                    var gamble = BlackboardUtils.FindVariable<Blackboard>("./turn/gamble");
+                    if (gamble != null)
+                    {
+                        var bb = BlackboardUtils.GetOrCreateBlackboard(gamble.value, "response");
+                        ClientAPI2Blackboard.Serialize(bb, response);
+                        BlackboardUtils.SetOrCreateValue<int>(bb, "requestType", (int)ContentsRequestType.GambleTake);
+                        ContentsSerializer.Deserialize(bb);
+                    }
+
+                    BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
+                    BlackboardQueryUtils.UpdatePotOfGold(response.userSyncInfo.piggyCredit);
+
+
+                    if (successCallback != null)
+                        successCallback();
+                });
+                return;
+            }
 
             NetManager.Instance.Post(RPCName.jacksGambleTake, req,
             (res) =>
             {
                 string resStr = res.ToString();
-                if(globalStore.nowGameID == 83)
-                {
-                    BlackboardUtils.SetOrCreateValue<string>(ContentBlackboard.Get(), "GambleTakeData", resStr);
-                }
                 TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/gamble_take_response_v2");
                 ClientModels.GambleTakeResponseV2 response = JsonUtility.FromJson<ClientModels.GambleTakeResponseV2>(jsn8.text);
 

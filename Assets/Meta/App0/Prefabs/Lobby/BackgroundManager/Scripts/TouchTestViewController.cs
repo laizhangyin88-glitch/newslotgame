@@ -7,13 +7,11 @@ using UnityEngine.UI;
 
 public class TouchTestViewController : MonoBehaviour
 {
-    public GraphicRaycaster graphicRaycaster;
     private RectTransform point;
     private Button closeButton;
     private LineRenderer lineRenderer;
     private int index = 0;
     private List<Vector3> posList = new List<Vector3>();
-    float maxDistance = int.MaxValue;
 
     void Start()
     {
@@ -23,7 +21,6 @@ public class TouchTestViewController : MonoBehaviour
         point.gameObject.SetActive(false);
         closeButton = transform.Find("Button").GetComponent<Button>();
         closeButton.onClick.AddListener(() => { Destroy(gameObject); });
-        graphicRaycaster = GetComponentInParent<GraphicRaycaster>();
     }
 
     // Update is called once per frame
