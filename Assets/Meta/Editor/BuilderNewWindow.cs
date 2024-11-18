@@ -130,6 +130,7 @@ public class BuilderNewWindow : OdinEditorWindow
         string targetPath = Path.Combine(ExportProjectPath, "unityLibrary", "src", "main");
         string targetAssetsPath = Path.Combine(targetPath, "assets");
         string targetIl2CppPath = Path.Combine(targetPath, "Il2CppOutputProject");
+        string targetResPath = Path.Combine(ExportProjectPath, "launcher", "src", "main", "res");
 
         if (Directory.Exists(targetAssetsPath) == false)
         {
@@ -143,9 +144,16 @@ public class BuilderNewWindow : OdinEditorWindow
             return;
         }
 
+        if(Directory.Exists(targetResPath) == false)
+        {
+            Debug.LogError($"不存在目录{targetResPath}");
+            return;
+        }
+
         string sourcePath = Path.Combine(BuildPath, "unityLibrary", "src", "main");
         string sourceAssetsPath = Path.Combine(sourcePath, "assets");
         string sourceIl2CppPath = Path.Combine(sourcePath, "Il2CppOutputProject");
+        string sourceResPath = Path.Combine(BuildPath, "launcher", "src", "main", "res");
 
         if (Directory.Exists(sourceAssetsPath) == false)
         {
@@ -159,17 +167,26 @@ public class BuilderNewWindow : OdinEditorWindow
             return;
         }
 
+        if (Directory.Exists(sourceResPath) == false)
+        {
+            Debug.LogError($"不存在目录{sourceResPath}");
+            return;
+        }
+
         Debug.Log("将生成的AndroidStudio项目文件导入到打包项目中...");
         Directory.Delete(targetAssetsPath, true);
         Directory.Delete(targetIl2CppPath, true);
+        Directory.Delete(targetResPath, true);
 
         Debug.Log($"{sourceAssetsPath} -> {targetAssetsPath}");
         Debug.Log($"{sourceIl2CppPath} -> {targetIl2CppPath}");
+        Debug.Log($"{sourceResPath} -> {targetResPath}");
 
         CopyDirectory(sourceAssetsPath, targetAssetsPath, true);
         CopyDirectory(sourceIl2CppPath, targetIl2CppPath, true);
+        CopyDirectory(sourceResPath, targetResPath, true);
 #elif UNITY_IOS
-        Debug.Log("暂未实现ios平台的导入流程");
+        Debug.Log("IOS的出包不需要此步骤\n在打包时会直接追加到原工程中");
 #elif UNITY_STANDALONE
         Debug.Log("暂未实现PC平台的导入流程");
 #endif

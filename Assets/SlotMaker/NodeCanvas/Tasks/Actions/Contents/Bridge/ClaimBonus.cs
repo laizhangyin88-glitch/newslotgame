@@ -21,7 +21,6 @@ namespace BagelCode.Tasks.Actions.ClientAPI
         protected override void OnExecute()
         {
             var bonus = ContentBlackboard.Get().GetVariable<Blackboard>("bonus");
-            Debug.LogError("ClaimBonusClaimBonusClaimBonusClaimBonusClaimBonusClaimBonusClaimBonusClaimBonus");
             if (bonus != null)
             {
                 int id = bonus.value.GetValue<int>("bonusId");
