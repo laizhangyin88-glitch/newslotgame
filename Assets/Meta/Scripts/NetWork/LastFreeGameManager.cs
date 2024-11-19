@@ -467,7 +467,10 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
         else if (globalStore.nowGameID == 83)
         {
-            FreeSpinInfo = new FirstSpinInfo(historyRes);
+            if (historyRes.Count > 1)
+            {
+                FreeSpinInfo = new FirstSpinInfo(historyRes); 
+            }
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData($"Click{5 - FreeSpinInfo.SelectedIndex}"));
 
             //From:whh - 2024年9月12日
