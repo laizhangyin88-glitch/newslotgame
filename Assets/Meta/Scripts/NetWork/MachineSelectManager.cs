@@ -924,7 +924,6 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             int target = node["data"]["contents"]["gamble_info"]["data"]["win_amount"].AsInt;
             for (int i = 0; i < valueList.Count; i++)
             {
-                Debug.LogError(valueList[i].ToString());
                 if (target == valueList[i])
                 {
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Pick " + (i + 1)));
