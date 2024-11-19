@@ -36,7 +36,12 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
     }*/
 
-    void Start() { }
+    private LoginMaskController _loginMaskController;
+
+    void Start()
+    {
+        _loginMaskController = FindObjectOfType<LoginMaskController>();
+    }
 
 
     Dictionary<int, List<string>> test_his = new Dictionary<int, List<string>>
@@ -466,6 +471,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
         else if (globalStore.nowGameID == 83)
         {
+            FreeSpinInfo = new FirstSpinInfo(historyRes);
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData($"Click{5 - FreeSpinInfo.SelectedIndex}"));
 
             //From:whh - 2024年9月12日
@@ -608,12 +614,18 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
     private IEnumerator _getResponseData(string rpc, Action<JSONNode> responseCallback)
     {
         yield return new WaitForSeconds(0.2f);
+        if (_loginMaskController == null)
+        {
+            _loginMaskController = FindObjectOfType<LoginMaskController>();    
+        }
+        _loginMaskController.SetSliderTotal(historyRes.Count - 1);
         if (responseCallback != null)
         {
             string res = historyRes[0];
             Debug.Log($"==@【LastFreeSpin】 : {rpc} = {res}");
             SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(res);
             historyRes.RemoveAt(0);
+            _loginMaskController.AddSliderValue();
             if (isFirstData && globalStore.nowGameID == 103)    ///NIGHTS_OF_BINGO     id：103 游戏断线重连的时候，需要设置滚轮表的序号
             {
                 isFirstData = false;
@@ -703,6 +715,10 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             yield return new WaitUntil(() => isNext);
         }
         isLastGameSpin = true;
+        if(_loginMaskController != null)
+        {
+            _loginMaskController.SetSliderTotal(historyRes.Count - 1);
+        }
     }
 
 
