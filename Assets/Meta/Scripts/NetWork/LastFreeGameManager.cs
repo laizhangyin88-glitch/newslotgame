@@ -146,8 +146,6 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             if (MachineSelectManager.Instance.IsNodeMiniGame())
                 Debug.LogError("NodeMiniGame");
         }
-
-
         if (globalStore.nowGameID != -1 && _isLastGameSpin)
         {
 
@@ -216,8 +214,6 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
     private IEnumerator StartLastFreeSpin()
     {
         isStartLastFreeSpin = true;
-
-
         // 获取第一包spin的数据
         FreeSpinInfo = new FirstSpinInfo(historyRes);
 
@@ -715,7 +711,8 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             yield return new WaitUntil(() => isNext);
         }
         isLastGameSpin = true;
-        if(_loginMaskController != null)
+        
+        if (_loginMaskController != null)
         {
             _loginMaskController.SetSliderTotal(historyRes.Count - 1);
         }
@@ -733,7 +730,10 @@ public class FirstSpinInfo
     {
         historyJsonRes = ParseHistory(historyRes);
         GetFirstSpinInfo(historyRes[0]);
-        GetSecondClaimInfo(historyRes[1]);
+        if (historyRes.Count > 1)
+        {
+            GetSecondClaimInfo(historyRes[1]); 
+        }
         SelectTypeList = GetSelectIndexList(historyJsonRes);
     }
 
