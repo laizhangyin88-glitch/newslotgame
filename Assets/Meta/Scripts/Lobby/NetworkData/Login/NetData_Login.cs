@@ -16,6 +16,8 @@ namespace SlotMaker
         public const string Path_UserLevel = "/level";
         public const string Path_UserProfileUrl = "/profile_url";
         public const string Path_ProfilePictures = "/profile_pictures";
+        public const string Path_UserAccount = "/userAccount";
+        public const string Path_UserAgent = "/userAgent";
 
         /// <summary>
         /// 用户id
@@ -33,6 +35,14 @@ namespace SlotMaker
         /// 用户等级
         /// </summary>
         public int UserLevel => GetNetDataValue<int>(Path_UserLevel);
+        /// <summary>
+        /// 用户账号
+        /// </summary>
+        public string UserAccount => GetNetDataValue<string>(Path_UserAccount);
+        /// <summary>
+        /// 代理商ID
+        /// </summary>
+        public string UserAgent => GetNetDataValue<string>(Path_UserAgent);
 
         /// <summary>
         /// 头像数据
