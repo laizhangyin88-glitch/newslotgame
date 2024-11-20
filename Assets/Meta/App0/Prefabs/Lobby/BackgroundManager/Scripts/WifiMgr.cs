@@ -24,10 +24,9 @@ public class WifiMgr : MonoSingleton<WifiMgr>
     {
         List<string> list = new List<string>();
 
-        if(nativeObject == null) return list;
+        if (nativeObject == null) return list;
 
         int len = nativeObject.Call<int>("getWifiListSize");
-        Debug.LogError("the getWifiListSize is " + len);
 
 #if UNITY_EDITOR
         for (int i = 0; i < 15; i++)
@@ -36,25 +35,60 @@ public class WifiMgr : MonoSingleton<WifiMgr>
         }
 #endif
 
-        for (int i = 0;i < len;i++)
+        for (int i = 0; i < len; i++)
         {
             string txt = nativeObject.Call<string>("getWifiName", i);
-            Debug.LogError("find wifi:" +  txt);
             list.Add(txt);
         }
 
         return list;
     }
 
-    public void connectToWifi(string ssid,string pwd) {
+    public void connectToWifi(string ssid, string pwd)
+    {
         if (nativeObject == null) return;
         Debug.LogError("connect wifi :" + ssid + "pwd:" + pwd);
-        nativeObject.Call("connectToWifi",ssid,pwd);
+        nativeObject.Call("connectToWifi", ssid, pwd);
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
+
+    /// <summary>
+    /// 获取当前连接wifi名
+    /// </summary>
+    /// <remarks>
+    /// 周期性调用，判断连接
+    /// </remarks>
+    /// <returns>如果没有连接wifi则返回空字符串</returns>
+    public string getCurrentConnectedWifiSsid()
+    {
+        if (nativeObject == null) return null;
+        return nativeObject.Call<string>("getCurrentConnectedWifiSsid");
+    }
+
+    /// <summary>
+    /// 获取wifi信号等级
+    /// </summary>
+    /// <param name="uuid">wifi名</param>
+    /// <returns>如果</returns>
+    public int getWifiSignalStrength(string uuid)
+    {
+        if (nativeObject == null) return -1;
+        return nativeObject.Call<int>("getWifiSignalStrength");
+    }
+
+    /// <summary>
+    /// 获取系统wifi管理器的状态
+    /// </summary>
+    /// <returns>
+    /// 0 - 已断开WiFi
+    /// 1 - 正在断开WiFi
+    /// 2 - 正在连接WiFi
+    /// 3 - 已连上WiFi
+    /// 4 - 连接状态未知
+    /// </returns>
+    public int getWifiState()
+    {
+        if (nativeObject == null) return 4;
+        return nativeObject.Call<int>("getWifiState");
+    }
 }
