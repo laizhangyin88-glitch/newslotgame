@@ -30,7 +30,7 @@ namespace InnerKeyboard
     public class Keyboard : MonoBehaviour
     {
         private RectTransform KeyboardWindow;
-        private GameObject ComBtnPref;
+        public GameObject ComBtnPref;
         private Transform Line0, Line1, Line2, Line3;
         private Button BackSpaceBtn, ShiftBtn, SpaceBtn, CancelBtn, EnterBtn, LangugeBtn, ClearBtn;
         private Image ShiftBG;
@@ -84,7 +84,7 @@ namespace InnerKeyboard
         private void Awake()
         {
             KeyboardWindow = this.transform.GetComponent<RectTransform>();
-            ComBtnPref = Resources.Load<GameObject>("KeyItem");
+            //ComBtnPref = Resources.Load<GameObject>("KeyItem");
             Line0 = KeyboardWindow.Find("KB_BG/KeyBtns/ComBtnLine0");
             Line1 = KeyboardWindow.Find("KB_BG/KeyBtns/ComBtnLine1");
             Line2 = KeyboardWindow.Find("KB_BG/KeyBtns/ComBtnLine2");
