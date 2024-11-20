@@ -899,8 +899,8 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 if (data.HasKey("user_name"))
                     NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserAccount, data["user_name"].Value);
 
-                if (data.HasKey("agentId"))
-                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserAgent, data["agentId"].Value);
+                if (data.HasKey("agent_id"))
+                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserAgent, data["agent_id"].Value);
 
                 if (this._state == NetNodeState.Checking) //断线重连
                 {
