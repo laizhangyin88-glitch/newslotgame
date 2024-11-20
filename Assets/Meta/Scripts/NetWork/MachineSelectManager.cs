@@ -924,7 +924,6 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             int target = node["data"]["contents"]["gamble_info"]["data"]["win_amount"].AsInt;
             for (int i = 0; i < valueList.Count; i++)
             {
-                Debug.LogError(valueList[i].ToString());
                 if (target == valueList[i])
                 {
                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Pick " + (i + 1)));
@@ -1618,6 +1617,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 52:
                 obj = GameObject.Find("Game Canvas/Game Contents/LogoActive");
+                if(obj == null)
+                {
+                    obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Toy Crane Bonus/Toy Crane Bonus Anchor");
+                }
                 break;
             case 62:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Jackpot Bonus/Jackpot Coins");
@@ -1735,7 +1738,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
                 break;
             case 52:
-                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("EndToyCrane", 0));
+                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("EndToyCrane", 0)); 
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
                 break;
             case 62:
                 EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinishedJackpotSelection"));
