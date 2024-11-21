@@ -18,8 +18,11 @@
 
 using BagelCode;
 using BagelCode.OSA_Scroll;
+using NodeCanvas.Framework;
+
 //using Boo.Lang;
 using ParadoxNotion;
+using ParadoxNotion.Services;
 using SimpleJSON;
 using Sirenix.OdinInspector;
 using SlotMaker;
@@ -764,12 +767,6 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             if (panel2 != null && panel2.active)
                 return true;
         }
-        else if (globalStore.nowGameID == 35)
-        {
-            var panel = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Pick Bonus");
-            if (panel != null && panel.active)
-                return true;
-        }
         else if (globalStore.nowGameID == 128)
         {
             var panel = GameObject.Find("Popup Manager/Contents/Free Game Trigger Popup");
@@ -1197,6 +1194,13 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             }
         }
 
+        if (globalStore.nowGameID == 35)
+        {
+            var panel = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Pick Bonus");
+            if (panel != null && panel.active)
+                return true;
+        }
+
         if (globalStore.nowGameID == 3001)
         {
             Dictionary<string, string> nodePath = new Dictionary<string, string>()
@@ -1304,10 +1308,43 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         return false;
     }
 
+    public void DelayInvoke(float delay, Action action)
+    {
+        StartCoroutine(DelayInvokeCor(delay, action));
+    }
+
+    public IEnumerator DelayInvokeCor(float delay, Action action)
+    {
+        yield return new WaitForSeconds(delay);
+        action?.Invoke();
+    }
+
+    /// <summary>
+    /// 小游戏选择节点的spin按钮按下的具体实现
+    /// </summary>
+    /// <param name="btnName"></param>
     public void ConfirmNodeMiniGameSelect(string btnName = "BtnSpin_DOWN")
     {
         sound = null;
         string name = "";
+        if (globalStore.nowGameID == 35)
+        {
+            //name = "MachineSelectEvent";
+            //EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData<int>(name, _curSelectNumb));
+            var panel = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Pick Bonus/Anchor/Bottom/Gems");
+            if (panel != null && panel.active)
+            {
+                Transform selectTrans = panel.transform.GetChild(_curSelectNumb);
+                var selectGraph = selectTrans.GetComponent<OriginalMessageRouter>();
+
+                selectGraph.OnPointerDown(null);
+                DelayInvoke(0.2f, () =>
+                {
+                    selectGraph.OnPointerClick(null);
+                });
+            }
+        }
+
         if (globalStore.nowGameID == 92) // 小猪选金币（多选）
         {
             name = "MachineSelectEvent";
@@ -2453,6 +2490,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         setMark(_curSelectMark, _curSelectNumb);
     }
 
+    /// <summary>
+    /// 右移按钮按下逻辑的具体实现
+    /// </summary>
     public void NextSelectItem()
     {
         MachineSelectBorder[] comps = GameObject.FindObjectsOfType<MachineSelectBorder>();
@@ -2963,6 +3003,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         sound = soundDefault;
     }
 
+    /// <summary>
+    /// 当spin按钮按下时调用
+    /// </summary>
+    /// <returns></returns>
     public string BtnSpinDOWN()
     {
 #if !UNITY_EDITOR
@@ -3283,6 +3327,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         }
     }
 
+    /// <summary>
+    /// 按下右移按钮时调用
+    /// </summary>
+    /// <returns></returns>
     public bool BtnNextDOWN()
     {
 #if !UNITY_EDITOR
@@ -3319,13 +3367,32 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         {
             isNext = false;
         }
+
+
         else if (isPopFreeGameTimeSelect()
-            || isNodeMiniGameSelect()
             || isPopGameConfigSelect()
             || isPopMiniGameSelect())
         {
             NextSelectItem();
         }
+        else if (isPopCommon())
+        {
+            isNext = false;
+        }
+        else if (isNodeMiniGameSelect())
+        {
+            NextSelectItem();
+        }
+
+
+
+        /*else if (isPopFreeGameTimeSelect()
+            || isNodeMiniGameSelect()
+            || isPopGameConfigSelect()
+            || isPopMiniGameSelect())
+        {
+            NextSelectItem();
+        }*/
         else if (isNodeGameSwitchAllRegionNextButton())
         {
             isNext = false;
@@ -3406,13 +3473,33 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         {
             isPre = false;
         }
-        else if (isPopFreeGameTimeSelect()
+
+
+        /*else if (isPopFreeGameTimeSelect()
             || isNodeMiniGameSelect()
             || isPopGameConfigSelect()
             || isPopMiniGameSelect())
         {
             PreviousSelectItem();
+        }*/
+
+
+        else if (isPopFreeGameTimeSelect()
+            || isPopGameConfigSelect()
+            || isPopMiniGameSelect())
+        {
+            PreviousSelectItem();
         }
+        else if (isPopCommon())
+        {
+            isPre = false;
+        }
+        else if (isNodeMiniGameSelect())
+        {
+            PreviousSelectItem();
+        }
+
+
         else if (isNodeGameSwitchAllRegionNextButton())
         {
             isPre = false;
