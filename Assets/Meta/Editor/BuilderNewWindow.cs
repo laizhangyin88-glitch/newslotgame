@@ -58,6 +58,9 @@ public class BuilderNewWindow : OdinEditorWindow
 
     [Title("项目导出"), PropertySpace(SpaceBefore = 20)]
 
+    [PropertyOrder(103), Sirenix.OdinInspector.FilePath(), LabelWidth(100f), PropertyTooltip("打包备份目录")]
+    public string BackUpPath;
+
     [PropertyOrder(104), Button("生成Version文件"), PropertyTooltip("一份到StreamingAssets(随包打出)，一份到桌面(上传到cdn)")]
     public void GenVersionFile()
     {
@@ -225,7 +228,7 @@ public class BuilderNewWindow : OdinEditorWindow
         //备份
         string version = ApplicationSettings.Instance.libVersion;
         string desktopPath = ApplicationSettings.GetDesktopLibPath();
-        string backupPath = ApplicationSettings.GetBackUpLibPath(version);
+        string backupPath = ApplicationSettings.GetBackUpLibPath(BackUpPath, version);
 
         if (Directory.Exists(backupPath) == false)
             Directory.CreateDirectory(backupPath);
@@ -254,11 +257,11 @@ public class BuilderNewWindow : OdinEditorWindow
         //备份
         string version = ApplicationSettings.Instance.libVersion;
         string desktopPath = ApplicationSettings.GetDesktopVersionPath();
-        string desktopLibPath = ApplicationSettings.GetDesktopLibPath();
-        string backupPath = ApplicationSettings.GetBackUpVersionPath(version);
+        string backupLibPath = ApplicationSettings.GetBackUpLibPath(BackUpPath, version);
+        string backupPath = ApplicationSettings.GetBackUpVersionPath(BackUpPath, version);
 
-        if (Directory.Exists(backupPath) == false)
-            Directory.CreateDirectory(backupPath);
+        if (Directory.Exists(backupLibPath) == false)
+            Directory.CreateDirectory(backupLibPath);
 
         if (File.Exists(desktopPath) == false)
         {
@@ -283,7 +286,7 @@ public class BuilderNewWindow : OdinEditorWindow
         //备份
         string version = ApplicationSettings.Instance.libVersion;
         string desktopPath = ApplicationSettings.GetDesktopAbPath();
-        string backupPath = ApplicationSettings.GetBackUpAbPath(version);
+        string backupPath = ApplicationSettings.GetBackUpAbPath(BackUpPath, version);
 
         if (Directory.Exists(backupPath) == false)
             Directory.CreateDirectory(backupPath);
