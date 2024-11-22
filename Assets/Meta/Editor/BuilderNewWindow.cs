@@ -72,8 +72,7 @@ public class BuilderNewWindow : OdinEditorWindow
     [PropertyOrder(106), Button("生成ab资源包"), PropertyTooltip("没有资源变动可不打"), HorizontalGroup("abBuild")]
     public void BuildAb()
     {
-        BuildTargetGroup group = BuilderNew.ConvertBuildTarget(TargetPlaform);
-        Builder.Build_Assetbundle(TargetPlaform, group, null, true, true, null);
+        GenAb();
         AssetDatabase.Refresh();
     }
 
@@ -195,6 +194,9 @@ public class BuilderNewWindow : OdinEditorWindow
     /// <summary>
     /// 生成热更dll，一份到StreamingAssets(随包打出)，一份到桌面(上传到cdn)
     /// </summary>
+    /// <remarks>
+    /// 会根据<see cref="ApplicationSettings.libVersion"/>进行备份到<see cref="ApplicationSettings.GetBackUpLibPath(string)"/>
+    /// </remarks>
     private void CompileDll()
     {
         CompileDllCommand.CompileDllActiveBuildTarget();
@@ -219,16 +221,80 @@ public class BuilderNewWindow : OdinEditorWindow
             File.Copy(filePath, ApplicationSettings.GetDesktopDllPath(dllName), true);
             File.Copy(filePath, ApplicationSettings.GetStreamingDllPath(dllName + ".bytes"), true);
         }
+
+        //备份
+        string version = ApplicationSettings.Instance.libVersion;
+        string desktopPath = ApplicationSettings.GetDesktopLibPath();
+        string backupPath = ApplicationSettings.GetBackUpLibPath(version);
+
+        if (Directory.Exists(backupPath) == false)
+            Directory.CreateDirectory(backupPath);
+
+        if (Directory.Exists(desktopPath) == false)
+        {
+            Debug.LogError($"{desktopPath}路径不存在");
+            return;
+        }
+
+        CopyDirectory(desktopPath, backupPath, true);
     }
 
     /// <summary>
     /// 生成版本文件，一份到StreamingAssets(随包打出)，一份到桌面(上传到cdn)
     /// </summary>
+    /// <remarks>
+    /// 会根据<see cref="ApplicationSettings.libVersion"/>进行备份到<see cref="ApplicationSettings.GetBackUpVersionPath(string)"/>
+    /// </remarks>
     protected void GenVersionFileToStreamingAssetsAndDesktop()
     {
         VersionData vd = StartUpUtils.CreateVersionData(ApplicationSettings.Instance.libVersion);
         StartUpUtils.SaveVersionData(vd, ApplicationSettings.GetStreamingLibPath());
         StartUpUtils.SaveVersionData(vd, ApplicationSettings.GetDesktopLibPath());
+
+        //备份
+        string version = ApplicationSettings.Instance.libVersion;
+        string desktopPath = ApplicationSettings.GetDesktopVersionPath();
+        string desktopLibPath = ApplicationSettings.GetDesktopLibPath();
+        string backupPath = ApplicationSettings.GetBackUpVersionPath(version);
+
+        if (Directory.Exists(desktopLibPath) == false)
+            Directory.CreateDirectory(desktopLibPath);
+
+        if (File.Exists(desktopPath) == false)
+        {
+            Debug.LogError($"{desktopPath}文件不存在");
+            return;
+        }
+
+        File.Copy(desktopPath, backupPath);
+    }
+
+    /// <summary>
+    /// 生成热更dll，一份根据ApplicationSettings规则到StreamingAssets(随包打出)，一份到桌面(上传到cdn)
+    /// </summary>
+    /// <remarks>
+    /// 会根据<see cref="ApplicationSettings.libVersion"/>进行备份到<see cref="ApplicationSettings.GetBackUpAbPath(string)"/>
+    /// </remarks>
+    protected void GenAb()
+    {
+        BuildTargetGroup group = BuilderNew.ConvertBuildTarget(TargetPlaform);
+        Builder.Build_Assetbundle(TargetPlaform, group, null, true, true, null);
+
+        //备份
+        string version = ApplicationSettings.Instance.libVersion;
+        string desktopPath = ApplicationSettings.GetDesktopAbPath();
+        string backupPath = ApplicationSettings.GetBackUpAbPath(version);
+
+        if (Directory.Exists(backupPath) == false)
+            Directory.CreateDirectory(backupPath);
+
+        if(Directory.Exists(desktopPath) == false)
+        {
+            Debug.LogError($"{desktopPath}路径不存在");
+            return;
+        }
+
+        CopyDirectory(desktopPath, backupPath, true);
     }
 
     protected void BuildProject()
