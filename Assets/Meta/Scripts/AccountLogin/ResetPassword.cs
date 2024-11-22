@@ -56,10 +56,13 @@ public class ResetPassword : MonoBehaviour
             return;
         }
 
+        string account = NetData_Login.Instance.UserAccount;
+        if (account == null)//登录前这个数据不存在
+            account = MainBlackboard.Get().GetValue<string>("account");
 
         Dictionary<string, string> paramsDic = new Dictionary<string, string>
         {
-            { "user_name", MainBlackboard.Get().GetValue<string>("account") },
+            { "user_name", account },
             { "user_pwd", oldInput.text },
             { "new_user_pwd", newInput.text }
         };

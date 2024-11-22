@@ -16,6 +16,8 @@ public class Popup_Profile : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _descTextCom;
     [SerializeField] private WebImageController _iconCom;
     [SerializeField] private Button _iconBtnCom;
+    [SerializeField] private TextMeshProUGUI _accountTextCom;
+    [SerializeField] private TextMeshProUGUI _agentTextCom;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +44,12 @@ public class Popup_Profile : MonoBehaviour
 
         _iconCom.SetWebImage(NetData_Login.Instance.UserProfileUrl, false);
         NetData_Login.Instance.AddNetDataChangeEvent(NetData_Login.Path_UserProfileUrl, OnProfileChangeHandle);
+
+        OnUserAccountChangeHandle(null, NetData_Login.Instance.UserAccount);
+        NetData_Login.Instance.AddNetDataChangeEvent(NetData_Login.Path_UserAccount, OnUserAccountChangeHandle);
+
+        OnUserAgentChangeHandle(null, NetData_Login.Instance.UserAgent);
+        NetData_Login.Instance.AddNetDataChangeEvent(NetData_Login.Path_UserAgent, OnUserAgentChangeHandle);
     }
 
     private void OnDestroy()
@@ -49,6 +57,8 @@ public class Popup_Profile : MonoBehaviour
         NetData_Login.Instance.RemoveNetDataChangeEvent(NetData_Login.Path_UserName, OnUserNameChangeHandle);
         NetData_Login.Instance.RemoveNetDataChangeEvent(NetData_Login.Path_UserCredit, OnUserCreditChangeHandle);
         NetData_Login.Instance.RemoveNetDataChangeEvent(NetData_Login.Path_UserProfileUrl, OnProfileChangeHandle);
+        NetData_Login.Instance.RemoveNetDataChangeEvent(NetData_Login.Path_UserAccount, OnUserAccountChangeHandle);
+        NetData_Login.Instance.RemoveNetDataChangeEvent(NetData_Login.Path_UserAgent, OnUserAgentChangeHandle);
     }
 
     private void OnUserNameChangeHandle(string k, object v)
@@ -64,6 +74,16 @@ public class Popup_Profile : MonoBehaviour
     private void OnUserCreditChangeHandle(string k, object v)
     {
         UpdateUserCreditDisplay((long)v);
+    }
+
+    private void OnUserAccountChangeHandle(string k, object v)
+    {
+        _accountTextCom.text = v.ToString();
+    }
+
+    private void OnUserAgentChangeHandle(string k, object v)
+    {
+        _agentTextCom.text = v.ToString();
     }
 
     public void UpdateUserCreditDisplay(long credit)

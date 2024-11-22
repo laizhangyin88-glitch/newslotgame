@@ -346,6 +346,11 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                 string eventName = selectType >= 26 ? "HighClicked" : "LowClicked";
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData(eventName));
                 break;
+            case 35:
+                    EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("GemClicked"));
+                    EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinishFirebolt"));
+                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
+                break;
             default:
                 break;
         }
@@ -449,12 +454,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("OnClick", 0, 1));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
         }
-        else if (globalStore.nowGameID == 35)
-        {
-            EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("GemClicked"));
-            EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinishFirebolt"));
-            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
-        }
+        
         else if (globalStore.nowGameID == 128)
         {
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("StartClosePopup"));

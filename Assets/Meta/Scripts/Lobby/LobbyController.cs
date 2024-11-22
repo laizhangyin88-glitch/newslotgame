@@ -97,7 +97,7 @@ namespace BagelCode
             info.text = $"<size=32>Confirm Refund</size>";
             info.type = ErrorPopupType.YesNo;
             info.buttonText1 = "Confirm";
-            info.buttonText2 = "Cancle";
+            info.buttonText2 = "Cancel";
             info.callback1 = delegate
             {
                 SBoxSanboxController.Instance.PrintMoneyOrder();
