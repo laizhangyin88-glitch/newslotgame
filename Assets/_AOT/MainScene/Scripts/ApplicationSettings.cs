@@ -329,7 +329,7 @@ namespace SlotMaker
             else
                 path = basePath;
 
-            path = Path.Combine(path, "BackUp", Instance.libPath);
+            path = Path.Combine(path, Instance.libPath);
             path = GetAbOrLibPath(path);
             path = Path.Combine(path, version);
             return path;
@@ -347,7 +347,7 @@ namespace SlotMaker
             else
                 path = basePath;
 
-            path = Path.Combine(path, "BackUp", "Assetbundles");
+            path = Path.Combine(path, "Assetbundles");
             path = GetAbOrLibPath(path);
             path = Path.Combine(path, version);
             return path;
