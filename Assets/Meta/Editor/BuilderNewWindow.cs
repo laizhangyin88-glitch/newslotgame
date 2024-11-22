@@ -257,8 +257,8 @@ public class BuilderNewWindow : OdinEditorWindow
         string desktopLibPath = ApplicationSettings.GetDesktopLibPath();
         string backupPath = ApplicationSettings.GetBackUpVersionPath(version);
 
-        if (Directory.Exists(desktopLibPath) == false)
-            Directory.CreateDirectory(desktopLibPath);
+        if (Directory.Exists(backupPath) == false)
+            Directory.CreateDirectory(backupPath);
 
         if (File.Exists(desktopPath) == false)
         {
