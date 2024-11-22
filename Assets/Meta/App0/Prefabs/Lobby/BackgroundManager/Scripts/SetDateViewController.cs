@@ -14,19 +14,13 @@ public class SetDateViewController : MonoBehaviour
 
     private void Start()
     {
-        _Calendar = transform.Find("Image/content").GetComponent<Calendar>();
+        _Calendar = transform.Find("Image/calendar").GetComponent<Calendar>();
         ButtonClose = transform.Find("Image/ButtonClose").GetComponent<Button>();
         ButtonClose.onClick.AddListener(OnClickButtonClose);
         _CurrentSelectTime = transform.Find("Image/content/CurrentSelectTime").GetComponent<TextMeshProUGUI>();
         SetCurrentSelectTime(_Calendar.GetCalendarValue());
-        _Calendar.OnClickConfirmEvent += OnClickConfirmBtn;
+        _Calendar.OnClickConfirmEvent += OnClickButtonClose;
     }
-
-    private void OnClickConfirmBtn()
-    {
-        Destroy(gameObject);
-    }
-
     private void OnClickButtonClose()
     {
         Destroy(gameObject);
