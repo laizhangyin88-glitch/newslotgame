@@ -10,6 +10,7 @@ public class OpenBackgroundManager : MonoBehaviour
     private void Start()
     {
         MessageDispatcher.Register(EVTType.ON_CUSTOM_EVENT, OnListenerOpenEvent);
+        AndroidSystemHelper.Instance.Init();
     }
 
     private void OnDestroy()
