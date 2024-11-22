@@ -78,6 +78,15 @@ public class PrinterController
     {
 
 #if UNITY_ANDROID
+
+        StatusReport statusReport = printer.GetStatus(StatusTypes.OfflineStatus);
+
+        if(!statusReport.IsOnline)
+        {
+            Debug.LogError("Printer not found");
+            return;
+        }
+
         printer.Reinitialize();
 
         var document = new StandardDocument
@@ -369,5 +378,4 @@ public class PrinterController
         }
         return "";
     }
-
 }

@@ -319,6 +319,27 @@ namespace SlotMaker
             path = Path.Combine(path, "Assetbundles");
             return GetAbOrLibPath(path);
         }
+
+        public static string GetBackUpLibPath(string version)
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string path = Path.Combine(desktopPath, "BackUp", Instance.libPath);
+            path = GetAbOrLibPath(path);
+            path = Path.Combine(path, version);
+            return path;
+        }
+        public static string GetBackUpVersionPath(string version)
+        {
+            return Path.Combine(GetBackUpLibPath(version), "Version.txt");
+        }
+        public static string GetBackUpAbPath(string version)
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            path = Path.Combine(path, "BackUp", "Assetbundles");
+            path = GetAbOrLibPath(path);
+            path = Path.Combine(path, version);
+            return path;
+        }
 #endif
         #endregion
 
