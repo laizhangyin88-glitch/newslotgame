@@ -58,7 +58,8 @@ public class BuilderNewWindow : OdinEditorWindow
 
     [Title("项目导出"), PropertySpace(SpaceBefore = 20)]
 
-    [PropertyOrder(103), FolderPath, LabelWidth(100f), LabelText("备份路径"), PropertyTooltip("对打包产生的ab，dll，version进行本地备份")]
+
+    [PropertyOrder(103), FolderPath(AbsolutePath = true, RequireExistingPath = true), LabelWidth(100f), LabelText("备份路径"), PropertyTooltip("自动对打包产生的ab，dll，version进行本地备份"), OnValueChanged("SaveBackUpPath"), Delayed]
     public string BackUpPath;
 
     [PropertyOrder(104), Button("生成Version文件"), PropertyTooltip("一份到StreamingAssets(随包打出)，一份到桌面(上传到cdn)")]
@@ -115,6 +116,7 @@ public class BuilderNewWindow : OdinEditorWindow
         Software = cs.Item2;
         BuildPath = EditorPrefs.GetString("lastBuildProjectPath", "");
         ExportProjectPath = EditorPrefs.GetString("androidStudioProjectPath", "");
+        BackUpPath = EditorPrefs.GetString("packBackUpPath", "");
         Settings = ApplicationSettings.Instance;
     }
     
@@ -269,7 +271,7 @@ public class BuilderNewWindow : OdinEditorWindow
             return;
         }
 
-        File.Copy(desktopPath, backupPath);
+        File.Copy(desktopPath, backupPath, true);
     }
 
     /// <summary>
@@ -373,6 +375,13 @@ public class BuilderNewWindow : OdinEditorWindow
 
     }
 
+    private void SaveBackUpPath()
+    {
+        if (string.IsNullOrEmpty(BackUpPath))
+            return;
+
+        EditorPrefs.SetString("packBackUpPath", BackUpPath);
+    }
     private void SaveBuildPath()
     {
         if (string.IsNullOrEmpty(BuildPath))
@@ -380,7 +389,6 @@ public class BuilderNewWindow : OdinEditorWindow
 
         EditorPrefs.SetString("lastBuildProjectPath", BuildPath);
     }
-
     private void SaveExportProjectPath()
     {
         if (string.IsNullOrEmpty(ExportProjectPath))
