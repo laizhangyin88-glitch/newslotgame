@@ -302,7 +302,6 @@ namespace CryPrinter
 
                 case StatusTypes.ErrorStatus:
                     return StatusReport.Invalid();
-                    ;
                     break;
 
                 case StatusTypes.PaperStatus:
@@ -312,7 +311,6 @@ namespace CryPrinter
                 case StatusTypes.MovementStatus:
                     // Not supported on Phoenix
                     return StatusReport.Invalid();
-                    ;
 
                 case StatusTypes.FullStatus:
                     r = PhoenixStatusRequests.FullStatus;
@@ -397,22 +395,24 @@ namespace CryPrinter
             if (data.Length != respLen)
             {
                 Debug.Log("Data received is the incorrect length, returning execution failure . . . ");
-                Connection.Close();
+                //Connection.Close();
                 return ReturnCode.ExecutionFailure;
             }
 
+            Debug.Log("PhoenixStatusRequests--------->" + r);
             switch (r)
             {
                 case PhoenixStatusRequests.Status:
                     // bit 3: 0- online, 1- offline        
                     rts.IsOnline = (data[0] & 0x08) == 0;
+                    Debug.Log("rts.IsOnline-------" + rts.IsOnline);
                     break;
 
                 case PhoenixStatusRequests.OffLineStatus:
 
                     // bit 6: 0- no error, 1- error        
                     rts.HasError = (data[0] & 0x40) != 0;
-                    Connection.Close();
+                  //  Connection.Close();
                     break;
 
                 case PhoenixStatusRequests.ErrorStatus:
@@ -424,13 +424,13 @@ namespace CryPrinter
 
                     // bit 6: 0- No recoverable error, 1- Recoverable error        
                     rts.HasRecoverableError = (data[0] & 0x40) == 1;
-                    Connection.Close();
+                  //  Connection.Close();
                     break;
 
                 case PhoenixStatusRequests.PaperRollStatus:
                     // bit 5,6: 0- okay, 96- Not okay
                     rts.IsPaperPresent = (data[0] & 0x60) == 0;
-                    Connection.Close();
+                  //  Connection.Close();
                     break;
 
                 default:
