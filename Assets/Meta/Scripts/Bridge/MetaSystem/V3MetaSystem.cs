@@ -497,7 +497,8 @@ namespace BagelCode
 #endif
 
 #if NEW_NET
-
+            Dictionary<string, object> req = new Dictionary<string, object>();
+            NetManager.Instance.Post(RPCName.finish_game_round, req, (res) => { }, (error) => { });
             if (successCallback != null)
             {
                 successCallback();

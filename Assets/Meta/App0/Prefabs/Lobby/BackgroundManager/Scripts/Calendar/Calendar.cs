@@ -63,7 +63,7 @@ namespace SpringGUI
         [HideInInspector]
         public E_CalendarType CalendarType = E_CalendarType.Day;
         public E_DisplayType DisplayType = E_DisplayType.Chinese;
-        private Text _timeButtonText = null;
+        private TextMeshProUGUI _timeButtonText = null;
         private GameObject _weeksGameObject = null;
         private GameObject _daysGameObejct = null;
         private GameObject _monthGameObject = null;
@@ -82,7 +82,7 @@ namespace SpringGUI
         protected override void Awake()
         {
             m_Transform = transform;
-            _timeButtonText = m_Transform.Find("Title/TimeButton/Text").GetComponent<Text>();
+            _timeButtonText = m_Transform.Find("Title/TimeButton/Text").GetComponent<TextMeshProUGUI>();
             _weeksGameObject = m_Transform.Find("Container/Weeks").gameObject;
             _daysGameObejct = m_Transform.Find("Container/Days").gameObject;
             _monthGameObject = m_Transform.Find("Container/Months").gameObject;
@@ -228,7 +228,7 @@ namespace SpringGUI
             for (int i = 0; i < 7; i++)
             {
                 GameObject week = prefabGenerator(weekPrefab, parent);
-                week.GetComponent<Text>().text = getWeekName(i.ToString());
+                week.GetComponent<TextMeshProUGUI>().text = getWeekName(i.ToString());
             }
             Destroy(weekPrefab);
         }
@@ -240,6 +240,7 @@ namespace SpringGUI
                 DMY dmy = day.AddComponent<DMY>();
                 day.GetComponent<Button>().onClick.AddListener(() =>
                 {
+                    if (dmy.GetTxtColor() == Color.gray) return;
                     m_selectDT = dmy.CurrentDateTime;
                     onDayClick.Invoke(dmy.CurrentDateTime);
                     Refresh();
@@ -307,19 +308,19 @@ namespace SpringGUI
                     switch (weekName)
                     {
                         case "0":
-                            return "Sunday";
+                            return "Sun";
                         case "1":
-                            return "Monday";
+                            return "Mon";
                         case "2":
-                            return "Tuesday";
+                            return "Tue";
                         case "3":
-                            return "Wednesday";
+                            return "Wed";
                         case "4":
-                            return "Thursday";
+                            return "Thu";
                         case "5":
-                            return "Friday";
+                            return "Fri";
                         case "6":
-                            return "Saturday";
+                            return "Sat";
                         default:
                             return "";
                     }
@@ -478,12 +479,12 @@ namespace SpringGUI
     public class DMY : UIBehaviour
     {
         public DateTime CurrentDateTime { get; set; }
-        private Text _text = null;
+        private TextMeshProUGUI _text = null;
         private Image _image;
         private bool isInit = false;
         protected override void Awake()
         {
-            _text = transform.Find("Text").GetComponent<Text>();
+            _text = transform.Find("Text").GetComponent<TextMeshProUGUI>();
             _image = transform.GetComponent<Image>();
             isInit = false;
         }
@@ -587,6 +588,11 @@ namespace SpringGUI
         public void SetColor(Color color)
         {
             _image.color = color;
+        }
+
+        public Color GetTxtColor()
+        {
+            return _text.color;
         }
     }
 }
