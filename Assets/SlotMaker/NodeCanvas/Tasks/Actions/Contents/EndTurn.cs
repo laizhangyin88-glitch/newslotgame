@@ -22,6 +22,10 @@ namespace BagelCode.Tasks.Actions.Contents
             cb.RemoveVariable("current");
 
             bool isWinLobbyJackpot = false;
+
+            Dictionary<string, object> req = new Dictionary<string, object>();
+            NetManager.Instance.Post(RPCName.finish_game_round, req, (res) => { }, (error) => { });
+
             if (BlackboardUtils.FindVariable<bool>(MainBlackboard.Get(), "isWinLobbyJackpot") != null)
                 isWinLobbyJackpot = BlackboardUtils.FindVariable<bool>(MainBlackboard.Get(), "isWinLobbyJackpot").value;
 

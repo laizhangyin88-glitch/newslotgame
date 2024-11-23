@@ -3,7 +3,7 @@
 * Author: springDong
 * Description: SpringGUI.Calendar
 * This component you only need to listen onDayClick/onMonthClick/onYearClick three interfaces
-* Interface return DateTime class data.
+* Interface return CurrentDateTime class data.
 ==========================================*/
 
 using System;
@@ -17,7 +17,7 @@ using TMPro;
 
 namespace SpringGUI
 {
-   
+
     public class Calendar : UIBehaviour
     {
         private int hourValue;
@@ -29,7 +29,7 @@ namespace SpringGUI
         public int MinuteValue { get => minuteValue; set => minuteValue = value; }
 
         #region click events
-        public class DayClickEvent : UnityEvent<DateTime>{}
+        public class DayClickEvent : UnityEvent<DateTime> { }
         public class MonthClickEvent : UnityEvent<DateTime> { }
         public class YearClickEvent : UnityEvent<DateTime> { }
 
@@ -101,14 +101,17 @@ namespace SpringGUI
             minuteBtnReduce = transform.Find("Time/Image1/ButtonReduce").GetComponent<Button>();
             hourTxt = transform.Find("Time/Image/HourTxt").GetComponent<TextMeshProUGUI>();
             minuteTxt = transform.Find("Time/Image1/MinutesTxt").GetComponent<TextMeshProUGUI>();
-            bgBtn = transform.Find("bgBtn").GetComponent<Button>();
+            bgBtn = transform.Find("bgBtn")?.GetComponent<Button>();
             BtnConfirm = transform.Find("Confirm").GetComponent<Button>();
-            bgBtn.onClick.AddListener(OnClickBgBtn);
+            if (bgBtn != null)
+            {
+                bgBtn.onClick.AddListener(OnClickBgBtn); 
+            }
             BtnConfirm.onClick.AddListener(OnClickConfirm);
             hourBtnAdd.onClick.AddListener(OnClickHourAddBtn);
             hourBtnReduce.onClick.AddListener(OnClickHourReduceBtn);
             minuteBtnAdd.onClick.AddListener(OnClickMinuteAddBtn);
-            minuteBtnReduce.onClick.AddListener(OnClickMinuteReduceBtn); 
+            minuteBtnReduce.onClick.AddListener(OnClickMinuteReduceBtn);
             ResetShow();
         }
 
@@ -144,11 +147,11 @@ namespace SpringGUI
         private void SetHourTxt(int value)
         {
             HourValue += value;
-            if(HourValue < 0)
+            if (HourValue < 0)
             {
                 HourValue = 23;
             }
-            if(HourValue > 23)
+            if (HourValue > 23)
             {
                 HourValue = 0;
             }
@@ -171,7 +174,7 @@ namespace SpringGUI
 
         private void OnClickConfirm()
         {
-            if(OnClickConfirmEvent != null)
+            if (OnClickConfirmEvent != null)
             {
                 OnClickConfirmEvent();
             }
@@ -186,7 +189,7 @@ namespace SpringGUI
         #region operation functions
         private void OnTimeButtonClick()
         {
-            if ( CalendarType == E_CalendarType.Month )
+            if (CalendarType == E_CalendarType.Month)
                 CalendarType = E_CalendarType.Year;
             if (CalendarType == E_CalendarType.Day)
             {
@@ -197,71 +200,91 @@ namespace SpringGUI
         }
         private void OnNextButtonClick()
         {
-            if ( CalendarType == E_CalendarType.Day )
+            //SetDayColor();
+            if (CalendarType == E_CalendarType.Day)
                 m_selectDT = m_selectDT.AddMonths(1);
-            else if ( CalendarType == E_CalendarType.Month )
+            else if (CalendarType == E_CalendarType.Month)
                 m_selectDT = m_selectDT.AddYears(1);
-            else 
+            else
                 m_selectDT = m_selectDT.AddYears(12);
             Refresh();
         }
         private void OnLastButtonClick()
         {
-            if(CalendarType == E_CalendarType.Day)
+            //SetDayColor();
+            if (CalendarType == E_CalendarType.Day)
                 m_selectDT = m_selectDT.AddMonths(-1);
-            else if(CalendarType == E_CalendarType.Month)
+            else if (CalendarType == E_CalendarType.Month)
                 m_selectDT = m_selectDT.AddYears(-1);
-            else 
+            else
                 m_selectDT = m_selectDT.AddYears(-12);
             Refresh();
         }
         #endregion
 
         #region days && weeks && months generator
-        private void WeekGenerator( GameObject weekPrefab ,Transform parent )
+        private void WeekGenerator(GameObject weekPrefab, Transform parent)
         {
             for (int i = 0; i < 7; i++)
             {
-                GameObject week = prefabGenerator(weekPrefab , parent);
+                GameObject week = prefabGenerator(weekPrefab, parent);
                 week.GetComponent<Text>().text = getWeekName(i.ToString());
             }
             Destroy(weekPrefab);
         }
-        private void DayGenerator( GameObject dayPrefab , Transform parent )
+        private void DayGenerator(GameObject dayPrefab, Transform parent)
         {
             for (int i = 0; i < 42; i++)
             {
-                GameObject day = prefabGenerator(dayPrefab,parent);
+                GameObject day = prefabGenerator(dayPrefab, parent);
                 DMY dmy = day.AddComponent<DMY>();
                 day.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    m_selectDT = dmy.DateTime;
-                    onDayClick.Invoke(dmy.DateTime);
+                    m_selectDT = dmy.CurrentDateTime;
+                    onDayClick.Invoke(dmy.CurrentDateTime);
                     Refresh();
+                    SetDayColor(dmy);
                 });
                 _daysPool.Add(dmy);
             }
             Destroy(dayPrefab);
         }
-        private void MonthGenerator( GameObject monthPrefab , Transform parent )
+
+        private void SetDayColor(DMY dMY = null)
         {
-            for ( int i = 0 ; i < 12 ; i++ )
+            for (int i = 0; i < _daysPool.Count; i++)
             {
-                GameObject month = prefabGenerator(monthPrefab , parent);
+
+                if (dMY != null && _daysPool[i] == dMY)
+                {
+                    _daysPool[i].SetColor(new Color(1, 0, 1, 1));
+                }
+                else
+                {
+                    _daysPool[i].SetColor(new Color(0.3f, 0.3f, 0.3f, 1));
+                }
+            }
+        }
+
+        private void MonthGenerator(GameObject monthPrefab, Transform parent)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                GameObject month = prefabGenerator(monthPrefab, parent);
                 DMY dmy = month.AddComponent<DMY>();
                 month.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    m_selectDT = dmy.DateTime;
-                    if ( CalendarType == E_CalendarType.Month )
+                    m_selectDT = dmy.CurrentDateTime;
+                    if (CalendarType == E_CalendarType.Month)
                     {
                         CalendarType = E_CalendarType.Day;
                         calendarTypeChange(true);
-                        onMonthClick.Invoke(dmy.DateTime);
+                        onMonthClick.Invoke(dmy.CurrentDateTime);
                     }
                     if (CalendarType == E_CalendarType.Year)
                     {
                         CalendarType = E_CalendarType.Month;
-                        onYearClick.Invoke(dmy.DateTime);
+                        onYearClick.Invoke(dmy.CurrentDateTime);
                     }
                     Refresh();
                 });
@@ -269,19 +292,19 @@ namespace SpringGUI
             }
             Destroy(monthPrefab);
         }
-        private GameObject prefabGenerator( GameObject prefab,Transform parent )
+        private GameObject prefabGenerator(GameObject prefab, Transform parent)
         {
             GameObject go = Object.Instantiate(prefab);
             go.transform.SetParent(parent);
             go.transform.localScale = Vector3.one;
             return go;
         }
-        private string getWeekName( string weekName )
+        private string getWeekName(string weekName)
         {
             switch (DisplayType)
             {
                 case E_DisplayType.Standard:
-                    switch ( weekName )
+                    switch (weekName)
                     {
                         case "0":
                             return "Sunday";
@@ -301,7 +324,7 @@ namespace SpringGUI
                             return "";
                     }
                 case E_DisplayType.Chinese:
-                    switch ( weekName )
+                    switch (weekName)
                     {
                         case "0":
                             return "日";
@@ -323,9 +346,9 @@ namespace SpringGUI
                 default:
                     return "";
             }
-            
+
         }
-        private void calendarTypeChange( bool isDays )
+        private void calendarTypeChange(bool isDays)
         {
             _weeksGameObject.SetActive(isDays);
             _daysGameObejct.SetActive(isDays);
@@ -334,25 +357,25 @@ namespace SpringGUI
         #endregion
 
         #region refresh calendar all component
-        private void Refresh( )
+        private void Refresh()
         {
             RefreshCalendar();
             RefreshTimeButtonContent();
         }
-        private void RefreshTimeButtonContent( )
+        private void RefreshTimeButtonContent()
         {
-            switch ( CalendarType )
+            switch (CalendarType)
             {
                 case E_CalendarType.Day:
-                    if ( DisplayType == E_DisplayType.Standard ) _timeButtonText.text = m_selectDT.ToString("yyyy-MM-dd");
+                    if (DisplayType == E_DisplayType.Standard) _timeButtonText.text = m_selectDT.ToString("yyyy-MM-dd");
                     else _timeButtonText.text = m_selectDT.Year + "年" + m_selectDT.Month + "月" + m_selectDT.Day + "日";
                     break;
                 case E_CalendarType.Month:
-                    if ( DisplayType == E_DisplayType.Standard ) _timeButtonText.text = m_selectDT.Year + "-" + m_selectDT.Month;
+                    if (DisplayType == E_DisplayType.Standard) _timeButtonText.text = m_selectDT.Year + "-" + m_selectDT.Month;
                     else _timeButtonText.text = m_selectDT.Year + "年" + m_selectDT.Month + "月";
                     break;
                 case E_CalendarType.Year:
-                    if ( DisplayType == E_DisplayType.Standard ) _timeButtonText.text = m_selectDT.Year.ToString();
+                    if (DisplayType == E_DisplayType.Standard) _timeButtonText.text = m_selectDT.Year.ToString();
                     else _timeButtonText.text = m_selectDT.Year + "年";
                     break;
             }
@@ -363,31 +386,45 @@ namespace SpringGUI
             return string.Format("{0} {1}:{2}", _timeButtonText.text, hourTxt.text, minuteTxt.text);
         }
 
-        private void RefreshCalendar( )
+        public string GetDateTxt()
         {
-            if(CalendarType == E_CalendarType.Day) RefreshDays(m_calendarData.Days(m_selectDT));
-            else if(CalendarType == E_CalendarType.Month) RefreshMonths(m_calendarData.Months(m_selectDT));
+            return _timeButtonText.text;
+        }
+        public string GetHourTxt()
+        {
+            return hourTxt.text;
+        }
+
+        public string GetMinuteTxt()
+        {
+            return minuteTxt.text;
+        }
+
+        private void RefreshCalendar()
+        {
+            if (CalendarType == E_CalendarType.Day) RefreshDays(m_calendarData.Days(m_selectDT));
+            else if (CalendarType == E_CalendarType.Month) RefreshMonths(m_calendarData.Months(m_selectDT));
             else RefreshYears(m_calendarData.Years(m_selectDT));
         }
-        private void RefreshDays( List<DateTime> dateTimes )
+        private void RefreshDays(List<DateTime> dateTimes)
         {
             for (int i = 0; i < _daysPool.Count; i++)
             {
-                var fontColor = Color.black;
+                var fontColor = Color.white;
                 if (dateTimes[i].Month != m_selectDT.Month)
                     fontColor = Color.gray;
-                _daysPool[i].SetDay(dateTimes[i] , DisplayType , fontColor);
+                _daysPool[i].SetDay(dateTimes[i], DisplayType, fontColor);
             }
         }
-        private void RefreshMonths( List<DateTime> dateTimes )
+        private void RefreshMonths(List<DateTime> dateTimes)
         {
-            for ( int i = 0 ; i < _monthYearPool.Count ; i++ )
-                _monthYearPool[i].SetMonth(dateTimes[i] , DisplayType);
+            for (int i = 0; i < _monthYearPool.Count; i++)
+                _monthYearPool[i].SetMonth(dateTimes[i], DisplayType);
         }
-        private void RefreshYears( List<DateTime> dateTimes )
+        private void RefreshYears(List<DateTime> dateTimes)
         {
-            for ( int i = 0 ; i < _monthYearPool.Count ; i++ )
-                _monthYearPool[i].SetYear(dateTimes[i] , DisplayType);
+            for (int i = 0; i < _monthYearPool.Count; i++)
+                _monthYearPool[i].SetYear(dateTimes[i], DisplayType);
         }
         #endregion
     }
@@ -405,69 +442,85 @@ namespace SpringGUI
     }
     public class CalendarData
     {
-        public List<DateTime> Days( DateTime month )
+        public List<DateTime> Days(DateTime month)
         {
             List<DateTime> days = new List<DateTime>();
-            DateTime firstDay = new DateTime(month.Year , month.Month , 1);
+            DateTime firstDay = new DateTime(month.Year, month.Month, 1);
             DayOfWeek week = firstDay.DayOfWeek;
             int lastMonthDays = (int)week;
-            if ( lastMonthDays.Equals(0) )
+            if (lastMonthDays.Equals(0))
                 lastMonthDays = 7;
-            for ( int i = lastMonthDays ; i > 0 ; i-- )
+            for (int i = lastMonthDays; i > 0; i--)
                 days.Add(firstDay.AddDays(-i));
-            for ( int i = 0 ; i < 42 - lastMonthDays ; i++ )
+            for (int i = 0; i < 42 - lastMonthDays; i++)
                 days.Add(firstDay.AddDays(i));
             return days;
         }
-        public List<DateTime> Months( DateTime year )
+        public List<DateTime> Months(DateTime year)
         {
             List<DateTime> months = new List<DateTime>();
-            DateTime firstMonth = new DateTime(year.Year , 1 , 1);
+            DateTime firstMonth = new DateTime(year.Year, 1, 1);
             months.Add(firstMonth);
-            for ( int i = 1 ; i < 12 ; i++ )
+            for (int i = 1; i < 12; i++)
                 months.Add(firstMonth.AddMonths(i));
             return months;
         }
-        public List<DateTime> Years( DateTime year )
+        public List<DateTime> Years(DateTime year)
         {
             List<DateTime> years = new List<DateTime>();
-            for ( int i = 5 ; i > 0 ; i-- )
+            for (int i = 5; i > 0; i--)
                 years.Add(year.AddYears(-i));
-            for ( int i = 0 ; i < 7 ; i++ )
+            for (int i = 0; i < 7; i++)
                 years.Add(year.AddYears(i));
             return years;
         }
     }
     public class DMY : UIBehaviour
     {
-        public DateTime DateTime { get; set; }
+        public DateTime CurrentDateTime { get; set; }
         private Text _text = null;
-        protected override void Awake( )
+        private Image _image;
+        private bool isInit = false;
+        protected override void Awake()
         {
             _text = transform.Find("Text").GetComponent<Text>();
+            _image = transform.GetComponent<Image>();
+            isInit = false;
         }
-        public void SetDay( DateTime dateTime , E_DisplayType displayType , Color fontColor )
+        public void SetDay(DateTime dateTime, E_DisplayType displayType, Color fontColor)
         {
-            DateTime = dateTime;
+            CurrentDateTime = dateTime;
+            if (!isInit)
+            {
+                if (dateTime.Day == DateTime.Now.Day)
+                {
+                    SetColor(new Color(1, 0, 1, 1));
+                }
+                else
+                {
+                    SetColor(new Color(0.3f, 0.3f, 0.3f, 1));
+                }
+                isInit = true;
+            }
             _text.text = dateTime.Day.ToString();
             _text.color = fontColor;
         }
-        public void SetMonth( DateTime dateTime , E_DisplayType displayType )
+        public void SetMonth(DateTime dateTime, E_DisplayType displayType)
         {
-            DateTime = dateTime;
-            _text.text = getMonthString(dateTime.Month.ToString() , displayType);
+            CurrentDateTime = dateTime;
+            _text.text = getMonthString(dateTime.Month.ToString(), displayType);
         }
-        public void SetYear( DateTime dateTime , E_DisplayType displayType )
+        public void SetYear(DateTime dateTime, E_DisplayType displayType)
         {
-            DateTime = dateTime;
+            CurrentDateTime = dateTime;
             _text.text = dateTime.Year.ToString();
         }
-        private string getMonthString( string month , E_DisplayType displayType )
+        private string getMonthString(string month, E_DisplayType displayType)
         {
-            switch ( displayType )
+            switch (displayType)
             {
                 case E_DisplayType.Standard:
-                    switch ( month )
+                    switch (month)
                     {
                         case "1":
                             return "Jan.";
@@ -497,7 +550,7 @@ namespace SpringGUI
                             return "";
                     }
                 case E_DisplayType.Chinese:
-                    switch ( month )
+                    switch (month)
                     {
                         case "1":
                             return "一月";
@@ -530,6 +583,10 @@ namespace SpringGUI
                     return "";
             }
         }
-    }
 
+        public void SetColor(Color color)
+        {
+            _image.color = color;
+        }
+    }
 }
