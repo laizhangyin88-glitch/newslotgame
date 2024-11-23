@@ -1,5 +1,7 @@
 #if UNITY_ANDROID
 using CryPrinter;
+using GameUtil;
+
 #endif
 using SBoxApi;
 using SboxSpace;
@@ -40,6 +42,8 @@ public class PrinterController
     private string companyAddress = null;
     private string companyEmail = null;
     private string telephone = null;
+    private LoopTimer _loopTimer;
+    private int count = 10;
 
     public static PrinterController Instance
     {
@@ -73,19 +77,33 @@ public class PrinterController
 #endif
     }
 
-
     public void PrintTicket(TicketInfo ticketInfo)
     {
 
 #if UNITY_ANDROID
-
-        StatusReport statusReport = printer.GetStatus(StatusTypes.OfflineStatus);
-
-        if(!statusReport.IsOnline)
+        _loopTimer = Timer.LoopAction(1f, (intervale) =>
         {
-            Debug.LogError("Printer not found");
-            return;
-        }
+            StatusReport PrinterStatusReport = PrinterController.Instance.printer.GetStatus(CryPrinter.StatusTypes.PrinterStatus); 
+            StatusReport OfflineStatusReport = PrinterController.Instance.printer.GetStatus(CryPrinter.StatusTypes.OfflineStatus);
+            StatusReport ErrorStatusReport = PrinterController.Instance.printer.GetStatus(CryPrinter.StatusTypes.ErrorStatus);
+            StatusReport PaperStatusReport = PrinterController.Instance.printer.GetStatus(CryPrinter.StatusTypes.PaperStatus);
+            StatusReport MovementStatusReport = PrinterController.Instance.printer.GetStatus(CryPrinter.StatusTypes.MovementStatus);
+            StatusReport FullStatusReport = PrinterController.Instance.printer.GetStatus(CryPrinter.StatusTypes.FullStatus);
+
+            Debug.LogError("PrinterStatusReport : " + PrinterStatusReport.HasError);
+            Debug.LogError("OfflineStatusReport : " + OfflineStatusReport.HasError + "#isOnline" + OfflineStatusReport.IsOnline);
+            Debug.LogError("ErrorStatusReport : " + ErrorStatusReport.HasError);
+            Debug.LogError("PaperStatusReport : " + PaperStatusReport.HasError + " #paperStatus" + PaperStatusReport.IsPaperPresent + " #paperLevelOk:" + PaperStatusReport.IsPaperLevelOkay + "#IsPaperMotorOff" + PaperStatusReport.IsPaperMotorOff);
+            Debug.LogError("MovementStatusReport : " + MovementStatusReport.HasError);
+            Debug.LogError("FullStatusReport : " + FullStatusReport.HasError);
+
+            Debug.LogError("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            if ((count -= 1) < 0)
+            {
+                _loopTimer.Cancel();
+                count = 10;
+            }
+        });
 
         printer.Reinitialize();
 

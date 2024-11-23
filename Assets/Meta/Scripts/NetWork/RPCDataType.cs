@@ -159,6 +159,9 @@ public class RPCName
     /// 查询一页的数据内容和数量
     /// </summary>
     public const string agent_query_round_log_page_info = "agent_query_round_log_page_info";
+
+
+    public const string finish_game_round = "finish_game_round";
 }
 
 namespace RPCBase
