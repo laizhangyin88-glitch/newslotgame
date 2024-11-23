@@ -250,30 +250,31 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
 
 
         //设置Spin按钮Auto状态
-        SpinButton SpinBtn = null;
-        while (SpinBtn == null)
-        {
-            SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Button Spin")?.GetComponent<SpinButton>();
-            if (SpinBtn == null)
-            {
-                SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Center/Button Spin")?.GetComponent<SpinButton>();///竖屏游戏的spinbutton路径
-            }
-            yield return new WaitForSeconds(0.5f);
-        }
+        //SpinButton SpinBtn = null;
+        //while (SpinBtn == null)
+        //{
+        //    SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Button Spin")?.GetComponent<SpinButton>();
+        //    if (SpinBtn == null)
+        //    {
+        //        SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Center/Button Spin")?.GetComponent<SpinButton>();///竖屏游戏的spinbutton路径
+        //    }
+        //    yield return new WaitForSeconds(0.5f);
+        //}
         /*if (SpinBtn == null)
         {
             isStartLastFreeSpin = false;
             yield break;
         }*/
+        ///设置为自动 spin
+        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", true);
 
-
-        while (SpinBtn.GetSpinButtonState() != NextSpinState.ToStopAuto)
-        {
-            MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 1));
-            yield return new WaitForSeconds(1f);
-            MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 0));
-            yield return new WaitForSeconds(1f);
-        }
+        //while (SpinBtn.GetSpinButtonState() != NextSpinState.ToStopAuto)
+        //{
+        //    MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 1));
+        //    yield return new WaitForSeconds(1f);
+        //    MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 0));
+        //    yield return new WaitForSeconds(1f);
+        //}
     }
     /// <summary>
     /// 获取额外押注的金额
