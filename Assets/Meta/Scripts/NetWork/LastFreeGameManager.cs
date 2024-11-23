@@ -617,14 +617,20 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         {
             _loginMaskController = FindObjectOfType<LoginMaskController>();    
         }
-        _loginMaskController.SetSliderTotal(historyRes.Count - 1);
+        if (_loginMaskController != null)
+        {
+            _loginMaskController.SetSliderTotal(historyRes.Count);
+        }
         if (responseCallback != null)
         {
             string res = historyRes[0];
             Debug.Log($"==@【LastFreeSpin】 : {rpc} = {res}");
             SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(res);
             historyRes.RemoveAt(0);
-            _loginMaskController.AddSliderValue();
+            if (_loginMaskController != null)
+            {
+                _loginMaskController.AddSliderValue();
+            }
             if (isFirstData && globalStore.nowGameID == 103)    ///NIGHTS_OF_BINGO     id：103 游戏断线重连的时候，需要设置滚轮表的序号
             {
                 isFirstData = false;

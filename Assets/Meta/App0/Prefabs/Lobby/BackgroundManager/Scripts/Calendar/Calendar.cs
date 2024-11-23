@@ -386,6 +386,20 @@ namespace SpringGUI
             return string.Format("{0} {1}:{2}", _timeButtonText.text, hourTxt.text, minuteTxt.text);
         }
 
+        public string GetDateTxt()
+        {
+            return _timeButtonText.text;
+        }
+        public string GetHourTxt()
+        {
+            return hourTxt.text;
+        }
+
+        public string GetMinuteTxt()
+        {
+            return minuteTxt.text;
+        }
+
         private void RefreshCalendar()
         {
             if (CalendarType == E_CalendarType.Day) RefreshDays(m_calendarData.Days(m_selectDT));
