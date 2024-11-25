@@ -1659,6 +1659,12 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                     obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Toy Crane Bonus/Toy Crane Bonus Anchor");
                 }
                 break;
+            case 53:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Pick Bonus/Pick Bonus Anchor/Hearts");
+                break;
+            case 54:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Mystery Link");
+                break;
             case 62:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Jackpot Bonus/Jackpot Coins");
                 break;
@@ -1777,6 +1783,18 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 52:
                 EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("EndToyCrane", 0)); 
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
+                break;
+            case 53:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClick"));
+                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("DisablePicks"));
+                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("EndFirstStage"));
+                break;
+            case 54:
+                BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", true);
+                this.DelayAction(1f, () =>
+                {
+                    BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", false);
+                });
                 break;
             case 62:
                 EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinishedJackpotSelection"));

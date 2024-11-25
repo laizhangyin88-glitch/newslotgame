@@ -21,6 +21,15 @@ public enum SettingButtonType
 
 public class BackgroundManagerMainViewController : MonoBehaviour
 {
+    public static BackgroundManagerMainViewController Instance { get; private set; }
+    public List<SettingButtonType> unOpen = new List<SettingButtonType>()
+    {
+        SettingButtonType.GameInformation,
+        SettingButtonType.BusinessRecord,
+        SettingButtonType.EventRecord,
+        SettingButtonType.Settings,
+    };
+
     private Transform content;
     private GameObject selectItem;
     private List<MainItemController> mainItemControllers = new List<MainItemController>();
@@ -28,11 +37,13 @@ public class BackgroundManagerMainViewController : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         SBoxSanboxController.Instance.isEnterBackgroundTestView = true;
     }
 
     private void Start()
     {
+        OpenBackgroundManager.OpenView("lobby0", "NumericKeypadView", PopupManager.Instance.BackgroundSetting);
         settingButtonType = SettingButtonType.None;
         content = transform.Find("ScrollView/Viewport/Content");
         selectItem = transform.Find("SelectItem").gameObject;
@@ -46,14 +57,17 @@ public class BackgroundManagerMainViewController : MonoBehaviour
         {
             if (item != SettingButtonType.None)
             {
-                GameObject go = Instantiate(selectItem);
-                go.transform.localScale = Vector3.one;
-                go.transform.SetParent(content.transform, false);
-                MainItemController controller = go.GetComponent<MainItemController>();
-                controller.buttonType = item;
-                controller.index = index;
-                controller.backgroundManagerMainViewController = this;
-                mainItemControllers.Add(controller);
+                if (!unOpen.Contains(item))
+                {
+                    GameObject go = Instantiate(selectItem);
+                    go.transform.localScale = Vector3.one;
+                    go.transform.SetParent(content.transform, false);
+                    MainItemController controller = go.GetComponent<MainItemController>();
+                    controller.buttonType = item;
+                    controller.index = index;
+                    controller.backgroundManagerMainViewController = this;
+                    mainItemControllers.Add(controller);
+                }
                 index++;
             }
         }
@@ -63,4 +77,5 @@ public class BackgroundManagerMainViewController : MonoBehaviour
     {
         SBoxSanboxController.Instance.isEnterBackgroundTestView = false;
     }
+
 }

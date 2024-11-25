@@ -9,6 +9,10 @@ public class PasswordTxtShow : MonoBehaviour
 
     private int length;
 
+    public float showTime = 0.5f;
+
+    public bool isSync = false;
+
     private void Start()
     {
         _TextMeshProUGUI = GetComponent<TextMeshProUGUI>();
@@ -24,8 +28,15 @@ public class PasswordTxtShow : MonoBehaviour
         }
         if(_TextMeshProUGUI.text.Length > 0 && length != _TextMeshProUGUI.text.Length)
         {
-            StartCoroutine(ReplaceTxtValue());
-            length = _TextMeshProUGUI .text.Length;
+            if (isSync)
+            {
+                InputText(_TextMeshProUGUI.text.Length);
+            }
+            else
+            {
+                StartCoroutine(ReplaceTxtValue());
+                length = _TextMeshProUGUI.text.Length;
+            }
         }
     }
 
@@ -36,7 +47,7 @@ public class PasswordTxtShow : MonoBehaviour
             var temp = _TextMeshProUGUI.text[i];
             if(temp != '*')
             {
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(showTime);
                 InputText(_TextMeshProUGUI.text.Length);
             }
         }
