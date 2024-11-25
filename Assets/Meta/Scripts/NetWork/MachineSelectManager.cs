@@ -1781,7 +1781,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
                 break;
             case 52:
-                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("EndToyCrane", 0)); 
+                int index = LastFreeGameManager.Instance.GetGame52ClaimType();
+                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("EndToyCrane", index)); 
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
                 break;
             case 53:

@@ -616,7 +616,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
     private IEnumerator _getResponseData(string rpc, Action<JSONNode> responseCallback)
     {
         yield return new WaitForSeconds(0.2f);
-        MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));
+        MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));///置灰操作按钮
         if (_loginMaskController == null)
         {
             _loginMaskController = FindObjectOfType<LoginMaskController>();    
@@ -731,6 +731,37 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
     }
 
+    public int GetGame52ClaimType()
+    {
+        string pattern = "\"bonus_id\":\\s*(\\d+)";
+        //Match match = Regex.Match(spin, pattern)
+        for (int i = 0; i < historyRes.Count; i++)
+        {
+            string response = historyRes[i];
+            if (response.Contains("claim_bonus"))
+            {
+                Match match = Regex.Match(response, pattern);
+                if (match.Success)
+                {
+                    string str = match.Groups[1].Value;
+                    int index = int.Parse(str);
+                    switch(index)
+                    {
+                        case 5201:
+                            return 0;
+                        case 5202:
+                            return 1;
+                        case 5203:
+                            return 2;
+                        case 5204:
+                            return 3;
+                    }
+                }
+            }
+            //Match match = Regex.Match(spin, pattern);
+        }
+        return 0;
+    }
 
 }
 
