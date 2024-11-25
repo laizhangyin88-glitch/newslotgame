@@ -391,7 +391,7 @@ namespace SlotMaker
         public static UnityEngine.Object LoadAsset(string bundleName, string assetName, System.Type type)
         {
             if (ApplicationSettings.LogBundle())
-                Debug.Log("[AssetBundleManager] Load " + assetName + " from " + bundleName + " bundle");
+                Debug.Log($"[AssetBundleManager] Load Asset, bundle:{bundleName}, assetName:{assetName}");
 
             LoadedAsset asset = GetLoadedAsset(bundleName, assetName);
             if (asset != null)
