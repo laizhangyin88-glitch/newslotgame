@@ -229,7 +229,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         while (IGBC == null)
         {
             IGBC = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Bet")?.GetComponent<InGameBetController>();
-            if (IGBC == null) 
+            if (IGBC == null)
             {
                 IGBC = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Left/Bet")?.GetComponent<InGameBetController>();///竖屏游戏的bet路径
             }
@@ -266,15 +266,17 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             yield break;
         }*/
         ///设置为自动 spin
-        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", true);
+
 
         //while (SpinBtn.GetSpinButtonState() != NextSpinState.ToStopAuto)
-        //{
-        //    MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 1));
-        //    yield return new WaitForSeconds(1f);
-        //    MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 0));
-        //    yield return new WaitForSeconds(1f);
-        //}
+        ////{
+        //MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 1));
+        //yield return new WaitForSeconds(1f);
+        //MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 0));
+        //yield return new WaitForSeconds(1f);
+        ////}
+        //MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));
+        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", true);
     }
     /// <summary>
     /// 获取额外押注的金额
@@ -614,6 +616,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
     private IEnumerator _getResponseData(string rpc, Action<JSONNode> responseCallback)
     {
         yield return new WaitForSeconds(0.2f);
+        MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));
         if (_loginMaskController == null)
         {
             _loginMaskController = FindObjectOfType<LoginMaskController>();    
