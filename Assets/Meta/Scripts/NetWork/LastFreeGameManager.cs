@@ -229,7 +229,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         while (IGBC == null)
         {
             IGBC = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Bet")?.GetComponent<InGameBetController>();
-            if (IGBC == null) 
+            if (IGBC == null)
             {
                 IGBC = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Left/Bet")?.GetComponent<InGameBetController>();///竖屏游戏的bet路径
             }
@@ -250,30 +250,33 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
 
 
         //设置Spin按钮Auto状态
-        SpinButton SpinBtn = null;
-        while (SpinBtn == null)
-        {
-            SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Button Spin")?.GetComponent<SpinButton>();
-            if (SpinBtn == null)
-            {
-                SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Center/Button Spin")?.GetComponent<SpinButton>();///竖屏游戏的spinbutton路径
-            }
-            yield return new WaitForSeconds(0.5f);
-        }
+        //SpinButton SpinBtn = null;
+        //while (SpinBtn == null)
+        //{
+        //    SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Button Spin")?.GetComponent<SpinButton>();
+        //    if (SpinBtn == null)
+        //    {
+        //        SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Center/Button Spin")?.GetComponent<SpinButton>();///竖屏游戏的spinbutton路径
+        //    }
+        //    yield return new WaitForSeconds(0.5f);
+        //}
         /*if (SpinBtn == null)
         {
             isStartLastFreeSpin = false;
             yield break;
         }*/
+        ///设置为自动 spin
 
 
-        while (SpinBtn.GetSpinButtonState() != NextSpinState.ToStopAuto)
-        {
-            MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 1));
-            yield return new WaitForSeconds(1f);
-            MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 0));
-            yield return new WaitForSeconds(1f);
-        }
+        //while (SpinBtn.GetSpinButtonState() != NextSpinState.ToStopAuto)
+        ////{
+        //MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 1));
+        //yield return new WaitForSeconds(1f);
+        //MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 0));
+        //yield return new WaitForSeconds(1f);
+        ////}
+        //MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));
+        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", true);
     }
     /// <summary>
     /// 获取额外押注的金额
@@ -613,6 +616,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
     private IEnumerator _getResponseData(string rpc, Action<JSONNode> responseCallback)
     {
         yield return new WaitForSeconds(0.2f);
+        MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));///置灰操作按钮
         if (_loginMaskController == null)
         {
             _loginMaskController = FindObjectOfType<LoginMaskController>();    
@@ -727,6 +731,37 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
     }
 
+    public int GetGame52ClaimType()
+    {
+        string pattern = "\"bonus_id\":\\s*(\\d+)";
+        //Match match = Regex.Match(spin, pattern)
+        for (int i = 0; i < historyRes.Count; i++)
+        {
+            string response = historyRes[i];
+            if (response.Contains("claim_bonus"))
+            {
+                Match match = Regex.Match(response, pattern);
+                if (match.Success)
+                {
+                    string str = match.Groups[1].Value;
+                    int index = int.Parse(str);
+                    switch(index)
+                    {
+                        case 5201:
+                            return 0;
+                        case 5202:
+                            return 1;
+                        case 5203:
+                            return 2;
+                        case 5204:
+                            return 3;
+                    }
+                }
+            }
+            //Match match = Regex.Match(spin, pattern);
+        }
+        return 0;
+    }
 
 }
 
