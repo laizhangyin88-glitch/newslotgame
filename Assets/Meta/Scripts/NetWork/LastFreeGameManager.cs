@@ -648,6 +648,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                 //断线重连后恢复autoSpin，避免进行非玩家意愿的spin
                 BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", false);
                 isLastGameSpin = false;
+                FinishEvent();
                 EventSender.SendGlobalEvent("OnCloseLoginMaskPop");
 
                 //恢复声音
@@ -662,6 +663,18 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
     }
 
+    private void FinishEvent()
+    {
+        switch (globalStore.nowGameID)
+        {
+            case 152:
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("SubSymbolMechanicsDone")); 
+                break;
+            default:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Finalize"));
+                break;
+        }
+    }
 
     private void Clear()
     {
