@@ -1654,9 +1654,17 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 52:
                 obj = GameObject.Find("Game Canvas/Game Contents/LogoActive");
-                if(obj == null)
+                if(obj == null || !obj.active)
                 {
-                    obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Toy Crane Bonus/Toy Crane Bonus Anchor");
+                    obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/WAB Bonus/WAB Bonus Anchor");
+                    if(obj == null || !obj.active)
+                    {
+                        obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Potions Bonus/Potions Bonus Anchor");
+                        if(obj == null || !obj.active)
+                        {
+                            obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/RPS Bonus/RPS Bonus Anchor");
+                        }
+                    }
                 }
                 break;
             case 53:
@@ -1755,6 +1763,8 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
         return false;
     }
 
+    private int Game52ClaimTypeIndex = -100;
+
     /// <summary>
     /// 确认小游戏节点（spin按钮按下时调用）
     /// 当spin按钮按下时，可以跳过的小游戏节点事件可以写在这里
@@ -1782,8 +1792,48 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 52:
                 int index = LastFreeGameManager.Instance.GetGame52ClaimType();
+                if (Game52ClaimTypeIndex < -1)
+                {
+                    Game52ClaimTypeIndex = index;
+                }
                 EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("EndToyCrane", index)); 
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
+                switch (Game52ClaimTypeIndex)
+                {
+                    case 1:
+                        EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("OnClickBlue", 1));
+                        break;
+                    case 2:
+                        EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("OnClickPotion", UnityEngine.Random.Range(1, 10)));
+                        bool result = LastFreeGameManager.Instance.GetGame52PotionsBonusResult();
+                        if (result)
+                        {
+                            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnNext"));
+                        }
+                        else
+                        {
+                            bool isSuccess = LastFreeGameManager.Instance.GetGame52IsSuccess();
+                            if (isSuccess)
+                            {
+                                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnCollect"));
+                            }
+                            else
+                            {
+                                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnNext"));
+                                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("OnClickPotion", UnityEngine.Random.Range(1, 10)));
+                                this.DelayAction(5f, () =>
+                                {
+                                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Fail"));
+                                }, null, true);
+                            }
+                            BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", false);
+                        }
+                        break;
+                    case 3:
+                        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClickR"));
+                        break;
+                }
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartBonus"));
                 break;
             case 53:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClick"));

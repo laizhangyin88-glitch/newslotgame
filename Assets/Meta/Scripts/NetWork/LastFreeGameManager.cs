@@ -730,7 +730,10 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             _loginMaskController.SetSliderTotal(historyRes.Count - 1);
         }
     }
-
+    /// <summary>
+    /// 获取game id 52 的小游戏类型
+    /// </summary>
+    /// <returns></returns>
     public int GetGame52ClaimType()
     {
         string pattern = "\"bonus_id\":\\s*(\\d+)";
@@ -760,9 +763,55 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             }
             //Match match = Regex.Match(spin, pattern);
         }
-        return 0;
+        return -1;
     }
 
+    /// <summary>
+    /// 获取 game id 52 中 Potions Bonus 小游戏的操作结果
+    /// </summary>
+    /// <returns></returns>
+    public bool GetGame52PotionsBonusResult()
+    {
+        string pattern = "\"potion_value\":\\s*(\\d+)";
+        for (int i = 0; i < historyRes.Count; i++)
+        {
+            string response = historyRes[i];
+            if (response.Contains("claim_bonus"))
+            {
+                Match match = Regex.Match(response, pattern);
+                if (match.Success)
+                {
+                    string str = match.Groups[1].Value;
+                    int index = int.Parse(str);
+                    return index > 0;
+                }
+            }
+            //Match match = Regex.Match(spin, pattern);
+        }
+        return false;
+    }
+
+    public bool GetGame52IsSuccess()
+    {
+        string pattern = "\"earn_credit\":\\s*(\\d+)";
+        for (int i = 0; i < historyRes.Count; i++)
+        {
+            string response = historyRes[i];
+            if (response.Contains("claim_bonus"))
+            {
+                Match match = Regex.Match(response, pattern);
+                if (match.Success)
+                {
+                    string str = match.Groups[1].Value;
+                    long earn_credit = long.Parse(str);
+                    long bet = BlackboardUtils.FindVariable<long>("./totalBetCredit").value;
+                    return earn_credit > bet;
+                }
+            }
+            //Match match = Regex.Match(spin, pattern);
+        }
+        return false;
+    }
 }
 
 /// <summary>
