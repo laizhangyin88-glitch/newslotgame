@@ -718,14 +718,14 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             }
         }
 
-        if (globalStore.nowGameID == 116) //魔术师 - 选牌
-        {
-            GameObject Pick = GameObject.Find("Popup Manager/Contents/Bonus Trigger Popup");
-            if (Pick != null && Pick.active)
-            {
-                return true;
-            }
-        }
+        //if (globalStore.nowGameID == 116) //魔术师 - 选牌
+        //{
+        //    GameObject Pick = GameObject.Find("Popup Manager/Contents/Bonus Trigger Popup");
+        //    if (Pick != null && Pick.active)
+        //    {
+        //        return true;
+        //    }
+        //}
         if (globalStore.nowGameID == 142)///丛林火焰 --选择额外押注
         {
             GameObject Pick = GameObject.Find("Popup Manager/Contents/FG trigger Popup FIJ");
@@ -1687,6 +1687,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Map Bonus Popup/Anchor");
                 //obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/LogoActive");
                 break;
+            case 116:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Bonus Game/Animator/Anchor/Game Field");
+                break;
             case 118:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Effect Midground/Map Bonus");
                 break;
@@ -1720,6 +1723,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 152:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Bonus game");
+                if(obj == null || !obj.active)
+                {
+                    obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/BallPool/Flying Symbol");
+                }
                 break;
             case 154:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Foreground/Hot Bonus Panel");
@@ -1860,6 +1867,10 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("OnBeginMegaFreeSpinMap"));
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClick"));
                 break;
+            case 116:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClick"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Collect"));
+                break;
             case 118:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("SpinCompass"));
                 break;
@@ -1878,6 +1889,11 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FlySymbolEnroute"));
                 break;
             case 152:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
+                this.DelayAction(3f, () =>
+                {
+                    EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("SubSymbolMechanicsDone"));
+                });
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartWheel"));
                 EventSender.SendGlobalEvent(EVTType.ON_CONTENT_UI_EVENT, new EventData("StageEnd"));
                 break;
