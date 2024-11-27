@@ -162,6 +162,9 @@ public class RPCName
 
 
     public const string finish_game_round = "finish_game_round";
+
+
+    public const string user_php_interface = "user_php_interface";
 }
 
 namespace RPCBase
