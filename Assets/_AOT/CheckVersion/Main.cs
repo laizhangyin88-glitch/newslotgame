@@ -24,6 +24,7 @@ public class Main : MonoBehaviour
     //private LoadSlider loadSlider;
 
     private Text versionText;
+    private LoadingAndTips _loadingCom;
 
     private VersionData curVersionData = new VersionData
     {
@@ -52,15 +53,25 @@ public class Main : MonoBehaviour
     {
         //loadSlider = transform.Find("slider").GetComponent<LoadSlider>();
         //versionText = transform.Find("VersionText").GetComponent<Text>();
+        _loadingCom = GameObject.Find("Loading").GetComponent<LoadingAndTips>();
     }
 
     private IEnumerator Start()
     {
+
+
         //yield return StartCoroutine(RequestUserPermissions(Permission.ExternalStorageRead));
         //yield return StartCoroutine(RequestUserPermissions(Permission.ExternalStorageWrite));
 
+        _loadingCom.SetTips("Spinning the AOT Metadata Scroll!");
+
         yield return StartCoroutine(RefTypes.LoadMetadataForAOTAssemblies());
+
+        _loadingCom.SetProgress(10f);
+        _loadingCom.SetTips("Mystical Treasure Update in Progress…");
+
         yield return StartCoroutine(CheckVersion());
+
         Debug.Log("The context is ready");
 
         AssetBundleManager.BaseUrl = ApplicationSettings.GetRemoteBundlePath();
@@ -70,6 +81,9 @@ public class Main : MonoBehaviour
         yield return AssetBundleManager.Initialize();
 
         Debug.Log("加载初场景资源...");
+        _loadingCom.SetTips("Downloading Lucky Tickets, Prepare to Win Big!");
+        _loadingCom.SetProgress(80f);
+
         string abName_mainscene = ApplicationSettings.MakeApplicationBundleName("mainscene");
         var abOperation = AssetBundleManager.LoadAssetBundleAndDep(abName_mainscene, false);
 
@@ -86,12 +100,14 @@ public class Main : MonoBehaviour
             string progress = (curProgress / totalProgress).ToString("P2");
             Debug.Log(progress);
 
-            yield return new WaitForSeconds(0.5f);
-
+            yield return new WaitForSeconds(0.3f);
         }
 
         Debug.Log("加载完成");
         Debug.Log("进入场景...");
+        _loadingCom.SetTips("Update Complete, Welcome to the Game World!");
+        _loadingCom.SetProgress(100f);
+
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
 
         //yield return new WaitForSeconds(1f);
@@ -216,6 +232,8 @@ public class Main : MonoBehaviour
         if (needUpdateNet)
         {
             Debug.Log("检测到更新");
+            _loadingCom.SetTips("Ding! New Surprises Have Appeared!");
+            _loadingCom.SetProgress(20f);
 
             //如果網絡版本大於Streaming版本
             if (StartUpUtils.ParseVersion(netVersionData.Version) > StartUpUtils.ParseVersion(localVersionData.Version))
@@ -252,6 +270,7 @@ public class Main : MonoBehaviour
     private IEnumerator UpdateFromNet()
     {
         Debug.Log("UpdateFormNet");
+        _loadingCom.SetProgress(26f);
 
         string perLibPath = ApplicationSettings.GetPerLibPath();
         Debug.Log(perLibPath);
