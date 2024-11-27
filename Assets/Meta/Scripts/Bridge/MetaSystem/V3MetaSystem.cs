@@ -856,6 +856,49 @@ namespace BagelCode
 
             Debug.Log("@ KenoPlay is_free_spin : " + debug_param);
 
+            if (LastFreeGameManager.Instance.isLastGameSpin)
+            {
+                LastFreeGameManager.Instance.getResponseData(RPCName.kenoSpin, (res) =>
+                {
+                    string resStr = res.ToString();
+
+                    //string oldJson = JsonUtility.ToJson(response);
+                    //Debug.Log($"@A KenoPlayResponseV1 = {oldJson}");
+
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/keno_play_response_v1");
+                    ClientModels.KenoPlayResponseV1 response = JsonUtility.FromJson<ClientModels.KenoPlayResponseV1>(jsn8.text);
+
+                    response.contents = res["contents"].ToString();
+
+                    Debug.Log($" @contents =  {response.contents}");
+
+
+                    var spinBB = ContentBlackboard.Get().GetVariable<Blackboard>("spin");
+                    if (spinBB == null || spinBB.value == null) return;
+
+                    var bb = BlackboardUtils.GetOrCreateBlackboard(spinBB.value, "response");
+                    ClientAPI2Blackboard.Serialize(bb, response);
+                    BlackboardUtils.SetOrCreateValue<int>(bb, "requestType", (int)ContentsRequestType.KenoPlay);
+                    ContentsSerializer.Deserialize(bb);
+
+                    BlackboardQueryUtils.UpdateTournament(response.tournamentInfo);
+                    BlackboardQueryUtils.UpdatePotOfGold(response.userSyncInfo.piggyCredit);
+                    BlackboardQueryUtils.UpdateUnlockFeature(response.featureUnlockList);
+                    BlackboardQueryUtils.UpdateMetaGameInfo(response.metaGameInfo, response.serverTime);
+                    BlackboardQueryUtils.UpdateBonusSpinCountPerBet(betPerTicket, response.gamePlayCount, "./gameSpinCountPerBet");
+                    BlackboardQueryUtils.UpdateBonusSpinCountPerBet(betPerTicket, response.bonusPlayCount, "./bonusSpinCountPerBet");
+                    BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
+                    BlackboardQueryUtils.UpdateHiddenUniverseFinder(response.earnFinder);
+                    BlackboardQueryUtils.UpdateVIPLoungeInfo(response.vipLoungeCompositeInfo?.vipLoungeInfo ?? null);
+                    BlackboardQueryUtils.UpdateVegasDreamsTotalDepotCount(response.vipLoungeCompositeInfo?.buildDreamInfo ?? null);
+                    BlackboardQueryUtils.UpdateMysteryGiftInfo(response.nextMysteryGiftLevel, response.mysteryGiftInfo, response.serverTime);
+                    LevelUpDash.LevelUpDash.Utils.UpdateLevelUpDashInfo(response.levelUpDashInfo);
+                    if (successCallback != null)
+                        successCallback();
+                });
+                return;
+            }
+
             NetManager.Instance.Post(RPCName.kenoSpin, req,
             (res) =>
             {
