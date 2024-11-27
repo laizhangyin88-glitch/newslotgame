@@ -825,6 +825,32 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
         return false;
     }
+
+
+    private List<int> KenoIndexList = new List<int>();
+    public List<int> GetKENOIndeices()
+    {
+        if (KenoIndexList.Count == 0)
+        {
+            if (historyRes.Count > 0)
+            {
+                JSONNode node = JSONNode.Parse(historyRes[0]);
+                if (node != null)
+                {
+                    JSONNode data = node["data"];
+                    JSONNode contents = data["contents"];
+                    JSONNode win_result = contents["win_result"][0];
+                    JSONNode listNode = win_result["pick_info"];
+                    for (int j = 0; j < listNode.Count; j++)
+                    {
+                        KenoIndexList.Add(listNode[j].AsInt);
+                    }
+                }
+            }
+        }
+
+        return KenoIndexList;
+    }
 }
 
 /// <summary>
@@ -904,6 +930,17 @@ public class FirstSpinInfo
             string str = match.Groups[1].Value;
             betCredit = long.Parse(str);
             match = match.NextMatch();
+        }
+        if(betCredit <= 0)  ///基诺类型的游戏的押注字段
+        {
+            string pattern1 = "\"bet_per_ticket\":\\s*(\\d+)";
+            Match match1 = Regex.Match(spin, pattern1);
+            while (match1.Success)
+            {
+                string str = match1.Groups[1].Value;
+                betCredit = long.Parse(str);
+                match1 = match1.NextMatch();
+            }
         }
         ////获取额外下注金额 
         pattern = "\"extra_bet\":\\s*(\\d+)";
