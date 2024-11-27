@@ -293,4 +293,9 @@ public class WinResult
     public string nick_name;
     public int single_reward;
     public int bonus_id;
+
+    public override string ToString()
+    {
+        return $"user_id : {user_id}; nick_name : {nick_name}; single_reward : {single_reward}; bonus_id : {bonus_id};";
+    }
 }
