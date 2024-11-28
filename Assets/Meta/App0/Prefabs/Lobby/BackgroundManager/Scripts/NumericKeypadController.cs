@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using SimpleJSON;
+using System.Security.Cryptography;
+using System.Text;
 
 public class NumericKeypadController : MonoBehaviour
 {
     private TextMeshProUGUI _InputTxt;
     private string password;
+    private Button confirmBtn;
 
     private void Start()
     {
         password = "";
         _InputTxt = transform.Find("content/bg/InputTxt").GetComponent<TextMeshProUGUI>();
+        confirmBtn = transform.Find("content/BtnConfirm").GetComponent<Button>();
         _InputTxt.text = "";
         Transform btns = transform.Find("content/Btns");
         for (int i = 0; i < btns.childCount; i++)
@@ -39,6 +44,7 @@ public class NumericKeypadController : MonoBehaviour
                 OnClickButton(index);
             });
         }
+        confirmBtn.onClick.AddListener(SendCheckPassword);
     }
 
     private void OnClickButton(int index)
@@ -88,9 +94,53 @@ public class NumericKeypadController : MonoBehaviour
     {
         password += index.ToString();
         _InputTxt.text = password;
-        if(password.Length >= 8)
+        //if(password.Length >= 8)
+        //{
+        //    //Destroy(gameObject);
+        //    SendCheckPassword();
+        //}
+    }
+
+
+    private void SendCheckPassword()
+    {
+        if (password.Length >= 6)
         {
-            Destroy(gameObject);
+            string passwordMD5 = ComputeMD5Hash(password);
+            JSONNode data = JSONNode.Parse("{}");
+            data["method"] = "login";
+            JSONNode param = JSONNode.Parse("{}");
+            param["password"] = passwordMD5;
+            data["params"] = param;
+            //JSONNode data = JSONNode.Parse("{\"method\":\"test\",\"params\":{\"p1\":\"v1\",\"p2\": \"v2\",\"p3\": \"v3\"}}");
+
+            NetManager.Instance.Post(RPCName.user_php_interface, data, (res) =>
+            {
+                Debug.LogError(res);
+            },
+            (error) =>
+            {
+                Debug.LogError(error);
+            });
+        }
+    }
+
+    private string ComputeMD5Hash(string rawData)
+    {
+        // Create a new instance of MD5CryptoServiceProvider.
+        using (MD5 md5 = MD5.Create())
+        {
+            // ComputeHash - returns byte array  
+            byte[] inputBytes = Encoding.ASCII.GetBytes(rawData);
+            byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+            // Convert byte array to a string   
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hashBytes.Length; i++)
+            {
+                sb.Append(hashBytes[i].ToString("X2"));
+            }
+            return sb.ToString().ToLower();
         }
     }
 }

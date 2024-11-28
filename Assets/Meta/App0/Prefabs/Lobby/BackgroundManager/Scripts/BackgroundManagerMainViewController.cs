@@ -50,6 +50,23 @@ public class BackgroundManagerMainViewController : MonoBehaviour
         InitMainItemList();
     }
 
+    private void TestInterface()
+    {
+        Dictionary<string, object> req = new Dictionary<string, object>
+        {
+            {"method", "test"},
+            {"params", "params Info" },
+        };
+        NetManager.Instance.Post(RPCName.user_php_interface, req, (res) =>
+        {
+
+        },
+        (error) =>
+        {
+
+        });
+    }
+
     private void InitMainItemList()
     {
         int index = 0;
