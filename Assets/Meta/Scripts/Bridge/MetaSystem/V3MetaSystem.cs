@@ -1063,7 +1063,7 @@ namespace BagelCode
 
             if(globalStore.nowGameID == 83)
             {
-                req.Add("need_save_redis", 1);
+                req.Add("need_save_redis", 1); 
             }
 
             if (LastFreeGameManager.Instance.isLastGameSpin)

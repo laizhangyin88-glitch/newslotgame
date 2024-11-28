@@ -30,6 +30,13 @@ public class TestSendEventWindow : OdinEditorWindow
     private string[] EventTypeList => new string[]{
         "OnCustomEvent",
         "OnContentUIEvent",
+        "OnSlotEvent",
+        "OnCreditEvent",
+        "OnSymbolEvent",
+        "OnWinEvent",
+        "OnSpinButtonEvent",
+        "OnMachineButtonEvent",
+        "OnContentEvent",
     };
 
     [Button]
