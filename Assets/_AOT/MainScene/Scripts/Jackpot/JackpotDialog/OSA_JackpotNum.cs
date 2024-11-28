@@ -89,6 +89,7 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
     /// <param name="loopCount"></param>
     public void Simulation(int targetIndex, float animationTime, int loopCount)
     {
+        StopScorllCoroutine();
         scrollCoroutine = StartCoroutine(SimulationCoroutine(targetIndex, animationTime, loopCount));
     }
 
