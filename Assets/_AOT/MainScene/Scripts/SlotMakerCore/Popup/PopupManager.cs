@@ -131,6 +131,12 @@ namespace SlotMaker
             CameraManager.Get().GetComponent<Animator>().SetInteger("Popup Count", popupCount);
     	}
 
+        public bool IsOpen(string objName)
+        {
+            Popup result = stack.Find((pop) => pop.GetObjectName() == objName);
+            return result != null;
+        }
+
         public void Clear()
         {
             _popupCount = 0;

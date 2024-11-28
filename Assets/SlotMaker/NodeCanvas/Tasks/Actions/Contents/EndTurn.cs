@@ -21,11 +21,11 @@ namespace BagelCode.Tasks.Actions.Contents
 
             cb.RemoveVariable("current");
 
-            bool isWinLobbyJackpot = false;
+            //bool isWinLobbyJackpot = false;
+            bool isWinLobbyJackpot = LobbyJackpotManager.Instance.IsWinLobbyJackpot;
 
-
-            if (BlackboardUtils.FindVariable<bool>(MainBlackboard.Get(), "isWinLobbyJackpot") != null)
-                isWinLobbyJackpot = BlackboardUtils.FindVariable<bool>(MainBlackboard.Get(), "isWinLobbyJackpot").value;
+            //if (BlackboardUtils.FindVariable<bool>(MainBlackboard.Get(), "isWinLobbyJackpot") != null)
+            //    isWinLobbyJackpot = BlackboardUtils.FindVariable<bool>(MainBlackboard.Get(), "isWinLobbyJackpot").value;
 
             if (isWinLobbyJackpot)
                 StartCoroutine(ShowPopupWinLobbyJackpot());
@@ -35,12 +35,13 @@ namespace BagelCode.Tasks.Actions.Contents
 
         private IEnumerator ShowPopupWinLobbyJackpot()
         {
-            BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isWinLobbyJackpot", false);
-            var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>(MetaStringDefine.LOBBY_BUNDLE_NAME, "Popup Win Lobby Jackpot Scene").GetSceneInfo();
-            var parent = GameObject.Find("Popup Manager/Area");
-            var sceneObj = SceneManager.LoadScene(parent.transform, sceneInfo);
-            PopupManager.Instance.Open(sceneObj);
-            sceneObj.SetActive(true);
+            //BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isWinLobbyJackpot", false);
+            //var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>(MetaStringDefine.LOBBY_BUNDLE_NAME, "Popup Win Lobby Jackpot Scene").GetSceneInfo();
+            //var parent = GameObject.Find("Popup Manager/Area");
+            //var sceneObj = SceneManager.LoadScene(parent.transform, sceneInfo);
+            //PopupManager.Instance.Open(sceneObj);
+            //sceneObj.SetActive(true);
+            LobbyJackpotManager.Instance.OpenJackpotPop();
             yield return new WaitForSeconds(5);
             EndAction();
         }
