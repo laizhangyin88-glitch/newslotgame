@@ -24,7 +24,7 @@ namespace BagelCode.Tasks.Actions
 
         protected override void OnExecute()
         {
-            property = creditText.value as IContextText;
+            property = creditText.value as IContextText; 
             textFormat = StringTableUtils.GetVariable(tableType, key.value).value;
 
             var jackpotCredit = ownerAgent.GetComponent<ContentJackpotCredit>();

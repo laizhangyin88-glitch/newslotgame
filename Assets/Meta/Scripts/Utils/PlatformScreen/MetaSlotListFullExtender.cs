@@ -24,8 +24,8 @@ namespace BagelCode
             {
                 if(conformX)
                 {
-                    osaController.BaseParameters.contentPadding.left += (int)(offsetLeftRight.x);
-                    osaController.BaseParameters.contentPadding.right = (int)(offsetLeftRight.y);
+                    osaController.BaseParameters.ContentPadding.left += (int)(offsetLeftRight.x);
+                    osaController.BaseParameters.ContentPadding.right = (int)(offsetLeftRight.y);
                     // ownerRect.anchoredPosition = Vector2.zero;
                 }
             }

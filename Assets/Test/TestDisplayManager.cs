@@ -15,7 +15,17 @@ public class TestDisplayManager : MonoSingleton<TestDisplayManager>
     /// <summary>
     /// 用户是否是管理员
     /// </summary>
-    public bool IsGM { get; private set; }
+    public bool IsGM
+    {
+        get => isGM;
+        set
+        {
+            isGM = value;
+            PlayerPrefs.SetInt("IsGM", isGM ? 1 : 0);
+        }
+    }
+
+    private bool isGM = false;
 
     void Start()
     {
@@ -52,7 +62,6 @@ public class TestDisplayManager : MonoSingleton<TestDisplayManager>
         MessageDispatcher.UnRegister(RPCName.login, OnReceiveLoginHandle);
         MessageDispatcher.UnRegister(MetaEventDefine.ON_SYSTEM_EVENT, OnReceiveSystemEventHandle);
     }
-
     private void OnReceiveLoginHandle(EventData eventData)
     {
         EventData<JSONNode> jsonEventData = eventData as EventData<JSONNode>;

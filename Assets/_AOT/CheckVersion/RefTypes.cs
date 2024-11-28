@@ -1,0 +1,49 @@
+using HybridCLR;
+using SlotMaker;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Networking;
+
+public static class RefTypes
+{
+    public static IReadOnlyList<string> AOTMetaAssemblyFiles => AOTGenericReferences.PatchedAOTAssemblyList;
+
+    /// <summary>
+    /// com.code-philosophy.hybridclr插件会自动把元数据复制到
+    /// {project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}
+    /// </summary>
+    /// <returns></returns>
+    public static IEnumerator LoadMetadataForAOTAssemblies()
+    {
+        /// 注意，补充元数据是给AOT dll补充元数据，而不是给热更新dll补充元数据。
+        /// 热更新dll不缺元数据，不需要补充，如果调用LoadMetadataForAOTAssembly会返回错误
+        /// 
+        HomologousImageMode mode = HomologousImageMode.SuperSet;
+        Dictionary<string, byte[]> s_assetDatas = new Dictionary<string, byte[]>();
+
+        foreach (var aotDllName in AOTMetaAssemblyFiles)
+        {
+            string metaDataPath = $"{ApplicationSettings.Instance.libPath}/AOT/{aotDllName}.bytes";
+            yield return StartUpUtils.GetFromStreamingAssetsAsync(metaDataPath, (data) =>
+            {
+                if (data == null)
+                {
+                    Debug.Log($"加载元数据程序集失败, {aotDllName}");
+                    return;
+                }
+
+                Debug.Log($"加载AOT元数据：{aotDllName}"); 
+                s_assetDatas[aotDllName] = data;
+            });
+        }
+
+        foreach (var aotDllName in AOTMetaAssemblyFiles)
+        {
+            // 加载assembly对应的dll，会自动为它hook。一旦aot泛型函数的native函数不存在，用解释器版本代码
+            LoadImageErrorCode err = RuntimeApi.LoadMetadataForAOTAssembly(s_assetDatas[aotDllName], mode);
+            if (err != LoadImageErrorCode.OK)
+                Debug.LogError($"LoadMetadataForAOTAssembly:{aotDllName}. mode:{mode} ret:{err}");
+        }
+    }
+}

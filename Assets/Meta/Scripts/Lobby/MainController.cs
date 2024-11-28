@@ -30,7 +30,7 @@ namespace BagelCode
             Register(MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_META_GAME, OnEnterMetaGame);
             Register(MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_LEAVE_META_GAME, OnLeaveMetaGame);
             if (ApplicationSettings.Instance.isMachine)
-                SBoxInit.Instance.Init("192.168.3.212", OnHardCheck);
+                SBoxInit.Instance.Init("192.168.3.70", OnHardCheck);
         }
 
         private void OnHardCheck()

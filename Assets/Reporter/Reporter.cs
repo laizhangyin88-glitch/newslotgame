@@ -306,6 +306,9 @@ public class Reporter : MonoBehaviour
 		if (!Initialized)
 			Initialize();
 
+        //避免未登录时读到之前用户的值，从而打开调试窗口
+        PlayerPrefs.SetInt("IsGM", 0);
+
 #if UNITY_CHANGE3
         SceneManager.sceneLoaded += _OnLevelWasLoaded;
 #endif
@@ -1739,7 +1742,7 @@ public class Reporter : MonoBehaviour
 
     bool isKeyDown()
     {
-        return Input.GetKeyDown(KeyCode.R);
+        return Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.R);
     }
 
     float lastClickTime = -1;
@@ -1850,7 +1853,7 @@ public class Reporter : MonoBehaviour
 	{
 
 #if !MARS_FORTUNE_TEST && !K3K_TEST && !UNITY_EDITOR
-        if (TestDisplayManager.Instance.IsGM == false)
+        if (PlayerPrefs.GetInt("IsGM", 0) == 0)
             return;
 #endif
 

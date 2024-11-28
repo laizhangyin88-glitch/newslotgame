@@ -5,7 +5,6 @@ using SimpleJSON;
 using TMPro;
 using Sirenix.OdinInspector;
 using UnityEngine.UI;
-using BagelCode.Slots.TRR.Utillity;
 
 public class ButtonCommandPage : MonoBehaviour
 {
