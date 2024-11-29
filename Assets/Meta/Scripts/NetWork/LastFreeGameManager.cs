@@ -424,7 +424,12 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                     name = "SelectLinkBonus";  //这个是小游戏（数据不保留redis）
                     break;
             }*/
+            int index = GetSelectIndex();
             name = "SelectFreeSpin";
+            if(index == 1)
+            {
+                name = "SelectLinkBonus";
+            }
             EventSender.SendGlobalEvent("OnCustomEvent", new ParadoxNotion.EventData(name));
         }
 
@@ -648,10 +653,19 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             {
                 _loginMaskController.AddSliderValue();
             }
-            if (isFirstData && globalStore.nowGameID == 103)    ///NIGHTS_OF_BINGO     id：103 游戏断线重连的时候，需要设置滚轮表的序号
+
+            if (isFirstData)    
             {
                 isFirstData = false;
-                GlobalReelStrips.Instance.index = dataDict["data"]["contents"]["reel_set_index"]["current_index"].AsInt;
+                ///第一条数据，重置玩家的金额数据
+                ///
+                long balance = dataDict["data"]["balance"].AsLong;
+                BlackboardQueryUtils.SetMyCredit(balance);
+                MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
+                if (globalStore.nowGameID == 103)///NIGHTS_OF_BINGO     id：103 游戏断线重连的时候，需要设置滚轮表的序号
+                {
+                    GlobalReelStrips.Instance.index = dataDict["data"]["contents"]["reel_set_index"]["current_index"].AsInt;
+                }
             }
             if (historyRes.Count == 0) //最后一局不放慢
             {
@@ -685,6 +699,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                 break;
             default:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Finalize"));
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));
                 break;
         }
     }

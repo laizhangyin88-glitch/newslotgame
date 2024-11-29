@@ -34,7 +34,6 @@ namespace NodeCanvas.Tasks.Actions
                 if(list.Count > 0 && list.Count > index)
                 {
                     intVariable.value = list[index];
-                    Debug.LogError(intVariable.value);
                     index++;
                 }
             }
