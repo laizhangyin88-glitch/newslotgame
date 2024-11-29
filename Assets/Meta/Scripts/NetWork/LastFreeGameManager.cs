@@ -213,6 +213,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
     bool isStartLastFreeSpin = false;
     private IEnumerator StartLastFreeSpin()
     {
+        if (historyRes.Count <= 0) yield break;
         isStartLastFreeSpin = true;
         // 获取第一包spin的数据
         FreeSpinInfo = new FirstSpinInfo(historyRes);
@@ -470,12 +471,8 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
         else if (globalStore.nowGameID == 83)
         {
-            if (historyRes.Count > 1)
-            {
-                FreeSpinInfo = new FirstSpinInfo(historyRes); 
-            }
-            EventSender.SendGlobalEvent("OnCustomEvent", new EventData($"Click{5 - FreeSpinInfo.SelectedIndex}"));
-
+            int selecIndex = GetSelectIndex(); 
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData($"Click{5 - selecIndex}"));
             //From:whh - 2024年9月12日
             //补充免费游戏中弹出小游戏的断线重连逻辑
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClick"));
@@ -517,6 +514,22 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                 }
             }
         }
+    }
+
+    private int GetSelectIndex()
+    {
+        string pattern = "\"selected_index\":\\s*(\\d+)";
+        for (int i = 0; i < historyRes.Count; i++)
+        {
+            Match match = Regex.Match(historyRes[i], pattern);
+            if (match.Success)
+            {
+                string str = match.Groups[1].Value;
+                int value = int.Parse(str);
+                return value;
+            }
+        }
+        return 0;
     }
 
     public int Get142GameExtraBetIndex()
@@ -638,7 +651,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             if (isFirstData && globalStore.nowGameID == 103)    ///NIGHTS_OF_BINGO     id：103 游戏断线重连的时候，需要设置滚轮表的序号
             {
                 isFirstData = false;
-                GlobalReelStrips.Instance.index = dataDict["contents"]["reel_set_index"]["current_index"].AsInt;
+                GlobalReelStrips.Instance.index = dataDict["data"]["contents"]["reel_set_index"]["current_index"].AsInt;
             }
             if (historyRes.Count == 0) //最后一局不放慢
             {
@@ -914,6 +927,7 @@ public class FirstSpinInfo
 
         return ret;
     }
+
     private void GetFirstSpinInfo(string spin)
     {
         //From:whh - 2024年9月19日
