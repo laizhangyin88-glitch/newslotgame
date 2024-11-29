@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum SettingButtonType
 {
@@ -34,6 +35,7 @@ public class BackgroundManagerMainViewController : MonoBehaviour
     private GameObject selectItem;
     private List<MainItemController> mainItemControllers = new List<MainItemController>();
     private SettingButtonType settingButtonType;
+    private Button testBtn;
 
     private void Awake()
     {
@@ -43,28 +45,16 @@ public class BackgroundManagerMainViewController : MonoBehaviour
 
     private void Start()
     {
-        OpenBackgroundManager.OpenView("lobby0", "NumericKeypadView", PopupManager.Instance.BackgroundSetting);
         settingButtonType = SettingButtonType.None;
+        testBtn = transform.Find("TestButton").GetComponent<Button>();
         content = transform.Find("ScrollView/Viewport/Content");
         selectItem = transform.Find("SelectItem").gameObject;
         InitMainItemList();
     }
 
-    private void TestInterface()
+    private void OnClickTestBtn()
     {
-        Dictionary<string, object> req = new Dictionary<string, object>
-        {
-            {"method", "test"},
-            {"params", "params Info" },
-        };
-        NetManager.Instance.Post(RPCName.user_php_interface, req, (res) =>
-        {
-
-        },
-        (error) =>
-        {
-
-        });
+        AndroidSystemHelper.Instance.ScreenFlip();
     }
 
     private void InitMainItemList()

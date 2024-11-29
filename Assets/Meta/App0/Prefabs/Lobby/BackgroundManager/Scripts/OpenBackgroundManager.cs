@@ -36,14 +36,19 @@ public class OpenBackgroundManager : MonoBehaviour
 
     private void OpenBackgroundManagerMainView()
     {
-        var lobbyController = FindObjectOfType<LobbyController>();
-        if (lobbyController == null) { return; }
+        //var lobbyController = FindObjectOfType<LobbyController>();
+        //if (lobbyController == null) { return; }
         BackgroundManagerMainViewController backgroundManagerMainViewController = FindObjectOfType<BackgroundManagerMainViewController>();
         if (backgroundManagerMainViewController != null)
         {
             return;
         }
-        OpenView("lobby0", "BackgroundManagerMainView", PopupManager.Instance.BackgroundSetting);
+        NumericKeypadController numericKeypadController = FindObjectOfType<NumericKeypadController>();
+        if (numericKeypadController != null)
+        {
+            return;
+        }
+        OpenView("lobby0", "NumericKeypadView", PopupManager.Instance.BackgroundSetting);
     }
 
     public static GameObject OpenView(string bundleName, string assetName, Transform parent = null)
