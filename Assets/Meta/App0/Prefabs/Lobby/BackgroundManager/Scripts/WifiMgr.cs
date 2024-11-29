@@ -29,7 +29,7 @@ public class WifiMgr : MonoSingleton<WifiMgr>
         int len = nativeObject.Call<int>("getWifiListSize");
 
 #if UNITY_EDITOR
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 1500; i++)
         {
             list.Add("test wifi" + i);
         }
