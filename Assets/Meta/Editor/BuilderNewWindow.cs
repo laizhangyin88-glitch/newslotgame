@@ -283,7 +283,7 @@ public class BuilderNewWindow : OdinEditorWindow
     protected void GenAb()
     {
         BuildTargetGroup group = BuilderNew.ConvertBuildTarget(TargetPlaform);
-        Builder.Build_Assetbundle(TargetPlaform, group, null, true, true, null);
+        Builder.Build_Assetbundle(TargetPlaform, group, null, false, true, null);
 
         //备份
         string version = ApplicationSettings.Instance.libVersion;
