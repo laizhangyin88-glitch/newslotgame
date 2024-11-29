@@ -6,18 +6,41 @@ using UnityEngine.UI;
 using SimpleJSON;
 using System.Security.Cryptography;
 using System.Text;
+using SlotMaker;
+
+public enum RoleType
+{
+    None,
+    service,
+    manager,
+    boss,
+}
 
 public class NumericKeypadController : MonoBehaviour
 {
     private TextMeshProUGUI _InputTxt;
     private string password;
     private Button confirmBtn;
+    private Transform errorContent;
+    private Button ErrorBtn;
+    private Button CloseBtn;
+    private string token;
+    private static RoleType roleType = RoleType.None;
+    private TextMeshProUGUI ErrorTipsTxt;
+    public static RoleType RoleType { get => roleType; set => roleType = value; }
 
     private void Start()
     {
         password = "";
+        CloseBtn = transform.Find("content/ButtonClose").GetComponent<Button>();
+        CloseBtn.onClick.AddListener(OnClickCloseBtn);
         _InputTxt = transform.Find("content/bg/InputTxt").GetComponent<TextMeshProUGUI>();
         confirmBtn = transform.Find("content/BtnConfirm").GetComponent<Button>();
+        errorContent = transform.Find("Error");
+        ErrorBtn = errorContent.transform.Find("content/ErrorButton").GetComponent<Button>();
+        ErrorTipsTxt = errorContent.transform.Find("content/ErrorTipsTxt").GetComponent<TextMeshProUGUI>();
+        ErrorBtn.onClick.AddListener(() => { errorContent.gameObject.SetActive(false); });
+        errorContent.gameObject.SetActive(false);
         _InputTxt.text = "";
         Transform btns = transform.Find("content/Btns");
         for (int i = 0; i < btns.childCount; i++)
@@ -45,6 +68,11 @@ public class NumericKeypadController : MonoBehaviour
             });
         }
         confirmBtn.onClick.AddListener(SendCheckPassword);
+    }
+
+    private void OnClickCloseBtn()
+    {
+        Destroy(gameObject);
     }
 
     private void OnClickButton(int index)
@@ -76,8 +104,10 @@ public class NumericKeypadController : MonoBehaviour
 
     private void InputCancle()
     {
-        Destroy(BackgroundManagerMainViewController.Instance.gameObject);
-        Destroy(gameObject);
+        //Destroy(BackgroundManagerMainViewController.Instance.gameObject);
+        //Destroy(gameObject);
+        _InputTxt.text = "";
+        password = "";
     }
 
     private void InputDeleted()
@@ -94,11 +124,6 @@ public class NumericKeypadController : MonoBehaviour
     {
         password += index.ToString();
         _InputTxt.text = password;
-        //if(password.Length >= 8)
-        //{
-        //    //Destroy(gameObject);
-        //    SendCheckPassword();
-        //}
     }
 
 
@@ -112,15 +137,56 @@ public class NumericKeypadController : MonoBehaviour
             JSONNode param = JSONNode.Parse("{}");
             param["password"] = passwordMD5;
             data["params"] = param;
-            //JSONNode data = JSONNode.Parse("{\"method\":\"test\",\"params\":{\"p1\":\"v1\",\"p2\": \"v2\",\"p3\": \"v3\"}}");
-
             NetManager.Instance.Post(RPCName.user_php_interface, data, (res) =>
             {
-                Debug.LogError(res);
+                JSONNode node = JSONNode.Parse(res.ToString());
+                JSONNode data = node["response_data"];
+                if (data != null)
+                {
+                    if (data.HasKey("totalTry"))
+                    {
+                        errorContent.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        if (data.HasKey("role"))
+                        {
+                            string role = data["role"];
+                            token = data["token"];
+                            switch (role)
+                            {
+                                case "service":
+                                    RoleType = RoleType.service;
+                                    break;
+                                case "manager":
+                                    RoleType = RoleType.manager;
+                                    break;
+                                case "boss":
+                                    RoleType = RoleType.boss;
+                                    break;
+                            }
+                        }
+                        OnClickCloseBtn();
+                        OpenBackgroundManager.OpenView("lobby0", "BackgroundManagerMainView", PopupManager.Instance.BackgroundSetting);
+                    }
+                }
             },
             (error) =>
             {
-                Debug.LogError(error);
+                JSONNode node = JSONNode.Parse(error.response);
+                JSONNode data = node["response_data"];
+                if (data != null)
+                {
+                    if (data.HasKey("totalTry") || data.HasKey("wait"))
+                    {
+                        errorContent.gameObject.SetActive(true);
+                        ErrorTipsTxt.text = string.Format("Error Password ! (<color=red>{0}/{1}</color>)", data["tryTimes"], data["totalTry"]);
+                        if (data.HasKey("wait"))
+                        {
+                            ErrorTipsTxt.text = "Please Wait <color=red>" + data["wait"] + "</color> seconds!";
+                        }
+                    }
+                }
             });
         }
     }
