@@ -1734,6 +1734,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 160:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Popup/Free Game Trigger Popup");
                 break;
+            case 168:
+                obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Midground/Result/Button");
+                break;
             case 171:
                 obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Base Separated SM");
                 break;
@@ -1902,6 +1905,9 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 160:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClosedTriggerPopup"));
+                break;
+            case 168:
+                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("ClosedPopup"));
                 break;
             case 171:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartReSpin")); //免费游戏开始界面、免费游戏结算界面
