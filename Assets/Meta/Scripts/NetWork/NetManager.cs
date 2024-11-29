@@ -356,7 +356,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
             if (rpcName == "ping" || rpcName == "meta_info")
             {
-                Debug.Log($"== 发送上行数据 ：{buf}");
+                //Debug.Log($"== 发送上行数据 ：{buf}");
             }
             else
             {
@@ -767,7 +767,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
             if (dataDict["protocol_key"] == "ping" || dataDict["protocol_key"] == "meta_info")
             {
-                Debug.Log($"== 接受收到下行数据 ：{evt}");
+                //Debug.Log($"== 接受收到下行数据 ：{evt}");
             }
             else
             {
@@ -850,12 +850,57 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                         BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "LobbyJackpotScore", jackpotsScore);
                     }
                 }
+                #region 添加打印凭证信息缓存
+                if (data.HasKey("amounts_preset_list"))
+                {
+                    var list = data["amounts_preset_list"];
+                    List<long> temp = new List<long>();
+                    for (global::System.Int32 i = 0; i < list.Count; i++)
+                    {
+                        long t = long.Parse(list[i]);
+                        temp.Add(t);
+                    }
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "AmountsPresetList", temp);
+                }
+                if (data.HasKey("company_name"))
+                {
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "CompanyName", data["company_name"].ToString().Replace("\"", ""));
+                }
+                if (data.HasKey("company_address"))
+                {
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "CompanyAddress", data["company_address"].ToString().Replace("\"", ""));
+                }
+                if (data.HasKey("company_email"))
+                {
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "CompanyEmail", data["company_email"].ToString().Replace("\"", ""));
+                }
+                if (data.HasKey("telephone"))
+                {
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "telephone", data["telephone"].ToString().Replace("\"", ""));
+                }
+                #endregion
 
+                #region 添加时区信息
+                if (data.HasKey("timezone"))
+                {
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "timezone", data["timezone"].ToString());
+                }
+                if (data.HasKey("timezone_offset"))
+                {
+                    BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "timezone_offset", data["timezone_offset"].AsInt);
+                }
+                #endregion
                 if (data.HasKey("level"))
                     NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserLevel, data["level"].AsInt);
 
                 if (data.HasKey("profile_url"))
                     NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserProfileUrl, data["profile_url"].Value);
+
+                if (data.HasKey("user_name"))
+                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserAccount, data["user_name"].Value);
+
+                if (data.HasKey("agent_id"))
+                    NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserAgent, data["agent_id"].Value);
 
                 if (this._state == NetNodeState.Checking) //断线重连
                 {
@@ -975,6 +1020,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     MainBlackboard.Get().SetValue("collectList", collectList);
                 }
 
+                //公告
                 if (data.HasKey("agent_notice"))
                 {
                     var noticeNode = data["agent_notice"];
@@ -1007,8 +1053,33 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     }
                 }
 
+                //头像
                 if (data.HasKey("profile_pictures"))
                     NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_ProfilePictures, data["profile_pictures"]);
+
+                //断线前彩金
+                if (data.HasKey("offline_msg_list"))
+                {
+                    SimpleJSON.JSONArray array = data["offline_msg_list"].AsArray;
+                    if (array != null && array.Count > 0)
+                    {
+                        foreach (var item in array)
+                        {
+                            SimpleJSON.JSONNode jackpotUserData = item.Value["user_data"];
+
+                            WinResult winResult = new WinResult
+                            {
+                                user_id = jackpotUserData["user_id"],
+                                nick_name = jackpotUserData["nick_name"],
+                                single_reward = (int)((float)item.Value["earn_money"] * 100),
+                                bonus_id = item.Value["jackpot_id"]
+                            };
+                            //BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "winLobbyJackpotResult", winResult);
+                            //BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isWinLobbyJackpot", true);
+                            LobbyJackpotManager.Instance.AddJackpot(winResult);
+                        }
+                    }
+                }    
 
                 break;
             case RPCName.enterGame://进入子游戏
@@ -1068,12 +1139,12 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 break;
             case RPCName.gameBonusResult:
                 int offset = MainBlackboard.Get().GetValue<int>("OutCreditRate");
-                if (data["data"].HasKey("remain_jackpot_list"))
+                if (data.HasKey("remain_jackpot_list"))
                 {
                     List<int> jackpotsScore = new List<int>();
-                    for (int i = 0; i < data["data"]["remain_jackpot_list"].Count; i++)
+                    for (int i = 0; i < data["remain_jackpot_list"].Count; i++)
                     {
-                        double tempData = (double)data["data"]["remain_jackpot_list"][i] * offset;
+                        double tempData = (double)data["remain_jackpot_list"][i] * offset;
                         string str = tempData.ToString();
                         str = str.Split('.')[0];
                         jackpotsScore.Add(int.Parse(str));
@@ -1082,35 +1153,24 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "LobbyJackpotScore", jackpotsScore);
                 }
 
-                MessageDispatcher.Dispatch("UpdateJackpot", new EventData<JSONNode>("UpdateJackpot", data["data"]));
+                MessageDispatcher.Dispatch("UpdateJackpot", new EventData<JSONNode>("UpdateJackpot", data));
                 string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
-                if (data["data"].HasKey("winner_user_id"))
+                if (data.HasKey("winner_user_id"))
                 {
-                    var winnerId = data["data"]["winner_user_id"];
-                    if (winnerId != 0)
+                    var winnerId = data["winner_user_id"];
+                    if (winnerId == userId)
                     {
                         WinResult winResult = new WinResult
                         {
                             user_id = winnerId.ToString(),
-                            nick_name = data["data"]["winner_nick_name"],
-                            single_reward = (int)((float)data["data"]["earn_money"] * 100),
-                            bonus_id = data["data"]["jackpot_id"]
+                            nick_name = data["winner_nick_name"],
+                            single_reward = (int)((float)data["earn_money"] * 100),
+                            bonus_id = data["jackpot_id"]
                         };
-                        BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "winLobbyJackpotResult", winResult);
-                    }
+                        LobbyJackpotManager.Instance.AddJackpot(winResult);
 
-                    if (winnerId == userId)
-                    {
-                        if (BlackboardQueryUtils.IsSpin())
-                            BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "isWinLobbyJackpot", true);
-                        else
-                        {
-                            var sceneInfo = AssetBundleManager.LoadAsset<SceneInfoObject>(MetaStringDefine.LOBBY_BUNDLE_NAME, "Popup Win Lobby Jackpot Scene").GetSceneInfo();
-                            var parent = GameObject.Find("Popup Manager/Area");
-                            var sceneObj = SceneManager.LoadScene(parent.transform, sceneInfo);
-                            PopupManager.Instance.Open(sceneObj);
-                            sceneObj.SetActive(true);
-                        }
+                        if (BlackboardQueryUtils.IsSpin() == false)
+                            LobbyJackpotManager.Instance.OpenJackpotPop();
                     }
                 }
                 break;

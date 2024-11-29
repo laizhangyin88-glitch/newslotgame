@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
 using SlotMaker;
-using BagelCode.ClientModels;
 
 namespace BagelCode
 {

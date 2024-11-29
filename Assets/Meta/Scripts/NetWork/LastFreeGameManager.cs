@@ -36,7 +36,12 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
     }*/
 
-    void Start() { }
+    private LoginMaskController _loginMaskController;
+
+    void Start()
+    {
+        _loginMaskController = FindObjectOfType<LoginMaskController>();
+    }
 
 
     Dictionary<int, List<string>> test_his = new Dictionary<int, List<string>>
@@ -141,8 +146,6 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             if (MachineSelectManager.Instance.IsNodeMiniGame())
                 Debug.LogError("NodeMiniGame");
         }
-
-
         if (globalStore.nowGameID != -1 && _isLastGameSpin)
         {
 
@@ -210,9 +213,8 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
     bool isStartLastFreeSpin = false;
     private IEnumerator StartLastFreeSpin()
     {
+        if (historyRes.Count <= 0) yield break;
         isStartLastFreeSpin = true;
-
-
         // 获取第一包spin的数据
         FreeSpinInfo = new FirstSpinInfo(historyRes);
 
@@ -228,7 +230,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         while (IGBC == null)
         {
             IGBC = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Bet")?.GetComponent<InGameBetController>();
-            if (IGBC == null) 
+            if (IGBC == null)
             {
                 IGBC = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Left/Bet")?.GetComponent<InGameBetController>();///竖屏游戏的bet路径
             }
@@ -249,30 +251,33 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
 
 
         //设置Spin按钮Auto状态
-        SpinButton SpinBtn = null;
-        while (SpinBtn == null)
-        {
-            SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Button Spin")?.GetComponent<SpinButton>();
-            if (SpinBtn == null)
-            {
-                SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Center/Button Spin")?.GetComponent<SpinButton>();///竖屏游戏的spinbutton路径
-            }
-            yield return new WaitForSeconds(0.5f);
-        }
+        //SpinButton SpinBtn = null;
+        //while (SpinBtn == null)
+        //{
+        //    SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Button Spin")?.GetComponent<SpinButton>();
+        //    if (SpinBtn == null)
+        //    {
+        //        SpinBtn = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Center/Button Spin")?.GetComponent<SpinButton>();///竖屏游戏的spinbutton路径
+        //    }
+        //    yield return new WaitForSeconds(0.5f);
+        //}
         /*if (SpinBtn == null)
         {
             isStartLastFreeSpin = false;
             yield break;
         }*/
+        ///设置为自动 spin
 
 
-        while (SpinBtn.GetSpinButtonState() != NextSpinState.ToStopAuto)
-        {
-            MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 1));
-            yield return new WaitForSeconds(1f);
-            MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 0));
-            yield return new WaitForSeconds(1f);
-        }
+        //while (SpinBtn.GetSpinButtonState() != NextSpinState.ToStopAuto)
+        ////{
+        //MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 1));
+        //yield return new WaitForSeconds(1f);
+        //MessageDispatcher.Dispatch(MetaEventDefine.ON_META_UI_EVENT, new EventData<int>(MachineEventDefine.ON_KEY_START, 0));
+        //yield return new WaitForSeconds(1f);
+        ////}
+        //MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));
+        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", true);
     }
     /// <summary>
     /// 获取额外押注的金额
@@ -344,6 +349,11 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                 int selectType = selectIndexList[selectTypeCurrentIndex] % 52;
                 string eventName = selectType >= 26 ? "HighClicked" : "LowClicked";
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData(eventName));
+                break;
+            case 35:
+                    EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("GemClicked"));
+                    EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinishFirebolt"));
+                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
                 break;
             default:
                 break;
@@ -448,12 +458,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("OnClick", 0, 1));
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
         }
-        else if (globalStore.nowGameID == 35)
-        {
-            EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData("GemClicked"));
-            EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("FinishFirebolt"));
-            EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnStartFreeSpin"));
-        }
+        
         else if (globalStore.nowGameID == 128)
         {
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("StartClosePopup"));
@@ -466,8 +471,8 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
         else if (globalStore.nowGameID == 83)
         {
-            EventSender.SendGlobalEvent("OnCustomEvent", new EventData($"Click{5 - FreeSpinInfo.SelectedIndex}"));
-
+            int selecIndex = GetSelectIndex(); 
+            EventSender.SendGlobalEvent("OnCustomEvent", new EventData($"Click{5 - selecIndex}"));
             //From:whh - 2024年9月12日
             //补充免费游戏中弹出小游戏的断线重连逻辑
             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnClick"));
@@ -509,6 +514,22 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                 }
             }
         }
+    }
+
+    private int GetSelectIndex()
+    {
+        string pattern = "\"selected_index\":\\s*(\\d+)";
+        for (int i = 0; i < historyRes.Count; i++)
+        {
+            Match match = Regex.Match(historyRes[i], pattern);
+            if (match.Success)
+            {
+                string str = match.Groups[1].Value;
+                int value = int.Parse(str);
+                return value;
+            }
+        }
+        return 0;
     }
 
     public int Get142GameExtraBetIndex()
@@ -601,17 +622,37 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         StartCoroutine(_getResponseData(rpc, responseCallback));
     }
 
-
+    /// <summary>
+    /// 标记是否是断线重连的第一条数据
+    /// </summary>
+    private bool isFirstData = true;
     private IEnumerator _getResponseData(string rpc, Action<JSONNode> responseCallback)
     {
         yield return new WaitForSeconds(0.2f);
-
+        MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));///置灰操作按钮
+        if (_loginMaskController == null)
+        {
+            _loginMaskController = FindObjectOfType<LoginMaskController>();    
+        }
+        if (_loginMaskController != null)
+        {
+            _loginMaskController.SetSliderTotal(historyRes.Count);
+        }
         if (responseCallback != null)
         {
             string res = historyRes[0];
-            Debug.Log($"【LastFreeSpin】 : {rpc} = {res}");
+            Debug.Log($"==@【LastFreeSpin】 : {rpc} = {res}");
             SimpleJSON.JSONNode dataDict = SimpleJSON.JSONNode.Parse(res);
             historyRes.RemoveAt(0);
+            if (_loginMaskController != null)
+            {
+                _loginMaskController.AddSliderValue();
+            }
+            if (isFirstData && globalStore.nowGameID == 103)    ///NIGHTS_OF_BINGO     id：103 游戏断线重连的时候，需要设置滚轮表的序号
+            {
+                isFirstData = false;
+                GlobalReelStrips.Instance.index = dataDict["data"]["contents"]["reel_set_index"]["current_index"].AsInt;
+            }
             if (historyRes.Count == 0) //最后一局不放慢
             {
                 Time.timeScale = 1;
@@ -620,6 +661,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                 //断线重连后恢复autoSpin，避免进行非玩家意愿的spin
                 BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", false);
                 isLastGameSpin = false;
+                FinishEvent();
                 EventSender.SendGlobalEvent("OnCloseLoginMaskPop");
 
                 //恢复声音
@@ -634,6 +676,18 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
     }
 
+    private void FinishEvent()
+    {
+        switch (globalStore.nowGameID)
+        {
+            case 152:
+                EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("SubSymbolMechanicsDone")); 
+                break;
+            default:
+                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Finalize"));
+                break;
+        }
+    }
 
     private void Clear()
     {
@@ -696,9 +750,120 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             yield return new WaitUntil(() => isNext);
         }
         isLastGameSpin = true;
+        
+        if (_loginMaskController != null)
+        {
+            _loginMaskController.SetSliderTotal(historyRes.Count - 1);
+        }
+    }
+    /// <summary>
+    /// 获取game id 52 的小游戏类型
+    /// </summary>
+    /// <returns></returns>
+    public int GetGame52ClaimType()
+    {
+        string pattern = "\"bonus_id\":\\s*(\\d+)";
+        //Match match = Regex.Match(spin, pattern)
+        for (int i = 0; i < historyRes.Count; i++)
+        {
+            string response = historyRes[i];
+            if (response.Contains("claim_bonus"))
+            {
+                Match match = Regex.Match(response, pattern);
+                if (match.Success)
+                {
+                    string str = match.Groups[1].Value;
+                    int index = int.Parse(str);
+                    switch(index)
+                    {
+                        case 5201:
+                            return 0;
+                        case 5202:
+                            return 1;
+                        case 5203:
+                            return 2;
+                        case 5204:
+                            return 3;
+                    }
+                }
+            }
+            //Match match = Regex.Match(spin, pattern);
+        }
+        return -1;
+    }
+
+    /// <summary>
+    /// 获取 game id 52 中 Potions Bonus 小游戏的操作结果
+    /// </summary>
+    /// <returns></returns>
+    public bool GetGame52PotionsBonusResult()
+    {
+        string pattern = "\"potion_value\":\\s*(\\d+)";
+        for (int i = 0; i < historyRes.Count; i++)
+        {
+            string response = historyRes[i];
+            if (response.Contains("claim_bonus"))
+            {
+                Match match = Regex.Match(response, pattern);
+                if (match.Success)
+                {
+                    string str = match.Groups[1].Value;
+                    int index = int.Parse(str);
+                    return index > 0;
+                }
+            }
+            //Match match = Regex.Match(spin, pattern);
+        }
+        return false;
+    }
+
+    public bool GetGame52IsSuccess()
+    {
+        string pattern = "\"earn_credit\":\\s*(\\d+)";
+        for (int i = 0; i < historyRes.Count; i++)
+        {
+            string response = historyRes[i];
+            if (response.Contains("claim_bonus"))
+            {
+                Match match = Regex.Match(response, pattern);
+                if (match.Success)
+                {
+                    string str = match.Groups[1].Value;
+                    long earn_credit = long.Parse(str);
+                    long bet = BlackboardUtils.FindVariable<long>("./totalBetCredit").value;
+                    return earn_credit > bet;
+                }
+            }
+            //Match match = Regex.Match(spin, pattern);
+        }
+        return false;
     }
 
 
+    private List<int> KenoIndexList = new List<int>();
+    public List<int> GetKENOIndeices()
+    {
+        if (KenoIndexList.Count == 0)
+        {
+            if (historyRes.Count > 0)
+            {
+                JSONNode node = JSONNode.Parse(historyRes[0]);
+                if (node != null)
+                {
+                    JSONNode data = node["data"];
+                    JSONNode contents = data["contents"];
+                    JSONNode win_result = contents["win_result"][0];
+                    JSONNode listNode = win_result["pick_info"];
+                    for (int j = 0; j < listNode.Count; j++)
+                    {
+                        KenoIndexList.Add(listNode[j].AsInt);
+                    }
+                }
+            }
+        }
+
+        return KenoIndexList;
+    }
 }
 
 /// <summary>
@@ -710,7 +875,10 @@ public class FirstSpinInfo
     {
         historyJsonRes = ParseHistory(historyRes);
         GetFirstSpinInfo(historyRes[0]);
-        GetSecondClaimInfo(historyRes[1]);
+        if (historyRes.Count > 1)
+        {
+            GetSecondClaimInfo(historyRes[1]); 
+        }
         SelectTypeList = GetSelectIndexList(historyJsonRes);
     }
 
@@ -734,6 +902,9 @@ public class FirstSpinInfo
     /// <summary>
     /// 免费游戏前的选择索引（可通用）
     /// </summary>
+    /// <remarks>
+    /// 断线重连中第二条协议，claim中ClientDataD的SelectedIndex
+    /// </remarks>
     public int SelectedIndex { get; private set; }
 
     public List<int> SelectTypeList { get; private set; }
@@ -756,6 +927,7 @@ public class FirstSpinInfo
 
         return ret;
     }
+
     private void GetFirstSpinInfo(string spin)
     {
         //From:whh - 2024年9月19日
@@ -763,7 +935,7 @@ public class FirstSpinInfo
         //之前的逻辑是根据游戏id来做逻辑分支
         //为免以后再出现类似问题，直接优化逻辑如下
 
-        ///string pattern = "\"bet_credit\":\\s*(\\d+)";
+        ///string patternBank = "\"bet_credit\":\\s*(\\d+)";
         ///获取下注金额统一使用  bet  来识别，因为 bet_credit 这个数值会包含 额外下注的金额，数值不正确的
         string pattern = "\"bet\":\\s*(\\d+)";
         Match match = Regex.Match(spin, pattern);
@@ -772,6 +944,17 @@ public class FirstSpinInfo
             string str = match.Groups[1].Value;
             betCredit = long.Parse(str);
             match = match.NextMatch();
+        }
+        if(betCredit <= 0)  ///基诺类型的游戏的押注字段
+        {
+            string pattern1 = "\"bet_per_ticket\":\\s*(\\d+)";
+            Match match1 = Regex.Match(spin, pattern1);
+            while (match1.Success)
+            {
+                string str = match1.Groups[1].Value;
+                betCredit = long.Parse(str);
+                match1 = match1.NextMatch();
+            }
         }
         ////获取额外下注金额 
         pattern = "\"extra_bet\":\\s*(\\d+)";
