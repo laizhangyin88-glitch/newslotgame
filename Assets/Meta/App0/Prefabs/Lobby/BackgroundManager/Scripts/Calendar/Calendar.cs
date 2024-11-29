@@ -493,7 +493,7 @@ namespace SpringGUI
             CurrentDateTime = dateTime;
             if (!isInit)
             {
-                if (dateTime.Day == DateTime.Now.Day)
+                if (dateTime.Day == DateTime.Now.Day && fontColor != Color.gray) 
                 {
                     SetColor(new Color(1, 0, 1, 1));
                 }
