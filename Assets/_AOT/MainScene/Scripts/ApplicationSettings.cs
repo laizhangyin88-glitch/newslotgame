@@ -93,7 +93,7 @@ namespace SlotMaker
         //移除的静态ab：club
         [Title("静态ab资源，定位ab包时会添加ApplicationType后缀，打包时会直接copy到StreamingAssets")]
         public List<string> streamingAssets = new List<string>();
-        //移除的静态ab：lks，clubintro，metapogbooster，models，epicalbum，coinbooster，gembooster，captainscall
+        //移除的静态ab：lks，clubintro，metapogbooster，epicalbum，coinbooster，gembooster，captainscall
         [Title("静态ab资源，打包时会直接copy到StreamingAssets")]
         public List<string> staticStreamingAssets = new List<string>();
         [Title("机台特有的静态ab资源，打机台包时会直接copy到StreamingAssets")]
