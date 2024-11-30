@@ -46,7 +46,7 @@ public class MainItemController : MonoBehaviour
                 ShowErrorPopup("Not Yet Open");
                 break;
             case SettingButtonType.Settings:
-                OpenBackgroundManager.OpenView("lobby0", "SettingView", PopupManager.Instance.BackgroundSetting);
+                OpenBackgroundManager.OpenView("lobby0", "BackgroundSettingView", PopupManager.Instance.BackgroundSetting);
                 break;
             case SettingButtonType.InputTest:
                 OpenBackgroundManager.OpenView("lobby0", "InputKeyTestView", PopupManager.Instance.BackgroundSetting);
