@@ -273,7 +273,6 @@ namespace BagelCode
 
         public void SlotClaimBonus(string claimId, object customData, Action successCallback, Action errorCallback)
         {
-
 #if NEW_NET
 
             if (TestManager.Instance.isTestClaimBonus)
