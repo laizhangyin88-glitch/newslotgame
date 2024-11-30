@@ -28,7 +28,7 @@ public class BackgroundManagerMainViewController : MonoBehaviour
         SettingButtonType.GameInformation,
         SettingButtonType.BusinessRecord,
         SettingButtonType.EventRecord,
-        SettingButtonType.Settings,
+        //SettingButtonType.Settings,
     };
 
     private Transform content;
