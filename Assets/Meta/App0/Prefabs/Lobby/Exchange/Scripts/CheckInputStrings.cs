@@ -83,6 +83,11 @@ public class CheckInputStrings : MonoBehaviour
 
     private void Update()
     {
+        BackgroundManagerMainViewController backgroundManagerMainViewController = FindObjectOfType<BackgroundManagerMainViewController>();
+        if(backgroundManagerMainViewController != null)
+        {
+            return;
+        }
         lobbyController = FindObjectOfType<LobbyController>();
         if(lobbyController == null)
         {
