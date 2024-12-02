@@ -23,11 +23,12 @@ public enum SettingButtonType
 public class BackgroundManagerMainViewController : MonoBehaviour
 {
     public static BackgroundManagerMainViewController Instance { get; private set; }
-    public List<SettingButtonType> unOpen = new List<SettingButtonType>()
+
+    private List<SettingButtonType> unOpen = new List<SettingButtonType>()
     {
         SettingButtonType.GameInformation,
         SettingButtonType.BusinessRecord,
-        SettingButtonType.EventRecord,
+        SettingButtonType.EventRecord, 
         //SettingButtonType.Settings,
     };
 
@@ -35,7 +36,6 @@ public class BackgroundManagerMainViewController : MonoBehaviour
     private GameObject selectItem;
     private List<MainItemController> mainItemControllers = new List<MainItemController>();
     private SettingButtonType settingButtonType;
-    private Button testBtn;
 
     private void Awake()
     {
@@ -46,15 +46,9 @@ public class BackgroundManagerMainViewController : MonoBehaviour
     private void Start()
     {
         settingButtonType = SettingButtonType.None;
-        testBtn = transform.Find("TestButton").GetComponent<Button>();
         content = transform.Find("ScrollView/Viewport/Content");
         selectItem = transform.Find("SelectItem").gameObject;
         InitMainItemList();
-    }
-
-    private void OnClickTestBtn()
-    {
-        AndroidSystemHelper.Instance.ScreenFlip();
     }
 
     private void InitMainItemList()
