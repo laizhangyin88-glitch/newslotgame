@@ -38,9 +38,11 @@ namespace SlotMaker
 
         private string[] NewLoginUrlList => new string[]
         {
-            @"http://8.138.117.128:7502",//机台默认
-            @"thkk.cfkj88.com",
-            @"mars.cfkj88.com"
+            "http://8.138.117.128:7502",//机台默认
+            "thkk.cfkj88.com",
+            "mars.cfkj88.com",
+            "list.kiiingspiiin.com",
+            "list.playmarsfortunes.com"
         };
 
         private string[] BundleUrlList => new string[]
