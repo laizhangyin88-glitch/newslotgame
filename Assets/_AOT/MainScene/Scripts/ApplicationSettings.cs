@@ -47,16 +47,16 @@ namespace SlotMaker
 
         private string[] BundleUrlList => new string[]
         {
-            @"http://8.138.140.180:8124/AssetBundlesNew/",
-            @"http://res.kiiingspiiin.com/AssetBundles/",
-            @"http://res.playmarsfortunes.com/AssetBundles/"
+            "http://8.138.140.180:8124/AssetBundlesNew/",//测试-广州
+            "http://res.kiiingspiiin.com/AssetBundles/",//k3k正式-阿里OSS-美国
+            "http://res.playmarsfortunes.com/AssetBundles/"//换皮正式-阿里OSS-美国
         };
 
         private string[] LibUrlList => new string[]
         {
             @"http://8.138.140.180:8124/Lib/",
             @"http://res.kiiingspiiin.com/Lib/",
-            @"http://res.playmarsfortunes.com/Lib"
+            @"http://res.playmarsfortunes.com/Lib/"
         };
 
         [Title("打包设置")]
