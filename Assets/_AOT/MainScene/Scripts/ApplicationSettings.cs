@@ -30,6 +30,33 @@ namespace SlotMaker
     [CreateAssetMenu(fileName = "ApplicationSettings", menuName = "SlotMaker/ScriptableObject/ApplicationSettings")]
     public partial class ApplicationSettings : ScriptableObjectSingleton<ApplicationSettings>
     {
+        private IEnumerable<string> AutoUrlList => new string[]
+        {
+            "http://8.138.117.128:9981/get_config?key=myApplication.home_show_url",
+            "http://8.138.117.128:9981/get_config?key=myApplication.huanpi_logic_url"
+        };
+
+        private string[] NewLoginUrlList => new string[]
+        {
+            @"http://8.138.117.128:7502",//机台默认
+            @"thkk.cfkj88.com",
+            @"mars.cfkj88.com"
+        };
+
+        private string[] BundleUrlList => new string[]
+        {
+            @"http://8.138.140.180:8124/AssetBundlesNew/",
+            @"http://res.kiiingspiiin.com/AssetBundles/",
+            @"http://res.playmarsfortunes.com/AssetBundles/"
+        };
+
+        private string[] LibUrlList => new string[]
+        {
+            @"http://8.138.140.180:8124/Lib/",
+            @"http://res.kiiingspiiin.com/Lib/",
+            @"http://res.playmarsfortunes.com/Lib"
+        };
+
         [Title("打包设置")]
         public int applicationType;
         public string clientVersion;
@@ -39,24 +66,26 @@ namespace SlotMaker
 
         [Title("服务器&CDN")]
 
-        [Tooltip("服务器链接关键字")]
+        [Tooltip("服务器链接关键字"), ValueDropdown(nameof(AutoUrlList), AppendNextDrawer = true, FlattenTreeView = true)]
         public string autoUrl;
         [Tooltip("遺留字段，參見InitBaseURL")]
         public string apiUrl;
         public string loginUrl;
+        [ValueDropdown(nameof(NewLoginUrlList), AppendNextDrawer = true, FlattenTreeView = true)]
         public string newLoginUrlApp;
+        [ValueDropdown(nameof(NewLoginUrlList), AppendNextDrawer = true, FlattenTreeView = true)]
         public string newLoginUrlMechine;
         [Tooltip("遺留字段，參見chattingApiUrl")]
         public string chattingApiUrl;
         [Space]
         [Tooltip("ab包在本地StreamingAssets中的路径，示例bundles")]
         public string bundlePath;
-        [Tooltip("ab包网络base地址，示例http://8.138.140.180:8124/AssetBundles/")]
+        [Tooltip("ab包网络base地址，示例http://8.138.140.180:8124/AssetBundles/"), ValueDropdown(nameof(BundleUrlList), AppendNextDrawer = true, FlattenTreeView = true)]
         public string bundleUrl;
         [Space]
         [Tooltip("热更dll在本地StreamingAssets中的路径，示例Lib")]
         public string libPath;
-        [Tooltip("热更lib网络base地址, 示例http://8.138.140.180:8124/Lib/")]
+        [Tooltip("热更lib网络base地址, 示例http://8.138.140.180:8124/Lib/"), ValueDropdown(nameof(LibUrlList), AppendNextDrawer = true, FlattenTreeView = true)]
         public string libUrl;
 
         [Title("网络设置")]
