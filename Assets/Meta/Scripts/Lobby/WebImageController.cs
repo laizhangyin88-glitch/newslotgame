@@ -33,7 +33,7 @@ public class WebImageController : MonoBehaviour
         }
     }
 
-    private string imageURL;
+    [SerializeField] private string imageURL;
     private int retriedCount = 0;
 
     private const long DEFAULT_WAIT_INTERVAL = 200;
