@@ -65,7 +65,7 @@ public class GameHistroyRecordItem : MonoBehaviour
         Total_Win.text = data.total_win.ToString("N0");
         EndCredit.text = data.end_cent.ToString("N0");
 
-        if(index % 2 == 1)
+        if (index % 2 == 0)
         {
             imageBg.color = Color.white;
         }

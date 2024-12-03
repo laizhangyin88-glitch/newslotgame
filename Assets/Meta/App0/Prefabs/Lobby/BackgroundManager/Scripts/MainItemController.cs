@@ -37,7 +37,7 @@ public class MainItemController : MonoBehaviour
                 ShowErrorPopup("Not Yet Open");
                 break;
             case SettingButtonType.BusinessRecord:
-                ShowErrorPopup("Not Yet Open");
+                OpenBackgroundManager.OpenView("lobby0", "BussinessRecordView", PopupManager.Instance.BackgroundSetting);
                 break;
             case SettingButtonType.GameHistroy:
                 OpenBackgroundManager.OpenView("lobby0", "GameHistroyRecordView", PopupManager.Instance.BackgroundSetting);
