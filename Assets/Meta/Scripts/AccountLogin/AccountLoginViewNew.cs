@@ -1,4 +1,5 @@
 using BagelCode;
+using BagelCode.Task.Actions;
 using com.adjust.sdk;
 using ParadoxNotion;
 using SlotMaker;
@@ -31,6 +32,7 @@ public class AccountLoginViewNew : MonoBehaviour
     Text txtNetWorkPlaceholder = null;
     Toggle tglAutoSever;
     Button bbtnClear;
+    Button machineLoginBtn;
 
     Text txtClientVersion = null;
 
@@ -118,6 +120,16 @@ public class AccountLoginViewNew : MonoBehaviour
         tips = transform.Find("Tips").gameObject;
         tipsText = transform.Find("Tips/Text").GetComponent<Text>();
 
+        machineLoginBtn = transform.Find("Anchor/Login/MachineLogin").GetComponent<Button>();
+#if !K3K_TEST || K3K_RELEASE
+        machineLoginBtn.onClick.AddListener(() =>
+        {
+            MechineAutoConnect();
+        });
+        machineLoginBtn.gameObject.SetActive(ApplicationSettings.Instance.isMachine);
+#else
+        machineLoginBtn.gameObject.SetActive(false);
+#endif
 
         Debug.LogWarning($" 【版本号】： 客户端版本：{ApplicationSettings.Instance.clientVersion}，产品版本 {ProductSettings.Instance.productVersion}，是否机台包 {ApplicationSettings.Instance.isMachine}");
         NetManager.Instance.Init(new WebSock());
@@ -211,10 +223,12 @@ public class AccountLoginViewNew : MonoBehaviour
         string addr = PlayerPrefs.GetString("serverAddress", "");
         _serverAddress = !string.IsNullOrEmpty(addr) ? addr : ApplicationSettings.Instance.newLoginUrlApp;
 
-        transform.Find("Anchor").gameObject.SetActive(!ApplicationSettings.Instance.isMachine);
-        //transform.Find("Anchor").gameObject.SetActive(false);
-        if (ApplicationSettings.Instance.isMachine)
+        //transform.Find("Anchor").gameObject.SetActive(!ApplicationSettings.Instance.isMachine);
+        var machineFirstLogin = SendEventOnlyOnce.IsSended("MachineAutoLogin", "Machine", "Login");
+        if (ApplicationSettings.Instance.isMachine && !machineFirstLogin)//是机台并且是第一次弹出登录界面才会自动登录
         {
+            transform.Find("Anchor").gameObject.SetActive(false);
+
             MechineAutoConnect();
             _mechineConnectTimer = new System.Timers.Timer(15000);
             _mechineConnectTimer.AutoReset = true; // 是否重复执行
@@ -470,6 +484,10 @@ public class AccountLoginViewNew : MonoBehaviour
             };
             string strContent = JsonUtility.ToJson(loginExtraData);
             BlackboardUtils.SetOrCreateValue(bb, "loginInfo", strContent);
+
+            //记录首次登录
+            SendEventOnlyOnce.Record("MachineAutoLogin", "Machine", "Login");
+
             EventSender.SendGlobalEvent("OnAccountLoginSucceed");
             Destroy(gameObject);
 
