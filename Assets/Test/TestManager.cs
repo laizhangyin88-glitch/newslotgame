@@ -58,6 +58,11 @@ public class TestManager : MonoSingleton<TestManager>
             Debug.Log($"【TestAutoUrl】2 = {PlayerPrefs.GetString("TestAutoUrl", "")}");
         }
 
+        inputAutoUrl.GetComponent<InputField>().onValueChanged.AddListener((v) =>
+        {
+            PlayerPrefs.SetString("TestAutoUrl", v);
+        });
+
         if (toggleCheckCredit != null)
             toggleCheckCredit.isOn = true;
 
