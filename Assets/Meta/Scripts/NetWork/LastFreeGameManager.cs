@@ -662,7 +662,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                 long balance = dataDict["data"]["balance"].AsLong;
                 BlackboardQueryUtils.SetMyCredit(balance);
                 MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
-                if (globalStore.nowGameID == 103)///NIGHTS_OF_BINGO     id：103 游戏断线重连的时候，需要设置滚轮表的序号
+                if (globalStore.nowGameID == 103 || globalStore.nowGameID == 182)///NIGHTS_OF_BINGO     id：103 游戏断线重连的时候，需要设置滚轮表的序号
                 {
                     GlobalReelStrips.Instance.index = dataDict["data"]["contents"]["reel_set_index"]["current_index"].AsInt;
                 }

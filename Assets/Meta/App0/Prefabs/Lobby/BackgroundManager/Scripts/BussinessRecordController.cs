@@ -12,23 +12,21 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-public class GameHistroyRecordItemData
+public class BussinessItemData
 {
-    public int sn;
-    public long bet;
-    public long total_win;
-    public long end_cent;
-    public long init_cent;
-    public long start_time;
-    public long game_time;
-    public int win_line_count;
-    public long total_bet;
+    public long change_credit;
+    public string user_id;
+    public string source;
+    public long after_credit;
+    public long before_credit;
+    public string agent_id;
+    public string change_time;
+    public long id;
     public int game_id;
 }
 
 
-public class GameHistroyRecordController : MonoBehaviour
+public class BussinessRecordController : MonoBehaviour
 {
     private GameObject Item;
 
@@ -40,8 +38,7 @@ public class GameHistroyRecordController : MonoBehaviour
     [SerializeField]
     private int one_page_count = 6;
 
-    private List<GameHistroyRecordItemData> itemDataList;
-    private List<GameHistroyRecordItem> itemList;
+    private List<BussinessRecordItemController> itemList;
     private int totalPage;
     private int currentPage;
 
@@ -52,7 +49,7 @@ public class GameHistroyRecordController : MonoBehaviour
     private TextMeshProUGUI EndTxt;
     private Button SearchButton;
 
-    
+
 
     private bool isSetStartTime = true;
 
@@ -72,6 +69,8 @@ public class GameHistroyRecordController : MonoBehaviour
     private TextMeshProUGUI searchGameNameTxt;
 
     private DetailInfoView _DetailInfoView;
+
+    private List<BussinessItemData> _BussinessItemDataList = new List<BussinessItemData>();
     private void Start()
     {
         if (OrientationUtils.Instance.contentOrientation == ScreenOrientation.LandscapeLeft)
@@ -99,8 +98,7 @@ public class GameHistroyRecordController : MonoBehaviour
         ButtonInput.onClick.AddListener(OnClickBtnInput);
         ButtonClose.onClick.AddListener(OnClickBtnClose);
         PageIndexTxt = ButtonInput.transform.Find("PageIndex").GetComponent<TextMeshProUGUI>();
-        itemDataList = new List<GameHistroyRecordItemData>();
-        itemList = new List<GameHistroyRecordItem>();
+        itemList = new List<BussinessRecordItemController>();
         InitItemList();
         _Calendar = transform.Find("content/Calendar").GetComponent<Calendar>();
         _Calendar.gameObject.SetActive(false);
@@ -111,18 +109,25 @@ public class GameHistroyRecordController : MonoBehaviour
         EndButton.onClick.AddListener(OnClickEndBtn);
         SearchButton = transform.Find("content/Selecter/SearchButton").GetComponent<Button>();
         SearchButton.onClick.AddListener(OnClickSearchButton);
-        GameButton = transform.Find("content/Selecter/GameButton").GetComponent<Button>();
-        GameButton.onClick.AddListener(OnClickGameBtn);
-        searchGameNameTxt = GameButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         StartTxt = StartButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         EndTxt = EndButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
-        InitGameNameDicti();
-        GetTotalPageCount();
-        currentPage = 0;
+        currentPage = 1;
         GetPageData(currentPage);
     }
-     
+    private void InitItemList()
+    {
+        Transform Content = transform.Find("content/ScrollViewRecord/Viewport/Content");
+        for (int i = 0; i < one_page_count; i++)
+        {
+            GameObject temp = Instantiate(Item);
+            temp.transform.SetParent(Content, false);
+            BussinessRecordItemController item = temp.GetComponent<BussinessRecordItemController>();
+            item.controller = this;
+            itemList.Add(item);
+        }
+    }
+
     private void OnCalendarConfirmEvent()
     {
         if (isSetStartTime)
@@ -144,41 +149,23 @@ public class GameHistroyRecordController : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(StartTxt.text) && !string.IsNullOrEmpty(EndTxt.text))
         {
-            if (isSendTotalPage)
-                GetTotalPageCount(searchGameId, StartTxt.text + ":00", EndTxt.text + ":00");
             GetPageData(currentPage, searchGameId, StartTxt.text + ":00", EndTxt.text + ":00");
         }
         else if (!string.IsNullOrEmpty(EndTxt.text))
         {
-            if (isSendTotalPage)
-                GetTotalPageCount(searchGameId, "", EndTxt.text + ":00");
             GetPageData(currentPage, searchGameId, "", EndTxt.text + ":00");
         }
         else if (!string.IsNullOrEmpty(StartTxt.text))
         {
-            if (isSendTotalPage)
-                GetTotalPageCount(searchGameId, StartTxt.text + ":00");
             GetPageData(currentPage, searchGameId, StartTxt.text + ":00");
         }
         else
         {
-            if (isSendTotalPage)
-                GetTotalPageCount(searchGameId);
             GetPageData(currentPage, searchGameId);
         }
 
     }
 
-    private void OnClickGameBtn()
-    {
-        if (_GameListContent == null)
-        {
-            GameObject GameList = transform.Find("content/GameList").gameObject;
-            _GameListContent = new GameListContent(GameList);
-            _GameListContent.controller = this;
-        }
-        _GameListContent.gameObject.SetActive(true);
-    }
 
     public void SetSearchGameInfo(string name, int id)
     {
@@ -199,22 +186,10 @@ public class GameHistroyRecordController : MonoBehaviour
         _Calendar.gameObject.SetActive(true);
     }
 
-    private void InitItemList()
-    {
-        Transform Content = transform.Find("content/ScrollViewRecord/Viewport/Content");
-        for (int i = 0; i < one_page_count; i++)
-        {
-            GameObject temp = Instantiate(Item);
-            temp.transform.SetParent(Content, false);
-            GameHistroyRecordItem item = temp.GetComponent<GameHistroyRecordItem>();
-            item.controller = this;
-            itemList.Add(item);
-        }
-    }
 
     private void HideAllItem()
     {
-        if(itemList.Count > 0)
+        if (itemList.Count > 0)
         {
             for (global::System.Int32 i = 0; i < itemList.Count; i++)
             {
@@ -223,23 +198,6 @@ public class GameHistroyRecordController : MonoBehaviour
         }
     }
 
-    private void InitGameNameDicti()
-    {
-        if(gameNameDicti == null)
-        {
-            gameNameDicti = new Dictionary<int, string>();
-            var gameInfoList = BlackboardUtils.FindVariable<List<Blackboard>>(null, "/gameInfoList");
-            foreach (var item in gameInfoList.value)
-            {
-                int id = item.GetValue<int>("gameId");
-                string name = item.GetValue<string>("enumId").Replace('_', ' ');
-                if (id > 0 && !string.IsNullOrEmpty(name))
-                {
-                    gameNameDicti.Add(id, name);
-                }
-            }
-        }
-    }
 
     private void OnClickBtnClose()
     {
@@ -260,16 +218,16 @@ public class GameHistroyRecordController : MonoBehaviour
 
     private void OnClickBtnNext()
     {
-        if (currentPage >= totalPage - 1) return;
+        if (currentPage >= totalPage) return;
         GetRecordData(++currentPage);
-        SetPageIndex(currentPage + 1);
+        //SetPageIndex(currentPage + 1);
     }
 
     private void OnClickBtnPrevious()
     {
         if (currentPage <= 0) return;
         GetRecordData(--currentPage);
-        SetPageIndex(currentPage + 1);
+        //SetPageIndex(currentPage + 1);
     }
 
     private void OnClickBtnInput()
@@ -289,27 +247,27 @@ public class GameHistroyRecordController : MonoBehaviour
     private void OnClickCancelBtn()
     {
         Keyboard.Instance.DestroySelf();
-        SetPageIndex(currentPage + 1);
+        SetPageIndex(currentPage);
     }
 
     private void OnClickEnterBtn()
     {
-        if(int.TryParse(PageIndexTxt.text, out int pageIndex))
+        if (int.TryParse(PageIndexTxt.text, out int pageIndex))
         {
-            if(pageIndex <= totalPage && pageIndex > 0)
+            if (pageIndex <= totalPage && pageIndex > 0)
             {
-                GetPageData(pageIndex - 1);
+                GetPageData(pageIndex);
                 SetPageIndex(pageIndex);
-                currentPage = pageIndex - 1;
+                currentPage = pageIndex;
             }
             else
             {
-                SetPageIndex(currentPage + 1);
+                SetPageIndex(currentPage);
             }
         }
         else
         {
-            SetPageIndex(currentPage + 1);
+            SetPageIndex(currentPage);
         }
         Keyboard.Instance.DestroySelf();
     }
@@ -321,38 +279,12 @@ public class GameHistroyRecordController : MonoBehaviour
 
     private void GetTotalPageCount(int gameId = 0, string start = "", string end = "")
     {
-        Dictionary<string, object> req = new Dictionary<string, object>
-                {
-                    {"one_page_count", one_page_count},
-                };
-        if (gameId > 0)
-        {
-            req.Add("game_id", gameId);
-        }
-        if (!string.IsNullOrEmpty(start))
-        {
-            req.Add("start_time", start);
-        }
-        if (!string.IsNullOrEmpty(end))
-        {
-            req.Add("end_time", end);
-        }
-        NetManager.Instance.Post(RPCName.agent_query_round_log_page_count, req, (res) =>
-        {
-            totalPage = res["page_count"];
-            currentPage = 0;
-            SetPageIndex(1);
-        },
-        (error) =>
-        {
-            GlobalErrorHandler.GlobalError(error);
-        });
     }
 
 
-    public void ShowMoreView(GameHistroyRecordItemData data)
+    public void ShowMoreView(BussinessItemData data)
     {
-        if(_DetailInfoView == null)
+        if (_DetailInfoView == null)
         {
             GameObject view = transform.Find("AllInfoContent").gameObject;
             _DetailInfoView = new DetailInfoView(view);
@@ -363,48 +295,45 @@ public class GameHistroyRecordController : MonoBehaviour
 
     private void GetPageData(int pageIndex, int gameId = 0, string start = "", string end = "")
     {
-        Dictionary<string, object> req = new Dictionary<string, object>
-                {
-                    {"page_num", pageIndex},
-                    {"one_page_count", one_page_count },
-                };
-        if (gameId > 0)
-        {
-            req.Add("game_id", gameId);
-        }
-        if (!string.IsNullOrEmpty(start))
-        {
-            req.Add("start_time", start);
-        }
-        if (!string.IsNullOrEmpty(end))
-        {
-            req.Add("end_time", end);
-        }
-        NetManager.Instance.Post(RPCName.agent_query_round_log_page_info, req, (res) =>
+        JSONNode data = JSONNode.Parse("{}");
+        data["method"] = "getAccountsHistory";
+        JSONNode param = JSONNode.Parse("{}");
+        param["token"] = NumericKeypadController.token;
+        param["start_time"] = start;
+        param["end_time"] = end;
+        param["page"] = pageIndex;
+        param["per_page"] = 6;
+        Debug.LogError(NetData_Login.Instance.NetData_UserId);
+        param["user_id"] = NetData_Login.Instance.NetData_UserId; 
+        data["params"] = param;
+        NetManager.Instance.Post(RPCName.user_php_interface, data, (res) =>
         {
             JSONNode node = res["page_info_list"];
-            itemDataList.Clear();
             HideAllItem();
-            for (global::System.Int32 i = 0; i < node.Count; i++)
+            totalPage = res["response_data"]["last_page"].AsInt;
+            currentPage = res["response_data"]["current_page"].AsInt;
+            SetPageIndex(currentPage);
+            JSONNode data = res["response_data"]["data"];
+            _BussinessItemDataList.Clear();
+            for (int i = 0; i < data.Count; i++)
             {
-                var temp = node[i];
-                GameHistroyRecordItemData item = new GameHistroyRecordItemData();
-                item.sn = temp["sn"].AsInt;
+                var temp = data[i];
+                BussinessItemData item = new BussinessItemData();
+                item.id = temp["id"].AsLong;
                 item.game_id = temp["game_id"].AsInt;
-                item.bet = temp["bet"].AsLong;
-                item.total_win = temp["total_win"].AsLong;
-                item.init_cent = temp["init_cent"].AsLong;
-                item.end_cent = temp["end_cent"].AsLong;
-                item.total_bet = temp["total_bet"].AsLong;
-                item.win_line_count = temp["win_line_count"].AsInt;
-                item.game_time = temp["game_time"].AsLong;
-                item.start_time = temp["start_time"].AsLong;
-                itemDataList.Add(item);
+                item.agent_id = temp["agent_id"];
+                item.change_time = temp["change_time"];
+                item.user_id = temp["user_id"];
+                item.source = temp["source"];
+                item.after_credit = temp["after_credit"].AsLong;
+                item.before_credit = temp["before_credit"].AsLong;
+                item.change_credit = temp["change_credit"].AsLong;
+                _BussinessItemDataList.Add(item);
             }
-            for (global::System.Int32 i = 0; i < itemDataList.Count; i++)
+            for (int i = 0; i < _BussinessItemDataList.Count; i++)
             {
                 itemList[i].gameObject.SetActive(true);
-                itemList[i].UpdateView(itemDataList[i], i);
+                itemList[i].UpdateView(_BussinessItemDataList[i], i);
             }
         },
         (error) =>
@@ -415,7 +344,6 @@ public class GameHistroyRecordController : MonoBehaviour
 
     private void OnDestroy()
     {
-        gameNameDicti.Clear();
-        gameNameDicti = null;
+        _BussinessItemDataList.Clear();
     }
 }
