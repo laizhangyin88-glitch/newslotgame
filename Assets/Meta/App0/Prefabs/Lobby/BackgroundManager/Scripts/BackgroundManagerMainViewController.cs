@@ -27,7 +27,7 @@ public class BackgroundManagerMainViewController : MonoBehaviour
     private List<SettingButtonType> unOpen = new List<SettingButtonType>()
     {
         SettingButtonType.GameInformation,
-        SettingButtonType.BusinessRecord,
+        //SettingButtonType.BusinessRecord,
         SettingButtonType.EventRecord, 
         //SettingButtonType.Settings,
     };

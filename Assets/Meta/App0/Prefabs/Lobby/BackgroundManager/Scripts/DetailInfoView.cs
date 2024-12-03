@@ -55,6 +55,32 @@ public class DetailInfoView
         });
     }
 
+    public void SetText(BussinessItemData data)
+    {
+        string result = "\nID: " + data.id.ToString() + "\n" +
+            "\nTime:  " + data.change_time + "\n" +
+            "\nPlayer id:  " + data.user_id + "\n" +
+            "\nAccount:  " + data.agent_id + "\n" +
+            "\nBefore Value:  " + data.before_credit + "\n";
+        if(data.change_credit > 0)
+        {
+            result += "\nAdd:  " + data.change_credit
+                + "\n\nReduce:  0"; 
+        }
+        else
+        {
+            result += "\nAdd:  0"
+                + "\n\nReduce:  " + data.change_credit;
+        }
+        result += "\n\nAfter Value:  " + data.after_credit ;
+        _text.text = result;
+        Timer.DelayAction(Time.deltaTime, () =>
+        {
+            _text.text += "\n  ";
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_text.transform as RectTransform);
+        });
+    }
+
     private string FormatTime(long time)
     {
         long unixTimestamp = time;

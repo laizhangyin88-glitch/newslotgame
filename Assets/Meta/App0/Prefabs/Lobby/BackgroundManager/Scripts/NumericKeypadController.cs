@@ -24,7 +24,7 @@ public class NumericKeypadController : MonoBehaviour
     private Transform errorContent;
     private Button ErrorBtn;
     private Button CloseBtn;
-    private string token;
+    public static string token;
     private static RoleType roleType = RoleType.None;
     private TextMeshProUGUI ErrorTipsTxt;
     public static RoleType RoleType { get => roleType; set => roleType = value; }
