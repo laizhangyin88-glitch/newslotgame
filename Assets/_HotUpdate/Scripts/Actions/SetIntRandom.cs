@@ -28,20 +28,8 @@ namespace NodeCanvas.Tasks.Actions
 
         protected override void OnExecute()
         {
-            if (LastFreeGameManager.Instance.isLastGameSpin)
-            {
-                List<int> list = LastFreeGameManager.Instance.GetKENOIndeices();
-                if(list.Count > 0 && list.Count > index)
-                {
-                    intVariable.value = list[index];
-                    index++;
-                }
-            }
-            else
-            {
-                intVariable.value = Random.Range(minValue.value, maxValue.value + 1);
+            intVariable.value = Random.Range(minValue.value, maxValue.value + 1);
 
-            }
             EndAction();
         }
     }
