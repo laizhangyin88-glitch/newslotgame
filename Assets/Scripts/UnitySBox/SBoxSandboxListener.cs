@@ -215,6 +215,11 @@ public class SBoxSandboxListener : MonoSingleton<SBoxSandboxListener>
         switchClassDic[sboxSwtich].onLongPress.AddListener(unityAction);
     }
 
+    public void RemoveButtonLongPress(SBOX_SWITCH sboxSwtich, UnityAction unityAction)
+    {
+        switchClassDic[sboxSwtich].onLongPress.RemoveListener(unityAction);
+    }
+
     public class ButtonPointerDownEvent : UnityEvent { }
 
     public class ButtonPointerUpEvent : UnityEvent { }
