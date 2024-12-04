@@ -1,4 +1,5 @@
 using BagelCode;
+using ParadoxNotion;
 using SlotMaker;
 using System.Collections.Generic;
 using System.Reflection;
@@ -31,7 +32,17 @@ public class NewJackpotDialog : MonoBehaviour
         InitJackpot();
     }
 
-    private void InitJackpot()
+    private void OnEnable()
+    {
+        MessageDispatcher.Register("UpdateJackpot", InitJackpot);
+    }
+
+    private void OnDisable()
+    {
+        MessageDispatcher.UnRegister("UpdateJackpot", InitJackpot);
+    }
+
+    private void InitJackpot(EventData data = null)
     {
         jackpots = MainBlackboard.Get().GetValue<List<int>>("LobbyJackpotScore");
         for (int i = 0; i < jackpots.Count; i++)
