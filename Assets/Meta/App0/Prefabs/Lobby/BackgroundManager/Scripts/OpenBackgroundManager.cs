@@ -10,12 +10,14 @@ public class OpenBackgroundManager : MonoBehaviour
     private void Start()
     {
         MessageDispatcher.Register(EVTType.ON_CUSTOM_EVENT, OnListenerOpenEvent);
+        SBoxSandboxListener.Instance.AddButtonLongPress(SBoxApi.SBoxSandbox.SBOX_SWITCH.SWITCH_ROOT_SET, OpenBackgroundManagerMainView);
         AndroidSystemHelper.Instance.Init();
     }
 
     private void OnDestroy()
     {
         MessageDispatcher.UnRegister(EVTType.ON_CUSTOM_EVENT, OnListenerOpenEvent);
+        SBoxSandboxListener.Instance.RemoveButtonLongPress(SBoxApi.SBoxSandbox.SBOX_SWITCH.SWITCH_ROOT_SET, OpenBackgroundManagerMainView);
     }
 
     private void OnListenerOpenEvent(EventData eventData)
