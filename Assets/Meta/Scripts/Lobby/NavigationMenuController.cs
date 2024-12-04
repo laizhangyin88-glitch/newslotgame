@@ -53,7 +53,14 @@ namespace BagelCode
             //退出
             quitButtonElement = ContextUtils.FindElement(root, "Button Quit", CHILDREN);
             MetaContextElementUtils.SetClickable(quitButtonElement, gameObject, MetaEventDefine.ON_SYSTEM_EVENT, MetaEventDefine.SYSTEM_RESET, true, true);
-            MetaContextElementUtils.SetActive(quitButtonElement, ApplicationSettings.Instance.isMachine == false);
+
+            //k3k需求：机台上要显示登录界面，让玩家可以登录自己的账号用以下分
+#if K3K_TEST || K3K_RELEASE
+            bool quitBtnDisplay = true;
+#else
+            bool quitBtnDisplay = !ApplicationSettings.Instance.isMachine;
+#endif
+            MetaContextElementUtils.SetActive(quitButtonElement, quitBtnDisplay);
 
             //重置密码
             resetPwdButtonElement = ContextUtils.FindElement(root, "Button ResetPassword", CHILDREN);
