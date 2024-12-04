@@ -82,10 +82,20 @@ public class Main : MonoBehaviour
 
         Debug.Log("加载初场景资源...");
         _loadingCom.SetTips("Downloading Lucky Tickets, Prepare to Win Big!");
-        _loadingCom.SetProgress(80f);
+        _loadingCom.SetProgress(40f);
 
-        string abName_mainscene = ApplicationSettings.MakeApplicationBundleName("mainscene");
-        var abOperation = AssetBundleManager.LoadAssetBundleAndDep(abName_mainscene, false);
+        string[] abNames = new string[]
+        {
+            ApplicationSettings.MakeApplicationBundleName("mainscene"),
+            ApplicationSettings.MakeApplicationBundleName("login"),
+            ApplicationSettings.MakeApplicationBundleName("system"),
+            ApplicationSettings.MakeApplicationBundleName("lang"),
+            "models",
+            ApplicationSettings.MakeApplicationBundleName("lobby"),
+            ApplicationSettings.MakeApplicationBundleName("lobbysnd")
+        };
+
+        var abOperation = AssetBundleManager.LoadAssetBundleAndDep(abNames, true);
 
         if (abOperation == null || abOperation.Count <= 0)
         {
@@ -93,20 +103,22 @@ public class Main : MonoBehaviour
             yield break;
         }
 
+        float curTargetProgress = _loadingCom.TargetProgress;
         float totalProgress = abOperation.Count;
         while (OperationListIsDone(abOperation) == false)
         {
             float curProgress = GetOperationListTotalProgress(abOperation);
-            string progress = (curProgress / totalProgress).ToString("P2");
-            Debug.Log(progress);
+            float progress = curProgress / totalProgress;
+            Debug.Log(progress.ToString("P2"));
+            _loadingCom.SetProgress(curTargetProgress + 60f * progress);
 
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.2f);
         }
 
         Debug.Log("加载完成");
         Debug.Log("进入场景...");
         _loadingCom.SetTips("Update Complete, Welcome to the Game World!");
-        _loadingCom.SetProgress(100f);
+        //_loadingCom.SetProgress(100f);
 
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
 
