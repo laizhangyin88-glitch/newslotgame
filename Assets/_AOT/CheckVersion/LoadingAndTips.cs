@@ -14,9 +14,8 @@ public class LoadingAndTips : MonoBehaviour
 
     private float _targetProgress = 0f;
     private float _curProgress = -1f;
-    
 
-    private float ii = 10f;
+    public float TargetProgress => _targetProgress;
 
     void Start()
     {
@@ -26,12 +25,6 @@ public class LoadingAndTips : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ii *= 2;
-            SetProgress(ii);
-        }
-
         if (_curProgress >= _targetProgress)
             return;
 
@@ -47,6 +40,11 @@ public class LoadingAndTips : MonoBehaviour
     public void SetProgress(float progress)
     {
         _targetProgress = progress;
+    }
+
+    public void AddProgress(float progress)
+    {
+        _targetProgress += progress;
     }
 
     protected void UpdateProgressText(float progressValue)

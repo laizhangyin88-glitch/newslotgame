@@ -313,6 +313,24 @@ namespace SlotMaker
             return ret;
         }
 
+        public static List<AssetBundleLoadOperation> LoadAssetBundleAndDep(string[] bundleNames, bool isDLC)
+        {
+            if (bundleNames == null || bundleNames.Length <= 0)
+                return null;
+
+            List<AssetBundleLoadOperation> ret = new List<AssetBundleLoadOperation>();
+
+            foreach (var item in bundleNames)
+            {
+                var operations = LoadAssetBundleAndDep(item, isDLC);
+                if (operations != null)
+                    ret.AddRange(operations);
+            }
+
+            return ret;
+        }
+
+
         public static void UnloadAssetBundle(string bundleName, bool unloadAllLoadedObjects)
         {
 #if USE_ASSETBUNDLE
