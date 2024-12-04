@@ -30,7 +30,11 @@ namespace BagelCode
             Register(MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_ENTER_META_GAME, OnEnterMetaGame);
             Register(MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_LEAVE_META_GAME, OnLeaveMetaGame);
             if (ApplicationSettings.Instance.isMachine)
+            {
+                Debug.Log("初始化机台环境...");
                 SBoxInit.Instance.Init("192.168.3.212", OnHardCheck);
+            }
+                
         }
 
         private void OnHardCheck()
