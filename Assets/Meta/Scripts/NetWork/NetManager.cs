@@ -837,7 +837,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                         var tempData = (float)data["remain_jackpot_list"][i] * 100;
                         jackpots.Add((int)tempData);
                     }
-                    jackpots.Reverse();
+                    //jackpots.Reverse();
                     MessageDispatcher.Dispatch("SetJackpot", new EventData<List<int>>("SetJackpot", jackpots));
 
                     if (data.HasKey("outcredit_rate_of_exchange"))
@@ -1149,7 +1149,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                         str = str.Split('.')[0];
                         jackpotsScore.Add(int.Parse(str));
                     }
-                    jackpotsScore.Reverse();
+                    //jackpotsScore.Reverse();
                     BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "LobbyJackpotScore", jackpotsScore);
                 }
 

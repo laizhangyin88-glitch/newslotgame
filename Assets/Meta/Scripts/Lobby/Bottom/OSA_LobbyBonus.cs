@@ -69,19 +69,25 @@ public class OSA_LobbyBonus : OSA<BaseParamsWithPrefab, LobbyBonusItemViewsHolde
 
     private void OnUpdateJackpot(EventData data)
     {
-        var jsonData = data.value as JSONNode;
-        List<int> jacks = new List<int>();
-        float offset = MainBlackboard.Get().GetValue<int>("OutCreditRate");
-        for (int i = 0; i < jsonData["remain_jackpot_list"].Count; i++)
-        {
-            var temp = (float)jsonData["remain_jackpot_list"][i];
-            temp *= offset;
-            var str = temp.ToString();
-            str = str.Split('.')[0];
-            jacks.Add(int.Parse(str));
-        }
+        //var jsonData = data.value as JSONNode;
+        //List<int> jacks = new List<int>();
+        //float offset = MainBlackboard.Get().GetValue<int>("OutCreditRate");
+        //for (int i = 0; i < jsonData["remain_jackpot_list"].Count; i++)
+        //{
+        //    var temp = (float)jsonData["remain_jackpot_list"][i];
+        //    temp *= offset;
+        //    var str = temp.ToString();
+        //    str = str.Split('.')[0];
+        //    jacks.Add(int.Parse(str));
+        //}
 
-        jackpots.Reverse();
+        //jackpots.Reverse();
+
+        List<int> lobbyJackpotScore = BlackboardUtils.FindValue<List<int>>(MainBlackboard.Get(), "LobbyJackpotScore");
+        if (lobbyJackpotScore == null)
+            return;
+
+        jackpots = lobbyJackpotScore;
     }
 
     protected override LobbyBonusItemViewsHolder CreateViewsHolder(int itemIndex)
