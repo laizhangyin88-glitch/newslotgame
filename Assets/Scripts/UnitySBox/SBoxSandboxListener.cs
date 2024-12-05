@@ -65,7 +65,7 @@ public class SBoxSandboxListener : MonoSingleton<SBoxSandboxListener>
         switchClassDic.Add(SBOX_SWITCH.SWITCH_BET5, new SwitchClass());
         switchClassDic.Add(SBOX_SWITCH.SWITCH_AUTO, new SwitchClass());
         isInit = true;
-
+        MessageDispatcher.Dispatch(EVTType.ON_CUSTOM_EVENT, new ParadoxNotion.EventData("SBoxSandboxListenerInit"));
     }
 
     private void Update()
