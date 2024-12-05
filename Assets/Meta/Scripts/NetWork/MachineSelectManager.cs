@@ -1815,31 +1815,26 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                         break;
                     case 2:
                         EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("OnClickPotion", UnityEngine.Random.Range(1, 10)));
-                        bool result = LastFreeGameManager.Instance.GetGame52PotionsBonusResult();
-                        if (result)
+                        int result = LastFreeGameManager.Instance.GetGame52PotionsBonusResult();
+                        if (result > 0) 
                         {
                             EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnNext"));
                         }
                         else
                         {
-                            bool isSuccess = LastFreeGameManager.Instance.GetGame52IsSuccess();
-                            if (isSuccess)
+                            if (result == -1)
                             {
-                                Debug.LogError("success OnCollect");
-                                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnCollect"));
+                                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("OnClickPotion", UnityEngine.Random.Range(1, 10)));
+                                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnNext"));
                             }
                             else
                             {
-                                Debug.LogError("unsuccess OnNext");
-                                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnNext"));
-                                EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("OnClickPotion", UnityEngine.Random.Range(1, 10)));
-                                this.DelayAction(5f, () =>
+                                bool isSuccess = LastFreeGameManager.Instance.GetGame52IsSuccess();
+                                if (isSuccess)
                                 {
-                                    Debug.LogError("fail");
-                                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Fail"));
-                                }, null, true);
+                                    EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnCollect"));
+                                }
                             }
-                            BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", false);
                         }
                         break;
                     case 3:

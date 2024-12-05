@@ -811,9 +811,9 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
     /// 获取 game id 52 中 Potions Bonus 小游戏的操作结果
     /// </summary>
     /// <returns></returns>
-    public bool GetGame52PotionsBonusResult()
+    public int GetGame52PotionsBonusResult()
     {
-        string pattern = "\"potion_value\":\\s*(\\d+)";
+        string pattern = "\"potion_value\":\\s*(-?\\d+)";
         for (int i = 0; i < historyRes.Count; i++)
         {
             string response = historyRes[i];
@@ -824,12 +824,12 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                 {
                     string str = match.Groups[1].Value;
                     int index = int.Parse(str);
-                    return index > 0;
+                    return index;
                 }
             }
             //Match match = Regex.Match(spin, pattern);
         }
-        return false;
+        return -100;
     }
 
     public bool GetGame52IsSuccess()
