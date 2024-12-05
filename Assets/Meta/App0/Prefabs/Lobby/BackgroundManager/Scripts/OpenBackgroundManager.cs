@@ -16,7 +16,10 @@ public class OpenBackgroundManager : MonoBehaviour
     private void OnDestroy()
     {
         MessageDispatcher.UnRegister(EVTType.ON_CUSTOM_EVENT, OnListenerOpenEvent);
-        SBoxSandboxListener.Instance.RemoveButtonLongPress(SBoxApi.SBoxSandbox.SBOX_SWITCH.SWITCH_ROOT_SET, OpenBackgroundManagerMainView);
+        if (ApplicationSettings.Instance.isMachine)
+        {
+            SBoxSandboxListener.Instance.RemoveButtonLongPress(SBoxApi.SBoxSandbox.SBOX_SWITCH.SWITCH_ROOT_SET, OpenBackgroundManagerMainView);
+        }
     }
 
 
@@ -27,9 +30,12 @@ public class OpenBackgroundManager : MonoBehaviour
         {
             OpenBackgroundManagerMainView();
         }
-        if(eventData.name == "SBoxSandboxListenerInit")
+        if (eventData.name == "SBoxSandboxListenerInit")
         {
-            SBoxSandboxListener.Instance.AddButtonLongPress(SBoxApi.SBoxSandbox.SBOX_SWITCH.SWITCH_ROOT_SET, OpenBackgroundManagerMainView);
+            if (ApplicationSettings.Instance.isMachine)
+            {
+                SBoxSandboxListener.Instance.AddButtonLongPress(SBoxApi.SBoxSandbox.SBOX_SWITCH.SWITCH_ROOT_SET, OpenBackgroundManagerMainView);
+            }
         }
     }
 
