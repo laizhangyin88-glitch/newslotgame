@@ -992,8 +992,12 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         (error) =>
         {
             Debug.LogError(" 请求充值失败");
+#if UNITY_EDITOR
             credit = 0;
             MatchDebugManager.Instance.SendUdpMessage(SBoxEventHandle.SBOX_SADNBOX_BILL_REJECT);
+#else
+            SBoxSandbox.BillReject();
+#endif
         });
 
     }
