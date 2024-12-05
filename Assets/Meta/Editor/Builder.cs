@@ -104,7 +104,7 @@ namespace BagelCode
             return param;
         }
 
-        public static UnityEditor.Build.Reporting.BuildReport BuildPlayer(BuildTarget buildTarget, BuildTargetGroup buildTargetGroup, string path, string flags, BuildOptions buildOptions, string identifier = DEFAULT_IDENTIFIER)
+        public static UnityEditor.Build.Reporting.BuildReport BuildPlayer(BuildTarget buildTarget, BuildTargetGroup buildTargetGroup, string path, string flags, BuildOptions buildOptions, string identifier = null)
         {
             AssetDatabase.Refresh();
 
@@ -117,8 +117,12 @@ namespace BagelCode
             // Platform specific setting
             if (buildTarget == BuildTarget.Android)
             {
-                PlayerSettings.Android.bundleVersionCode = ProductSettings.GetProductVersionNumber();
-                PlayerSettings.applicationIdentifier = identifier;
+                //PlayerSettings.Android.bundleVersionCode = ProductSettings.GetProductVersionNumber();
+                PlayerSettings.Android.bundleVersionCode = ApplicationSettings.GetClientVersionNumber();
+                if(string.IsNullOrEmpty(identifier) == false)
+                {
+                    PlayerSettings.applicationIdentifier = identifier;
+                }
 
                 EditorUserBuildSettings.androidBuildSystem = AndroidBuildSystem.Gradle;
                 // Suppress APK compilation. exportAsGoogleAndroidProject seems not working
@@ -130,7 +134,10 @@ namespace BagelCode
             else if (buildTarget == BuildTarget.iOS)
             {
                 // PlayerSettings.iPhoneBundleIdentifier = identifier;
-                PlayerSettings.SetApplicationIdentifier(buildTargetGroup, identifier);
+                if(string.IsNullOrEmpty(identifier) == false)
+                {
+                    PlayerSettings.SetApplicationIdentifier(buildTargetGroup, identifier);
+                }
 
                 // For Android, generate project folder. For iOS, modify skeleton proejct.
                 // 此项需要打包目录下存在一个xcode工程
