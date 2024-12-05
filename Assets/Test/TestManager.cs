@@ -46,6 +46,9 @@ public class TestManager : MonoSingleton<TestManager>
     public GameObject inputCustomFlag; //k1:2#k2:3#k3:4
 
     public Toggle LobbyJackpot;
+
+    [SerializeField] private Dropdown AutoUrlDopdown;
+
     private void Start()
     {
         if (inputAutoUrl != null)
@@ -65,6 +68,14 @@ public class TestManager : MonoSingleton<TestManager>
 
         if (toggleCheckCredit != null)
             toggleCheckCredit.isOn = true;
+
+        AutoUrlDopdown.onValueChanged.AddListener((index) =>
+        {
+            string curSelect = AutoUrlDopdown.options[index].text;
+
+            inputAutoUrl.GetComponent<InputField>().text = curSelect;
+            PlayerPrefs.SetString("TestAutoUrl", curSelect);
+        });
 
         StartCoroutine(CheckFlag());
     }
