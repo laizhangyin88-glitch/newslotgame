@@ -2,6 +2,7 @@ using BagelCode;
 using BagelCode.ClientModels;
 using BagelCode.Tasks.Actions.ClientAPI;
 using Dreamteck.Splines.Primitives;
+using GameUtil;
 using Newtonsoft.Json.Bson;
 using NodeCanvas.Framework;
 using ParadoxNotion;
@@ -18,6 +19,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using static GameUtil.Timer;
 using Action = System.Action;
 
 public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
@@ -35,7 +37,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             return instance;
         }
     }*/
-
+    private DelayTimer _delayTimer;
     private LoginMaskController _loginMaskController;
 
     void Start()
@@ -277,7 +279,11 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         //yield return new WaitForSeconds(1f);
         ////}
         //MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));
-        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", true);
+        _delayTimer = this.DelayAction(8f, () => 
+        {
+            BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", true);
+        }, null, true);
+        _delayTimer.Restart(UpdateMode.RealTime); 
     }
     /// <summary>
     /// 获取额外押注的金额
@@ -558,9 +564,6 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         }
         return result;
     }
-
-
-
     public List<string> historyRes = new List<string>();
 
 
@@ -658,8 +661,11 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             {
                 isFirstData = false;
                 ///第一条数据，重置玩家的金额数据
-                ///
-                long balance = dataDict["data"]["balance"].AsLong;
+                long balance = dataDict["data"]["before_balance"].AsLong;
+                JSONNode client_data = dataDict["client_data"];
+                long bet = client_data["bet"].AsLong;
+                long extra_bet = client_data["extra_bet"].AsLong;
+                balance -= (bet + extra_bet);
                 BlackboardQueryUtils.SetMyCredit(balance);
                 MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
                 if (globalStore.nowGameID == 103 || globalStore.nowGameID == 182)///NIGHTS_OF_BINGO     id：103 游戏断线重连的时候，需要设置滚轮表的序号
