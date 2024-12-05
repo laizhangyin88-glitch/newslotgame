@@ -173,8 +173,12 @@ public class AccountLoginViewNew : MonoBehaviour
         }
         else
         {
+            string autoUrl = TestManager.Instance.getAutoUrl();
+            if (string.IsNullOrEmpty(autoUrl))
+                autoUrl = ApplicationSettings.Instance.autoUrl;
+
             StartCoroutine(WWW_Get02(
-                ApplicationSettings.Instance.autoUrl,
+                autoUrl,
                 (addr1, err) =>
                 {
                     if (addr1 == null)
