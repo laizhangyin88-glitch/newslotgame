@@ -1825,14 +1825,17 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                             bool isSuccess = LastFreeGameManager.Instance.GetGame52IsSuccess();
                             if (isSuccess)
                             {
+                                Debug.LogError("success OnCollect");
                                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnCollect"));
                             }
                             else
                             {
+                                Debug.LogError("unsuccess OnNext");
                                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("OnNext"));
                                 EventSender.SendGlobalEvent("OnContentUIDetailEvent", new EventData<int>("OnClickPotion", UnityEngine.Random.Range(1, 10)));
                                 this.DelayAction(5f, () =>
                                 {
+                                    Debug.LogError("fail");
                                     EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Fail"));
                                 }, null, true);
                             }
