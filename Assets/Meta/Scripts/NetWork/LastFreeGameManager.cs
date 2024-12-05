@@ -849,7 +849,6 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                     return earn_credit > bet;
                 }
             }
-            //Match match = Regex.Match(spin, pattern);
         }
         return false;
     }

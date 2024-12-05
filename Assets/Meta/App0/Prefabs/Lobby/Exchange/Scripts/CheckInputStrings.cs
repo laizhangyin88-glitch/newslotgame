@@ -48,6 +48,15 @@ public class CheckInputStrings : MonoBehaviour
 
     private bool isSendReconnect = false;
     private string userId;
+
+    private Coroutine _coroutine;
+
+    //private void Start()
+    //{
+
+    //}
+
+
     private void Start()
     {
 #if !UNITY_EDITOR
@@ -57,7 +66,7 @@ public class CheckInputStrings : MonoBehaviour
             return;
         }
 #endif
-        _interval = 2; 
+        _interval = 2;
         inputValue = "";
         isShowWaitView = false;
         isCheckInput = true;
@@ -67,7 +76,7 @@ public class CheckInputStrings : MonoBehaviour
         MessageDispatcher.Register("OnCustomEvent", OnListenerCloseXEvent);
         startInput = false;
         isInUse = false;
-        _clearInterval = clearInterval;
+        _coroutine = StartCoroutine(CheckInput());
     }
 
     private void OnListenerCloseXEvent(EventData eventData)
@@ -83,50 +92,80 @@ public class CheckInputStrings : MonoBehaviour
 
     private void Update()
     {
-        BackgroundManagerMainViewController backgroundManagerMainViewController = FindObjectOfType<BackgroundManagerMainViewController>();
-        if(backgroundManagerMainViewController != null)
-        {
-            return;
-        }
         lobbyController = FindObjectOfType<LobbyController>();
-        if(lobbyController == null)
+        if (lobbyController != null)
         {
-            _InputField.text = "";
-            isCheckInput = true;
-            isInUse = false;
-            _InputField.DeactivateInputField();
-            return;
+            if (_coroutine == null)
+            {
+                _coroutine = StartCoroutine(CheckInput());
+            }
         }
         else
         {
-            outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
-            InitSQLiteData();
-        }
-        if (isInUse)
-        {
-            _InputField.text = "";
-            _InputField.DeactivateInputField();
-            return;
-        }
-        if (_InputField != null)
-        {
-            if (!string.IsNullOrEmpty(_InputField.text))
+            if (_coroutine != null)
             {
-                isCheckInput = false;
-                bool result = MatchInput(_InputField.text);
-                if (result)
+                StopCoroutine(_coroutine);
+                _coroutine = null;
+            }
+        }
+    }
+
+    private IEnumerator CheckInput()
+    {
+        while (true)
+        {
+            BackgroundManagerMainViewController backgroundManagerMainViewController = FindObjectOfType<BackgroundManagerMainViewController>();
+            if (backgroundManagerMainViewController != null)
+            {
+                _InputField.DeactivateInputField();
+                yield return null;
+            }
+            lobbyController = FindObjectOfType<LobbyController>();
+            if (lobbyController == null)
+            {
+                _InputField.text = "";
+                isCheckInput = true;
+                isInUse = false;
+                _InputField.DeactivateInputField();
+                yield return null;
+            }
+            else
+            {
+                outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
+                InitSQLiteData();
+            }
+            if (isInUse)
+            {
+                _InputField.text = "";
+                _InputField.DeactivateInputField();
+                yield return null;
+            }
+            if (_InputField != null)
+            {
+                if (!string.IsNullOrEmpty(_InputField.text))
                 {
-                    _InputField.text = "";
-                    _InputField.DeactivateInputField();
-                    isCheckInput = true;
+                    isCheckInput = false;
+                    bool result = MatchInput(_InputField.text);
+                    if (result)
+                    {
+                        _InputField.text = "";
+                        _InputField.DeactivateInputField();
+                        isCheckInput = true;
+                        isInUse = true;
+                    }
+                    this.DelayAction(2f, () =>
+                    {
+                        isCheckInput = true;
+                    });
+                }
+                if (isCheckInput)
+                {
+                    _InputField.ActivateInputField();
                 }
             }
-            if (isCheckInput)
-            {
-                _InputField.ActivateInputField();
-            }
+            CheckQRCodeInfo();
+            yield return null;
         }
-        CheckQRCodeInfo();
     }
 
     private bool MatchInput(string input)
@@ -142,21 +181,19 @@ public class CheckInputStrings : MonoBehaviour
                 return false;
             }
             ShowBankPopup("bank:" + result);
-            _clearInterval = clearInterval;
             return true;
         }
         match = Regex.Match(input, patternQRCode);
         if (match.Success)
         {
             string result = match.Groups[1].Value;
-            Debug.LogError("qr_code:" + result);
+            //Debug.LogError("qr_code:" + result);
             GameLoadingSceneController gameLoadingSceneController = FindObjectOfType<GameLoadingSceneController>();
             if (gameLoadingSceneController != null)
             {
                 return false;
             }
             CheckQRCode("qr_code:" + result);
-            _clearInterval = clearInterval;
             return true;
         }
         input = "";
@@ -433,7 +470,7 @@ public class CheckInputStrings : MonoBehaviour
         {
             userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "/me/userId").value;
         }
-        Debug.LogError(" save success : temp1" + temp1);
+        //Debug.LogError(" save success : temp1" + temp1);
         SQLiteManager.Instance.SetString(userId + "QRCODEINFOLIST", temp1);
     }
     private void InitSQLiteData()
@@ -482,7 +519,7 @@ public class CheckInputStrings : MonoBehaviour
         NetManager.Instance.Post(RPCName.agent_query_qr_code, req, (res) =>
         {
             long score = res["total_money"].AsLong;
-            Debug.LogError(score);
+            //Debug.LogError(score);
             PrintBankQRCode(QRcode, score, true);
         },
         (error) =>
