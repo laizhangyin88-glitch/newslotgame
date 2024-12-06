@@ -29,10 +29,10 @@ namespace Hal
         static Dictionary<int, EventCallback> EventDictionary = new Dictionary<int, EventCallback>();
 
         /**
-          *  @brief          Ôö¼ÓÊÂ¼ş»Øµ÷£¬Ö»ÄÜ¼ÓÒ»¸öEventIdµÄ»Øµ÷£¬ÖØ¸´µÄ¼Ó²»½øÈ¥
-          *  @param[in]      EventId ÊÂ¼şID
-          *  @param[in]      Callback ÊÂ¼ş»Øµ÷
-          *  @return         ÎŞ
+          *  @brief          å¢åŠ äº‹ä»¶å›è°ƒï¼Œåªèƒ½åŠ ä¸€ä¸ªEventIdçš„å›è°ƒï¼Œé‡å¤çš„åŠ ä¸è¿›å»
+          *  @param[in]      EventId äº‹ä»¶ID
+          *  @param[in]      Callback äº‹ä»¶å›è°ƒ
+          *  @return         æ— 
           *  @details        
           */
         public static void AddListener(int EventId, EventCallback Callback)
@@ -48,9 +48,9 @@ namespace Hal
         }
 
         /**
-          *  @brief          É¾³ıÊÂ¼ş»Øµ÷
-          *  @param[in]      EventId ÊÂ¼şID
-          *  @return         ÎŞ
+          *  @brief          åˆ é™¤äº‹ä»¶å›è°ƒ
+          *  @param[in]      EventId äº‹ä»¶ID
+          *  @return         æ— 
           *  @details        
           */
         public static void RemoveListener(int EventId)
@@ -62,16 +62,16 @@ namespace Hal
         }
 
         /**
-          *  @brief          ´¥·¢ÊÂ¼ş
-          *  @param[in]      EventId ÊÂ¼şID
-          *  @param[in]      packet ÊÂ¼ş»Øµ÷µÄ²ÎÊı
-          *  @return         ÎŞ
+          *  @brief          è§¦å‘äº‹ä»¶
+          *  @param[in]      EventId äº‹ä»¶ID
+          *  @param[in]      packet äº‹ä»¶å›è°ƒçš„å‚æ•°
+          *  @return         æ— 
           *  @details        
           */
         public static void SendEvent(int EventId, SBoxPacket packet)
         {
             EventCallback Callback;
-
+            UnityEngine.Debug.Log("trigger ......." + packet.cmd.ToString());
             if (EventDictionary.TryGetValue(EventId, out Callback))
             {
                 Callback(packet);
