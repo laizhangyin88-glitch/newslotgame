@@ -83,6 +83,8 @@ public class CheckInputStrings : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("-----------" + Input.inputString);
+
         lobbyController = FindObjectOfType<LobbyController>();
         if(lobbyController == null)
         {
