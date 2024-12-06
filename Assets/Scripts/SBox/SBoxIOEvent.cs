@@ -71,7 +71,7 @@ namespace Hal
         public static void SendEvent(int EventId, SBoxPacket packet)
         {
             EventCallback Callback;
-            UnityEngine.Debug.Log("trigger ......." + packet.cmd.ToString());
+
             if (EventDictionary.TryGetValue(EventId, out Callback))
             {
                 Callback(packet);
