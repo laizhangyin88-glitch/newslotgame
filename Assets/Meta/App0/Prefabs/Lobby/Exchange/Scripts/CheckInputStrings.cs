@@ -14,8 +14,18 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum CheckInputStatus
+{
+    None,
+    Idel,
+    Using,
+}
+
+
 public class CheckInputStrings : MonoBehaviour
 {
+    public static CheckInputStrings Instance;
+
     private string inputStrings;
     private Dictionary<string, long> QRCodeInfoDicti = new Dictionary<string, long>();
     private Dictionary<string, long> BankInfoDicti = new Dictionary<string, long>();
@@ -24,10 +34,11 @@ public class CheckInputStrings : MonoBehaviour
     public float clearInterval = 60;
     private float _clearInterval = 0;
 
+    private CheckInputStatus _CheckInputStatus = CheckInputStatus.None;
+
     string patternBank = @"bank:([^&]*)&QRCodeEnd&"; 
     string patternQRCode = @"qr_code:([^&]*)&QRCodeEnd&";
 
-    private bool isInUse = false;
     private int outCreditRate;
     private Event _Event;
 
@@ -37,8 +48,6 @@ public class CheckInputStrings : MonoBehaviour
     private bool startInput = false;
 
     private string inputValue = "";
-
-    private bool isCheckInput = false;
 
     private LobbyController lobbyController;
 
@@ -51,14 +60,11 @@ public class CheckInputStrings : MonoBehaviour
 
     private Coroutine _coroutine;
 
-    //private void Start()
-    //{
-
-    //}
-
+    BackgroundManagerMainViewController backgroundManagerMainViewController;
 
     private void Start()
-    {
+    { 
+        Instance = this;
 #if !UNITY_EDITOR
         if (!ApplicationSettings.Instance.isMachine)
         {
@@ -69,13 +75,12 @@ public class CheckInputStrings : MonoBehaviour
         _interval = 2;
         inputValue = "";
         isShowWaitView = false;
-        isCheckInput = true;
         outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
         _InputField = FindObjectOfType<CheckInputField>().GetComponent<InputField>();
         Debug.Log(_InputField.name);
         MessageDispatcher.Register("OnCustomEvent", OnListenerCloseXEvent);
         startInput = false;
-        isInUse = false;
+        _CheckInputStatus = CheckInputStatus.None;
         _coroutine = StartCoroutine(CheckInput());
     }
 
@@ -85,20 +90,33 @@ public class CheckInputStrings : MonoBehaviour
         {
             if(eventData.value != null)
             {
-                isInUse = (bool)eventData.value;
+                //isInUse = (bool)eventData.value;
             }
         }
     }
 
     private void Update()
     {
+        backgroundManagerMainViewController = FindObjectOfType<BackgroundManagerMainViewController>();
+        if (backgroundManagerMainViewController != null)
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+                _coroutine = null;
+                _CheckInputStatus = CheckInputStatus.None;
+            }
+            return;
+        }
         lobbyController = FindObjectOfType<LobbyController>();
         if (lobbyController != null)
         {
             if (_coroutine == null)
             {
                 _coroutine = StartCoroutine(CheckInput());
+                _CheckInputStatus = CheckInputStatus.Idel;
             }
+            InitSQLiteData();
         }
         else
         {
@@ -106,6 +124,7 @@ public class CheckInputStrings : MonoBehaviour
             {
                 StopCoroutine(_coroutine);
                 _coroutine = null;
+                _CheckInputStatus = CheckInputStatus.None;
             }
         }
     }
@@ -114,56 +133,33 @@ public class CheckInputStrings : MonoBehaviour
     {
         while (true)
         {
-            BackgroundManagerMainViewController backgroundManagerMainViewController = FindObjectOfType<BackgroundManagerMainViewController>();
-            if (backgroundManagerMainViewController != null)
+            switch (_CheckInputStatus)
             {
-                _InputField.DeactivateInputField();
-                yield return null;
-            }
-            lobbyController = FindObjectOfType<LobbyController>();
-            if (lobbyController == null)
-            {
-                _InputField.text = "";
-                isCheckInput = true;
-                isInUse = false;
-                _InputField.DeactivateInputField();
-                yield return null;
-            }
-            else
-            {
-                outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
-                InitSQLiteData();
-            }
-            if (isInUse)
-            {
-                _InputField.text = "";
-                _InputField.DeactivateInputField();
-                yield return null;
-            }
-            if (_InputField != null)
-            {
-                if (!string.IsNullOrEmpty(_InputField.text))
-                {
-                    isCheckInput = false;
-                    bool result = MatchInput(_InputField.text);
-                    if (result)
+                case CheckInputStatus.None:
+                    break;
+                case CheckInputStatus.Idel:
+                    if (_InputField != null)
                     {
-                        _InputField.text = "";
-                        _InputField.DeactivateInputField();
-                        isCheckInput = true;
-                        isInUse = true;
+                        if (!string.IsNullOrEmpty(_InputField.text))
+                        {
+                            bool result = MatchInput(_InputField.text);
+                            if (result)
+                            {
+                                _InputField.text = "";
+                                _InputField.DeactivateInputField();
+                                _CheckInputStatus = CheckInputStatus.Using;
+                            }
+                        }
+                        _InputField.ActivateInputField();
                     }
-                    this.DelayAction(2f, () =>
-                    {
-                        isCheckInput = true;
-                    });
-                }
-                if (isCheckInput)
-                {
-                    _InputField.ActivateInputField();
-                }
+                    CheckQRCodeInfo();
+                    break;
+                case CheckInputStatus.Using:
+                    break;
+                default:
+                    break;
             }
-            CheckQRCodeInfo();
+            
             yield return null;
         }
     }
@@ -204,13 +200,7 @@ public class CheckInputStrings : MonoBehaviour
     #region  使用银行凭证代码
     private void ShowBankPopup(string bankInfo)
     {
-        if (isInUse)
-        {
-            _InputField.text = "";
-            _InputField.DeactivateInputField();
-            return;
-        }
-        isInUse = true;
+        _CheckInputStatus = CheckInputStatus.Using;
         ConfirmBankInfo(bankInfo);
     }
 
@@ -257,7 +247,7 @@ public class CheckInputStrings : MonoBehaviour
         };
         info.callback2 += delegate
         {
-            isInUse = false;
+            _CheckInputStatus = CheckInputStatus.Idel;
         };
         ErrorPopupHandler.Instance.OpenError(info);
     }
@@ -294,13 +284,7 @@ public class CheckInputStrings : MonoBehaviour
     #region  使用积分兑换码
     private void CheckQRCode(string QRCodeInfo)
     {
-        if (isInUse)
-        {
-            _InputField.text = "";
-            _InputField.DeactivateInputField();
-            return;
-        }
-        isInUse = true;
+        _CheckInputStatus = CheckInputStatus.Using;
         ShowWaitView();
         Dictionary<string, object> req = new Dictionary<string, object>
         {
@@ -441,7 +425,7 @@ public class CheckInputStrings : MonoBehaviour
         info.buttonText1 = "OK";
         info.callback1 += delegate
         {
-            isInUse = false;
+            _CheckInputStatus = CheckInputStatus.Idel;
             RemoveDictiElement();
         };
         ErrorPopupHandler.Instance.OpenError(info);
@@ -454,7 +438,7 @@ public class CheckInputStrings : MonoBehaviour
         info.buttonText1 = "OK";
         info.callback1 += delegate
         {
-            isInUse = false;
+            _CheckInputStatus = CheckInputStatus.Idel;
         };
         ErrorPopupHandler.Instance.OpenError(info);
     }
@@ -475,30 +459,33 @@ public class CheckInputStrings : MonoBehaviour
     }
     private void InitSQLiteData()
     {
-        if (isInitSQLite) return;
-        isInitSQLite = true;
-        if (string.IsNullOrEmpty(userId))
+        if (lobbyController != null)
         {
-            userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "/me/userId").value;
-        }
-        string qrCode = SQLiteManager.Instance.GetString(userId + "QRCODEINFOLIST", "");
-        if (!string.IsNullOrEmpty(qrCode))
-        {
-            string[] node = qrCode.Split("###".ToCharArray());
-            for (global::System.Int32 i = 0; i < node.Length; i++)
+            if (isInitSQLite) return;
+            isInitSQLite = true;
+            if (string.IsNullOrEmpty(userId))
             {
-                string temp = node[i];
-                if (!string.IsNullOrEmpty(temp))
+                userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "/me/userId").value;
+            }
+            string qrCode = SQLiteManager.Instance.GetString(userId + "QRCODEINFOLIST", "");
+            if (!string.IsNullOrEmpty(qrCode))
+            {
+                string[] node = qrCode.Split("###".ToCharArray());
+                for (global::System.Int32 i = 0; i < node.Length; i++)
                 {
-                    string[] result = Regex.Split(temp, "credit:");
-                    QRCodeInfoDicti.Add(result[0], long.Parse(result[1]));
+                    string temp = node[i];
+                    if (!string.IsNullOrEmpty(temp))
+                    {
+                        string[] result = Regex.Split(temp, "credit:");
+                        QRCodeInfoDicti.Add(result[0], long.Parse(result[1]));
+                    }
                 }
             }
         }
     }
     private void CheckQRCodeInfo()
     {
-        if (isInUse) return;
+        if(_CheckInputStatus == CheckInputStatus.Using) return;
         if(isSendReconnect) return;
         isSendReconnect = true;
         if (QRCodeInfoDicti.Count > 0)
@@ -527,6 +514,11 @@ public class CheckInputStrings : MonoBehaviour
             CloseWaitView();
             ShowErrorPopup(error.error);
         });
+    }
+
+    public void SetCheckStatus(CheckInputStatus checkInputStatus)
+    {
+        _CheckInputStatus = checkInputStatus;
     }
 
     private void RemoveDictiElement()
