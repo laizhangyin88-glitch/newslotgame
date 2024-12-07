@@ -156,7 +156,7 @@ public class MatchDebugManager : MonoSingleton<MatchDebugManager>
     {
         reciveThread = new Thread(() =>
         {
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 8091);
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 10901);
             UdpClient udpReceive = new UdpClient(endPoint);
             UdpData data = new UdpData(endPoint, udpReceive);
             udpReceive.BeginReceive(CallBackRecive, data);
@@ -192,7 +192,7 @@ public class MatchDebugManager : MonoSingleton<MatchDebugManager>
             data = data,
         };
         byte[] bytes = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(matchDebugMsg));
-        IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(SBoxModel.Instance.matchIp), 8092);
+        IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(SBoxModel.Instance.matchIp), 10902);
         UdpClient udpClient = new UdpClient();
         udpClient.Send(bytes, bytes.Length, endPoint);
         udpClient.Close();
