@@ -148,6 +148,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             if (MachineSelectManager.Instance.IsNodeMiniGame())
                 Debug.LogError("NodeMiniGame");
         }
+
         if (globalStore.nowGameID != -1 && _isLastGameSpin)
         {
 
@@ -229,6 +230,8 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
 
         // 设置押注倍数
         InGameBetController IGBC = null;
+        VideoPokerHandController videoPokerHandController = null;
+
         while (IGBC == null)
         {
             IGBC = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Bet")?.GetComponent<InGameBetController>();
@@ -236,10 +239,17 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             {
                 IGBC = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Left/Bet")?.GetComponent<InGameBetController>();///竖屏游戏的bet路径
             }
+
+            if (videoPokerHandController == null)
+            {
+                videoPokerHandController = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Button Hands")?.GetComponent<VideoPokerHandController>();
+                if(videoPokerHandController != null && videoPokerHandController.gameObject.active)
+                {
+                    videoPokerHandController.UpdateHandsGroupIndex(FreeSpinInfo.handCount);
+                }
+            }
             yield return new WaitForSeconds(0.5f);
         }
-
-        ///FreeSpinInfo.betCredit -= GetExtraBet(historyRes[0]);
 
         int index = 0;
         for (int i = 0; i < IGBC.BetList.Count; i++)
@@ -279,11 +289,12 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         //yield return new WaitForSeconds(1f);
         ////}
         //MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));
-        _delayTimer = this.DelayAction(8f, () => 
+        _delayTimer = this.DelayAction(6f, () => 
         {
             BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", true);
+            MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));
         }, null, true);
-        _delayTimer.Restart(UpdateMode.RealTime); 
+        _delayTimer.Restart(UpdateMode.RealTime);
     }
     /// <summary>
     /// 获取额外押注的金额
@@ -665,7 +676,8 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
                 JSONNode client_data = dataDict["client_data"];
                 long bet = client_data["bet"].AsLong;
                 long extra_bet = client_data["extra_bet"].AsLong;
-                balance -= (bet + extra_bet);
+                long bet_per_hand = client_data["bet_per_hand"].AsLong;
+                balance -= (bet + extra_bet + bet_per_hand);
                 BlackboardQueryUtils.SetMyCredit(balance);
                 MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
                 if (globalStore.nowGameID == 103 || globalStore.nowGameID == 182)///NIGHTS_OF_BINGO     id：103 游戏断线重连的时候，需要设置滚轮表的序号
@@ -927,6 +939,8 @@ public class FirstSpinInfo
     /// </remarks>
     public int SelectedIndex { get; private set; }
 
+    public int handCount;
+
     public List<int> SelectTypeList { get; private set; }
 
     /// <summary>
@@ -965,7 +979,7 @@ public class FirstSpinInfo
             betCredit = long.Parse(str);
             match = match.NextMatch();
         }
-        if(betCredit <= 0)  ///基诺类型的游戏的押注字段
+        if (betCredit <= 0)  ///基诺类型的游戏的押注字段
         {
             string pattern1 = "\"bet_per_ticket\":\\s*(\\d+)";
             Match match1 = Regex.Match(spin, pattern1);
@@ -974,6 +988,17 @@ public class FirstSpinInfo
                 string str = match1.Groups[1].Value;
                 betCredit = long.Parse(str);
                 match1 = match1.NextMatch();
+            }
+        }
+        if (betCredit <= 0)///扑克牌类型的押注字段
+        {
+            string pattern2 = "\"bet_per_hand\":\\s*(\\d+)";
+            Match match2 = Regex.Match(spin, pattern2);
+            while (match2.Success)
+            {
+                string str = match2.Groups[1].Value;
+                betCredit = long.Parse(str);
+                match2 = match2.NextMatch();
             }
         }
         ////获取额外下注金额 
@@ -999,6 +1024,16 @@ public class FirstSpinInfo
             else
             {
                 Debug.LogError("triggered_type_index is not find");
+            }
+        }
+        pattern = "\"hand_count\":\\s*(\\d+)";
+        if (handCount == 0)
+        {
+            match = Regex.Match(spin, pattern);
+            if (match.Success)
+            {
+                string hand = match.Groups[1].Value;
+                handCount = int.Parse(hand);
             }
         }
     }

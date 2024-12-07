@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ParadoxNotion;
@@ -10,6 +10,7 @@ namespace BagelCode
 	public class VideoPokerHandController : MonoBehaviour 
 	{
         Variable<int> handsGroupIndex;
+        [SerializeField]
         Variable<List<int>> handList;
         Variable<int> handCount;
 		Variable<bool> isGameSpin;
@@ -54,5 +55,18 @@ namespace BagelCode
             MessageDispatcher.Dispatch("OnContentEvent", new EventData<int>("UpdateHandsGroup", handsGroupIndex.value));
             MessageDispatcher.Dispatch("OnContentEvent", new EventData<int>("UpdateHandsCount", handList.value[handsGroupIndex.value]));
         }
-	}
+
+        public void UpdateHandsGroupIndex(int index)
+        {
+            for (int i = 0; i < handList.value.Count; i++)
+            {
+                if (handList.value[i] == index)
+                {
+                    handsGroupIndex.value = i;
+                    UpdateHandsGroup();
+                }
+            }
+        }
+
+    }
 }

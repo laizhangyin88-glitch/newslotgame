@@ -53,7 +53,7 @@ namespace BagelCode
             get { return restrictions.value; }
             set { restrictions.value = value; }
         }
-
+        [SerializeField]
         private Variable<List<long>> betList;
         public List<long> BetList
         {

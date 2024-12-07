@@ -220,6 +220,11 @@ namespace SlotMaker.Cards
             return helds;
         }
 
+        public HandInstance GetHand()
+        {
+            return handsGroups[lastGroup].hands[0];
+        }
+
         void PreUpdateHands()
         {
             int handIndex = 0;
@@ -436,7 +441,6 @@ namespace SlotMaker.Cards
             if (resultBB.GetValue<int>("paytableIndex") >= 0) 
             {
                 resultOwner.TriggerState("Win");
-
                 if (multipliers != null && multipliers.Count > 0 && multipliers[handIndex] > 1L)
                     ShowNextMultiplier(handIndex, multipliers[handIndex]);
 
@@ -445,7 +449,7 @@ namespace SlotMaker.Cards
                 win.paytableIndex = resultBB.GetValue<int>("paytableIndex");
                 win.earnCredit = resultBB.GetValue<long>("earnCredit");
                 win.multiplier = resultBB.GetValue<long>("multiplier");
-                
+
                 MessageDispatcher.Dispatch("OnWinEvent", new EventData<PokerWin>("SingleWin", win));
                 onSingleWin.Invoke();
             }

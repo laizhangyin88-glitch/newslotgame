@@ -553,11 +553,28 @@ namespace BagelCode
                 { "hand_count",handCount},
             };
 
+            if (LastFreeGameManager.Instance.isLastGameSpin)
+            {
+                LastFreeGameManager.Instance.getResponseData(RPCName.jacksDeal, (res) =>
+                {
+                    string resStr = res.ToString();
+
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/video_poker_deal_response_v3");
+                    ClientModels.VideoPokerDealResponseV3 response = JsonUtility.FromJson<ClientModels.VideoPokerDealResponseV3>(jsn8.text);
+                    response.contents = res["contents"].ToString();
+
+                    VideoPokerDealSuccess(response, betCredit);
+
+                    if (successCallback != null)
+                        successCallback();
+                });
+                return;
+            }
+
             NetManager.Instance.Post(RPCName.jacksDeal, req,
             (res) =>
             {
                 string resStr = res.ToString();
-
                 TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/video_poker_deal_response_v3");
                 ClientModels.VideoPokerDealResponseV3 response = JsonUtility.FromJson<ClientModels.VideoPokerDealResponseV3>(jsn8.text);
                 response.contents = res["contents"].ToString();
@@ -628,6 +645,8 @@ namespace BagelCode
         public void VideoPokerEndDeal()
         {
 #if NEW_NET
+            Dictionary<string, object> req = new Dictionary<string, object>();
+            NetManager.Instance.Post(RPCName.finish_game_round, req, (res) => { }, (error) => { });
             return;
 #endif
             //埋点数据：
@@ -657,14 +676,52 @@ namespace BagelCode
             int seasonPassEventId = EpicPassUtilsV2.SeasonPassEventId;
 
 
+            List<List<long>> multiplierList = new List<List<long>>();
+            List<Blackboard> handMetaInfoList = BlackboardUtils.FindVariable<List<Blackboard>>("./game/handMetaInfoPerBet").value;
+            for (int i = 0; i < handMetaInfoList.Count; ++i)
+            {
+                Blackboard bb = handMetaInfoList[i];
+                long betPerHand = bb.GetValue<long>("betPerHand");
 
-
-
+                List<Blackboard> metaInfoListPerHandList = bb.GetValue<List<Blackboard>>("handMetaInfoPerHand");
+                List<long> tempList = new List<long>();
+                for (int j = 0; j < metaInfoListPerHandList.Count; ++j)
+                {
+                    long temp = metaInfoListPerHandList[j].GetValue<long>("multiplier");
+                    tempList.Add(temp);
+                }
+                multiplierList.Add(tempList);
+            }
 #if NEW_NET
             Dictionary<string, object> req = new Dictionary<string, object>
             {
                 {"helds",helds },
+                {"multiplierList", multiplierList },
             };
+
+            if(LastFreeGameManager.Instance.isLastGameSpin)
+            {
+                LastFreeGameManager.Instance.getResponseData(RPCName.jacksDraw, (res) =>
+                {
+                    string resStr = res.ToString();
+
+                    TextAsset jsn8 = Resources.Load<TextAsset>("tempdata/video_poker_draw_response_v2");
+                    ClientModels.VideoPokerDrawResponseV2 response = JsonUtility.FromJson<ClientModels.VideoPokerDrawResponseV2>(jsn8.text);
+                    response.contents = res["contents"].ToString();
+
+
+                    var bb = BlackboardUtils.GetOrCreateBlackboard(ContentBlackboard.Get().GetValue<Blackboard>("spin"), "response");
+                    ClientAPI2Blackboard.Serialize(bb, response);
+                    BlackboardUtils.SetOrCreateValue<int>(bb, "requestType", (int)ContentsRequestType.VideoPokerDraw);
+                    ContentsSerializer.Deserialize(bb);
+
+                    BlackboardQueryUtils.UpdateUserSyncInfo(response.userSyncInfo, response.serverTime);
+
+                    if (successCallback != null) 
+                        successCallback();
+                });
+                return;
+            }
 
             NetManager.Instance.Post(RPCName.jacksDraw, req,
             (res) =>
@@ -1060,10 +1117,10 @@ namespace BagelCode
                 {"contents",ContentsSerializer.SerializeGambleStart(ticketId)},
             };
 
-            if(globalStore.nowGameID == 83)
-            {
-                req.Add("need_save_redis", 1); 
-            }
+            //if(globalStore.nowGameID == 83)
+            //{
+            //    req.Add("need_save_redis", 1); 
+            //}
 
             if (LastFreeGameManager.Instance.isLastGameSpin)
             {
@@ -1173,10 +1230,11 @@ namespace BagelCode
                 {"ackMask",BagelCodeHTTP.GenerateAckBits()},
                 {"contents",ContentsSerializer.SerializeGambleDeal(customData) }
             };
-            if (globalStore.nowGameID == 83)
-            {
-                req.Add("need_save_redis", 1);
-            }
+
+            //if (globalStore.nowGameID == 83)
+            //{
+            //    req.Add("need_save_redis", 1);
+            //}
 
             if (LastFreeGameManager.Instance.isLastGameSpin)
             {
@@ -1276,15 +1334,16 @@ namespace BagelCode
                 {"ackMask",BagelCodeHTTP.GenerateAckBits()},
                 {"contents",ContentsSerializer.SerializeGambleTake() }
             };
-            if (globalStore.nowGameID == 83)
-            {
-                var type = BlackboardUtils.GetOrCreateVariable<int>(ContentBlackboard.Get(), "./gamble/response/gambleInfo/winType").value;
-                var value = BlackboardUtils.GetOrCreateVariable<long>(ContentBlackboard.Get(), "./gamble/response/gambleInfo/winAmount").value;
-                if (type != 0 && value > 0)
-                {
-                    req.Add("need_save_redis", 1);
-                }
-            }
+
+            //if (globalStore.nowGameID == 83)
+            //{
+            //    var type = BlackboardUtils.GetOrCreateVariable<int>(ContentBlackboard.Get(), "./gamble/response/gambleInfo/winType").value;
+            //    var value = BlackboardUtils.GetOrCreateVariable<long>(ContentBlackboard.Get(), "./gamble/response/gambleInfo/winAmount").value;
+            //    if (type != 0 && value > 0)
+            //    {
+            //        req.Add("need_save_redis", 1);
+            //    }
+            //}
 
             if (LastFreeGameManager.Instance.isLastGameSpin)
             {
