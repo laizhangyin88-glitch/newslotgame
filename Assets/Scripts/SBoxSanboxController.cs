@@ -1335,8 +1335,8 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                 Debug.LogError(" 打印机初始化失败");
                 return;
             }
-            bool isPriniterConnect = SBoxSandbox.PrinterState() < 0;
-            if (isPriniterConnect)
+            bool isPriniterConnect = SBoxSandbox.PrinterState() >= 0;
+            if (!isPriniterConnect)
             {
                 Debug.LogError(" 打印机不在线");
                 PopupErrorMessage("printer is not connect");
