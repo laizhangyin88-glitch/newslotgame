@@ -31,8 +31,9 @@ namespace BagelCode
             Register(MetaEventDefine.ON_META_UI_EVENT, MetaEventDefine.ON_LEAVE_META_GAME, OnLeaveMetaGame);
             if (ApplicationSettings.Instance.isMachine)
             {
-                Debug.Log("初始化机台环境...");
-                SBoxInit.Instance.Init("192.168.3.212", OnHardCheck);
+                string url = "192.168.3.47";
+                Debug.Log($"链接机台({url}) 初始化机台环境...");
+                SBoxInit.Instance.Init(url, OnHardCheck);
             }
                 
         }
