@@ -691,13 +691,29 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         //PlayerPrefs.Save();
         //之后给为算法卡
     }
+
+
+    void PopupErrorMessage(string msg)
+    {
+        //string msg = JSONNode.Parse(error.response)["msg"];
+        ErrorPopupHandler.Instance.OpenError(new ErrorPopupInfo()
+        {
+            text = $"<size=32>{msg}</size>",
+            type = ErrorPopupType.OK,
+            buttonText1 = "OK",
+            callback1 = delegate { }
+        });
+    }
+
 }
 
 
 
 
 
-
+/// <summary>
+/// ## 协程封装
+/// </summary>
 public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxController>
 {
 
@@ -949,6 +965,9 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     }
 
     int credit = 0;
+
+
+
     private void OnBillIn(int credit)
     {
         if (credit <= 0)
@@ -987,6 +1006,8 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 #else
             SBoxSandbox.BillReject();
 #endif
+                if (res.HasKey("msg"))
+                    PopupErrorMessage(res["msg"]);
             }
         },
         (error) =>
@@ -998,9 +1019,18 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 #else
             SBoxSandbox.BillReject();
 #endif
+            try
+            {
+                PopupErrorMessage(JSONNode.Parse(error.response)["msg"]);
+            }
+            catch (Exception err){
+                Debug.LogError(error);
+                Debug.LogException(err);
+            }
         });
 
     }
+
 
     JSONNode _remainAddMoneyOrders = null;
 
@@ -1019,19 +1049,17 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     }
 
 
-
     private void OnBillStacked()
     {
-
         // 发订单号
         if (credit != 0 && addMoneyOrder != "" && addMoneyOrder != null)
         {
-
             // 0 待处理，1正在处理
             JSONNode nd = JSONNode.Parse(string.Format("{{\"stamp\":{0},\"count\":{1},\"device_index\":{2}}}", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), credit, 0));
             remainAddMoneyOrders.Add(addMoneyOrder, nd);
             MachineSetString("Server_RemainAddMoneyOrders", remainAddMoneyOrders.ToString());
 
+            //绑定订单给服务器发：
             Dictionary<string, object> req = new Dictionary<string, object>
                 {
                    {"money",credit}, //充入的美到
@@ -1043,7 +1071,6 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             (res) =>
             {
                 Debug.Log($" 充值成功");
-
                 string orderID = res["order_id"];
                 remainAddMoneyOrders.Remove(orderID);
                 MachineSetString("Server_RemainAddMoneyOrders", remainAddMoneyOrders.ToString());
@@ -1060,7 +1087,18 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
 
                 Debug.LogError(" 充值失败");
 
+                try
+                {
+                    PopupErrorMessage(res1["msg"]);
+                }
+                catch (Exception err)
+                {
+                    Debug.LogError(error);
+                    Debug.LogException(err);
+                }
+
             });
+
             addMoneyOrder = "";
             credit = 0;
         }
@@ -1268,6 +1306,15 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         else
         {
             Debug.Log("@【printer】请求退美元失败");
+
+            try
+            {
+                PopupErrorMessage(res["msg"]);
+            }
+            catch (Exception err)
+            {
+                Debug.LogException(err);
+            }
         }
 
     }
@@ -1286,6 +1333,13 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
             if (!isPrinterInit)
             {
                 Debug.LogError(" 打印机初始化失败");
+                return;
+            }
+            bool isPriniterConnect = SBoxSandbox.PrinterState() >= 0;
+            if (!isPriniterConnect)
+            {
+                Debug.LogError(" 打印机不在线");
+                PopupErrorMessage("printer is not connect");
                 return;
             }
             int fontSize = 5;
@@ -1380,6 +1434,18 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                             MachineSetString("Server_RemainPrinterOrders", remainPrinterOrders.ToString());
                         }
                         Debug.LogError(" 确认退美元失败");
+
+
+                        try
+                        {
+                            PopupErrorMessage(res1["msg"]);
+                        }
+                        catch (Exception err)
+                        {
+                            Debug.LogException(err);
+                        }
+
+
                     });
 
                     printMoney = 0;
@@ -1567,6 +1633,8 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                 remainPrinterOrders.Add(printOrderId, node);
                 MachineSetString("Server_RemainPrinterOrders", remainPrinterOrders.ToString());
 
+                Debug.Log(@"【machine】打印机打印成功");
+
                 printFunc();
             }
             else
@@ -1628,6 +1696,15 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                 default:
                     GlobalErrorHandler.GlobalError(error);
                     break;
+            }
+
+            try
+            {
+                PopupErrorMessage(JSONNode.Parse(error.response)["msg"]);
+            }
+            catch (Exception err)
+            {
+                Debug.LogException(err);
             }
         });
     }
@@ -1747,6 +1824,16 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
        {
            CloseMask();
            Debug.LogError(" 查询退票个数失败");
+
+           try
+           {
+               PopupErrorMessage(JSONNode.Parse(error.response)["msg"]);
+           }
+           catch (Exception err)
+           {
+               Debug.LogException(err);
+           }
+
        });
 
     }
@@ -1776,10 +1863,20 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         {
             //bool isFinished = res.HasKey("param") && res["param"].HasKey("have_been_accept") && res["param"]["have_been_accept"] == 1;
             string order = res.HasKey("param") && res["param"].HasKey("order_id") ? res["param"]["order_id"] : null;
-            if (remainCoinInOrders.HasKey(order))
+
+            if (order != null && remainCoinInOrders.HasKey(order))
             {
                 remainCoinInOrders.Remove(order);
                 MachineSetString("Server_RemainCoinInOrders", remainCoinInOrders.ToString());
+            }
+
+            try
+            {
+                PopupErrorMessage(res["msg"]);
+            }
+            catch (Exception err)
+            {
+                Debug.LogException(err);
             }
 
             Debug.LogError(" 投币失败");
@@ -1901,6 +1998,15 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
         {
             //CloseMask();
             Debug.LogError(" 查询退票个数失败");
+
+            try
+            {
+                PopupErrorMessage(JSONNode.Parse(error.response)["msg"]);
+            }
+            catch (Exception err)
+            {
+                Debug.LogException(err);
+            }
         });
     }
 
@@ -2082,6 +2188,16 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                 MachineSetString("Server_RemainCoinOutOrders", remainCoinOutOrders.ToString());
                 ChangeCreditShow();
             }
+
+            try
+            {
+                PopupErrorMessage(res["msg"]);
+            }
+            catch (Exception err)
+            {
+                Debug.LogException(err);
+            }
+
         }
     }
 
@@ -2285,6 +2401,14 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                         {
                             //CloseMask();
                             //Debug.LogError(" 查询退票个数失败");
+                            try
+                            {
+                                PopupErrorMessage(JSONNode.Parse(error.response)["msg"]);
+                            }
+                            catch (Exception err)
+                            {
+                                Debug.LogException(err);
+                            }
                         });
                     }
                 }
@@ -2327,6 +2451,18 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                             MachineSetString("Server_RemainCoinOutOrders", remainCoinOutOrders.ToString());
                             ChangeCreditShow();
                         }
+
+
+                        try
+                        {
+                            PopupErrorMessage(res1["msg"]);
+                        }
+                        catch (Exception err)
+                        {
+                            Debug.LogException(err);
+                        }
+
+
                     });
                 }
             }
@@ -2376,6 +2512,15 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                         {
                             remainCoinInOrders.Remove(od);
                             MachineSetString("Server_RemainCoinInOrders", remainCoinInOrders.ToString());
+                        }
+
+                        try
+                        {
+                            PopupErrorMessage(res1["msg"]);
+                        }
+                        catch (Exception err)
+                        {
+                            Debug.LogException(err);
                         }
                     });
 
@@ -2430,6 +2575,18 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                             remainAddMoneyOrders.Remove(order);
                             MachineSetString("Server_RemainAddMoneyOrders", remainAddMoneyOrders.ToString());
                         }
+
+
+                        try
+                        {
+                            PopupErrorMessage(res1["msg"]);
+                        }
+                        catch (Exception err)
+                        {
+                            Debug.LogException(err);
+                        }
+
+
                     });
                 }
             }
@@ -2475,6 +2632,18 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
                             remainPrinterOrders.Remove(order);
                             MachineSetString("Server_RemainPrinterOrders", remainPrinterOrders.ToString());
                         }
+
+
+                        try
+                        {
+                            PopupErrorMessage(res1["msg"]);
+                        }
+                        catch (Exception err)
+                        {
+                            Debug.LogException(err);
+                        }
+
+
                     });
                 }
             }
