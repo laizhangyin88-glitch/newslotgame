@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using NodeCanvas.Framework;
@@ -56,6 +56,18 @@ namespace BagelCode.Tasks.Actions.Contents
                 deck.deck[column].Add(SlotUtils.GetSymbol(slotIndex.value, reelIndex, strip, idx));
                 deck.hitMap[column].Add(false);
             }
+            string result = "";
+            for (int i = 0; i < deck.deck.Count; i++)
+            {
+                var temp = deck.deck[i];
+                for (int j = 0; j < temp.Count; j++)
+                {
+                    var symbol = temp[j];
+                    result += symbol.symbol + "  ";
+                }
+                result += "\n";
+            }
+            Debug.LogError(result);
         }
     }
 }
