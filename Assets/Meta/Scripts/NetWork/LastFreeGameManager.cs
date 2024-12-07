@@ -226,8 +226,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             Debug.LogError($"找不到bet_credit  数据 = {historyRes[0]}");
             yield break;
         }
-
-
+        
         // 设置押注倍数
         InGameBetController IGBC = null;
         VideoPokerHandController videoPokerHandController = null;
@@ -289,9 +288,13 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         //yield return new WaitForSeconds(1f);
         ////}
         //MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));
+        BlackboardUtils.SetOrCreateValue<int>(MainBlackboard.Get(), "updateCreditState", 0);
+        BlackboardQueryUtils.SetMyCredit(FreeSpinInfo.beforeBalance);
+        MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
+
         _delayTimer = this.DelayAction(6f, () => 
         {
-            BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", true);
+            BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", true); 
             MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));
         }, null, true);
         _delayTimer.Restart(UpdateMode.RealTime);
@@ -672,14 +675,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             {
                 isFirstData = false;
                 ///第一条数据，重置玩家的金额数据
-                long balance = dataDict["data"]["before_balance"].AsLong;
-                JSONNode client_data = dataDict["client_data"];
-                long bet = client_data["bet"].AsLong;
-                long extra_bet = client_data["extra_bet"].AsLong;
-                long bet_per_hand = client_data["bet_per_hand"].AsLong;
-                balance -= (bet + extra_bet + bet_per_hand);
-                BlackboardQueryUtils.SetMyCredit(balance);
-                MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
+                BlackboardUtils.SetOrCreateValue<int>(MainBlackboard.Get(), "updateCreditState", 1);
                 if (globalStore.nowGameID == 103 || globalStore.nowGameID == 182)///NIGHTS_OF_BINGO     id：103 游戏断线重连的时候，需要设置滚轮表的序号
                 {
                     GlobalReelStrips.Instance.index = dataDict["data"]["contents"]["reel_set_index"]["current_index"].AsInt;
@@ -907,12 +903,24 @@ public class FirstSpinInfo
     {
         historyJsonRes = ParseHistory(historyRes);
         GetFirstSpinInfo(historyRes[0]);
+        InitBeforeBalance(historyRes[0]);
         if (historyRes.Count > 1)
         {
             GetSecondClaimInfo(historyRes[1]); 
         }
         SelectTypeList = GetSelectIndexList(historyJsonRes);
     }
+
+    private void InitBeforeBalance(string spin)
+    {
+        JSONNode node = JSONNode.Parse(spin);
+        if (node != null)
+        {
+            beforeBalance = node["data"]["before_balance"].AsLong;
+        }
+    }
+
+    public long beforeBalance;
 
     public List<JSONNode> historyJsonRes;
 
