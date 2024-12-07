@@ -463,6 +463,7 @@ public class CheckInputStrings : MonoBehaviour
         {
             if (isInitSQLite) return;
             isInitSQLite = true;
+            outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
             if (string.IsNullOrEmpty(userId))
             {
                 userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "/me/userId").value;
