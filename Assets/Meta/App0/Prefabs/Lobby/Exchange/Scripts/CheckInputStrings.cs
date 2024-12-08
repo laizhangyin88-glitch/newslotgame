@@ -70,6 +70,24 @@ public class CheckInputStrings : MonoBehaviour
         _clearInterval = clearInterval;
     }
 
+    /// <summary>
+    /// 当收到bank二维码消息的处理
+    /// </summary>
+    /// <param name="message">消息内容(已经去除了前缀和后缀)</param>
+    public void OnBankMessageHandle(string message)
+    {
+        Debug.Log($"bank message:{message}");
+    }
+
+    /// <summary>
+    /// 当收到qrcode二维码消息的处理
+    /// </summary>
+    /// <param name="message">消息内容(已经去除了前缀和后缀)</param>
+    public void OnQRCodeMessageHandle(string message)
+    {
+        Debug.Log($"$qrcode message:{message}");
+    }
+
     private void OnListenerCloseXEvent(EventData eventData)
     {
         if(eventData.name == "OnResetIsInUse")
