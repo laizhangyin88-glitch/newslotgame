@@ -1626,16 +1626,29 @@ public partial class SBoxSanboxController : EventMonoSingleton<SBoxSanboxControl
     {
         if (result == 0)
         {
-
             if (printFunc != null && printOrderId != "" && printOrderId != null)
             {
-                JSONNode node = JSONNode.Parse(string.Format("{{\"stamp\":{0},\"count\":{1}}}", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), printMoney));
-                remainPrinterOrders.Add(printOrderId, node);
-                MachineSetString("Server_RemainPrinterOrders", remainPrinterOrders.ToString());
+                //延时检查是否缺纸
+                //检查是否缺纸： 5秒内检查，但是不能立马检查
+                DoTask("CheckPaper", () => {
 
-                Debug.Log(@"【machine】打印机打印成功");
+                    bool isPriniterConnect = SBoxSandbox.PrinterState() >= 0;
+                    if (!isPriniterConnect)
+                    {
+                        Debug.LogError(" 打印机缺纸！");
+                        PopupErrorMessage("printer out of paper");
+                        return;
+                    }
+                    else
+                    {
+                        JSONNode node = JSONNode.Parse(string.Format("{{\"stamp\":{0},\"count\":{1}}}", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), printMoney));
+                        remainPrinterOrders.Add(printOrderId, node);
+                        MachineSetString("Server_RemainPrinterOrders", remainPrinterOrders.ToString());
 
-                printFunc();
+                        Debug.Log(@"【machine】打印机打印成功");
+                        printFunc();
+                    }
+                }, 3000); 
             }
             else
             {
