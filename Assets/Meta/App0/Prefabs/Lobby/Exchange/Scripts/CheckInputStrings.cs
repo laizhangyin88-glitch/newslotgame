@@ -76,6 +76,7 @@ public class CheckInputStrings : MonoBehaviour
         isShowWaitView = false;
         outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
         MessageDispatcher.Register("OnCustomEvent", OnListenerCloseXEvent);
+
         _CheckInputStatus = CheckInputStatus.Idel;
     }
 
@@ -86,7 +87,7 @@ public class CheckInputStrings : MonoBehaviour
     }
     private void OnListenerCloseXEvent(EventData eventData)
     {
-        if (eventData.name == "OnResetIsInUse")
+        if (eventData.name == "OnResetIsInUse" || eventData.name == "enter_lobby_main")
         {
             if (eventData.value != null)
             {
@@ -385,6 +386,7 @@ public class CheckInputStrings : MonoBehaviour
         },
         (error) =>
         {
+            CloseWaitView();
             ShowErrorPopup(error.error);
         });
     }
@@ -403,6 +405,7 @@ public class CheckInputStrings : MonoBehaviour
         },
         (error) =>
         {
+            CloseWaitView();
             ShowErrorPopup(error.error);
         });
     }
