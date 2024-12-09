@@ -38,17 +38,19 @@ namespace SlotMaker.Cards.Tasks.Actions
                             multiplierList.Add(tempList);
                         }
                     }
-                } 
-
-                List<Blackboard> handMetaInfoListNew = BlackboardUtils.FindVariable<List<Blackboard>>("./game/handMetaInfoPerBet").value;
-                for (int i = 0; i < handMetaInfoListNew.Count; ++i)
+                }
+                if (multiplierList.Count > 0)
                 {
-                    Blackboard bb = handMetaInfoListNew[i];
-
-                    List<Blackboard> metaInfoListPerHandList = bb.GetValue<List<Blackboard>>("handMetaInfoPerHand");
-                    for (int j = 0; j < metaInfoListPerHandList.Count; ++j)
+                    List<Blackboard> handMetaInfoListNew = BlackboardUtils.FindVariable<List<Blackboard>>("./game/handMetaInfoPerBet").value;
+                    for (int i = 0; i < handMetaInfoListNew.Count; ++i)
                     {
-                        metaInfoListPerHandList[j].SetValue("multiplier", multiplierList[i][j]);
+                        Blackboard bb = handMetaInfoListNew[i];
+
+                        List<Blackboard> metaInfoListPerHandList = bb.GetValue<List<Blackboard>>("handMetaInfoPerHand");
+                        for (int j = 0; j < metaInfoListPerHandList.Count; ++j)
+                        {
+                            metaInfoListPerHandList[j].SetValue("multiplier", multiplierList[i][j]);
+                        }
                     }
                 }
             }
