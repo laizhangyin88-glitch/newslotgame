@@ -69,12 +69,13 @@ public class LoginMaskController : MonoBehaviour
     /// 延迟显示Tips
     /// </summary>
     /// <param name="delay">延迟时间，单位s</param>
-    public void DelayShowTips(float delay)
+    public void DelayShowTips(float delay, Action complete = null)
     {
         SetTipsActive(false);
         DelayedCall(delay, () =>
         {
             SetTipsActive(true);
+            complete?.Invoke();
         });
     }
 
