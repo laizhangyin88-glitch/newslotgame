@@ -50,6 +50,15 @@ public static class StartUpUtils
         return result;
     }
 
+    public static int ParsePackVersion(string version)
+    {
+        string[] versionArray = version.Split('.');
+        if (versionArray.Length != 3)
+            return 0;
+
+        return int.Parse(versionArray[0]) * 10000 + int.Parse(versionArray[1]) * 100;
+    }
+
     public static void GetFromStreamingAssets(string path, Action<byte[]> action)
     {
         string localPath = "";

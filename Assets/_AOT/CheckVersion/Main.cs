@@ -16,8 +16,14 @@ using UnityEngine.UI;
 
 public class Main : MonoBehaviour
 {
+    [SerializeField] private UI_CheckVersionTips _checkVersionTips;
+
     /// <summary> 是否更新: 网络版本比对 /// </summary>
     private bool needUpdateNet = false;
+    /// <summary>
+    /// 是否需要下载新包
+    /// </summary>
+    private bool needDownloadPack = false;
 
     private UnityWebRequest www;
 
@@ -240,6 +246,18 @@ public class Main : MonoBehaviour
         GetCurVersion();
         yield return StartCoroutine(GetLocalVersion());
         Debug.Log($"NetVersion:{netVersionData.Version}");
+
+        int netVersionCode = StartUpUtils.ParsePackVersion(netVersionData.Version);
+        int localVersionCode = StartUpUtils.ParsePackVersion(localVersionData.Version);
+        needDownloadPack = netVersionCode > localVersionCode;
+        if (needDownloadPack)
+        {
+            _checkVersionTips.gameObject.SetActive(true);
+        }
+
+        //不需要更新包体时才可以往下走
+        yield return new WaitUntil(() => needDownloadPack == false);
+
         needUpdateNet = StartUpUtils.ParseVersion(netVersionData.Version) > StartUpUtils.ParseVersion(curVersionData.Version);
         if (needUpdateNet)
         {
