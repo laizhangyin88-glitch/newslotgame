@@ -49,6 +49,8 @@ public class RPCName
     public const string slotSpin = "slot_spin";
     /// <summary>更新玩家缓存</summary>
     public const string updateUserCache = "update_user_cache";
+    /// <summary>清除异常状态（清除玩家断线重连的缓存数据</summary>
+    public const string clearAbormalStatus = "clear_abnormal_status";
 
     /// <summary>HAPPY DOLLARS</summary>
     public const string claimBonus = "claim_bonus";

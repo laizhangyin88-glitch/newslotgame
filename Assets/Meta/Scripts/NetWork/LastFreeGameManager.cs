@@ -730,6 +730,22 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         isLastGameSpin = false;
     }
 
+    public void StopLastFreeGame()
+    {
+        Time.timeScale = 1;
+
+        //From:whh - 2024年10月11日
+        //断线重连后恢复autoSpin，避免进行非玩家意愿的spin
+        BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", false);
+        isLastGameSpin = false;
+        //FinishEvent();
+        EventSender.SendGlobalEvent("OnCloseLoginMaskPop");
+
+        //恢复声音
+        GSManager.Instance.MusicVolume = PlayerPrefs.GetFloat("MUTE_MUSIC", 1);
+        GSManager.Instance.SfxVolume = PlayerPrefs.GetFloat("MUTE_SFX", 1);
+    }
+
     [Button]
     public void GetFreeSpinHistory(string firstSpin = "")
     {
