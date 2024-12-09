@@ -75,7 +75,7 @@ public class CheckInputStrings : MonoBehaviour
         inputValue = "";
         isShowWaitView = false;
         outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
-
+        MessageDispatcher.Register("OnCustomEvent", OnListenerCloseXEvent);
         _CheckInputStatus = CheckInputStatus.Idel;
     }
 
@@ -84,7 +84,16 @@ public class CheckInputStrings : MonoBehaviour
         InitSQLiteData();
         CheckQRCodeInfo();
     }
-
+    private void OnListenerCloseXEvent(EventData eventData)
+    {
+        if (eventData.name == "OnResetIsInUse")
+        {
+            if (eventData.value != null)
+            {
+                _CheckInputStatus = CheckInputStatus.Idel;
+            }
+        }
+    }
     /// <summary>
     /// 当收到bank二维码消息的处理
     /// </summary>
@@ -538,6 +547,6 @@ public class CheckInputStrings : MonoBehaviour
 
     private void OnDestroy()
     {
-
+        MessageDispatcher.UnRegister("OnCustomEvent", OnListenerCloseXEvent);
     }
 }
