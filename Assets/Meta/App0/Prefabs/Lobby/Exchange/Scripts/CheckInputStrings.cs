@@ -26,27 +26,14 @@ public class CheckInputStrings : MonoBehaviour
 {
     public static CheckInputStrings Instance;
 
-    private string inputStrings;
     private Dictionary<string, long> QRCodeInfoDicti = new Dictionary<string, long>();
-    private Dictionary<string, long> BankInfoDicti = new Dictionary<string, long>();
-
-
-    public float clearInterval = 60;
-    private float _clearInterval = 0;
 
     private CheckInputStatus _CheckInputStatus = CheckInputStatus.None;
 
-    string patternBank = @"bank:([^&]*)&QRCodeEnd&"; 
-    string patternQRCode = @"qr_code:([^&]*)&QRCodeEnd&";
+    //string patternBank = @"bank:([^&]*)&QRCodeEnd&"; 
+    //string patternQRCode = @"qr_code:([^&]*)&QRCodeEnd&";
 
     private int outCreditRate;
-    private Event _Event;
-
-    //private InputField _InputField;
-
-    private float _interval;
-
-    private string inputValue = "";
 
     private LobbyController lobbyController;
 
@@ -56,8 +43,6 @@ public class CheckInputStrings : MonoBehaviour
 
     private bool isSendReconnect = false;
     private string userId;
-
-    private Coroutine _coroutine;
 
     BackgroundManagerMainViewController backgroundManagerMainViewController;
 
@@ -71,8 +56,6 @@ public class CheckInputStrings : MonoBehaviour
             return;
         }
 #endif
-        _interval = 2;
-        inputValue = "";
         isShowWaitView = false;
         outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
         MessageDispatcher.Register("OnCustomEvent", OnListenerCloseXEvent);
@@ -82,9 +65,10 @@ public class CheckInputStrings : MonoBehaviour
 
     private void OnListenernContentUIEvent(EventData eventData) 
     {
-        if (eventData.name == "EnterLobbyMain")
+        if (eventData.name == "EnterLobbyMain") 
         {
             _CheckInputStatus = CheckInputStatus.Idel;
+            isShowWaitView = false;
         }
     }
 
@@ -95,10 +79,10 @@ public class CheckInputStrings : MonoBehaviour
     }
     private void OnListenerCloseXEvent(EventData eventData)
     {
-        Debug.LogError(eventData.name);
         if (eventData.name == "OnResetIsInUse")
         {
             _CheckInputStatus = CheckInputStatus.Idel;
+            isShowWaitView = false;
         }
     }
     /// <summary>
@@ -331,7 +315,7 @@ public class CheckInputStrings : MonoBehaviour
 
         info.text = $"<size=32>How do you want to use this QR code whose score are {score.ToString("N0")}?</size>";
         info.buttonText1 = "Print Bank QR Code";
-        info.buttonText2 = "Add Score this Account";
+        info.buttonText2 = "Add Score to this Account";
         info.useXButton = true;
         info.callback1 = delegate
         {
