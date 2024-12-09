@@ -121,7 +121,7 @@ public class AccountLoginViewNew : MonoBehaviour
         tipsText = transform.Find("Tips/Text").GetComponent<Text>();
 
         machineLoginBtn = transform.Find("Anchor/Login/MachineLogin").GetComponent<Button>();
-#if !K3K_TEST || K3K_RELEASE
+#if K3K_TEST || K3K_RELEASE
         machineLoginBtn.onClick.AddListener(() =>
         {
             MechineAutoConnect();

@@ -1425,11 +1425,16 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 temp.Add(item.seqID);
             }
         }
-        while (temp.Contains(seqID))
+        /*while (temp.Contains(seqID))
         {
             if (++this.seqID > 10000)
                 this.seqID = 1;
-        }
+        }*/
+        do
+        {
+            if (++this.seqID > 10000)
+                this.seqID = 1;
+        } while (temp.Contains(seqID));
         return seqID;
     }
 
