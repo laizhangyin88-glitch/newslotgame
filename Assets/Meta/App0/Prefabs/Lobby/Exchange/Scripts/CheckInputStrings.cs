@@ -42,10 +42,9 @@ public class CheckInputStrings : MonoBehaviour
     private int outCreditRate;
     private Event _Event;
 
-    private InputField _InputField;
+    //private InputField _InputField;
 
     private float _interval;
-    private bool startInput = false;
 
     private string inputValue = "";
 
@@ -76,12 +75,14 @@ public class CheckInputStrings : MonoBehaviour
         inputValue = "";
         isShowWaitView = false;
         outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
-        _InputField = FindObjectOfType<CheckInputField>().GetComponent<InputField>();
-        Debug.Log(_InputField.name);
-        MessageDispatcher.Register("OnCustomEvent", OnListenerCloseXEvent);
-        startInput = false;
-        _CheckInputStatus = CheckInputStatus.None;
-        _coroutine = StartCoroutine(CheckInput());
+
+        _CheckInputStatus = CheckInputStatus.Idel;
+    }
+
+    private void Update()
+    {
+        InitSQLiteData();
+        CheckQRCodeInfo();
     }
 
     /// <summary>
@@ -90,7 +91,10 @@ public class CheckInputStrings : MonoBehaviour
     /// <param name="message">消息内容(已经去除了前缀和后缀)</param>
     public void OnBankMessageHandle(string message)
     {
-        Debug.Log($"bank message:{message}");
+        if (CheckCanShowUsePop())
+        {
+            ShowBankPopup("bank:" + message);
+        }
     }
 
     /// <summary>
@@ -99,121 +103,104 @@ public class CheckInputStrings : MonoBehaviour
     /// <param name="message">消息内容(已经去除了前缀和后缀)</param>
     public void OnQRCodeMessageHandle(string message)
     {
-        Debug.Log($"$qrcode message:{message}");
-    }
-
-    private void OnListenerCloseXEvent(EventData eventData)
-    {
-        if(eventData.name == "OnResetIsInUse")
+        if (CheckCanShowUsePop())
         {
-            if(eventData.value != null)
-            {
-                //isInUse = (bool)eventData.value;
-            }
+            CheckQRCode("qr_code:" + message);
         }
     }
 
-    private void Update()
+    private bool CheckCanShowUsePop()
     {
         backgroundManagerMainViewController = FindObjectOfType<BackgroundManagerMainViewController>();
         if (backgroundManagerMainViewController != null)
         {
-            if (_coroutine != null)
-            {
-                StopCoroutine(_coroutine);
-                _coroutine = null;
-                _CheckInputStatus = CheckInputStatus.None;
-            }
-            return;
+            return false;
+        }
+        if(_CheckInputStatus == CheckInputStatus.Using)
+        {
+            return false;
+        }
+        GameLoadingSceneController gameLoadingSceneController = FindObjectOfType<GameLoadingSceneController>();
+        if (gameLoadingSceneController != null)
+        {
+            return false;
         }
         lobbyController = FindObjectOfType<LobbyController>();
         if (lobbyController != null)
         {
-            if (_coroutine == null)
-            {
-                _coroutine = StartCoroutine(CheckInput());
-                _CheckInputStatus = CheckInputStatus.Idel;
-            }
-            InitSQLiteData();
-        }
-        else
-        {
-            if (_coroutine != null)
-            {
-                StopCoroutine(_coroutine);
-                _coroutine = null;
-                _CheckInputStatus = CheckInputStatus.None;
-            }
-        }
-    }
-
-    private IEnumerator CheckInput()
-    {
-        while (true)
-        {
-            switch (_CheckInputStatus)
-            {
-                case CheckInputStatus.None:
-                    break;
-                case CheckInputStatus.Idel:
-                    if (_InputField != null)
-                    {
-                        if (!string.IsNullOrEmpty(_InputField.text))
-                        {
-                            bool result = MatchInput(_InputField.text);
-                            if (result)
-                            {
-                                _InputField.text = "";
-                                _InputField.DeactivateInputField();
-                                _CheckInputStatus = CheckInputStatus.Using;
-                            }
-                        }
-                        _InputField.ActivateInputField();
-                    }
-                    CheckQRCodeInfo();
-                    break;
-                case CheckInputStatus.Using:
-                    break;
-                default:
-                    break;
-            }
-            
-            yield return null;
-        }
-    }
-
-    private bool MatchInput(string input)
-    {
-        Match match = Regex.Match(input, patternBank);
-        if (match.Success)
-        {
-            string result = match.Groups[1].Value;
-            //正在加载界面，不弹窗
-            GameLoadingSceneController gameLoadingSceneController = FindObjectOfType<GameLoadingSceneController>();
-            if(gameLoadingSceneController != null)
-            {
-                return false;
-            }
-            ShowBankPopup("bank:" + result);
             return true;
         }
-        match = Regex.Match(input, patternQRCode);
-        if (match.Success)
-        {
-            string result = match.Groups[1].Value;
-            //Debug.LogError("qr_code:" + result);
-            GameLoadingSceneController gameLoadingSceneController = FindObjectOfType<GameLoadingSceneController>();
-            if (gameLoadingSceneController != null)
-            {
-                return false;
-            }
-            CheckQRCode("qr_code:" + result);
-            return true;
-        }
-        input = "";
-        inputValue = "";
         return false;
     }
+    #region 注释代码
+    //private IEnumerator CheckInput()
+    //{
+    //    while (true)
+    //    {
+    //        switch (_CheckInputStatus)
+    //        {
+    //            case CheckInputStatus.None:
+    //                break;
+    //            case CheckInputStatus.Idel:
+    //                if (_InputField != null)
+    //                {
+    //                    if (!string.IsNullOrEmpty(_InputField.text))
+    //                    {
+    //                        bool result = MatchInput(_InputField.text);
+    //                        if (result)
+    //                        {
+    //                            _InputField.text = "";
+    //                            _InputField.DeactivateInputField();
+    //                            _CheckInputStatus = CheckInputStatus.Using;
+    //                        }
+    //                    }
+    //                    _InputField.ActivateInputField();
+    //                }
+    //                CheckQRCodeInfo();
+    //                break;
+    //            case CheckInputStatus.Using:
+    //                break;
+    //            default:
+    //                break;
+    //        }
+
+    //        yield return null;
+    //    }
+    //}
+
+    //private bool MatchInput(string input)
+    //{
+    //    Match match = Regex.Match(input, patternBank);
+    //    if (match.Success)
+    //    {
+    //        string result = match.Groups[1].Value;
+    //        //正在加载界面，不弹窗
+    //        GameLoadingSceneController gameLoadingSceneController = FindObjectOfType<GameLoadingSceneController>();
+    //        if(gameLoadingSceneController != null)
+    //        {
+    //            return false;
+    //        }
+    //        ShowBankPopup("bank:" + result);
+    //        return true;
+    //    }
+    //    match = Regex.Match(input, patternQRCode);
+    //    if (match.Success)
+    //    {
+    //        string result = match.Groups[1].Value;
+    //        //Debug.LogError("qr_code:" + result);
+    //        GameLoadingSceneController gameLoadingSceneController = FindObjectOfType<GameLoadingSceneController>();
+    //        if (gameLoadingSceneController != null)
+    //        {
+    //            return false;
+    //        }
+    //        CheckQRCode("qr_code:" + result);
+    //        return true;
+    //    }
+    //    input = "";
+    //    inputValue = "";
+    //    return false;
+    //}
+    #endregion
 
     #region  使用银行凭证代码
     private void ShowBankPopup(string bankInfo)
@@ -411,6 +398,7 @@ public class CheckInputStrings : MonoBehaviour
         });
     }
     #endregion
+
     private void ShowWaitView()
     {
         if (isShowWaitView) return;
@@ -514,7 +502,6 @@ public class CheckInputStrings : MonoBehaviour
         }
     }
 
-
     private void ReconnectPrinter(string QRcode)
     {
         ShowWaitView();
@@ -525,7 +512,6 @@ public class CheckInputStrings : MonoBehaviour
         NetManager.Instance.Post(RPCName.agent_query_qr_code, req, (res) =>
         {
             long score = res["total_money"].AsLong;
-            //Debug.LogError(score);
             PrintBankQRCode(QRcode, score, true);
         },
         (error) =>
@@ -539,7 +525,7 @@ public class CheckInputStrings : MonoBehaviour
     {
         _CheckInputStatus = checkInputStatus;
     }
-
+     
     private void RemoveDictiElement()
     {
         if (QRCodeInfoDicti.Count > 0)
@@ -552,6 +538,6 @@ public class CheckInputStrings : MonoBehaviour
 
     private void OnDestroy()
     {
-        MessageDispatcher.UnRegister("OnCustomEvent", OnListenerCloseXEvent);
+
     }
 }

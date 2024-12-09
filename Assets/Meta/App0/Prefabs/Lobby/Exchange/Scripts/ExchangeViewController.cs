@@ -209,7 +209,7 @@ public class ExchangeViewController : MonoBehaviour
         {
             CurrentBankInfo = res["bank_order_id"];
             string orderInfo = res["show_order_id"];
-            CheckInputStrings.Instance.SetCheckStatus(CheckInputStatus.None);
+            CheckInputStrings.Instance.SetCheckStatus(CheckInputStatus.Using);
             PrintQRCodeInfo(CurrentBankInfo, orderInfo);
             this.DelayAction(15, () =>
             {
