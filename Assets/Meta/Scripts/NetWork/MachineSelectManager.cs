@@ -32,6 +32,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Timers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -1765,6 +1766,27 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 3003:
                 obj = GameObject.Find("Effect Midground/Mini Game Bonus/Mini Game0");
                 break;
+            case 100002:
+                if (LastFreeGameManager.Instance.FreeSpinInfo != null)
+                {
+                    long handCount = LastFreeGameManager.Instance.FreeSpinInfo.handCount;
+                    switch (handCount)
+                    {
+                        case 1:
+                            obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/1 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
+                            break;
+                        case 3:
+                            obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/3 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
+                            break;
+                        case 5:
+                            obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/5 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
+                            break;
+                        case 10:
+                            obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/10 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
+                            break;
+                    }
+                }
+                break;
         }
         if (obj != null && obj.active)
             return true;
@@ -1936,6 +1958,53 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 break;
             case 3004:
                 MessageDispatcher.Dispatch("OnCustomEvent", new EventData("MachineSpinClick"));
+                break;
+            case 100002:
+                if (LastFreeGameManager.Instance.historyRes.Count > 0)
+                {
+                    string response = LastFreeGameManager.Instance.historyRes[0];
+                    if (response.Contains("gamble_start"))
+                    {
+                        EventSender.SendGlobalEvent("OnContentUIEvent", new EventData("GambleButtonEvent"));
+                    }
+                    else if (response.Contains("selected_index") && response.Contains("gamble_dea"))
+                    {
+                        JSONNode node = JSONNode.Parse(response);
+                        JSONNode clientData = node["client_data"];
+                        string temp = clientData["contents"];
+                        JSONNode content = JSONNode.Parse(temp);
+                        int selected_index = content["selected_index"].AsInt;
+                        switch (selected_index)
+                        {
+                            case 0:
+                                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Red"));
+                                break;
+                            case 1:
+                                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Black"));
+                                break;
+                            case 2:
+                                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Black Spade"));
+                                break;
+                            case 3:
+                                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Red Heart"));
+                                break;
+                            case 4:
+                                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Red Diamond"));
+                                break;
+                            case 5:
+                                EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Black Clover"));
+                                break;
+                        }
+                    }
+                    else if (response.Contains("gamble_take"))
+                    {
+                        EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Take"));
+                    }
+                    else if (response.Contains("jacks_deal") || response.Contains("jacks_draw"))
+                    {
+                        MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));
+                    }
+                }
                 break;
             default:
                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("MachineSpinClick"));

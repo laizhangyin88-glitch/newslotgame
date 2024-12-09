@@ -140,6 +140,11 @@ namespace SlotMaker
 
         public virtual BaseSymbol GetSymbol(int column, int row)
         {
+            int temp = row - beginRow + topBuffer;
+            if (temp < 0 || temp >= symbols.Count)
+            {
+                return symbols[0]; 
+            }
             return symbols[row - beginRow + topBuffer];
         }
 

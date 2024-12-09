@@ -16,6 +16,10 @@ namespace SlotMaker.Cards.Tasks.Actions
 
         protected override void OnExecute()
         {
+            if (LastFreeGameManager.Instance.isLastGameSpin)
+            {
+
+            }
             videoPoker.value.GetComponent<VideoPoker>().UpdateWin(winList.value);
 
             EndAction();
