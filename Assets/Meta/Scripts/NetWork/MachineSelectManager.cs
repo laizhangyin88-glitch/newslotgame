@@ -1767,21 +1767,24 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 obj = GameObject.Find("Effect Midground/Mini Game Bonus/Mini Game0");
                 break;
             case 100002:
-                long handCount = LastFreeGameManager.Instance.FreeSpinInfo.handCount;
-                switch(handCount)
+                if (LastFreeGameManager.Instance.FreeSpinInfo != null)
                 {
-                    case 1:
-                        obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/1 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
-                        break;
-                    case 3:
-                        obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/3 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
-                        break;
-                    case 5:
-                        obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/5 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
-                        break;
-                    case 10:
-                        obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/10 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
-                        break;
+                    long handCount = LastFreeGameManager.Instance.FreeSpinInfo.handCount;
+                    switch (handCount)
+                    {
+                        case 1:
+                            obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/1 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
+                            break;
+                        case 3:
+                            obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/3 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
+                            break;
+                        case 5:
+                            obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/5 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
+                            break;
+                        case 10:
+                            obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/10 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
+                            break;
+                    }
                 }
                 break;
         }
@@ -1971,13 +1974,6 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                         string temp = clientData["contents"];
                         JSONNode content = JSONNode.Parse(temp);
                         int selected_index = content["selected_index"].AsInt;
-                        Debug.LogError(selected_index);
-                        //string pattern = "\\\"selected_index\\\":\\s*(\\d+)";
-                        //Match match = Regex.Match(temp, pattern);
-                        //if (match.Success)
-                        //{
-                        //    string str = match.Groups[1].Value;
-                        //    int selected_index = int.Parse(str);
                         switch (selected_index)
                         {
                             case 0:
@@ -1999,13 +1995,12 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Black Clover"));
                                 break;
                         }
-                        //}
                     }
                     else if (response.Contains("gamble_take"))
                     {
                         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Take"));
                     }
-                    else
+                    else if (response.Contains("jacks_deal") || response.Contains("jacks_draw"))
                     {
                         MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));
                     }
