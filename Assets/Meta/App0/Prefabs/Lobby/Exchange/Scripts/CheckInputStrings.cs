@@ -76,8 +76,16 @@ public class CheckInputStrings : MonoBehaviour
         isShowWaitView = false;
         outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
         MessageDispatcher.Register("OnCustomEvent", OnListenerCloseXEvent);
-
+        MessageDispatcher.Register("OnContentEvent", OnListenernContentUIEvent);
         _CheckInputStatus = CheckInputStatus.Idel;
+    }
+
+    private void OnListenernContentUIEvent(EventData eventData) 
+    {
+        if (eventData.name == "EnterLobbyMain")
+        {
+            _CheckInputStatus = CheckInputStatus.Idel;
+        }
     }
 
     private void Update()
@@ -87,12 +95,10 @@ public class CheckInputStrings : MonoBehaviour
     }
     private void OnListenerCloseXEvent(EventData eventData)
     {
-        if (eventData.name == "OnResetIsInUse" || eventData.name == "enter_lobby_main")
+        Debug.LogError(eventData.name);
+        if (eventData.name == "OnResetIsInUse")
         {
-            if (eventData.value != null)
-            {
-                _CheckInputStatus = CheckInputStatus.Idel;
-            }
+            _CheckInputStatus = CheckInputStatus.Idel;
         }
     }
     /// <summary>
@@ -551,5 +557,6 @@ public class CheckInputStrings : MonoBehaviour
     private void OnDestroy()
     {
         MessageDispatcher.UnRegister("OnCustomEvent", OnListenerCloseXEvent);
+        MessageDispatcher.UnRegister("OnContentEvent", OnListenernContentUIEvent);
     }
 }
