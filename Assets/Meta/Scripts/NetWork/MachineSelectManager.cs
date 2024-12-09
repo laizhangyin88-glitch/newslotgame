@@ -1971,13 +1971,6 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                         string temp = clientData["contents"];
                         JSONNode content = JSONNode.Parse(temp);
                         int selected_index = content["selected_index"].AsInt;
-                        Debug.LogError(selected_index);
-                        //string pattern = "\\\"selected_index\\\":\\s*(\\d+)";
-                        //Match match = Regex.Match(temp, pattern);
-                        //if (match.Success)
-                        //{
-                        //    string str = match.Groups[1].Value;
-                        //    int selected_index = int.Parse(str);
                         switch (selected_index)
                         {
                             case 0:
@@ -1999,13 +1992,12 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                                 EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Black Clover"));
                                 break;
                         }
-                        //}
                     }
                     else if (response.Contains("gamble_take"))
                     {
                         EventSender.SendGlobalEvent("OnCustomEvent", new EventData("Take"));
                     }
-                    else
+                    else if (response.Contains("jacks_deal") || response.Contains("jacks_draw"))
                     {
                         MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));
                     }
