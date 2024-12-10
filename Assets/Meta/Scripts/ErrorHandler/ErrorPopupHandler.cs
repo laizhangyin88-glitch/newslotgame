@@ -131,6 +131,10 @@ public class ErrorPopupHandler : SlotMaker.MonoWeakSingleton<ErrorPopupHandler>
                     case ErrorPopupType.SystemReset:
                         handlerOwner.SendEvent("OnClose");
                         break;
+                    case ErrorPopupType.YesNoClose:
+                        handlerOwner.SendEvent(eventName ?? "OnXClose");
+                        handlerOwner.SendEvent(eventName ?? "OnXClose1");
+                        break;
                 }
                 EventSender.SendGlobalEvent("OnClose");
             }
