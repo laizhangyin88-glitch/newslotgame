@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using SlotMaker;
 using System.Collections;
+using UnityEngine.Networking;
 
 public partial class SQLiteManager : MonoSingleton<SQLiteManager>
 {
@@ -46,10 +47,10 @@ public partial class SQLiteManager : MonoSingleton<SQLiteManager>
         if (!Directory.Exists(Application.persistentDataPath))
         {
             Directory.CreateDirectory(Application.persistentDataPath);
-            WWW loadWWW = new WWW(Path.Combine(Application.streamingAssetsPath, "SQLiteData.db"));
+            UnityWebRequest loadWWW = UnityWebRequest.Get(Path.Combine(Application.streamingAssetsPath, "SQLiteData.db"));
             Debug.Log(Path.Combine(Application.streamingAssetsPath, "SQLiteData.db"));
-            yield return loadWWW;
-            File.WriteAllBytes(dataSandBoxPath, loadWWW.bytes);
+            yield return loadWWW.SendWebRequest();
+            File.WriteAllBytes(dataSandBoxPath, loadWWW.downloadHandler.data);
         }
         connectString = "URI=file:" + dataSandBoxPath;
         _isReady = true;
