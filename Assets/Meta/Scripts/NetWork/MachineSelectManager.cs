@@ -1767,21 +1767,24 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
                 obj = GameObject.Find("Effect Midground/Mini Game Bonus/Mini Game0");
                 break;
             case 100002:
-                long handCount = LastFreeGameManager.Instance.FreeSpinInfo.handCount;
-                switch(handCount)
+                if (LastFreeGameManager.Instance.FreeSpinInfo != null)
                 {
-                    case 1:
-                        obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/1 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
-                        break;
-                    case 3:
-                        obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/3 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
-                        break;
-                    case 5:
-                        obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/5 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
-                        break;
-                    case 10:
-                        obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/10 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
-                        break;
+                    long handCount = LastFreeGameManager.Instance.FreeSpinInfo.handCount;
+                    switch (handCount)
+                    {
+                        case 1:
+                            obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/1 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
+                            break;
+                        case 3:
+                            obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/3 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
+                            break;
+                        case 5:
+                            obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/5 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
+                            break;
+                        case 10:
+                            obj = GameObject.Find("Game Canvas/Game Contents/Animator/Anchor/Base/Hands/10 Hands/Master Hand/Card Area/Card Master/Anchor/Contents");
+                            break;
+                    }
                 }
                 break;
         }
