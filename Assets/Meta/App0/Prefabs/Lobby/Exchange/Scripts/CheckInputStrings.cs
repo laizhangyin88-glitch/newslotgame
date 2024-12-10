@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public enum CheckInputStatus
@@ -93,7 +94,6 @@ public class CheckInputStrings : MonoBehaviour
     {
         if (CheckCanShowUsePop())
         {
-            Debug.Log("扫描成功.....");
             ShowBankPopup("bank:" + message);
         }
     }
@@ -106,7 +106,6 @@ public class CheckInputStrings : MonoBehaviour
     {
         if (CheckCanShowUsePop())
         {
-            Debug.Log("扫描成功.....");
             CheckQRCode("qr_code:" + message);
         }
     }
@@ -116,29 +115,27 @@ public class CheckInputStrings : MonoBehaviour
         backgroundManagerMainViewController = FindObjectOfType<BackgroundManagerMainViewController>();
         if (backgroundManagerMainViewController != null)
         {
-            Debug.Log("已打开后台界面，扫描失败....");
             return false;
         }
         if(_CheckInputStatus == CheckInputStatus.Using)
         {
-            Debug.Log("已进入上下分逻辑了....");
             return false;
         }
         GameLoadingSceneController gameLoadingSceneController = FindObjectOfType<GameLoadingSceneController>();
         if (gameLoadingSceneController != null)
         {
-            Debug.Log("正在加载界面，扫描失败...");
             return false;
         }
         lobbyController = FindObjectOfType<LobbyController>();
         if (lobbyController != null)
         {
-            Debug.Log("success....");
             return true;
         }
-        Debug.Log("未知情况........");
         return false;
     }
+
+
+
     #region 注释代码
     //private IEnumerator CheckInput()
     //{
@@ -326,7 +323,7 @@ public class CheckInputStrings : MonoBehaviour
         info.useXButton = true;
         info.callback1 = delegate
         {
-            if (!QRCodeInfoDicti.ContainsKey(QRCodeInfo))
+            if (!QRCodeInfoDicti.ContainsKey(QRCodeInfo) && !string.IsNullOrEmpty(QRCodeInfo))
             {
                 QRCodeInfoDicti.Add(QRCodeInfo, score);
             }
