@@ -6,6 +6,7 @@ using System.IO;
 using PlayFab.Json;
 using PlayFab.SharedModels;
 using UnityEngine;
+using UnityEngine.Networking;
 
 #if !UNITY_WSA && !UNITY_WP8 && !UNITY_WEBGL
 using Ionic.Zlib;
@@ -44,14 +45,20 @@ namespace PlayFab.Internal
             }
 #endif
 
-            //Debug.LogFormat("Posting {0} to Url: {1}", req.Trim(), url);
-            var www = new WWW(reqContainer.FullUrl, reqContainer.Payload, reqContainer.RequestHeaders);
+            var request = new UnityWebRequest(reqContainer.FullUrl, "POST");
+            request.uploadHandler = new UploadHandlerRaw(reqContainer.Payload);
+            request.downloadHandler = new DownloadHandlerBuffer();
 
+            foreach (var header in reqContainer.RequestHeaders)
+            {
+                request.SetRequestHeader(header.Key, header.Value);
+            }
+
+            // Debug.LogFormat("Posting {0} to Url: {1}", req.Trim(), reqContainer.FullUrl);
 #if PLAYFAB_REQUEST_TIMING
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 #endif
 
-            // Start the www corouting to Post, and get a response or error which is then passed to the callbacks.
             Action<string> wwwSuccessCallback = (response) =>
             {
                 try
@@ -63,7 +70,6 @@ namespace PlayFab.Internal
 
                     if (httpResult.code == 200)
                     {
-                        // We have a good response from the server
                         reqContainer.JsonResponse = JsonWrapper.SerializeObject(httpResult.data);
                         reqContainer.DeserializeResultJson();
                         reqContainer.ApiResult.Request = reqContainer.ApiRequest;
@@ -135,15 +141,16 @@ namespace PlayFab.Internal
                 }
             };
 
-            PlayFabHttp.instance.StartCoroutine(Post(www, wwwSuccessCallback, wwwErrorCallback));
+            PlayFabHttp.instance.StartCoroutine(Post(request, wwwSuccessCallback, wwwErrorCallback));
         }
 
-        private IEnumerator Post(WWW www, Action<string> wwwSuccessCallback, Action<string> wwwErrorCallback)
+        private IEnumerator Post(UnityWebRequest request, Action<string> wwwSuccessCallback, Action<string> wwwErrorCallback)
         {
-            yield return www;
-            if (!string.IsNullOrEmpty(www.error))
+            yield return request.SendWebRequest();
+
+            if (request.isNetworkError || request.isHttpError)
             {
-                wwwErrorCallback(www.error);
+                wwwErrorCallback(request.error);
             }
             else
             {
@@ -151,9 +158,9 @@ namespace PlayFab.Internal
                 {
 #if !UNITY_WSA && !UNITY_WP8 && !UNITY_WEBGL
                     string encoding;
-                    if (www.responseHeaders.TryGetValue("Content-Encoding", out encoding) && encoding.ToLowerInvariant() == "gzip")
+                    if (request.GetResponseHeaders().TryGetValue("Content-Encoding", out encoding) && encoding.ToLowerInvariant() == "gzip")
                     {
-                        var stream = new MemoryStream(www.bytes);
+                        var stream = new MemoryStream(request.downloadHandler.data);
                         using (var gZipStream = new GZipStream(stream, Ionic.Zlib.CompressionMode.Decompress, false))
                         {
                             var buffer = new byte[4096];
@@ -167,7 +174,6 @@ namespace PlayFab.Internal
                                 output.Seek(0, SeekOrigin.Begin);
                                 var streamReader = new StreamReader(output);
                                 var jsonResponse = streamReader.ReadToEnd();
-                                //Debug.Log(jsonResponse);
                                 wwwSuccessCallback(jsonResponse);
                             }
                         }
@@ -175,7 +181,7 @@ namespace PlayFab.Internal
                     else
 #endif
                     {
-                        wwwSuccessCallback(www.text);
+                        wwwSuccessCallback(request.downloadHandler.text);
                     }
                 }
                 catch (Exception e)
