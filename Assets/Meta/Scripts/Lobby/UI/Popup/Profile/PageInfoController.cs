@@ -27,6 +27,20 @@ public class PageInfoController : MonoBehaviour
         SetCur(cur);
     }
 
+    public void Init(int cur)
+    {
+        PageCount = transform.childCount;
+        CurPage = cur;
+
+        for (int i = 0; i < PageCount; i++)
+        {
+            Toggle toggle = transform.GetChild(i).GetComponent<Toggle>();
+            toggle.group = _toggleGroupCom;
+        }
+
+        SetCur(cur);
+    }
+
     public void SetCur(int cur)
     {
         Debug.Log($"<color=green>@==</color>{cur}/{PageCount}");
