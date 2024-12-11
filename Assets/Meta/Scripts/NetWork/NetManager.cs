@@ -890,6 +890,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "timezone_offset", data["timezone_offset"].AsInt);
                 }
                 #endregion
+
                 if (data.HasKey("level"))
                     NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserLevel, data["level"].AsInt);
 
@@ -902,6 +903,12 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 if (data.HasKey("agent_id"))
                     NetData_Login.Instance.SetNetDataValue(NetData_Login.Path_UserAgent, data["agent_id"].Value);
 
+                #region 添加游戏信息缓存
+                if (data.HasKey("basic_info"))
+                {
+                    BlackboardUtils.SetOrCreateValue<string>(MainBlackboard.Get(), "AllGameInfo", data["basic_info"].ToString());
+                }
+                #endregion
                 if (this._state == NetNodeState.Checking) //断线重连
                 {
 

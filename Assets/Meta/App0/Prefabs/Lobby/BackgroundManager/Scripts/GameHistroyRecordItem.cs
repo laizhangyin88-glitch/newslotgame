@@ -27,7 +27,7 @@ public class GameHistroyRecordItem : MonoBehaviour
 
     private GameHistroyRecordItemData gameHistroyRecordItemData;
 
-    private void Start()
+    private void Awake()
     {
         ID = transform.Find("Index").GetComponent<TextMeshProUGUI>();
         BuildTime = transform.Find("BuildTime").GetComponent<TextMeshProUGUI>();

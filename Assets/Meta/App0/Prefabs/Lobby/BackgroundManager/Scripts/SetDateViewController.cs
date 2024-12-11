@@ -18,7 +18,7 @@ public class SetDateViewController : MonoBehaviour
         ButtonClose = transform.Find("Image/ButtonClose").GetComponent<Button>();
         ButtonClose.onClick.AddListener(OnClickButtonClose);
         _CurrentSelectTime = transform.Find("Image/content/CurrentSelectTime").GetComponent<TextMeshProUGUI>();
-        SetCurrentSelectTime(_Calendar.GetCalendarValue());
+        SetCurrentSelectTime(_Calendar.GetLastSelect());
         _Calendar.OnClickConfirmEvent += OnClickSaveBtn;
     }
     private void OnClickButtonClose()
@@ -28,13 +28,13 @@ public class SetDateViewController : MonoBehaviour
 
     private void OnClickSaveBtn()
     {
-        string date = _Calendar.GetDateTxt();
+        string date = _Calendar.GetLastSelectDate();
         if (!string.IsNullOrEmpty(date))
         {
             string[] temps = date.Split('-');
             int year = int.Parse(temps[0]);
             int month = int.Parse(temps[1]);
-            int day = int.Parse(temps[2]);
+            int day = int.Parse(temps[2]); 
             int hour = GetNumber(_Calendar.GetHourTxt());
             int min = GetNumber(_Calendar.GetMinuteTxt());
             AndroidSystemHelper.Instance.SetSystemTime(year, month, day, hour, min, 0);
@@ -54,9 +54,9 @@ public class SetDateViewController : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void Update() 
     {
-        SetCurrentSelectTime(_Calendar.GetCalendarValue());
+        SetCurrentSelectTime(_Calendar.GetLastSelect());
     }
 
     private void SetCurrentSelectTime(string value)

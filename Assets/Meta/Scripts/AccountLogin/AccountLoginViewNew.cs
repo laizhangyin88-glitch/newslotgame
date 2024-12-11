@@ -283,15 +283,15 @@ public class AccountLoginViewNew : MonoBehaviour
         } 
 
         Debug.LogWarning(finalStr);
-        WWW www = new WWW(finalStr);
-        yield return www;
+        UnityWebRequest www = UnityWebRequest.Get(finalStr);
+        yield return www.SendWebRequest();
         //如果error是空的，说明访问成功
         string addr = null;
         string err = null;
         if (string.IsNullOrEmpty(www.error))
         {
             //192.168.2.218:7501
-            addr = "http://" + www.text;
+            addr = "http://" + www.downloadHandler.text;
             getTargetUrl = true;
         }
         else

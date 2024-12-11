@@ -6,6 +6,7 @@ using SlotMaker;
 using SlotMaker.Json;
 using NodeCanvas.Framework;
 using System.Text.RegularExpressions;
+using UnityEngine.Networking;
 
 namespace BagelCode
 {
@@ -84,7 +85,7 @@ namespace BagelCode
 
                 //urldecoding for facebook
                 // dataString = dataString.Replace("%3D", "=").Replace("20%", "+").Replace("%2F", "/");
-                dataString = UnityEngine.WWW.UnEscapeURL(dataString, System.Text.Encoding.UTF8).Replace(" ", "+");
+                dataString = UnityWebRequest.UnEscapeURL(dataString, System.Text.Encoding.UTF8).Replace(" ", "+");
                 if (keyString.Equals(key) && !string.IsNullOrEmpty(dataString))
                 {
                     Debug.Log(keyString);
