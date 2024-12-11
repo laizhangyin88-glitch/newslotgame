@@ -61,7 +61,7 @@ public class DetailInfoView
             "\nTime:  " + data.change_time + "\n" +
             "\nPlayer id:  " + data.user_id + "\n" +
             "\nAccount:  " + data.agent_id + "\n" +
-            "\nBefore Value:  " + data.before_credit + "\n";
+            "\nBefore Value:  " + data.before_credit.ToString("N0") + "\n";
         if(data.change_credit > 0)
         {
             result += "\nAdd:  " + data.change_credit
@@ -72,7 +72,7 @@ public class DetailInfoView
             result += "\nAdd:  0"
                 + "\n\nReduce:  " + data.change_credit;
         }
-        result += "\n\nAfter Value:  " + data.after_credit ;
+        result += "\n\nAfter Value:  " + data.after_credit.ToString("N0") ;
         _text.text = result;
         Timer.DelayAction(Time.deltaTime, () =>
         {
