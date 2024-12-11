@@ -28,6 +28,10 @@ namespace SpringGUI
 
         public int MinuteValue { get => minuteValue; set => minuteValue = value; }
 
+        private int currentDay = 0;
+
+        private string lastSelect = "";
+
         #region click events
         public class DayClickEvent : UnityEvent<DateTime> { }
         public class MonthClickEvent : UnityEvent<DateTime> { }
@@ -81,6 +85,7 @@ namespace SpringGUI
 
         protected override void Awake()
         {
+            currentDay = DateTime.Today.Day;
             m_Transform = transform;
             _timeButtonText = m_Transform.Find("Title/TimeButton/Text").GetComponent<TextMeshProUGUI>();
             _weeksGameObject = m_Transform.Find("Container/Weeks").gameObject;
@@ -105,7 +110,7 @@ namespace SpringGUI
             BtnConfirm = transform.Find("Confirm").GetComponent<Button>();
             if (bgBtn != null)
             {
-                bgBtn.onClick.AddListener(OnClickBgBtn); 
+                bgBtn.onClick.AddListener(OnClickBgBtn);
             }
             BtnConfirm.onClick.AddListener(OnClickConfirm);
             hourBtnAdd.onClick.AddListener(OnClickHourAddBtn);
@@ -113,6 +118,8 @@ namespace SpringGUI
             minuteBtnAdd.onClick.AddListener(OnClickMinuteAddBtn);
             minuteBtnReduce.onClick.AddListener(OnClickMinuteReduceBtn);
             ResetShow();
+            RefreshTimeButtonContent();
+            lastSelect = _timeButtonText.text;
         }
 
         private void ResetShow()
@@ -208,6 +215,7 @@ namespace SpringGUI
             else
                 m_selectDT = m_selectDT.AddYears(12);
             Refresh();
+            RefreshTimeButtonContentWithoutDay();
         }
         private void OnLastButtonClick()
         {
@@ -219,6 +227,7 @@ namespace SpringGUI
             else
                 m_selectDT = m_selectDT.AddYears(-12);
             Refresh();
+            RefreshTimeButtonContentWithoutDay();
         }
         #endregion
 
@@ -242,14 +251,17 @@ namespace SpringGUI
                 {
                     if (dmy.GetTxtColor() == Color.gray) return;
                     m_selectDT = dmy.CurrentDateTime;
+                    currentDay = dmy.CurrentDateTime.Day;
                     onDayClick.Invoke(dmy.CurrentDateTime);
                     Refresh();
                     SetDayColor(dmy);
+                    RefreshTimeButtonContent();
+                    lastSelect = _timeButtonText.text;
                 });
                 _daysPool.Add(dmy);
             }
             Destroy(dayPrefab);
-        }
+        } 
 
         private void SetDayColor(DMY dMY = null)
         {
@@ -361,8 +373,9 @@ namespace SpringGUI
         private void Refresh()
         {
             RefreshCalendar();
-            RefreshTimeButtonContent();
+            //RefreshTimeButtonContent();
         }
+
         private void RefreshTimeButtonContent()
         {
             switch (CalendarType)
@@ -382,9 +395,34 @@ namespace SpringGUI
             }
         }
 
-        public string GetCalendarValue()
+        private void RefreshTimeButtonContentWithoutDay()
         {
-            return string.Format("{0} {1}:{2}", _timeButtonText.text, hourTxt.text, minuteTxt.text);
+            switch (CalendarType)
+            {
+                case E_CalendarType.Day:
+                    if (DisplayType == E_DisplayType.Standard) _timeButtonText.text = m_selectDT.ToString("yyyy-MM");
+                    else _timeButtonText.text = m_selectDT.Year + "年" + m_selectDT.Month + "月" + m_selectDT.Day + "日";
+                    break;
+                case E_CalendarType.Month:
+                    if (DisplayType == E_DisplayType.Standard) _timeButtonText.text = m_selectDT.Year + "-" + m_selectDT.Month;
+                    else _timeButtonText.text = m_selectDT.Year + "年" + m_selectDT.Month + "月";
+                    break;
+                case E_CalendarType.Year:
+                    if (DisplayType == E_DisplayType.Standard) _timeButtonText.text = m_selectDT.Year.ToString();
+                    else _timeButtonText.text = m_selectDT.Year + "年";
+                    break;
+            }
+        }
+
+
+        public string GetLastSelect()
+        {
+            return string.Format("{0} {1}:{2}", lastSelect, hourTxt.text, minuteTxt.text); ;
+        }
+
+        public string GetLastSelectDate()
+        {
+            return lastSelect;
         }
 
         public string GetDateTxt()
@@ -491,9 +529,10 @@ namespace SpringGUI
         public void SetDay(DateTime dateTime, E_DisplayType displayType, Color fontColor)
         {
             CurrentDateTime = dateTime;
+            SetColor(new Color(0.3f, 0.3f, 0.3f, 1));
             if (!isInit)
             {
-                if (dateTime.Day == DateTime.Now.Day && fontColor != Color.gray) 
+                if (dateTime.Day == DateTime.Now.Day && fontColor != Color.gray)
                 {
                     SetColor(new Color(1, 0, 1, 1));
                 }

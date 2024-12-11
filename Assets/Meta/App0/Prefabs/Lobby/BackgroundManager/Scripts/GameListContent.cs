@@ -1,3 +1,5 @@
+using NodeCanvas.Framework;
+using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -72,12 +74,29 @@ public class GameListContent
         }
     }
 
+    private Dictionary<int, string> GetGameNameDicti()
+    {
+        var gameNameDicti = new Dictionary<int, string>();
+        var gameInfoList = BlackboardUtils.FindVariable<List<Blackboard>>(null, "/gameInfoList");
+        foreach (var item in gameInfoList.value)
+        {
+            int id = item.GetValue<int>("gameId");
+            string name = item.GetValue<string>("enumId").Replace('_', ' ');
+            if (id > 0 && !string.IsNullOrEmpty(name))
+            {
+                gameNameDicti.Add(id, name);
+            }
+        }
+        return gameNameDicti;
+    }
+
     private void InitGameNameBtnList()
     {
         btnList = new List<GameObject>();
         nameList = new List<string>();
         idList = new List<int>();
-        var dicti = GameHistroyRecordController.gameNameDicti.OrderBy(kvp => kvp.Value);
+        var tempDicti = GetGameNameDicti();
+        var dicti = tempDicti.OrderBy(kvp => kvp.Value);
         foreach (var item in dicti)
         {
             nameList.Add(item.Value);
@@ -85,7 +104,7 @@ public class GameListContent
         }
         CreateBtn(currentIndex, currentIndex + 20);
         currentIndex += 20;
-        double temp = GameHistroyRecordController.gameNameDicti.Count / 20.0f;
+        double temp = tempDicti.Count / 20.0f;
         totatlPage = (int)Math.Ceiling(temp);
         currentPage = 1;
         SetPageInfo(currentPage);

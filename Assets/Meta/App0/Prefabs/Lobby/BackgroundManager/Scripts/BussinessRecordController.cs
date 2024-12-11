@@ -125,6 +125,7 @@ public class BussinessRecordController : MonoBehaviour
             BussinessRecordItemController item = temp.GetComponent<BussinessRecordItemController>();
             item.controller = this;
             itemList.Add(item);
+            item.gameObject.SetActive(false);
         }
     }
 
@@ -132,11 +133,11 @@ public class BussinessRecordController : MonoBehaviour
     {
         if (isSetStartTime)
         {
-            StartTxt.text = _Calendar.GetCalendarValue();
+            StartTxt.text = _Calendar.GetLastSelect();
         }
         else
         {
-            EndTxt.text = _Calendar.GetCalendarValue();
+            EndTxt.text = _Calendar.GetLastSelect();
         }
     }
 
@@ -303,7 +304,6 @@ public class BussinessRecordController : MonoBehaviour
         param["end_time"] = end;
         param["page"] = pageIndex;
         param["per_page"] = 6;
-        Debug.LogError(NetData_Login.Instance.NetData_UserId);
         param["user_id"] = NetData_Login.Instance.NetData_UserId; 
         data["params"] = param;
         NetManager.Instance.Post(RPCName.user_php_interface, data, (res) =>
@@ -332,8 +332,8 @@ public class BussinessRecordController : MonoBehaviour
             }
             for (int i = 0; i < _BussinessItemDataList.Count; i++)
             {
-                itemList[i].gameObject.SetActive(true);
                 itemList[i].UpdateView(_BussinessItemDataList[i], i);
+                itemList[i].gameObject.SetActive(true);
             }
         },
         (error) =>

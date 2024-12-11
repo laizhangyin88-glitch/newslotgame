@@ -122,14 +122,17 @@ public class NumericKeypadController : MonoBehaviour
 
     private void InputNumber(int index)
     {
-        password += index.ToString();
-        _InputTxt.text = password;
+        if (password.Length <= 21)
+        {
+            password += index.ToString();
+            _InputTxt.text = password;
+        }
     }
 
 
     private void SendCheckPassword()
     {
-        if (password.Length >= 6)
+        //if (password.Length >= 6)
         {
             string passwordMD5 = ComputeMD5Hash(password);
             JSONNode data = JSONNode.Parse("{}");

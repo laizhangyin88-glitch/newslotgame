@@ -127,11 +127,11 @@ public class GameHistroyRecordController : MonoBehaviour
     {
         if (isSetStartTime)
         {
-            StartTxt.text = _Calendar.GetCalendarValue();
+            StartTxt.text = _Calendar.GetLastSelect();
         }
         else
         {
-            EndTxt.text = _Calendar.GetCalendarValue();
+            EndTxt.text = _Calendar.GetLastSelect();
         }
     }
 
@@ -209,6 +209,7 @@ public class GameHistroyRecordController : MonoBehaviour
             GameHistroyRecordItem item = temp.GetComponent<GameHistroyRecordItem>();
             item.controller = this;
             itemList.Add(item);
+            item.gameObject.SetActive(false);
         }
     }
 
@@ -225,18 +226,17 @@ public class GameHistroyRecordController : MonoBehaviour
 
     private void InitGameNameDicti()
     {
-        if(gameNameDicti == null)
+        if (gameNameDicti == null)
         {
             gameNameDicti = new Dictionary<int, string>();
-            var gameInfoList = BlackboardUtils.FindVariable<List<Blackboard>>(null, "/gameInfoList");
-            foreach (var item in gameInfoList.value)
+            var gameNamesInfo = BlackboardUtils.GetOrCreateVariable<string>(MainBlackboard.Get(), "AllGameInfo").value;
+            JSONNode node = JSONNode.Parse(gameNamesInfo);
+            for (int i = 0; i < node.Count; i++)
             {
-                int id = item.GetValue<int>("gameId");
-                string name = item.GetValue<string>("enumId").Replace('_', ' ');
-                if (id > 0 && !string.IsNullOrEmpty(name))
-                {
-                    gameNameDicti.Add(id, name);
-                }
+                var temp = node[i];
+                var name = temp["game_name"];
+                var id = temp["game_id"].AsInt;
+                gameNameDicti.Add(id, name);
             }
         }
     }
@@ -403,8 +403,8 @@ public class GameHistroyRecordController : MonoBehaviour
             }
             for (global::System.Int32 i = 0; i < itemDataList.Count; i++)
             {
+                itemList[i].UpdateView(itemDataList[i], i); 
                 itemList[i].gameObject.SetActive(true);
-                itemList[i].UpdateView(itemDataList[i], i);
             }
         },
         (error) =>
