@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ParadoxNotion;
@@ -58,10 +58,6 @@ namespace SlotMaker
 
         public void DispatchContentUIDetailEvent(string eventName)
         {
-            if(eventName == "demonessBreathUnlockReelsFromAnimation") 
-            {
-                Debug.LogError(eventName);
-            }
             var e = new EventData(eventName);
             if (sendGlobal)
                 MessageDispatcher.Dispatch(ON_CONTENT_UI_DETAIL_EVENT, e);
