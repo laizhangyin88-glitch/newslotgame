@@ -29,12 +29,12 @@ public class ResetPassword : MonoBehaviour
 
     private void Start()
     {
-        description.text = "New Password must be 6 or more characters, including one letter and on number.";
+        description.text = "New Password must be 6 to 12 characters ,must including one letter and on number.";
     }
 
     private bool ValidatePassword(string password)
     {
-        string pattern = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$";
+        string pattern = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$";
         return Regex.IsMatch(password, pattern);
     }
 
@@ -52,7 +52,7 @@ public class ResetPassword : MonoBehaviour
         }
         if(!ValidatePassword(newInput.text))
         {
-            description.text = "New Password must be 6 or more characters, including one letter and on number.";
+            description.text = "New Password must be 6 to 12 characters ,must including one letter and on number.";
             return;
         }
         if (string.IsNullOrEmpty(reEnterInput.text) || newInput.text != reEnterInput.text)
