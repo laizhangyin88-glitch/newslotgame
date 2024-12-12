@@ -102,7 +102,6 @@ namespace BagelCode
            // MetaContextElementUtils.SetActive(customerSupportButtonElement, true);
 
             MetaContextElementUtils.SetActive(onLineButtonElement, showGlobalButtons);
-            MetaContextElementUtils.SetActive(rankingButtonElement, showGlobalButtons);
             MetaContextElementUtils.SetActive(wallofEpicButtonElement, showGlobalButtons);
             MetaContextElementUtils.SetActive(couponButtonElement, showGlobalButtons);
 
@@ -126,7 +125,7 @@ namespace BagelCode
             //MetaContextElementUtils.SetActive(onLineButtonElement, false);
             //MetaContextElementUtils.SetActive(rankingButtonElement, false);
 
-            MetaContextElementUtils.SetActive(rankingButtonElement, ApplicationSettings.Instance.isMachine);
+            MetaContextElementUtils.SetActive(rankingButtonElement, false);
 
             MetaContextElementUtils.SetActive(wallofEpicButtonElement, false);
             MetaContextElementUtils.SetActive(couponButtonElement, false);

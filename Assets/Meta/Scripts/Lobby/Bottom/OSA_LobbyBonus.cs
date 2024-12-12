@@ -5,6 +5,7 @@ using SimpleJSON;
 using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,7 +57,8 @@ public class OSA_LobbyBonus : OSA<BaseParamsWithPrefab, LobbyBonusItemViewsHolde
 
     private void InitJackpot()
     {
-        jackpots = MainBlackboard.Get().GetValue<List<int>>("LobbyJackpotScore");
+        var lobbyJackpotScore = MainBlackboard.Get().GetValue<List<int>>("LobbyJackpotScore");
+        jackpots = new List<int>(lobbyJackpotScore.Select((v) => v / 100));
     }
 
     protected override void OnDisable()
@@ -87,7 +89,7 @@ public class OSA_LobbyBonus : OSA<BaseParamsWithPrefab, LobbyBonusItemViewsHolde
         if (lobbyJackpotScore == null)
             return;
 
-        jackpots = lobbyJackpotScore;
+        jackpots = new List<int>(lobbyJackpotScore.Select((v) => v / 100));
     }
 
     protected override LobbyBonusItemViewsHolder CreateViewsHolder(int itemIndex)

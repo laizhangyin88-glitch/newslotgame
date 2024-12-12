@@ -27,7 +27,8 @@ namespace SlotMaker
 		public void Dispatch(EventData eventData)
 		{
 #if UNITY_EDITOR
-            Debug.Log($"【 WinEventDispatcher 发送消息】：eventName = {ON_WIN_EVENT} ， name = {eventData.name}");
+            if(ApplicationSettings.LogEvent)
+                Debug.Log($"【 WinEventDispatcher 发送消息】：eventName = {ON_WIN_EVENT} ， name = {eventData.name}");
 #endif
             router.Dispatch(ON_WIN_EVENT, eventData);
 		}
