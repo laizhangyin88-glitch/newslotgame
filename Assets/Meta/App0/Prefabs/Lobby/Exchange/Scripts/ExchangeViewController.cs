@@ -10,6 +10,7 @@ using GameUtil;
 using System.Text.RegularExpressions;
 using System.Linq;
 using ParadoxNotion;
+using System;
 
 public class QRCodeInfo
 {
@@ -43,6 +44,8 @@ public class ExchangeViewController : MonoBehaviour
     private Transform ScrollViewQRCode;
     private TextMeshProUGUI coinValueTxt;
 
+    private DelayTimer _delayTimer;
+
     private List<Button> quickExchangeList = new List<Button>();
     private List<long> quickExchanges = new List<long>();
 
@@ -57,11 +60,15 @@ public class ExchangeViewController : MonoBehaviour
     private TextMeshProUGUI soft_value_txt;
     private TextMeshProUGUI RateTxt;
 
+    private bool isShowError = false;
+
     private void Start()
     {
         isMachine = ApplicationSettings.Instance.isMachine;
 
         MessageDispatcher.Register(EVTType.ON_CREDIT_EVENT, UpdateCredit);
+
+        PrinterController.Instance.AddErrorHandlerAction(PrinterErrorHandle);
 
         SureBtn = transform.Find("content/SureBtn").GetComponent<Button>();
         SureBtn.onClick.AddListener(OnClickSureBtn);
@@ -97,8 +104,9 @@ public class ExchangeViewController : MonoBehaviour
         RateTxt.text = string.Format("Redeem Rate : 1:{0}", outCreditRate);
 
         InitQuickQRCodeList();
-
     }
+
+ 
 
     private void UpdateCredit(EventData eventData)
     {
@@ -211,7 +219,9 @@ public class ExchangeViewController : MonoBehaviour
             string orderInfo = res["show_order_id"];
             CheckInputStrings.Instance.SetCheckStatus(CheckInputStatus.Using);
             PrintQRCodeInfo(CurrentBankInfo, orderInfo);
-            this.DelayAction(15, () =>
+            isShowError = false;
+            _delayTimer?.Cancel();
+            _delayTimer = this.DelayAction(15, () =>
             {
                 ShowPopup("Success !");
                 CheckInputStrings.Instance.SetCheckStatus(CheckInputStatus.Idel); 
@@ -226,6 +236,15 @@ public class ExchangeViewController : MonoBehaviour
             content2.gameObject.SetActive(false);
         });
     }
+
+    private void PrinterErrorHandle()
+    {
+        if(isShowError) { return; }
+        isShowError = true;
+        _delayTimer?.Cancel();
+        ShowPopup("Printer Exception!", () => { PrinterController.Instance.EndPrinter(); });
+    }
+
     private void OnClickBtnClose()
     {
         PopupManager.Instance.Close(this.gameObject);
@@ -382,7 +401,6 @@ public class ExchangeViewController : MonoBehaviour
         },
         (error) =>
         {
-            Debug.LogError(error);
             ShowPopup(error.error);
         });
 
@@ -445,6 +463,7 @@ public class ExchangeViewController : MonoBehaviour
         }
         btnClose.onClick.RemoveAllListeners();
         QRCodeInfoDicti.Clear();
+        PrinterController.Instance.RemoveErrorHandlerAction(PrinterErrorHandle);
     }
     private Color32[] GenerateQRCode(string formatStr, int width, int height)
     {
@@ -479,7 +498,7 @@ public class ExchangeViewController : MonoBehaviour
         QRCodeRawImage.texture = texture;
     }
 
-    private void ShowPopup(string error)
+    private void ShowPopup(string error, Action action = null)
     {
         ErrorPopupInfo info = new ErrorPopupInfo();
         info.type = ErrorPopupType.OK;
@@ -488,6 +507,7 @@ public class ExchangeViewController : MonoBehaviour
         info.callback1 += delegate
         {
             content2.gameObject.SetActive(false);
+            if(action != null) action();
         };
         ErrorPopupHandler.Instance.OpenError(info);
     }
@@ -514,9 +534,16 @@ public class ExchangeViewController : MonoBehaviour
         info.buttonText2 = "Cancle";
         info.callback1 = delegate
         {
-            string temp = value_txt.text.Replace(",", "");
-            long result = long.Parse(temp);
-            CreateQRCode(result, true);
+            if (PrinterController.Instance.GetIsConnectPrinter())
+            {
+                ShowPop("Print Not Found");
+            }
+            else
+            {
+                string temp = value_txt.text.Replace(",", "");
+                long result = long.Parse(temp);
+                CreateQRCode(result, true);
+            }
         };
         info.callback2 += delegate
         {
@@ -533,5 +560,16 @@ public class ExchangeViewController : MonoBehaviour
             SaveInfo();
         }
     }
-
+    private void ShowPop(string value)
+    {
+        ErrorPopupInfo info = new ErrorPopupInfo();
+        info.type = ErrorPopupType.OK;
+        info.text = "<size=32>" + value + "</size>";
+        info.buttonText1 = "OK";
+        info.callback1 += delegate
+        {
+            content2.gameObject.SetActive(false);
+        };
+        ErrorPopupHandler.Instance.OpenError(info);
+    }
 }
