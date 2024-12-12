@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using NodeCanvas.Framework;
@@ -8,7 +8,7 @@ namespace SlotMaker.Tasks.Actions
 {
 
 [Category("★ SlotMaker/Blackboard/Generic")]
-public class GetBlackboardValueList<T> : ActionTask<Blackboard>  
+public class GetBlackboardValueList<T> : ActionTask<Blackboard>
 {
 	public BBParameter<string> valueA;
 	

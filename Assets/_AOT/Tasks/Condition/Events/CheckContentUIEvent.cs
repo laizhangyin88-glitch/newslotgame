@@ -9,28 +9,30 @@ using ParadoxNotion.Design;
 namespace BagelCode.Task.Condition
 {
 
-[Category("★ BagelCode/Events")]
-[EventReceiver("OnContentUIEvent")]
-public class CheckContentUIEvent : ConditionTask<GraphOwner>
-{
-	[RequiredField]
-	public BBParameter<string> eventName;
+    [Category("★ BagelCode/Events")]
+    [EventReceiver("OnContentUIEvent")]
+    public class CheckContentUIEvent : ConditionTask<GraphOwner>
+    {
+        [RequiredField]
+        public BBParameter<string> eventName;
 
-	protected override string info{ get {return "★ [" + eventName.ToString() + "]"; } }
-	protected override bool OnCheck(){ return false; }
-	public void OnContentUIEvent(EventData receivedEvent){
-		if (isActive && receivedEvent.name.Equals(eventName.value, StringComparison.Ordinal)){
+        protected override string info { get { return "★ [" + eventName.ToString() + "]"; } }
+        protected override bool OnCheck() { return false; }
+        public void OnContentUIEvent(EventData receivedEvent)
+        {
+            if (isActive && receivedEvent.name.Equals(eventName.value, StringComparison.Ordinal))
+            {
+#if UNITY_EDITOR
+                if (NodeCanvas.Editor.Prefs.logEvents)
+                {
+                    Debug.Log(string.Format("★ Event '{0}' Received from '{1}'", receivedEvent.name, agent.gameObject.name), agent);
+                }
+#endif
 
-			#if UNITY_EDITOR
-			if (NodeCanvas.Editor.Prefs.logEvents){
-				Debug.Log(string.Format("★ Event '{0}' Received from '{1}'", receivedEvent.name, agent.gameObject.name), agent);
-			}
-			#endif
-
-			YieldReturn(true);
-		}
-	}
-}
+                YieldReturn(true);
+            }
+        }
+    }
 
 [Category("★ BagelCode/Events")]
 [EventReceiver("OnContentUIEvent")]

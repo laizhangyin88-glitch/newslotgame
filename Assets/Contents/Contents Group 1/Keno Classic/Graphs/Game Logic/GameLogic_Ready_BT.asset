@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: GameLogic_Ready_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.97,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-63.0,"y":-103.0},"zoomFactor":0.9999607,"nodes":[{"_position":{"x":450.0,"y":55.0},"$type":"NodeCanvas.BehaviourTrees.Parallel","$id":"2"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"eventName":{"_value":"Erase"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},{"eventName":{"_value":"QuickPick"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},{"eventName":{"_value":"AutoQuickPick"},"$type":"BagelCode.Task.Condition.CheckContentUIEvent"},{"mediator":{"_name":"KenoMediator","_targetVariableID":"c2201e6f-c2cc-4b7c-8b4a-ea66d4a0d4f7"},"spotEventType":{},"$type":"SlotMaker.Keno.Tasks.Conditions.CheckSpotEvent"},{"mediator":{"_name":"KenoMediator","_targetVariableID":"c2201e6f-c2cc-4b7c-8b4a-ea66d4a0d4f7"},"spotEventType":{"_value":"Unpick"},"$type":"SlotMaker.Keno.Tasks.Conditions.CheckSpotEvent"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":203.0,"y":249.0},"$type":"NodeCanvas.BehaviourTrees.WaitUntil","$id":"3"},{"_action":{"executionMode":"ActionsRunInParallel","actions":[{"mediator":{"_name":"KenoMediator","_targetVariableID":"c2201e6f-c2cc-4b7c-8b4a-ea66d4a0d4f7"},"$type":"SlotMaker.Keno.Tasks.Actions.Keno_Release"},{"mediator":{"_name":"KenoMediator","_targetVariableID":"c2201e6f-c2cc-4b7c-8b4a-ea66d4a0d4f7"},"$type":"SlotMaker.Keno.Tasks.Actions.Keno_SkipWin"},{"targetList":{"_name":"winList","_targetVariableID":"50e5b243-0c41-4ab6-9a54-528d1010ef84"},"$type":"NodeCanvas.Tasks.Actions.ClearList"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":184.0,"y":437.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"18"},{"_subTree":{"_value":1},"_position":{"x":463.0,"y":254.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"27"},{"_nestedFSM":{"_value":2},"_position":{"x":697.0,"y":252.0},"$type":"NodeCanvas.BehaviourTrees.NestedFSM","$id":"29"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"27"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 20fbffc89776749e09854fbf02212667, type: 2}
+  - {fileID: 11400000, guid: f22882e4b8f9447be8fb5ca12e8ea921, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0
