@@ -17,6 +17,8 @@ using UnityEngine.UI;
 public class Main : MonoBehaviour
 {
     [SerializeField] private UI_CheckVersionTips _checkVersionTips;
+    [SerializeField] private UI_NetworkTips _networkTips;
+    [SerializeField] private UI_NetworkTips2 _networkTips2;
 
     /// <summary> 是否更新: 网络版本比对 /// </summary>
     private bool needUpdateNet = false;
@@ -64,7 +66,26 @@ public class Main : MonoBehaviour
 
     private IEnumerator Start()
     {
+        if(CheckNetworkConnection() == false)
+        {
+#if UNITY_ANDROID
+            if (ApplicationSettings.Instance.isMachine)
+            {
+                _networkTips.Show();
+                yield return new WaitUntil(() => _networkTips.IsOpen == false);
 
+                GameObject wifiConfigUI = WifiItemController.OpenViewFromResources("WifiView", GameObject.Find("Canvas").transform);
+                yield return new WaitUntil(() => wifiConfigUI == null);
+            }
+#endif
+
+            if(CheckNetworkConnection() == false)
+            {
+                _networkTips2.gameObject.SetActive(true);
+                yield return new WaitUntil(() => CheckNetworkConnection());//存在网络连接时才可以往下走
+                _networkTips2.gameObject.SetActive(false);
+            }
+        }
 
         //yield return StartCoroutine(RequestUserPermissions(Permission.ExternalStorageRead));
         //yield return StartCoroutine(RequestUserPermissions(Permission.ExternalStorageWrite));
@@ -131,6 +152,26 @@ public class Main : MonoBehaviour
         //yield return new WaitForSeconds(1f);
     }
 
+    public bool CheckNetworkConnection()
+    {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            Debug.Log("没有网络连接");
+            return false;
+        }
+        else if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork)
+        {
+            Debug.Log("通过移动数据网络连接");
+            return true;
+        }
+        else if (Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork)
+        {
+            Debug.Log("通过Wi-Fi连接");
+            return true;
+        }
+        else
+            return false;
+    }
 
     private IEnumerator RequestUserPermissions(string permissionKey)
     {
