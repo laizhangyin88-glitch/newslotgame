@@ -46,7 +46,7 @@ public class NewJackpotDialog : MonoBehaviour
     {
         jackpots = MainBlackboard.Get().GetValue<List<int>>("LobbyJackpotScore");
         for (int i = 0; i < jackpots.Count; i++)
-            jackpotTxtList[i].text = jackpots[i].ToString();
+            jackpotTxtList[i].text = (jackpots[i] / 100).ToString();
     }
 
     private string GetNumStr(int num)

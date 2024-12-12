@@ -10,11 +10,11 @@ public class JackpotView : MonoBehaviour
 {
 
     [HideInInspector]
-    public List<int> datas = new List<int>();
+    public List<float> datas = new List<float>();
     [HideInInspector]
     public List<OSA_JackpotNum> jackpotNums = new List<OSA_JackpotNum>();
-    public int jackpot = 0;
-    public int testJackpot = 0;
+    public float jackpot = 0;
+    public float testJackpot = 0;
     public string flag;
     private RectTransform dotRect;
     private float aniSpeed = 1f;
@@ -39,21 +39,20 @@ public class JackpotView : MonoBehaviour
         MessageDispatcher.UnRegister("JackpotNumChange", OnJackpotNumChange);
     }
 
-    public void SetJackpot(int jackpot)
+    public void SetJackpot(float jackpot)
     {
-        
         this.jackpot = jackpot;
         testJackpot = jackpot;
         for (int i = 0; i < jackpotNums.Count; i++)
         {
-            if (i > this.jackpot.ToString().Length - 1)
-                jackpotNums[i].Sleep();
-            jackpotNums[i].ScrollTo(jackpot % 10, .5f, .5f);
+            //if (i > this.jackpot.ToString().Length - 1)
+            //    jackpotNums[i].Sleep();
+            jackpotNums[i].ScrollTo((int)jackpot % 10, .5f, .5f);
             datas[i] = jackpot % 10;
             jackpot /= 10;
         }
 
-        dotRect.anchoredPosition = new Vector2(0, this.jackpot.ToString().Length > 5 ? 0 : -65f);
+        //dotRect.anchoredPosition = new Vector2(0, this.jackpot.ToString().Length > 5 ? 0 : -65f);
     }
 
     private void DotScroll()
@@ -67,7 +66,7 @@ public class JackpotView : MonoBehaviour
         ScrollTo(testJackpot);
     }
 
-    public void ScrollTo(int value)
+    public void ScrollTo(float value)
     {
         int data = jackpotNums[0].StopSimulation();
         if (data != -1)
@@ -87,11 +86,11 @@ public class JackpotView : MonoBehaviour
             SetJackpot(value);
             return;
         }
-        int tempValue = value - jackpot;
-        int single = value % 10;
-        int round = single == jackpot % 10 ? tempValue / 10 - 1 : tempValue / 10;
+        float tempValue = value - jackpot;
+        float single = value % 10;
+        float round = single == jackpot % 10 ? tempValue / 10 - 1 : tempValue / 10;
 
-        jackpotNums[0].Simulation(single, aniSpeed * (round + 1), round);
+        jackpotNums[0].Simulation((int)single, aniSpeed * (round + 1), (int)round);
     }
 
     void OnJackpotNumChange(EventData data)
@@ -104,10 +103,10 @@ public class JackpotView : MonoBehaviour
                 str += datas[i];
             }
             int index = (int)data.value + 1;
-            int temp = datas[index];
-            int scrollValue = temp + 1 > 9 ? 0 : temp + 1;
+            float temp = datas[index];
+            float scrollValue = temp + 1 > 9 ? 0 : temp + 1;
             datas[index] = scrollValue;
-            jackpotNums[index].Simulation(scrollValue, 0.25f, 0);
+            jackpotNums[index].Simulation((int)scrollValue, 0.25f, 0);
             jackpot += (int)Math.Pow(10, index) * (scrollValue - temp);
             if (index == 5 && jackpotNums[index].sleep)
                 DotScroll();

@@ -26,6 +26,8 @@ public class RoomMetaInfo : ActionTask <Blackboard>
     {
 
 #if NEW_NET
+            EndAction(true);
+            return;
 
             NetManager.Instance.Post(RPCName.metaInfo, new Dictionary<string, object>(),
                 (res) =>
