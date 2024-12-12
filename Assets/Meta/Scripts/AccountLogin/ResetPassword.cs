@@ -5,6 +5,7 @@ using SlotMaker;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -31,7 +32,11 @@ public class ResetPassword : MonoBehaviour
         description.text = "New Password must be 6 or more characters, including one letter and on number.";
     }
 
-
+    private bool ValidatePassword(string password)
+    {
+        string pattern = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$";
+        return Regex.IsMatch(password, pattern);
+    }
 
     public void OnConfirmClick()
     {
@@ -43,6 +48,11 @@ public class ResetPassword : MonoBehaviour
         if (string.IsNullOrEmpty(newInput.text))
         {
             description.text = "New password can not be empty.";
+            return;
+        }
+        if(!ValidatePassword(newInput.text))
+        {
+            description.text = "New Password must be 6 or more characters, including one letter and on number.";
             return;
         }
         if (string.IsNullOrEmpty(reEnterInput.text) || newInput.text != reEnterInput.text)
