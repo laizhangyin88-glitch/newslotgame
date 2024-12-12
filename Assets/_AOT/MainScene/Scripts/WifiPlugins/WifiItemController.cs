@@ -23,12 +23,30 @@ public class WifiItemController : BaseItemViewsHolder
         button.onClick.AddListener(OnClickButton);
     }
 
+    public static GameObject OpenViewFromResources(string assetName, Transform parent = null)
+    {
+        GameObject goAsset = Resources.Load<GameObject>(assetName);
+        if (goAsset == null)
+            return null;
+
+        GameObject go = GameObject.Instantiate(goAsset);
+        if (parent != null)
+        {
+            go.transform.SetParent(parent, false);
+            go.transform.localPosition = Vector3.zero;
+            go.transform.localScale = Vector3.one;
+            go.transform.localRotation = Quaternion.identity;
+        }
+        return go;
+    }
+
     private void OnClickButton()
     {
-        OpenBackgroundManager.OpenView("lobby0", "WifiConnectView", PopupManager.Instance.BackgroundSetting);
+        
+        OpenViewFromResources("WifiConnectView", PopupManager.Instance.BackgroundSetting);
         Timer.DelayAction(0.2f, () =>
         {
-            MessageDispatcher.Dispatch(EVTType.ON_CUSTOM_EVENT, new ParadoxNotion.EventData<string>("OpenSoftKeyboard", name.text));
+            MessageDispatcher.Dispatch("OnCustomEvent", new ParadoxNotion.EventData<string>("OpenSoftKeyboard", name.text));
         });
     }
 

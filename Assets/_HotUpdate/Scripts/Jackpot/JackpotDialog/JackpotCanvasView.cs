@@ -59,7 +59,7 @@ public class JackpotCanvasView : MonoBehaviour
         var dataList = data.value as List<int>;
         List<Jackpot> jackpots = new List<Jackpot>();
         for (int i = 0; i < dataList.Count; i++)
-            jackpots.Add(new Jackpot { total_bonus_count = dataList[i] }); 
+            jackpots.Add(new Jackpot { total_bonus_count = dataList[i] / 100 }); 
         for (int i = 0; i < jackpotViews.Count; i++)
             jackpotViews[i].SetJackpot(jackpots[i].total_bonus_count);
     }
@@ -67,20 +67,22 @@ public class JackpotCanvasView : MonoBehaviour
     private void OnUpdateJackpot(EventData data)
     {
         if (!canUpdate) return;
+
+        List<int> jackpotScores = MainBlackboard.Get().GetValue<List<int>>("LobbyJackpotScore");
         var jsonData = data.value as JSONNode;
 
-        List<int> jacks = new List<int>();
-        for (int i = 0; i < jsonData["remain_jackpot_list"].Count; i++)
-        {
-            var temp = (float)jsonData["remain_jackpot_list"][i];
-            temp *= 100;
-            var str = temp.ToString();
-            str = str.Split('.')[0];
-            jacks.Add(int.Parse(str));
-        }
+        //List<int> jacks = new List<int>();
+        //for (int i = 0; i < jsonData["remain_jackpot_list"].Count; i++)
+        //{
+        //    var temp = (float)jsonData["remain_jackpot_list"][i];
+        //    temp *= 100;
+        //    var str = temp.ToString();
+        //    str = str.Split('.')[0];
+        //    jacks.Add(int.Parse(str));
+        //}
 
         List<Jackpot> jackpots = new List<Jackpot>();
-        jacks.ForEach(j =>
+        jackpotScores.ForEach(j =>
         {
             jackpots.Add(new Jackpot { total_bonus_count = j });
         });
@@ -91,18 +93,18 @@ public class JackpotCanvasView : MonoBehaviour
         if (jsonData.HasKey("winner_user_id"))
         {
             string userId = BlackboardUtils.FindVariable<string>(MainBlackboard.Get(), "me/userId").value;
+            int offset = MainBlackboard.Get().GetValue<int>("OutCreditRate");
             var winnerId = jsonData["winner_user_id"];
             WinResult winResult = new WinResult
             {
                 user_id = winnerId.ToString(),
                 nick_name = jsonData["winner_nick_name"],
-                single_reward = (int) ((float)jsonData["earn_money"] * 100 ),
+                single_reward = (int) ((float)jsonData["earn_money"] * 100 * offset),
                 bonus_id = jsonData["jackpot_id"]
             };
 
             if (winnerId != 0)
             {
-
                 tempJakcpot = jackpots;
                 ShowEffect();
                 if (winnerId == userId)
@@ -191,7 +193,7 @@ public class JackpotCanvasView : MonoBehaviour
             case 1: titleStr = "minor"; break;
             case 0: titleStr = "mini"; break;
         }
-        string str = $"{winResult.nick_name} win {titleStr} jackpot $";
+        string str = $"{winResult.nick_name} win {titleStr} jackpot ";
         str += GetNumStr(winResult.single_reward);
         announceView.AddMessage(str);
     }
@@ -235,29 +237,8 @@ public class JackpotCanvasView : MonoBehaviour
 
     private string GetNumStr(int num)
     {
-        string str = "$";
-        string temp = (num % 10).ToString();
-        num /= 10;
-        temp = (num % 10).ToString() + temp;
-        num /= 10;
-        if (num > 999)
-        {
-            str += num / 1000;
-            str += ",";
-            num %= 1000;
-            for (int i = 0; i < 3 - num.ToString().Length; i++)
-                str += '0';
-            str += num;
-            str += ".";
-            str += temp;
-        }
-        else
-        {
-            str += num % 1000;
-            str += ".";
-            str += temp;
-        }
-        return str;
+        //优化方法实现
+        return string.Format("{0:N2}", num / 100);
     }
 
     private void ShowEffect()
@@ -285,17 +266,4 @@ public class JackpotCanvasView : MonoBehaviour
 public class Jackpot
 {
     public int total_bonus_count; 
-}
-
-public class WinResult
-{
-    public string user_id;
-    public string nick_name;
-    public int single_reward;
-    public int bonus_id;
-
-    public override string ToString()
-    {
-        return $"user_id : {user_id}; nick_name : {nick_name}; single_reward : {single_reward}; bonus_id : {bonus_id};";
-    }
 }

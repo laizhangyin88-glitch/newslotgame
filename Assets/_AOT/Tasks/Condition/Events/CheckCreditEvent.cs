@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using NodeCanvas.Framework;
 using ParadoxNotion;
 using ParadoxNotion.Design;
+using SlotMaker;
 
 namespace BagelCode.Task.Condition
 {
@@ -50,7 +51,7 @@ public class CheckCreditEvent<T> : ConditionTask<GraphOwner>
 			}
 
 			#if UNITY_EDITOR
-			if (NodeCanvas.Editor.Prefs.logEvents){
+			if (NodeCanvas.Editor.Prefs.logEvents && ApplicationSettings.LogEvent){
 				Debug.Log(string.Format("★ Event '{0}' Received from '{1}'", receivedEvent.name, agent.gameObject.name), agent);
 			}
 			#endif
