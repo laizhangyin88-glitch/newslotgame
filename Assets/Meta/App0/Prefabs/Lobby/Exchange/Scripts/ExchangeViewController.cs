@@ -227,6 +227,7 @@ public class ExchangeViewController : MonoBehaviour
                 CheckInputStrings.Instance.SetCheckStatus(CheckInputStatus.Idel); 
                 RemoveDictiElement();
                 content2.gameObject.SetActive(false);
+                PrinterController.Instance.EndPrinter();
             });
         },
         (error) =>
