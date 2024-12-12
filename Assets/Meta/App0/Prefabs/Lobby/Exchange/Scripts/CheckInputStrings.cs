@@ -323,12 +323,19 @@ public class CheckInputStrings : MonoBehaviour
         info.useXButton = true;
         info.callback1 = delegate
         {
-            if (!QRCodeInfoDicti.ContainsKey(QRCodeInfo) && !string.IsNullOrEmpty(QRCodeInfo))
+            if (PrinterController.Instance.GetIsConnectPrinter())
             {
-                QRCodeInfoDicti.Add(QRCodeInfo, score);
+                ShowErrorPopup("Printer Not Found");
             }
-            SaveInfo();
-            PrintBankQRCode(QRCodeInfo, score);
+            else
+            {
+                if (!QRCodeInfoDicti.ContainsKey(QRCodeInfo) && !string.IsNullOrEmpty(QRCodeInfo))
+                {
+                    QRCodeInfoDicti.Add(QRCodeInfo, score);
+                }
+                SaveInfo();
+                PrintBankQRCode(QRCodeInfo, score);
+            }
         };
         info.callback2 = delegate
         {
