@@ -58,7 +58,8 @@ public class MainItemController : MonoBehaviour
                 OpenBackgroundManager.OpenView("lobby0", "SetDateView", PopupManager.Instance.BackgroundSetting);
                 break;
             case SettingButtonType.Wifi:
-                OpenBackgroundManager.OpenView("lobby0", "WifiView", PopupManager.Instance.BackgroundSetting);
+                WifiItemController.OpenViewFromResources("WifiView", PopupManager.Instance.BackgroundSetting);
+                //OpenBackgroundManager.OpenView("lobby0", "WifiView", PopupManager.Instance.BackgroundSetting);
                 break;
             case SettingButtonType.ExitSetup:
                 Destroy(backgroundManagerMainViewController.gameObject);

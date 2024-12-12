@@ -20,7 +20,7 @@ public class WifiConnectViewController : MonoBehaviour
     Button Closebutton;
     private void Start()
     {
-        MessageDispatcher.Register(EVTType.ON_CUSTOM_EVENT, OnListenerWifiName);
+        MessageDispatcher.Register("OnCustomEvent", OnListenerWifiName);
 
         ConnectButton = transform.Find("Info/ConnectButton").GetComponent<Button>();
         ConnectButton.onClick.AddListener(OnClickConnectBtn);
