@@ -1766,6 +1766,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 3003:
                 obj = GameObject.Find("Effect Midground/Mini Game Bonus/Mini Game0");
                 break;
+            case 100001:
             case 100002:
             case 100003:
                 if (LastFreeGameManager.Instance.FreeSpinInfo != null)
@@ -1960,6 +1961,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             case 3004:
                 MessageDispatcher.Dispatch("OnCustomEvent", new EventData("MachineSpinClick"));
                 break;
+            case 100001:
             case 100002:
             case 100003:
                 if (LastFreeGameManager.Instance.historyRes.Count > 0)
