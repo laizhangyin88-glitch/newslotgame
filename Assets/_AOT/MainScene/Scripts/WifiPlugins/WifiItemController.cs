@@ -1,6 +1,5 @@
 using Com.ForbiddenByte.OSA.Core;
 using GameUtil;
-using NodeCanvas.Editor;
 using SlotMaker;
 using System.Collections;
 using System.Collections.Generic;
