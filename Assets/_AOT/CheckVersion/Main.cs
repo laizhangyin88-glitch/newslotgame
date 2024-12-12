@@ -152,25 +152,35 @@ public class Main : MonoBehaviour
         //yield return new WaitForSeconds(1f);
     }
 
+    AndroidJavaObject nativeObject;
     public bool CheckNetworkConnection()
     {
-        if (Application.internetReachability == NetworkReachability.NotReachable)
+        if (nativeObject == null)
         {
-            Debug.Log("没有网络连接");
-            return false;
+            nativeObject = new AndroidJavaObject("com.cryfx.game.libserialport.SystemHelper");
+            nativeObject.Call("Init");
         }
-        else if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork)
-        {
-            Debug.Log("通过移动数据网络连接");
-            return true;
-        }
-        else if (Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork)
-        {
-            Debug.Log("通过Wi-Fi连接");
-            return true;
-        }
-        else
-            return false;
+
+        return nativeObject.Call<bool>("isNetworkAvailable");
+
+
+        //if (Application.internetReachability == NetworkReachability.NotReachable)
+        //{
+        //    Debug.Log("没有网络连接");
+        //    return false;
+        //}
+        //else if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork)
+        //{
+        //    Debug.Log("通过移动数据网络连接");
+        //    return true;
+        //}
+        //else if (Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork)
+        //{
+        //    Debug.Log("通过Wi-Fi连接");
+        //    return true;
+        //}
+        //else
+        //    return false;
     }
 
     private IEnumerator RequestUserPermissions(string permissionKey)
