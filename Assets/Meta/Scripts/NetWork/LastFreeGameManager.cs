@@ -327,7 +327,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             string str = match.Groups[1].Value;
             bet = long.Parse(str);
             match = match.NextMatch();
-            return bet;
+            return bet; 
         }
         return 0;
     }

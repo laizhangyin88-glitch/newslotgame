@@ -1,11 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 using NodeCanvas.Framework;
 
 namespace SlotMaker.AnimatorBehaviour
 {
-    [DefaultExecutionOrder(100)]
     public class SendEvent : StateMachineBehaviour 
     {
         public bool atExit;

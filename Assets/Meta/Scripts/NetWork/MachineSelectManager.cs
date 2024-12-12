@@ -120,7 +120,7 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
 
 #if !UNITY_EDITOR
         if (!ApplicationSettings.Instance.isMachine)
-            return;
+            return; 
 #endif
 
         MessageDispatcher.Register(MetaEventDefine.ON_META_UI_EVENT, OnChangeGameListShowMode);
@@ -719,14 +719,14 @@ public partial class MachineSelectManager : MonoSingleton<MachineSelectManager>
             }
         }
 
-        //if (globalStore.nowGameID == 116) //魔术师 - 选牌
-        //{
-        //    GameObject Pick = GameObject.Find("Popup Manager/Contents/Bonus Trigger Popup");
-        //    if (Pick != null && Pick.active)
-        //    {
-        //        return true;
-        //    }
-        //}
+        if (globalStore.nowGameID == 116) //魔术师 - 选牌
+        {
+            GameObject Pick = GameObject.Find("Popup Manager/Contents/Bonus Trigger Popup");
+            if (Pick != null && Pick.active)
+            {
+                return true;
+            }
+        }
         if (globalStore.nowGameID == 142)///丛林火焰 --选择额外押注
         {
             GameObject Pick = GameObject.Find("Popup Manager/Contents/FG trigger Popup FIJ");
