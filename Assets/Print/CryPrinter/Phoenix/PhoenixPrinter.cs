@@ -1,4 +1,4 @@
-﻿#region Copyright & License
+#region Copyright & License
 
 /*
 MIT License
@@ -398,7 +398,12 @@ namespace CryPrinter
                 //Connection.Close();
                 return ReturnCode.ExecutionFailure;
             }
-
+            string result = "";
+            for (int i = 0; i < data.Length; i++)
+            {
+                result += data[i].ToString() + "  ";
+            }
+            Debug.LogError("find data result....." + result);
             Debug.Log("PhoenixStatusRequests--------->" + r);
             switch (r)
             {
@@ -410,8 +415,11 @@ namespace CryPrinter
 
                 case PhoenixStatusRequests.OffLineStatus:
 
-                    // bit 6: 0- no error, 1- error        
+                    // bit 6: 0- no error, 1- error
+                    //
+                    Debug.LogError(data[0]);
                     rts.HasError = (data[0] & 0x40) != 0;
+                    Debug.LogError("error status....." + rts.HasError);
                   //  Connection.Close();
                     break;
 
