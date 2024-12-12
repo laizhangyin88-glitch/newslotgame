@@ -226,7 +226,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             Debug.LogError($"找不到bet_credit  数据 = {historyRes[0]}");
             yield break;
         }
-        
+
         // 设置押注倍数
         InGameBetController IGBC = null;
         VideoPokerHandController videoPokerHandController = null;
@@ -242,7 +242,7 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
             if (videoPokerHandController == null)
             {
                 videoPokerHandController = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Button Hands")?.GetComponent<VideoPokerHandController>();
-                if(videoPokerHandController != null && videoPokerHandController.gameObject.active)
+                if (videoPokerHandController != null && videoPokerHandController.gameObject.active)
                 {
                     videoPokerHandController.UpdateHandsGroupIndex(FreeSpinInfo.handCount);
                 }
@@ -292,13 +292,27 @@ public class LastFreeGameManager : MonoSingleton<LastFreeGameManager>
         BlackboardQueryUtils.SetMyCredit(FreeSpinInfo.beforeBalance);
         MessageDispatcher.Dispatch("OnCreditEvent", new EventData<bool>("UpdateNaviCredit", true));
 
-        _delayTimer = this.DelayAction(6f, () => 
+        _delayTimer = this.DelayAction(6f, () =>
         {
-            BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", true); 
+            if (globalStore.nowGameID > 100000 && globalStore.nowGameID < 199999)
+            {
+                SetPokerInfo();
+            }
+            BlackboardUtils.SetOrCreateValue(ContentBlackboard.Get(), "autoSpin", true);
             MessageDispatcher.Dispatch("OnSpinButtonEvent", new EventData("OnSpinButtonEvent"));
         }, null, true);
         _delayTimer.Restart(UpdateMode.RealTime);
     }
+
+    private void SetPokerInfo()
+    {
+        var videoPokerHandController = GameObject.Find("In Game/Anchor/In Game Bottom/Anchor/Layout/Button Hands")?.GetComponent<VideoPokerHandController>();
+        if (videoPokerHandController != null && videoPokerHandController.gameObject.active)
+        {
+            videoPokerHandController.UpdateHandsGroupIndex(FreeSpinInfo.handCount);
+        }
+    }
+
     /// <summary>
     /// 获取额外押注的金额
     /// </summary>
