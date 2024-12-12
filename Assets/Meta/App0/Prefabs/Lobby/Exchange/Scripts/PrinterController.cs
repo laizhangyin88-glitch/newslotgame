@@ -430,12 +430,12 @@ public class PrinterController
         for (int i = 0; i < 10; i++)
         {
             isOnline = printer.GetStatus(StatusTypes.OfflineStatus);
-            result = isOnline.IsInvalidReport;
-            Debug.Log("find printer result:" + result);
+            result = isOnline.HasError;
+            Debug.LogError("find printer result:" + result);
         }
         ///result为 true的时候未连接打印机，false为已连接打印机
         ///
-        Debug.Log("find printer result:" + result);
+        Debug.LogError("find printer result:" + result);
         return result;
     }
 
