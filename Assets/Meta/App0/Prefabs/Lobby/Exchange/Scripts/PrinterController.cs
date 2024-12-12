@@ -45,6 +45,8 @@ public class PrinterController
     private LoopTimer _loopTimer;
     private int count = 10;
 
+    private List<Action> errorHandleActionList;
+
     public static PrinterController Instance
     {
         get
@@ -73,38 +75,58 @@ public class PrinterController
         companyAddress = BlackboardUtils.GetOrCreateVariable<string>(MainBlackboard.Get(), "CompanyAddress").value;
         companyEmail = BlackboardUtils.GetOrCreateVariable<string>(MainBlackboard.Get(), "CompanyEmail").value;
         telephone = BlackboardUtils.GetOrCreateVariable<string>(MainBlackboard.Get(), "telephone").value;
-
+        errorHandleActionList = new List<Action>();
 #endif
+    }
+
+    public void AddErrorHandlerAction(Action action)
+    {
+        errorHandleActionList.Add(action);
+    }
+
+    public void RemoveErrorHandlerAction(Action action)
+    {
+        errorHandleActionList?.Remove(action);
+    }
+
+    private void StartPrinter()
+    {
+        _loopTimer = Timer.LoopAction(1f, (intervale) =>
+        {
+            if(GetIsConnectPrinter())
+            {
+                if(errorHandleActionList.Count > 0)
+                {
+                    for (int i = 0; i < errorHandleActionList.Count; i++)
+                    {
+                        Action temp = errorHandleActionList[i];
+                        temp();
+                    }
+                }
+            }
+            if (!GetIsPaperStatus())
+            {
+                if (errorHandleActionList.Count > 0)
+                {
+                    for (int i = 0; i < errorHandleActionList.Count; i++)
+                    {
+                        Action temp = errorHandleActionList[i];
+                        temp();
+                    }
+                }
+            }
+        });
+    }
+
+    public void EndPrinter()
+    {
+        _loopTimer?.Cancel();
     }
 
     public void PrintTicket(TicketInfo ticketInfo)
     {
-
+        StartPrinter();
 #if UNITY_ANDROID
-        _loopTimer = Timer.LoopAction(1f, (intervale) =>
-        {
-            StatusReport PrinterStatusReport = PrinterController.Instance.printer.GetStatus(CryPrinter.StatusTypes.PrinterStatus); 
-            StatusReport OfflineStatusReport = PrinterController.Instance.printer.GetStatus(CryPrinter.StatusTypes.OfflineStatus);
-            StatusReport ErrorStatusReport = PrinterController.Instance.printer.GetStatus(CryPrinter.StatusTypes.ErrorStatus);
-            StatusReport PaperStatusReport = PrinterController.Instance.printer.GetStatus(CryPrinter.StatusTypes.PaperStatus);
-            StatusReport MovementStatusReport = PrinterController.Instance.printer.GetStatus(CryPrinter.StatusTypes.MovementStatus);
-            StatusReport FullStatusReport = PrinterController.Instance.printer.GetStatus(CryPrinter.StatusTypes.FullStatus);
-
-            Debug.LogError("PrinterStatusReport : " + PrinterStatusReport.HasError);
-            Debug.LogError("OfflineStatusReport : " + OfflineStatusReport.HasError + "#isOnline" + OfflineStatusReport.IsOnline);
-            Debug.LogError("ErrorStatusReport : " + ErrorStatusReport.HasError);
-            Debug.LogError("PaperStatusReport : " + PaperStatusReport.HasError + " #paperStatus" + PaperStatusReport.IsPaperPresent + " #paperLevelOk:" + PaperStatusReport.IsPaperLevelOkay + "#IsPaperMotorOff" + PaperStatusReport.IsPaperMotorOff);
-            Debug.LogError("MovementStatusReport : " + MovementStatusReport.HasError);
-            Debug.LogError("FullStatusReport : " + FullStatusReport.HasError);
-
-            Debug.LogError("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            if ((count -= 1) < 0)
-            {
-                _loopTimer.Cancel();
-                count = 10;
-            }
-        });
-
         printer.Reinitialize();
 
         var document = new StandardDocument
@@ -395,5 +417,34 @@ public class PrinterController
             }
         }
         return "";
+    }
+
+    /// <summary>
+    /// 返回值为true代表未连接打印机
+    /// </summary>
+    /// <returns></returns>
+    public bool GetIsConnectPrinter()
+    {
+        bool result = false;
+        var isOnline = printer.GetStatus(StatusTypes.OfflineStatus);
+        for (int i = 0; i < 10; i++)
+        {
+            isOnline = printer.GetStatus(StatusTypes.OfflineStatus);
+            result = isOnline.IsInvalidReport;
+        }
+        ///result为 true的时候未连接打印机，false为已连接打印机
+        return result;
+    }
+
+    /// <summary>
+    /// 返回为 true，代表纸张足够
+    /// </summary>
+    /// <returns></returns>
+    public bool GetIsPaperStatus()
+    {
+        var parperStatus = printer.GetStatus(StatusTypes.PaperStatus);
+        bool isOnLine = parperStatus.IsInvalidReport;
+        bool isParper = parperStatus.IsPaperPresent;
+        return !isOnLine && isParper;
     }
 }
