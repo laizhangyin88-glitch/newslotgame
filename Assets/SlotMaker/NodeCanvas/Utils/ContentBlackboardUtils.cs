@@ -104,21 +104,6 @@ namespace SlotMaker
             return null;
         }
 
-        public static Blackboard GetNextUnusedBonusResponseByContentSpin()
-        {
-            var spin = BlackboardUtils.FindValue<Blackboard>("./turn/spin");
-            var bonusList = BlackboardUtils.FindVariable<List<Blackboard>>(spin, "response/bonusResult").value;
-            for (int i = 0; i < bonusList.Count; ++i)
-            {
-                var isUsed = BlackboardUtils.GetOrCreateVariable<bool>(bonusList[i], "used");
-                if (!isUsed.value)
-                {
-                    return bonusList[i];
-                }
-            }
-            return null;
-        }
-
         public static Blackboard GetNextUnusedBonusResponse(Blackboard spin, int id)
         {
             var bonusList = BlackboardUtils.FindVariable<List<Blackboard>>(spin, "response/bonusResult").value;
