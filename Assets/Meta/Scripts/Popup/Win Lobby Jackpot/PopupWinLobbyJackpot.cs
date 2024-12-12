@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class PopupWinLobbyJackpot : MonoBehaviour
 {
+
     private TextMeshProUGUI content;
     private List<GameObject> titleList = new List<GameObject>();
     private Transform anchor;
@@ -96,9 +97,9 @@ public class PopupWinLobbyJackpot : MonoBehaviour
         titleList.ForEach(t => t.SetActive(false));
         titleList[winResult.bonus_id].SetActive(true);
         string titleStr = GetTitleStr(winResult.bonus_id);
-        
-        content.text = $"{winResult.nick_name} win {titleStr} jackpot $";
-        content.text += GetNumStr(winResult.single_reward);
+
+        string rewardStr = LobbyJackpotManager.Instance.GetNumStr(winResult.single_reward / 100);
+        content.text = $"{winResult.nick_name} win {titleStr} jackpot {rewardStr}";
     }
 
     private string GetTitleStr(int bonus_id)
@@ -107,7 +108,7 @@ public class PopupWinLobbyJackpot : MonoBehaviour
         switch (bonus_id)
         {
             case 3: titleStr = "grand"; break;
-            case 2: titleStr = "mega"; break;
+            case 2: titleStr = "major"; break;
             case 1: titleStr = "minor"; break;
             case 0: titleStr = "mini"; break;
             default: titleStr = ""; break;

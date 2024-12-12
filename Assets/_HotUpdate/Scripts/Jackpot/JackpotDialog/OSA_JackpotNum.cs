@@ -150,6 +150,9 @@ public class OSA_JackpotNum : OSA<JackpotNumParams, JackpotNumItemViewsHolder>
             StopCoroutine(scrollCoroutine);
             StopMovement();
             JackpotNumItemViewsHolder currentItem = GetCurrentItem();
+            if (currentItem == null)
+                return false;
+
             if (currentItem.ItemIndex == 0 && sendCount > 0)
                 MessageDispatcher.Dispatch("JackpotNumChange", new EventData<int>(flag, numIndex));
             sendCount = 0;
