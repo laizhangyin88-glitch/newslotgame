@@ -626,5 +626,6 @@ namespace SlotMaker
         {
             return (Instance.logFilter & LogFilter.Test) == LogFilter.Test;
         }
+        public static bool LogEvent => (Instance.logFilter & LogFilter.Event) == LogFilter.Event;
     }
 }

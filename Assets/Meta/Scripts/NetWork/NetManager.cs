@@ -248,6 +248,9 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         globalStore.gameState = GameState.Login;
         globalStore.nowGameID = -1;
         globalStore.gToken = null;
+
+        if (ApplicationSettings.LogNetwork())
+            Debug.Log($"[Network] 关闭网络 {_state}");
     }
 
 
@@ -349,6 +352,8 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
     private int _Send(string rpcName, string buf, bool force = false)
     {
+        if (ApplicationSettings.LogNetwork())
+            Debug.Log($"[Network] websocket当前连接状态：[{_state}] 发送协议：{rpcName}");
 
         var res = 1;
 
@@ -834,20 +839,21 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
 
                     for (int i = 0; i < data["remain_jackpot_list"].Count; i++)
                     {
-                        var tempData = (float)data["remain_jackpot_list"][i] * 100;
-                        jackpots.Add((int)tempData);
+                        jackpots.Add((int)(data["remain_jackpot_list"][i].AsFloat * 100));
                     }
                     //jackpots.Reverse();
-                    MessageDispatcher.Dispatch("SetJackpot", new EventData<List<int>>("SetJackpot", jackpots));
 
                     if (data.HasKey("outcredit_rate_of_exchange"))
                     {
                         int outCreditRate = (int)data["outcredit_rate_of_exchange"];
                         BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "OutCreditRate", outCreditRate);
-                        List<int> jackpotsScore = new List<int> ();
-                        for (int i = 0; i < jackpots.Count; i++)
-                            jackpotsScore.Add((int)(jackpots[i] * (outCreditRate / 100)));
+                        
+                        List<int> jackpotsScore = new List<int>(jackpots.Select((v) => v * outCreditRate));
+                        //for (int i = 0; i < jackpots.Count; i++)
+                        //    jackpotsScore.Add(jackpots[i] * (outCreditRate / 100));
                         BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "LobbyJackpotScore", jackpotsScore);
+
+                        MessageDispatcher.Dispatch("SetJackpot", new EventData<List<int>>("SetJackpot", jackpotsScore));
                     }
                 }
                 #region 添加打印凭证信息缓存
@@ -1060,6 +1066,8 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                 //断线前彩金
                 if (data.HasKey("offline_msg_list"))
                 {
+                    int outCreditRate = BlackboardUtils.GetOrCreateVariable<int>(MainBlackboard.Get(), "OutCreditRate").value;
+
                     SimpleJSON.JSONArray array = data["offline_msg_list"].AsArray;
                     if (array != null && array.Count > 0)
                     {
@@ -1071,7 +1079,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                             {
                                 user_id = jackpotUserData["user_id"],
                                 nick_name = jackpotUserData["nick_name"],
-                                single_reward = (int)((float)item.Value["earn_money"] * 100),
+                                single_reward = (int)((float)item.Value["earn_money"] * 100 * outCreditRate),
                                 bonus_id = item.Value["jackpot_id"]
                             };
                             //BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "winLobbyJackpotResult", winResult);
@@ -1144,10 +1152,10 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                     List<int> jackpotsScore = new List<int>();
                     for (int i = 0; i < data["remain_jackpot_list"].Count; i++)
                     {
-                        double tempData = (double)data["remain_jackpot_list"][i] * offset;
-                        string str = tempData.ToString();
-                        str = str.Split('.')[0];
-                        jackpotsScore.Add(int.Parse(str));
+                        double tempData = (double)data["remain_jackpot_list"][i] * 100 * offset;
+                        //string str = tempData.ToString();
+                        //str = str.Split('.')[0];
+                        jackpotsScore.Add((int)tempData);
                     }
                     //jackpotsScore.Reverse();
                     BlackboardUtils.SetOrCreateValue(MainBlackboard.Get(), "LobbyJackpotScore", jackpotsScore);
@@ -1164,7 +1172,7 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
                         {
                             user_id = winnerId.ToString(),
                             nick_name = data["winner_nick_name"],
-                            single_reward = (int)((float)data["earn_money"] * 100),
+                            single_reward = (int)((float)data["earn_money"] * 100 * offset),
                             bonus_id = data["jackpot_id"]
                         };
                         LobbyJackpotManager.Instance.AddJackpot(winResult);
@@ -1244,6 +1252,8 @@ public class NetManager:MonoSingleton<NetManager>, IHttp
         this.ClearTimer();
 
         this._state = NetNodeState.Closed;
+        if (ApplicationSettings.LogNetwork())
+            Debug.Log($"[Network] 关闭网络 {_state}");
 
         // 自动重连
         if (this._autoReconnect != 0  && !isTestCloseNet) {
@@ -1768,7 +1778,7 @@ public class WebSock : ISocket
         }
     }
 
-    public  int Send(object message)
+    public int Send(object message)
     {
         if (this.webSocket != null && this.webSocket.State == WebSocketState.Open) {
 
